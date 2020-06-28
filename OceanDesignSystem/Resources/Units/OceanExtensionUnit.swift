@@ -46,5 +46,9 @@ extension Ocean {
         public static let spacingStackXl : CGFloat = 80
         public static let spacingStackXxl : CGFloat = 128
         public static let spacingStackXxxl : CGFloat = 200
+        public static let lineHeightTight : CGFloat = 1
+        public static let lineHeightMedium : CGFloat = 1.1
+        public static let lineHeightComfy : CGFloat = 1.5
+        
     }
 }
