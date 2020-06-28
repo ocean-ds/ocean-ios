@@ -1,0 +1,568 @@
+{
+  "properties": [
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorBrandPrimaryPure",
+      "value": "UIColor(red: 0, green: 37, blue: 224, alpha: 1)"
+    },
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorBrandPrimaryUp",
+      "value": "UIColor(red: 184, green: 195, blue: 255, alpha: 1)"
+    },
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorBrandPrimaryDown",
+      "value": "UIColor(red: 88, green: 114, blue: 245, alpha: 1)"
+    },
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorBrandPrimaryDeep",
+      "value": "UIColor(red: 14, green: 36, blue: 143, alpha: 1)"
+    },
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorHighlightPure",
+      "value": "UIColor(red: 255, green: 114, blue: 110, alpha: 1)"
+    },
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorHighlightUp",
+      "value": "UIColor(red: 255, green: 184, blue: 178, alpha: 1)"
+    },
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorHighlightDown",
+      "value": "UIColor(red: 240, green: 88, blue: 77, alpha: 1)"
+    },
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorHighlightDeep",
+      "value": "UIColor(red: 229, green: 62, blue: 50, alpha: 1)"
+    },
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorComplementaryPure",
+      "value": "UIColor(red: 19, green: 189, blue: 189, alpha: 1)"
+    },
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorComplementaryUp",
+      "value": "UIColor(red: 176, green: 245, blue: 245, alpha: 1)"
+    },
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorComplementaryDown",
+      "value": "UIColor(red: 106, green: 229, blue: 229, alpha: 1)"
+    },
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorComplementaryDeep",
+      "value": "UIColor(red: 28, green: 153, blue: 153, alpha: 1)"
+    },
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorInterfaceLightPure",
+      "value": "UIColor(red: 255, green: 255, blue: 255, alpha: 1)"
+    },
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorInterfaceLightUp",
+      "value": "UIColor(red: 247, green: 249, blue: 255, alpha: 1)"
+    },
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorInterfaceLightDown",
+      "value": "UIColor(red: 235, green: 236, blue: 245, alpha: 1)"
+    },
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorInterfaceLightDeep",
+      "value": "UIColor(red: 216, green: 218, blue: 232, alpha: 1)"
+    },
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorInterfaceDarkPure",
+      "value": "UIColor(red: 12, green: 13, blue: 20, alpha: 1)"
+    },
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorInterfaceDarkUp",
+      "value": "UIColor(red: 182, green: 185, blue: 204, alpha: 1)"
+    },
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorInterfaceDarkDown",
+      "value": "UIColor(red: 103, green: 105, blue: 122, alpha: 1)"
+    },
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorInterfaceDarkDeep",
+      "value": "UIColor(red: 57, green: 59, blue: 71, alpha: 1)"
+    },
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorStatusPositivePure",
+      "value": "UIColor(red: 61, green: 204, blue: 100, alpha: 1)"
+    },
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorStatusPositiveUp",
+      "value": "UIColor(red: 215, green: 250, blue: 224, alpha: 1)"
+    },
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorStatusPositiveDown",
+      "value": "UIColor(red: 28, green: 158, blue: 63, alpha: 1)"
+    },
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorStatusNeutralPure",
+      "value": "UIColor(red: 255, green: 163, blue: 71, alpha: 1)"
+    },
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorStatusNeutralUp",
+      "value": "UIColor(red: 255, green: 232, blue: 209, alpha: 1)"
+    },
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorStatusNeutralDown",
+      "value": "UIColor(red: 250, green: 135, blue: 20, alpha: 1)"
+    },
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorStatusNegativePure",
+      "value": "UIColor(red: 245, green: 69, blue: 110, alpha: 1)"
+    },
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorStatusNegativeUp",
+      "value": "UIColor(red: 255, green: 237, blue: 241, alpha: 1)"
+    },
+    {
+      "type": "color",
+      "category": "background-color",
+      "name": "colorStatusNegativeDown",
+      "value": "UIColor(red: 224, green: 13, blue: 63, alpha: 1)"
+    },
+    {
+      "type": "unit",
+      "category": "radius",
+      "name": "borderWidthNone",
+      "value": "0"
+    },
+    {
+      "type": "unit",
+      "category": "radius",
+      "name": "borderWidthHairline",
+      "value": "1"
+    },
+    {
+      "type": "unit",
+      "category": "radius",
+      "name": "borderWidthThin",
+      "value": "2"
+    },
+    {
+      "type": "unit",
+      "category": "radius",
+      "name": "borderWidthThick",
+      "value": "4"
+    },
+    {
+      "type": "unit",
+      "category": "radius",
+      "name": "borderWidthHeavy",
+      "value": "8"
+    },
+    {
+      "type": "number",
+      "category": "opacity",
+      "name": "opacityLevelSemiopaque",
+      "value": "0.8"
+    },
+    {
+      "type": "number",
+      "category": "opacity",
+      "name": "opacityLevelIntense",
+      "value": "0.64"
+    },
+    {
+      "type": "number",
+      "category": "opacity",
+      "name": "opacityLevelMedium",
+      "value": "0.4"
+    },
+    {
+      "type": "number",
+      "category": "opacity",
+      "name": "opacityLevelLight",
+      "value": "0.16"
+    },
+    {
+      "type": "number",
+      "category": "opacity",
+      "name": "opacityLevelSemitransparent",
+      "value": "0.08"
+    },
+    {
+      "type": "unit",
+      "category": "radius",
+      "name": "borderRadiusNone",
+      "value": "0"
+    },
+    {
+      "type": "unit",
+      "category": "radius",
+      "name": "borderRadiusSm",
+      "value": "4"
+    },
+    {
+      "type": "unit",
+      "category": "radius",
+      "name": "borderRadiusMd",
+      "value": "8"
+    },
+    {
+      "type": "unit",
+      "category": "radius",
+      "name": "borderRadiusLg",
+      "value": "16"
+    },
+    {
+      "type": "unit",
+      "category": "radius",
+      "name": "borderRadiusPill",
+      "value": "500"
+    },
+    {
+      "type": "unit",
+      "category": "radius",
+      "name": "borderRadiusCircular",
+      "value": "50%"
+    },
+    {
+      "type": "shadow",
+      "category": "box-shadow",
+      "name": "shadowLevel1",
+      "value": "0 4px 8px rgba(12, 13, 20, 0.08)"
+    },
+    {
+      "type": "shadow",
+      "category": "box-shadow",
+      "name": "shadowLevel2",
+      "value": "0 8px 16px rgba(12, 13, 20, 0.08)"
+    },
+    {
+      "type": "shadow",
+      "category": "box-shadow",
+      "name": "shadowLevel3",
+      "value": "0 16px 32px rgba(12, 13, 20, 0.08)"
+    },
+    {
+      "type": "shadow",
+      "category": "box-shadow",
+      "name": "shadowLevel4",
+      "value": "0 16px 48px rgba(12, 13, 20, 0.08)"
+    },
+    {
+      "type": "unit",
+      "category": "spacing",
+      "name": "spacingInlineXxxs",
+      "value": "4"
+    },
+    {
+      "type": "unit",
+      "category": "spacing",
+      "name": "spacingInlineXxs",
+      "value": "8"
+    },
+    {
+      "type": "unit",
+      "category": "spacing",
+      "name": "spacingInlineXs",
+      "value": "16"
+    },
+    {
+      "type": "unit",
+      "category": "spacing",
+      "name": "spacingInlineSm",
+      "value": "24"
+    },
+    {
+      "type": "unit",
+      "category": "spacing",
+      "name": "spacingInlineMd",
+      "value": "32"
+    },
+    {
+      "type": "unit",
+      "category": "spacing",
+      "name": "spacingInlineLg",
+      "value": "40"
+    },
+    {
+      "type": "unit",
+      "category": "spacing",
+      "name": "spacingInlineXl",
+      "value": "48"
+    },
+    {
+      "type": "unit",
+      "category": "spacing",
+      "name": "spacingInlineXxl",
+      "value": "64"
+    },
+    {
+      "type": "unit",
+      "category": "spacing",
+      "name": "spacingInlineXxxl",
+      "value": "80"
+    },
+    {
+      "type": "unit",
+      "category": "spacing",
+      "name": "spacingInsetXxs",
+      "value": "4"
+    },
+    {
+      "type": "unit",
+      "category": "spacing",
+      "name": "spacingInsetXs",
+      "value": "8"
+    },
+    {
+      "type": "unit",
+      "category": "spacing",
+      "name": "spacingInsetSm",
+      "value": "16"
+    },
+    {
+      "type": "unit",
+      "category": "spacing",
+      "name": "spacingInsetMd",
+      "value": "24"
+    },
+    {
+      "type": "unit",
+      "category": "spacing",
+      "name": "spacingInsetLg",
+      "value": "32"
+    },
+    {
+      "type": "unit",
+      "category": "spacing",
+      "name": "spacingInsetXl",
+      "value": "40"
+    },
+    {
+      "type": "unit",
+      "category": "spacing",
+      "name": "spacingStackXxxs",
+      "value": "4"
+    },
+    {
+      "type": "unit",
+      "category": "spacing",
+      "name": "spacingStackXxs",
+      "value": "8"
+    },
+    {
+      "type": "unit",
+      "category": "spacing",
+      "name": "spacingStackXs",
+      "value": "16"
+    },
+    {
+      "type": "unit",
+      "category": "spacing",
+      "name": "spacingStackSm",
+      "value": "24"
+    },
+    {
+      "type": "unit",
+      "category": "spacing",
+      "name": "spacingStackMd",
+      "value": "40"
+    },
+    {
+      "type": "unit",
+      "category": "spacing",
+      "name": "spacingStackLg",
+      "value": "64"
+    },
+    {
+      "type": "unit",
+      "category": "spacing",
+      "name": "spacingStackXl",
+      "value": "80"
+    },
+    {
+      "type": "unit",
+      "category": "spacing",
+      "name": "spacingStackXxl",
+      "value": "128"
+    },
+    {
+      "type": "unit",
+      "category": "spacing",
+      "name": "spacingStackXxxl",
+      "value": "200"
+    },
+    {
+      "type": "string",
+      "category": "font-family",
+      "name": "fontFamilyBase",
+      "value": "Nunito Sans"
+    },
+    {
+      "type": "string",
+      "category": "font-family",
+      "name": "fontFamilyHighlight",
+      "value": "Avenir"
+    },
+    {
+      "type": "unit",
+      "category": "font-line-height",
+      "name": "lineHeightTight",
+      "value": "1"
+    },
+    {
+      "type": "unit",
+      "category": "font-line-height",
+      "name": "lineHeightMedium",
+      "value": "1.1"
+    },
+    {
+      "type": "unit",
+      "category": "font-line-height",
+      "name": "lineHeightComfy",
+      "value": "1.5"
+    },
+    {
+      "type": "size",
+      "category": "font-size",
+      "name": "fontSizeXxxs",
+      "value": "12"
+    },
+    {
+      "type": "size",
+      "category": "font-size",
+      "name": "fontSizeXxs",
+      "value": "14"
+    },
+    {
+      "type": "size",
+      "category": "font-size",
+      "name": "fontSizeXs",
+      "value": "16"
+    },
+    {
+      "type": "size",
+      "category": "font-size",
+      "name": "fontSizeSm",
+      "value": "20"
+    },
+    {
+      "type": "size",
+      "category": "font-size",
+      "name": "fontSizeMd",
+      "value": "24"
+    },
+    {
+      "type": "size",
+      "category": "font-size",
+      "name": "fontSizeLg",
+      "value": "32"
+    },
+    {
+      "type": "size",
+      "category": "font-size",
+      "name": "fontSizeXl",
+      "value": "40"
+    },
+    {
+      "type": "size",
+      "category": "font-size",
+      "name": "fontSizeXxl",
+      "value": "48"
+    },
+    {
+      "type": "size",
+      "category": "font-size",
+      "name": "fontSizeXxxl",
+      "value": "64"
+    },
+    {
+      "type": "size",
+      "category": "font-size",
+      "name": "fontSizeDisplay",
+      "value": "80"
+    },
+    {
+      "type": "size",
+      "category": "font-size",
+      "name": "fontSizeGiant",
+      "value": "96"
+    },
+    {
+      "type": "number",
+      "category": "font-weight",
+      "name": "fontWeightLight",
+      "value": "300"
+    },
+    {
+      "type": "number",
+      "category": "font-weight",
+      "name": "fontWeightRegular",
+      "value": "400"
+    },
+    {
+      "type": "number",
+      "category": "font-weight",
+      "name": "fontWeightMedium",
+      "value": "600"
+    },
+    {
+      "type": "number",
+      "category": "font-weight",
+      "name": "fontWeightBold",
+      "value": "700"
+    },
+    {
+      "type": "number",
+      "category": "font-weight",
+      "name": "fontWeightExtrabold",
+      "value": "800"
+    }
+  ]
+}
