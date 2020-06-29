@@ -52,6 +52,13 @@
 		B833D14B24A983EA00587FDE /* NunitoSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B833D10824A982D500587FDE /* NunitoSans-Regular.ttf */; };
 		B833D14C24A983EA00587FDE /* NunitoSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B833D10124A982D500587FDE /* NunitoSans-SemiBold.ttf */; };
 		B833D14D24A983EA00587FDE /* NunitoSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B833D10024A982D500587FDE /* NunitoSans-SemiBoldItalic.ttf */; };
+		B833D14E24A984AB00587FDE /* OceanExtensionColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D06424A6A36B00587FDE /* OceanExtensionColor.swift */; };
+		B833D14F24A984AF00587FDE /* OceanExtensionSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D06624A6A46F00587FDE /* OceanExtensionSize.swift */; };
+		B833D15024A984B400587FDE /* OceanExtensionUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D06924A6A4DD00587FDE /* OceanExtensionUnit.swift */; };
+		B833D15124A984B800587FDE /* OceanExtensionNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D06C24A6A56B00587FDE /* OceanExtensionNumber.swift */; };
+		B833D15224A984BC00587FDE /* OceanExtensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D07424A6B3F600587FDE /* OceanExtensionString.swift */; };
+		B833D15324A984C000587FDE /* OceanExtensionShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D0BB24A96B1B00587FDE /* OceanExtensionShadow.swift */; };
+		B833D15424A984CF00587FDE /* Ocean.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D06224A69FEC00587FDE /* Ocean.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -440,6 +447,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B833D15424A984CF00587FDE /* Ocean.swift in Sources */,
+				B833D14E24A984AB00587FDE /* OceanExtensionColor.swift in Sources */,
+				B833D15124A984B800587FDE /* OceanExtensionNumber.swift in Sources */,
+				B833D15324A984C000587FDE /* OceanExtensionShadow.swift in Sources */,
+				B833D15024A984B400587FDE /* OceanExtensionUnit.swift in Sources */,
+				B833D15224A984BC00587FDE /* OceanExtensionString.swift in Sources */,
+				B833D14F24A984AF00587FDE /* OceanExtensionSize.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -590,6 +604,7 @@
 		B833D04624A6796300587FDE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 57KSFR5UHN;
@@ -608,6 +623,7 @@
 		B833D04724A6796300587FDE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 57KSFR5UHN;
