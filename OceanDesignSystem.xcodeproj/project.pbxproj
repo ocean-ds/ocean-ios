@@ -116,8 +116,6 @@
 		B833D10B24A982D500587FDE /* NunitoSans-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-BlackItalic.ttf"; sourceTree = "<group>"; };
 		B833D10C24A982D500587FDE /* NunitoSans-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-ExtraLight.ttf"; sourceTree = "<group>"; };
 		B833D10D24A982D500587FDE /* NunitoSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-Bold.ttf"; sourceTree = "<group>"; };
-		B833D12424A9839F00587FDE /* OceanDesignTokens.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OceanDesignTokens.h; sourceTree = "<group>"; };
-		B833D12524A9839F00587FDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B833D13424A983DD00587FDE /* OceanDesignSystemFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OceanDesignSystemFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B833D13624A983DD00587FDE /* OceanDesignSystemFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OceanDesignSystemFramework.h; sourceTree = "<group>"; };
 		B833D13724A983DD00587FDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -146,7 +144,6 @@
 			isa = PBXGroup;
 			children = (
 				B833D03324A6796100587FDE /* OceanDesignSystem */,
-				B833D12324A9839F00587FDE /* OceanDesignTokens */,
 				B833D13524A983DD00587FDE /* OceanDesignSystemFramework */,
 				B833D03224A6796100587FDE /* Products */,
 			);
@@ -268,15 +265,6 @@
 				B833D10024A982D500587FDE /* NunitoSans-SemiBoldItalic.ttf */,
 			);
 			path = Fonts;
-			sourceTree = "<group>";
-		};
-		B833D12324A9839F00587FDE /* OceanDesignTokens */ = {
-			isa = PBXGroup;
-			children = (
-				B833D12424A9839F00587FDE /* OceanDesignTokens.h */,
-				B833D12524A9839F00587FDE /* Info.plist */,
-			);
-			path = OceanDesignTokens;
 			sourceTree = "<group>";
 		};
 		B833D13524A983DD00587FDE /* OceanDesignSystemFramework */ = {
