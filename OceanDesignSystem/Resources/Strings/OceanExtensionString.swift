@@ -9,7 +9,8 @@
 import Foundation
 
 extension Ocean {
-    struct string {
-        static let fontFamilyBase = "Nunito Sans"
+    public struct string {
+        public static let fontFamilyBase = "Nunito Sans"
+        public static let fontFamilyHighlight = "Avenir"
     }
 }

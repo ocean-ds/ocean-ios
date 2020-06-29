@@ -10,16 +10,16 @@ import Foundation
 import UIKit
 
 extension Ocean {
-    struct number {
-        static let opacityLevelSemiopaque : CGFloat = 0.8
-        static let opacityLevelIntense : CGFloat = 0.64
-        static let opacityLevelMedium : CGFloat = 0.4
-        static let opacityLevelLight : CGFloat = 0.16
-        static let opacityLevelSemitransparent : CGFloat = 0.08
-        static let fontWeightLight : CGFloat = 300
-        static let fontWeightRegular : CGFloat = 400
-        static let fontWeightMedium : CGFloat = 600
-        static let fontWeightBold : CGFloat = 700
-        static let fontWeightExtrabold : CGFloat = 800
+    public struct number {
+        public static let opacityLevelSemiopaque : CGFloat = 0.8
+        public static let opacityLevelIntense : CGFloat = 0.64
+        public static let opacityLevelMedium : CGFloat = 0.4
+        public static let opacityLevelLight : CGFloat = 0.16
+        public static let opacityLevelSemitransparent : CGFloat = 0.08
+        public static let fontWeightLight : CGFloat = 300
+        public static let fontWeightRegular : CGFloat = 400
+        public static let fontWeightMedium : CGFloat = 600
+        public static let fontWeightBold : CGFloat = 700
+        public static let fontWeightExtrabold : CGFloat = 800
     }
 }
