@@ -18,8 +18,6 @@
 		B833D06724A6A46F00587FDE /* OceanExtensionSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D06624A6A46F00587FDE /* OceanExtensionSize.swift */; };
 		B833D06A24A6A4DD00587FDE /* OceanExtensionUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D06924A6A4DD00587FDE /* OceanExtensionUnit.swift */; };
 		B833D06D24A6A56B00587FDE /* OceanExtensionNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D06C24A6A56B00587FDE /* OceanExtensionNumber.swift */; };
-		B833D07024A6AE8F00587FDE /* Colors.ocean in Resources */ = {isa = PBXBuildFile; fileRef = B833D06F24A6AE8F00587FDE /* Colors.ocean */; };
-		B833D07524A6B3F600587FDE /* OceanExtensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D07424A6B3F600587FDE /* OceanExtensionString.swift */; };
 		B833D0BC24A96B1B00587FDE /* OceanExtensionShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D0BB24A96B1B00587FDE /* OceanExtensionShadow.swift */; };
 		B833D10E24A982D500587FDE /* NunitoSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B833D10024A982D500587FDE /* NunitoSans-SemiBoldItalic.ttf */; };
 		B833D10F24A982D500587FDE /* NunitoSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B833D10124A982D500587FDE /* NunitoSans-SemiBold.ttf */; };
@@ -99,7 +97,6 @@
 		B833D06624A6A46F00587FDE /* OceanExtensionSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanExtensionSize.swift; sourceTree = "<group>"; };
 		B833D06924A6A4DD00587FDE /* OceanExtensionUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanExtensionUnit.swift; sourceTree = "<group>"; };
 		B833D06C24A6A56B00587FDE /* OceanExtensionNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanExtensionNumber.swift; sourceTree = "<group>"; };
-		B833D06F24A6AE8F00587FDE /* Colors.ocean */ = {isa = PBXFileReference; lastKnownFileType = text; path = Colors.ocean; sourceTree = "<group>"; };
 		B833D07424A6B3F600587FDE /* OceanExtensionString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanExtensionString.swift; sourceTree = "<group>"; };
 		B833D0BB24A96B1B00587FDE /* OceanExtensionShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanExtensionShadow.swift; sourceTree = "<group>"; };
 		B833D10024A982D500587FDE /* NunitoSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
@@ -161,7 +158,6 @@
 		B833D03324A6796100587FDE /* OceanDesignSystem */ = {
 			isa = PBXGroup;
 			children = (
-				B833D06E24A6AE6400587FDE /* Templates */,
 				B833D05024A6831500587FDE /* Resources */,
 				B833D03424A6796100587FDE /* AppDelegate.swift */,
 				B833D03624A6796100587FDE /* SceneDelegate.swift */,
@@ -220,14 +216,6 @@
 				B833D06C24A6A56B00587FDE /* OceanExtensionNumber.swift */,
 			);
 			path = Numbers;
-			sourceTree = "<group>";
-		};
-		B833D06E24A6AE6400587FDE /* Templates */ = {
-			isa = PBXGroup;
-			children = (
-				B833D06F24A6AE8F00587FDE /* Colors.ocean */,
-			);
-			path = Templates;
 			sourceTree = "<group>";
 		};
 		B833D07324A6B37300587FDE /* Strings */ = {
@@ -381,7 +369,6 @@
 				B833D11424A982D500587FDE /* NunitoSans-ExtraBoldItalic.ttf in Resources */,
 				B833D03E24A6796300587FDE /* Assets.xcassets in Resources */,
 				B833D11024A982D500587FDE /* NunitoSans-BoldItalic.ttf in Resources */,
-				B833D07024A6AE8F00587FDE /* Colors.ocean in Resources */,
 				B833D11824A982D600587FDE /* NunitoSans-ExtraLightItalic.ttf in Resources */,
 				B833D03C24A6796100587FDE /* Main.storyboard in Resources */,
 				B833D10E24A982D500587FDE /* NunitoSans-SemiBoldItalic.ttf in Resources */,
@@ -422,7 +409,6 @@
 				B833D06D24A6A56B00587FDE /* OceanExtensionNumber.swift in Sources */,
 				B833D03924A6796100587FDE /* ViewController.swift in Sources */,
 				B833D03524A6796100587FDE /* AppDelegate.swift in Sources */,
-				B833D07524A6B3F600587FDE /* OceanExtensionString.swift in Sources */,
 				B833D06324A69FEC00587FDE /* Ocean.swift in Sources */,
 				B833D0BC24A96B1B00587FDE /* OceanExtensionShadow.swift in Sources */,
 				B833D06524A6A36B00587FDE /* OceanExtensionColor.swift in Sources */,

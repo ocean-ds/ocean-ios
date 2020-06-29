@@ -63,24 +63,19 @@ colors:
     inputs:
       - inputs/colors.json
     outputs:
-      - templateName: swift5
-        output: OceanDesignSystem/Resources/Colors/OceanColor.swift
-        params:
-            #colorAliasName: Ocean
-            enumName: Ocean
-            publicAccess: true
-      - templateName: literals-swift5
-        output: OceanDesignSystem/Resources/Colors/OceanColors.swift
-        params:
-          enumName: color
-          
-      - templateName: literals-swift5
-        output: OceanDesignSystem/Resources/Colors/OceanColorsTest.swift
-        params:
-            enumName: OceanColors
+      - templatePath: templates/ocean-colors.stencil
+        output: OceanDesignSystem/Resources/Colors/OceanExtensionColor.swift
 
 json:
-    inputs: inputs/colors.json
+    inputs:
+      - inputs/strings.json
     outputs:
-      templateName: runtime-swift5
-      output: Ocean.swift
+      - templatePath: templates/ocean-strings.stencil
+        output: OceanDesignSystem/Resources/Strings/OceanExtensionString.swift
+
+json:
+    inputs:
+      - inputs/numbers.json
+    outputs:
+      - templatePath: templates/ocean-numbers.stencil
+        output: OceanDesignSystem/Resources/Numbers/OceanExtensionNumber2.swift

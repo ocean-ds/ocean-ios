@@ -1,16 +1,17 @@
-//
-//  Ocean.swift
-//  OceanDesignSystem
-//
-//  Created by Alexandro Gomes on 26/06/20.
-//  Copyright © 2020 Blu Pagamentos. All rights reserved.
-//
+// swiftlint:disable all
+// Generated using SwiftGen — https://github.com/SwiftGen/SwiftGen
 
 import Foundation
 
+// swiftlint:disable superfluous_disable_command
+// swiftlint:disable file_length
+
+// MARK: - JSON Files
 extension Ocean {
-    public struct string {
-        public static let fontFamilyBase = "Nunito Sans"
-        public static let fontFamilyHighlight = "Avenir"
-    }
+// swiftlint:disable identifier_name line_length number_separator type_body_length
+public struct string {
+  public static let fontFamilyBase: String = "Nunito Sans"
+  public static let fontFamilyHighlight: String = "Avenir"
 }
+}
+// swiftlint:enable identifier_name line_length number_separator type_body_length
