@@ -88,6 +88,7 @@
 		B833D05024A6831500587FDE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B833D0BA24A9671900587FDE /* Shadows */,
 				B833D07324A6B37300587FDE /* Strings */,
 				B833D06B24A6A55100587FDE /* Numbers */,
 				B833D06824A6A48A00587FDE /* Units */,
@@ -146,6 +147,13 @@
 				B833D07424A6B3F600587FDE /* OceanExtensionString.swift */,
 			);
 			path = Strings;
+			sourceTree = "<group>";
+		};
+		B833D0BA24A9671900587FDE /* Shadows */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Shadows;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
