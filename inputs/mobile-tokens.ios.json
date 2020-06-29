@@ -4,175 +4,175 @@
       "type": "color",
       "category": "background-color",
       "name": "colorBrandPrimaryPure",
-      "value": "UIColor(red: 0, green: 37, blue: 224, alpha: 1)"
+      "value": "#0025E0"
     },
     {
       "type": "color",
       "category": "background-color",
       "name": "colorBrandPrimaryUp",
-      "value": "UIColor(red: 184, green: 195, blue: 255, alpha: 1)"
+      "value": "#B8C3FF"
     },
     {
       "type": "color",
       "category": "background-color",
       "name": "colorBrandPrimaryDown",
-      "value": "UIColor(red: 88, green: 114, blue: 245, alpha: 1)"
+      "value": "#5872F5"
     },
     {
       "type": "color",
       "category": "background-color",
       "name": "colorBrandPrimaryDeep",
-      "value": "UIColor(red: 14, green: 36, blue: 143, alpha: 1)"
+      "value": "#0E248F"
     },
     {
       "type": "color",
       "category": "background-color",
       "name": "colorHighlightPure",
-      "value": "UIColor(red: 255, green: 114, blue: 110, alpha: 1)"
+      "value": "#FF726E"
     },
     {
       "type": "color",
       "category": "background-color",
       "name": "colorHighlightUp",
-      "value": "UIColor(red: 255, green: 184, blue: 178, alpha: 1)"
+      "value": "#FFB8B2"
     },
     {
       "type": "color",
       "category": "background-color",
       "name": "colorHighlightDown",
-      "value": "UIColor(red: 240, green: 88, blue: 77, alpha: 1)"
+      "value": "#F0584D"
     },
     {
       "type": "color",
       "category": "background-color",
       "name": "colorHighlightDeep",
-      "value": "UIColor(red: 229, green: 62, blue: 50, alpha: 1)"
+      "value": "#E53E32"
     },
     {
       "type": "color",
       "category": "background-color",
       "name": "colorComplementaryPure",
-      "value": "UIColor(red: 19, green: 189, blue: 189, alpha: 1)"
+      "value": "#13BDBD"
     },
     {
       "type": "color",
       "category": "background-color",
       "name": "colorComplementaryUp",
-      "value": "UIColor(red: 176, green: 245, blue: 245, alpha: 1)"
+      "value": "#B0F5F5"
     },
     {
       "type": "color",
       "category": "background-color",
       "name": "colorComplementaryDown",
-      "value": "UIColor(red: 106, green: 229, blue: 229, alpha: 1)"
+      "value": "#6AE5E5"
     },
     {
       "type": "color",
       "category": "background-color",
       "name": "colorComplementaryDeep",
-      "value": "UIColor(red: 28, green: 153, blue: 153, alpha: 1)"
+      "value": "#1C9999"
     },
     {
       "type": "color",
       "category": "background-color",
       "name": "colorInterfaceLightPure",
-      "value": "UIColor(red: 255, green: 255, blue: 255, alpha: 1)"
+      "value": "#FFFFFF"
     },
     {
       "type": "color",
       "category": "background-color",
       "name": "colorInterfaceLightUp",
-      "value": "UIColor(red: 247, green: 249, blue: 255, alpha: 1)"
+      "value": "#F7F9FF"
     },
     {
       "type": "color",
       "category": "background-color",
       "name": "colorInterfaceLightDown",
-      "value": "UIColor(red: 235, green: 236, blue: 245, alpha: 1)"
+      "value": "#EBECF5"
     },
     {
       "type": "color",
       "category": "background-color",
       "name": "colorInterfaceLightDeep",
-      "value": "UIColor(red: 216, green: 218, blue: 232, alpha: 1)"
+      "value": "#D8DAE8"
     },
     {
       "type": "color",
       "category": "background-color",
       "name": "colorInterfaceDarkPure",
-      "value": "UIColor(red: 12, green: 13, blue: 20, alpha: 1)"
+      "value": "#0C0D14"
     },
     {
       "type": "color",
       "category": "background-color",
       "name": "colorInterfaceDarkUp",
-      "value": "UIColor(red: 182, green: 185, blue: 204, alpha: 1)"
+      "value": "#B6B9CC"
     },
     {
       "type": "color",
       "category": "background-color",
       "name": "colorInterfaceDarkDown",
-      "value": "UIColor(red: 103, green: 105, blue: 122, alpha: 1)"
+      "value": "#67697A"
     },
     {
       "type": "color",
       "category": "background-color",
       "name": "colorInterfaceDarkDeep",
-      "value": "UIColor(red: 57, green: 59, blue: 71, alpha: 1)"
+      "value": "#393B47"
     },
     {
       "type": "color",
       "category": "background-color",
       "name": "colorStatusPositivePure",
-      "value": "UIColor(red: 61, green: 204, blue: 100, alpha: 1)"
+      "value": "#3DCC64"
     },
     {
       "type": "color",
       "category": "background-color",
       "name": "colorStatusPositiveUp",
-      "value": "UIColor(red: 215, green: 250, blue: 224, alpha: 1)"
+      "value": "#D7FAE0"
     },
     {
       "type": "color",
       "category": "background-color",
       "name": "colorStatusPositiveDown",
-      "value": "UIColor(red: 28, green: 158, blue: 63, alpha: 1)"
+      "value": "#1C9E3F"
     },
     {
       "type": "color",
       "category": "background-color",
       "name": "colorStatusNeutralPure",
-      "value": "UIColor(red: 255, green: 163, blue: 71, alpha: 1)"
+      "value": "#FFA347"
     },
     {
       "type": "color",
       "category": "background-color",
       "name": "colorStatusNeutralUp",
-      "value": "UIColor(red: 255, green: 232, blue: 209, alpha: 1)"
+      "value": "#FFE8D1"
     },
     {
       "type": "color",
       "category": "background-color",
       "name": "colorStatusNeutralDown",
-      "value": "UIColor(red: 250, green: 135, blue: 20, alpha: 1)"
+      "value": "#FA8714"
     },
     {
       "type": "color",
       "category": "background-color",
       "name": "colorStatusNegativePure",
-      "value": "UIColor(red: 245, green: 69, blue: 110, alpha: 1)"
+      "value": "#F5456E"
     },
     {
       "type": "color",
       "category": "background-color",
       "name": "colorStatusNegativeUp",
-      "value": "UIColor(red: 255, green: 237, blue: 241, alpha: 1)"
+      "value": "#FFEDF1"
     },
     {
       "type": "color",
       "category": "background-color",
       "name": "colorStatusNegativeDown",
-      "value": "UIColor(red: 224, green: 13, blue: 63, alpha: 1)"
+      "value": "#E00D3F"
     },
     {
       "type": "unit",

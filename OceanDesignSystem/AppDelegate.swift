@@ -14,9 +14,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         
         
+        Ocean.font.fontFamilyBaseWeightBold
+        Ocean.font.fontSizeLg
+        
+        
+        
+        
+        //UIFont(name: "Avenir" + "-light", size: <#T##CGFloat#>)
         //let colortest = color.articleBody;
         //let literalColor = OceanColors.color.ColorName.private
         //let colorTest = Ocean.color.articleBody

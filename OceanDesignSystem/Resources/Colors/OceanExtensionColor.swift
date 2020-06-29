@@ -4,7 +4,7 @@ import Foundation
 import UIKit
 
 extension Ocean {
-  public struct colorStencil {
+  public struct color {
   /// 0x0e248fff (r: 14, g: 36, b: 143, a: 255)
   public static let colorBrandPrimaryDeep = #colorLiteral(red: 0.05490196, green: 0.14117648, blue: 0.56078434, alpha: 1.0)
   /// 0x5872f5ff (r: 88, g: 114, b: 245, a: 255)
