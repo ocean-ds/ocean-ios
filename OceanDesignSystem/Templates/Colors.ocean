@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 
 extension Ocean {
-    struct color {
-        static let #name# = #value#        
+    public struct color {
+        public static let #name# = #value#        
     }
 }
