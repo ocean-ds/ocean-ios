@@ -86,3 +86,10 @@ json:
     outputs:
       - templatePath: templates/ocean-fonts.stencil
         output: OceanDesignSystem/Resources/Typography/OceanExtensionTypography.swift
+
+json:
+    inputs:
+      - inputs/mobile-ios-shadow-tokens.blu.ios.json
+    outputs:
+      - templatePath: templates/ocean-shadows.stencil
+        output: OceanDesignSystem/Resources/Shadows/OceanExtensionShadow.swift
