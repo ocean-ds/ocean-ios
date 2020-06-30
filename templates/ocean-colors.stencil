@@ -6,7 +6,7 @@ extension Ocean {
   {% macro h2f hex %}{{hex|hexToInt|int255toFloat}}{% endmacro %}
   {% macro enumBlock colors accessPrefix %}
   {% for color in colors %}
-  /// 0x{{color.red}}{{color.green}}{{color.blue}}{{color.alpha}} (r: {{color.red|hexToInt}}, g: {{color.green|hexToInt}}, b: {{color.blue|hexToInt}}, a: {{color.alpha|hexToInt}})
+  ///public static let {{color.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = 0x{{color.red}}{{color.green}}{{color.blue}}{{color.alpha}} (r: {{color.red|hexToInt}}, g: {{color.green|hexToInt}}, b: {{color.blue|hexToInt}}, a: {{color.alpha|hexToInt}})
   {{accessPrefix}}public static let {{color.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = #colorLiteral(red: {% call h2f color.red %}, green: {% call h2f color.green %}, blue: {% call h2f color.blue %}, alpha: {% call h2f color.alpha %})
   {% endfor %}
   {% endmacro %}
