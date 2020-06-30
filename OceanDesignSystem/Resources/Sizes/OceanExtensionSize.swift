@@ -10,7 +10,7 @@ import UIKit
 // MARK: - JSON Files
 extension Ocean {
 // swiftlint:disable identifier_name line_length number_separator type_body_length
-public struct sizes {
+public struct size {
   ///public static let borderRadiusCircular: CGFloat = 0.5
   public static let borderRadiusCircular: CGFloat = 0.5
   ///public static let borderRadiusLg: CGFloat = 16
