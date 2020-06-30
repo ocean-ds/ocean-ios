@@ -61,21 +61,21 @@
 
 colors:
     inputs:
-      - inputs/colors.json
+      - inputs/mobile-ios-color-tokens.blu.ios.json
     outputs:
       - templatePath: templates/ocean-colors.stencil
         output: OceanDesignSystem/Resources/Colors/OceanExtensionColor.swift
 
-json:
-    inputs:
-      - inputs/strings.json
-    outputs:
-      - templatePath: templates/ocean-strings.stencil
-        output: OceanDesignSystem/Resources/Strings/OceanExtensionString.swift
+# json:
+#     inputs:
+#       - inputs/strings.json
+#     outputs:
+#       - templatePath: templates/ocean-strings.stencil
+#         output: OceanDesignSystem/Resources/Strings/OceanExtensionString.swift
 
 json:
     inputs:
-      - inputs/numbers.json
+      - inputs/mobile-ios-size-tokens.blu.ios.json
     outputs:
-      - templatePath: templates/ocean-numbers.stencil
-        output: OceanDesignSystem/Resources/Numbers/OceanExtensionNumber2.swift
+      - templatePath: templates/ocean-sizes.stencil
+        output: OceanDesignSystem/Resources/Sizes/OceanExtensionSize.swift

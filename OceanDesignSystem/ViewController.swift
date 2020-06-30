@@ -20,7 +20,7 @@ class ViewController: UIViewController {
         //OceanColor.articleBody
         //Ocean.
         //Ocean.color.articleBody
-        self.view.backgroundColor = Ocean.color.colorBrandPrimaryPure
+        //self.view.backgroundColor = Ocean.color.colorBrandPrimaryPure
         
     }
 
