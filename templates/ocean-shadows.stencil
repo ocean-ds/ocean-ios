@@ -50,7 +50,7 @@ import UIKit
 {% macro propertyBlock key metadata data %}{% filter removeNewlines:"leading" %}
   {% set propertyName %}{{key|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}{% endset %}
   {% set propertyType %}{% call typeBlock metadata %}{% endset %}
-  static let {{propertyName}}: CALayer = {% call valueBlock data[key] metadata %}
+  static let {{propertyName}} = {% call valueBlock data[key] metadata %}
 {% endfilter %}{% endmacro %}
 {% macro valueBlock value metadata %}{% filter removeNewlines:"leading" %}
   {% if metadata.type == "String" %}
@@ -85,9 +85,27 @@ extension Ocean {
   {% else %}
   {% call fileBlock files.first %}
   {% endif %}
+
+  public struct ShadowParameters {
+      public let offset : CGSize
+      public let radiusBlur: CGFloat
+      public let shadowColor: UIColor
+      
+      public init(offset: CGSize, radiusBlur: CGFloat, shadowColor: UIColor) {
+          self.offset = offset
+          self.radiusBlur = radiusBlur
+          self.shadowColor = shadowColor
+      }
+  }
 }
-  public static func createShadow(x: CGFloat, y: CGFloat, blurRadius: CGFloat, color: UIColor) -> CALayer {
-      return CALayer()
+  
+}
+extension UIView {
+  func applyShadow(parameters: Ocean.shadow.ShadowParameters){
+      self.layer.shadowOffset = parameters.offset
+      self.layer.shadowRadius = parameters.radiusBlur
+      self.layer.shadowColor = parameters.shadowColor.cgColor
+      self.layer.shadowOpacity = 1
   }
 }
 // swiftlint:enable identifier_name line_length number_separator type_body_length

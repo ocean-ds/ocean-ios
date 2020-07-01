@@ -11,17 +11,33 @@ import UIKit
 extension Ocean {
 // swiftlint:disable identifier_name line_length number_separator type_body_length
 public struct shadow {
-  ///public static let shadowLevel1: CALayer = createShadow(x: 0, y: 4, blurRadius: 8, color: UIColor(red: 12, green: 13, blue: 20, alpha: 0.08))
-  public static let shadowLevel1: CALayer = createShadow(x: 0, y: 4, blurRadius: 8, color: UIColor(red: 12, green: 13, blue: 20, alpha: 0.08))
-  ///public static let shadowLevel2: CALayer = createShadow(x: 0, y: 8, blurRadius: 16, color: UIColor(red: 12, green: 13, blue: 20, alpha: 0.08))
-  public static let shadowLevel2: CALayer = createShadow(x: 0, y: 8, blurRadius: 16, color: UIColor(red: 12, green: 13, blue: 20, alpha: 0.08))
-  ///public static let shadowLevel3: CALayer = createShadow(x: 0, y: 16, blurRadius: 32, color: UIColor(red: 12, green: 13, blue: 20, alpha: 0.08))
-  public static let shadowLevel3: CALayer = createShadow(x: 0, y: 16, blurRadius: 32, color: UIColor(red: 12, green: 13, blue: 20, alpha: 0.08))
-  ///public static let shadowLevel4: CALayer = createShadow(x: 0, y: 16, blurRadius: 48, color: UIColor(red: 12, green: 13, blue: 20, alpha: 0.08))
-  public static let shadowLevel4: CALayer = createShadow(x: 0, y: 16, blurRadius: 48, color: UIColor(red: 12, green: 13, blue: 20, alpha: 0.08))
+  ///public static let shadowLevel1 = ShadowParameters(offset:CGSize(width: 0, height: 4), radiusBlur: 8, shadowColor: UIColor(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08))
+  public static let shadowLevel1 = ShadowParameters(offset:CGSize(width: 0, height: 4), radiusBlur: 8, shadowColor: UIColor(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08))
+  ///public static let shadowLevel2 = ShadowParameters(offset:CGSize(width: 0, height: 8), radiusBlur: 16, shadowColor: UIColor(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08))
+  public static let shadowLevel2 = ShadowParameters(offset:CGSize(width: 0, height: 8), radiusBlur: 16, shadowColor: UIColor(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08))
+  ///public static let shadowLevel3 = ShadowParameters(offset:CGSize(width: 0, height: 16), radiusBlur: 32, shadowColor: UIColor(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08))
+  public static let shadowLevel3 = ShadowParameters(offset:CGSize(width: 0, height: 16), radiusBlur: 32, shadowColor: UIColor(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08))
+  ///public static let shadowLevel4 = ShadowParameters(offset:CGSize(width: 0, height: 16), radiusBlur: 48, shadowColor: UIColor(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08))
+  public static let shadowLevel4 = ShadowParameters(offset:CGSize(width: 0, height: 16), radiusBlur: 48, shadowColor: UIColor(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08))
+
+  public struct ShadowParameters {
+      public let offset : CGSize
+      public let radiusBlur: CGFloat
+      public let shadowColor: UIColor
+      public init(offset: CGSize, radiusBlur: CGFloat, shadowColor: UIColor) {
+          self.offset = offset
+          self.radiusBlur = radiusBlur
+          self.shadowColor = shadowColor
+      }
+  }
 }
-  public static func createShadow(x: CGFloat, y: CGFloat, blurRadius: CGFloat, color: UIColor) -> CALayer {
-      return CALayer()
+}
+extension UIView {
+  func applyShadow(parameters: Ocean.shadow.ShadowParameters){
+      self.layer.shadowOffset = parameters.offset
+      self.layer.shadowRadius = parameters.radiusBlur
+      self.layer.shadowColor = parameters.shadowColor.cgColor
+      self.layer.shadowOpacity = 1
   }
 }
 // swiftlint:enable identifier_name line_length number_separator type_body_length

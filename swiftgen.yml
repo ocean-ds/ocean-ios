@@ -66,13 +66,6 @@ colors:
       - templatePath: templates/ocean-colors.stencil
         output: OceanDesignSystem/Resources/Colors/OceanExtensionColor.swift
 
-# json:
-#     inputs:
-#       - inputs/strings.json
-#     outputs:
-#       - templatePath: templates/ocean-strings.stencil
-#         output: OceanDesignSystem/Resources/Strings/OceanExtensionString.swift
-
 json:
     inputs:
       - inputs/mobile-ios-size-tokens.blu.ios.json
