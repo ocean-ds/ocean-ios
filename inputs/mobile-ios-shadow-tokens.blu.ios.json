@@ -1,6 +1,6 @@
 {
-  "shadowLevel1": "ShadowParameters(offset:CGSize(width: 0, height: 4), radiusBlur: 8, shadowColor: UIColor(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08))",
-  "shadowLevel2": "ShadowParameters(offset:CGSize(width: 0, height: 8), radiusBlur: 16, shadowColor: UIColor(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08))",
-  "shadowLevel3": "ShadowParameters(offset:CGSize(width: 0, height: 16), radiusBlur: 32, shadowColor: UIColor(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08))",
-  "shadowLevel4": "ShadowParameters(offset:CGSize(width: 0, height: 16), radiusBlur: 48, shadowColor: UIColor(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08))",
+  "shadowLevel1": "[\"x\": 0, \"y\": 4, \"radius\": 8, \"color\": #colorLiteral(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08)]",
+  "shadowLevel2": "[\"x\": 0, \"y\": 8, \"radius\": 16, \"color\": #colorLiteral(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08)]",
+  "shadowLevel3": "[\"x\": 0, \"y\": 16, \"radius\": 32, \"color\": #colorLiteral(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08)]",
+  "shadowLevel4": "[\"x\": 0, \"y\": 16, \"radius\": 48, \"color\": #colorLiteral(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08)]",
 }
