@@ -11,28 +11,26 @@ import UIKit
 
 public struct Ocean {
     
-    static let bundle = Bundle(identifier: "br.com.blu.OceanDesignSystemFramework")!
+    static let bundle = Bundle.bundleFramework
     
-    static public func installFonts() {
-        
-        UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyBaseWeightBold, bundle: bundle);
-        UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyBaseWeightExtraBold, bundle: bundle);
-        UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyBaseWeightLight, bundle: bundle);
-        UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyBaseWeightMedium, bundle: bundle);
-        UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyBaseWeightRegular, bundle: bundle);
-        UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyHighlightWeightBold, bundle: bundle);
-        UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyHighlightWeightExtraBold, bundle: bundle);
-        UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyHighlightWeightLight, bundle: bundle);
-        UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyHighlightWeightMedium, bundle: bundle);
-        UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyHighlightWeightRegular, bundle: bundle);
-        
-    }
+//    static public func installFonts() {
+//        
+//        UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyBaseWeightBold, bundle: bundle);
+//        UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyBaseWeightExtraBold, bundle: bundle);
+//        UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyBaseWeightLight, bundle: bundle);
+//        UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyBaseWeightMedium, bundle: bundle);
+//        UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyBaseWeightRegular, bundle: bundle);
+//        UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyHighlightWeightBold, bundle: bundle);
+//        UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyHighlightWeightExtraBold, bundle: bundle);
+//        UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyHighlightWeightLight, bundle: bundle);
+//        UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyHighlightWeightMedium, bundle: bundle);
+//        UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyHighlightWeightRegular, bundle: bundle);
+//        
+//    }
     
     
     
 }
-
-
 
 public extension UIFont {
 
@@ -78,32 +76,6 @@ public extension UIFont {
 
 }
 
-public protocol PropertyLoopable
-{
-    func allProperties() throws -> [String: Any]
-}
-
-extension PropertyLoopable
-{
-    public func allProperties() throws -> [String: Any] {
-
-        var result: [String: Any] = [:]
-
-        let mirror = Mirror(reflecting: self)
-
-        guard let style = mirror.displayStyle, style == .struct || style == .class else {
-            //throw some error
-            throw NSError(domain: "hris.to", code: 777, userInfo: nil)
-        }
-
-        for (labelMaybe, valueMaybe) in mirror.children {
-            guard let label = labelMaybe else {
-                continue
-            }
-
-            result[label] = valueMaybe
-        }
-
-        return result
-    }
+extension Bundle {
+    static public let bundleFramework = Bundle(identifier: "br.com.blu.OceanDesignSystemFramework")!
 }

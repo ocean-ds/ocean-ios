@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Ocean.installFonts()
         UIFont.listAllFonts()
+        
         //Ocean().displayTokens()
         //UIFont(name:Ocean.typography., size: 1.0)
         //let colortest = color.articleBody;

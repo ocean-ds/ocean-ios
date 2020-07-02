@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B825955624AE0FC700BD2B0F /* OceanExtensionColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B825955424AE0FC700BD2B0F /* OceanExtensionColor.swift */; };
+		B825955924AE5A5F00BD2B0F /* OceanExtensionColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B825955824AE5A5F00BD2B0F /* OceanExtensionColor.swift */; };
+		B825955B24AE5FC100BD2B0F /* OceanExtensionInstallerFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B825955A24AE5FC100BD2B0F /* OceanExtensionInstallerFonts.swift */; };
 		B833D03524A6796100587FDE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D03424A6796100587FDE /* AppDelegate.swift */; };
 		B833D03724A6796100587FDE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D03624A6796100587FDE /* SceneDelegate.swift */; };
 		B833D03924A6796100587FDE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D03824A6796100587FDE /* ViewController.swift */; };
@@ -58,7 +59,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B825955424AE0FC700BD2B0F /* OceanExtensionColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OceanExtensionColor.swift; path = OceanDesignSystemFramework/Resources/Colors/OceanExtensionColor.swift; sourceTree = SOURCE_ROOT; };
+		B825955824AE5A5F00BD2B0F /* OceanExtensionColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OceanExtensionColor.swift; path = OceanDesignSystemFramework/OceanExtensions/Colors/OceanExtensionColor.swift; sourceTree = SOURCE_ROOT; };
+		B825955A24AE5FC100BD2B0F /* OceanExtensionInstallerFonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OceanExtensionInstallerFonts.swift; sourceTree = "<group>"; };
 		B833D03124A6796100587FDE /* OceanDesignSystem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OceanDesignSystem.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B833D03424A6796100587FDE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B833D03624A6796100587FDE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -159,7 +161,7 @@
 		B833D05124A6866D00587FDE /* Colors */ = {
 			isa = PBXGroup;
 			children = (
-				B825955424AE0FC700BD2B0F /* OceanExtensionColor.swift */,
+				B825955824AE5A5F00BD2B0F /* OceanExtensionColor.swift */,
 			);
 			name = Colors;
 			path = OceanDesignSystem/Resources/Colors;
@@ -213,6 +215,7 @@
 		B833D16C24ABBE1B00587FDE /* Typography */ = {
 			isa = PBXGroup;
 			children = (
+				B825955A24AE5FC100BD2B0F /* OceanExtensionInstallerFonts.swift */,
 				B833D19F24ABCEDD00587FDE /* OceanExtensionTypography.swift */,
 			);
 			path = Typography;
@@ -353,8 +356,9 @@
 			files = (
 				B833D15424A984CF00587FDE /* Ocean.swift in Sources */,
 				B833D15324A984C000587FDE /* OceanExtensionShadow.swift in Sources */,
+				B825955B24AE5FC100BD2B0F /* OceanExtensionInstallerFonts.swift in Sources */,
 				B833D1A124ABCEDD00587FDE /* OceanExtensionTypography.swift in Sources */,
-				B825955624AE0FC700BD2B0F /* OceanExtensionColor.swift in Sources */,
+				B825955924AE5A5F00BD2B0F /* OceanExtensionColor.swift in Sources */,
 				B833D14F24A984AF00587FDE /* OceanExtensionSize.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

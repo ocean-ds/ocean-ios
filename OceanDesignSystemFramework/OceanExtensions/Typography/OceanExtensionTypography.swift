@@ -10,8 +10,7 @@ import UIKit
 // MARK: - JSON Files
 extension Ocean {
 // swiftlint:disable identifier_name line_length number_separator type_body_length
-    public struct font  {
-    
+public struct font {
   ///public static let fontFamilyBaseWeightBold: String = "NunitoSans-Bold"
   public static let fontFamilyBaseWeightBold: String = "NunitoSans-Bold"
   ///public static let fontFamilyBaseWeightExtraBold: String = "NunitoSans-ExtraBold"
