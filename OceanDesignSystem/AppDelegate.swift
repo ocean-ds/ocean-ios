@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import OceanDesignSystemFramework
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,16 +17,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         //UIFont(name: Ocean.font.fontFamilyBaseWeightBold, size: Ocean.font.fontSizeLg)
+                    // "Avenir" + "-light"
+//        let font = UIFont(name: Ocean.font.fontFamilyBaseWeightLight, size: Ocean.font.fontSizeLg)
+//        font = Ocean.font.font
+//
         
-        
-        
-        
-        //UIFont(name: "Avenir" + "-light", size: <#T##CGFloat#>)
+        Ocean.registerFonts(bundle: Bundle(identifier: "br.com.blu.OceanDesignSystemFramework")!)
+        UIFont.listAllFonts()
+        //Ocean().displayTokens()
+        //UIFont(name:Ocean.typography., size: 1.0)
         //let colortest = color.articleBody;
         //let literalColor = OceanColors.color.ColorName.private
         //let colorTest = Ocean.color.articleBody
         //let fontTest = Ocean.font.articleBody
         //let sizeTest = Ocean.size.articleBody
+        
+        
         
         return true
     }
