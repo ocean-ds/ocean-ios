@@ -1,0 +1,8 @@
+
+
+json:
+    inputs:
+      - inputs/mobile-ios-font-name-tokens.blu.ios.json
+    outputs:
+      - templatePath: templates/ocean-installer-fonts.stencil
+        output: OceanDesignSystemFramework/OceanExtensions/Typography/OceanExtensionInstallerFonts.swift
