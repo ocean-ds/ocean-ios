@@ -105,6 +105,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B825955724AE596A00BD2B0F /* OceanExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				B833D0BA24A9671900587FDE /* Shadows */,
+				B833D16C24ABBE1B00587FDE /* Typography */,
+				B833D05224A6867300587FDE /* Sizes */,
+				B833D05124A6866D00587FDE /* Colors */,
+			);
+			path = OceanExtensions;
+			sourceTree = "<group>";
+		};
 		B833D02824A6796100587FDE = {
 			isa = PBXGroup;
 			children = (
@@ -141,11 +152,6 @@
 			isa = PBXGroup;
 			children = (
 				B833D11C24A9837C00587FDE /* Fonts */,
-				B833D0BA24A9671900587FDE /* Shadows */,
-				B833D16C24ABBE1B00587FDE /* Typography */,
-				B833D05224A6867300587FDE /* Sizes */,
-				B833D05124A6866D00587FDE /* Colors */,
-				B833D06224A69FEC00587FDE /* Ocean.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -195,6 +201,8 @@
 		B833D13524A983DD00587FDE /* OceanDesignSystemFramework */ = {
 			isa = PBXGroup;
 			children = (
+				B833D06224A69FEC00587FDE /* Ocean.swift */,
+				B825955724AE596A00BD2B0F /* OceanExtensions */,
 				B833D05024A6831500587FDE /* Resources */,
 				B833D13624A983DD00587FDE /* OceanDesignSystemFramework.h */,
 				B833D13724A983DD00587FDE /* Info.plist */,
