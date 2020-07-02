@@ -13,7 +13,7 @@ public struct Ocean {
     
     static let bundle = Bundle(identifier: "br.com.blu.OceanDesignSystemFramework")!
     
-    static public func registerFonts() {
+    static public func installFonts() {
         
         UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyBaseWeightBold, bundle: bundle);
         UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyBaseWeightExtraBold, bundle: bundle);
