@@ -50,7 +50,7 @@ import UIKit
 {% macro propertyBlock key metadata data %}{% filter removeNewlines:"leading" %}
   {% set propertyName %}{{key|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}{% endset %}
   {% set propertyType %}{% call typeBlock metadata %}{% endset %}
-  static let {{propertyName}} = {% call valueBlock data[key] metadata %}
+  static let {{propertyName}} : ShadowParameters = {% call valueBlock data[key] metadata %}
 {% endfilter %}{% endmacro %}
 {% macro valueBlock value metadata %}{% filter removeNewlines:"leading" %}
   {% if metadata.type == "String" %}
@@ -76,6 +76,7 @@ import UIKit
 extension Ocean {
 // swiftlint:disable identifier_name line_length number_separator type_body_length
 {{accessModifier}} struct {{param.enumName|default:"shadow"}} {
+  public typealias ShadowParameters = [String : Any]
   {% if files.count > 1 or param.forceFileNameEnum %}
   {% for file in files %}
   {{accessModifier}} enum {{file.name|swiftIdentifier:"pretty"|escapeReservedKeywords}} {
@@ -85,26 +86,15 @@ extension Ocean {
   {% else %}
   {% call fileBlock files.first %}
   {% endif %}
-
-  public struct ShadowParameters {
-      public let offset : CGSize
-      public let radiusBlur: CGFloat
-      public let shadowColor: UIColor
-      
-      public init(offset: CGSize, radiusBlur: CGFloat, shadowColor: UIColor) {
-          self.offset = offset
-          self.radiusBlur = radiusBlur
-          self.shadowColor = shadowColor
-      }
-  }
 }
   
 }
 extension UIView {
   func applyShadow(parameters: Ocean.shadow.ShadowParameters){
-      self.layer.shadowOffset = parameters.offset
-      self.layer.shadowRadius = parameters.radiusBlur
-      self.layer.shadowColor = parameters.shadowColor.cgColor
+      self.layer.shadowOffset = CGSize(width: parameters["x"] as! Int, height: parameters["y"] as! Int)
+      self.layer.shadowRadius = CGFloat(parameters["radius"] as! Int)
+      let color = parameters["color"] as! UIColor
+      self.layer.shadowColor = color.cgColor
       self.layer.shadowOpacity = 1
   }
 }
