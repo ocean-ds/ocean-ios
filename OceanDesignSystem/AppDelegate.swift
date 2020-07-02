@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        font = Ocean.font.font
 //
         
-        Ocean.registerFonts(bundle: Bundle(identifier: "br.com.blu.OceanDesignSystemFramework")!)
+        Ocean.registerFonts()
         UIFont.listAllFonts()
         //Ocean().displayTokens()
         //UIFont(name:Ocean.typography., size: 1.0)

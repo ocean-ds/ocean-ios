@@ -10,8 +10,11 @@ import Foundation
 import UIKit
 
 public struct Ocean {
- 
-    static public func registerFonts(bundle: Bundle) {
+    
+    static let bundle = Bundle(identifier: "br.com.blu.OceanDesignSystemFramework")!
+    
+    static public func registerFonts() {
+        
         UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyBaseWeightBold, bundle: bundle);
         UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyBaseWeightExtraBold, bundle: bundle);
         UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyBaseWeightLight, bundle: bundle);
