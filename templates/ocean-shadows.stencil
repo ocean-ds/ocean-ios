@@ -90,7 +90,7 @@ extension Ocean {
   
 }
 extension UIView {
-  func applyShadow(parameters: Ocean.shadow.ShadowParameters){
+  public func applyShadow(parameters: Ocean.shadow.ShadowParameters){
       self.layer.shadowOffset = CGSize(width: parameters["x"] as! Int, height: parameters["y"] as! Int)
       self.layer.shadowRadius = CGFloat(parameters["radius"] as! Int)
       let color = parameters["color"] as! UIColor

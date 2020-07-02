@@ -1,10 +1,10 @@
 {
-  "fontFamilyBaseWeightExtrabold": "NunitoSans-Extrabold",
+  "fontFamilyBaseWeightExtraBold": "NunitoSans-ExtraBold",
   "fontFamilyBaseWeightBold": "NunitoSans-Bold",
-  "fontFamilyBaseWeightMedium": "NunitoSans-Semibold",
+  "fontFamilyBaseWeightMedium": "NunitoSans-SemiBold",
   "fontFamilyBaseWeightRegular": "NunitoSans-Regular",
   "fontFamilyBaseWeightLight": "NunitoSans-Light",
-  "fontFamilyHighlightWeightExtrabold": "Avenir-Black",
+  "fontFamilyHighlightWeightExtraBold": "Avenir-Black",
   "fontFamilyHighlightWeightBold": "Avenir-Heavy",
   "fontFamilyHighlightWeightMedium": "Avenir-Medium",
   "fontFamilyHighlightWeightRegular": "Avenir-Roman",

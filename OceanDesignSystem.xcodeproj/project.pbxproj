@@ -7,21 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B825955624AE0FC700BD2B0F /* OceanExtensionColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B825955424AE0FC700BD2B0F /* OceanExtensionColor.swift */; };
 		B833D03524A6796100587FDE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D03424A6796100587FDE /* AppDelegate.swift */; };
 		B833D03724A6796100587FDE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D03624A6796100587FDE /* SceneDelegate.swift */; };
 		B833D03924A6796100587FDE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D03824A6796100587FDE /* ViewController.swift */; };
 		B833D03C24A6796100587FDE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B833D03A24A6796100587FDE /* Main.storyboard */; };
 		B833D03E24A6796300587FDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B833D03D24A6796300587FDE /* Assets.xcassets */; };
 		B833D04124A6796300587FDE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B833D03F24A6796300587FDE /* LaunchScreen.storyboard */; };
-		B833D06324A69FEC00587FDE /* Ocean.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D06224A69FEC00587FDE /* Ocean.swift */; };
-		B833D06524A6A36B00587FDE /* OceanExtensionColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D06424A6A36B00587FDE /* OceanExtensionColor.swift */; };
-		B833D06724A6A46F00587FDE /* OceanExtensionSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D06624A6A46F00587FDE /* OceanExtensionSize.swift */; };
-		B833D0BC24A96B1B00587FDE /* OceanExtensionShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D0BB24A96B1B00587FDE /* OceanExtensionShadow.swift */; };
-		B833D10F24A982D500587FDE /* NunitoSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B833D10124A982D500587FDE /* NunitoSans-SemiBold.ttf */; };
-		B833D11224A982D500587FDE /* NunitoSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B833D10424A982D500587FDE /* NunitoSans-ExtraBold.ttf */; };
-		B833D11524A982D500587FDE /* NunitoSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B833D10724A982D500587FDE /* NunitoSans-Light.ttf */; };
-		B833D11624A982D600587FDE /* NunitoSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B833D10824A982D500587FDE /* NunitoSans-Regular.ttf */; };
-		B833D11B24A982D600587FDE /* NunitoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B833D10D24A982D500587FDE /* NunitoSans-Bold.ttf */; };
 		B833D13824A983DD00587FDE /* OceanDesignSystemFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = B833D13624A983DD00587FDE /* OceanDesignSystemFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B833D13B24A983DD00587FDE /* OceanDesignSystemFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B833D13424A983DD00587FDE /* OceanDesignSystemFramework.framework */; };
 		B833D13C24A983DD00587FDE /* OceanDesignSystemFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B833D13424A983DD00587FDE /* OceanDesignSystemFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -30,21 +22,14 @@
 		B833D14924A983EA00587FDE /* NunitoSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B833D10724A982D500587FDE /* NunitoSans-Light.ttf */; platformFilter = ios; };
 		B833D14B24A983EA00587FDE /* NunitoSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B833D10824A982D500587FDE /* NunitoSans-Regular.ttf */; platformFilter = ios; };
 		B833D14C24A983EA00587FDE /* NunitoSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B833D10124A982D500587FDE /* NunitoSans-SemiBold.ttf */; platformFilter = ios; };
-		B833D14E24A984AB00587FDE /* OceanExtensionColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D06424A6A36B00587FDE /* OceanExtensionColor.swift */; };
 		B833D14F24A984AF00587FDE /* OceanExtensionSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D06624A6A46F00587FDE /* OceanExtensionSize.swift */; };
 		B833D15324A984C000587FDE /* OceanExtensionShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D0BB24A96B1B00587FDE /* OceanExtensionShadow.swift */; };
 		B833D15424A984CF00587FDE /* Ocean.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D06224A69FEC00587FDE /* Ocean.swift */; };
-		B833D19524ABCDDD00587FDE /* Avenir-Roman.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B833D19024ABCDDD00587FDE /* Avenir-Roman.ttf */; };
 		B833D19624ABCDDD00587FDE /* Avenir-Roman.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B833D19024ABCDDD00587FDE /* Avenir-Roman.ttf */; };
-		B833D19724ABCDDD00587FDE /* Avenir-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B833D19124ABCDDD00587FDE /* Avenir-Light.ttf */; };
 		B833D19824ABCDDD00587FDE /* Avenir-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B833D19124ABCDDD00587FDE /* Avenir-Light.ttf */; };
-		B833D19924ABCDDD00587FDE /* Avenir-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B833D19224ABCDDD00587FDE /* Avenir-Heavy.ttf */; };
 		B833D19A24ABCDDD00587FDE /* Avenir-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B833D19224ABCDDD00587FDE /* Avenir-Heavy.ttf */; };
-		B833D19B24ABCDDD00587FDE /* Avenir-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B833D19324ABCDDD00587FDE /* Avenir-Black.ttf */; };
 		B833D19C24ABCDDD00587FDE /* Avenir-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B833D19324ABCDDD00587FDE /* Avenir-Black.ttf */; };
-		B833D19D24ABCDDD00587FDE /* Avenir-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B833D19424ABCDDD00587FDE /* Avenir-Medium.ttf */; };
 		B833D19E24ABCDDD00587FDE /* Avenir-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B833D19424ABCDDD00587FDE /* Avenir-Medium.ttf */; };
-		B833D1A024ABCEDD00587FDE /* OceanExtensionTypography.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D19F24ABCEDD00587FDE /* OceanExtensionTypography.swift */; };
 		B833D1A124ABCEDD00587FDE /* OceanExtensionTypography.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D19F24ABCEDD00587FDE /* OceanExtensionTypography.swift */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +58,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B825955424AE0FC700BD2B0F /* OceanExtensionColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OceanExtensionColor.swift; path = OceanDesignSystemFramework/Resources/Colors/OceanExtensionColor.swift; sourceTree = SOURCE_ROOT; };
 		B833D03124A6796100587FDE /* OceanDesignSystem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OceanDesignSystem.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B833D03424A6796100587FDE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B833D03624A6796100587FDE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -82,7 +68,6 @@
 		B833D04024A6796300587FDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B833D04224A6796300587FDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B833D06224A69FEC00587FDE /* Ocean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ocean.swift; sourceTree = "<group>"; };
-		B833D06424A6A36B00587FDE /* OceanExtensionColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanExtensionColor.swift; sourceTree = "<group>"; };
 		B833D06624A6A46F00587FDE /* OceanExtensionSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanExtensionSize.swift; sourceTree = "<group>"; };
 		B833D0BB24A96B1B00587FDE /* OceanExtensionShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanExtensionShadow.swift; sourceTree = "<group>"; };
 		B833D10124A982D500587FDE /* NunitoSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NunitoSans-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -141,7 +126,6 @@
 		B833D03324A6796100587FDE /* OceanDesignSystem */ = {
 			isa = PBXGroup;
 			children = (
-				B833D05024A6831500587FDE /* Resources */,
 				B833D03424A6796100587FDE /* AppDelegate.swift */,
 				B833D03624A6796100587FDE /* SceneDelegate.swift */,
 				B833D03824A6796100587FDE /* ViewController.swift */,
@@ -169,7 +153,7 @@
 		B833D05124A6866D00587FDE /* Colors */ = {
 			isa = PBXGroup;
 			children = (
-				B833D06424A6A36B00587FDE /* OceanExtensionColor.swift */,
+				B825955424AE0FC700BD2B0F /* OceanExtensionColor.swift */,
 			);
 			name = Colors;
 			path = OceanDesignSystem/Resources/Colors;
@@ -211,6 +195,7 @@
 		B833D13524A983DD00587FDE /* OceanDesignSystemFramework */ = {
 			isa = PBXGroup;
 			children = (
+				B833D05024A6831500587FDE /* Resources */,
 				B833D13624A983DD00587FDE /* OceanDesignSystemFramework.h */,
 				B833D13724A983DD00587FDE /* Info.plist */,
 			);
@@ -318,19 +303,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B833D19524ABCDDD00587FDE /* Avenir-Roman.ttf in Resources */,
-				B833D11524A982D500587FDE /* NunitoSans-Light.ttf in Resources */,
-				B833D11224A982D500587FDE /* NunitoSans-ExtraBold.ttf in Resources */,
-				B833D11624A982D600587FDE /* NunitoSans-Regular.ttf in Resources */,
-				B833D19924ABCDDD00587FDE /* Avenir-Heavy.ttf in Resources */,
 				B833D04124A6796300587FDE /* LaunchScreen.storyboard in Resources */,
 				B833D03E24A6796300587FDE /* Assets.xcassets in Resources */,
-				B833D19B24ABCDDD00587FDE /* Avenir-Black.ttf in Resources */,
 				B833D03C24A6796100587FDE /* Main.storyboard in Resources */,
-				B833D11B24A982D600587FDE /* NunitoSans-Bold.ttf in Resources */,
-				B833D19724ABCDDD00587FDE /* Avenir-Light.ttf in Resources */,
-				B833D19D24ABCDDD00587FDE /* Avenir-Medium.ttf in Resources */,
-				B833D10F24A982D500587FDE /* NunitoSans-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,13 +334,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B833D03924A6796100587FDE /* ViewController.swift in Sources */,
-				B833D1A024ABCEDD00587FDE /* OceanExtensionTypography.swift in Sources */,
 				B833D03524A6796100587FDE /* AppDelegate.swift in Sources */,
-				B833D06324A69FEC00587FDE /* Ocean.swift in Sources */,
-				B833D0BC24A96B1B00587FDE /* OceanExtensionShadow.swift in Sources */,
-				B833D06524A6A36B00587FDE /* OceanExtensionColor.swift in Sources */,
 				B833D03724A6796100587FDE /* SceneDelegate.swift in Sources */,
-				B833D06724A6A46F00587FDE /* OceanExtensionSize.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,9 +344,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B833D15424A984CF00587FDE /* Ocean.swift in Sources */,
-				B833D14E24A984AB00587FDE /* OceanExtensionColor.swift in Sources */,
 				B833D15324A984C000587FDE /* OceanExtensionShadow.swift in Sources */,
 				B833D1A124ABCEDD00587FDE /* OceanExtensionTypography.swift in Sources */,
+				B825955624AE0FC700BD2B0F /* OceanExtensionColor.swift in Sources */,
 				B833D14F24A984AF00587FDE /* OceanExtensionSize.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -575,7 +545,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = OceanDesignSystemFramework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -584,6 +554,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.blu.OceanDesignSystemFramework;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -603,7 +574,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = OceanDesignSystemFramework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -612,6 +583,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.blu.OceanDesignSystemFramework;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
