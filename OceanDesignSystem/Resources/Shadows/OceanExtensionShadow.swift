@@ -11,32 +11,23 @@ import UIKit
 extension Ocean {
 // swiftlint:disable identifier_name line_length number_separator type_body_length
 public struct shadow {
-  ///public static let shadowLevel1 = ShadowParameters(offset:CGSize(width: 0, height: 4), radiusBlur: 8, shadowColor: UIColor(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08))
-  public static let shadowLevel1 = ShadowParameters(offset:CGSize(width: 0, height: 4), radiusBlur: 8, shadowColor: UIColor(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08))
-  ///public static let shadowLevel2 = ShadowParameters(offset:CGSize(width: 0, height: 8), radiusBlur: 16, shadowColor: UIColor(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08))
-  public static let shadowLevel2 = ShadowParameters(offset:CGSize(width: 0, height: 8), radiusBlur: 16, shadowColor: UIColor(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08))
-  ///public static let shadowLevel3 = ShadowParameters(offset:CGSize(width: 0, height: 16), radiusBlur: 32, shadowColor: UIColor(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08))
-  public static let shadowLevel3 = ShadowParameters(offset:CGSize(width: 0, height: 16), radiusBlur: 32, shadowColor: UIColor(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08))
-  ///public static let shadowLevel4 = ShadowParameters(offset:CGSize(width: 0, height: 16), radiusBlur: 48, shadowColor: UIColor(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08))
-  public static let shadowLevel4 = ShadowParameters(offset:CGSize(width: 0, height: 16), radiusBlur: 48, shadowColor: UIColor(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08))
-
-  public struct ShadowParameters {
-      public let offset : CGSize
-      public let radiusBlur: CGFloat
-      public let shadowColor: UIColor
-      public init(offset: CGSize, radiusBlur: CGFloat, shadowColor: UIColor) {
-          self.offset = offset
-          self.radiusBlur = radiusBlur
-          self.shadowColor = shadowColor
-      }
-  }
+  public typealias ShadowParameters = [String : Any]
+  ///public static let shadowLevel1 : ShadowParameters = ["x": 0, "y": 4, "radius": 8, "color": #colorLiteral(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08)]
+  public static let shadowLevel1 : ShadowParameters = ["x": 0, "y": 4, "radius": 8, "color": #colorLiteral(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08)]
+  ///public static let shadowLevel2 : ShadowParameters = ["x": 0, "y": 8, "radius": 16, "color": #colorLiteral(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08)]
+  public static let shadowLevel2 : ShadowParameters = ["x": 0, "y": 8, "radius": 16, "color": #colorLiteral(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08)]
+  ///public static let shadowLevel3 : ShadowParameters = ["x": 0, "y": 16, "radius": 32, "color": #colorLiteral(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08)]
+  public static let shadowLevel3 : ShadowParameters = ["x": 0, "y": 16, "radius": 32, "color": #colorLiteral(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08)]
+  ///public static let shadowLevel4 : ShadowParameters = ["x": 0, "y": 16, "radius": 48, "color": #colorLiteral(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08)]
+  public static let shadowLevel4 : ShadowParameters = ["x": 0, "y": 16, "radius": 48, "color": #colorLiteral(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08)]
 }
 }
 extension UIView {
   func applyShadow(parameters: Ocean.shadow.ShadowParameters){
-      self.layer.shadowOffset = parameters.offset
-      self.layer.shadowRadius = parameters.radiusBlur
-      self.layer.shadowColor = parameters.shadowColor.cgColor
+      self.layer.shadowOffset = CGSize(width: parameters["x"] as! Int, height: parameters["y"] as! Int)
+      self.layer.shadowRadius = CGFloat(parameters["radius"] as! Int)
+      let color = parameters["color"] as! UIColor
+      self.layer.shadowColor = color.cgColor
       self.layer.shadowOpacity = 1
   }
 }
