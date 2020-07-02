@@ -1,0 +1,7 @@
+
+json:
+    inputs:
+      - inputs/mobile-ios-shadow-tokens.blu.ios.json
+    outputs:
+      - templatePath: templates/ocean-shadows.stencil
+        output: OceanDesignSystemFramework/Resources/Shadows/OceanExtensionShadow.swift
