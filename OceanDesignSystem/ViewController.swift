@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import OceanDesignSystemFramework
+import OceanTokens
 
 class ViewController: UIViewController {
 

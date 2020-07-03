@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import OceanDesignSystemFramework
+import OceanTokens
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
