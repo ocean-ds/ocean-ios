@@ -7,9 +7,9 @@
 #
 
 Pod::Spec.new do |s|
-  s.name             = 'OceanTokens'
+  s.name             = 'OceanComponents'
   s.version          = '0.1.0'
-  s.summary          = 'OceanTokens are tokens created by theo for use in Blu applications'
+  s.summary          = 'OceanComponents are components created by theo for use in Blu applications'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,7 +18,8 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-Project created with the objective of compiling tokens created through theo (salesforce tool) in json files for swift classes through swiftgen.
+  OceanComponents are components created by theo for use in Blu applications
+Project created with the objective use components created by OceanTokens.
                        DESC
 
   s.homepage         = 'https://github.com/Pagnet/ocean-ds-ios'
@@ -31,9 +32,9 @@ Project created with the objective of compiling tokens created through theo (sal
   s.ios.deployment_target = '10.0'
   s.swift_versions = ['5.0']
 
-  s.source_files = 'OceanTokens/Classes/**/*'
-  s.info_plist = { 'CFBundleIdentifier' => 'br.com.blu.OceanTokens' }
-  s.pod_target_xcconfig = { 'PRODUCT_BUNDLE_IDENTIFIER': 'br.com.blu.OceanTokens' }
+  s.source_files = 'OceanComponents/Classes/**/*'
+  s.info_plist = { 'CFBundleIdentifier' => 'br.com.blu.OceanComponents' }
+  s.pod_target_xcconfig = { 'PRODUCT_BUNDLE_IDENTIFIER': 'br.com.blu.OceanComponents' }
   # s.resource_bundles = {
   #   'BluTokens' => ['BluTokens/Assets/*.png']
   # }
