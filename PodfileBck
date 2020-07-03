@@ -1,0 +1,19 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '10.0'
+
+target 'OceanDesignSystem' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+  pod 'OceanDesignSystem', '~> 0.1'
+  # Pods for OceanDesignSystem
+
+end
+
+target 'OceanDesignSystemFramework' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for OceanDesignSystemFramework
+  
+
+end
