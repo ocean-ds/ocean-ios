@@ -34,11 +34,11 @@ Project created with the objective use components created by OceanTokens.
   s.ios.deployment_target = '10.0'
   s.swift_versions = ['5.0']
   
-
-  s.source_files = 'OceanComponents/**/*'
+  s.dependency 'OceanTokens', '~> 0.1'
+  s.source_files = 'OceanComponents/Classes/**/*'
   s.info_plist = { 'CFBundleIdentifier' => 'br.com.blu.OceanComponents' }
   s.pod_target_xcconfig = { 'PRODUCT_BUNDLE_IDENTIFIER': 'br.com.blu.OceanComponents' }
-  s.dependency 'OceanTokens', '~> 0.1'
+  
   s.subspec 'OceanTokens' do |oceantokens|
     oceantokens.source_files = 'OceanTokens/Classes/**/*'
   end
