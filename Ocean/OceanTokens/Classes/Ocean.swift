@@ -11,13 +11,15 @@ import UIKit
 
 public struct Ocean {
     
-    static let bundle = Bundle.bundleOceanTokens
+    static let resourceBundleName = "OceanTokens.bundle"
+    static let bundle = Bundle(url: Bundle.bundleOceanTokens.resourceURL!.appendingPathComponent(resourceBundleName))!
 }
 
 public extension UIFont {
 
     static func registerFont(withFilenameString filenameString: String, bundle: Bundle) {
         print("registering font: \(filenameString).ttf…")
+        
         guard let pathForResourceString = bundle.path(forResource: filenameString + ".ttf", ofType: nil) else {
             print("UIFont+:  Failed to register font - path for resource not found." )
             return
