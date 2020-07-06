@@ -5,4 +5,4 @@ json:
       - inputs/mobile-ios-typography-tokens.blu.ios.json
     outputs:
       - templatePath: templates/ocean-fonts.stencil
-        output: OceanDesignSystemFramework/OceanExtensions/Typography/OceanExtensionTypography.swift
+        output: OceanTokens/Classes/OceanExtensions/Typography/OceanExtensionTypography.swift

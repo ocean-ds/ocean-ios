@@ -3,11 +3,11 @@ colors:
       - inputs/mobile-ios-color-tokens.blu.ios.json
     outputs:
       - templatePath: templates/ocean-colors.stencil
-        output: OceanDesignSystemFramework/OceanExtensions/Colors/OceanExtensionColor.swift
+        output: OceanTokens/Classes/OceanExtensions/Colors/OceanExtensionColor.swift
 
 json:
     inputs:
       - inputs/mobile-ios-size-tokens.blu.ios.json
     outputs:
       - templatePath: templates/ocean-sizes.stencil
-        output: OceanDesignSystemFramework/OceanExtensions/Sizes/OceanExtensionSize.swift
+        output: OceanTokens/Classes/OceanExtensions/Sizes/OceanExtensionSize.swift

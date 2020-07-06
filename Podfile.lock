@@ -1,20 +1,25 @@
 PODS:
-  - OceanComponents (0.1.0)
+  - OceanComponents (0.1.0):
+    - OceanComponents/OceanTokens (= 0.1.0)
+    - OceanTokens (~> 0.1)
+  - OceanComponents/OceanTokens (0.1.0):
+    - OceanTokens (~> 0.1)
   - OceanTokens (0.1.0)
 
 DEPENDENCIES:
-  - OceanComponents (~> 0.1)
-  - OceanTokens (~> 0.1)
+  - OceanComponents (from `./`)
+  - OceanTokens (from `./`)
 
-SPEC REPOS:
-  trunk:
-    - OceanComponents
-    - OceanTokens
+EXTERNAL SOURCES:
+  OceanComponents:
+    :path: "./"
+  OceanTokens:
+    :path: "./"
 
 SPEC CHECKSUMS:
-  OceanComponents: 12c7116419a4094fbfeb43e6e4d9882e90228e45
-  OceanTokens: a59e77ce9708a82cc60b978033bf91168d9d8af5
+  OceanComponents: 7539d35172ed39a36654a5014d64b35874e79ea6
+  OceanTokens: c1796c005e73d6bff7f3c2c9c98809e757277cef
 
-PODFILE CHECKSUM: 1e7f382d438193990fded4076892d3a696d69117
+PODFILE CHECKSUM: ce03cee115a0af5e4570ec750fa5577c73488327
 
 COCOAPODS: 1.9.3
