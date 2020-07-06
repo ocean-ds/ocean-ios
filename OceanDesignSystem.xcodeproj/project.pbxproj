@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B3A54B9A322A6648399A21C0 /* Pods_OceanDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABC99ECA524B7F7045189D1 /* Pods_OceanDesignSystem.framework */; };
+		6B75850B419156E1FD129A46 /* Pods_OceanDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 233705DCCFEAFEBDD1404958 /* Pods_OceanDesignSystem.framework */; };
 		B833D03524A6796100587FDE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D03424A6796100587FDE /* AppDelegate.swift */; };
 		B833D03724A6796100587FDE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D03624A6796100587FDE /* SceneDelegate.swift */; };
 		B833D03924A6796100587FDE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D03824A6796100587FDE /* ViewController.swift */; };
@@ -30,7 +30,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		AABC99ECA524B7F7045189D1 /* Pods_OceanDesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OceanDesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		233705DCCFEAFEBDD1404958 /* Pods_OceanDesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OceanDesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E43FC1B07CD97217E0CF099 /* Pods-OceanDesignSystem.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OceanDesignSystem.debug.xcconfig"; path = "Target Support Files/Pods-OceanDesignSystem/Pods-OceanDesignSystem.debug.xcconfig"; sourceTree = "<group>"; };
 		B833D03124A6796100587FDE /* OceanDesignSystem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OceanDesignSystem.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B833D03424A6796100587FDE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B833D03624A6796100587FDE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,8 +40,7 @@
 		B833D03D24A6796300587FDE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B833D04024A6796300587FDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B833D04224A6796300587FDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D15D6130434A13D2995A37D3 /* Pods-OceanDesignSystem.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OceanDesignSystem.release.xcconfig"; path = "Target Support Files/Pods-OceanDesignSystem/Pods-OceanDesignSystem.release.xcconfig"; sourceTree = "<group>"; };
-		EAF3AFC858D2D6E15D2866CC /* Pods-OceanDesignSystem.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OceanDesignSystem.debug.xcconfig"; path = "Target Support Files/Pods-OceanDesignSystem/Pods-OceanDesignSystem.debug.xcconfig"; sourceTree = "<group>"; };
+		C747752A1678BA08C9DA74C9 /* Pods-OceanDesignSystem.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OceanDesignSystem.release.xcconfig"; path = "Target Support Files/Pods-OceanDesignSystem/Pods-OceanDesignSystem.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,28 +48,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3A54B9A322A6648399A21C0 /* Pods_OceanDesignSystem.framework in Frameworks */,
+				6B75850B419156E1FD129A46 /* Pods_OceanDesignSystem.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		37918604A1BDAC3F12D1D430 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				AABC99ECA524B7F7045189D1 /* Pods_OceanDesignSystem.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		B833D02824A6796100587FDE = {
 			isa = PBXGroup;
 			children = (
 				B833D03324A6796100587FDE /* OceanDesignSystem */,
 				B833D03224A6796100587FDE /* Products */,
 				DE43E9D2BE865C23C41C8096 /* Pods */,
-				37918604A1BDAC3F12D1D430 /* Frameworks */,
+				E5BC7F594177642BCF5B8F94 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -98,10 +90,18 @@
 		DE43E9D2BE865C23C41C8096 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				EAF3AFC858D2D6E15D2866CC /* Pods-OceanDesignSystem.debug.xcconfig */,
-				D15D6130434A13D2995A37D3 /* Pods-OceanDesignSystem.release.xcconfig */,
+				3E43FC1B07CD97217E0CF099 /* Pods-OceanDesignSystem.debug.xcconfig */,
+				C747752A1678BA08C9DA74C9 /* Pods-OceanDesignSystem.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		E5BC7F594177642BCF5B8F94 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				233705DCCFEAFEBDD1404958 /* Pods_OceanDesignSystem.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -111,12 +111,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B833D04524A6796300587FDE /* Build configuration list for PBXNativeTarget "OceanDesignSystem" */;
 			buildPhases = (
-				4DB204324DE2901B93812D5B /* [CP] Check Pods Manifest.lock */,
+				23AC8DD16FF872380A08AE74 /* [CP] Check Pods Manifest.lock */,
 				B833D02D24A6796100587FDE /* Sources */,
 				B833D02E24A6796100587FDE /* Frameworks */,
 				B833D02F24A6796100587FDE /* Resources */,
 				B833D12A24A9839F00587FDE /* Embed Frameworks */,
-				DF7B6D9D69B8CDD185FACC65 /* [CP] Embed Pods Frameworks */,
+				38AA4D582FF4CCE329071D08 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -174,7 +174,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4DB204324DE2901B93812D5B /* [CP] Check Pods Manifest.lock */ = {
+		23AC8DD16FF872380A08AE74 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -196,7 +196,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DF7B6D9D69B8CDD185FACC65 /* [CP] Embed Pods Frameworks */ = {
+		38AA4D582FF4CCE329071D08 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -364,7 +364,7 @@
 		};
 		B833D04624A6796300587FDE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EAF3AFC858D2D6E15D2866CC /* Pods-OceanDesignSystem.debug.xcconfig */;
+			baseConfigurationReference = 3E43FC1B07CD97217E0CF099 /* Pods-OceanDesignSystem.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -384,7 +384,7 @@
 		};
 		B833D04724A6796300587FDE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D15D6130434A13D2995A37D3 /* Pods-OceanDesignSystem.release.xcconfig */;
+			baseConfigurationReference = C747752A1678BA08C9DA74C9 /* Pods-OceanDesignSystem.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

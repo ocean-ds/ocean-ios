@@ -8,6 +8,7 @@
 
 import UIKit
 import OceanTokens
+//import OceanComponents
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //
         
         Ocean.installFonts()
-        UIFont.listAllFonts()
+        //UIFont.listAllFonts()
         
         //Ocean().displayTokens()
         //UIFont(name:Ocean.typography., size: 1.0)

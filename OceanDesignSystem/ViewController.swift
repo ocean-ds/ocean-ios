@@ -14,12 +14,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var labelTest: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-    
         // The interesting stuff
         let labelShadow = UILabel(frame: CGRect(x: 50, y: 200, width: 120, height: 20))
         //viewShadow.center = container.center
         labelShadow.backgroundColor = UIColor.clear
-        labelTest.font = UIFont(name: Ocean.font.fontFamilyBaseWeightLight, size: Ocean.font.fontSizeXs)
+        labelTest.font = UIFont(name: Ocean.font.fontFamilyBaseWeightBold, size: Ocean.font.fontSizeXs)
         
         labelShadow.textColor = UIColor.black
         labelShadow.applyShadow(parameters: Ocean.shadow.shadowLevel4)

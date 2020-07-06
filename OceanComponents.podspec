@@ -26,13 +26,16 @@ Project created with the objective use components created by OceanTokens.
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'alex gomes' => 'alexandro.gomes@useblu.com.br' }
-  s.source           = { :git => 'https://github.com/Pagnet/ocean-ds-ios.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/Pagnet/ocean-ds-ios.git',
+                        :tag => 'OceanComponents-' + s.version.to_s }
+
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '10.0'
   s.swift_versions = ['5.0']
+  s.dependency 'OceanTokens', '~> 0.1'
 
-  s.source_files = 'OceanComponents/Classes/**/*'
+  s.source_files = 'Ocean/OceanComponents/**/*'
   s.info_plist = { 'CFBundleIdentifier' => 'br.com.blu.OceanComponents' }
   s.pod_target_xcconfig = { 'PRODUCT_BUNDLE_IDENTIFIER': 'br.com.blu.OceanComponents' }
   # s.resource_bundles = {
