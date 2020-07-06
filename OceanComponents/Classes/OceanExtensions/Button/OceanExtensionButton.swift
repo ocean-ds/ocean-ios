@@ -1,6 +1,5 @@
 import Foundation
 import UIKit
-import OceanTokens
 
 extension Ocean {
   public struct button {
