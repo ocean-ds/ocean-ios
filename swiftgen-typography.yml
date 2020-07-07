@@ -2,7 +2,7 @@
 
 json:
     inputs:
-      - inputs/mobile-ios-typography-tokens.blu.ios.json
+      - node_modules/@useblu/tokens/dist/ios/mobile-ios-typography-tokens.blu.ios.json
     outputs:
       - templatePath: templates/ocean-fonts.stencil
         output: OceanTokens/Classes/OceanExtensions/Typography/OceanExtensionTypography.swift
