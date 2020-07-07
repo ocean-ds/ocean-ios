@@ -1,13 +1,13 @@
 colors:
     inputs:
-      - node_modules/@useblu/tokens/dist/ios/mobile-ios-color-tokens.blu.ios.json
+      - node_modules/@useblu/tokens/dist/ios/tokens-color.json
     outputs:
       - templatePath: templates/ocean-colors.stencil
         output: OceanTokens/Classes/OceanExtensions/Colors/OceanExtensionColor.swift
 
 json:
     inputs:
-      - node_modules/@useblu/tokens/dist/ios/mobile-ios-size-tokens.blu.ios.json
+      - node_modules/@useblu/tokens/dist/ios/tokens-size.json
     outputs:
       - templatePath: templates/ocean-sizes.stencil
         output: OceanTokens/Classes/OceanExtensions/Sizes/OceanExtensionSize.swift
