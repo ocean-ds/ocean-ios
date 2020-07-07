@@ -1,6 +1,0 @@
-{
-  "shadowLevel1": "[\"x\": 0, \"y\": 4, \"radius\": 8, \"color\": #colorLiteral(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08)]",
-  "shadowLevel2": "[\"x\": 0, \"y\": 8, \"radius\": 16, \"color\": #colorLiteral(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08)]",
-  "shadowLevel3": "[\"x\": 0, \"y\": 16, \"radius\": 32, \"color\": #colorLiteral(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08)]",
-  "shadowLevel4": "[\"x\": 0, \"y\": 16, \"radius\": 48, \"color\": #colorLiteral(red: 12 / 255, green: 13 / 255, blue: 20 / 255, alpha: 0.08)]",
-}
