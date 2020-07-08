@@ -94,3 +94,6 @@ node_modules
 *.generated.swift
 sonar-reports
 .scannerwork
+
+#OceanTokens
+OceanTokens/Resources/Fonts/*.woff2
