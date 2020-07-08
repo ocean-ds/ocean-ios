@@ -1,5 +1,5 @@
 echo '\033[1;31m Downloading tokens into npm lib…\033[0m'
-yarn add -D @useblu/tokens@alpha
+yarn add -D @useblu/tokens@2.0.0-alpha.1
 
 echo '\033[1;31m Removing all resources in folder Resources…\033[0m'
 rm -fR OceanTokens/Classes/OceanExtensions
@@ -27,6 +27,6 @@ swiftgen config lint --config swiftgen-installer-fonts.yml  &&
 swiftgen config run --config swiftgen-installer-fonts.yml  --verbose
 
 echo '\033[1;31m Copying Fonts ttf to Resources into OceanTokens…\033[0m'
-#rm -fR ./OceanTokens/Resources/Fonts
+rm -fR ./OceanTokens/Resources/Fonts
 mkdir -p ./OceanTokens/Resources/Fonts
-cp  -pR  ./node_modules/@useblu/tokens/dist/fonts/* ./OceanTokens/Resources/Fonts
+cp  -pR  ./node_modules/@useblu/tokens/dist/assets/fonts/* ./OceanTokens/Resources/Fonts
