@@ -15,9 +15,39 @@
 
 default_platform(:ios)
 
+diawi_token = ENV["DIAWI_TOKEN"]
+git_url = ENV["FASTLANE_GIT"]
+apple_id = ENV["APPLE_ID"]
+app_identifier = "br.com.blu.ocean.DesignSystem"
+
 platform :ios do
   desc "Description of what the lane does"
-  lane :custom_lane do
-    # add actions here: https://docs.fastlane.tools/actions
+  lane :upload_to_diawi do
+    get_profiles_step()
+    archive_app_step()
+    upload_diawi_step()
+  end
+
+  private_lane :get_profiles_step do 
+    match(
+      git_url: git_url,
+      username: apple_id,
+      app_identifier: app_identifier,
+      type: "adhoc", 
+      readonly: false
+    )
+  end
+
+  private_lane :archive_app_step do 
+    gym( 
+      scheme: "OceanDesignSystem",
+      export_method: "ad-hoc"
+    )
+  end
+
+  private_lane :upload_diawi_step do 
+    diawi(
+      token: diawi_token
+    )
   end
 end
