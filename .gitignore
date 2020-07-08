@@ -96,4 +96,4 @@ sonar-reports
 .scannerwork
 
 #OceanTokens
-OceanTokens/Resources/Fonts/*.woff2
+OceanTokens/Resources/Fonts/*/*.woff2
