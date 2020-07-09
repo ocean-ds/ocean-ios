@@ -27,7 +27,7 @@
         <!--Tokens-->
         <scene sceneID="PCW-ln-b9b">
             <objects>
-                <viewController id="EHi-bl-6Yx" userLabel="Tokens" customClass="ViewController" customModule="OceanDesignSystem" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="EHi-bl-6Yx" userLabel="Tokens" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rYO-Nc-o2a">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -44,13 +44,10 @@
                         <viewLayoutGuide key="safeArea" id="afI-4O-N4k"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Tokens" id="FYd-ey-z9F"/>
-                    <connections>
-                        <outlet property="labelTest" destination="Imd-HE-ejh" id="J95-D1-3GT"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="js2-OB-y2N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="798.55072463768124" y="107.8125"/>
+            <point key="canvasLocation" x="1625" y="108"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="o3x-jU-3yw">
@@ -62,13 +59,42 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="EHi-bl-6Yx" kind="relationship" relationship="viewControllers" id="vow-d6-i2W"/>
+                        <segue destination="6WR-ko-ii5" kind="relationship" relationship="viewControllers" id="Zmk-6N-qpy"/>
                         <segue destination="NQP-ll-2NV" kind="relationship" relationship="viewControllers" id="bZ7-Ma-tNv"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sT4-uc-oxJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="799" y="108"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="Jwo-cd-Q7F">
+            <objects>
+                <tableViewController id="6WR-ko-ii5" customClass="TokensViewController" customModule="OceanDesignSystem" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="pyx-RK-c9B">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="80" id="cnd-jv-l9c">
+                                <rect key="frame" x="0.0" y="28" width="414" height="80"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cnd-jv-l9c" id="9ub-TB-0fo">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="6WR-ko-ii5" id="H2n-eC-na8"/>
+                            <outlet property="delegate" destination="6WR-ko-ii5" id="Yms-Sw-JYj"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Item" id="1FN-b3-q5c"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="N1B-3u-f28" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-191.30434782608697" y="102.45535714285714"/>
         </scene>
     </scenes>
 </document>
