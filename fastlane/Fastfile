@@ -17,7 +17,6 @@ default_platform(:ios)
 
 diawi_token = ENV["DIAWI_TOKEN"]
 git_url = ENV["FASTLANE_GIT"]
-apple_id = ENV["APPLE_ID"]
 app_identifier = "br.com.blu.ocean.DesignSystem"
 
 platform :ios do
@@ -31,7 +30,6 @@ platform :ios do
   private_lane :get_profiles_step do 
     match(
       git_url: git_url,
-      username: apple_id,
       app_identifier: app_identifier,
       type: "adhoc", 
       readonly: false
