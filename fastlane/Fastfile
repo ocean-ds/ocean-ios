@@ -18,6 +18,7 @@ default_platform(:ios)
 diawi_token = ENV["DIAWI_TOKEN"]
 git_url = ENV["FASTLANE_GIT"]
 app_identifier = "br.com.blu.ocean.DesignSystem"
+scheme = "OceanDesignSystem"
 
 platform :ios do
   desc "Description of what the lane does"
@@ -25,6 +26,12 @@ platform :ios do
     get_profiles_step()
     archive_app_step()
     upload_diawi_step()
+  end
+  desc "Upload to TestFlight"
+  lane :upload_to_testflight do
+    get_profiles_step()
+    archive_app_step()
+    upload_testflight_step()
   end
 
   private_lane :get_profiles_step do 
@@ -38,7 +45,7 @@ platform :ios do
 
   private_lane :archive_app_step do 
     gym( 
-      scheme: "OceanDesignSystem",
+      scheme: scheme,
       export_method: "ad-hoc"
     )
   end
@@ -47,5 +54,9 @@ platform :ios do
     diawi(
       token: diawi_token
     )
+  end
+
+  private_lane :upload_testflight_step do 
+    pilot()
   end
 end

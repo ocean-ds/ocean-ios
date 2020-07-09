@@ -21,6 +21,11 @@ or alternatively using `brew install fastlane`
 fastlane ios upload_to_diawi
 ```
 Description of what the lane does
+### ios upload_to_testflight
+```
+fastlane ios upload_to_testflight
+```
+Upload to TestFlight
 
 ----
 
