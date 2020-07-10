@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'OceanTokens'
-  s.version          = '2.0.0-alpha.4'
+  s.version          = '1.0.0'
   s.summary          = 'OceanTokens are tokens created by theo for use in Blu applications'
 
 # This description is used to generate tags and improve search results.
