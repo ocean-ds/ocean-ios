@@ -97,3 +97,6 @@ sonar-reports
 
 #OceanTokens
 OceanTokens/Resources/Fonts/*/*.woff2
+
+#Payload
+Payload/
