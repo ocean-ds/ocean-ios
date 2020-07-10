@@ -1,5 +1,12 @@
 LATEST_VERSION_TOKENS_LIB_NPM=`npm show  @useblu/tokens version` 
-echo "version:$LATEST_VERSION_TOKENS_LIB_NPM"
+echo "Lib in npm - version:$LATEST_VERSION_TOKENS_LIB_NPM"
+
+echo "Executing script for generate classes…"
+sh generate_classes.sh
+
+echo "Add and Commit new classes"
+git add . && git commit -am 'Generating classes based npm lib version: $LATEST_VERSION_TOKENS_LIB_NPM'
+
 echo "Generating release version number equals npm version…"
 git tag -a "OceanTokens-$LATEST_VERSION_TOKENS_LIB_NPM" -m "Release of version $LATEST_VERSION_TOKENS_LIB_NPM"
 git push --tags

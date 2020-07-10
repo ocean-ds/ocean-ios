@@ -13,8 +13,6 @@ import OceanTokens
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         //UIFont(name: Ocean.font.fontFamilyBaseWeightBold, size: Ocean.font.fontSizeLg)
