@@ -6,6 +6,7 @@ sh generate_classes.sh
 
 echo "Add and Commit new classes"
 git add . && git commit -am "Generating classes based npm lib version: $LATEST_VERSION_TOKENS_LIB_NPM"
+git push origin master
 
 echo "Generating release version number equals npm version…"
 git tag -a "OceanTokens-$LATEST_VERSION_TOKENS_LIB_NPM" -m "Release of version $LATEST_VERSION_TOKENS_LIB_NPM"
