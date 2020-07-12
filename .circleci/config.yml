@@ -1,16 +1,20 @@
-# For a detailed guide to building and testing on iOS, read the docs:
-# https://circleci.com/docs/2.0/testing-ios/
-
 version: 2.1
-
 jobs:
-  build:
-
+  deploy:
     macos:
-      xcode: 11.0.0 # Specify the Xcode version to use
-
+      xcode: 11.3.0
     steps:
       - checkout
-#      - run: pod install # Install CocoaPods dependencies
-#      - run: fastlane scan # Run tests using Fastlane
-      
+      - run: sh publish_pod_ocean_tokens.sh          
+      - run: pod install
+      - deploy:
+          name: Deploy
+          command: fastlane upload_to_diawi
+
+workflows:
+  test_release:
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              only: master
