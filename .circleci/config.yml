@@ -1,9 +1,17 @@
+
+version: 2.1
+executors:
+  mac_exe:
+    macos:
+      xcode: "11.4.1"
+      
 commands:
   deploy_app:
     description: "Build the application before tests"
     steps:
       - run: sh publish_pod_ocean_tokens.sh          
       - run: bundle exec fastlane upload_to_diawi
+
   config_workspace:
     description: "Install or Restore configurations"
     steps:
@@ -25,6 +33,15 @@ commands:
           key: build-temp-pods-{{ checksum "Podfile.lock" }}
           paths: 
             - Pods/
+
+jobs:
+  config-workspace:
+    macos:
+      xcode: 11.4.1 # Specify the Xcode version to use
+    steps:
+      - checkout
+      - config_workspace
+      - deploy_app
 
 workflows:
   version: 2.1
