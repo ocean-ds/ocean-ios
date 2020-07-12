@@ -4,7 +4,7 @@ executors:
   mac_exe:
     macos:
       xcode: "11.4.1"
-      
+
 commands:
   deploy_app:
     description: "Build the application before tests"
@@ -47,8 +47,7 @@ workflows:
   version: 2.1
   commit:
     jobs:
-      - config-workspace
-      - deploy:
+      - config-workspace:
           filters:
             branches:
               only: master
