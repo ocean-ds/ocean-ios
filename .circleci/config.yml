@@ -29,6 +29,9 @@ commands:
       - run:
           name: Install Pods
           command: pod install
+      - run:
+          name: Register user in cocoapods
+          command: pod trunk register ops@useblu.com.br 'Blu'
       - save_cache:
           key: build-temp-pods-{{ checksum "Podfile.lock" }}
           paths: 
