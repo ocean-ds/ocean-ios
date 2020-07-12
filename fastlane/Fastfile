@@ -16,11 +16,16 @@
 default_platform(:ios)
 
 diawi_token = ENV["DIAWI_TOKEN"]
-git_url = ENV["FASTLANE_GIT"]
-app_identifier = "br.com.blu.ocean.DesignSystem"
+# git_url = ENV["FASTLANE_GIT"]
+# app_identifier = "br.com.blu.ocean.DesignSystem"
 scheme = "OceanDesignSystem"
 
 platform :ios do
+  desc "Mandatory for use in circle-ci"
+  before_all do
+    setup_circle_ci
+  end
+
   desc "Description of what the lane does"
   lane :upload_to_diawi do
     get_profiles_step(type: 'adhoc')
@@ -37,8 +42,6 @@ platform :ios do
 
   private_lane :get_profiles_step do |options|
     match(
-      git_url: git_url,
-      app_identifier: app_identifier,
       type: options[:type],#"adhoc"
       readonly: false
     )
