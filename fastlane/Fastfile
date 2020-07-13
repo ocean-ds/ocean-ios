@@ -52,7 +52,7 @@ platform :ios do
     gym( 
       scheme: scheme,
       export_method: options[:export_method], #//"app-store" //"ad-hoc"
-      skip_profile_detection: true
+      export_xcargs: "-allowProvisioningUpdates"
     )
   end
 
