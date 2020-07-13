@@ -9,7 +9,6 @@ commands:
   deploy_app:
     description: "Build the application before tests"
     steps:
-      - run: sh publish_pod_ocean_tokens.sh     
       - run: bundle exec fastlane beta_diawi
 
   config_workspace:
@@ -34,6 +33,13 @@ commands:
           paths: 
             - Pods/
 
+  update_ocean_tokens:
+    description: "Update classes and tokens npm file and generate new pod"
+    steps:
+      - run:
+          name: Install Pods
+          command: sh publish_pod_ocean_tokens.sh     
+
 jobs:
   config-workspace:
     macos:
@@ -42,12 +48,21 @@ jobs:
       - checkout
       - config_workspace
       - deploy_app
-
+  deploy-ocean-tokens:
+    macos:
+      xcode: 11.4.1 # Specify the Xcode version to use
+    steps:
+      - checkout
+      - update_ocean_tokens
 workflows:
   version: 2.1
   commit:
     jobs:
-      - config-workspace:
+      - deploy-ocean-tokens:
           filters:
             branches:
               only: circleci-project-setup
+      - config-workspace:
+          filters:
+            branches:
+              only: master
