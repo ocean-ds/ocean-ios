@@ -43,7 +43,8 @@ platform :ios do
   private_lane :get_profiles_step do |options|
     match(
       type: options[:type],#"adhoc"
-      readonly: false
+      readonly: true,
+      skip_provisioning_profiles: true
     )
   end
 
