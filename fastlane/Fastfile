@@ -28,6 +28,7 @@ platform :ios do
 
   desc "Description of what the lane does"
   lane :upload_to_diawi do
+    get_profiles_step(type: 'development')
     get_profiles_step(type: 'adhoc')
     archive_app_step(export_method: 'ad-hoc')
     upload_diawi_step()
