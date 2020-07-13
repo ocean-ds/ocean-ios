@@ -20,6 +20,8 @@ or alternatively using `brew install fastlane`
 ```
 fastlane ios upload_to_diawi
 ```
+Mandatory for use in circle-ci
+
 Description of what the lane does
 ### ios upload_to_testflight
 ```
