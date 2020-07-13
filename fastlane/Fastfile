@@ -49,8 +49,8 @@ platform :ios do
 
   private_lane :archive_app_step do |options|
     gym( 
-      skip_profile_detection: true,
       scheme: scheme,
+      xcargs: "-allowProvisioningUpdates",
       export_method: options[:export_method], #//"app-store" //"ad-hoc"
       export_options: {
 	signingStyle: "automatic"
