@@ -10,8 +10,8 @@ commands:
     description: "Build the application before tests"
     steps:
       #- run: sh publish_pod_ocean_tokens.sh     
-      - run: fastlane spaceauth -u mobile@useblu.com.br 
-      - run: bundle exec fastlane upload_to_diawi
+      #- run: bundle exec fastlane spaceauth -u mobile@useblu.com.br 
+      - run: fastlane upload_to_diawi
 
   config_workspace:
     description: "Install or Restore configurations"
