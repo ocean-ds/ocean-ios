@@ -28,7 +28,6 @@ platform :ios do
 
   desc "Description of what the lane does"
   lane :upload_to_diawi do
-    get_profiles_step(type: 'development')
     get_profiles_step(type: 'adhoc')
     archive_app_step(export_method: 'ad-hoc')
     upload_diawi_step()
@@ -51,9 +50,10 @@ platform :ios do
   private_lane :archive_app_step do |options|
     gym( 
       scheme: scheme,
+      xcargs: "-allowProvisioningUpdates",
+      export_xcargs: "-allowProvisioningUpdates",
       export_method: options[:export_method], #//"app-store" //"ad-hoc"
       export_options: {
-      	method: "ad-hoc",
 	signingStyle: "automatic"
       }
     )
