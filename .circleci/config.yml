@@ -50,7 +50,4 @@ workflows:
       - config-workspace:
           filters:
             branches:
-              only: master
-          filters:
-            commit: 
-              only: /[run-ci]/
+              only: circleci-project-setup
