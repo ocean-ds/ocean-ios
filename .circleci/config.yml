@@ -45,9 +45,4 @@ jobs:
 
 workflows:
   version: 2.1
-  commit:
-    jobs:
-      - config-workspace:
-          filters:
-            branches:
-              only: master
+  
