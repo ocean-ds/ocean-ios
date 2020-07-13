@@ -51,7 +51,8 @@ platform :ios do
   private_lane :archive_app_step do |options|
     gym( 
       scheme: scheme,
-      export_method: options[:export_method] #//"app-store" //"ad-hoc"
+      export_method: options[:export_method], #//"app-store" //"ad-hoc"
+      skip_profile_detection: true
     )
   end
 
