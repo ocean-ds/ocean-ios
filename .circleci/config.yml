@@ -41,7 +41,7 @@ commands:
           command: sh publish_pod_ocean_tokens.sh     
 
 jobs:
-  config-workspace:
+  deploy-app:
     macos:
       xcode: 11.4.1 # Specify the Xcode version to use
     steps:
@@ -62,3 +62,9 @@ workflows:
           filters:
             branches:
               only: circleci-project-setup
+      - deploy-app:
+          filters:
+            tags:
+              only: /^OceanComponents-(\d+\.){2}\d+$/
+            branches:
+              ignore: /.*/

@@ -16,16 +16,16 @@ or alternatively using `brew install fastlane`
 
 # Available Actions
 ## iOS
-### ios upload_to_diawi
+### ios beta_diawi
 ```
-fastlane ios upload_to_diawi
+fastlane ios beta_diawi
 ```
 Mandatory for use in circle-ci
 
 Description of what the lane does
-### ios upload_to_testflight
+### ios beta_testflight
 ```
-fastlane ios upload_to_testflight
+fastlane ios beta_testflight
 ```
 Upload to TestFlight
 
