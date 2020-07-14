@@ -50,7 +50,7 @@ import UIKit
 {% macro propertyBlock key metadata data %}{% filter removeNewlines:"leading" %}
   {% set propertyName %}{{key|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}{% endset %}
   {% set propertyType %}{% call typeBlock metadata %}{% endset %}
-  {% if metadata.type == "Int" or metadata.type == "Double" %}
+  {% if metadata.type == "Int" or metadata.type == "Double" or metadata.type == "Bool" %}
     static let {{propertyName}}: CGFloat = {% call valueBlock data[key] metadata %}
   {% else %}
     static let {{propertyName}}: {{propertyType}} = {% call valueBlock data[key] metadata %}
