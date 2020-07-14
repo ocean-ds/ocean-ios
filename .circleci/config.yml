@@ -37,6 +37,9 @@ commands:
     description: "Update classes and tokens npm file and generate new pod"
     steps:
       - run:
+          name: Install SwiftGen
+          command: brew install swiftgen
+      - run:
           name: Install Pods
           command: sh publish_pod_ocean_tokens.sh     
 
