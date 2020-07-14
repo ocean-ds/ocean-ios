@@ -37,11 +37,14 @@ commands:
     description: "Update classes and tokens npm file and generate new pod"
     steps:
       - run:
+          name: Install SwiftGen
+          command: brew install swiftgen
+      - run:
           name: Install Pods
           command: sh publish_pod_ocean_tokens.sh     
 
 jobs:
-  config-workspace:
+  deploy-app:
     macos:
       xcode: 11.4.1 # Specify the Xcode version to use
     steps:
@@ -62,7 +65,9 @@ workflows:
           filters:
             branches:
               only: circleci-project-setup
-      - config-workspace:
+      - deploy-app:
           filters:
+            tags:
+              only: /^OceanComponents-(\d+\.){2}\d+$/
             branches:
-              only: master
+              ignore: /.*/

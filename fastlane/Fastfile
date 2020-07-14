@@ -16,8 +16,6 @@
 default_platform(:ios)
 
 diawi_token = ENV["DIAWI_TOKEN"]
-# git_url = ENV["FASTLANE_GIT"]
-# app_identifier = "br.com.blu.ocean.DesignSystem"
 scheme = "OceanDesignSystem"
 
 platform :ios do
