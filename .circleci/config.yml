@@ -62,7 +62,3 @@ workflows:
           filters:
             branches:
               only: circleci-project-setup
-      - config-workspace:
-          filters:
-            branches:
-              only: master
