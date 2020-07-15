@@ -35,6 +35,8 @@ Project created with the objective use components created by OceanTokens.
   s.swift_versions = ['5.0']
   
   s.dependency 'OceanTokens'
+  s.dependency 'R.swift'
+
   s.source_files = 'OceanComponents/Classes/**/*'
   s.info_plist = { 'CFBundleIdentifier' => 'br.com.blu.OceanComponents' }
   s.pod_target_xcconfig = { 'PRODUCT_BUNDLE_IDENTIFIER': 'br.com.blu.OceanComponents' }
@@ -42,11 +44,12 @@ Project created with the objective use components created by OceanTokens.
   s.subspec 'OceanTokens' do |oceantokens|
     oceantokens.source_files = 'OceanTokens/Classes/**/*'
   end
-  # s.resource_bundles = {
-  #   'BluTokens' => ['BluTokens/Assets/*.png']
-  # }
+
+  s.resource_bundles = {
+     'OceanComponents' => ['OceanComponents/Resources/**/*.xcassets']
+  }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  
 end
