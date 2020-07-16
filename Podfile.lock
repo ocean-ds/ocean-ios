@@ -2,23 +2,13 @@ PODS:
   - OceanComponents (0.1.0):
     - OceanComponents/OceanTokens (= 0.1.0)
     - OceanTokens
-    - R.swift
   - OceanComponents/OceanTokens (0.1.0):
     - OceanTokens
-    - R.swift
   - OceanTokens (1.0.0)
-  - R.swift (5.2.2):
-    - R.swift.Library (~> 5.2.0)
-  - R.swift.Library (5.2.0)
 
 DEPENDENCIES:
   - OceanComponents (from `./`)
   - OceanTokens (from `./`)
-
-SPEC REPOS:
-  trunk:
-    - R.swift
-    - R.swift.Library
 
 EXTERNAL SOURCES:
   OceanComponents:
@@ -27,10 +17,8 @@ EXTERNAL SOURCES:
     :path: "./"
 
 SPEC CHECKSUMS:
-  OceanComponents: 7c07c07ca5066d6e6c5f927407171bd0118ad23e
+  OceanComponents: 0818a92d367b1a70059c03cf7d6bd726a9364d59
   OceanTokens: 1c0119f3fefd31d7168b749ae438a6c35606dd3f
-  R.swift: 7c52cdc57a66840ffe6cbd8a823d732059d42a32
-  R.swift.Library: 5ba4f1631300caf9a4d890186930da85d540769d
 
 PODFILE CHECKSUM: c5415bc1b154e002d0bbf0101bb20c3835d55093
 

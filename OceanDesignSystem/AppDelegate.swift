@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import OceanTokens
+//import OceanTokens
+import OceanComponents
 
 
 @UIApplicationMain
@@ -31,9 +32,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //let colorTest = Ocean.color.articleBody
         //let fontTest = Ocean.font.articleBody
         //let sizeTest = Ocean.size.articleBody
+        //let bundleTest = Bundle(identifier: "br.com.blu.OceanComponents")
         
+//        let resourceBundleName2 = "OceanComponents.bundle"
+//        Bundle.bundleOceanComponents.path(forResource: <#T##String?#>, ofType: <#T##String?#>)
+        //let bundleImagePath = bundle2.path(forResource: "ocean_icon_accessibility_human.png", ofType: nil)!
+        //let test5 =  UIImage(named: "OceanComponents.bundle/ocean_icon_accessibility_human.png", in: bundle2, compatibleWith: .none)
+//        let bundlePath = Bundle.main.path(forResource: "ocean_icon_accessibility_human.png", ofType: nil)
+//        let image = UIImage(contentsOfFile: bundlePath!)
+//        print(Ocean.bundleComponents)
+//        let bundlePath2 = Ocean.bundleComponents.path(forResource: "ocean_icon_accessibility_human.png", ofType: nil)
+//        let image2 = UIImage(contentsOfFile: bundlePath2!)
         
-        
+//        guard let pathForResourceString = Ocean.bundleComponents.path(forResource: "ocean_icon_accessibility.png", ofType: nil) else {
+//            print("UIFont+:  Failed to register font - path for resource not found." )
+//            return false
+//        }
+//        let image = UIImage(contentsOfFile: pathForResourceString)
+//        guard let pathForResourceString2 = Ocean.bundleComponents.path(forResource: "ocean_icon_align_left@3x.png", ofType:nil) else {
+//            print("UIFont+:  Failed to register font - path for resource not found." )
+//            return false
+//        }
+//        let image2 = UIImage(contentsOfFile: pathForResourceString2)
+//        //NSDataAsset(name: <#T##NSDataAssetName#>, bundle: <#T##Bundle#>)
+//        let oceanIconAccessibility = UIImage(named: "OceanComponents.bundle/ocean_icon_accessibility", in: .bundleOceanComponents, compatibleWith: .none)
+        let imageTest = Ocean.icon.accessibilityHumanLg
+        print(imageTest)
         return true
     }
 
@@ -52,5 +76,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //    }
 
 
+
+
+    
 }
 
+//extension Bundle {
+//    static public let bundleOceanComponents = Bundle(identifier: "br.com.blu.OceanComponents")!
+//
+//
+//}

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B7A4015724BFE64B006712AA /* ocean_icon_accessibility_human.png in Resources */ = {isa = PBXBuildFile; fileRef = B7A4015624BFE493006712AA /* ocean_icon_accessibility_human.png */; };
+		B7A4FF7924BF8484006712AA /* ComponentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A4FF7824BF8484006712AA /* ComponentsViewController.swift */; };
 		B833D03524A6796100587FDE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D03424A6796100587FDE /* AppDelegate.swift */; };
 		B833D03724A6796100587FDE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D03624A6796100587FDE /* SceneDelegate.swift */; };
 		B833D03924A6796100587FDE /* TokensViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D03824A6796100587FDE /* TokensViewController.swift */; };
@@ -36,6 +38,8 @@
 		5C76A341D2D36F9F637A3A90 /* Pods-OceanDesignSystem.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OceanDesignSystem.release.xcconfig"; path = "Target Support Files/Pods-OceanDesignSystem/Pods-OceanDesignSystem.release.xcconfig"; sourceTree = "<group>"; };
 		6E60A67FB45045195D0864E4 /* Pods-OceanDesignSystem.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OceanDesignSystem.debug.xcconfig"; path = "Target Support Files/Pods-OceanDesignSystem/Pods-OceanDesignSystem.debug.xcconfig"; sourceTree = "<group>"; };
 		8EDD8973B0938F0CE92E98CC /* Pods_OceanDesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OceanDesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B7A4015624BFE493006712AA /* ocean_icon_accessibility_human.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ocean_icon_accessibility_human.png; sourceTree = "<group>"; };
+		B7A4FF7824BF8484006712AA /* ComponentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsViewController.swift; sourceTree = "<group>"; };
 		B833D03124A6796100587FDE /* OceanDesignSystem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OceanDesignSystem.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B833D03424A6796100587FDE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B833D03624A6796100587FDE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,8 +97,10 @@
 				B833D03424A6796100587FDE /* AppDelegate.swift */,
 				B833D03624A6796100587FDE /* SceneDelegate.swift */,
 				B833D03824A6796100587FDE /* TokensViewController.swift */,
+				B7A4FF7824BF8484006712AA /* ComponentsViewController.swift */,
 				B833D03A24A6796100587FDE /* Main.storyboard */,
 				B833D03D24A6796300587FDE /* Assets.xcassets */,
+				B7A4015624BFE493006712AA /* ocean_icon_accessibility_human.png */,
 				B833D03F24A6796300587FDE /* LaunchScreen.storyboard */,
 				B833D04224A6796300587FDE /* Info.plist */,
 				B8C97A4224B7C78400DC7C56 /* iTunesArtwork@1x.png */,
@@ -179,6 +185,7 @@
 				B833D03E24A6796300587FDE /* Assets.xcassets in Resources */,
 				B8C97A4524B7C78400DC7C56 /* iTunesArtwork@1x.png in Resources */,
 				B8C97A4724B7C78400DC7C56 /* iTunesArtwork@3x.png in Resources */,
+				B7A4015724BFE64B006712AA /* ocean_icon_accessibility_human.png in Resources */,
 				B833D03C24A6796100587FDE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -234,6 +241,7 @@
 			files = (
 				B833D03924A6796100587FDE /* TokensViewController.swift in Sources */,
 				B833D03524A6796100587FDE /* AppDelegate.swift in Sources */,
+				B7A4FF7924BF8484006712AA /* ComponentsViewController.swift in Sources */,
 				B833D03724A6796100587FDE /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

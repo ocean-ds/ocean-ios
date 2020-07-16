@@ -35,7 +35,6 @@ Project created with the objective use components created by OceanTokens.
   s.swift_versions = ['5.0']
   
   s.dependency 'OceanTokens'
-  s.dependency 'R.swift'
 
   s.source_files = 'OceanComponents/Classes/**/*'
   s.info_plist = { 'CFBundleIdentifier' => 'br.com.blu.OceanComponents' }
@@ -46,7 +45,7 @@ Project created with the objective use components created by OceanTokens.
   end
 
   s.resource_bundles = {
-     'OceanComponents' => ['OceanComponents/Resources/**/*.xcassets']
+     'OceanComponents' => ['OceanComponents/Resources/**/*']
   }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
