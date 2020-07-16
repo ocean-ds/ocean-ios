@@ -40,9 +40,9 @@ Project created with the objective use components created by OceanTokens.
   s.info_plist = { 'CFBundleIdentifier' => 'br.com.blu.OceanComponents' }
   s.pod_target_xcconfig = { 'PRODUCT_BUNDLE_IDENTIFIER': 'br.com.blu.OceanComponents' }
   
-  s.subspec 'OceanTokens' do |oceantokens|
-    oceantokens.source_files = 'OceanTokens/Classes/**/*'
-  end
+  # s.subspec 'OceanTokens' do |oceantokens|
+  #   oceantokens.source_files = 'OceanTokens/Classes/**/*'
+  # end
 
   s.resource_bundles = {
      'OceanComponents' => ['OceanComponents/Resources/**/*']
