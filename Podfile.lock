@@ -1,13 +1,10 @@
 PODS:
-  - OceanComponents (0.2.0-beta):
-    - OceanComponents/OceanTokens (= 0.2.0-beta)
-    - OceanTokens
-  - OceanComponents/OceanTokens (0.2.0-beta):
-    - OceanTokens
+  - OceanComponents (0.2.1-beta):
+    - OceanTokens (= 1.0.0)
   - OceanTokens (1.0.0)
 
 DEPENDENCIES:
-  - OceanComponents (= 0.2.0-beta)
+  - OceanComponents (= 0.2.1-beta)
 
 SPEC REPOS:
   trunk:
@@ -15,9 +12,9 @@ SPEC REPOS:
     - OceanTokens
 
 SPEC CHECKSUMS:
-  OceanComponents: f786a013d92bc42c51f35fb75443d3795fbdf5df
+  OceanComponents: 33caba5010f5d228cab61a2191f480e66789c3f2
   OceanTokens: 1c0119f3fefd31d7168b749ae438a6c35606dd3f
 
-PODFILE CHECKSUM: f98ac596596b9fbc50cc9e823136235b5356e2b3
+PODFILE CHECKSUM: 2777c3eb71810ab82ebd017e83506b3033185b6b
 
 COCOAPODS: 1.9.3
