@@ -1,4 +1,4 @@
-#set -e
+
 
 LATEST_VERSION_TOKENS_LIB_NPM=`npm show  @useblu/tokens version` 
 echo "Lib in npm - version:$LATEST_VERSION_TOKENS_LIB_NPM"

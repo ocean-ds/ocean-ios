@@ -1,4 +1,4 @@
-set -e
+
 
 echo '\033[1;31m Downloading tokens into npm lib…\033[0m'
 yarn add -D @useblu/tokens@2.0.0-alpha.1
