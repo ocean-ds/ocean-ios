@@ -27,36 +27,38 @@ struct Typographies {
     ]
     
     static let fontFamilies = [
-        "fontFamilyBaseWeightBold": "NunitoSans-Bold",
-        "fontFamilyBaseWeightExtraBold": "NunitoSans-ExtraBold",
-        "fontFamilyBaseWeightLight": "NunitoSans-Light",
-        "fontFamilyBaseWeightMedium": "NunitoSans-SemiBold",
-        "fontFamilyBaseWeightRegular": "NunitoSans-Regular",
-        "fontFamilyHighlightWeightBold": "Avenir-Heavy",
-        "fontFamilyHighlightWeightExtraBold": "Avenir-Black",
-        "fontFamilyHighlightWeightLight": "Avenir-Light",
-        "fontFamilyHighlightWeightMedium": "Avenir-Medium",
-        "fontFamilyHighlightWeightRegular": "Avenir-Roman"
+        
+        "fontFamilyBaseWeightBold": Ocean.font.fontFamilyBaseWeightBold,
+        "fontFamilyBaseWeightExtraBold": Ocean.font.fontFamilyBaseWeightExtraBold,
+        "fontFamilyBaseWeightLight": Ocean.font.fontFamilyBaseWeightLight,
+        "fontFamilyBaseWeightMedium": Ocean.font.fontFamilyBaseWeightMedium,
+        "fontFamilyBaseWeightRegular": Ocean.font.fontFamilyBaseWeightRegular,
+        "fontFamilyHighlightWeightBold": Ocean.font.fontFamilyHighlightWeightBold,
+        "fontFamilyHighlightWeightExtraBold": Ocean.font.fontFamilyHighlightWeightExtraBold,
+        "fontFamilyHighlightWeightLight": Ocean.font.fontFamilyHighlightWeightLight,
+        "fontFamilyHighlightWeightMedium": Ocean.font.fontFamilyHighlightWeightMedium,
+        "fontFamilyHighlightWeightRegular": Ocean.font.fontFamilyHighlightWeightRegular
     ]
     
     static let fontSizes = [
-        "fontSizeDisplay": 80,
-        "fontSizeGiant": 96,
-        "fontSizeLg": 32,
-        "fontSizeMd": 24,
-        "fontSizeSm":  20,
-        "fontSizeXl": 40,
-        "fontSizeXs": 16,
-        "fontSizeXxl": 48,
-        "fontSizeXxs": 14,
-        "fontSizeXxxl": 64,
-        "fontSizeXxxs": 12
+        "fontSizeDisplay": Ocean.font.fontSizeDisplay,
+        "fontSizeGiant": Ocean.font.fontSizeGiant,
+        "fontSizeLg": Ocean.font.fontSizeLg,
+        "fontSizeMd": Ocean.font.fontSizeMd,
+        "fontSizeSm":  Ocean.font.fontSizeSm,
+        "fontSizeXl": Ocean.font.fontSizeXl,
+        "fontSizeXs": Ocean.font.fontSizeXs,
+        "fontSizeXxl": Ocean.font.fontSizeXxl,
+        "fontSizeXxs": Ocean.font.fontSizeXxs,
+        "fontSizeXxxl": Ocean.font.fontSizeXxxl,
+        "fontSizeXxxs": Ocean.font.fontSizeXxxs
     ]
     
     static let lineHeights = [
-        "lineHeightComfy": 1.5,
-        "lineHeightMedium": 1.1,
-        "lineHeightTight": 1
+        
+        "lineHeightComfy": Ocean.font.lineHeightComfy,
+        "lineHeightMedium":  Ocean.font.lineHeightMedium,
+        "lineHeightTight": Ocean.font.lineHeightTight
     ]
     
     static func fontFamiliesKeys() -> [String] {
