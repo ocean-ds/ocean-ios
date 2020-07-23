@@ -48,7 +48,10 @@ class TokensBySubCategoryViewController: UITableViewController {
             switch subCategorySizeType {
             case .Border:
                 return Borders.list.count
-           
+            case .Opacity:
+                return Opacities.list.count
+            case .SpacingInline:
+                return Spaces.list.count
             default:
                 return 0
             }
@@ -116,6 +119,21 @@ class TokensBySubCategoryViewController: UITableViewController {
             cell.viewWithBorder.layer.borderWidth = Borders.list[borderKey]!
             
             return cell;
+        case .Opacity:
+
+            let cell = tableView.dequeueReusableCell(withIdentifier: "BorderCell", for: indexPath) as! BorderCell
+            let opacityKey = Opacities.keys()[indexPath.row]
+            cell.title.text = opacityKey
+            cell.viewWithBorder.backgroundColor = UIColor.black.withAlphaComponent(Opacities.list[opacityKey]!)
+            return cell;
+        case .SpacingInline:
+
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SpacesCell", for: indexPath) as! SpacesCell
+            let spaceKey = Spaces.keys()[indexPath.row]
+            cell.title.text = spaceKey
+            cell.spaceSize.constant = Spaces.list[spaceKey]!
+            
+        return cell;
         
         default:
             return UITableViewCell()

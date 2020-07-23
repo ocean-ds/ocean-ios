@@ -174,3 +174,52 @@ struct Borders {
     ]
 }
 
+struct Opacities {
+    
+    static func keys() -> [String] {
+        return Array((list.keys).sorted(by: <))
+    }
+    
+    static let list = [
+        "opacityLevelIntense" : Ocean.size.opacityLevelIntense,
+        "opacityLevelLight" : Ocean.size.opacityLevelLight,
+        "opacityLevelMedium" : Ocean.size.opacityLevelMedium,
+        "opacityLevelSemiopaque": Ocean.size.opacityLevelSemiopaque,
+        "opacityLevelSemitransparent" : Ocean.size.opacityLevelSemitransparent
+    ]
+}
+
+struct Spaces {
+    
+    static func keys() -> [String] {
+        return Array((list.keys).sorted(by: <))
+    }
+    
+    static let list = [
+        "spacingInlineLg": Ocean.size.spacingInlineLg,
+        "spacingInlineMd": Ocean.size.spacingInlineMd,
+        "spacingInlineSm": Ocean.size.spacingInlineSm,
+        "spacingInlineXl": Ocean.size.spacingInlineXl,
+        "spacingInlineXs": Ocean.size.spacingInlineXs,
+        "spacingInlineXxl": Ocean.size.spacingInlineXxl,
+        "spacingInlineXxs": Ocean.size.spacingInlineXxs,
+        "spacingInlineXxxl": Ocean.size.spacingInlineXxxl,
+        "spacingInlineXxxs": Ocean.size.spacingInlineXxxs,
+        "spacingInsetLg": Ocean.size.spacingInsetLg,
+        "spacingInsetMd": Ocean.size.spacingInsetMd,
+        "spacingInsetSm": Ocean.size.spacingInsetSm,
+        "spacingInsetXl": Ocean.size.spacingInsetXl,
+        "spacingInsetXs": Ocean.size.spacingInsetXs,
+        "spacingInsetXxs": Ocean.size.spacingInsetXxs,
+        "spacingStackLg": Ocean.size.spacingStackLg,
+        "spacingStackMd": Ocean.size.spacingStackMd,
+        "spacingStackSm": Ocean.size.spacingStackSm,
+        "spacingStackXl": Ocean.size.spacingStackXl,
+        "spacingStackXs": Ocean.size.spacingStackXs,
+        "spacingStackXxl": Ocean.size.spacingStackXxl,
+        "spacingStackXxs": Ocean.size.spacingStackXxs,
+        "spacingStackXxxl": Ocean.size.spacingStackXxxl,
+        "spacingStackXxxs": Ocean.size.spacingStackXxxs
+    ]
+}
+

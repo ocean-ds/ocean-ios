@@ -23,3 +23,10 @@ class BorderCell: UITableViewCell {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var viewWithBorder: UIView!
 }
+
+class SpacesCell: UITableViewCell {
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var viewLeft: UIView!
+    @IBOutlet weak var viewRight: UIView!
+    @IBOutlet weak var spaceSize: NSLayoutConstraint!
+}
