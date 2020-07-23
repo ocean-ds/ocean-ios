@@ -10,27 +10,25 @@ import Foundation
 import UIKit
 import OceanTokens
 
-enum SubCategoryTypograpyType: Int {
+public enum SubCategoryTypograpyType: Int {
     case FontFamilyWithWeight
     case FontSize
     case FontLineHeight
 }
 
-
-class ColorCell: UITableViewCell {
-    @IBOutlet weak var title: UILabel!
-    @IBOutlet weak var colorRender: UIView!
+public enum SubCategorySizeType: Int {
+    case Border
+    case Opacity
+    case SpacingInline
 }
 
-class TypographyCell: UITableViewCell {
-    @IBOutlet weak var title: UILabel!
-    @IBOutlet weak var subTitle: UILabel!
-}
+
 
 class TokensByCategoryViewController: UITableViewController {
 
     var categoryType : CategoryType!
-    var subCategoryTypeSelected : SubCategoryTypograpyType!
+    var subCategoryTypograpyTypeSelected : SubCategoryTypograpyType!
+    var subCategorySizeTypeSelected : SubCategorySizeType!
     
     //@IBOutlet weak var labelTest: UILabel!
     override func viewDidLoad() {
@@ -46,11 +44,13 @@ class TokensByCategoryViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch categoryType {
         case .Color:
-            return Colors.list().count
+            return Colors.list.count
         case .Shadow:
             return Shadows.list().count
         case .Typography:
             return Typographies.subCategories.count
+        case .Size:
+            return Sizes.subCategories.count
         default:
             return 0
         }
@@ -58,8 +58,10 @@ class TokensByCategoryViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch categoryType {
-        case .Typography:
+        case .Typography, .Size:
+        
             return 60
+            
         default:
             return 200
         }
@@ -70,7 +72,7 @@ class TokensByCategoryViewController: UITableViewController {
         switch categoryType {
         case .Color:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ColorCell", for: indexPath) as! ColorCell
-            let colors = Colors.list()
+            let colors = Colors.list
             //let keys : [String] = Array(colors.keys)
             let colorName = Colors.keys()[indexPath.row]
             cell.title.text = colorName
@@ -90,6 +92,11 @@ class TokensByCategoryViewController: UITableViewController {
             let fontFamily = Typographies.subCategories[indexPath.row]
             cell.title.text = fontFamily
             return cell;
+        case .Size:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "StandardCell", for: indexPath) as! StandardCell
+            let sizeType = Sizes.subCategories[indexPath.row]
+            cell.title.text = sizeType
+            return cell;
         default:
             return UITableViewCell()
         }
@@ -98,7 +105,12 @@ class TokensByCategoryViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        self.subCategoryTypeSelected = SubCategoryTypograpyType.init(rawValue: indexPath.row)
+        if( self.categoryType == CategoryType.Typography) {
+            self.subCategoryTypograpyTypeSelected = SubCategoryTypograpyType.init(rawValue: indexPath.row)
+        } else {
+            self.subCategorySizeTypeSelected = SubCategorySizeType.init(rawValue: indexPath.row)
+        }
+        
         return indexPath
     }
     
@@ -113,8 +125,14 @@ class TokensByCategoryViewController: UITableViewController {
         if (self.categoryType == CategoryType.Typography) {
                 // Create a new variable to store the instance of PlayerTableViewController
                 let destinationVC = segue.destination as! TokensBySubCategoryViewController
-                destinationVC.subCategoryType = self.subCategoryTypeSelected
+            destinationVC.categoryType = categoryType
+                destinationVC.subCategoryTypograpyType = self.subCategoryTypograpyTypeSelected
             
+        }
+        else if (self.categoryType == CategoryType.Size) {
+            let destinationVC = segue.destination as! TokensBySubCategoryViewController
+            destinationVC.categoryType = categoryType
+            destinationVC.subCategorySizeType = self.subCategorySizeTypeSelected
         }
        
         

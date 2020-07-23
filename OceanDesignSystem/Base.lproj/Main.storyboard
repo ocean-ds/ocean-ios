@@ -248,7 +248,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TypographyCell" rowHeight="200" id="0iC-v6-imN" userLabel="TypographyCell" customClass="TypographyCell" customModule="OceanDesignSystem" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SubTypographyCell" rowHeight="200" id="0iC-v6-imN" userLabel="TypographyCell" customClass="TypographyCell" customModule="OceanDesignSystem" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="414" height="200"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0iC-v6-imN" id="mSd-EN-1G7">
@@ -290,6 +290,44 @@
                                 <connections>
                                     <outlet property="subTitle" destination="3pW-LH-dQw" id="f0b-I7-C4y"/>
                                     <outlet property="title" destination="5GQ-Dr-9PN" id="5F3-0s-y7O"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="BorderCell" rowHeight="120" id="Jra-Xd-gGR" userLabel="BorderCell" customClass="BorderCell" customModule="OceanDesignSystem" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="255.5" width="414" height="120"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Jra-Xd-gGR" id="rc0-qb-kDN">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="Vkr-Rx-1fq">
+                                            <rect key="frame" x="10" y="10" width="394" height="100"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XKv-4q-hc7">
+                                                    <rect key="frame" x="0.0" y="0.0" width="394" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tuX-R4-XgB">
+                                                    <rect key="frame" x="0.0" y="31" width="394" height="69"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="XKv-4q-hc7" firstAttribute="top" secondItem="Vkr-Rx-1fq" secondAttribute="top" id="7uM-H5-aZt"/>
+                                            </constraints>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Vkr-Rx-1fq" firstAttribute="leading" secondItem="rc0-qb-kDN" secondAttribute="leading" constant="10" id="DQg-nA-MUo"/>
+                                        <constraint firstItem="Vkr-Rx-1fq" firstAttribute="top" secondItem="rc0-qb-kDN" secondAttribute="top" constant="10" id="Rak-i4-u8i"/>
+                                        <constraint firstAttribute="trailing" secondItem="Vkr-Rx-1fq" secondAttribute="trailing" constant="10" id="fOR-ki-pcO"/>
+                                        <constraint firstAttribute="bottom" secondItem="Vkr-Rx-1fq" secondAttribute="bottom" constant="10" id="sVf-Pg-2Qg"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="title" destination="XKv-4q-hc7" id="WsR-41-yGj"/>
+                                    <outlet property="viewWithBorder" destination="tuX-R4-XgB" id="XVz-cz-6Lc"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

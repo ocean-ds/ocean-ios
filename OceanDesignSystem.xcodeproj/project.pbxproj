@@ -12,6 +12,7 @@
 		B71D65DF24CA04E700C3938C /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65DE24CA04E700C3938C /* UIView+Extensions.swift */; };
 		B71D65E224CA053500C3938C /* TokensBySubCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65E124CA053500C3938C /* TokensBySubCategories.swift */; };
 		B71D65E424CA14ED00C3938C /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65E324CA14ED00C3938C /* UILabel+Extensions.swift */; };
+		B71D65E724CA2A8200C3938C /* Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65E624CA2A8200C3938C /* Cells.swift */; };
 		B7A4015724BFE64B006712AA /* ocean_icon_accessibility_human.png in Resources */ = {isa = PBXBuildFile; fileRef = B7A4015624BFE493006712AA /* ocean_icon_accessibility_human.png */; };
 		B7A4FF7924BF8484006712AA /* ComponentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A4FF7824BF8484006712AA /* ComponentsViewController.swift */; };
 		B833D03524A6796100587FDE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D03424A6796100587FDE /* AppDelegate.swift */; };
@@ -48,6 +49,7 @@
 		B71D65DE24CA04E700C3938C /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		B71D65E124CA053500C3938C /* TokensBySubCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensBySubCategories.swift; sourceTree = "<group>"; };
 		B71D65E324CA14ED00C3938C /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
+		B71D65E624CA2A8200C3938C /* Cells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cells.swift; sourceTree = "<group>"; };
 		B7A4015624BFE493006712AA /* ocean_icon_accessibility_human.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ocean_icon_accessibility_human.png; sourceTree = "<group>"; };
 		B7A4FF7824BF8484006712AA /* ComponentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsViewController.swift; sourceTree = "<group>"; };
 		B833D03124A6796100587FDE /* OceanDesignSystem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OceanDesignSystem.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,6 +113,14 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		B71D65E524CA2A6900C3938C /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B71D65E624CA2A8200C3938C /* Cells.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		B833D02824A6796100587FDE = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +142,7 @@
 		B833D03324A6796100587FDE /* OceanDesignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				B71D65E524CA2A6900C3938C /* Cells */,
 				B71D65E024CA050B00C3938C /* Controllers */,
 				B71D65DD24CA04D300C3938C /* Extensions */,
 				B71D65DA24CA037500C3938C /* Models */,
@@ -287,6 +298,7 @@
 				B71D65E224CA053500C3938C /* TokensBySubCategories.swift in Sources */,
 				B7A4FF7924BF8484006712AA /* ComponentsViewController.swift in Sources */,
 				B833D03724A6796100587FDE /* SceneDelegate.swift in Sources */,
+				B71D65E724CA2A8200C3938C /* Cells.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

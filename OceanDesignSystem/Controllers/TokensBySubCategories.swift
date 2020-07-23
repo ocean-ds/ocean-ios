@@ -11,8 +11,9 @@ import UIKit
 import OceanTokens
 
 class TokensBySubCategoryViewController: UITableViewController {
-
-    var subCategoryType : SubCategoryTypograpyType!
+    var categoryType : CategoryType!
+    var subCategoryTypograpyType : SubCategoryTypograpyType!
+    var subCategorySizeType : SubCategorySizeType!
     
     //@IBOutlet weak var labelTest: UILabel!
     override func viewDidLoad() {
@@ -21,38 +22,54 @@ class TokensBySubCategoryViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let categoryCell = getCell(indexPath)
+        if (self.categoryType == CategoryType.Typography) {
+            let categoryCell = getCellSubCategoryTypograpy(indexPath)
+            return categoryCell
+        }
+        let categoryCell = getCellSubCategorySize(indexPath)
         return categoryCell
+        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch subCategoryType {
-        case .FontFamilyWithWeight:
-            return Typographies.fontFamilies.count
-        case .FontSize:
-            return Typographies.fontSizes.count
-        case .FontLineHeight:
-            return Typographies.lineHeights.count
-        
-        default:
-            return 0
+        if (self.categoryType == CategoryType.Typography) {
+            switch subCategoryTypograpyType {
+            case .FontFamilyWithWeight:
+                return Typographies.fontFamilies.count
+            case .FontSize:
+                return Typographies.fontSizes.count
+            case .FontLineHeight:
+                return Typographies.lineHeights.count
+            
+            default:
+                return 0
+            }
+        } else if (self.categoryType == CategoryType.Size) {
+            switch subCategorySizeType {
+            case .Border:
+                return Borders.list.count
+           
+            default:
+                return 0
+            }
         }
+        return 0;
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
+        if (self.categoryType == CategoryType.Size) {
+           return 120
+        }
         return 200
         
     }
 
-    func getCell(_ indexPath: IndexPath) -> UITableViewCell {
+    func getCellSubCategoryTypograpy(_ indexPath: IndexPath) -> UITableViewCell {
         
-        switch subCategoryType {
+        switch subCategoryTypograpyType {
         case .FontFamilyWithWeight:
 
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TypographyCell", for: indexPath) as! TypographyCell
-            //let typographies = Typographies.list()
-
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SubTypographyCell", for: indexPath) as! TypographyCell
             let fontFamilyKey = Typographies.fontFamiliesKeys()[indexPath.row]
             cell.title.text = fontFamilyKey
             cell.subTitle.text = Typographies.fontFamilies[fontFamilyKey]
@@ -60,7 +77,7 @@ class TokensBySubCategoryViewController: UITableViewController {
             
         case .FontSize:
 
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TypographyCell", for: indexPath) as! TypographyCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SubTypographyCell", for: indexPath) as! TypographyCell
             let fontSizeKey = Typographies.fontSizesKeys()[indexPath.row]
             cell.title.text = fontSizeKey
             cell.subTitle.text = String(Typographies.fontSizes[fontSizeKey]!)
@@ -69,9 +86,9 @@ class TokensBySubCategoryViewController: UITableViewController {
             return cell;
         case .FontLineHeight:
 
-                   let cell = tableView.dequeueReusableCell(withIdentifier: "TypographyCell", for: indexPath) as! TypographyCell
+                   let cell = tableView.dequeueReusableCell(withIdentifier: "SubTypographyCell", for: indexPath) as! TypographyCell
                    let fontLineHeightKey = Typographies.fontLineHeightsKeys()[indexPath.row]
-                   cell.title.text = fontLineHeightKey + " \(Typographies.lineHeights[fontLineHeightKey])"
+                   cell.title.text = fontLineHeightKey + " -  \(Typographies.lineHeights[fontLineHeightKey]!)"
                    cell.subTitle.text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard"
                    
                    cell.subTitle.setLineHeight(lineHeight: CGFloat(Typographies.lineHeights[fontLineHeightKey]!))
@@ -84,6 +101,29 @@ class TokensBySubCategoryViewController: UITableViewController {
         
         
     }
+    
+    func getCellSubCategorySize(_ indexPath: IndexPath) -> UITableViewCell {
+        
+        switch subCategorySizeType {
+        case .Border:
+
+            let cell = tableView.dequeueReusableCell(withIdentifier: "BorderCell", for: indexPath) as! BorderCell
+            let borderKey = Borders.keys()[indexPath.row]
+            cell.title.text = borderKey
+            let yourColor : UIColor = UIColor.lightGray
+            cell.viewWithBorder.layer.masksToBounds = true
+            cell.viewWithBorder.layer.borderColor = yourColor.cgColor
+            cell.viewWithBorder.layer.borderWidth = Borders.list[borderKey]!
+            
+            return cell;
+        
+        default:
+            return UITableViewCell()
+        }
+        
+        
+    }
+
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -107,11 +107,10 @@ struct Shadows {
 
 struct Colors {
     static func keys() -> [String] {
-        return Array((list().keys).sorted(by: <))
+        return Array((list.keys).sorted(by: <))
     }
     
-    static func list() -> [String:UIColor] {
-        return [
+    static let list = [
         "colorBrandPrimaryDeep" : #colorLiteral(red: 0.05490196, green: 0.14117648, blue: 0.56078434, alpha: 1.0),
         "colorBrandPrimaryDown" : #colorLiteral(red: 0.34509805, green: 0.44705883, blue: 0.9607843, alpha: 1.0),
         "colorBrandPrimaryPure" : #colorLiteral(red: 0.0, green: 0.14509805, blue: 0.8784314, alpha: 1.0),
@@ -142,5 +141,36 @@ struct Colors {
         "colorStatusPositivePure" : #colorLiteral(red: 0.23921569, green: 0.8, blue: 0.39215687, alpha: 1.0),
         "colorStatusPositiveUp" : #colorLiteral(red: 0.84313726, green: 0.98039216, blue: 0.8784314, alpha: 1.0)
         ]
-    }
+    
 }
+
+struct Sizes {
+    
+    static let subCategories = [
+        "Borders",
+        "Opacities",
+        "SpacesInline"
+    ]
+}
+
+struct Borders {
+    
+    static func keys() -> [String] {
+        return Array((list.keys).sorted(by: <))
+    }
+    
+    static let list = [
+        "borderRadiusCircular": Ocean.size.borderRadiusCircular,
+        "borderRadiusLg": Ocean.size.borderRadiusLg,
+        "borderRadiusMd": Ocean.size.borderRadiusMd,
+        "borderRadiusNone": Ocean.size.borderRadiusNone,
+        "borderRadiusPill": Ocean.size.borderRadiusPill,
+        "borderRadiusSm": Ocean.size.borderRadiusSm,
+        "borderWidthHairline": Ocean.size.borderWidthHairline,
+        "borderWidthHeavy": Ocean.size.borderWidthHeavy,
+        "borderWidthNone": Ocean.size.borderWidthNone,
+        "borderWidthThick": Ocean.size.borderWidthThick,
+        "borderWidthThin": Ocean.size.borderWidthThin
+    ]
+}
+
