@@ -12,6 +12,7 @@
 		B71D65E224CA053500C3938C /* TokensBySubCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65E124CA053500C3938C /* TokensBySubCategories.swift */; };
 		B71D65E724CA2A8200C3938C /* Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65E624CA2A8200C3938C /* Cells.swift */; };
 		B71D65EA24CA47C500C3938C /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65E924CA47C500C3938C /* Enums.swift */; };
+		B71D65FD24CA530000C3938C /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65FC24CA530000C3938C /* Components.swift */; };
 		B7A4015724BFE64B006712AA /* ocean_icon_accessibility_human.png in Resources */ = {isa = PBXBuildFile; fileRef = B7A4015624BFE493006712AA /* ocean_icon_accessibility_human.png */; };
 		B7A4FF7924BF8484006712AA /* ComponentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A4FF7824BF8484006712AA /* ComponentsViewController.swift */; };
 		B833D03524A6796100587FDE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D03424A6796100587FDE /* AppDelegate.swift */; };
@@ -48,6 +49,7 @@
 		B71D65E124CA053500C3938C /* TokensBySubCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensBySubCategories.swift; sourceTree = "<group>"; };
 		B71D65E624CA2A8200C3938C /* Cells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cells.swift; sourceTree = "<group>"; };
 		B71D65E924CA47C500C3938C /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		B71D65FC24CA530000C3938C /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		B7A4015624BFE493006712AA /* ocean_icon_accessibility_human.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ocean_icon_accessibility_human.png; sourceTree = "<group>"; };
 		B7A4FF7824BF8484006712AA /* ComponentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsViewController.swift; sourceTree = "<group>"; };
 		B833D03124A6796100587FDE /* OceanDesignSystem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OceanDesignSystem.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				B71D65DB24CA038B00C3938C /* Models.swift */,
+				B71D65FC24CA530000C3938C /* Components.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 				B71D65DC24CA038B00C3938C /* Models.swift in Sources */,
 				B71D65E224CA053500C3938C /* TokensBySubCategories.swift in Sources */,
 				B7A4FF7924BF8484006712AA /* ComponentsViewController.swift in Sources */,
+				B71D65FD24CA530000C3938C /* Components.swift in Sources */,
 				B833D03724A6796100587FDE /* SceneDelegate.swift in Sources */,
 				B71D65E724CA2A8200C3938C /* Cells.swift in Sources */,
 			);

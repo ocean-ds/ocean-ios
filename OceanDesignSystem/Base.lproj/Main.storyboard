@@ -82,13 +82,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="80" id="Psx-Wf-MTj">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="gray" indentationWidth="10" reuseIdentifier="ComponentsCell" rowHeight="80" id="pcj-DX-V9L" customClass="StandardCell" customModule="OceanDesignSystem" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Psx-Wf-MTj" id="Bmc-9r-Dg4">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pcj-DX-V9L" id="Y0Y-p2-8kq">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sbH-gL-Fh9">
+                                            <rect key="frame" x="10" y="10" width="394" height="60"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="sbH-gL-Fh9" firstAttribute="leading" secondItem="Y0Y-p2-8kq" secondAttribute="leading" constant="10" id="CNf-hJ-1mS"/>
+                                        <constraint firstItem="sbH-gL-Fh9" firstAttribute="top" secondItem="Y0Y-p2-8kq" secondAttribute="top" constant="10" id="IFh-Ke-yI1"/>
+                                        <constraint firstAttribute="bottom" secondItem="sbH-gL-Fh9" secondAttribute="bottom" constant="10" id="Wvc-ql-skZ"/>
+                                        <constraint firstAttribute="trailing" secondItem="sbH-gL-Fh9" secondAttribute="trailing" constant="10" id="mNQ-wK-Wph"/>
+                                        <constraint firstItem="sbH-gL-Fh9" firstAttribute="top" secondItem="Y0Y-p2-8kq" secondAttribute="top" constant="10" id="vQf-z9-sSc"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="title" destination="sbH-gL-Fh9" id="yWD-FK-VDf"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
