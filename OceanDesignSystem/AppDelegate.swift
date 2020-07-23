@@ -18,8 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Ocean.installFonts()
         
-        let imageTest = Ocean.icon.accessibilityHumanLg
-        print(imageTest)
         return true
     }
 }
