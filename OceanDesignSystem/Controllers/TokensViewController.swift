@@ -10,18 +10,6 @@ import UIKit
 import OceanTokens
 
 
-enum CategoryType: Int {
-    case Color
-    case Shadow
-    case Size
-    case Typography
-}
-
-
-
-class StandardCell: UITableViewCell {
-    @IBOutlet weak var title: UILabel!
-}
 
 
 class TokensViewController: UITableViewController {

@@ -10,18 +10,6 @@ import Foundation
 import UIKit
 import OceanTokens
 
-public enum SubCategoryTypograpyType: Int {
-    case FontFamilyWithWeight
-    case FontSize
-    case FontLineHeight
-}
-
-public enum SubCategorySizeType: Int {
-    case Border
-    case Opacity
-    case SpacingInline
-}
-
 
 
 class TokensByCategoryViewController: UITableViewController {
@@ -85,7 +73,7 @@ class TokensByCategoryViewController: UITableViewController {
             
             let shadowName = Shadows.keys()[indexPath.row]
             cell.title.text = shadowName
-            cell.colorRender.applyShadow2(parameters: shadows[shadowName]!)
+            cell.colorRender.applyShadow(parameters: shadows[shadowName]!)
             return cell;
         case .Typography:
             let cell = tableView.dequeueReusableCell(withIdentifier: "StandardCell", for: indexPath) as! StandardCell
