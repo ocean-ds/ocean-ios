@@ -30,3 +30,7 @@ class SpacesCell: UITableViewCell {
     @IBOutlet weak var viewRight: UIView!
     @IBOutlet weak var spaceSize: NSLayoutConstraint!
 }
+
+class StandardCell: UITableViewCell {
+    @IBOutlet weak var title: UILabel!
+}
