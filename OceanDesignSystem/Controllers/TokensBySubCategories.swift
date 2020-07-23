@@ -75,7 +75,9 @@ class TokensBySubCategoryViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SubTypographyCell", for: indexPath) as! TypographyCell
             let fontFamilyKey = Typographies.fontFamiliesKeys()[indexPath.row]
             cell.title.text = fontFamilyKey
+            
             cell.subTitle.text = Typographies.fontFamilies[fontFamilyKey]
+            cell.subTitle.font = UIFont(name: Typographies.fontFamilies[fontFamilyKey]!, size: 20.0)
             return cell;
             
         case .FontSize:
