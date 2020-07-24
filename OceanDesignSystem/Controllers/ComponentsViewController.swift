@@ -16,16 +16,11 @@ class ComponentsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        let heading1 = Heading { component in
+//        let heading1 = Heading() { component in
 //            component.itemTitle = "teste"
 //            component.add(view: Spacer(space: Ocean.size.spacingInsetMd))
 //        }
 //        self.add(view: heading1 )
-//        let heading1 = TitleDescription { component in
-//            component.itemTitle = title
-//            component.add(view: Spacer(space: Ocean.size.spacingInsetMd))
-//        }
-        //self.add(view: titleDescripition )
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
