@@ -34,3 +34,9 @@ class SpacesCell: UITableViewCell {
 class StandardCell: UITableViewCell {
     @IBOutlet weak var title: UILabel!
 }
+
+class RenderComponentCell: UITableViewCell {
+    //@IBOutlet weak var title: UILabel!
+    var title: UILabel!
+    var container: UIView!
+}

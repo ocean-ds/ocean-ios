@@ -27,3 +27,14 @@ public enum SubCategorySizeType: Int {
     case SpacingInline
 }
 
+public enum DesignSystemComponentsType: Int {
+    case Typography
+}
+
+public enum DesignSystemTypographyType: Int {
+    case Headings
+    case Subtitle
+    case Paragraph
+    case Description
+    case Caption
+}

@@ -12,30 +12,26 @@ import OceanComponents
 
 class ComponentsViewController: UITableViewController {
 
-    //var componentsTypeSelected : CategoryType!
+    var designSystemComponentsTypeSelected : DesignSystemComponentsType!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        let heading1 = Heading() { component in
-//            component.itemTitle = "teste"
-//            component.add(view: Spacer(space: Ocean.size.spacingInsetMd))
-//        }
-//        self.add(view: heading1 )
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "ComponentsCell", for: indexPath) as! StandardCell
-        let components = Components.list
+        let components = DSComponents.list
         cell.title.text = components[indexPath.row]
-    
+        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Components.list.count
+        return DSComponents.list.count
     }
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        //self.categoryTypeSelected = CategoryType.init(rawValue: indexPath.row)
+        self.designSystemComponentsTypeSelected = DesignSystemComponentsType.init(rawValue: indexPath.row)
         return indexPath
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -44,5 +40,12 @@ class ComponentsViewController: UITableViewController {
         
     }
 
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Create a variable that you want to send
+        
+        // Create a new variable to store the instance of PlayerTableViewController
+        let destinationVC = segue.destination as! HeadingsViewController
+        destinationVC.designSystemComponentsType = self.designSystemComponentsTypeSelected
+        
+    }
 }
