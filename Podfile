@@ -4,11 +4,11 @@
 target 'OceanDesignSystem' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-  #pod 'OceanTokens'
-  #pod 'OceanComponents', '0.2.1-beta'
-   pod 'OceanComponents', :path => './'
-   pod 'OceanTokens', :path => './'
-  # Pods for OceanDesignSystem
+  pod 'OceanTokens','2.0.0'
+  pod 'OceanComponents', '1.0.0'
+   #pod 'OceanComponents', :path => './'
+  # pod 'OceanTokens', :path => './'
+  
 
 post_install do |installer_representation|
     installer_representation.pods_project.targets.each do |target|
