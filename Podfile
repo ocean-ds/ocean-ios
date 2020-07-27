@@ -4,7 +4,7 @@
 target 'OceanDesignSystem' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-  pod 'OceanTokens','2.0.0'
+  pod 'OceanTokens','2.0.1'
   pod 'OceanComponents', '1.0.0'
    #pod 'OceanComponents', :path => './'
   # pod 'OceanTokens', :path => './'

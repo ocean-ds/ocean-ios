@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'OceanComponents'
-  s.version          = '1.0.0'
+  s.version          = '1.0.1'
   s.summary          = 'OceanComponents are components created by theo for use in Blu applications'
 
 # This description is used to generate tags and improve search results.
@@ -34,7 +34,7 @@ Project created with the objective use components created by OceanTokens.
   s.ios.deployment_target = '10.0'
   s.swift_versions = ['5.0']
   
-  s.dependency 'OceanTokens', '2.0.0'
+  s.dependency 'OceanTokens', '2.0.1'
 
   s.source_files = 'OceanComponents/Classes/**/*'
   s.info_plist = { 'CFBundleIdentifier' => 'br.com.blu.OceanComponents' }
