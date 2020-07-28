@@ -126,6 +126,15 @@ extension Ocean {
             }
             
         }
+        
+        public static func highlightedParagraph(builder: ((UILabel) -> Void)? = nil) -> UILabel {
+            return UILabel { label in
+                label.font = .baseBold(size: Ocean.font.fontSizeSm)
+                label.textColor = Ocean.color.colorInterfaceDarkPure
+                label.setLineHeight(lineHeight: Ocean.font.lineHeightComfy)
+                builder?( label )
+            }
+        }
 
         public static func description(builder: ((UILabel) -> Void)? = nil) -> UILabel {
             return UILabel { label in
@@ -143,6 +152,7 @@ extension Ocean {
             }
             
         }
+        
         
         public static func caption(builder: ((UILabel) -> Void)? = nil) -> UILabel {
             return UILabel { label in
