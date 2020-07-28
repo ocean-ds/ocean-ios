@@ -73,7 +73,19 @@ class TokensByCategoryViewController: UITableViewController {
             
             let shadowName = Shadows.keys()[indexPath.row]
             cell.title.text = shadowName
-            cell.colorRender.applyShadow(parameters: shadows[shadowName]!)
+            switch indexPath.row {
+            case 0:
+                cell.colorRender.ocean.shadow.applyLevel1()
+            case 1:
+                cell.colorRender.ocean.shadow.applyLevel2()
+            case 2:
+                cell.colorRender.ocean.shadow.applyLevel3()
+            case 3:
+                cell.colorRender.ocean.shadow.applyLevel4()
+            default:
+                return UITableViewCell()
+            }
+            //cell.colorRender.applyShadow(parameters: shadows[shadowName]!)
             return cell;
         case .Typography:
             let cell = tableView.dequeueReusableCell(withIdentifier: "StandardCell", for: indexPath) as! StandardCell

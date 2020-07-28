@@ -120,14 +120,44 @@ class TokensBySubCategoryViewController: UITableViewController {
             
             let yourColor : UIColor = UIColor.lightGray
             cell.viewWithBorder.layer.borderColor = yourColor.cgColor
+            cell.viewWithBorder.layer.cornerRadius = Ocean.size.borderRadiusNone
+            cell.viewWithBorder.layer.borderWidth = Ocean.size.borderWidthNone
     
             cell.contentView.backgroundColor = UIColor(red: 1.00, green: 0.72, blue: 0.70, alpha: 1.00)
             cell.constraintViewHeight.constant = 60
             cell.constraintViewWidth.constant = 60
+            
             if (borderKey.contains("Radius")) {
                 self.configBorderRadius(cell,radius: Borders.list[borderKey]! )
             } else {
                 self.configBorderSize(cell, size: Borders.list[borderKey]!)
+            }
+            
+            switch indexPath.row {
+            case 0:
+                cell.viewWithBorder.ocean.radius.applyCircular()
+            case 1:
+                cell.viewWithBorder.ocean.radius.applyLg()
+            case 2:
+                cell.viewWithBorder.ocean.radius.applyMd()
+            case 3:
+                cell.viewWithBorder.ocean.radius.applyNone()
+            case 4:
+                cell.viewWithBorder.ocean.radius.applyPill()
+            case 5:
+                cell.viewWithBorder.ocean.radius.applySm()
+            case 6:
+                cell.viewWithBorder.ocean.borderWidth.applyHairline()
+            case 7:
+                cell.viewWithBorder.ocean.borderWidth.applyHeavy()
+            case 8:
+                cell.viewWithBorder.ocean.borderWidth.applyNone()
+            case 9:
+                cell.viewWithBorder.ocean.borderWidth.applyThick()
+            case 10:
+                cell.viewWithBorder.ocean.borderWidth.applyThin()
+            default:
+                return UITableViewCell()
             }
             return cell;
         case .Opacity:
@@ -135,7 +165,8 @@ class TokensBySubCategoryViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "BorderCell", for: indexPath) as! BorderCell
             let opacityKey = Opacities.keys()[indexPath.row]
             cell.title.text = opacityKey
-            cell.viewWithBorder.backgroundColor = UIColor.black.withAlphaComponent(Opacities.list[opacityKey]!)
+            cell.viewWithBorder.backgroundColor = UIColor.black
+            cell.viewWithBorder.backgroundColor = cell.viewWithBorder.backgroundColor?.withAlphaComponent(Opacities.list[opacityKey]!)
             return cell;
         case .SpacingInline:
             
@@ -150,11 +181,7 @@ class TokensBySubCategoryViewController: UITableViewController {
         default:
             return UITableViewCell()
         }
-        
-        
     }
-    
-    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -165,14 +192,13 @@ class TokensBySubCategoryViewController: UITableViewController {
         if (radius >= Ocean.size.borderRadiusPill) {
             cell.constraintViewWidth.constant = 60 * 3
         }
-        cell.viewWithBorder.applyRadius(radius: radius)
-        cell.viewWithBorder.layer.borderWidth = Ocean.size.borderWidthThin
+        //cell.viewWithBorder.applyRadius(radius: radius)
     }
     
     private func configBorderSize(_ cell:BorderCell, size: CGFloat) {
-        cell.viewWithBorder.layer.cornerRadius = Ocean.size.borderRadiusNone
-        cell.viewWithBorder.layer.borderWidth = size
         cell.constraintViewHeight.constant = 60
         cell.constraintViewWidth.constant = 60
+        //cell.viewWithBorder.layer.borderWidth = size
     }
 }
+

@@ -25,3 +25,7 @@ extension UIView {
           }
     }
 }
+
+extension UIView {
+    public var ocean: OceanStyle { OceanStyle(view: self) }
+}
