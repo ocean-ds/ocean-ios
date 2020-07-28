@@ -12,7 +12,8 @@ import OceanTokens
 
 struct DSComponents {
     static let list = [
-        "Typography"
+        "Typography",
+        "Button"
     ]
 }
 
@@ -23,6 +24,16 @@ struct DSTypographies {
         "Paragraph",
         "Description",
         "Caption"
+    ]
+}
+
+struct DSButtons {
+    static let list = [
+        "Primary",
+        "Secundary",
+        "Text",
+        "PrimaryInverse",
+        "PrimaryBlocked"
     ]
 }
 
@@ -118,11 +129,11 @@ struct Paragraph {
 
 struct Description {
     
-    static let description = Ocean.Typography.paragraph { label in
-        label.text = "Paragraph"
+    static let description = Ocean.Typography.description { label in
+        label.text = "Description"
     }
-    static let descriptionInverse = Ocean.Typography.paragraphInverse { label in
-        label.text = "ParagraphInverse"
+    static let descriptionInverse = Ocean.Typography.descriptionInverse { label in
+        label.text = "DescriptionInverse"
         label.backgroundColor = UIColor.blue
     }
     

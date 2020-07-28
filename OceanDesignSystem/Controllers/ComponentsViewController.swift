@@ -44,7 +44,7 @@ class ComponentsViewController: UITableViewController {
         // Create a variable that you want to send
         
         // Create a new variable to store the instance of PlayerTableViewController
-        let destinationVC = segue.destination as! HeadingsViewController
+        let destinationVC = segue.destination as! ComponentTypeViewController
         destinationVC.designSystemComponentsType = self.designSystemComponentsTypeSelected
         
     }

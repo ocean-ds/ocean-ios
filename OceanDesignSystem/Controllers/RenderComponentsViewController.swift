@@ -16,6 +16,7 @@ class RenderComponentsViewController: UITableViewController {
     
     var designSystemComponentsType : DesignSystemComponentsType!
     var designSystemTypographyType : DesignSystemTypographyType!
+    var designSystemButtonType : DesignSystemButtonType!
     
     override func viewDidLoad() {
         super.viewDidLoad()

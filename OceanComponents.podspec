@@ -34,7 +34,7 @@ Project created with the objective use components created by OceanTokens.
   s.ios.deployment_target = '10.0'
   s.swift_versions = ['5.0']
   
-  s.dependency 'OceanTokens', '2.0.1'
+  s.dependency 'OceanTokens'
 
   s.source_files = 'OceanComponents/Classes/**/*'
   s.info_plist = { 'CFBundleIdentifier' => 'br.com.blu.OceanComponents' }

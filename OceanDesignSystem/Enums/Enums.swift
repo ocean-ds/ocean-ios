@@ -29,6 +29,7 @@ public enum SubCategorySizeType: Int {
 
 public enum DesignSystemComponentsType: Int {
     case Typography
+    case Button
 }
 
 public enum DesignSystemTypographyType: Int {
@@ -37,4 +38,12 @@ public enum DesignSystemTypographyType: Int {
     case Paragraph
     case Description
     case Caption
+}
+
+public enum DesignSystemButtonType: Int {
+    case ButtonPrimary
+    case ButtonSecundary
+    case ButtonText
+    case ButtonInverse
+    case ButtonBlocked
 }
