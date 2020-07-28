@@ -126,21 +126,27 @@ class TokensBySubCategoryViewController: UITableViewController {
             cell.constraintViewHeight.constant = 60
             cell.constraintViewWidth.constant = 60
             if (borderKey.contains("Radius")) {
-                if (Borders.list[borderKey]!.isInteger == false) {
-                    cell.viewWithBorder.layer.cornerRadius = cell.viewWithBorder.bounds.height / 2
-                } else {
-                    cell.viewWithBorder.layer.cornerRadius = Borders.list[borderKey]!
-                    if (cell.viewWithBorder.layer.cornerRadius >= Ocean.size.borderRadiusPill) {
-                        cell.constraintViewWidth.constant = 60 * 3
-                        cell.viewWithBorder.layer.cornerRadius = Ocean.size.borderRadiusCircular * cell.viewWithBorder.bounds.height
-                    }
+                if (Borders.list[borderKey]! >= Ocean.size.borderRadiusPill) {
+                    cell.constraintViewWidth.constant = 60 * 3
                 }
-                  //Borders.list[borderKey]!
+                cell.viewWithBorder.applyRadius(radius: Borders.list[borderKey]!)
+                
+//                if (Borders.list[borderKey]!.isInteger == false) {
+//                    cell.viewWithBorder.layer.cornerRadius = cell.viewWithBorder.bounds.height / 2
+//                } else {
+//                    cell.viewWithBorder.layer.cornerRadius = Borders.list[borderKey]!
+//                    if (cell.viewWithBorder.layer.cornerRadius >= Ocean.size.borderRadiusPill) {
+//                        cell.constraintViewWidth.constant = 60 * 3
+//                        cell.viewWithBorder.layer.cornerRadius = Ocean.size.borderRadiusCircular * cell.viewWithBorder.bounds.height
+//                    }
+//                }
+                  
                 cell.viewWithBorder.layer.borderWidth = Ocean.size.borderWidthThin
             } else {
                 cell.viewWithBorder.layer.cornerRadius = Ocean.size.borderRadiusNone
-                cell.viewWithBorder.layer.masksToBounds = true
                 cell.viewWithBorder.layer.borderWidth = Borders.list[borderKey]!
+                cell.constraintViewHeight.constant = 60
+                cell.constraintViewWidth.constant = 60
             }
             
             
@@ -179,8 +185,3 @@ class TokensBySubCategoryViewController: UITableViewController {
     
    
 }
-
-extension FloatingPoint {
-  var isInteger: Bool { rounded() == self }
-}
-
