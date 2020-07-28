@@ -102,3 +102,4 @@ OceanTokens/Resources/Fonts/*/*.woff2
 Payload/
 
 vendor
+*.cer

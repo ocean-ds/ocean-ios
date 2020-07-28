@@ -24,9 +24,6 @@
 		B833D03C24A6796100587FDE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B833D03A24A6796100587FDE /* Main.storyboard */; };
 		B833D03E24A6796300587FDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B833D03D24A6796300587FDE /* Assets.xcassets */; };
 		B833D04124A6796300587FDE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B833D03F24A6796300587FDE /* LaunchScreen.storyboard */; };
-		B8C97A4524B7C78400DC7C56 /* iTunesArtwork@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8C97A4224B7C78400DC7C56 /* iTunesArtwork@1x.png */; };
-		B8C97A4624B7C78400DC7C56 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8C97A4324B7C78400DC7C56 /* iTunesArtwork@2x.png */; };
-		B8C97A4724B7C78400DC7C56 /* iTunesArtwork@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8C97A4424B7C78400DC7C56 /* iTunesArtwork@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -64,9 +61,6 @@
 		B833D03D24A6796300587FDE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B833D04024A6796300587FDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B833D04224A6796300587FDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B8C97A4224B7C78400DC7C56 /* iTunesArtwork@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@1x.png"; sourceTree = "<group>"; };
-		B8C97A4324B7C78400DC7C56 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
-		B8C97A4424B7C78400DC7C56 /* iTunesArtwork@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@3x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,9 +145,6 @@
 				B7A4015624BFE493006712AA /* ocean_icon_accessibility_human.png */,
 				B833D03F24A6796300587FDE /* LaunchScreen.storyboard */,
 				B833D04224A6796300587FDE /* Info.plist */,
-				B8C97A4224B7C78400DC7C56 /* iTunesArtwork@1x.png */,
-				B8C97A4324B7C78400DC7C56 /* iTunesArtwork@2x.png */,
-				B8C97A4424B7C78400DC7C56 /* iTunesArtwork@3x.png */,
 			);
 			path = OceanDesignSystem;
 			sourceTree = "<group>";
@@ -237,10 +228,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B833D04124A6796300587FDE /* LaunchScreen.storyboard in Resources */,
-				B8C97A4624B7C78400DC7C56 /* iTunesArtwork@2x.png in Resources */,
 				B833D03E24A6796300587FDE /* Assets.xcassets in Resources */,
-				B8C97A4524B7C78400DC7C56 /* iTunesArtwork@1x.png in Resources */,
-				B8C97A4724B7C78400DC7C56 /* iTunesArtwork@3x.png in Resources */,
 				B7A4015724BFE64B006712AA /* ocean_icon_accessibility_human.png in Resources */,
 				B833D03C24A6796100587FDE /* Main.storyboard in Resources */,
 			);
@@ -453,7 +441,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 14;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 57KSFR5UHN;
 				INFOPLIST_FILE = OceanDesignSystem/Info.plist;
@@ -477,7 +465,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 14;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 57KSFR5UHN;
 				INFOPLIST_FILE = OceanDesignSystem/Info.plist;
