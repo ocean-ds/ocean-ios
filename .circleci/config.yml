@@ -12,10 +12,10 @@ commands:
     steps:
       - run: bundle exec fastlane beta_testflight
 
-  # deploy_app:
-  #   description: "Build the application before tests"
-  #   steps:
-  #     - run: bundle exec fastlane beta_diawi
+  deploy_app:
+    description: "Build the application before tests"
+    steps:
+      - run: bundle exec fastlane beta_diawi
 
   config_workspace:
     description: "Install or Restore configurations"
