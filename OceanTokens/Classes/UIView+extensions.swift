@@ -9,14 +9,13 @@
 import Foundation
 import UIKit
 
+
 extension UIView {
     public func applyRadius(radius: CGFloat){
       
-          self.layer.masksToBounds = true
-          self.clipsToBounds = true
           self.layer.borderWidth = Ocean.size.borderWidthThin
           if (radius.isInteger == false) {
-              self.layer.cornerRadius = self.bounds.height / 2
+              self.layer.cornerRadius = self.bounds.height * radius
           } else {
               if (radius >= Ocean.size.borderRadiusPill) {
                   self.layer.cornerRadius = Ocean.size.borderRadiusCircular * self.bounds.height

@@ -20,4 +20,10 @@ extension UIFont {
     static func baseRegular(size: CGFloat) -> UIFont? {
         return UIFont(name: Ocean.font.fontFamilyBaseWeightRegular, size: size)
     }
+    
+    static func baseBold(size: CGFloat) -> UIFont? {
+        return UIFont(name: Ocean.font.fontFamilyBaseWeightBold, size: size)
+    }
+    
+    
 }

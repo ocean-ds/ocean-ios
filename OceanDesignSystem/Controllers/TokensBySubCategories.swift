@@ -41,7 +41,7 @@ class TokensBySubCategoryViewController: UITableViewController {
                 return Typographies.fontSizes.count
             case .FontLineHeight:
                 return Typographies.lineHeights.count
-            
+                
             default:
                 return 0
             }
@@ -62,17 +62,17 @@ class TokensBySubCategoryViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if (self.categoryType == CategoryType.Size) {
-           return 120
+            return 120
         }
         return 200
         
     }
-
+    
     func getCellSubCategoryTypograpy(_ indexPath: IndexPath) -> UITableViewCell {
         
         switch subCategoryTypograpyType {
         case .FontFamilyWithWeight:
-
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "SubTypographyCell", for: indexPath) as! TypographyCell
             let fontFamilyKey = Typographies.fontFamiliesKeys()[indexPath.row]
             cell.title.text = fontFamilyKey
@@ -82,26 +82,26 @@ class TokensBySubCategoryViewController: UITableViewController {
             return cell;
             
         case .FontSize:
-
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "SubTypographyCell", for: indexPath) as! TypographyCell
             let fontSizeKey = Typographies.fontSizesKeys()[indexPath.row]
             cell.title.text = fontSizeKey
             cell.subTitle.text =
-                "\(Typographies.fontSizes[fontSizeKey]!)"
+            "\(Typographies.fontSizes[fontSizeKey]!)"
             cell.subTitle.font = UIFont(name: Ocean.font.fontFamilyBaseWeightLight, size: CGFloat(Typographies.fontSizes[fontSizeKey]!))
             
             return cell;
         case .FontLineHeight:
-
-                   let cell = tableView.dequeueReusableCell(withIdentifier: "SubTypographyCell", for: indexPath) as! TypographyCell
-                   let fontLineHeightKey = Typographies.fontLineHeightsKeys()[indexPath.row]
-                   cell.title.text = fontLineHeightKey + " -  \(Typographies.lineHeights[fontLineHeightKey]!)"
-                   cell.subTitle.text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard"
-                   
-                   cell.subTitle.setLineHeight(lineHeight: CGFloat(Typographies.lineHeights[fontLineHeightKey]!))
-                   
-                   
-                   return cell;
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SubTypographyCell", for: indexPath) as! TypographyCell
+            let fontLineHeightKey = Typographies.fontLineHeightsKeys()[indexPath.row]
+            cell.title.text = fontLineHeightKey + " -  \(Typographies.lineHeights[fontLineHeightKey]!)"
+            cell.subTitle.text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard"
+            
+            cell.subTitle.setLineHeight(lineHeight: CGFloat(Typographies.lineHeights[fontLineHeightKey]!))
+            
+            
+            return cell;
         default:
             return UITableViewCell()
         }
@@ -113,69 +113,47 @@ class TokensBySubCategoryViewController: UITableViewController {
         
         switch subCategorySizeType {
         case .Border:
-
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "BorderCell", for: indexPath) as! BorderCell
             let borderKey = Borders.keys()[indexPath.row]
             cell.title.text = borderKey
             
             let yourColor : UIColor = UIColor.lightGray
             cell.viewWithBorder.layer.borderColor = yourColor.cgColor
-            cell.viewWithBorder.layer.masksToBounds = true
-            cell.viewWithBorder.clipsToBounds = true
+    
             cell.contentView.backgroundColor = UIColor(red: 1.00, green: 0.72, blue: 0.70, alpha: 1.00)
             cell.constraintViewHeight.constant = 60
             cell.constraintViewWidth.constant = 60
             if (borderKey.contains("Radius")) {
-                if (Borders.list[borderKey]! >= Ocean.size.borderRadiusPill) {
-                    cell.constraintViewWidth.constant = 60 * 3
-                }
-                cell.viewWithBorder.applyRadius(radius: Borders.list[borderKey]!)
-                
-//                if (Borders.list[borderKey]!.isInteger == false) {
-//                    cell.viewWithBorder.layer.cornerRadius = cell.viewWithBorder.bounds.height / 2
-//                } else {
-//                    cell.viewWithBorder.layer.cornerRadius = Borders.list[borderKey]!
-//                    if (cell.viewWithBorder.layer.cornerRadius >= Ocean.size.borderRadiusPill) {
-//                        cell.constraintViewWidth.constant = 60 * 3
-//                        cell.viewWithBorder.layer.cornerRadius = Ocean.size.borderRadiusCircular * cell.viewWithBorder.bounds.height
-//                    }
-//                }
-                  
-                cell.viewWithBorder.layer.borderWidth = Ocean.size.borderWidthThin
+                self.configBorderRadius(cell,radius: Borders.list[borderKey]! )
             } else {
-                cell.viewWithBorder.layer.cornerRadius = Ocean.size.borderRadiusNone
-                cell.viewWithBorder.layer.borderWidth = Borders.list[borderKey]!
-                cell.constraintViewHeight.constant = 60
-                cell.constraintViewWidth.constant = 60
+                self.configBorderSize(cell, size: Borders.list[borderKey]!)
             }
-            
-            
-            
             return cell;
         case .Opacity:
-
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "BorderCell", for: indexPath) as! BorderCell
             let opacityKey = Opacities.keys()[indexPath.row]
             cell.title.text = opacityKey
             cell.viewWithBorder.backgroundColor = UIColor.black.withAlphaComponent(Opacities.list[opacityKey]!)
             return cell;
         case .SpacingInline:
-
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "SpacesCell", for: indexPath) as! SpacesCell
             let spaceKey = Spaces.keys()[indexPath.row]
             cell.contentView.backgroundColor = UIColor(red: 1.00, green: 0.72, blue: 0.70, alpha: 1.00)
             cell.title.text = spaceKey
             cell.spaceSize.constant = Spaces.list[spaceKey]!
             
-        return cell;
-        
+            return cell;
+            
         default:
             return UITableViewCell()
         }
         
         
     }
-
+    
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -183,5 +161,18 @@ class TokensBySubCategoryViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-   
+    private func configBorderRadius(_ cell:BorderCell, radius: CGFloat) {
+        if (radius >= Ocean.size.borderRadiusPill) {
+            cell.constraintViewWidth.constant = 60 * 3
+        }
+        cell.viewWithBorder.applyRadius(radius: radius)
+        cell.viewWithBorder.layer.borderWidth = Ocean.size.borderWidthThin
+    }
+    
+    private func configBorderSize(_ cell:BorderCell, size: CGFloat) {
+        cell.viewWithBorder.layer.cornerRadius = Ocean.size.borderRadiusNone
+        cell.viewWithBorder.layer.borderWidth = size
+        cell.constraintViewHeight.constant = 60
+        cell.constraintViewWidth.constant = 60
+    }
 }
