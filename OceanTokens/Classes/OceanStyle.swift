@@ -12,6 +12,7 @@ import UIKit
 public struct OceanStyle {
     public struct OceanRadius {
         private let view: UIView
+        
         init(view: UIView) {
             self.view = view
         }
@@ -27,12 +28,15 @@ public struct OceanStyle {
         public func applyMd() {
             self.view.layer.cornerRadius = Ocean.size.borderRadiusMd
         }
+        
         public func applyPill() {
             self.view.layer.cornerRadius = Ocean.size.borderRadiusCircular * self.view.bounds.height
         }
+        
         public func applyNone() {
             self.view.layer.cornerRadius = 0
         }
+        
         public func applySm() {
             self.view.layer.cornerRadius = Ocean.size.borderRadiusSm
         }
@@ -40,6 +44,7 @@ public struct OceanStyle {
     
     public struct OceanBorderWidth {
         private let view: UIView
+        
         init(view: UIView) {
             self.view = view
         }
@@ -61,6 +66,7 @@ public struct OceanStyle {
     }
     public struct OceanOpacity {
         private let view: UIView
+        
         init(view: UIView) {
             self.view = view
         }
@@ -68,18 +74,23 @@ public struct OceanStyle {
     
     public struct OceanShadow {
         private let view: UIView
+        
         init(view: UIView) {
             self.view = view
         }
+        
         public func applyLevel1() {
             self.view.applyShadow(parameters: Ocean.shadow.shadowLevel1)
         }
+        
         public func applyLevel2() {
             self.view.applyShadow(parameters: Ocean.shadow.shadowLevel2)
         }
+        
         public func applyLevel3() {
             self.view.applyShadow(parameters: Ocean.shadow.shadowLevel3)
         }
+        
         public func applyLevel4() {
             self.view.applyShadow(parameters: Ocean.shadow.shadowLevel4)
         }
@@ -92,6 +103,3 @@ public struct OceanStyle {
     public var shadow: OceanShadow { OceanShadow(view: self.view) }
     public var borderWidth: OceanBorderWidth { OceanBorderWidth(view: self.view) }
 }
-
-
-
