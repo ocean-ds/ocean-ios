@@ -117,10 +117,33 @@ class TokensBySubCategoryViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "BorderCell", for: indexPath) as! BorderCell
             let borderKey = Borders.keys()[indexPath.row]
             cell.title.text = borderKey
+            
             let yourColor : UIColor = UIColor.lightGray
-            cell.viewWithBorder.layer.masksToBounds = true
             cell.viewWithBorder.layer.borderColor = yourColor.cgColor
-            cell.viewWithBorder.layer.borderWidth = Borders.list[borderKey]!
+            cell.viewWithBorder.layer.masksToBounds = true
+            cell.viewWithBorder.clipsToBounds = true
+            cell.contentView.backgroundColor = UIColor(red: 1.00, green: 0.72, blue: 0.70, alpha: 1.00)
+            cell.constraintViewHeight.constant = 60
+            cell.constraintViewWidth.constant = 60
+            if (borderKey.contains("Radius")) {
+                if (Borders.list[borderKey]!.isInteger == false) {
+                    cell.viewWithBorder.layer.cornerRadius = cell.viewWithBorder.bounds.height / 2
+                } else {
+                    cell.viewWithBorder.layer.cornerRadius = Borders.list[borderKey]!
+                    if (cell.viewWithBorder.layer.cornerRadius >= Ocean.size.borderRadiusPill) {
+                        cell.constraintViewWidth.constant = 60 * 3
+                        cell.viewWithBorder.layer.cornerRadius = Ocean.size.borderRadiusCircular * cell.viewWithBorder.bounds.height
+                    }
+                }
+                  //Borders.list[borderKey]!
+                cell.viewWithBorder.layer.borderWidth = Ocean.size.borderWidthThin
+            } else {
+                cell.viewWithBorder.layer.cornerRadius = Ocean.size.borderRadiusNone
+                cell.viewWithBorder.layer.masksToBounds = true
+                cell.viewWithBorder.layer.borderWidth = Borders.list[borderKey]!
+            }
+            
+            
             
             return cell;
         case .Opacity:
@@ -134,6 +157,7 @@ class TokensBySubCategoryViewController: UITableViewController {
 
             let cell = tableView.dequeueReusableCell(withIdentifier: "SpacesCell", for: indexPath) as! SpacesCell
             let spaceKey = Spaces.keys()[indexPath.row]
+            cell.contentView.backgroundColor = UIColor(red: 1.00, green: 0.72, blue: 0.70, alpha: 1.00)
             cell.title.text = spaceKey
             cell.spaceSize.constant = Spaces.list[spaceKey]!
             
@@ -156,4 +180,7 @@ class TokensBySubCategoryViewController: UITableViewController {
    
 }
 
+extension FloatingPoint {
+  var isInteger: Bool { rounded() == self }
+}
 

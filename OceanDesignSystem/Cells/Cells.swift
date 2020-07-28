@@ -22,6 +22,8 @@ class TypographyCell: UITableViewCell {
 class BorderCell: UITableViewCell {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var viewWithBorder: UIView!
+    @IBOutlet weak var constraintViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var constraintViewWidth: NSLayoutConstraint!
 }
 
 class SpacesCell: UITableViewCell {

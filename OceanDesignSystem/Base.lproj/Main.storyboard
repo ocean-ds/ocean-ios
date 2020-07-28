@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JZg-yn-Kg0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JZg-yn-Kg0">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -318,33 +318,33 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="Vkr-Rx-1fq">
-                                            <rect key="frame" x="10" y="10" width="394" height="100"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XKv-4q-hc7">
-                                                    <rect key="frame" x="0.0" y="0.0" width="394" height="24"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                    <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tuX-R4-XgB">
-                                                    <rect key="frame" x="0.0" y="31" width="394" height="69"/>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                </view>
-                                            </subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XKv-4q-hc7">
+                                            <rect key="frame" x="10" y="10" width="38" height="30"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tuX-R4-XgB">
+                                            <rect key="frame" x="177" y="50" width="60" height="60"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <constraints>
-                                                <constraint firstItem="XKv-4q-hc7" firstAttribute="top" secondItem="Vkr-Rx-1fq" secondAttribute="top" id="7uM-H5-aZt"/>
+                                                <constraint firstAttribute="height" constant="60" id="ciL-Wd-wdV"/>
+                                                <constraint firstAttribute="width" constant="60" id="jmc-1k-GrS"/>
                                             </constraints>
-                                        </stackView>
+                                        </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="Vkr-Rx-1fq" firstAttribute="leading" secondItem="rc0-qb-kDN" secondAttribute="leading" constant="10" id="DQg-nA-MUo"/>
-                                        <constraint firstItem="Vkr-Rx-1fq" firstAttribute="top" secondItem="rc0-qb-kDN" secondAttribute="top" constant="10" id="Rak-i4-u8i"/>
-                                        <constraint firstAttribute="trailing" secondItem="Vkr-Rx-1fq" secondAttribute="trailing" constant="10" id="fOR-ki-pcO"/>
-                                        <constraint firstAttribute="bottom" secondItem="Vkr-Rx-1fq" secondAttribute="bottom" constant="10" id="sVf-Pg-2Qg"/>
+                                        <constraint firstItem="tuX-R4-XgB" firstAttribute="top" secondItem="XKv-4q-hc7" secondAttribute="bottom" constant="10" id="0Ho-Cd-8lV"/>
+                                        <constraint firstItem="XKv-4q-hc7" firstAttribute="top" secondItem="rc0-qb-kDN" secondAttribute="top" constant="10" id="OFK-qa-qD8"/>
+                                        <constraint firstAttribute="bottom" secondItem="tuX-R4-XgB" secondAttribute="bottom" constant="10" id="T0R-K8-1dV"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="XKv-4q-hc7" secondAttribute="trailing" constant="20" symbolic="YES" id="X3F-Lp-nO5"/>
+                                        <constraint firstItem="XKv-4q-hc7" firstAttribute="leading" secondItem="rc0-qb-kDN" secondAttribute="leading" constant="10" id="XFa-TC-kws"/>
+                                        <constraint firstItem="tuX-R4-XgB" firstAttribute="centerX" secondItem="rc0-qb-kDN" secondAttribute="centerX" id="lpj-Co-xRs"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="constraintViewHeight" destination="ciL-Wd-wdV" id="iEb-tk-W4s"/>
+                                    <outlet property="constraintViewWidth" destination="jmc-1k-GrS" id="pTY-ap-CGO"/>
                                     <outlet property="title" destination="XKv-4q-hc7" id="WsR-41-yGj"/>
                                     <outlet property="viewWithBorder" destination="tuX-R4-XgB" id="XVz-cz-6Lc"/>
                                 </connections>
@@ -404,16 +404,16 @@
             </objects>
             <point key="canvasLocation" x="2902.898550724638" y="-29.464285714285712"/>
         </scene>
-        <!--Headings View Controller-->
+        <!--Component Type View Controller-->
         <scene sceneID="soR-hX-F0M">
             <objects>
-                <tableViewController id="CbQ-Zt-QpH" customClass="HeadingsViewController" customModule="OceanDesignSystem" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="CbQ-Zt-QpH" customClass="ComponentTypeViewController" customModule="OceanDesignSystem" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="5uN-jL-tVf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="gray" indentationWidth="10" reuseIdentifier="TypographyComponentsCell" rowHeight="80" id="i79-a7-o0l" customClass="StandardCell" customModule="OceanDesignSystem" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="gray" indentationWidth="10" reuseIdentifier="ComponentTypeCell" rowHeight="80" id="i79-a7-o0l" customClass="StandardCell" customModule="OceanDesignSystem" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="i79-a7-o0l" id="XVc-cL-eth">
