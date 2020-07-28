@@ -59,13 +59,13 @@ jobs:
       - config_workspace
       - release_app
 
-  # deploy-app:
-  #   macos:
-  #     xcode: 11.4.1 # Specify the Xcode version to use
-  #   steps:
-  #     - checkout
-  #     - config_workspace
-  #     - deploy_app
+  deploy-app:
+    macos:
+      xcode: 11.4.1 # Specify the Xcode version to use
+    steps:
+      - checkout
+      - config_workspace
+      - deploy_app
 
   deploy-ocean-tokens:
     macos:
