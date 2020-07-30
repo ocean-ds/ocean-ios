@@ -28,9 +28,37 @@ class BorderCell: UITableViewCell {
 
 class SpacesCell: UITableViewCell {
     @IBOutlet weak var title: UILabel!
-    @IBOutlet weak var viewLeft: UIView!
-    @IBOutlet weak var viewRight: UIView!
+    @IBOutlet weak var viewLeftTop: UIView!
+    @IBOutlet weak var viewRightTop: UIView!
+    @IBOutlet weak var viewLeftBottom: UIView!
+    @IBOutlet weak var viewRightBottom: UIView!
+    @IBOutlet var views: [UIView]!
+    @IBOutlet weak var viewContainer: UIView!
     @IBOutlet weak var spaceSize: NSLayoutConstraint!
+    @IBOutlet var spacesInset: [NSLayoutConstraint]!
+    @IBOutlet var spacesInline: [NSLayoutConstraint]!
+    @IBOutlet var spacesStack: [NSLayoutConstraint]!
+}
+
+class StackSpacesCell: UITableViewCell {
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var viewStackRender: UIView!
+    @IBOutlet weak var stackSize: NSLayoutConstraint!
+    
+}
+
+class InsetSpacesCell: UITableViewCell {
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var viewStackRender: UIView!
+    @IBOutlet var insetSizes: [NSLayoutConstraint]!
+    
+}
+
+class InlineSpacesCell: UITableViewCell {
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var viewStackRender: UIView!
+    @IBOutlet weak var inlineSize: NSLayoutConstraint!
+    
 }
 
 class StandardCell: UITableViewCell {

@@ -49,7 +49,6 @@ class TokensByCategoryViewController: UITableViewController {
         case .Typography, .Size:
         
             return 60
-            
         default:
             return 200
         }
