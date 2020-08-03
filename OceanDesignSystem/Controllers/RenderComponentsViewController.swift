@@ -32,7 +32,7 @@ class RenderComponentsViewController: UITableViewController {
         cell.contentView.addSubview(cell.title)
     }
     
-    fileprivate func configButtonComponentCell(_ tableView: UITableView, _ indexPath: IndexPath, _ cell: ButtonComponentCell, _ list: [Ocean.OceanButton]) {
+    fileprivate func configButtonComponentCell(_ tableView: UITableView, _ indexPath: IndexPath, _ cell: ButtonComponentCell, _ list: [Ocean.ButtonPrimary]) {
         
         let buttonComponent = list[indexPath.row]
         buttonComponent.isLoading = false

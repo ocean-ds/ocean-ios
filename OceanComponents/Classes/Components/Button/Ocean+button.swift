@@ -10,53 +10,53 @@ import UIKit
 import OceanTokens
 
 extension Ocean {
-    public typealias ButtonBuilder = (OceanButton) -> Void
+    public typealias ButtonBuilder = (ButtonPrimary) -> Void
     
     
     public struct Button {
         
-        public static func primarySM(builder:ButtonBuilder) -> OceanButton {
-            return OceanButton { button in
+        public static func primarySM(builder:ButtonBuilder) -> ButtonPrimary {
+            return ButtonPrimary { button in
                 button.size = .small
                 button.buttonType = .primary
                 builder( button )
             }
         }
         
-        public static func primaryMD(builder:ButtonBuilder) -> OceanButton {
-                   return OceanButton { button in
+        public static func primaryMD(builder:ButtonBuilder) -> ButtonPrimary {
+                   return ButtonPrimary { button in
                        button.size = .medium
                        button.buttonType = .primary
                         builder( button )
                    }
                }
         
-        public static func primaryLG(builder:ButtonBuilder) -> OceanButton {
-            return OceanButton { button in
+        public static func primaryLG(builder:ButtonBuilder) -> ButtonPrimary {
+            return ButtonPrimary { button in
                 button.size = .large
                 button.buttonType = .primary
                 builder( button )
             }
         }
         
-        public static let secundarySM = OceanButton { button in
+        public static let secundarySM = ButtonPrimary { button in
             button.text = "Small"
             button.size = .small
             button.buttonType = .secondary
         }
-        public static let secundaryMD = OceanButton { button in
+        public static let secundaryMD = ButtonPrimary { button in
             button.text = "Medium"
             button.size = .medium
             button.buttonType = .secondary
         }
-        public static let secundaryLG = OceanButton { button in
+        public static let secundaryLG = ButtonPrimary { button in
             button.text = "Large"
             button.size = .large
             button.buttonType = .secondary
         }
     }
     
-    public class OceanButton: UIControl {
+    public class ButtonPrimary: UIControl {
         public enum Size {
             case medium
             case small
@@ -68,14 +68,14 @@ extension Ocean {
             case secondary
         }
 
-        public convenience init(builder: (OceanButton) -> Void) {
+        public convenience init(builder: (ButtonPrimary) -> Void) {
             self.init()
             builder(self)
             configType()
             makeView()
         }
 
-        public var size: OceanButton.Size = .medium {
+        public var size: ButtonPrimary.Size = .medium {
             didSet {
                 switch size {
                 case .large: configLG()
