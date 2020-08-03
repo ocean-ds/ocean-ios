@@ -173,10 +173,10 @@ extension Ocean {
             stack.translatesAutoresizingMaskIntoConstraints = false
             stack.axis = .horizontal
             stack.alignment = .center
-            stack.distribution = .fillProportionally
+            stack.distribution = .fill
             
             stack.addArrangedSubview(Spacer(space: padding))
-            
+            var labelAlignment : NSTextAlignment = .center
             if let icon = self.icon?.withRenderingMode(.alwaysTemplate) {
                 imageView = UIImageView(image: icon)
                 stack.addArrangedSubview(imageView)
@@ -185,6 +185,7 @@ extension Ocean {
                 self.imageView.translatesAutoresizingMaskIntoConstraints = false
                 self.imageView.widthAnchor.constraint(equalToConstant: self.iconSize.width).isActive = true
                 self.imageView.heightAnchor.constraint(equalToConstant: self.iconSize.height).isActive = true
+                labelAlignment = .left
             }
             
             label = UILabel()
@@ -193,7 +194,7 @@ extension Ocean {
             label.setLineHeight(lineHeight: Ocean.font.lineHeightTight)
             label.textColor = activeLabelColor
             label.text = text
-            label.textAlignment = .center
+            label.textAlignment = labelAlignment
             
             stack.addArrangedSubview(label)
             
@@ -396,10 +397,10 @@ extension Ocean {
             stack.translatesAutoresizingMaskIntoConstraints = false
             stack.axis = .horizontal
             stack.alignment = .center
-            stack.distribution = .fillProportionally
+            stack.distribution = .fill
             
             stack.addArrangedSubview(Spacer(space: padding))
-            
+            var labelAlignment : NSTextAlignment = .center
             if let icon = self.icon?.withRenderingMode(.alwaysTemplate) {
                 imageView = UIImageView(image: icon)
                 stack.addArrangedSubview(imageView)
@@ -408,6 +409,7 @@ extension Ocean {
                 self.imageView.translatesAutoresizingMaskIntoConstraints = false
                 self.imageView.widthAnchor.constraint(equalToConstant: self.iconSize.width).isActive = true
                 self.imageView.heightAnchor.constraint(equalToConstant: self.iconSize.height).isActive = true
+                labelAlignment = .left
             }
             
             label = UILabel()
@@ -416,7 +418,7 @@ extension Ocean {
             label.setLineHeight(lineHeight: Ocean.font.lineHeightTight)
             label.textColor = activeLabelColor
             label.text = text
-            label.textAlignment = .center
+            label.textAlignment = labelAlignment
             
             stack.addArrangedSubview(label)
             
