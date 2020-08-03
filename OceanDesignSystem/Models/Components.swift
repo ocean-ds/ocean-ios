@@ -29,8 +29,8 @@ struct DSTypographies {
 
 struct DSButtons {
     static let list = [
-        "Primary"
-//        "Secondary",
+        "Primary",
+        "Secondary"
 //        "Text",
 //        "PrimaryInverse",
 //        "PrimaryBlocked"
@@ -185,11 +185,49 @@ struct PrimaryButtons {
         button.text = "Loading"
     }
     
+    static let primaryLGIcon = Ocean.Button.primaryLG { button in
+        button.text = "Icon"
+        button.icon = Ocean.icon.addLg
+    }
+    
     static let list = [
         primarySM,
         primaryMD,
         primaryLG,
         primaryLGDisable,
-        primaryLGLoading
+        primaryLGLoading,
+        primaryLGIcon
+    ]
+}
+
+struct SecondaryButtons {
+    
+    static let secondarySM = Ocean.Button.secondarySM { button in
+        button.text = "Small"
+    }
+    
+    static let secondaryMD = Ocean.Button.secondaryMD { button in
+        button.text = "Medium"
+    }
+    
+    static let secondaryLG = Ocean.Button.secondaryLG { button in
+        button.text = "Large"
+    }
+    
+    static let secondaryLGDisable = Ocean.Button.secondaryLG { button in
+        button.text = "Disabled"
+    }
+    
+    static let secondaryLGIcon = Ocean.Button.secondaryLG { button in
+        button.text = "Icon"
+        button.icon = Ocean.icon.addLg
+    }
+    
+    static let list = [
+        secondarySM,
+        secondaryMD,
+        secondaryLG,
+        secondaryLGDisable,
+        secondaryLGIcon
     ]
 }

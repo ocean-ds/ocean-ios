@@ -42,7 +42,7 @@ public enum DesignSystemTypographyType: Int {
 
 public enum DesignSystemButtonType: Int {
     case ButtonPrimary
-    case ButtonSecundary
+    case ButtonSecondary
     case ButtonText
     case ButtonInverse
     case ButtonBlocked
