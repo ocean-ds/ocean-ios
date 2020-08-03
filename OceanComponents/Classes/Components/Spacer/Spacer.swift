@@ -9,7 +9,7 @@
 import Foundation
 import OceanTokens
 
-class Spacer: UIView {
+public class Spacer: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -19,7 +19,7 @@ class Spacer: UIView {
         super.init(coder: coder)
     }
 
-    convenience init(space: CGFloat) {
+    public convenience init(space: CGFloat) {
         self.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
 

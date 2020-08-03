@@ -92,8 +92,8 @@ class ComponentTypeViewController: UITableViewController {
     
     private func getButtonComponents(_ indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ComponentTypeCell", for: indexPath) as! StandardCell
-        let tipographies = DSButtons.list
-        cell.title.text = tipographies[indexPath.row]
+        let buttons = DSButtons.list
+        cell.title.text = buttons[indexPath.row]
         return cell
     }
 }

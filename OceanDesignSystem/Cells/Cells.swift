@@ -70,3 +70,8 @@ class RenderComponentCell: UITableViewCell {
     var title: UILabel!
     var container: UIView!
 }
+
+class ButtonComponentCell: UITableViewCell {
+    //@IBOutlet weak var title: UILabel!
+    @IBOutlet weak var container: UIView!
+}

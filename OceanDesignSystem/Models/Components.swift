@@ -29,16 +29,15 @@ struct DSTypographies {
 
 struct DSButtons {
     static let list = [
-        "Primary",
-        "Secundary",
-        "Text",
-        "PrimaryInverse",
-        "PrimaryBlocked"
+        "Primary"
+//        "Secondary",
+//        "Text",
+//        "PrimaryInverse",
+//        "PrimaryBlocked"
     ]
 }
 
 public class Headings {
-    
     
     static let heading1 = Ocean.Typography.heading1 { label in
         label.text = "Heading1"
@@ -161,5 +160,36 @@ struct Caption {
     static let list = [
         caption,
         captionInverse
+    ]
+}
+
+struct PrimaryButtons {
+    
+    static let primarySM = Ocean.Button.primarySM { button in
+        button.text = "Small"
+    }
+    
+    static let primaryMD = Ocean.Button.primaryMD { button in
+        button.text = "Medium"
+    }
+    
+    static let primaryLG = Ocean.Button.primaryLG { button in
+        button.text = "Large"
+    }
+    
+    static let primaryLGDisable = Ocean.Button.primaryLG { button in
+        button.text = "Disabled"
+    }
+    
+    static let primaryLGLoading = Ocean.Button.primaryLG { button in
+        button.text = "Loading"
+    }
+    
+    static let list = [
+        primarySM,
+        primaryMD,
+        primaryLG,
+        primaryLGDisable,
+        primaryLGLoading
     ]
 }

@@ -32,44 +32,73 @@ class RenderComponentsViewController: UITableViewController {
         cell.contentView.addSubview(cell.title)
     }
     
+    fileprivate func configButtonComponentCell(_ tableView: UITableView, _ indexPath: IndexPath, _ cell: ButtonComponentCell, _ list: [Ocean.OceanButton]) {
+        
+        let buttonComponent = list[indexPath.row]
+        buttonComponent.isLoading = false
+        buttonComponent.isEnabled = true
+        if (buttonComponent.text == "Disabled") {
+            buttonComponent.isEnabled = false
+        } else if (buttonComponent.text == "Loading") {
+            buttonComponent.isLoading = true
+        }
+        cell.container.addSubview(buttonComponent)
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = RenderComponentCell()
-            
+        let cell = RenderComponentCell()
+        let buttonCell = tableView.dequeueReusableCell(withIdentifier: "ButtonComponentCell", for: indexPath) as! ButtonComponentCell
+        if (self.designSystemComponentsType == DesignSystemComponentsType.Typography){
             if (self.designSystemTypographyType == DesignSystemTypographyType.Headings) {
                 configTypographyComponentCell(tableView, indexPath, cell, Headings.list)
+                return cell
             }
             else if (self.designSystemTypographyType == DesignSystemTypographyType.Subtitle) {
                 configTypographyComponentCell(tableView, indexPath, cell, Subtitles.list)
+                return cell
             }
             else if (self.designSystemTypographyType == DesignSystemTypographyType.Description) {
                 configTypographyComponentCell(tableView, indexPath, cell, Description.list)
+                return cell
             }
             else if (self.designSystemTypographyType == DesignSystemTypographyType.Paragraph) {
                 configTypographyComponentCell(tableView, indexPath, cell, Paragraph.list)
+                return cell
             }
             else if (self.designSystemTypographyType == DesignSystemTypographyType.Caption) {
-            configTypographyComponentCell(tableView, indexPath, cell, Caption.list)
+                configTypographyComponentCell(tableView, indexPath, cell, Caption.list)
+                return cell
+            }
+        } else if (self.designSystemComponentsType == DesignSystemComponentsType.Button){
+            if (self.designSystemButtonType == DesignSystemButtonType.ButtonPrimary) {
+                configButtonComponentCell(tableView, indexPath, buttonCell, PrimaryButtons.list)
+                return buttonCell
+            }
         }
-            
-            
-            return cell
-        }
+        return UITableViewCell()
+    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (self.designSystemTypographyType == DesignSystemTypographyType.Headings) {
-            return Headings.list.count
-        }
-        else if (self.designSystemTypographyType == DesignSystemTypographyType.Subtitle) {
-            return Subtitles.list.count
-        }
-        else if (self.designSystemTypographyType == DesignSystemTypographyType.Paragraph) {
-            return Paragraph.list.count
-        }
-        else if (self.designSystemTypographyType == DesignSystemTypographyType.Description) {
-            return Description.list.count
-        }
-        else if (self.designSystemTypographyType == DesignSystemTypographyType.Caption) {
-            return Caption.list.count
+        if (self.designSystemComponentsType == DesignSystemComponentsType.Typography){
+            if (self.designSystemTypographyType == DesignSystemTypographyType.Headings) {
+                return Headings.list.count
+            }
+            else if (self.designSystemTypographyType == DesignSystemTypographyType.Subtitle) {
+                return Subtitles.list.count
+            }
+            else if (self.designSystemTypographyType == DesignSystemTypographyType.Paragraph) {
+                return Paragraph.list.count
+            }
+            else if (self.designSystemTypographyType == DesignSystemTypographyType.Description) {
+                return Description.list.count
+            }
+            else if (self.designSystemTypographyType == DesignSystemTypographyType.Caption) {
+                return Caption.list.count
+            }
+        } else if (self.designSystemComponentsType == DesignSystemComponentsType.Button){
+            if (self.designSystemButtonType == DesignSystemButtonType.ButtonPrimary) {
+                return PrimaryButtons.list.count
+            }
         }
         return 0
     }
@@ -82,9 +111,13 @@ class RenderComponentsViewController: UITableViewController {
         
     }
     
-   override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-       
-           return 80
-       
-   }
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (self.designSystemComponentsType == DesignSystemComponentsType.Button){
+            if (self.designSystemButtonType == DesignSystemButtonType.ButtonPrimary) {
+                return 80
+            }
+        }
+        return 80
+        
+    }
 }

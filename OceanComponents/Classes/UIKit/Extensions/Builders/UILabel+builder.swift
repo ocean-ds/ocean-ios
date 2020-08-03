@@ -9,7 +9,9 @@
 import Foundation
 
 extension UILabel {
-    public convenience init(_ builder: (UILabel) -> Void) {
+    public typealias BuilderLabel = (UILabel) -> Void
+    
+    public convenience init(_ builder: BuilderLabel) {
         self.init()
         builder(self)
     }

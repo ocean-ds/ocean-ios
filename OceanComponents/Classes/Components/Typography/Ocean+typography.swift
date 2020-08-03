@@ -12,7 +12,9 @@ import UIKit
 extension Ocean {
     public struct Typography {
         
-        public static func heading1(builder: ((UILabel) -> Void)? = nil) -> UILabel {
+        public typealias TypographyBuilder = ((UILabel) -> Void)?
+        
+        public static func heading1(builder: TypographyBuilder = nil) -> UILabel {
             return UILabel { label in
                 label.font = .highlightExtraBold(size: Ocean.font.fontSizeLg)
                 label.textColor = Ocean.color.colorInterfaceDarkPure
@@ -21,7 +23,7 @@ extension Ocean {
             }
         }
         
-        public static func heading2(builder: ((UILabel) -> Void)? = nil) -> UILabel {
+        public static func heading2(builder: TypographyBuilder = nil) -> UILabel {
             return UILabel { label in
                 label.font = .highlightExtraBold(size: Ocean.font.fontSizeMd)
                 label.textColor = Ocean.color.colorInterfaceDarkPure
@@ -30,7 +32,7 @@ extension Ocean {
             }
         }
         
-        public static func heading3(builder: ((UILabel) -> Void)? = nil) -> UILabel {
+        public static func heading3(builder: TypographyBuilder = nil) -> UILabel {
             return UILabel { label in
                 label.font = .highlightExtraBold(size: Ocean.font.fontSizeSm)
                 label.textColor = Ocean.color.colorInterfaceDarkPure
@@ -39,7 +41,7 @@ extension Ocean {
             }
         }
         
-        public static func heading4(builder: ((UILabel) -> Void)? = nil) -> UILabel {
+        public static func heading4(builder: TypographyBuilder = nil) -> UILabel {
             return UILabel { label in
                 
                 label.font = .highlightBold(size: Ocean.font.fontSizeXs)
@@ -49,28 +51,28 @@ extension Ocean {
             }
         }
         
-        public static func heading1Inverse(builder: ((UILabel) -> Void)? = nil) -> UILabel {
+        public static func heading1Inverse(builder: TypographyBuilder = nil) -> UILabel {
             return Ocean.Typography.heading1 { label in
                 builder?(label)
                 label.textColor = Ocean.color.colorInterfaceLightPure
             }
         }
         
-        public static func heading2Inverse(builder: ((UILabel) -> Void)? = nil) -> UILabel {
+        public static func heading2Inverse(builder: TypographyBuilder = nil) -> UILabel {
             return Ocean.Typography.heading2 { label in
                 builder?(label)
                 label.textColor = Ocean.color.colorInterfaceLightPure
             }
         }
         
-        public static func heading3Inverse(builder: ((UILabel) -> Void)? = nil) -> UILabel {
+        public static func heading3Inverse(builder: TypographyBuilder = nil) -> UILabel {
             return Ocean.Typography.heading3 { label in
                 builder?(label)
                 label.textColor = Ocean.color.colorInterfaceLightPure
             }
         }
         
-        public static func heading4Inverse(builder: ((UILabel) -> Void)? = nil) -> UILabel {
+        public static func heading4Inverse(builder: TypographyBuilder = nil) -> UILabel {
             return Ocean.Typography.heading4 { label in
                 builder?(label)
                 label.textColor = Ocean.color.colorInterfaceLightPure
@@ -78,7 +80,7 @@ extension Ocean {
             
         }
         
-        public static func subTitle1(builder: ((UILabel) -> Void)? = nil) -> UILabel {
+        public static func subTitle1(builder: TypographyBuilder = nil) -> UILabel {
             return UILabel { label in
                 label.font = .baseRegular(size: Ocean.font.fontSizeMd)
                 label.textColor = Ocean.color.colorInterfaceDarkDown
@@ -87,7 +89,7 @@ extension Ocean {
             }
         }
         
-        public static func subTitle2(builder: ((UILabel) -> Void)? = nil) -> UILabel {
+        public static func subTitle2(builder: TypographyBuilder = nil) -> UILabel {
             return UILabel { label in
                 label.font = .baseRegular(size: Ocean.font.fontSizeSm)
                 label.textColor = Ocean.color.colorInterfaceDarkDown
@@ -96,21 +98,21 @@ extension Ocean {
             }
         }
         
-        public static func subTitle1Inverse(builder: ((UILabel) -> Void)? = nil) -> UILabel {
+        public static func subTitle1Inverse(builder: TypographyBuilder = nil) -> UILabel {
             return Ocean.Typography.subTitle1 { label in
                 builder?(label)
                 label.textColor = Ocean.color.colorInterfaceLightDown
             }
         }
         
-        public static func subTitle2Inverse(builder: ((UILabel) -> Void)? = nil) -> UILabel {
+        public static func subTitle2Inverse(builder: TypographyBuilder = nil) -> UILabel {
             return Ocean.Typography.subTitle2 { label in
                 builder?(label)
                 label.textColor = Ocean.color.colorInterfaceLightDown
             }
         }
 
-        public static func paragraph(builder: ((UILabel) -> Void)? = nil) -> UILabel {
+        public static func paragraph(builder: TypographyBuilder = nil) -> UILabel {
             return UILabel { label in
                 label.font = .baseRegular(size: Ocean.font.fontSizeXs)
                 label.textColor = Ocean.color.colorInterfaceDarkDown
@@ -119,7 +121,7 @@ extension Ocean {
             }
         }
         
-        public static func paragraphInverse(builder: ((UILabel) -> Void)? = nil) -> UILabel {
+        public static func paragraphInverse(builder: TypographyBuilder = nil) -> UILabel {
             return Ocean.Typography.paragraph { label in
                 builder?(label)
                 label.textColor = Ocean.color.colorInterfaceLightDown
@@ -127,7 +129,7 @@ extension Ocean {
             
         }
         
-        public static func highlightedParagraph(builder: ((UILabel) -> Void)? = nil) -> UILabel {
+        public static func highlightedParagraph(builder: TypographyBuilder = nil) -> UILabel {
             return UILabel { label in
                 label.font = .baseBold(size: Ocean.font.fontSizeSm)
                 label.textColor = Ocean.color.colorInterfaceDarkDeep
@@ -136,7 +138,7 @@ extension Ocean {
             }
         }
 
-        public static func description(builder: ((UILabel) -> Void)? = nil) -> UILabel {
+        public static func description(builder: TypographyBuilder = nil) -> UILabel {
             return UILabel { label in
                 label.font = .baseRegular(size: Ocean.font.fontSizeXxs)
                 label.textColor = Ocean.color.colorInterfaceDarkDown
@@ -145,7 +147,7 @@ extension Ocean {
             }
         }
         
-        public static func descriptionInverse(builder: ((UILabel) -> Void)? = nil) -> UILabel {
+        public static func descriptionInverse(builder: TypographyBuilder = nil) -> UILabel {
             return Ocean.Typography.description { label in
                 builder?(label)
                 label.textColor = Ocean.color.colorInterfaceLightDown
@@ -154,7 +156,7 @@ extension Ocean {
         }
         
         
-        public static func caption(builder: ((UILabel) -> Void)? = nil) -> UILabel {
+        public static func caption(builder: TypographyBuilder = nil) -> UILabel {
             return UILabel { label in
                 label.font = .baseRegular(size: Ocean.font.fontSizeXxxs)
                 label.textColor = Ocean.color.colorInterfaceDarkDown
@@ -163,7 +165,7 @@ extension Ocean {
             }
         }
         
-        public static func captionInverse(builder: ((UILabel) -> Void)? = nil) -> UILabel {
+        public static func captionInverse(builder: TypographyBuilder = nil) -> UILabel {
             return Ocean.Typography.caption { label in
                 builder?(label)
                 label.textColor = Ocean.color.colorInterfaceLightDown
