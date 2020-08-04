@@ -93,7 +93,7 @@ extension Ocean {
         }
         
         private func configMD() {
-            iconSize = .init(width: 16, height: 16)
+            iconSize = .init(width: 24, height: 24)
             minWidth = 108
             height = 48
             fontSize = Ocean.font.fontSizeXs
@@ -101,7 +101,7 @@ extension Ocean {
         }
         
         private func configSM() {
-            iconSize = .init(width: 10, height: 10)
+            iconSize = .init(width: 16, height: 16)
             minWidth = 96
             height = 32
             fontSize = Ocean.font.fontSizeXxs
@@ -109,7 +109,7 @@ extension Ocean {
         }
         
         private func configLG() {
-            iconSize = .init(width: 16, height: 16)
+            iconSize = .init(width: 24, height: 24)
             minWidth = 148
             height = 56
             fontSize = Ocean.font.fontSizeSm
@@ -127,6 +127,7 @@ extension Ocean {
             var labelAlignment : NSTextAlignment = .center
             if let icon = self.icon?.withRenderingMode(.alwaysTemplate) {
                 imageView = UIImageView(image: icon)
+                imageView.tintColor = activeLabelColor
                 stack.addArrangedSubview(imageView)
                 stack.addArrangedSubview(Spacer(space: Ocean.size.spacingInlineXxs))
                 
