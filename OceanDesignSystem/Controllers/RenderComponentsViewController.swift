@@ -58,6 +58,19 @@ class RenderComponentsViewController: UITableViewController {
         cell.container.addSubview(buttonComponent)
     }
     
+    fileprivate func configButtonTextComponentCell(_ tableView: UITableView, _ indexPath: IndexPath, _ cell: ButtonComponentCell, _ list: [Ocean.ButtonText]) {
+        
+        let buttonComponent = list[indexPath.row]
+        buttonComponent.isLoading = false
+        buttonComponent.isEnabled = true
+        if (buttonComponent.text == "Disabled") {
+            buttonComponent.isEnabled = false
+        } else if (buttonComponent.text == "Loading") {
+            buttonComponent.isLoading = true
+        }
+        cell.container.addSubview(buttonComponent)
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = RenderComponentCell()
         let buttonCell = tableView.dequeueReusableCell(withIdentifier: "ButtonComponentCell", for: indexPath) as! ButtonComponentCell
@@ -89,6 +102,9 @@ class RenderComponentsViewController: UITableViewController {
             } else if (self.designSystemButtonType == DesignSystemButtonType.ButtonSecondary) {
                 configButtonSecondaryComponentCell(tableView, indexPath, buttonCell, SecondaryButtons.list)
                 return buttonCell
+            } else if (self.designSystemButtonType == DesignSystemButtonType.ButtonText) {
+                configButtonTextComponentCell(tableView, indexPath, buttonCell, TextButtons.list)
+                return buttonCell
             }
         }
         return UITableViewCell()
@@ -116,6 +132,8 @@ class RenderComponentsViewController: UITableViewController {
                 return PrimaryButtons.list.count
             } else if (self.designSystemButtonType == DesignSystemButtonType.ButtonSecondary) {
                 return SecondaryButtons.list.count
+            } else if (self.designSystemButtonType == DesignSystemButtonType.ButtonText) {
+                return TextButtons.list.count
             }
         }
         return 0
@@ -131,7 +149,8 @@ class RenderComponentsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if (self.designSystemComponentsType == DesignSystemComponentsType.Button){
-            if (self.designSystemButtonType == DesignSystemButtonType.ButtonPrimary || self.designSystemButtonType == DesignSystemButtonType.ButtonSecondary) {
+            if (self.designSystemButtonType == DesignSystemButtonType.ButtonPrimary || self.designSystemButtonType == DesignSystemButtonType.ButtonSecondary ||
+                self.designSystemButtonType == DesignSystemButtonType.ButtonText) {
                 return 80
             }
         }
