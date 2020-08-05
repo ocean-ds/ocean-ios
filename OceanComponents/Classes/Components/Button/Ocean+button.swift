@@ -83,23 +83,9 @@ extension Ocean {
             }
         }
         
-        public static func primaryBlockedSM(builder:ButtonPrimaryBlockedBuilder) -> ButtonPrimaryBlocked {
-            return ButtonPrimaryBlocked { button in
-                button.size = .small
-                builder( button )
-            }
-        }
-        
         public static func primaryBlockedMD(builder:ButtonPrimaryBlockedBuilder) -> ButtonPrimaryBlocked {
             return ButtonPrimaryBlocked { button in
                 button.size = .medium
-                builder( button )
-            }
-        }
-        
-        public static func primaryBlockedLG(builder:ButtonPrimaryBlockedBuilder) -> ButtonPrimaryBlocked {
-            return ButtonPrimaryBlocked { button in
-                button.size = .large
                 builder( button )
             }
         }

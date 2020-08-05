@@ -623,6 +623,24 @@
                                     <outlet property="container" destination="fPV-8a-xrt" id="MDW-sG-JB1"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TypographyComponentCell" rowHeight="120" id="wt3-Mk-Edk" userLabel="TypographyComponentCell" customClass="TypographyComponentCell" customModule="OceanDesignSystem" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="268" width="414" height="120"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wt3-Mk-Edk" id="Scu-dK-dD1">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view tag="102" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GKT-ku-AAk">
+                                            <rect key="frame" x="10" y="11" width="394" height="99"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" red="0.88203666709999995" green="0.88203666709999995" blue="0.88203666709999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </view>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="container" destination="GKT-ku-AAk" id="2jZ-Hj-H97"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="UuO-mC-i0Q" id="3b6-ig-2sp"/>

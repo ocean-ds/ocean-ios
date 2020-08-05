@@ -14,7 +14,6 @@
 		B71D65E724CA2A8200C3938C /* Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65E624CA2A8200C3938C /* Cells.swift */; };
 		B71D65EA24CA47C500C3938C /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65E924CA47C500C3938C /* Enums.swift */; };
 		B71D65FD24CA530000C3938C /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65FC24CA530000C3938C /* Components.swift */; };
-		B7A4015724BFE64B006712AA /* ocean_icon_accessibility_human.png in Resources */ = {isa = PBXBuildFile; fileRef = B7A4015624BFE493006712AA /* ocean_icon_accessibility_human.png */; };
 		B7A4FF7924BF8484006712AA /* ComponentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A4FF7824BF8484006712AA /* ComponentsViewController.swift */; };
 		B7CA694E24CB4C940051CA6A /* ComponentTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CA694D24CB4C940051CA6A /* ComponentTypeViewController.swift */; };
 		B7CA695024CB56B90051CA6A /* RenderComponentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CA694F24CB56B90051CA6A /* RenderComponentsViewController.swift */; };
@@ -49,7 +48,6 @@
 		B71D65E624CA2A8200C3938C /* Cells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cells.swift; sourceTree = "<group>"; };
 		B71D65E924CA47C500C3938C /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		B71D65FC24CA530000C3938C /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
-		B7A4015624BFE493006712AA /* ocean_icon_accessibility_human.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ocean_icon_accessibility_human.png; sourceTree = "<group>"; };
 		B7A4FF7824BF8484006712AA /* ComponentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsViewController.swift; sourceTree = "<group>"; };
 		B7CA694D24CB4C940051CA6A /* ComponentTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentTypeViewController.swift; sourceTree = "<group>"; };
 		B7CA694F24CB56B90051CA6A /* RenderComponentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderComponentsViewController.swift; sourceTree = "<group>"; };
@@ -142,7 +140,6 @@
 				B833D03624A6796100587FDE /* SceneDelegate.swift */,
 				B833D03A24A6796100587FDE /* Main.storyboard */,
 				B833D03D24A6796300587FDE /* Assets.xcassets */,
-				B7A4015624BFE493006712AA /* ocean_icon_accessibility_human.png */,
 				B833D03F24A6796300587FDE /* LaunchScreen.storyboard */,
 				B833D04224A6796300587FDE /* Info.plist */,
 			);
@@ -229,7 +226,6 @@
 			files = (
 				B833D04124A6796300587FDE /* LaunchScreen.storyboard in Resources */,
 				B833D03E24A6796300587FDE /* Assets.xcassets in Resources */,
-				B7A4015724BFE64B006712AA /* ocean_icon_accessibility_human.png in Resources */,
 				B833D03C24A6796100587FDE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -440,8 +436,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 24;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 57KSFR5UHN;
 				INFOPLIST_FILE = OceanDesignSystem/Info.plist;
@@ -465,7 +461,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 24;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 57KSFR5UHN;
 				INFOPLIST_FILE = OceanDesignSystem/Info.plist;

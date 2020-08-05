@@ -7,15 +7,20 @@ executors:
 
 commands:
 
-  release_app:
+  generate-tag-app:
     description: "Send app to Test flight"
     steps:
       - run: bundle exec fastlane beta_testflight
 
-  deploy_app:
-    description: "Build the application before tests"
+  release-app:
+    description: "Send app to Test flight"
     steps:
-      - run: bundle exec fastlane beta_diawi
+      - run: bundle exec fastlane beta_testflight
+
+  # deploy_app:
+  #   description: "Build the application before tests"
+  #   steps:
+  #     - run: bundle exec fastlane beta_testflight
 
   config_workspace:
     description: "Install or Restore configurations"
@@ -51,6 +56,13 @@ commands:
 
 jobs:
 
+  prepare-release-app:
+    macos:
+      xcode: 11.4.1 # Specify the Xcode version to use
+    steps:
+      - checkout
+      - generate-tag-app
+
   release-app:
     macos:
       xcode: 11.4.1 # Specify the Xcode version to use
@@ -59,13 +71,13 @@ jobs:
       - config_workspace
       - release_app
 
-  deploy-app:
-    macos:
-      xcode: 11.4.1 # Specify the Xcode version to use
-    steps:
-      - checkout
-      - config_workspace
-      - deploy_app
+  # deploy-app:
+  #   macos:
+  #     xcode: 11.4.1 # Specify the Xcode version to use
+  #   steps:
+  #     - checkout
+  #     - config_workspace
+  #     - deploy_app
 
   deploy-ocean-tokens:
     macos:
@@ -78,17 +90,21 @@ workflows:
   version: 2.1
   commit:
     jobs:
-      # - deploy-ocean-tokens:
-      #     filters:
-      #       branches:
-      #         only: circleci-project-setup
-
-      - deploy-app:
+      - deploy-ocean-tokens:
           filters:
-            tags:
-              only: /^OceanComponents-(\d+\.){2}\d+$/
             branches:
-              ignore: /.*/
+              only: circleci-project-setup
+
+      # - deploy-app:
+      #     filters:
+      #       tags:
+      #         only: /^OceanComponents-(\d+\.){2}\d+$/
+      #       branches:
+      #         ignore: /.*/
+      - prepare-release-app:
+          filters:
+            branches:
+              only: master
 
       - release-app:
           filters:

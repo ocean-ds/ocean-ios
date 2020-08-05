@@ -12,8 +12,6 @@ extension Ocean {
     public class ButtonPrimaryBlocked: UIControl {
         public enum Size {
             case medium
-            case small
-            case large
         }
         
         public convenience init(builder: ButtonPrimaryBlockedBuilder) {
@@ -26,9 +24,7 @@ extension Ocean {
         public var size: ButtonPrimaryBlocked.Size = .medium {
             didSet {
                 switch size {
-                case .large: configLG()
                 case .medium: configMD()
-                case .small: configSM()
                 }
             }
         }

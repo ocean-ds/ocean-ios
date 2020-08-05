@@ -75,3 +75,8 @@ class ButtonComponentCell: UITableViewCell {
     //@IBOutlet weak var title: UILabel!
     @IBOutlet weak var container: UIView!
 }
+
+class TypographyComponentCell: UITableViewCell {
+    //@IBOutlet weak var title: UILabel!
+    @IBOutlet weak var container: UIView!
+}

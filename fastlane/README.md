@@ -28,6 +28,11 @@ Description of what the lane does
 fastlane ios beta_testflight
 ```
 Upload to TestFlight
+### ios prepare_release
+```
+fastlane ios prepare_release
+```
+Upload to TestFlight
 
 ----
 

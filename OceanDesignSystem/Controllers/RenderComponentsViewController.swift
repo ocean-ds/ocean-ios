@@ -22,14 +22,13 @@ class RenderComponentsViewController: UITableViewController {
         super.viewDidLoad()
     }
     
-    fileprivate func configTypographyComponentCell(_ tableView: UITableView, _ indexPath: IndexPath, _ cell: RenderComponentCell, _ list: [UILabel]) {
-        let rect = CGRect(x: 10, y: 20, width: tableView.bounds.width - 10, height: 40)
+    fileprivate func configTypographyComponentCell(_ tableView: UITableView, _ indexPath: IndexPath, _ cell: TypographyComponentCell, _ list: [UILabel]) {
+        let rect = CGRect(x: 10, y: 20, width: tableView.bounds.width - 40, height: 40)
         let typographyComponent = list[indexPath.row]
         typographyComponent.frame = rect
-        cell.title = typographyComponent
-        cell.title.text = typographyComponent.text
-        cell.title.translatesAutoresizingMaskIntoConstraints = false
-        cell.contentView.addSubview(cell.title)
+        let title = typographyComponent
+        title.text = typographyComponent.text
+        cell.container.addSubview(title)
     }
     
     fileprivate func configButtonPrimaryComponentCell(_ tableView: UITableView, _ indexPath: IndexPath, _ cell: ButtonComponentCell, _ list: [Ocean.ButtonPrimary]) {
@@ -72,17 +71,16 @@ class RenderComponentsViewController: UITableViewController {
     }
     
     fileprivate func configButtonPrimaryBlockedComponentCell(_ tableView: UITableView, _ indexPath: IndexPath, _ cell: ButtonComponentCell, _ list: [Ocean.ButtonPrimaryBlocked]) {
-           
-           let buttonComponent = list[indexPath.row]
-           buttonComponent.isLoading = false
-           buttonComponent.isEnabled = true
-           if (buttonComponent.text == "Disabled") {
-               buttonComponent.isEnabled = false
-           } else if (buttonComponent.text == "Loading") {
-               buttonComponent.isLoading = true
-           }
-           cell.container.addSubview(buttonComponent)
-       }
+        let buttonComponent = list[indexPath.row]
+        buttonComponent.isLoading = false
+        buttonComponent.isEnabled = true
+        if (buttonComponent.text == "Disabled") {
+            buttonComponent.isEnabled = false
+        } else if (buttonComponent.text == "Loading") {
+            buttonComponent.isLoading = true
+        }
+        cell.container.addSubview(buttonComponent)
+    }
     
     fileprivate func configButtonPrimaryInverseComponentCell(_ tableView: UITableView, _ indexPath: IndexPath, _ cell: ButtonComponentCell, _ list: [Ocean.ButtonPrimaryInverse]) {
         
@@ -98,43 +96,52 @@ class RenderComponentsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = RenderComponentCell()
-        let buttonCell = tableView.dequeueReusableCell(withIdentifier: "ButtonComponentCell", for: indexPath) as! ButtonComponentCell
+        
         if (self.designSystemComponentsType == DesignSystemComponentsType.Typography){
             if (self.designSystemTypographyType == DesignSystemTypographyType.Headings) {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "TypographyComponentCell", for: indexPath) as! TypographyComponentCell
                 configTypographyComponentCell(tableView, indexPath, cell, Headings.list)
                 return cell
             }
             else if (self.designSystemTypographyType == DesignSystemTypographyType.Subtitle) {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "TypographyComponentCell", for: indexPath) as! TypographyComponentCell
                 configTypographyComponentCell(tableView, indexPath, cell, Subtitles.list)
                 return cell
             }
             else if (self.designSystemTypographyType == DesignSystemTypographyType.Description) {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "TypographyComponentCell", for: indexPath) as! TypographyComponentCell
                 configTypographyComponentCell(tableView, indexPath, cell, Description.list)
                 return cell
             }
             else if (self.designSystemTypographyType == DesignSystemTypographyType.Paragraph) {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "TypographyComponentCell", for: indexPath) as! TypographyComponentCell
                 configTypographyComponentCell(tableView, indexPath, cell, Paragraph.list)
                 return cell
             }
             else if (self.designSystemTypographyType == DesignSystemTypographyType.Caption) {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "TypographyComponentCell", for: indexPath) as! TypographyComponentCell
                 configTypographyComponentCell(tableView, indexPath, cell, Caption.list)
                 return cell
             }
         } else if (self.designSystemComponentsType == DesignSystemComponentsType.Button){
             if (self.designSystemButtonType == DesignSystemButtonType.ButtonPrimary) {
+                let buttonCell = tableView.dequeueReusableCell(withIdentifier: "ButtonComponentCell", for: indexPath) as! ButtonComponentCell
                 configButtonPrimaryComponentCell(tableView, indexPath, buttonCell, PrimaryButtons.list)
                 return buttonCell
             } else if (self.designSystemButtonType == DesignSystemButtonType.ButtonSecondary) {
+                let buttonCell = tableView.dequeueReusableCell(withIdentifier: "ButtonComponentCell", for: indexPath) as! ButtonComponentCell
                 configButtonSecondaryComponentCell(tableView, indexPath, buttonCell, SecondaryButtons.list)
                 return buttonCell
             } else if (self.designSystemButtonType == DesignSystemButtonType.ButtonText) {
+                let buttonCell = tableView.dequeueReusableCell(withIdentifier: "ButtonComponentCell", for: indexPath) as! ButtonComponentCell
                 configButtonTextComponentCell(tableView, indexPath, buttonCell, TextButtons.list)
                 return buttonCell
             } else if (self.designSystemButtonType == DesignSystemButtonType.ButtonBlocked) {
+                let buttonCell = tableView.dequeueReusableCell(withIdentifier: "ButtonComponentCell", for: indexPath) as! ButtonComponentCell
                 configButtonPrimaryBlockedComponentCell(tableView, indexPath, buttonCell, PrimaryBlockedButtons.list)
                 return buttonCell
             } else if (self.designSystemButtonType == DesignSystemButtonType.ButtonInverse) {
+                let buttonCell = tableView.dequeueReusableCell(withIdentifier: "ButtonComponentCell", for: indexPath) as! ButtonComponentCell
                 configButtonPrimaryInverseComponentCell(tableView, indexPath, buttonCell, PrimaryInverseButtons.list)
                 return buttonCell
             }

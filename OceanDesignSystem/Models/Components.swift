@@ -304,31 +304,22 @@ struct PrimaryInverseButtons {
 
 struct PrimaryBlockedButtons {
     
-    static let primaryBlockedSM = Ocean.Button.primaryBlockedSM { button in
-        button.text = "Small"
-    }
     
     static let primaryBlockedMD = Ocean.Button.primaryBlockedMD { button in
         button.text = "Medium"
     }
     
-    static let primaryBlockedLG = Ocean.Button.primaryBlockedLG { button in
-        button.text = "Large"
-    }
-    
-    static let primaryBlockedLGDisabled = Ocean.Button.primaryBlockedLG { button in
+    static let primaryBlockedMDDisabled = Ocean.Button.primaryBlockedMD { button in
         button.text = "Disabled"
     }
     
-    static let primaryBlockedLGLoading = Ocean.Button.primaryBlockedLG { button in
+    static let primaryBlockedMDLoading = Ocean.Button.primaryBlockedMD { button in
         button.text = "Loading"
     }
     
     static let list = [
-        primaryBlockedSM,
         primaryBlockedMD,
-        primaryBlockedLG,
-        primaryBlockedLGDisabled,
-        primaryBlockedLGLoading
+        primaryBlockedMDDisabled,
+        primaryBlockedMDLoading
     ]
 }
