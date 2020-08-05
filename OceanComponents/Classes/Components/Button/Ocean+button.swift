@@ -13,7 +13,8 @@ extension Ocean {
     public typealias ButtonPrimaryBuilder = (ButtonPrimary) -> Void
     public typealias ButtonSecondaryBuilder = (ButtonSecondary) -> Void
     public typealias ButtonTextBuilder = (ButtonText) -> Void
-    
+    public typealias ButtonPrimaryInverseBuilder = (ButtonPrimaryInverse) -> Void
+    public typealias ButtonPrimaryBlockedBuilder = (ButtonPrimaryBlocked) -> Void
     
     public struct Button {
         
@@ -81,5 +82,48 @@ extension Ocean {
                 builder( button )
             }
         }
+        
+        public static func primaryBlockedSM(builder:ButtonPrimaryBlockedBuilder) -> ButtonPrimaryBlocked {
+            return ButtonPrimaryBlocked { button in
+                button.size = .small
+                builder( button )
+            }
+        }
+        
+        public static func primaryBlockedMD(builder:ButtonPrimaryBlockedBuilder) -> ButtonPrimaryBlocked {
+            return ButtonPrimaryBlocked { button in
+                button.size = .medium
+                builder( button )
+            }
+        }
+        
+        public static func primaryBlockedLG(builder:ButtonPrimaryBlockedBuilder) -> ButtonPrimaryBlocked {
+            return ButtonPrimaryBlocked { button in
+                button.size = .large
+                builder( button )
+            }
+        }
+        
+        public static func primaryInverseSM(builder:ButtonPrimaryInverseBuilder) -> ButtonPrimaryInverse {
+            return ButtonPrimaryInverse { button in
+                button.size = .small
+                builder( button )
+            }
+        }
+        
+        public static func primaryInverseMD(builder:ButtonPrimaryInverseBuilder) -> ButtonPrimaryInverse {
+            return ButtonPrimaryInverse { button in
+                button.size = .medium
+                builder( button )
+            }
+        }
+        
+        public static func primaryInverseLG(builder:ButtonPrimaryInverseBuilder) -> ButtonPrimaryInverse {
+            return ButtonPrimaryInverse { button in
+                button.size = .large
+                builder( button )
+            }
+        }
+
     }
 }

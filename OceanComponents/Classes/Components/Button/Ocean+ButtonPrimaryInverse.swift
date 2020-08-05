@@ -1,31 +1,29 @@
 //
-//  Ocean+Buttontext.swift
+//  Ocean+ButtonPrimaryInverse.swift
 //  OceanComponents
 //
-//  Created by Alex Gomes on 03/08/20.
+//  Created by Alex Gomes on 04/08/20.
 //
 
 import Foundation
-import UIKit
-
 import OceanTokens
 
 extension Ocean {
-    public class ButtonText: UIControl {
+    public class ButtonPrimaryInverse: UIControl {
         public enum Size {
             case medium
             case small
             case large
         }
         
-        public convenience init(builder: ButtonTextBuilder) {
+        public convenience init(builder: ButtonPrimaryInverseBuilder) {
             self.init()
             builder(self)
             configType()
             makeView()
         }
         
-        public var size: ButtonText.Size = .medium {
+        public var size: ButtonPrimaryInverse.Size = .medium {
             didSet {
                 switch size {
                 case .large: configLG()
@@ -51,7 +49,7 @@ extension Ocean {
             }
         }
         
-        private var iconSize: CGSize = .init(width: 16, height: 16)
+        private var iconSize: CGSize = .init(width: 24, height: 24)
         private var minWidth: CGFloat = 108
         private var height: CGFloat = 48
         private var fontSize: CGFloat = Ocean.font.fontSizeXs
@@ -82,14 +80,14 @@ extension Ocean {
         }
         
         func configType() {
-            activeBackgroundColor = UIColor.clear
-            activeLabelColor = Ocean.color.colorBrandPrimaryPure
-            hoverBackgroundColor = Ocean.color.colorInterfaceLightDown
-            hoverLabelColor = Ocean.color.colorBrandPrimaryPure
-            pressedBackgroundColor = Ocean.color.colorInterfaceLightDeep
-            pressedLabelColor = Ocean.color.colorBrandPrimaryPure
-            focusedBackgroundColor = Ocean.color.colorInterfaceLightDown
-            focusedLabelColor = Ocean.color.colorBrandPrimaryPure
+            activeBackgroundColor = Ocean.color.colorComplementaryPure
+            activeLabelColor = Ocean.color.colorInterfaceLightPure
+            hoverBackgroundColor = Ocean.color.colorComplementaryDown
+            hoverLabelColor = Ocean.color.colorInterfaceLightPure
+            pressedBackgroundColor = Ocean.color.colorComplementaryDeep
+            pressedLabelColor = Ocean.color.colorInterfaceLightPure
+            focusedBackgroundColor = Ocean.color.colorComplementaryDown
+            focusedLabelColor = Ocean.color.colorInterfaceLightPure
             disabledBackgroundColor = Ocean.color.colorInterfaceLightDown
             disabledLabelColor = Ocean.color.colorInterfaceDarkUp
         }
@@ -123,7 +121,7 @@ extension Ocean {
             stack.translatesAutoresizingMaskIntoConstraints = false
             stack.axis = .horizontal
             stack.alignment = .center
-            stack.distribution = .fillProportionally
+            stack.distribution = .fill
             
             stack.addArrangedSubview(Spacer(space: padding))
             var labelAlignment : NSTextAlignment = .center
@@ -180,7 +178,6 @@ extension Ocean {
             activityIndicator.centerXAnchor.constraint(equalTo: stack.centerXAnchor).isActive = true
             
             activityIndicator.stopAnimating()
-            self.backgroundColor = UIColor.clear
         }
         
         private func changeColor(background: UIColor, label: UIColor? = nil) {

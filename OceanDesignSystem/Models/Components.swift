@@ -31,9 +31,9 @@ struct DSButtons {
     static let list = [
         "Primary",
         "Secondary",
-        "Text"
-//        "PrimaryInverse",
-//        "PrimaryBlocked"
+        "Text",
+        "PrimaryInverse",
+        "PrimaryBlocked"
     ]
 }
 
@@ -261,5 +261,74 @@ struct TextButtons {
         textLG,
         textLGDisable,
         textLGIcon
+    ]
+}
+
+struct PrimaryInverseButtons {
+    
+    static let primaryInverseSM = Ocean.Button.primaryInverseSM { button in
+        button.text = "Small"
+    }
+    
+    static let primaryInverseMD = Ocean.Button.primaryInverseMD { button in
+        button.text = "Medium"
+    }
+    
+    static let primaryInverseLG = Ocean.Button.primaryInverseLG { button in
+        button.text = "Large"
+    }
+    
+    static let primaryInverseLGDisabled = Ocean.Button.primaryInverseLG { button in
+        button.text = "Disabled"
+    }
+    
+    static let primaryInverseLGLoading = Ocean.Button.primaryInverseLG { button in
+        button.text = "Loading"
+    }
+    
+    static let primaryInverseLGIcon = Ocean.Button.primaryInverseLG { button in
+        button.text = "Icon"
+        button.icon = Ocean.icon.addLg
+    }
+    
+    static let list = [
+        primaryInverseSM,
+        primaryInverseMD,
+        primaryInverseLG,
+        primaryInverseLGDisabled,
+        primaryInverseLGLoading,
+        primaryInverseLGIcon
+    ]
+}
+
+
+struct PrimaryBlockedButtons {
+    
+    static let primaryBlockedSM = Ocean.Button.primaryBlockedSM { button in
+        button.text = "Small"
+    }
+    
+    static let primaryBlockedMD = Ocean.Button.primaryBlockedMD { button in
+        button.text = "Medium"
+    }
+    
+    static let primaryBlockedLG = Ocean.Button.primaryBlockedLG { button in
+        button.text = "Large"
+    }
+    
+    static let primaryBlockedLGDisabled = Ocean.Button.primaryBlockedLG { button in
+        button.text = "Disabled"
+    }
+    
+    static let primaryBlockedLGLoading = Ocean.Button.primaryBlockedLG { button in
+        button.text = "Loading"
+    }
+    
+    static let list = [
+        primaryBlockedSM,
+        primaryBlockedMD,
+        primaryBlockedLG,
+        primaryBlockedLGDisabled,
+        primaryBlockedLGLoading
     ]
 }

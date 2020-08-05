@@ -1,31 +1,29 @@
 //
-//  Ocean+Buttontext.swift
+//  Ocean+ButtonPrimaryBlocked.swift
 //  OceanComponents
 //
-//  Created by Alex Gomes on 03/08/20.
+//  Created by Alex Gomes on 04/08/20.
 //
 
 import Foundation
-import UIKit
-
 import OceanTokens
 
 extension Ocean {
-    public class ButtonText: UIControl {
+    public class ButtonPrimaryBlocked: UIControl {
         public enum Size {
             case medium
             case small
             case large
         }
         
-        public convenience init(builder: ButtonTextBuilder) {
+        public convenience init(builder: ButtonPrimaryBlockedBuilder) {
             self.init()
             builder(self)
             configType()
             makeView()
         }
         
-        public var size: ButtonText.Size = .medium {
+        public var size: ButtonPrimaryBlocked.Size = .medium {
             didSet {
                 switch size {
                 case .large: configLG()
@@ -35,7 +33,6 @@ extension Ocean {
             }
         }
         public var onTouch: (() -> Void)?
-        public var icon: UIImage?
         public var text: String = "" {
             didSet {
                 label?.text = text
@@ -51,7 +48,7 @@ extension Ocean {
             }
         }
         
-        private var iconSize: CGSize = .init(width: 16, height: 16)
+        private var iconSize: CGSize = .init(width: 24, height: 24)
         private var minWidth: CGFloat = 108
         private var height: CGFloat = 48
         private var fontSize: CGFloat = Ocean.font.fontSizeXs
@@ -82,14 +79,14 @@ extension Ocean {
         }
         
         func configType() {
-            activeBackgroundColor = UIColor.clear
-            activeLabelColor = Ocean.color.colorBrandPrimaryPure
-            hoverBackgroundColor = Ocean.color.colorInterfaceLightDown
-            hoverLabelColor = Ocean.color.colorBrandPrimaryPure
-            pressedBackgroundColor = Ocean.color.colorInterfaceLightDeep
-            pressedLabelColor = Ocean.color.colorBrandPrimaryPure
-            focusedBackgroundColor = Ocean.color.colorInterfaceLightDown
-            focusedLabelColor = Ocean.color.colorBrandPrimaryPure
+            activeBackgroundColor = Ocean.color.colorBrandPrimaryPure
+            activeLabelColor = Ocean.color.colorInterfaceLightPure
+            hoverBackgroundColor = Ocean.color.colorBrandPrimaryDown
+            hoverLabelColor = Ocean.color.colorInterfaceLightPure
+            pressedBackgroundColor = Ocean.color.colorBrandPrimaryDeep
+            pressedLabelColor = Ocean.color.colorInterfaceLightPure
+            focusedBackgroundColor = Ocean.color.colorBrandPrimaryDown
+            focusedLabelColor = Ocean.color.colorInterfaceLightPure
             disabledBackgroundColor = Ocean.color.colorInterfaceLightDown
             disabledLabelColor = Ocean.color.colorInterfaceDarkUp
         }
@@ -123,21 +120,9 @@ extension Ocean {
             stack.translatesAutoresizingMaskIntoConstraints = false
             stack.axis = .horizontal
             stack.alignment = .center
-            stack.distribution = .fillProportionally
+            stack.distribution = .fill
             
             stack.addArrangedSubview(Spacer(space: padding))
-            var labelAlignment : NSTextAlignment = .center
-            if let icon = self.icon?.withRenderingMode(.alwaysTemplate) {
-                imageView = UIImageView(image: icon)
-                imageView.tintColor = activeLabelColor
-                stack.addArrangedSubview(imageView)
-                stack.addArrangedSubview(Spacer(space: Ocean.size.spacingInlineXxs))
-                
-                self.imageView.translatesAutoresizingMaskIntoConstraints = false
-                self.imageView.widthAnchor.constraint(equalToConstant: self.iconSize.width).isActive = true
-                self.imageView.heightAnchor.constraint(equalToConstant: self.iconSize.height).isActive = true
-                labelAlignment = .left
-            }
             
             label = UILabel()
             label.translatesAutoresizingMaskIntoConstraints = false
@@ -145,7 +130,7 @@ extension Ocean {
             label.setLineHeight(lineHeight: Ocean.font.lineHeightTight)
             label.textColor = activeLabelColor
             label.text = text
-            label.textAlignment = labelAlignment
+            label.textAlignment = .center
             
             stack.addArrangedSubview(label)
             
@@ -180,7 +165,18 @@ extension Ocean {
             activityIndicator.centerXAnchor.constraint(equalTo: stack.centerXAnchor).isActive = true
             
             activityIndicator.stopAnimating()
-            self.backgroundColor = UIColor.clear
+        }
+        
+        
+        public override func didMoveToSuperview() {
+            
+            if (self.superview?.leftAnchor != nil) {
+                self.leftAnchor.constraint(equalTo: self.superview!.leftAnchor).isActive = true
+            }
+            if (self.superview?.rightAnchor != nil) {
+                self.rightAnchor.constraint(equalTo: self.superview!.rightAnchor).isActive = true
+            }
+            
         }
         
         private func changeColor(background: UIColor, label: UIColor? = nil) {

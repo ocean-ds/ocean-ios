@@ -16,7 +16,7 @@ extension Ocean {
             case large
         }
         
-        public convenience init(builder: (ButtonPrimary) -> Void) {
+        public convenience init(builder: ButtonPrimaryBuilder) {
             self.init()
             builder(self)
             configType()
@@ -49,7 +49,7 @@ extension Ocean {
             }
         }
         
-        private var iconSize: CGSize = .init(width: 16, height: 16)
+        private var iconSize: CGSize = .init(width: 24, height: 24)
         private var minWidth: CGFloat = 108
         private var height: CGFloat = 48
         private var fontSize: CGFloat = Ocean.font.fontSizeXs

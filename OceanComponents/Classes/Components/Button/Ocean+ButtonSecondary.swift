@@ -18,7 +18,7 @@ extension Ocean {
             case large
         }
         
-        public convenience init(builder: (ButtonSecondary) -> Void) {
+        public convenience init(builder: ButtonSecondaryBuilder) {
             self.init()
             builder(self)
             configType()
