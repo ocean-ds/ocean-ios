@@ -178,6 +178,8 @@ class RenderComponentsViewController: UITableViewController {
                 self.designSystemButtonType == DesignSystemButtonType.ButtonText ||  self.designSystemButtonType == DesignSystemButtonType.ButtonInverse) {
                 return 80
             }
+        } else if (self.designSystemComponentsType == DesignSystemComponentsType.Typography){
+            return 80
         }
         return 80
         
