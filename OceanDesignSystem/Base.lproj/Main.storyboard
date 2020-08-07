@@ -253,11 +253,12 @@
                     <navigationItem key="navigationItem" id="w2Y-zL-HzW"/>
                     <connections>
                         <segue destination="ItX-qw-c5L" kind="show" identifier="SegueSubCategory" id="xLl-ZD-2qd"/>
+                        <segue destination="hzt-NT-x0r" kind="show" identifier="SegueLineHeight" id="LLx-WP-bdj"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vtj-9t-FaB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1997.1014492753625" y="-29.464285714285712"/>
+            <point key="canvasLocation" x="2036" y="-29"/>
         </scene>
         <!--Tokens By Sub Category View Controller-->
         <scene sceneID="46Z-a2-KEd">
@@ -284,7 +285,7 @@
                                                     <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="djsakljdlasjkl djsakljdlasjkl djsakljdlasjkl djsakljdlasjkl" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3pW-LH-dQw" userLabel="SubTitle">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="djsakljdlasjkl djsakljdlasjkl djsakljdlasjkl djsakljdlasjkl" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3pW-LH-dQw" userLabel="SubTitle">
                                                     <rect key="frame" x="0.0" y="80" width="394" height="100"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="100" id="l8Q-AA-hNN"/>
@@ -667,6 +668,70 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="boK-7r-z15" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-162" y="914"/>
+        </scene>
+        <!--Line Heights View Controller-->
+        <scene sceneID="Hbl-sC-KR3">
+            <objects>
+                <viewController id="hzt-NT-x0r" customClass="LineHeightsViewController" customModule="OceanDesignSystem" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="RVb-je-coD"/>
+                        <viewControllerLayoutGuide type="bottom" id="nXE-1K-cH3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9tr-pC-hZJ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lines Heights" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dWQ-yS-wnG">
+                                <rect key="frame" x="20" y="8" width="374" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ENs-o8-mmP">
+                                <rect key="frame" x="20" y="44" width="374" height="32"/>
+                                <segments>
+                                    <segment title="1.0"/>
+                                    <segment title="1.1"/>
+                                    <segment title="1.5"/>
+                                </segments>
+                                <connections>
+                                    <action selector="onValueChanged:" destination="hzt-NT-x0r" eventType="valueChanged" id="ux0-pD-rrl"/>
+                                </connections>
+                            </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9OO-p3-qkX">
+                                <rect key="frame" x="20" y="102" width="374" height="101.5"/>
+                                <string key="text">This demo will show you how to add line spacing using custom paragraph style with iOS. This is a great use of NSAttributedString to add necessary parameters to the string value.Hope you have enjoyed it</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="dWQ-yS-wnG" firstAttribute="leading" secondItem="G1G-m8-omy" secondAttribute="leading" constant="20" id="1Hi-ht-iCQ"/>
+                            <constraint firstAttribute="trailing" secondItem="ENs-o8-mmP" secondAttribute="trailing" constant="20" id="3v4-0x-8PN"/>
+                            <constraint firstItem="9OO-p3-qkX" firstAttribute="centerX" secondItem="9tr-pC-hZJ" secondAttribute="centerX" id="5cZ-W0-g7M"/>
+                            <constraint firstItem="ENs-o8-mmP" firstAttribute="leading" secondItem="9tr-pC-hZJ" secondAttribute="leading" constant="20" id="7ci-kW-JHF"/>
+                            <constraint firstItem="ENs-o8-mmP" firstAttribute="centerX" secondItem="9tr-pC-hZJ" secondAttribute="centerX" id="CdO-vJ-JJb"/>
+                            <constraint firstItem="ENs-o8-mmP" firstAttribute="top" secondItem="dWQ-yS-wnG" secondAttribute="bottom" constant="15" id="JEZ-Vu-SVU"/>
+                            <constraint firstItem="9OO-p3-qkX" firstAttribute="top" secondItem="ENs-o8-mmP" secondAttribute="bottom" constant="27" id="UD2-ax-tQ1"/>
+                            <constraint firstItem="dWQ-yS-wnG" firstAttribute="centerX" secondItem="9tr-pC-hZJ" secondAttribute="centerX" id="cTf-pO-KRK"/>
+                            <constraint firstItem="dWQ-yS-wnG" firstAttribute="top" secondItem="RVb-je-coD" secondAttribute="bottom" constant="8" id="iKL-xt-vAx"/>
+                            <constraint firstItem="G1G-m8-omy" firstAttribute="trailing" secondItem="dWQ-yS-wnG" secondAttribute="trailing" constant="20" id="lWD-2Z-oag"/>
+                            <constraint firstItem="9OO-p3-qkX" firstAttribute="leading" secondItem="9tr-pC-hZJ" secondAttribute="leading" constant="20" id="pRd-pz-hav"/>
+                            <constraint firstAttribute="trailing" secondItem="9OO-p3-qkX" secondAttribute="trailing" constant="20" id="yGd-YY-4MM"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="G1G-m8-omy"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="lBe-iZ-1dl"/>
+                    <connections>
+                        <outlet property="TextValue" destination="9OO-p3-qkX" id="sH0-8s-ObR"/>
+                        <outlet property="lineHeights" destination="ENs-o8-mmP" id="Pj9-SE-fsc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="enB-d4-Dbf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2659" y="-691"/>
         </scene>
     </scenes>
 </document>

@@ -14,6 +14,7 @@
 		B71D65E724CA2A8200C3938C /* Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65E624CA2A8200C3938C /* Cells.swift */; };
 		B71D65EA24CA47C500C3938C /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65E924CA47C500C3938C /* Enums.swift */; };
 		B71D65FD24CA530000C3938C /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65FC24CA530000C3938C /* Components.swift */; };
+		B768C52624DDFA740086BF9C /* LineHeightsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B768C52524DDFA740086BF9C /* LineHeightsViewController.swift */; };
 		B7A4FF7924BF8484006712AA /* ComponentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A4FF7824BF8484006712AA /* ComponentsViewController.swift */; };
 		B7CA694E24CB4C940051CA6A /* ComponentTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CA694D24CB4C940051CA6A /* ComponentTypeViewController.swift */; };
 		B7CA695024CB56B90051CA6A /* RenderComponentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CA694F24CB56B90051CA6A /* RenderComponentsViewController.swift */; };
@@ -48,6 +49,7 @@
 		B71D65E624CA2A8200C3938C /* Cells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cells.swift; sourceTree = "<group>"; };
 		B71D65E924CA47C500C3938C /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		B71D65FC24CA530000C3938C /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		B768C52524DDFA740086BF9C /* LineHeightsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineHeightsViewController.swift; sourceTree = "<group>"; };
 		B7A4FF7824BF8484006712AA /* ComponentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsViewController.swift; sourceTree = "<group>"; };
 		B7CA694D24CB4C940051CA6A /* ComponentTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentTypeViewController.swift; sourceTree = "<group>"; };
 		B7CA694F24CB56B90051CA6A /* RenderComponentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderComponentsViewController.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				B7A4FF7824BF8484006712AA /* ComponentsViewController.swift */,
 				B7CA694D24CB4C940051CA6A /* ComponentTypeViewController.swift */,
 				B7CA694F24CB56B90051CA6A /* RenderComponentsViewController.swift */,
+				B768C52524DDFA740086BF9C /* LineHeightsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 				B7CA694E24CB4C940051CA6A /* ComponentTypeViewController.swift in Sources */,
 				B833D03524A6796100587FDE /* AppDelegate.swift in Sources */,
 				B71D65DC24CA038B00C3938C /* Models.swift in Sources */,
+				B768C52624DDFA740086BF9C /* LineHeightsViewController.swift in Sources */,
 				B71D65E224CA053500C3938C /* TokensBySubCategories.swift in Sources */,
 				B7A4FF7924BF8484006712AA /* ComponentsViewController.swift in Sources */,
 				B71D65FD24CA530000C3938C /* Components.swift in Sources */,
@@ -437,7 +441,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 26;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 57KSFR5UHN;
 				INFOPLIST_FILE = OceanDesignSystem/Info.plist;
@@ -461,7 +465,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 26;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 57KSFR5UHN;
 				INFOPLIST_FILE = OceanDesignSystem/Info.plist;

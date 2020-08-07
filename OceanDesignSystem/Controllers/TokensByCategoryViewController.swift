@@ -116,17 +116,23 @@ class TokensByCategoryViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)
-        performSegue(withIdentifier: "SegueSubCategory", sender: self)
+        if (self.categoryType == CategoryType.Typography && self.subCategoryTypograpyTypeSelected == SubCategoryTypograpyType.FontLineHeight) {
+            performSegue(withIdentifier: "SegueLineHeight", sender: self)
+        } else {
+            performSegue(withIdentifier: "SegueSubCategory", sender: self)
+        }
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Create a variable that you want to send
         if (self.categoryType == CategoryType.Typography) {
+            if (self.subCategoryTypograpyTypeSelected != SubCategoryTypograpyType.FontLineHeight) {
                 // Create a new variable to store the instance of PlayerTableViewController
                 let destinationVC = segue.destination as! TokensBySubCategoryViewController
             destinationVC.categoryType = categoryType
                 destinationVC.subCategoryTypograpyType = self.subCategoryTypograpyTypeSelected
-            
+            }
         }
         else if (self.categoryType == CategoryType.Size) {
             let destinationVC = segue.destination as! TokensBySubCategoryViewController

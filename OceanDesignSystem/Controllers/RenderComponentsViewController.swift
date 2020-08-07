@@ -23,12 +23,20 @@ class RenderComponentsViewController: UITableViewController {
     }
     
     fileprivate func configTypographyComponentCell(_ tableView: UITableView, _ indexPath: IndexPath, _ cell: TypographyComponentCell, _ list: [UILabel]) {
-        let rect = CGRect(x: 10, y: 20, width: tableView.bounds.width - 40, height: 40)
+        let rect = CGRect(x: 0, y: 0, width: 394, height: 100)
+        
+        let container = UIView(frame: rect)
+        container.backgroundColor = .lightGray
+        cell.addSubview(container)
+        
         let typographyComponent = list[indexPath.row]
-        typographyComponent.frame = rect
+        typographyComponent.frame = CGRect(x: 10, y: 10, width: rect.width - 40, height: rect.height - 10)
+        
         let title = typographyComponent
         title.text = typographyComponent.text
-        cell.container.addSubview(title)
+        //title.backgroundColor = .brown
+        title.numberOfLines = 2
+        container.addSubview(title)
     }
     
     fileprivate func configButtonPrimaryComponentCell(_ tableView: UITableView, _ indexPath: IndexPath, _ cell: ButtonComponentCell, _ list: [Ocean.ButtonPrimary]) {
@@ -87,27 +95,28 @@ class RenderComponentsViewController: UITableViewController {
         
         if (self.designSystemComponentsType == DesignSystemComponentsType.Typography){
             if (self.designSystemTypographyType == DesignSystemTypographyType.Headings) {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "TypographyComponentCell", for: indexPath) as! TypographyComponentCell
+                //let cell = tableView.dequeueReusableCell(withIdentifier: "TypographyComponentCell", for: indexPath) as! TypographyComponentCell
+                let cell = TypographyComponentCell()
                 configTypographyComponentCell(tableView, indexPath, cell, Headings.list)
                 return cell
             }
             else if (self.designSystemTypographyType == DesignSystemTypographyType.Subtitle) {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "TypographyComponentCell", for: indexPath) as! TypographyComponentCell
+                let cell = TypographyComponentCell()
                 configTypographyComponentCell(tableView, indexPath, cell, Subtitles.list)
                 return cell
             }
             else if (self.designSystemTypographyType == DesignSystemTypographyType.Description) {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "TypographyComponentCell", for: indexPath) as! TypographyComponentCell
+                let cell = TypographyComponentCell()
                 configTypographyComponentCell(tableView, indexPath, cell, Description.list)
                 return cell
             }
             else if (self.designSystemTypographyType == DesignSystemTypographyType.Paragraph) {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "TypographyComponentCell", for: indexPath) as! TypographyComponentCell
+                let cell = TypographyComponentCell()
                 configTypographyComponentCell(tableView, indexPath, cell, Paragraph.list)
                 return cell
             }
             else if (self.designSystemTypographyType == DesignSystemTypographyType.Caption) {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "TypographyComponentCell", for: indexPath) as! TypographyComponentCell
+                let cell = TypographyComponentCell()
                 configTypographyComponentCell(tableView, indexPath, cell, Caption.list)
                 return cell
             }
@@ -179,7 +188,7 @@ class RenderComponentsViewController: UITableViewController {
                 return 80
             }
         } else if (self.designSystemComponentsType == DesignSystemComponentsType.Typography){
-            return 80
+            return 160
         }
         return 80
         

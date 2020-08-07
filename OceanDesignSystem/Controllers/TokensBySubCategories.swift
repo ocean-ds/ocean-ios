@@ -39,9 +39,7 @@ class TokensBySubCategoryViewController: UITableViewController {
                 return Typographies.fontFamilies.count
             case .FontSize:
                 return Typographies.fontSizes.count
-            case .FontLineHeight:
-                return Typographies.lineHeights.count
-                
+
             default:
                 return 0
             }
@@ -97,17 +95,7 @@ class TokensBySubCategoryViewController: UITableViewController {
             cell.subTitle.font = UIFont(name: Ocean.font.fontFamilyBaseWeightLight, size: CGFloat(Typographies.fontSizes[fontSizeKey]!))
             
             return cell;
-        case .FontLineHeight:
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SubTypographyCell", for: indexPath) as! TypographyCell
-            let fontLineHeightKey = Typographies.fontLineHeightsKeys()[indexPath.row]
-            cell.title.text = fontLineHeightKey + " -  \(Typographies.lineHeights[fontLineHeightKey]!)"
-            cell.subTitle.text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard"
-            
-            cell.subTitle.setLineHeight(lineHeight: CGFloat(Typographies.lineHeights[fontLineHeightKey]!))
-            
-            
-            return cell;
+        
         default:
             return UITableViewCell()
         }

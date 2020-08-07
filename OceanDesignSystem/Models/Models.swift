@@ -54,19 +54,8 @@ struct Typographies {
         "fontSizeXxxs": Ocean.font.fontSizeXxxs
     ]
     
-    static let lineHeights = [
-        
-        "lineHeightComfy": Ocean.font.lineHeightComfy,
-        "lineHeightMedium":  Ocean.font.lineHeightMedium,
-        "lineHeightTight": Ocean.font.lineHeightTight
-    ]
-    
     static func fontFamiliesKeys() -> [String] {
         return Array((fontFamilies.keys).sorted(by: <))
-    }
-    
-    static func fontLineHeightsKeys() -> [String] {
-        return Array((lineHeights.keys).sorted(by: <))
     }
     
     static func fontSizesKeys() -> [String] {
