@@ -11,10 +11,9 @@ import OceanTokens
 extension Ocean {
 
     public struct Input {
-        public static func textarea(builder:ButtonPrimaryBuilder) -> ButtonPrimary {
-            return ButtonPrimary { button in
-                button.size = .small
-                builder( button )
+        public static func textarea(builder:ButtonPrimaryBuilder) -> TextArea {
+            return TextArea { textArea in
+                
             }
         }
     }
