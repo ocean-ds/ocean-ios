@@ -14,7 +14,6 @@ extension Ocean {
     public typealias ButtonSecondaryBuilder = (ButtonSecondary) -> Void
     public typealias ButtonTextBuilder = (ButtonText) -> Void
     public typealias ButtonPrimaryInverseBuilder = (ButtonPrimaryInverse) -> Void
-    public typealias ButtonPrimaryBlockedBuilder = (ButtonPrimaryBlocked) -> Void
     
     public struct Button {
         
@@ -40,6 +39,30 @@ extension Ocean {
             }
         }
         
+        public static func primaryBlockedSM(builder:ButtonPrimaryBuilder) -> ButtonPrimary {
+            return ButtonPrimary { button in
+                button.size = .small
+                button.isBlocked = true
+                builder( button )
+            }
+        }
+        
+        public static func primaryBlockedMD(builder:ButtonPrimaryBuilder) -> ButtonPrimary {
+            return ButtonPrimary { button in
+                button.size = .medium
+                button.isBlocked = true
+                builder( button )
+            }
+        }
+        
+        public static func primaryBlockedLG(builder:ButtonPrimaryBuilder) -> ButtonPrimary {
+                   return ButtonPrimary { button in
+                       button.size = .large
+                       button.isBlocked = true
+                       builder( button )
+                   }
+               }
+        
         public static func secondarySM(builder:ButtonSecondaryBuilder) -> ButtonSecondary {
             return ButtonSecondary { button in
                 button.size = .small
@@ -50,7 +73,6 @@ extension Ocean {
         public static func secondaryMD(builder:ButtonSecondaryBuilder) -> ButtonSecondary {
             return ButtonSecondary { button in
                 button.size = .medium
-                
                 builder( button )
             }
         }
@@ -58,6 +80,30 @@ extension Ocean {
         public static func secondaryLG(builder:ButtonSecondaryBuilder) -> ButtonSecondary {
             return ButtonSecondary { button in
                 button.size = .large
+                builder( button )
+            }
+        }
+        
+        public static func secondaryBlockedSM(builder:ButtonSecondaryBuilder) -> ButtonSecondary {
+            return ButtonSecondary { button in
+                button.size = .small
+                button.isBlocked = true
+                builder( button )
+            }
+        }
+        
+        public static func secondaryBlockedMD(builder:ButtonSecondaryBuilder) -> ButtonSecondary {
+            return ButtonSecondary { button in
+                button.size = .medium
+                button.isBlocked = true
+                builder( button )
+            }
+        }
+        
+        public static func secondaryBlockedLG(builder:ButtonSecondaryBuilder) -> ButtonSecondary {
+            return ButtonSecondary { button in
+                button.size = .large
+                button.isBlocked = true
                 builder( button )
             }
         }
@@ -83,9 +129,26 @@ extension Ocean {
             }
         }
         
-        public static func primaryBlockedMD(builder:ButtonPrimaryBlockedBuilder) -> ButtonPrimaryBlocked {
-            return ButtonPrimaryBlocked { button in
+        public static func textBlockedSM(builder:ButtonTextBuilder) -> ButtonText {
+            return ButtonText { button in
+                button.size = .small
+                button.isBlocked = true
+                builder( button )
+            }
+        }
+        
+        public static func textBlockedMD(builder:ButtonTextBuilder) -> ButtonText {
+            return ButtonText { button in
                 button.size = .medium
+                button.isBlocked = true
+                builder( button )
+            }
+        }
+        
+        public static func textBlockedLG(builder:ButtonTextBuilder) -> ButtonText {
+            return ButtonText { button in
+                button.size = .large
+                button.isBlocked = true
                 builder( button )
             }
         }
@@ -110,6 +173,31 @@ extension Ocean {
                 builder( button )
             }
         }
+        
+        public static func primaryInverseBlockedSM(builder:ButtonPrimaryInverseBuilder) -> ButtonPrimaryInverse {
+            return ButtonPrimaryInverse { button in
+                button.size = .small
+                button.isBlocked = true
+                builder( button )
+            }
+        }
+        
+        public static func primaryInverseBlockedMD(builder:ButtonPrimaryInverseBuilder) -> ButtonPrimaryInverse {
+            return ButtonPrimaryInverse { button in
+                button.size = .medium
+                button.isBlocked = true
+                builder( button )
+            }
+        }
+        
+        public static func primaryInverseBlockedLG(builder:ButtonPrimaryInverseBuilder) -> ButtonPrimaryInverse {
+            return ButtonPrimaryInverse { button in
+                button.size = .large
+                button.isBlocked = true
+                builder( button )
+            }
+        }
+
 
     }
 }

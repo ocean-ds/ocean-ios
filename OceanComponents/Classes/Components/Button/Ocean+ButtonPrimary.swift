@@ -9,7 +9,7 @@ import Foundation
 import OceanTokens
 
 extension Ocean {
-    public class ButtonPrimary: UIControl {
+    final public class ButtonPrimary: UIControl {
         public enum Size {
             case medium
             case small
@@ -48,6 +48,8 @@ extension Ocean {
                 }
             }
         }
+        
+        public var isBlocked: Bool = false
         
         private var iconSize: CGSize = .init(width: 24, height: 24)
         private var minWidth: CGFloat = 108
@@ -178,6 +180,18 @@ extension Ocean {
             activityIndicator.centerXAnchor.constraint(equalTo: stack.centerXAnchor).isActive = true
             
             activityIndicator.stopAnimating()
+        }
+        
+        final public override func didMoveToSuperview() {
+            if (self.isBlocked) {
+                if (self.superview?.leftAnchor != nil) {
+                    self.leftAnchor.constraint(equalTo: self.superview!.leftAnchor).isActive = true
+                }
+                if (self.superview?.rightAnchor != nil) {
+                    self.rightAnchor.constraint(equalTo: self.superview!.rightAnchor).isActive = true
+                }
+            }
+            
         }
         
         private func changeColor(background: UIColor, label: UIColor? = nil) {

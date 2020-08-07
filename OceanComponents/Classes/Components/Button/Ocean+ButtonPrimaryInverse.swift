@@ -9,7 +9,7 @@ import Foundation
 import OceanTokens
 
 extension Ocean {
-    public class ButtonPrimaryInverse: UIControl {
+    final public class ButtonPrimaryInverse: UIControl {
         public enum Size {
             case medium
             case small
@@ -23,7 +23,7 @@ extension Ocean {
             makeView()
         }
         
-        public var size: ButtonPrimaryInverse.Size = .medium {
+        final public var size: ButtonPrimaryInverse.Size = .medium {
             didSet {
                 switch size {
                 case .large: configLG()
@@ -32,14 +32,14 @@ extension Ocean {
                 }
             }
         }
-        public var onTouch: (() -> Void)?
-        public var icon: UIImage?
-        public var text: String = "" {
+        final public var onTouch: (() -> Void)?
+        final public var icon: UIImage?
+        final public var text: String = "" {
             didSet {
                 label?.text = text
             }
         }
-        public var isLoading: Bool = false {
+        final public var isLoading: Bool = false {
             didSet {
                 if isLoading {
                     startActivityIndicator()
@@ -48,6 +48,8 @@ extension Ocean {
                 }
             }
         }
+        
+        final public var isBlocked: Bool = false
         
         private var iconSize: CGSize = .init(width: 24, height: 24)
         private var minWidth: CGFloat = 108
@@ -69,7 +71,7 @@ extension Ocean {
         private var disabledBackgroundColor: UIColor!
         private var disabledLabelColor: UIColor!
         
-        public override var isEnabled: Bool {
+        final public override var isEnabled: Bool {
             didSet {
                 if isEnabled {
                     active()
@@ -79,7 +81,7 @@ extension Ocean {
             }
         }
         
-        func configType() {
+        final func configType() {
             activeBackgroundColor = Ocean.color.colorComplementaryPure
             activeLabelColor = Ocean.color.colorInterfaceLightPure
             hoverBackgroundColor = Ocean.color.colorComplementaryDown
@@ -180,6 +182,18 @@ extension Ocean {
             activityIndicator.stopAnimating()
         }
         
+        final public override func didMoveToSuperview() {
+            if (self.isBlocked) {
+                if (self.superview?.leftAnchor != nil) {
+                    self.leftAnchor.constraint(equalTo: self.superview!.leftAnchor).isActive = true
+                }
+                if (self.superview?.rightAnchor != nil) {
+                    self.rightAnchor.constraint(equalTo: self.superview!.rightAnchor).isActive = true
+                }
+            }
+            
+        }
+        
         private func changeColor(background: UIColor, label: UIColor? = nil) {
             self.layer.removeAllAnimations()
             
@@ -192,44 +206,44 @@ extension Ocean {
             })
         }
         
-        @objc func touchUpInSide() {
+        @objc final func touchUpInSide() {
             onTouch?()
             active()
         }
         
-        @objc func touchUpOutSide() {
+        @objc final func touchUpOutSide() {
             active()
         }
         
-        func stopActivityIndicator() {
+        final func stopActivityIndicator() {
             self.isUserInteractionEnabled = true
             self.label.alpha = 1
             self.activityIndicator.stopAnimating()
         }
         
-        func startActivityIndicator() {
+        final func startActivityIndicator() {
             self.isUserInteractionEnabled = false
             self.label.alpha = 0
             activityIndicator.startAnimating()
         }
         
-        func active() {
+        final func active() {
             self.changeColor(background: activeBackgroundColor, label: activeLabelColor)
         }
         
-        func hover() {
+        final func hover() {
             self.changeColor(background: hoverBackgroundColor, label: hoverLabelColor)
         }
         
-        @objc func pressed() {
+        @objc final func pressed() {
             self.changeColor(background: pressedBackgroundColor, label: pressedLabelColor)
         }
         
-        func focused() {
+        final func focused() {
             self.changeColor(background: focusedBackgroundColor, label: focusedLabelColor)
         }
         
-        func disabled() {
+        final func disabled() {
             self.changeColor(background: disabledBackgroundColor, label: disabledLabelColor)
         }
     }

@@ -70,18 +70,6 @@ class RenderComponentsViewController: UITableViewController {
         cell.container.addSubview(buttonComponent)
     }
     
-    fileprivate func configButtonPrimaryBlockedComponentCell(_ tableView: UITableView, _ indexPath: IndexPath, _ cell: ButtonComponentCell, _ list: [Ocean.ButtonPrimaryBlocked]) {
-        let buttonComponent = list[indexPath.row]
-        buttonComponent.isLoading = false
-        buttonComponent.isEnabled = true
-        if (buttonComponent.text == "Disabled") {
-            buttonComponent.isEnabled = false
-        } else if (buttonComponent.text == "Loading") {
-            buttonComponent.isLoading = true
-        }
-        cell.container.addSubview(buttonComponent)
-    }
-    
     fileprivate func configButtonPrimaryInverseComponentCell(_ tableView: UITableView, _ indexPath: IndexPath, _ cell: ButtonComponentCell, _ list: [Ocean.ButtonPrimaryInverse]) {
         
         let buttonComponent = list[indexPath.row]
@@ -136,11 +124,7 @@ class RenderComponentsViewController: UITableViewController {
                 let buttonCell = tableView.dequeueReusableCell(withIdentifier: "ButtonComponentCell", for: indexPath) as! ButtonComponentCell
                 configButtonTextComponentCell(tableView, indexPath, buttonCell, TextButtons.list)
                 return buttonCell
-            } else if (self.designSystemButtonType == DesignSystemButtonType.ButtonBlocked) {
-                let buttonCell = tableView.dequeueReusableCell(withIdentifier: "ButtonComponentCell", for: indexPath) as! ButtonComponentCell
-                configButtonPrimaryBlockedComponentCell(tableView, indexPath, buttonCell, PrimaryBlockedButtons.list)
-                return buttonCell
-            } else if (self.designSystemButtonType == DesignSystemButtonType.ButtonInverse) {
+            }  else if (self.designSystemButtonType == DesignSystemButtonType.ButtonInverse) {
                 let buttonCell = tableView.dequeueReusableCell(withIdentifier: "ButtonComponentCell", for: indexPath) as! ButtonComponentCell
                 configButtonPrimaryInverseComponentCell(tableView, indexPath, buttonCell, PrimaryInverseButtons.list)
                 return buttonCell
@@ -173,8 +157,6 @@ class RenderComponentsViewController: UITableViewController {
                 return SecondaryButtons.list.count
             } else if (self.designSystemButtonType == DesignSystemButtonType.ButtonText) {
                 return TextButtons.list.count
-            } else if (self.designSystemButtonType == DesignSystemButtonType.ButtonBlocked) {
-                return PrimaryBlockedButtons.list.count
             } else if (self.designSystemButtonType == DesignSystemButtonType.ButtonInverse) {
                 return PrimaryInverseButtons.list.count
             }
@@ -193,7 +175,7 @@ class RenderComponentsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if (self.designSystemComponentsType == DesignSystemComponentsType.Button){
             if (self.designSystemButtonType == DesignSystemButtonType.ButtonPrimary || self.designSystemButtonType == DesignSystemButtonType.ButtonSecondary ||
-                self.designSystemButtonType == DesignSystemButtonType.ButtonText || self.designSystemButtonType == DesignSystemButtonType.ButtonBlocked || self.designSystemButtonType == DesignSystemButtonType.ButtonInverse) {
+                self.designSystemButtonType == DesignSystemButtonType.ButtonText ||  self.designSystemButtonType == DesignSystemButtonType.ButtonInverse) {
                 return 80
             }
         }

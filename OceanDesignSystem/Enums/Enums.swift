@@ -45,5 +45,5 @@ public enum DesignSystemButtonType: Int {
     case ButtonSecondary
     case ButtonText
     case ButtonInverse
-    case ButtonBlocked
+    //case ButtonBlocked
 }

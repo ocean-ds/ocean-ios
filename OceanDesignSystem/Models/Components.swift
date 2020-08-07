@@ -32,8 +32,7 @@ struct DSButtons {
         "Primary",
         "Secondary",
         "Text",
-        "PrimaryInverse",
-        "PrimaryBlocked"
+        "PrimaryInverse"
     ]
 }
 
@@ -190,13 +189,18 @@ struct PrimaryButtons {
         button.icon = Ocean.icon.addLg
     }
     
+    static let primaryBlockedLG = Ocean.Button.primaryBlockedLG { button in
+        button.text = "Large"
+    }
+    
     static let list = [
         primarySM,
         primaryMD,
         primaryLG,
         primaryLGDisable,
         primaryLGLoading,
-        primaryLGIcon
+        primaryLGIcon,
+        primaryBlockedLG
     ]
 }
 
@@ -223,12 +227,17 @@ struct SecondaryButtons {
         button.icon = Ocean.icon.addLg
     }
     
+    static let secondaryBlockedLG = Ocean.Button.secondaryBlockedLG { button in
+        button.text = "Large"
+    }
+    
     static let list = [
         secondarySM,
         secondaryMD,
         secondaryLG,
         secondaryLGDisable,
-        secondaryLGIcon
+        secondaryLGIcon,
+        secondaryBlockedLG
     ]
 }
 
@@ -254,13 +263,17 @@ struct TextButtons {
         button.text = "Icon"
         button.icon = Ocean.icon.addLg
     }
+    static let textBlockedLG = Ocean.Button.textBlockedLG { button in
+        button.text = "Large"
+    }
     
     static let list = [
         textSM,
         textMD,
         textLG,
         textLGDisable,
-        textLGIcon
+        textLGIcon,
+        textBlockedLG
     ]
 }
 
@@ -291,35 +304,40 @@ struct PrimaryInverseButtons {
         button.icon = Ocean.icon.addLg
     }
     
+    static let primaryInverseBlockedLGIcon = Ocean.Button.primaryInverseBlockedLG { button in
+        button.text = "Large"
+    }
+    
     static let list = [
         primaryInverseSM,
         primaryInverseMD,
         primaryInverseLG,
         primaryInverseLGDisabled,
         primaryInverseLGLoading,
-        primaryInverseLGIcon
+        primaryInverseLGIcon,
+        primaryInverseBlockedLGIcon
     ]
 }
 
 
-struct PrimaryBlockedButtons {
-    
-    
-    static let primaryBlockedMD = Ocean.Button.primaryBlockedMD { button in
-        button.text = "Medium"
-    }
-    
-    static let primaryBlockedMDDisabled = Ocean.Button.primaryBlockedMD { button in
-        button.text = "Disabled"
-    }
-    
-    static let primaryBlockedMDLoading = Ocean.Button.primaryBlockedMD { button in
-        button.text = "Loading"
-    }
-    
-    static let list = [
-        primaryBlockedMD,
-        primaryBlockedMDDisabled,
-        primaryBlockedMDLoading
-    ]
-}
+//struct PrimaryBlockedButtons {
+//    
+//    
+//    static let primaryBlockedMD = Ocean.Button.primaryBlockedMD { button in
+//        button.text = "Medium"
+//    }
+//    
+//    static let primaryBlockedMDDisabled = Ocean.Button.primaryBlockedMD { button in
+//        button.text = "Disabled"
+//    }
+//    
+//    static let primaryBlockedMDLoading = Ocean.Button.primaryBlockedMD { button in
+//        button.text = "Loading"
+//    }
+//    
+//    static let list = [
+//        primaryBlockedMD,
+//        primaryBlockedMDDisabled,
+//        primaryBlockedMDLoading
+//    ]
+//}

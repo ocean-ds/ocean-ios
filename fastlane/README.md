@@ -32,7 +32,7 @@ Upload to TestFlight
 ```
 fastlane ios prepare_release
 ```
-Upload to TestFlight
+Prepare version
 
 ----
 
