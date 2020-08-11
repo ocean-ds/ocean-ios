@@ -37,15 +37,18 @@ class ComponentsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)
-        
+        if (self.designSystemComponentsTypeSelected == DesignSystemComponentsType.TextArea) {
+            performSegue(withIdentifier: "SegueTextAreaComponents", sender: self)
+        } else {
+            performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
+        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Create a variable that you want to send
-        
-        // Create a new variable to store the instance of PlayerTableViewController
-        let destinationVC = segue.destination as! ComponentTypeViewController
-        destinationVC.designSystemComponentsType = self.designSystemComponentsTypeSelected
+        if (self.designSystemComponentsTypeSelected != DesignSystemComponentsType.TextArea) {
+            let destinationVC = segue.destination as! ComponentTypeViewController
+            destinationVC.designSystemComponentsType = self.designSystemComponentsTypeSelected
+        }
         
     }
 }

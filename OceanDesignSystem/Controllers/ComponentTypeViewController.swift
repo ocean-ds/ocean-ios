@@ -65,7 +65,11 @@ class ComponentTypeViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        
         performSegue(withIdentifier: "SegueRenderComponents", sender: self)
+        
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -79,8 +83,6 @@ class ComponentTypeViewController: UITableViewController {
         } else if (designSystemComponentsType == DesignSystemComponentsType.Button) {
             destinationVC.designSystemButtonType = self.designSystemButtonTypeSelected
         }
-        
-        
     }
     
     private func getTypographyComponents(_ indexPath: IndexPath) -> UITableViewCell {

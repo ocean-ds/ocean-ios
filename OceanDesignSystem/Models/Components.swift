@@ -13,7 +13,8 @@ import OceanTokens
 struct DSComponents {
     static let list = [
         "Typography",
-        "Button"
+        "Button",
+        "InputText"
     ]
 }
 
@@ -318,26 +319,3 @@ struct PrimaryInverseButtons {
         primaryInverseBlockedLGIcon
     ]
 }
-
-
-//struct PrimaryBlockedButtons {
-//    
-//    
-//    static let primaryBlockedMD = Ocean.Button.primaryBlockedMD { button in
-//        button.text = "Medium"
-//    }
-//    
-//    static let primaryBlockedMDDisabled = Ocean.Button.primaryBlockedMD { button in
-//        button.text = "Disabled"
-//    }
-//    
-//    static let primaryBlockedMDLoading = Ocean.Button.primaryBlockedMD { button in
-//        button.text = "Loading"
-//    }
-//    
-//    static let list = [
-//        primaryBlockedMD,
-//        primaryBlockedMDDisabled,
-//        primaryBlockedMDLoading
-//    ]
-//}

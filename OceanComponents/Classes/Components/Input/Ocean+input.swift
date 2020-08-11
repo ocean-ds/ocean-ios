@@ -10,11 +10,18 @@ import OceanTokens
 
 extension Ocean {
 
+    public typealias TextAreaBuilder = (TextArea) -> Void
+    public typealias InputTextFieldBuilder = (InputTextField) -> Void
+    
     public struct Input {
-        public static func textarea(builder:ButtonPrimaryBuilder) -> TextArea {
+        public static func textarea(builder:TextAreaBuilder) -> TextArea {
             return TextArea { textArea in
                 
             }
+        }
+        
+        public static func textfield(builder:InputTextFieldBuilder) -> InputTextField {
+            return InputTextField()
         }
     }
 

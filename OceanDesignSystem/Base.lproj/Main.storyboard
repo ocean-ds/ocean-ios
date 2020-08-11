@@ -107,7 +107,6 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="title" destination="sbH-gL-Fh9" id="yWD-FK-VDf"/>
-                                    <segue destination="CbQ-Zt-QpH" kind="show" id="YS4-V0-7rh"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -117,6 +116,10 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Components" id="eMM-aA-MbI"/>
+                    <connections>
+                        <segue destination="5ef-au-a5S" kind="show" identifier="SegueTextAreaComponents" id="ZJ2-le-hGI"/>
+                        <segue destination="CbQ-Zt-QpH" kind="show" identifier="SegueComponentTypeView" id="tAz-Xv-g6K"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aGw-ly-AWm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -732,6 +735,44 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="enB-d4-Dbf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2659" y="-691"/>
+        </scene>
+        <!--Text Area View Controller-->
+        <scene sceneID="aWc-CR-LzV">
+            <objects>
+                <viewController id="5ef-au-a5S" customClass="TextAreaViewController" customModule="OceanDesignSystem" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wnd-1q-lug">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dgc-bc-Y9R">
+                                <rect key="frame" x="20" y="44" width="374" height="32"/>
+                                <segments>
+                                    <segment title="Inactive"/>
+                                    <segment title="Activated"/>
+                                    <segment title="Disabled"/>
+                                    <segment title="Error"/>
+                                </segments>
+                                <connections>
+                                    <action selector="onValueChanged:" destination="5ef-au-a5S" eventType="valueChanged" id="eJQ-Ys-i6T"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="dgc-bc-Y9R" firstAttribute="leading" secondItem="tDI-ig-3gq" secondAttribute="leading" constant="20" id="EY6-I4-aGA"/>
+                            <constraint firstItem="tDI-ig-3gq" firstAttribute="trailing" secondItem="dgc-bc-Y9R" secondAttribute="trailing" constant="20" id="Hlp-KI-KAl"/>
+                            <constraint firstItem="dgc-bc-Y9R" firstAttribute="top" secondItem="tDI-ig-3gq" secondAttribute="top" constant="44" id="tR7-kb-dO0"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="tDI-ig-3gq"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Gv6-Tr-liu"/>
+                    <connections>
+                        <outlet property="states" destination="dgc-bc-Y9R" id="uDJ-JI-7jS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O6H-6x-1BD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1996" y="1380"/>
         </scene>
     </scenes>
 </document>

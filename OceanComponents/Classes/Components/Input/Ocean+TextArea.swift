@@ -13,7 +13,7 @@ extension Ocean {
     public class TextArea: UIControl, UITextViewDelegate {
         internal var mainStack: UIStackView!
         private var textArea: UITextView!
-        private var image: UIImage!
+        //private var image: UIImage!
         private var labelError: UILabel!
         private var hStack: UIStackView!
         private var backgroundView: UIView!
@@ -87,7 +87,7 @@ extension Ocean {
             self.makeView()
         }
         
-        public convenience init(builder: ((TextArea) -> Void)? = nil) {
+        public convenience init(builder: (TextAreaBuilder)? = nil) {
             self.init(frame: .zero)
             builder?(self)
             updateState()
@@ -162,7 +162,7 @@ extension Ocean {
             self.textArea.textColor = text
             self.backgroundView.backgroundColor = background
             self.textArea.backgroundColor = background
-            self.backgroundView.layer.borderColor = border.cgColor
+            //self.backgroundView.layer.borderColor = border.cgColor
             changePlaceholderColor(color: placeHolderColor!)
         }
         
