@@ -24,37 +24,36 @@ public class TextAreaViewController : UIViewController {
             component.placeholder = "Input Text"
         }
         
-        self.textfield.onKeyEnterTouched = {
-            self.states.selectedSegmentIndex = 0
-        }
+//        self.textfield.onKeyEnterTouched = {
+//            self.states.selectedSegmentIndex = 0
+//        }
         self.textfield.onValueChanged = { text in
-            self.textfield.errorMessage = ""
+            //self.textfield.errorMessage = ""
             self.states.selectedSegmentIndex = 1
         }
         
-        
-        self.textfield.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(self.textfield)
+        self.textfield.translatesAutoresizingMaskIntoConstraints = false
         self.view.addConstraints(generateConstraintsTextFieldTop())
     }
         
     
     private func generateConstraintsTextFieldTop() -> [NSLayoutConstraint] {
-        let constraintTop = NSLayoutConstraint(item: textfield,
+        let constraintTop = NSLayoutConstraint(item: self.textfield,
         attribute: .top,
         relatedBy: .equal,
         toItem: topLayoutGuide,
         attribute: .top,
         multiplier: 1.0,
-        constant: 80.0)
-        let constraintX = NSLayoutConstraint(item: textfield,
+        constant: 100.0)
+        let constraintX = NSLayoutConstraint(item: self.textfield,
         attribute: .centerX,
         relatedBy: .equal,
         toItem: view,
         attribute: .centerX,
         multiplier: 1.0,
         constant: 0.0)
-        let constraintWidth = NSLayoutConstraint(item: textfield,
+        let constraintWidth = NSLayoutConstraint(item: self.textfield,
         attribute: .width,
         relatedBy: .equal,
         toItem: nil,

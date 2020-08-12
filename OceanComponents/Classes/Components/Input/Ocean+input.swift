@@ -21,7 +21,10 @@ extension Ocean {
         }
         
         public static func textfield(builder:InputTextFieldBuilder) -> InputTextField {
-            return InputTextField()
+            return InputTextField { inputText in
+                inputText.placeholder = "inputText"
+                builder(inputText)
+            }
         }
     }
 

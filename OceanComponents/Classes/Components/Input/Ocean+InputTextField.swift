@@ -109,9 +109,9 @@ extension Ocean {
 
         public var rightButton: UIButton?
 
-        public convenience init(builder: ((InputTextField) -> Void)? = nil) {
+        public convenience init(builder: InputTextFieldBuilder) {
             self.init()
-            builder?(self)
+            builder(self)
             makeView()
         }
 
