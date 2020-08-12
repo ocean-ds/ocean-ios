@@ -22,12 +22,16 @@ public class TextAreaViewController : UIViewController {
         
         self.textfield = Ocean.Input.textfield { component in
             component.placeholder = "Input Text"
-            component.rightButton?.imageView?.image = Ocean.icon.eyeMd
         }
         
 //        self.textfield.onKeyEnterTouched = {
 //            self.states.selectedSegmentIndex = 0
 //        }
+        self.textfield.onBeginEditing = {
+            self.textfield.becomeFirstResponder()
+            self.textfield.errorMessage = ""
+            self.states.selectedSegmentIndex = 1
+        }
         self.textfield.onValueChanged = { text in
             //self.textfield.errorMessage = ""
             self.states.selectedSegmentIndex = 1
@@ -69,20 +73,22 @@ public class TextAreaViewController : UIViewController {
         switch states.selectedSegmentIndex
         {
         case 0: //Inactive
+            self.textfield.isEnabled = true
             self.textfield.errorMessage = ""
             self.textfield.endEditing(true)
-            self.textfield.isEnabled = true
+            
             break
         case 1: //Activated
+            self.textfield.isEnabled = true
             self.textfield.errorMessage = ""
             self.textfield.becomeFirstResponder()
-            self.textfield.isEnabled = true
             break
         case 2: //Disabled
-            self.textfield.errorMessage = ""
             self.textfield.isEnabled = false
+            self.textfield.errorMessage = ""
             break
         case 3: //Error
+            self.textfield.isEnabled = true
             self.textfield.errorMessage = "error message"
             break
         default:

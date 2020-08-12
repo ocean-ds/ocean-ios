@@ -106,6 +106,7 @@ extension Ocean {
 
         public var onValueChanged: ((String) -> Void)?
         public var onKeyEnterTouched: (() -> Void)?
+        public var onBeginEditing: (() -> Void)?
 
         public var rightButton: UIButton?
 
@@ -278,6 +279,7 @@ extension Ocean {
         }
 
         public func textFieldDidBeginEditing(_ textField: UITextField) {
+            self.onBeginEditing?()
             updateState()
         }
 
