@@ -22,6 +22,7 @@ public class TextAreaViewController : UIViewController {
         
         self.textfield = Ocean.Input.textfield { component in
             component.placeholder = "Input Text"
+            component.rightButton?.imageView?.image = Ocean.icon.eyeMd
         }
         
 //        self.textfield.onKeyEnterTouched = {
