@@ -16,7 +16,8 @@ extension Ocean {
     public struct Input {
         public static func textarea(builder:TextAreaBuilder) -> TextArea {
             return TextArea { textArea in
-                
+                textArea.placeholder = "TextArea"
+                builder(textArea)
             }
         }
         

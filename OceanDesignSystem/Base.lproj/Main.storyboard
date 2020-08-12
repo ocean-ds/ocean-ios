@@ -756,18 +756,34 @@
                                     <action selector="onValueChanged:" destination="5ef-au-a5S" eventType="valueChanged" id="eJQ-Ys-i6T"/>
                                 </connections>
                             </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="sgW-f5-x6p">
+                                <rect key="frame" x="20" y="152" width="374" height="32"/>
+                                <segments>
+                                    <segment title="Inactive"/>
+                                    <segment title="Activated"/>
+                                    <segment title="Disabled"/>
+                                    <segment title="Error"/>
+                                </segments>
+                                <connections>
+                                    <action selector="onValueChangedTextArea:" destination="5ef-au-a5S" eventType="valueChanged" id="CBi-St-3oS"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="dgc-bc-Y9R" firstAttribute="leading" secondItem="tDI-ig-3gq" secondAttribute="leading" constant="20" id="EY6-I4-aGA"/>
+                            <constraint firstItem="sgW-f5-x6p" firstAttribute="top" secondItem="dgc-bc-Y9R" secondAttribute="bottom" constant="77" id="HBm-EL-V0j"/>
                             <constraint firstItem="tDI-ig-3gq" firstAttribute="trailing" secondItem="dgc-bc-Y9R" secondAttribute="trailing" constant="20" id="Hlp-KI-KAl"/>
+                            <constraint firstItem="sgW-f5-x6p" firstAttribute="leading" secondItem="tDI-ig-3gq" secondAttribute="leading" constant="20" id="qY4-ft-Wwe"/>
                             <constraint firstItem="dgc-bc-Y9R" firstAttribute="top" secondItem="tDI-ig-3gq" secondAttribute="top" constant="44" id="tR7-kb-dO0"/>
+                            <constraint firstItem="tDI-ig-3gq" firstAttribute="trailing" secondItem="sgW-f5-x6p" secondAttribute="trailing" constant="20" id="vU2-Ai-m2i"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="tDI-ig-3gq"/>
                     </view>
                     <navigationItem key="navigationItem" id="Gv6-Tr-liu"/>
                     <connections>
                         <outlet property="states" destination="dgc-bc-Y9R" id="uDJ-JI-7jS"/>
+                        <outlet property="statesTextArea" destination="sgW-f5-x6p" id="Mjp-JT-VK1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O6H-6x-1BD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

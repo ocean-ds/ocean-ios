@@ -46,7 +46,7 @@ extension Ocean {
             
             set {
                 textArea.text = newValue
-                checkPlaceholder()
+                //checkPlaceholder()
                 self.updateState()
             }
         }
@@ -76,6 +76,7 @@ extension Ocean {
         }
         
         public var onValueChanged: ((String) -> Void)?
+        public var onBeginEditing: (() -> Void)?
         
         public override init(frame: CGRect) {
             super.init(frame: frame)
@@ -87,9 +88,9 @@ extension Ocean {
             self.makeView()
         }
         
-        public convenience init(builder: (TextAreaBuilder)? = nil) {
+        public convenience init(builder: TextAreaBuilder) {
             self.init(frame: .zero)
-            builder?(self)
+            builder(self)
             updateState()
         }
         
@@ -138,20 +139,31 @@ extension Ocean {
             if errorMessage?.isEmpty == false {
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
                             border: Ocean.color.colorStatusNegativePure)
+                checkPlaceholder()
             } else if textArea.isFirstResponder {
+                labelPlaceholder?.isHidden = true
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
                             border: Ocean.color.colorBrandPrimaryDown)
             } else if isActivated == false {
+                
+                checkPlaceholder()
                 changeColor(text: Ocean.color.colorInterfaceLightDeep,
                             border: Ocean.color.colorInterfaceLightDeep,
                             background: Ocean.color.colorInterfaceLightDown,
-                            placeHolderColor: Ocean.color.colorInterfaceDarkUp)
+                            placeHolderColor: Ocean.color.colorInterfaceLightDeep)
             } else if isEnabled {
-                changeColor(text: Ocean.color.colorInterfaceDarkDeep,
-                            border: Ocean.color.colorBrandPrimaryUp)
+                let isEmpty = self.textArea?.text?.isEmpty == true
+                let color = isEmpty ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorInterfaceDarkDeep
+                let border = isEmpty ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorBrandPrimaryUp
+                changeColor(text: color,
+                            border: border)
+                checkPlaceholder()
             } else {
-                changeColor(text: Ocean.color.colorInterfaceDarkDeep,
-                            border: Ocean.color.colorBrandPrimaryDown)
+                changeColor(text: Ocean.color.colorInterfaceDarkUp,
+                            border: Ocean.color.colorInterfaceLightDown,
+                            background: Ocean.color.colorInterfaceLightDown,
+                            placeHolderColor: Ocean.color.colorInterfaceDarkUp)
+                checkPlaceholder()
             }
         }
         
@@ -162,7 +174,7 @@ extension Ocean {
             self.textArea.textColor = text
             self.backgroundView.backgroundColor = background
             self.textArea.backgroundColor = background
-            //self.backgroundView.layer.borderColor = border.cgColor
+            self.backgroundView.layer.borderColor = border.cgColor
             changePlaceholderColor(color: placeHolderColor!)
         }
         
@@ -215,6 +227,8 @@ extension Ocean {
         }
         
         public func textViewDidBeginEditing(_ textView: UITextView) {
+            self.onBeginEditing?()
+            labelPlaceholder?.isHidden = true
             updateState()
         }
         
@@ -225,7 +239,6 @@ extension Ocean {
         public func textViewDidChange(_ textView: UITextView) {
             updateState()
             onValueChanged?(textView.text ?? "")
-            checkPlaceholder()
         }
     }
     
@@ -240,7 +253,9 @@ extension Ocean.TextArea {
     }
     
     func setPlaceholder(text: String) {
-        labelPlaceholder = UILabel()
+        if (labelPlaceholder == nil) {
+            labelPlaceholder = UILabel()
+        }
         labelPlaceholder.text = text
         labelPlaceholder.font = UIFont(
             name: Ocean.font.fontFamilyBaseWeightRegular,
@@ -258,9 +273,9 @@ extension Ocean.TextArea {
     
     func checkPlaceholder() {
         if self.text.isEmpty == true {
-            labelPlaceholder.isHidden = false
+            labelPlaceholder?.isHidden = false
         } else {
-            labelPlaceholder.isHidden = true
+            labelPlaceholder?.isHidden = true
         }
     }
 }
