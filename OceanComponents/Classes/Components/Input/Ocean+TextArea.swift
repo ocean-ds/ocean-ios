@@ -186,9 +186,8 @@ extension Ocean {
             
             backgroundView = UIView()
             backgroundView.translatesAutoresizingMaskIntoConstraints = false
-            backgroundView.layer.cornerRadius = Ocean.size.borderRadiusSm
-            backgroundView.layer.borderWidth = Ocean.size.borderWidthHairline
-            backgroundView.layer.borderColor = UIColor.blue.cgColor
+            backgroundView.ocean.borderWidth.applyThin()
+            backgroundView.ocean.radius.applySm()
             backgroundView.backgroundColor = Ocean.color.colorInterfaceLightPure
             
             hStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs - 4))
