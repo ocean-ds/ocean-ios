@@ -224,7 +224,7 @@ extension Ocean {
 
             backgroundView = UIView()
             backgroundView.translatesAutoresizingMaskIntoConstraints = false
-            backgroundView.ocean.borderWidth.applyThin()
+            backgroundView.ocean.borderWidth.applyHairline()
             backgroundView.ocean.radius.applySm()
             backgroundView.backgroundColor = Ocean.color.colorInterfaceLightPure
 

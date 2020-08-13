@@ -123,7 +123,8 @@ platform :ios do
       force: true, # Skip HTMl report verification
       skip_metadata: true,
       skip_screenshots: true,
-      skip_binary_upload: false
+      skip_binary_upload: false,
+      run_precheck_before_submit: false
     )
   end
 end
