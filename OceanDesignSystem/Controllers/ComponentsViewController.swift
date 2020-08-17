@@ -39,13 +39,15 @@ class ComponentsViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         if (self.designSystemComponentsTypeSelected == DesignSystemComponentsType.TextArea) {
             performSegue(withIdentifier: "SegueTextAreaComponents", sender: self)
+        } else if (self.designSystemComponentsTypeSelected == DesignSystemComponentsType.Snackbar) {
+            performSegue(withIdentifier: "SegueSnackbarComponents", sender: self)
         } else {
             performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (self.designSystemComponentsTypeSelected != DesignSystemComponentsType.TextArea) {
+        if (self.designSystemComponentsTypeSelected != DesignSystemComponentsType.TextArea && self.designSystemComponentsTypeSelected != DesignSystemComponentsType.Snackbar) {
             let destinationVC = segue.destination as! ComponentTypeViewController
             destinationVC.designSystemComponentsType = self.designSystemComponentsTypeSelected
         }

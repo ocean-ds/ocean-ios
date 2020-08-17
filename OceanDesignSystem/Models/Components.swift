@@ -14,7 +14,8 @@ struct DSComponents {
     static let list = [
         "Typography",
         "Button",
-        "InputText"
+        "InputText",
+        "Snackbar"
     ]
 }
 
@@ -38,6 +39,11 @@ struct DSButtons {
 }
 
 public class Headings {
+    
+    static let heading1WithBold = Ocean.Typography.heading1 { label in
+        label.text = "Heading1 Heading1 Heading1 Heading1"
+        
+    }
     
     static let heading1 = Ocean.Typography.heading1 { label in
         label.text = "Heading1 Heading1 Heading1 Heading1"
@@ -261,7 +267,6 @@ struct TextButtons {
     }
     
     static let textLGIcon = Ocean.Button.textLG { button in
-        button.text = "Icon"
         button.icon = Ocean.icon.addLg
     }
     static let textBlockedLG = Ocean.Button.textBlockedLG { button in
