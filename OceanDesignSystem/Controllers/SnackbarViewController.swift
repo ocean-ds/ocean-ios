@@ -18,7 +18,8 @@ public class SnackbarViewController : UIViewController {
     public override func viewDidLoad() {
         
         self.snackbar = Ocean.View.snackbarInfo(builder: { snackbar in
-            snackbar.snackbarText = "Test info in snack bar"
+            snackbar.line = .two
+            snackbar.snackbarText = "Test info in snack bar with 2 lines Test info in snack bar with 2 lines"
         })
         updateSnackBar()
         self.snackbar.show()
@@ -34,6 +35,7 @@ public class SnackbarViewController : UIViewController {
         {
         case 0: //Info
             self.snackbar = Ocean.View.snackbarInfo(builder: { snackbar in
+                snackbar.line = .two
                 snackbar.snackbarText = "Test info in snack bar with 2 lines Test info in snack bar with 2 lines"
             })
             updateSnackBar()
@@ -44,7 +46,7 @@ public class SnackbarViewController : UIViewController {
                 snackbar.snackbarText = "Test error in snack bar"
             })
             updateSnackBar()
-            self.snackbar.show()
+            self.snackbar.show(0)
             break
         case 2: //Success
             self.snackbar = Ocean.View.snackbarSuccess(builder: { snackbar in
@@ -62,6 +64,7 @@ public class SnackbarViewController : UIViewController {
             break
         case 4: //+ icon
             self.snackbar = Ocean.View.snackbarInfo(builder: { snackbar in
+                snackbar.line = .two
                 snackbar.snackbarText = "Test info in snack bar with 2 lines Test info in snack bar with 2 lines"
                 snackbar.snackbarActionText = "Action"
             })
@@ -80,7 +83,7 @@ public class SnackbarViewController : UIViewController {
         toItem: view.safeAreaLayoutGuide,
         attribute: .top,
         multiplier: 1.0,
-            constant: 100.0)
+            constant: 500.0)
         let constraintX = NSLayoutConstraint(item: self.snackbar,
         attribute: .centerX,
         relatedBy: .equal,

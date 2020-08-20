@@ -812,6 +812,11 @@
                                     <action selector="onValueChangedTextArea:" destination="Peb-Ta-70A" eventType="valueChanged" id="1EI-T7-OXF"/>
                                 </connections>
                             </segmentedControl>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3vU-SV-vm0" customClass="SnackbarView" customModule="OceanDesignSystem" customModuleProvider="target">
+                                <rect key="frame" x="45" y="178" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>

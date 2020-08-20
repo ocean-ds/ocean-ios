@@ -18,6 +18,9 @@
 		B768C57724E3186C0086BF9C /* TextAreaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B768C57624E3186C0086BF9C /* TextAreaViewController.swift */; };
 		B7A4FF7924BF8484006712AA /* ComponentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A4FF7824BF8484006712AA /* ComponentsViewController.swift */; };
 		B7BB717924E615B3007F8848 /* SnackbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BB717824E615B3007F8848 /* SnackbarViewController.swift */; };
+		B7BB721E24EEE8EB007F8848 /* SnackbarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7BB721D24EEE8EB007F8848 /* SnackbarView.xib */; };
+		B7BB722024EEEA89007F8848 /* SnackbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BB721F24EEEA89007F8848 /* SnackbarView.swift */; };
+		B7BB722224EEEB6F007F8848 /* NibWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BB722124EEEB6F007F8848 /* NibWrapperView.swift */; };
 		B7CA694E24CB4C940051CA6A /* ComponentTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CA694D24CB4C940051CA6A /* ComponentTypeViewController.swift */; };
 		B7CA695024CB56B90051CA6A /* RenderComponentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CA694F24CB56B90051CA6A /* RenderComponentsViewController.swift */; };
 		B833D03524A6796100587FDE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B833D03424A6796100587FDE /* AppDelegate.swift */; };
@@ -55,6 +58,9 @@
 		B768C57624E3186C0086BF9C /* TextAreaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAreaViewController.swift; sourceTree = "<group>"; };
 		B7A4FF7824BF8484006712AA /* ComponentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsViewController.swift; sourceTree = "<group>"; };
 		B7BB717824E615B3007F8848 /* SnackbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarViewController.swift; sourceTree = "<group>"; };
+		B7BB721D24EEE8EB007F8848 /* SnackbarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SnackbarView.xib; sourceTree = "<group>"; };
+		B7BB721F24EEEA89007F8848 /* SnackbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarView.swift; sourceTree = "<group>"; };
+		B7BB722124EEEB6F007F8848 /* NibWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibWrapperView.swift; sourceTree = "<group>"; };
 		B7CA694D24CB4C940051CA6A /* ComponentTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentTypeViewController.swift; sourceTree = "<group>"; };
 		B7CA694F24CB56B90051CA6A /* RenderComponentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderComponentsViewController.swift; sourceTree = "<group>"; };
 		B833D03124A6796100587FDE /* OceanDesignSystem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OceanDesignSystem.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,6 +129,9 @@
 		B7BB708424E46BA3007F8848 /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
+				B7BB721D24EEE8EB007F8848 /* SnackbarView.xib */,
+				B7BB721F24EEEA89007F8848 /* SnackbarView.swift */,
+				B7BB722124EEEB6F007F8848 /* NibWrapperView.swift */,
 			);
 			path = Xibs;
 			sourceTree = "<group>";
@@ -242,6 +251,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B833D04124A6796300587FDE /* LaunchScreen.storyboard in Resources */,
+				B7BB721E24EEE8EB007F8848 /* SnackbarView.xib in Resources */,
 				B833D03E24A6796300587FDE /* Assets.xcassets in Resources */,
 				B833D03C24A6796100587FDE /* Main.storyboard in Resources */,
 			);
@@ -302,6 +312,7 @@
 				B71D65EA24CA47C500C3938C /* Enums.swift in Sources */,
 				B7CA694E24CB4C940051CA6A /* ComponentTypeViewController.swift in Sources */,
 				B833D03524A6796100587FDE /* AppDelegate.swift in Sources */,
+				B7BB722224EEEB6F007F8848 /* NibWrapperView.swift in Sources */,
 				B71D65DC24CA038B00C3938C /* Models.swift in Sources */,
 				B768C52624DDFA740086BF9C /* LineHeightsViewController.swift in Sources */,
 				B71D65E224CA053500C3938C /* TokensBySubCategories.swift in Sources */,
@@ -309,6 +320,7 @@
 				B768C57724E3186C0086BF9C /* TextAreaViewController.swift in Sources */,
 				B7BB717924E615B3007F8848 /* SnackbarViewController.swift in Sources */,
 				B71D65FD24CA530000C3938C /* Components.swift in Sources */,
+				B7BB722024EEEA89007F8848 /* SnackbarView.swift in Sources */,
 				B833D03724A6796100587FDE /* SceneDelegate.swift in Sources */,
 				B71D65E724CA2A8200C3938C /* Cells.swift in Sources */,
 			);
@@ -457,7 +469,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 42;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 57KSFR5UHN;
 				INFOPLIST_FILE = OceanDesignSystem/Info.plist;
@@ -482,7 +494,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 42;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 57KSFR5UHN;
 				INFOPLIST_FILE = OceanDesignSystem/Info.plist;

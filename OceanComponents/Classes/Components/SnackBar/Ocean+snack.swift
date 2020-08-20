@@ -10,7 +10,9 @@ import OceanTokens
 
 extension Ocean {
     public struct View {
+        
         public static func snackbarInfo(builder:SnackbarBuilder) -> Snackbar {
+            
             return Snackbar { view in
                 view.iconType = .info
                 builder(view)

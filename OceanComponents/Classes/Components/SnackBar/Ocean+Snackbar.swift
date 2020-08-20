@@ -21,14 +21,34 @@ extension Ocean {
         private var imageViewIcon: UIImageView!
         private var actionText: String = "Action"
         private var labelButton: UILabel!
+        public var checkStatus: (() -> States)?
+        
+        public enum States  {
+            case created
+            case loading
+            case hide
+            case destroyed
+        }
+        
+        public enum Lines : CGFloat {
+            case one = 48
+            case two = 58
+        }
         
         public enum IconType {
             case info
             case error
             case alert
             case success
-            case custom
         }
+        
+        public var state: States = .created {
+            didSet {
+                
+            }
+        }
+        
+        public var line: Lines = .one
         
         public var snackbarText: String = "Snackbar text" {
             didSet {
@@ -40,8 +60,6 @@ extension Ocean {
         
         public var iconType: IconType? {
             didSet {
-                
-                
                 if (self.iconType == .info) {
                     imageViewIcon.image = Ocean.icon.infoMd
                     imageViewIcon.image = imageViewIcon.image?.withRenderingMode(.alwaysTemplate)
@@ -55,7 +73,6 @@ extension Ocean {
                     imageViewIcon.image = Ocean.icon.okCircleMd
                     imageViewIcon.image = imageViewIcon.image?.withRenderingMode(.alwaysTemplate)
                 }
-                
                 updateIconColor()
             }
         }
@@ -73,6 +90,7 @@ extension Ocean {
         public var snackbarActionTouch: (() -> Void)?
         
         fileprivate func createView() {
+            self.state = .created
             makeLabel()
             makeIcon()
             
@@ -86,11 +104,11 @@ extension Ocean {
                 stack.translatesAutoresizingMaskIntoConstraints = false
                 stack.alignment = .center
                 stack.axis = .horizontal
-                stack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
+                stack.addArrangedSubview(Spacer(space: Ocean.size.spacingInlineXs))
                 stack.addArrangedSubview(imageViewIcon)
-                stack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
+                stack.addArrangedSubview(Spacer(space: Ocean.size.spacingInlineXs))
                 stack.addArrangedSubview(labelText)
-                stack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
+                stack.addArrangedSubview(Spacer(space: Ocean.size.spacingInlineXs))
             }
             
             mainStack = UIStackView { stack in
@@ -108,20 +126,24 @@ extension Ocean {
             
         }
         
-        public func show(_ duration: UInt64 = 4) {
+        public func show(_ duration: Int = 2) {
+            self.state = .loading
             self.alpha = 0
             DispatchQueue.main.async {
                 UIView.transition(with: self, duration: 0.2, options: .curveEaseIn, animations: {
                     self.alpha = 1
-                    self.setTimerToDisappear()
+                    if (duration > 0) {
+                        self.hide(duration)
+                    }
                 })
             }
         }
         
-        public func setTimerToDisappear() {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        public func hide(_ duration: Int = 0) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(duration)) {
                 UIView.transition(with: self, duration: 1.0, options: .curveEaseOut, animations: {
                     self.alpha = 0
+                    self.state = .hide
                 })
             }
         }
@@ -149,8 +171,6 @@ extension Ocean {
                 setIconColor(color:Ocean.color.colorStatusPositivePure)
                 break
             case .none:
-                break
-            case .some(.custom):
                 break
             }
         }
@@ -200,13 +220,14 @@ extension Ocean {
             backgroundViewContent.rightAnchor.constraint(equalTo: backgroundView.rightAnchor).isActive = true
             backgroundViewContent.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor).isActive = true
             
-            
             mainStack.leftAnchor.constraint(equalTo: backgroundView.leftAnchor).isActive = true
-            mainStack.topAnchor.constraint(equalTo: backgroundView.topAnchor,
-                                           constant: Ocean.size.spacingStackXxs).isActive = true
+            mainStack.topAnchor.constraint(equalTo: backgroundView.topAnchor).isActive = true
+            //mainStack.topAnchor.constraint(equalTo: backgroundView.topAnchor,
+              //                             constant: Ocean.size.spacingStackXxs).isActive = true
             mainStack.rightAnchor.constraint(equalTo: backgroundView.rightAnchor).isActive = true
-            mainStack.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor,
-                                              constant: -Ocean.size.spacingStackXxs).isActive = true
+//            mainStack.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor,
+//                                              constant: -Ocean.size.spacingStackXxs).isActive = true
+            mainStack.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor).isActive = true
         }
         
         public override func didMoveToSuperview() {
@@ -220,16 +241,14 @@ extension Ocean {
                                                  constant: Ocean.size.spacingStackXxs).isActive = true
             backgroundView.rightAnchor.constraint(equalTo: superview.rightAnchor,
                                                   constant: -Ocean.size.spacingStackXxs).isActive = true
-            backgroundView.bottomAnchor.constraint(equalTo: superview.bottomAnchor,
-                                                   constant: -Ocean.size.spacingStackXxs).isActive = true
-            //                backgroundView.topAnchor.constraint(equalTo: superview.topAnchor,
-            //                constant: -Ocean.size.spacingStackXxs).isActive = true
-            
-            
-            
-            backgroundView.heightAnchor.constraint(equalTo: labelText.heightAnchor,
-                                                   constant: Ocean.size.spacingInlineXs).isActive = true
-            
+            if #available(iOS 11.0, *) {
+                backgroundView.bottomAnchor.constraint(equalTo: superview.safeAreaLayoutGuide.bottomAnchor,
+                                                       constant: -Ocean.size.spacingStackXxs).isActive = true
+            } else {
+                backgroundView.bottomAnchor.constraint(equalTo: superview.bottomAnchor,
+                constant: -Ocean.size.spacingStackXxs).isActive = true
+            }
+            backgroundView.heightAnchor.constraint(equalToConstant: line.rawValue).isActive = true
         }
         
         
@@ -247,6 +266,10 @@ extension Ocean {
         public convenience init(builder: SnackbarBuilder) {
             self.init(frame: .zero)
             builder(self)
+        }
+        
+        deinit {
+            self.state = .destroyed
         }
     }
 }
