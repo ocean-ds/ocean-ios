@@ -137,6 +137,13 @@ extension Ocean {
                 builder?( label )
             }
         }
+        
+        public static func leadInverse(builder: TypographyBuilder = nil) -> UILabel {
+           return Ocean.Typography.paragraph { label in
+               builder?(label)
+               label.textColor = Ocean.color.colorInterfaceLightDown
+           }
+       }
 
         public static func description(builder: TypographyBuilder = nil) -> UILabel {
             return UILabel { label in
@@ -150,7 +157,7 @@ extension Ocean {
         public static func descriptionInverse(builder: TypographyBuilder = nil) -> UILabel {
             return Ocean.Typography.description { label in
                 builder?(label)
-                label.textColor = Ocean.color.colorInterfaceLightDown
+                label.textColor = Ocean.color.colorBrandPrimaryUp
             }
             
         }
@@ -168,7 +175,7 @@ extension Ocean {
         public static func captionInverse(builder: TypographyBuilder = nil) -> UILabel {
             return Ocean.Typography.caption { label in
                 builder?(label)
-                label.textColor = Ocean.color.colorInterfaceLightDown
+                label.textColor = Ocean.color.colorBrandPrimaryUp
             }
         }
     }

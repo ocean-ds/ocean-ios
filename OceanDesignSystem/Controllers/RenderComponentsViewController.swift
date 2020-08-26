@@ -34,7 +34,6 @@ class RenderComponentsViewController: UITableViewController {
         
         let title = typographyComponent
         title.text = typographyComponent.text
-        //title.backgroundColor = .brown
         title.numberOfLines = 2
         container.addSubview(title)
     }
@@ -95,7 +94,6 @@ class RenderComponentsViewController: UITableViewController {
         
         if (self.designSystemComponentsType == DesignSystemComponentsType.Typography){
             if (self.designSystemTypographyType == DesignSystemTypographyType.Headings) {
-                //let cell = tableView.dequeueReusableCell(withIdentifier: "TypographyComponentCell", for: indexPath) as! TypographyComponentCell
                 let cell = TypographyComponentCell()
                 configTypographyComponentCell(tableView, indexPath, cell, Headings.list)
                 return cell

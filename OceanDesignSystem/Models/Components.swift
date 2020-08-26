@@ -129,10 +129,14 @@ struct Paragraph {
     static let lead = Ocean.Typography.lead { label in
         label.text = "Lead Lead"
     }
+    static let leadInverse = Ocean.Typography.leadInverse { label in
+        label.text = "LeadInverse LeadInverse"
+    }
     static let list = [
         paragraph,
         paragraphInverse,
-        lead
+        lead,
+        leadInverse
     ]
 }
 
