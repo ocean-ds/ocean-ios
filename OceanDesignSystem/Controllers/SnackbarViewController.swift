@@ -12,13 +12,14 @@ import OceanTokens
 
 public class SnackbarViewController : UIViewController {
     
+    @IBOutlet weak var lines: UISegmentedControl!
     @IBOutlet weak var states: UISegmentedControl!
     var snackbar : Ocean.Snackbar!
     
     public override func viewDidLoad() {
         
         self.snackbar = Ocean.View.snackbarInfo(builder: { snackbar in
-            snackbar.line = .two
+            snackbar.line =  self.lines.selectedSegmentIndex == 0 ? .one : .two
             snackbar.snackbarText = "Test info in snack bar with 2 lines Test info in snack bar with 2 lines"
         })
         updateSnackBar()
@@ -35,21 +36,23 @@ public class SnackbarViewController : UIViewController {
         {
         case 0: //Info
             self.snackbar = Ocean.View.snackbarInfo(builder: { snackbar in
-                snackbar.line = .two
-                snackbar.snackbarText = "Test info in snack bar with 2 lines Test info in snack bar with 2 lines"
+                snackbar.line =  self.lines.selectedSegmentIndex == 0 ? .one : .two
+                snackbar.snackbarText = "Pagamentos no mesmo dia devem ser realizados em dias úteis até 15h30."
             })
             updateSnackBar()
             self.snackbar.show()
             break
         case 1: //Error
             self.snackbar = Ocean.View.snackbarError(builder: { snackbar in
+                snackbar.line =  self.lines.selectedSegmentIndex == 0 ? .one : .two
                 snackbar.snackbarText = "Test error in snack bar"
             })
             updateSnackBar()
-            self.snackbar.show(0)
+            self.snackbar.show()
             break
         case 2: //Success
             self.snackbar = Ocean.View.snackbarSuccess(builder: { snackbar in
+                snackbar.line =  self.lines.selectedSegmentIndex == 0 ? .one : .two
                 snackbar.snackbarText = "Test success in snack bar"
             })
             updateSnackBar()
@@ -57,6 +60,7 @@ public class SnackbarViewController : UIViewController {
             break
         case 3: //Warning
             self.snackbar = Ocean.View.snackbarAlert(builder: { snackbar in
+                snackbar.line =  self.lines.selectedSegmentIndex == 0 ? .one : .two
                 snackbar.snackbarText = "Test alert in snack bar"
             })
             updateSnackBar()
@@ -64,9 +68,14 @@ public class SnackbarViewController : UIViewController {
             break
         case 4: //+ icon
             self.snackbar = Ocean.View.snackbarInfo(builder: { snackbar in
-                snackbar.line = .two
+                snackbar.line =  self.lines.selectedSegmentIndex == 0 ? .one : .two
                 snackbar.snackbarText = "Test info in snack bar with 2 lines Test info in snack bar with 2 lines"
                 snackbar.snackbarActionText = "Action"
+                snackbar.snackbarActionTouch = {
+                    let alert = UIAlertController()
+                    alert.message = "Action"
+                    alert.show(self, sender: nil)
+                }
             })
             updateSnackBar()
             self.snackbar.show()

@@ -812,6 +812,16 @@
                                     <action selector="onValueChangedTextArea:" destination="Peb-Ta-70A" eventType="valueChanged" id="1EI-T7-OXF"/>
                                 </connections>
                             </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="TXb-kB-AbC">
+                                <rect key="frame" x="20" y="59" width="374" height="32"/>
+                                <segments>
+                                    <segment title="One Line"/>
+                                    <segment title="Two lines"/>
+                                </segments>
+                                <connections>
+                                    <action selector="onValueChangedTextArea:" destination="Peb-Ta-70A" eventType="valueChanged" id="n3Y-rN-TFL"/>
+                                </connections>
+                            </segmentedControl>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3vU-SV-vm0" customClass="SnackbarView" customModule="OceanDesignSystem" customModuleProvider="target">
                                 <rect key="frame" x="45" y="178" width="240" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -821,13 +831,17 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="Xrq-TA-js0" firstAttribute="top" secondItem="a1t-UW-hEG" secondAttribute="top" constant="20" id="BUP-rU-sQX"/>
+                            <constraint firstItem="TXb-kB-AbC" firstAttribute="top" secondItem="Xrq-TA-js0" secondAttribute="bottom" constant="8" id="a70-aW-GUf"/>
+                            <constraint firstItem="TXb-kB-AbC" firstAttribute="leading" secondItem="a1t-UW-hEG" secondAttribute="leading" constant="20" id="aaL-E1-vHy"/>
                             <constraint firstItem="a1t-UW-hEG" firstAttribute="trailing" secondItem="Xrq-TA-js0" secondAttribute="trailing" constant="20" id="cSG-aQ-5qE"/>
+                            <constraint firstItem="a1t-UW-hEG" firstAttribute="trailing" secondItem="TXb-kB-AbC" secondAttribute="trailing" constant="20" id="eLq-m2-hQg"/>
                             <constraint firstItem="Xrq-TA-js0" firstAttribute="leading" secondItem="a1t-UW-hEG" secondAttribute="leading" constant="20" id="kyh-al-jXY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="a1t-UW-hEG"/>
                     </view>
                     <navigationItem key="navigationItem" id="q7E-um-KSR"/>
                     <connections>
+                        <outlet property="lines" destination="TXb-kB-AbC" id="z5N-ZN-Xqi"/>
                         <outlet property="states" destination="Xrq-TA-js0" id="5v9-E1-uKU"/>
                     </connections>
                 </viewController>

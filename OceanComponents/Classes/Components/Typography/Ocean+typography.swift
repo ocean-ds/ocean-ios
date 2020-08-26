@@ -129,7 +129,7 @@ extension Ocean {
             
         }
         
-        public static func highlightedParagraph(builder: TypographyBuilder = nil) -> UILabel {
+        public static func lead(builder: TypographyBuilder = nil) -> UILabel {
             return UILabel { label in
                 label.font = .baseBold(size: Ocean.font.fontSizeSm)
                 label.textColor = Ocean.color.colorInterfaceDarkDeep

@@ -22,6 +22,7 @@ extension Ocean {
         private var actionText: String = "Action"
         private var labelButton: UILabel!
         public var checkStatus: (() -> States)?
+        private var touchUpInsideGesture : UITapGestureRecognizer!
         
         public enum States  {
             case created
@@ -189,11 +190,14 @@ extension Ocean {
             imageViewIcon.tintColor = color
         }
         
-        @objc fileprivate func touchUpInside() {
-            UIView.transition(with: self, duration: 0.1, options: .curveEaseIn, animations: {
-                self.snackbarActionTouch?()
-                self.isHidden = true
-            })
+        @objc func touchUpInside(_ sender: UITapGestureRecognizer? = nil)  {
+            print("touchUpInside")
+            self.snackbarActionTouch?()
+            self.isHidden = true
+            //UIView.transition(with: self, duration: 0.1, options: .curveEaseIn, animations: {
+                
+                
+            //})
         }
         
         fileprivate func makeButton() {
@@ -205,10 +209,11 @@ extension Ocean {
             labelButton.widthAnchor.constraint(equalToConstant: 43).isActive = true
             labelButton.numberOfLines = 3
             labelButton.isUserInteractionEnabled = true
+            labelButton.backgroundColor = .yellow
             
-            let touchUpInsideGesture = UITapGestureRecognizer(target: self, action: #selector(touchUpInside))
-            labelButton.addGestureRecognizer(touchUpInsideGesture)
-            
+            self.touchUpInsideGesture = UITapGestureRecognizer(target: self, action: #selector(self.touchUpInside(_:)))
+            labelButton.addGestureRecognizer(self.touchUpInsideGesture)
+            self.isUserInteractionEnabled = true
             backgroundViewContent.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
             backgroundViewContent.addArrangedSubview(labelButton)
             backgroundViewContent.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
@@ -222,11 +227,7 @@ extension Ocean {
             
             mainStack.leftAnchor.constraint(equalTo: backgroundView.leftAnchor).isActive = true
             mainStack.topAnchor.constraint(equalTo: backgroundView.topAnchor).isActive = true
-            //mainStack.topAnchor.constraint(equalTo: backgroundView.topAnchor,
-              //                             constant: Ocean.size.spacingStackXxs).isActive = true
             mainStack.rightAnchor.constraint(equalTo: backgroundView.rightAnchor).isActive = true
-//            mainStack.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor,
-//                                              constant: -Ocean.size.spacingStackXxs).isActive = true
             mainStack.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor).isActive = true
         }
         

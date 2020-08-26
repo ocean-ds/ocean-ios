@@ -126,13 +126,13 @@ struct Paragraph {
         label.text = "ParagraphInverse ParagraphInverse ParagraphInverse ParagraphInverse"
         label.backgroundColor = UIColor.blue
     }
-    static let highlightedParagraph = Ocean.Typography.highlightedParagraph { label in
-        label.text = "HighlightedParagraph HighlightedParagraph"
+    static let lead = Ocean.Typography.lead { label in
+        label.text = "Lead Lead"
     }
     static let list = [
         paragraph,
         paragraphInverse,
-        highlightedParagraph
+        lead
     ]
 }
 
