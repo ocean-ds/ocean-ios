@@ -194,10 +194,6 @@ extension Ocean {
             print("touchUpInside")
             self.snackbarActionTouch?()
             self.isHidden = true
-            //UIView.transition(with: self, duration: 0.1, options: .curveEaseIn, animations: {
-                
-                
-            //})
         }
         
         fileprivate func makeButton() {
@@ -209,11 +205,9 @@ extension Ocean {
             labelButton.widthAnchor.constraint(equalToConstant: 43).isActive = true
             labelButton.numberOfLines = 3
             labelButton.isUserInteractionEnabled = true
-            labelButton.backgroundColor = .yellow
             
             self.touchUpInsideGesture = UITapGestureRecognizer(target: self, action: #selector(self.touchUpInside(_:)))
             labelButton.addGestureRecognizer(self.touchUpInsideGesture)
-            self.isUserInteractionEnabled = true
             backgroundViewContent.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
             backgroundViewContent.addArrangedSubview(labelButton)
             backgroundViewContent.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
