@@ -18,6 +18,7 @@ extension Ocean {
     public class InputTextField: UIControl, UITextFieldDelegate {
         var mainStack: UIStackView!
 
+        private let errorEmpty = "..."
         private var labelTitle: UILabel!
         private var textField: UITextField!
         private var image: UIImage!
@@ -27,7 +28,7 @@ extension Ocean {
         public var isBold = false
         public var errorMessage: String? {
             didSet {
-                labelError.text = errorMessage
+                labelError.text = errorMessage == nil || errorMessage?.isEmpty == true ? errorEmpty : errorMessage
                 self.updateState()
             }
         }
@@ -172,12 +173,15 @@ extension Ocean {
                 name: Ocean.font.fontFamilyBaseWeightRegular,
                 size: Ocean.font.fontSizeXxxs)
             labelError.textColor = Ocean.color.colorStatusNegativePure
+            labelError.text = errorEmpty
+            labelError.alpha = 0
         }
 
         func updateState() {
             textField?.isEnabled = isEnabled
-
-            if errorMessage?.isEmpty == false {
+            labelError.alpha = 0
+            if labelError.text != errorEmpty {
+                labelError.alpha = 1
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
                             border: Ocean.color.colorStatusNegativePure)
             } else if textField?.isFirstResponder == true {

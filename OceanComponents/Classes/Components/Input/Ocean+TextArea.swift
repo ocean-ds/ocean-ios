@@ -11,6 +11,7 @@ import OceanTokens
 
 extension Ocean {
     public class TextArea: UIControl, UITextViewDelegate {
+        private let errorEmpty = "..."
         internal var mainStack: UIStackView!
         private var textArea: UITextView!
         //private var image: UIImage!
@@ -30,7 +31,7 @@ extension Ocean {
             get { labelError.text ?? "" }
             
             set {
-                labelError.text = newValue
+                labelError.text = newValue == nil || newValue?.isEmpty == true ? errorEmpty : newValue
                 self.updateState()
             }
         }
@@ -131,12 +132,15 @@ extension Ocean {
                 size: Ocean.font.fontSizeXxxs)
             labelError.textColor = Ocean.color.colorStatusNegativePure
             labelError.heightAnchor.constraint(equalToConstant: 15.5).isActive = true
+            labelError.text = errorEmpty
+            labelError.alpha = 0
         }
         
         func updateState() {
             textArea.isEditable = isEnabled
-            
-            if errorMessage?.isEmpty == false {
+            labelError.alpha = 0
+            if errorMessage != errorEmpty {
+                labelError.alpha = 1
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
                             border: Ocean.color.colorStatusNegativePure)
                 checkPlaceholder()
