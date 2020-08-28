@@ -63,9 +63,9 @@ final public class ButtonViewController : UIViewController {
                button.isPressed = true
            } else if (self.states.selectedSegmentIndex == 2) {
                button.isEnabled = false
-           } else if (self.states.selectedSegmentIndex == 3) {
-               button.isLoading = true
-            button.icon = nil
+           }
+           else if (self.states.selectedSegmentIndex == 3) {
+               button.isHidden = true
            }
        }
     
@@ -78,9 +78,9 @@ final public class ButtonViewController : UIViewController {
             button.isPressed = true
         } else if (self.states.selectedSegmentIndex == 2) {
             button.isEnabled = false
-        } else if (self.states.selectedSegmentIndex == 3) {
-            button.isLoading = true
-            button.icon = nil
+        }
+        else if (self.states.selectedSegmentIndex == 3) {
+            button.isHidden = true
         }
     }
     
@@ -259,7 +259,7 @@ final public class ButtonViewController : UIViewController {
     private func generateConstraintsButtonBottom(view:AnyObject) -> Void {
         //view.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         view.centerXAnchor?.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        view.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         //return [constraintTop, constraintX,constraintWidth]
     }
 }
