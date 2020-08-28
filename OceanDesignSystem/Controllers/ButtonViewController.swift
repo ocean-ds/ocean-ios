@@ -259,7 +259,8 @@ final public class ButtonViewController : UIViewController {
     private func generateConstraintsButtonBottom(view:AnyObject) -> Void {
         //view.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         view.centerXAnchor?.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        view.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        view.centerYAnchor?.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        //view.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         //return [constraintTop, constraintX,constraintWidth]
     }
 }
