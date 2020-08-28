@@ -120,6 +120,7 @@
                         <segue destination="5ef-au-a5S" kind="show" identifier="SegueTextAreaComponents" id="ZJ2-le-hGI"/>
                         <segue destination="CbQ-Zt-QpH" kind="show" identifier="SegueComponentTypeView" id="tAz-Xv-g6K"/>
                         <segue destination="Peb-Ta-70A" kind="show" identifier="SegueSnackbarComponents" id="iIG-9y-ZaT"/>
+                        <segue destination="Cg8-qg-q16" kind="show" identifier="SegueButtonsComponents" id="QJW-iD-V2F"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aGw-ly-AWm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -789,7 +790,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O6H-6x-1BD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1996" y="1380"/>
+            <point key="canvasLocation" x="2596" y="1370"/>
         </scene>
         <!--Snackbar View Controller-->
         <scene sceneID="C5i-WU-gdJ">
@@ -847,7 +848,105 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oeR-Qi-Slb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1152" y="1443"/>
+            <point key="canvasLocation" x="1954" y="1369"/>
+        </scene>
+        <!--Button View Controller-->
+        <scene sceneID="YJf-0r-kYG">
+            <objects>
+                <viewController id="Cg8-qg-q16" customClass="ButtonViewController" customModule="OceanDesignSystem" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VBV-pl-Qtr">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="P0Z-Kw-9nG">
+                                <rect key="frame" x="20" y="20" width="374" height="32"/>
+                                <segments>
+                                    <segment title="Primary"/>
+                                    <segment title="Secondary"/>
+                                    <segment title="Inverse"/>
+                                    <segment title="Text"/>
+                                </segments>
+                                <connections>
+                                    <action selector="onValueChangedTypes:" destination="Cg8-qg-q16" eventType="valueChanged" id="2Bv-Rw-kxc"/>
+                                </connections>
+                            </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="vky-v0-F99">
+                                <rect key="frame" x="20" y="61" width="374" height="32"/>
+                                <segments>
+                                    <segment title="Normal"/>
+                                    <segment title="Icon"/>
+                                </segments>
+                                <connections>
+                                    <action selector="onValueChangedIcon:" destination="Cg8-qg-q16" eventType="valueChanged" id="Gwd-N3-rJt"/>
+                                </connections>
+                            </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="3J5-sR-XeN">
+                                <rect key="frame" x="20" y="102" width="374" height="32"/>
+                                <segments>
+                                    <segment title="unblocked"/>
+                                    <segment title="blocked"/>
+                                </segments>
+                                <connections>
+                                    <action selector="onValueChangedBlocked:" destination="Cg8-qg-q16" eventType="valueChanged" id="Xrk-HW-TTy"/>
+                                </connections>
+                            </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="em1-OU-fxW">
+                                <rect key="frame" x="20" y="143" width="374" height="32"/>
+                                <segments>
+                                    <segment title="normal"/>
+                                    <segment title="pressed"/>
+                                    <segment title="disabled"/>
+                                    <segment title="loading"/>
+                                </segments>
+                                <connections>
+                                    <action selector="onValueChangedStates:" destination="Cg8-qg-q16" eventType="valueChanged" id="bGF-6Q-MND"/>
+                                </connections>
+                            </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="mEi-MW-FaR">
+                                <rect key="frame" x="20" y="182" width="374" height="32"/>
+                                <segments>
+                                    <segment title="small"/>
+                                    <segment title="medium"/>
+                                    <segment title="large"/>
+                                </segments>
+                                <connections>
+                                    <action selector="onValueChangedSizes:" destination="Cg8-qg-q16" eventType="valueChanged" id="lS3-a0-CB4"/>
+                                    <action selector="onValueChangedStates:" destination="Cg8-qg-q16" eventType="valueChanged" id="FEh-1q-eXr"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="faH-A3-Kl4" firstAttribute="trailing" secondItem="vky-v0-F99" secondAttribute="trailing" constant="20" id="6ng-Ne-PQv"/>
+                            <constraint firstItem="faH-A3-Kl4" firstAttribute="trailing" secondItem="em1-OU-fxW" secondAttribute="trailing" constant="20" id="8f2-Fa-tJZ"/>
+                            <constraint firstItem="P0Z-Kw-9nG" firstAttribute="leading" secondItem="faH-A3-Kl4" secondAttribute="leading" constant="20" id="9XB-6i-1cC"/>
+                            <constraint firstItem="3J5-sR-XeN" firstAttribute="leading" secondItem="faH-A3-Kl4" secondAttribute="leading" constant="20" id="FoU-EF-HaZ"/>
+                            <constraint firstItem="em1-OU-fxW" firstAttribute="leading" secondItem="faH-A3-Kl4" secondAttribute="leading" constant="20" id="JfE-rV-SUn"/>
+                            <constraint firstItem="em1-OU-fxW" firstAttribute="top" secondItem="3J5-sR-XeN" secondAttribute="bottom" constant="10" id="MmN-Re-Zae"/>
+                            <constraint firstItem="mEi-MW-FaR" firstAttribute="top" secondItem="em1-OU-fxW" secondAttribute="bottom" constant="8" id="PcY-jY-Ail"/>
+                            <constraint firstItem="faH-A3-Kl4" firstAttribute="trailing" secondItem="3J5-sR-XeN" secondAttribute="trailing" constant="20" id="T54-7Z-Xlj"/>
+                            <constraint firstItem="3J5-sR-XeN" firstAttribute="top" secondItem="vky-v0-F99" secondAttribute="bottom" constant="10" id="W12-KC-eiK"/>
+                            <constraint firstItem="P0Z-Kw-9nG" firstAttribute="top" secondItem="faH-A3-Kl4" secondAttribute="top" constant="20" id="gKq-SQ-NgU"/>
+                            <constraint firstItem="vky-v0-F99" firstAttribute="leading" secondItem="faH-A3-Kl4" secondAttribute="leading" constant="20" id="hdr-NK-jJw"/>
+                            <constraint firstItem="vky-v0-F99" firstAttribute="top" secondItem="P0Z-Kw-9nG" secondAttribute="bottom" constant="10" id="mAA-f5-z9K"/>
+                            <constraint firstItem="faH-A3-Kl4" firstAttribute="trailing" secondItem="mEi-MW-FaR" secondAttribute="trailing" constant="20" id="oWc-oF-v4g"/>
+                            <constraint firstItem="mEi-MW-FaR" firstAttribute="leading" secondItem="faH-A3-Kl4" secondAttribute="leading" constant="20" id="tAu-uI-21h"/>
+                            <constraint firstItem="faH-A3-Kl4" firstAttribute="trailing" secondItem="P0Z-Kw-9nG" secondAttribute="trailing" constant="20" id="zDC-QY-2dE"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="faH-A3-Kl4"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="4ko-ft-QHt"/>
+                    <connections>
+                        <outlet property="normalOrIcon" destination="vky-v0-F99" id="p04-ve-lbF"/>
+                        <outlet property="sizes" destination="mEi-MW-FaR" id="tiG-Ru-QVY"/>
+                        <outlet property="states" destination="em1-OU-fxW" id="W4P-qU-m4d"/>
+                        <outlet property="types" destination="P0Z-Kw-9nG" id="hqN-P7-fC0"/>
+                        <outlet property="unblockedOrBlocked" destination="3J5-sR-XeN" id="GnN-U0-zMz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FhO-PD-1Zv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1258" y="1369"/>
         </scene>
     </scenes>
 </document>

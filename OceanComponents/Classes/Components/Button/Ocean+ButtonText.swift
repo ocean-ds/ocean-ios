@@ -53,6 +53,16 @@ extension Ocean {
         
         public var isBlocked: Bool = false
         
+        public var isPressed: Bool = false {
+            didSet {
+                if isPressed {
+                    self.changeColor(background: pressedBackgroundColor, label: pressedLabelColor)
+                } else {
+                    self.changeColor(background: activeBackgroundColor, label: activeLabelColor)
+                }
+            }
+        }
+        
         private var iconSize: CGSize = .init(width: 16, height: 16)
         private var minWidth: CGFloat = 108
         private var height: CGFloat = 48
@@ -221,12 +231,14 @@ extension Ocean {
         func stopActivityIndicator() {
             self.isUserInteractionEnabled = true
             self.label.alpha = 1
+            self.imageView?.alpha = 1
             self.activityIndicator.stopAnimating()
         }
         
         func startActivityIndicator() {
             self.isUserInteractionEnabled = false
             self.label.alpha = 0
+            self.imageView?.alpha = 0
             activityIndicator.startAnimating()
         }
         

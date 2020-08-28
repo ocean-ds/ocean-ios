@@ -14,6 +14,7 @@
 		B71D65E724CA2A8200C3938C /* Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65E624CA2A8200C3938C /* Cells.swift */; };
 		B71D65EA24CA47C500C3938C /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65E924CA47C500C3938C /* Enums.swift */; };
 		B71D65FD24CA530000C3938C /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65FC24CA530000C3938C /* Components.swift */; };
+		B75C81FB24F6F5BD001A500B /* ButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75C81FA24F6F5BD001A500B /* ButtonViewController.swift */; };
 		B768C52624DDFA740086BF9C /* LineHeightsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B768C52524DDFA740086BF9C /* LineHeightsViewController.swift */; };
 		B768C57724E3186C0086BF9C /* TextAreaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B768C57624E3186C0086BF9C /* TextAreaViewController.swift */; };
 		B7A4FF7924BF8484006712AA /* ComponentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A4FF7824BF8484006712AA /* ComponentsViewController.swift */; };
@@ -54,6 +55,7 @@
 		B71D65E624CA2A8200C3938C /* Cells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cells.swift; sourceTree = "<group>"; };
 		B71D65E924CA47C500C3938C /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		B71D65FC24CA530000C3938C /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		B75C81FA24F6F5BD001A500B /* ButtonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonViewController.swift; sourceTree = "<group>"; };
 		B768C52524DDFA740086BF9C /* LineHeightsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineHeightsViewController.swift; sourceTree = "<group>"; };
 		B768C57624E3186C0086BF9C /* TextAreaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAreaViewController.swift; sourceTree = "<group>"; };
 		B7A4FF7824BF8484006712AA /* ComponentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				B768C52524DDFA740086BF9C /* LineHeightsViewController.swift */,
 				B768C57624E3186C0086BF9C /* TextAreaViewController.swift */,
 				B7BB717824E615B3007F8848 /* SnackbarViewController.swift */,
+				B75C81FA24F6F5BD001A500B /* ButtonViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				B71D65DC24CA038B00C3938C /* Models.swift in Sources */,
 				B768C52624DDFA740086BF9C /* LineHeightsViewController.swift in Sources */,
 				B71D65E224CA053500C3938C /* TokensBySubCategories.swift in Sources */,
+				B75C81FB24F6F5BD001A500B /* ButtonViewController.swift in Sources */,
 				B7A4FF7924BF8484006712AA /* ComponentsViewController.swift in Sources */,
 				B768C57724E3186C0086BF9C /* TextAreaViewController.swift in Sources */,
 				B7BB717924E615B3007F8848 /* SnackbarViewController.swift in Sources */,
