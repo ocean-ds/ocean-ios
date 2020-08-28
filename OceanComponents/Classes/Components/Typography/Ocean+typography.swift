@@ -139,7 +139,7 @@ extension Ocean {
         }
         
         public static func leadInverse(builder: TypographyBuilder = nil) -> UILabel {
-           return Ocean.Typography.paragraph { label in
+           return Ocean.Typography.lead { label in
                builder?(label)
                label.textColor = Ocean.color.colorInterfaceLightDown
            }

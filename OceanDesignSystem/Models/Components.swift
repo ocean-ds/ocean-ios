@@ -131,6 +131,7 @@ struct Paragraph {
     }
     static let leadInverse = Ocean.Typography.leadInverse { label in
         label.text = "LeadInverse LeadInverse"
+        label.backgroundColor = UIColor.blue
     }
     static let list = [
         paragraph,
