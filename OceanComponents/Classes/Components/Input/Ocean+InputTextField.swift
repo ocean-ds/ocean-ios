@@ -179,9 +179,9 @@ extension Ocean {
 
         func updateState() {
             textField?.isEnabled = isEnabled
-            labelError.alpha = 0
-            if labelError.text != errorEmpty {
-                labelError.alpha = 1
+            labelError?.alpha = 0
+            if labelError?.text != errorEmpty {
+                labelError?.alpha = 1
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
                             border: Ocean.color.colorStatusNegativePure)
             } else if textField?.isFirstResponder == true {
