@@ -93,6 +93,9 @@ extension Ocean {
             }
         }
         
+        private var paddingLeftConstraints: NSLayoutConstraint!
+        private var paddingRightConstraints: NSLayoutConstraint!
+        
         func configType() {
             activeBackgroundColor = UIColor.clear
             activeLabelColor = Ocean.color.colorBrandPrimaryPure
@@ -102,7 +105,7 @@ extension Ocean {
             pressedLabelColor = Ocean.color.colorBrandPrimaryPure
             focusedBackgroundColor = Ocean.color.colorInterfaceLightDown
             focusedLabelColor = Ocean.color.colorBrandPrimaryPure
-            disabledBackgroundColor = Ocean.color.colorInterfaceLightDown
+            disabledBackgroundColor = UIColor.clear
             disabledLabelColor = Ocean.color.colorInterfaceDarkUp
         }
         
@@ -131,19 +134,19 @@ extension Ocean {
         }
         
         private func makeView() {
-            stack = UIStackView()
-            stack.translatesAutoresizingMaskIntoConstraints = false
-            stack.axis = .horizontal
-            stack.alignment = .center
-            stack.distribution = .fillProportionally
             
-            stack.addArrangedSubview(Spacer(space: padding))
+            let contentStack = UIStackView()
+            contentStack.translatesAutoresizingMaskIntoConstraints = false
+            contentStack.axis = .horizontal
+            contentStack.alignment = .center
+            contentStack.distribution = .fill
+            
             var labelAlignment : NSTextAlignment = .center
             if let icon = self.icon?.withRenderingMode(.alwaysTemplate) {
                 imageView = UIImageView(image: icon)
                 imageView.tintColor = activeLabelColor
-                stack.addArrangedSubview(imageView)
-                stack.addArrangedSubview(Spacer(space: Ocean.size.spacingInlineXxs))
+                contentStack.addArrangedSubview(imageView)
+                contentStack.addArrangedSubview(Spacer(space: Ocean.size.spacingInlineXxs))
                 
                 self.imageView.translatesAutoresizingMaskIntoConstraints = false
                 self.imageView.widthAnchor.constraint(equalToConstant: self.iconSize.width).isActive = true
@@ -159,24 +162,14 @@ extension Ocean {
             label.text = text
             label.textAlignment = labelAlignment
             
-            stack.addArrangedSubview(label)
-            
-            stack.addArrangedSubview(Spacer(space: padding))
-            
-            self.addSubview(stack)
-            
-            stack.topSuperview()
-            stack.bottomSuperview()
-            stack.leadingSuperview()
-            stack.trailingSuperview()
+            contentStack.addArrangedSubview(label)
+            self.addSubview(contentStack)
             
             self.backgroundColor = activeBackgroundColor
             self.layer.cornerRadius = Ocean.size.borderRadiusCircular * height
             self.translatesAutoresizingMaskIntoConstraints = false
             self.heightAnchor.constraint(equalToConstant: height).isActive = true
             self.widthAnchor.constraint(greaterThanOrEqualToConstant: minWidth).isActive = true
-            
-            self.stack.isUserInteractionEnabled = false
             
             self.addTarget(self, action: #selector(pressed), for: .touchDown)
             self.addTarget(self, action: #selector(touchUpInSide), for: .touchUpInside)
@@ -188,10 +181,16 @@ extension Ocean {
             
             self.addSubview(activityIndicator)
             
-            activityIndicator.centerYAnchor.constraint(equalTo: stack.centerYAnchor).isActive = true
-            activityIndicator.centerXAnchor.constraint(equalTo: stack.centerXAnchor).isActive = true
+            activityIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+            activityIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
             
             activityIndicator.stopAnimating()
+            
+            contentStack.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 0).isActive = true
+            contentStack.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).isActive = true
+            paddingLeftConstraints = contentStack.leftAnchor.constraint(equalTo: self.leftAnchor, constant: padding)
+            paddingRightConstraints = contentStack.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -padding)
+            
             self.backgroundColor = UIColor.clear
         }
         
@@ -205,6 +204,9 @@ extension Ocean {
                 }
             }
             
+            paddingLeftConstraints.isActive = !isBlocked
+            paddingRightConstraints.isActive = !isBlocked
+            self.updateConstraintsIfNeeded()
         }
         
         private func changeColor(background: UIColor, label: UIColor? = nil) {
