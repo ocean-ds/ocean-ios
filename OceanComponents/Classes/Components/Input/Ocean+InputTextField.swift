@@ -20,7 +20,7 @@ extension Ocean {
 
         private let errorEmpty = "..."
         private var labelTitle: UILabel!
-        private var textField: UITextField!
+        public var textField: UITextField!
         private var image: UIImage!
         private var labelError: UILabel!
         private var hStack: UIStackView!
