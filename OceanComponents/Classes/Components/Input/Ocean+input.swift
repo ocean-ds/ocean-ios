@@ -21,12 +21,30 @@ extension Ocean {
             }
         }
         
+        public static func textareaWithLabel(builder:TextAreaBuilder) -> TextArea {
+            return TextArea { textArea in
+                textArea.title = "Label"
+                textArea.placeholder = "TextArea"
+                builder(textArea)
+            }
+        }
+        
         public static func textfield(builder:InputTextFieldBuilder) -> InputTextField {
             return InputTextField { inputText in
                 inputText.placeholder = "inputText"
                 builder(inputText)
             }
         }
+        
+        public static func textfieldWithLabel(builder:InputTextFieldBuilder) -> InputTextField {
+            return InputTextField { inputText in
+                inputText.title = "Label"
+                inputText.placeholder = "inputText"
+                builder(inputText)
+            }
+        }
+        
+        
     }
 
 }

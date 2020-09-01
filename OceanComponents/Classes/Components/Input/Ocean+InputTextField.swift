@@ -183,37 +183,43 @@ extension Ocean {
             if labelError?.text != errorEmpty {
                 labelError?.alpha = 1
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
-                            border: Ocean.color.colorStatusNegativePure)
+                            border: Ocean.color.colorStatusNegativePure,
+                            labelTitle: Ocean.color.colorInterfaceDarkDown)
             } else if textField?.isFirstResponder == true {
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
-                            border: Ocean.color.colorBrandPrimaryDown)
+                            border: Ocean.color.colorBrandPrimaryDown,
+                            labelTitle: Ocean.color.colorInterfaceDarkDown)
             } else if isActivated == false {
                 changeColor(text: Ocean.color.colorInterfaceLightDeep,
                             border: Ocean.color.colorInterfaceLightDeep,
-                            placeHolder: Ocean.color.colorInterfaceLightDeep)
+                            placeHolder: Ocean.color.colorInterfaceLightDeep,
+                            labelTitle: Ocean.color.colorInterfaceDarkUp)
             } else if isEnabled {
                 let isEmpty = self.textField?.text?.isEmpty == true
                 let color = isEmpty ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorInterfaceDarkDeep
                 let border = isEmpty ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorBrandPrimaryUp
+                let labelColor = isEmpty ? Ocean.color.colorInterfaceDarkDown : Ocean.color.colorInterfaceDarkUp
                 changeColor(text: color,
                             border: border,
-                            placeHolder: Ocean.color.colorInterfaceLightDeep)
+                            placeHolder: Ocean.color.colorInterfaceLightDeep, labelTitle: labelColor)
             } else {
                 changeColor(text: Ocean.color.colorInterfaceDarkUp,
                             border: Ocean.color.colorInterfaceLightDown,
                             background: Ocean.color.colorInterfaceLightDown,
-                            placeHolder: Ocean.color.colorInterfaceDarkUp)
+                            placeHolder: Ocean.color.colorInterfaceDarkUp, labelTitle: Ocean.color.colorInterfaceDarkUp)
             }
         }
 
         func changeColor(text: UIColor,
                          border: UIColor,
                          background: UIColor? = Ocean.color.colorInterfaceLightPure,
-                         placeHolder: UIColor? = Ocean.color.colorInterfaceLightUp) {
+                         placeHolder: UIColor? = Ocean.color.colorInterfaceLightUp,
+                         labelTitle: UIColor ) {
             self.textField?.textColor = text
             self.backgroundView?.backgroundColor = background
             self.backgroundView?.layer.borderColor = border.cgColor
             self.textField?.placeHolderColor = placeHolder
+            self.labelTitle.textColor = labelTitle
         }
 
         func makeView() {

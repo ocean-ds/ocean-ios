@@ -21,7 +21,7 @@ public class TextAreaViewController : UIViewController {
     
     public override func viewDidLoad() {
         
-        self.textfield = Ocean.Input.textfield { component in
+        self.textfield = Ocean.Input.textfieldWithLabel { component in
             component.placeholder = "Input Text"
         }
         
@@ -39,7 +39,7 @@ public class TextAreaViewController : UIViewController {
         self.textfield.translatesAutoresizingMaskIntoConstraints = false
         self.view.addConstraints(generateConstraintsTextFieldTop())
         
-        self.textArea = Ocean.Input.textarea { component in
+        self.textArea = Ocean.Input.textareaWithLabel { component in
             component.placeholder = "Text Area"
         }
         self.textArea.onBeginEditing = {
@@ -90,7 +90,7 @@ public class TextAreaViewController : UIViewController {
         toItem: topLayoutGuide,
         attribute: .top,
         multiplier: 1.0,
-        constant: 200.0)
+        constant: 250.0)
         let constraintX = NSLayoutConstraint(item: self.textArea,
         attribute: .centerX,
         relatedBy: .equal,

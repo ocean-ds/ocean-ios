@@ -15,11 +15,19 @@ extension Ocean {
         internal var mainStack: UIStackView!
         private var textArea: UITextView!
         //private var image: UIImage!
+        public var isBold = false
+        private var labelTitle: UILabel!
         private var labelError: UILabel!
         private var hStack: UIStackView!
         private var backgroundView: UIView!
         private var height: CGFloat = 78
         private var labelPlaceholder: UILabel!
+        
+        public var title: String  = "" {
+            didSet {
+                labelTitle?.text = title
+            }
+        }
         
         public var keyboardType: UIKeyboardType = .default {
             didSet {
@@ -111,6 +119,17 @@ extension Ocean {
             hStack.distribution = .fill
         }
         
+        func makeLabel() {
+            labelTitle = UILabel()
+            labelTitle.translatesAutoresizingMaskIntoConstraints = false
+            labelTitle.font = UIFont(
+                name: isBold
+                    ? Ocean.font.fontFamilyBaseWeightBold
+                    : Ocean.font.fontFamilyHighlightWeightRegular,
+                size: Ocean.font.fontSizeXxs)
+            labelTitle.textColor = Ocean.color.colorInterfaceDarkDown
+        }
+        
         func makeTextArea() {
             textArea = UITextView()
             textArea.translatesAutoresizingMaskIntoConstraints = false
@@ -142,31 +161,34 @@ extension Ocean {
             if errorMessage != errorEmpty {
                 labelError.alpha = 1
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
-                            border: Ocean.color.colorStatusNegativePure)
+                border: Ocean.color.colorStatusNegativePure,
+                labelTitle: Ocean.color.colorInterfaceDarkDown)
                 checkPlaceholder()
             } else if textArea.isFirstResponder {
                 labelPlaceholder?.isHidden = true
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
-                            border: Ocean.color.colorBrandPrimaryDown)
+                border: Ocean.color.colorBrandPrimaryDown,
+                labelTitle: Ocean.color.colorInterfaceDarkDown)
             } else if isActivated == false {
                 
                 checkPlaceholder()
                 changeColor(text: Ocean.color.colorInterfaceLightDeep,
-                            border: Ocean.color.colorInterfaceLightDeep,
-                            background: Ocean.color.colorInterfaceLightDown,
-                            placeHolderColor: Ocean.color.colorInterfaceLightDeep)
+                                           border: Ocean.color.colorInterfaceLightDeep,
+                                           labelTitle: Ocean.color.colorInterfaceDarkUp)
             } else if isEnabled {
                 let isEmpty = self.textArea?.text?.isEmpty == true
                 let color = isEmpty ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorInterfaceDarkDeep
                 let border = isEmpty ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorBrandPrimaryUp
+                let labelColor = isEmpty ? Ocean.color.colorInterfaceDarkDown : Ocean.color.colorInterfaceDarkUp
                 changeColor(text: color,
-                            border: border)
+                border: border,
+                labelTitle: labelColor)
                 checkPlaceholder()
             } else {
                 changeColor(text: Ocean.color.colorInterfaceDarkUp,
-                            border: Ocean.color.colorInterfaceLightDown,
-                            background: Ocean.color.colorInterfaceLightDown,
-                            placeHolderColor: Ocean.color.colorInterfaceDarkUp)
+                border: Ocean.color.colorInterfaceLightDown,
+                background: Ocean.color.colorInterfaceLightDown,
+                labelTitle: Ocean.color.colorInterfaceDarkUp)
                 checkPlaceholder()
             }
         }
@@ -174,19 +196,25 @@ extension Ocean {
         func changeColor(text: UIColor,
                          border: UIColor,
                          background: UIColor? = Ocean.color.colorInterfaceLightPure,
-                         placeHolderColor: UIColor? = Ocean.color.colorInterfaceLightDeep) {
+                         placeHolderColor: UIColor? = Ocean.color.colorInterfaceLightDeep,
+                         labelTitle: UIColor ) {
             self.textArea.textColor = text
             self.backgroundView.backgroundColor = background
             self.textArea.backgroundColor = background
             self.backgroundView.layer.borderColor = border.cgColor
+            self.labelTitle.textColor = labelTitle
             changePlaceholderColor(color: placeHolderColor!)
         }
         
         func makeView() {
             self.makemainStack()
             self.makeHStack()
+            self.makeLabel()
             self.makeTextArea()
             self.makeLabelError()
+            
+            mainStack.addArrangedSubview(labelTitle)
+            mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxs))
             
             backgroundView = UIView()
             backgroundView.translatesAutoresizingMaskIntoConstraints = false
@@ -225,8 +253,21 @@ extension Ocean {
                 constant: -(Ocean.size.spacingStackXxs * 3)).isActive = true
             hStack.leftAnchor.constraint(equalTo: backgroundView.leftAnchor).isActive = true
             
-            updateState()
+            
+            
+            labelPlaceholder = UILabel()
+            
+            if ((labelTitle?.text?.isEmpty) != nil) {
+                labelPlaceholder.frame.origin = CGPoint(
+                    x: Ocean.size.spacingStackXs,
+                    y: Ocean.size.spacingInsetSm)
+            } else {
+                labelPlaceholder.frame.origin = CGPoint(
+                    x: Ocean.size.spacingStackXs,
+                    y: Ocean.size.spacingInsetXl)
+            }
             setPlaceholder(text: placeholder)
+            updateState()
         }
         
         public func textViewDidBeginEditing(_ textView: UITextView) {
@@ -256,9 +297,6 @@ extension Ocean.TextArea {
     }
     
     func setPlaceholder(text: String) {
-        if (labelPlaceholder == nil) {
-            labelPlaceholder = UILabel()
-        }
         labelPlaceholder.text = text
         labelPlaceholder.font = UIFont(
             name: Ocean.font.fontFamilyBaseWeightRegular,
@@ -266,9 +304,7 @@ extension Ocean.TextArea {
         labelPlaceholder.textColor = Ocean.color.colorInterfaceLightDeep
         labelPlaceholder.sizeToFit()
         labelPlaceholder.tag = 222
-        labelPlaceholder.frame.origin = CGPoint(
-            x: Ocean.size.spacingStackXs,
-            y: (Ocean.size.spacingInsetSm))
+        
         labelPlaceholder.isHidden = !self.text.isEmpty
         
         self.addSubview(labelPlaceholder)
