@@ -48,6 +48,7 @@ extension Ocean {
         public var text: String = ""{
             didSet {
                 textField?.text = text
+                textField?.placeholder = ""
                 self.updateState()
             }
         }
@@ -186,6 +187,7 @@ extension Ocean {
                             border: Ocean.color.colorStatusNegativePure,
                             labelTitle: Ocean.color.colorInterfaceDarkDown)
             } else if textField?.isFirstResponder == true {
+                textField?.placeholder = ""
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
                             border: Ocean.color.colorBrandPrimaryDown,
                             labelTitle: Ocean.color.colorInterfaceDarkDown)
@@ -286,13 +288,16 @@ extension Ocean {
 
         public func textFieldDidEndEditing(_ textField: UITextField) {
             updateState()
+            if (textField.text?.isEmpty == true) {
+                textField.placeholder = self.placeholder
+            }
         }
 
         public func textFieldDidBeginEditing(_ textField: UITextField) {
             self.onBeginEditing?()
             updateState()
         }
-
+        
         public func textField(_ textField: UITextField,
                               shouldChangeCharactersIn range: NSRange,
                               replacementString string: String) -> Bool {
