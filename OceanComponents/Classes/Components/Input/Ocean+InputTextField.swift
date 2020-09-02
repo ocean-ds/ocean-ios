@@ -28,7 +28,7 @@ extension Ocean {
         public var isBold = false
         public var errorMessage: String = "" {
             didSet {
-                labelError?.text = errorMessage == nil || errorMessage.isEmpty == true ? errorEmpty : errorMessage
+                labelError?.text = errorMessage.isEmpty == true ? errorEmpty : errorMessage
                 self.updateState()
                 
             }
