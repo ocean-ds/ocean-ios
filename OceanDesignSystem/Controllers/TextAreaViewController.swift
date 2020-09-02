@@ -22,7 +22,7 @@ public class TextAreaViewController : UIViewController {
     public override func viewDidLoad() {
         
         self.textfield = Ocean.Input.textfieldWithLabel { component in
-            component.placeholder = "Input Text"
+            component.placeholder = "blabla"
         }
         
         self.textfield.onBeginEditing = {

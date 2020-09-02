@@ -26,10 +26,11 @@ extension Ocean {
         private var hStack: UIStackView!
         private var backgroundView: UIView!
         public var isBold = false
-        public var errorMessage: String? {
+        public var errorMessage: String = "" {
             didSet {
-                labelError.text = errorMessage == nil || errorMessage?.isEmpty == true ? errorEmpty : errorMessage
+                labelError?.text = errorMessage == nil || errorMessage.isEmpty == true ? errorEmpty : errorMessage
                 self.updateState()
+                
             }
         }
 
@@ -181,7 +182,7 @@ extension Ocean {
         func updateState() {
             textField?.isEnabled = isEnabled
             labelError?.alpha = 0
-            if labelError?.text != errorEmpty {
+            if labelError?.text != nil && labelError?.text != errorEmpty {
                 labelError?.alpha = 1
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
                             border: Ocean.color.colorStatusNegativePure,
@@ -221,7 +222,7 @@ extension Ocean {
             self.backgroundView?.backgroundColor = background
             self.backgroundView?.layer.borderColor = border.cgColor
             self.textField?.placeHolderColor = placeHolder
-            self.labelTitle.textColor = labelTitle
+            self.labelTitle?.textColor = labelTitle
         }
 
         func makeView() {
@@ -281,6 +282,9 @@ extension Ocean {
             textField.keyboardType = self.keyboardType
             textField.autocapitalizationType = self.autocapitalizationType
             textField.autocorrectionType = self.autocorrectionType
+            if (self.errorMessage.isEmpty == false) {
+                labelError.text = self.errorMessage
+            }
             
 
             updateState()
