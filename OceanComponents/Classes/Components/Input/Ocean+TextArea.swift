@@ -134,7 +134,7 @@ extension Ocean {
             textArea = UITextView()
             textArea.translatesAutoresizingMaskIntoConstraints = false
             textArea.delegate = self
-            
+            textArea.isScrollEnabled = true
             textArea.font = UIFont(
                 name: Ocean.font.fontFamilyBaseWeightRegular,
                 size: Ocean.font.fontSizeXs)
@@ -246,14 +246,12 @@ extension Ocean {
             
             hStack.topAnchor.constraint(
                 equalTo: backgroundView.topAnchor,
-                constant: Ocean.size.spacingStackXxs).isActive = true
+                constant: Ocean.size.spacingStackXxxs).isActive = true
             hStack.rightAnchor.constraint(equalTo: backgroundView.rightAnchor).isActive = true
             hStack.bottomAnchor.constraint(
                 equalTo: backgroundView.bottomAnchor,
-                constant: -(Ocean.size.spacingStackXxs * 3)).isActive = true
+                constant: -Ocean.size.spacingStackXxxs).isActive = true
             hStack.leftAnchor.constraint(equalTo: backgroundView.leftAnchor).isActive = true
-            
-            
             
             labelPlaceholder = UILabel()
             
