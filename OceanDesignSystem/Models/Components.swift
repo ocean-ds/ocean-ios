@@ -38,44 +38,46 @@ struct DSButtons {
     ]
 }
 
+let defaultText = "Soluções de negócios inovadoras e que beneficiam toda a cadeia, do varejo à indústria."
+
 public class Headings {
     
     static let heading1WithBold = Ocean.Typography.heading1 { label in
-        label.text = "Heading1 Heading1 Heading1 Heading1"
+        label.text = defaultText
         
     }
     
     static let heading1 = Ocean.Typography.heading1 { label in
-        label.text = "Heading1 Heading1 Heading1 Heading1"
+        label.text = defaultText
     }
     static let heading2 = Ocean.Typography.heading2 { label in
-        label.text = "Heading2 Heading2 Heading2 Heading2"
+        label.text = defaultText
     }
     
     static let heading3 = Ocean.Typography.heading3 { label in
-        label.text = "Heading3 Heading3 Heading3 Heading3"
+        label.text = defaultText
     }
     
     static let heading4 = Ocean.Typography.heading4 { label in
-        label.text = "Heading4 Heading4 Heading4 Heading4 Heading4 Heading4 Heading4 Heading4"
+        label.text = defaultText
     }
     
     static let heading1Inverse = Ocean.Typography.heading1Inverse { label in
-        label.text = "Heading1Inverse Heading1Inverse"
+        label.text = defaultText
         label.backgroundColor = UIColor.blue
     }
     static let heading2Inverse = Ocean.Typography.heading2Inverse { label in
-        label.text = "Heading2Inverse Heading2Inverse"
+        label.text = defaultText
         label.backgroundColor = UIColor.blue
     }
     
     static let heading3Inverse = Ocean.Typography.heading3Inverse { label in
-        label.text = "Heading3Inverse Heading3Inverse Heading3Inverse Heading3Inverse"
+        label.text = defaultText
         label.backgroundColor = UIColor.blue
     }
     
     static let heading4Inverse = Ocean.Typography.heading4Inverse { label in
-        label.text = "Heading4Inverse Heading4Inverse Heading4Inverse Heading4Inverse"
+        label.text = defaultText
         label.backgroundColor = UIColor.blue
     }
     
@@ -94,18 +96,18 @@ public class Headings {
 struct Subtitles {
     
     static let subtitle1 = Ocean.Typography.subTitle1 { label in
-        label.text = "Subtitle1 Subtitle1 Subtitle1 Subtitle1"
+        label.text = defaultText
     }
     static let subtitle2 = Ocean.Typography.subTitle2 { label in
-        label.text = "Subtitle2 Subtitle2 Subtitle2 Subtitle2 Subtitle2"
+        label.text = defaultText
     }
     
     static let subtitle1Inverse = Ocean.Typography.subTitle1Inverse() { label in
-        label.text = "Subtitle1Inverse Subtitle1Inverse Subtitle1Inverse"
+        label.text = defaultText
         label.backgroundColor = UIColor.blue
     }
     static let subtitle2Inverse = Ocean.Typography.subTitle2Inverse() { label in
-        label.text = "Subtitle2Inverse Subtitle2Inverse Subtitle2Inverse"
+        label.text = defaultText
         label.backgroundColor = UIColor.blue
     }
     
@@ -120,17 +122,17 @@ struct Subtitles {
 struct Paragraph {
     
     static let paragraph = Ocean.Typography.paragraph { label in
-        label.text = "Paragraph Paragraph Paragraph Paragraph Paragraph Paragraph"
+        label.text = defaultText
     }
     static let paragraphInverse = Ocean.Typography.paragraphInverse { label in
-        label.text = "ParagraphInverse ParagraphInverse ParagraphInverse ParagraphInverse"
+        label.text = defaultText
         label.backgroundColor = UIColor.blue
     }
     static let lead = Ocean.Typography.lead { label in
-        label.text = "Lead Lead"
+        label.text = defaultText
     }
     static let leadInverse = Ocean.Typography.leadInverse { label in
-        label.text = "LeadInverse LeadInverse"
+        label.text = defaultText
         label.backgroundColor = UIColor.blue
     }
     static let list = [
@@ -144,10 +146,10 @@ struct Paragraph {
 struct Description {
     
     static let description = Ocean.Typography.description { label in
-        label.text = "Description Description Description Description Description Description"
+        label.text = defaultText
     }
     static let descriptionInverse = Ocean.Typography.descriptionInverse { label in
-        label.text = "DescriptionInverse DescriptionInverse DescriptionInverse DescriptionInverse"
+        label.text = defaultText
         label.backgroundColor = UIColor.blue
     }
     
@@ -161,10 +163,10 @@ struct Description {
 struct Caption {
     
     static let caption = Ocean.Typography.caption { label in
-        label.text = "Caption Caption Caption Caption Caption Caption Caption Caption"
+        label.text = defaultText
     }
     static let captionInverse = Ocean.Typography.captionInverse { label in
-        label.text = "CaptionInverse CaptionInverse CaptionInverse CaptionInverse CaptionInverse CaptionInverse"
+        label.text = defaultText
         label.backgroundColor = UIColor.blue
     }
     

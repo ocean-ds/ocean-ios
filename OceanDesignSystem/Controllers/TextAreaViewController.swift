@@ -22,7 +22,7 @@ public class TextAreaViewController : UIViewController {
     public override func viewDidLoad() {
         
         self.textfield = Ocean.Input.textfieldWithLabel { component in
-            component.placeholder = "blabla"
+            component.placeholder = "placeholder"
         }
         
         self.textfield.onBeginEditing = {
@@ -40,15 +40,13 @@ public class TextAreaViewController : UIViewController {
         self.view.addConstraints(generateConstraintsTextFieldTop())
         
         self.textArea = Ocean.Input.textareaWithLabel { component in
-            component.placeholder = "Text Area"
+            component.placeholder = "placeholder"
         }
         self.textArea.onBeginEditing = {
-            self.textArea.becomeFirstResponder()
             self.textArea.errorMessage = ""
             self.statesTextArea.selectedSegmentIndex = 1
         }
         self.textArea.onValueChanged = { text in
-            //self.textfield.errorMessage = ""
             self.statesTextArea.selectedSegmentIndex = 1
         }
         self.view.addSubview(self.textArea)
@@ -114,23 +112,34 @@ public class TextAreaViewController : UIViewController {
         {
         case 0: //Inactive
             self.textfield.isEnabled = true
+            self.textfield.text = ""
             self.textfield.errorMessage = ""
             self.textfield.endEditing(true)
             
             break
-        case 1: //Activated
+        case 1: //Focused
+            self.textArea.onBeginEditing = {
+                
+            }
             self.textfield.isEnabled = true
             self.textfield.errorMessage = ""
             self.textfield.becomeFirstResponder()
             break
-        case 2: //Disabled
+        case 2: //Activated
+            self.textfield.isEnabled = true
+            self.textfield.text = "Activated"
+            self.textfield.errorMessage = ""
+            self.textfield.endEditing(true)
+            break
+        case 3: //Disabled
             self.textfield.isEnabled = false
             self.textfield.errorMessage = ""
             break
-        case 3: //Error
+        case 4: //Error
             self.textfield.isEnabled = true
             self.textfield.errorMessage = "error message"
             break
+        
         default:
             break
         }
@@ -141,20 +150,26 @@ public class TextAreaViewController : UIViewController {
         {
         case 0: //Inactive
             self.textArea.isEnabled = true
+            self.textArea.text = ""
             self.textArea.errorMessage = ""
             self.textArea.endEditing(true)
-            
             break
-        case 1: //Activated
+        case 1: //Focused
             self.textArea.isEnabled = true
             self.textArea.errorMessage = ""
             self.textArea.becomeFirstResponder()
             break
-        case 2: //Disabled
+        case 2: //Activated
+            self.textArea.isEnabled = true
+            self.textArea.text = "Activated"
+            self.textArea.errorMessage = ""
+            self.textArea.endEditing(true)
+            break
+        case 3: //Disabled
             self.textArea.isEnabled = false
             self.textArea.errorMessage = ""
             break
-        case 3: //Error
+        case 4: //Error
             self.textArea.isEnabled = true
             self.textArea.errorMessage = "error message"
             break

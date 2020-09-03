@@ -25,12 +25,11 @@ extension Ocean {
         private var labelError: UILabel!
         private var hStack: UIStackView!
         private var backgroundView: UIView!
-        public var isBold = false
+        public var isBold = true
         public var errorMessage: String = "" {
             didSet {
                 labelError?.text = errorMessage.isEmpty == true ? errorEmpty : errorMessage
                 self.updateState()
-                
             }
         }
 
@@ -198,10 +197,10 @@ extension Ocean {
                             placeHolder: Ocean.color.colorInterfaceLightDeep,
                             labelTitle: Ocean.color.colorInterfaceDarkUp)
             } else if isEnabled {
-                let isEmpty = self.textField?.text?.isEmpty == true
-                let color = isEmpty ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorInterfaceDarkDeep
-                let border = isEmpty ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorBrandPrimaryUp
-                let labelColor = isEmpty ? Ocean.color.colorInterfaceDarkDown : Ocean.color.colorInterfaceDarkUp
+                let isActivated = self.textField?.text?.isEmpty == true
+                let color = isActivated ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorInterfaceDarkDeep
+                let border = isActivated ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorBrandPrimaryUp
+                let labelColor = Ocean.color.colorInterfaceDarkDown
                 changeColor(text: color,
                             border: border,
                             placeHolder: Ocean.color.colorInterfaceLightDeep, labelTitle: labelColor)

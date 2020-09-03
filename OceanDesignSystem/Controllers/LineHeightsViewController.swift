@@ -16,7 +16,7 @@ public class LineHeightsViewController : UIViewController {
     @IBOutlet weak var TextValue: UILabel!
     
     public override func viewDidLoad() {
-        TextValue.text = "Show you how to add line spacing using custom paragraph style"
+        TextValue.text = "Soluções de negócios inovadoras e que beneficiam toda a cadeia, do varejo à indústria."
         TextValue.setLineHeight(lineHeight: Ocean.font.lineHeightTight)
     }
     @IBAction func onValueChanged(_ sender: Any) {

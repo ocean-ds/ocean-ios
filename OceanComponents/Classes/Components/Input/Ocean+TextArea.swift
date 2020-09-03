@@ -15,7 +15,7 @@ extension Ocean {
         internal var mainStack: UIStackView!
         private var textArea: UITextView!
         //private var image: UIImage!
-        public var isBold = false
+        public var isBold = true
         private var labelTitle: UILabel!
         private var labelError: UILabel!
         private var hStack: UIStackView!
@@ -176,10 +176,10 @@ extension Ocean {
                                            border: Ocean.color.colorInterfaceLightDeep,
                                            labelTitle: Ocean.color.colorInterfaceDarkUp)
             } else if isEnabled {
-                let isEmpty = self.textArea?.text?.isEmpty == true
-                let color = isEmpty ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorInterfaceDarkDeep
-                let border = isEmpty ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorBrandPrimaryUp
-                let labelColor = isEmpty ? Ocean.color.colorInterfaceDarkDown : Ocean.color.colorInterfaceDarkUp
+                let isActivated = self.textArea?.text?.isEmpty == true
+                let color = isActivated ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorInterfaceDarkDeep
+                let border = isActivated ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorBrandPrimaryUp
+                let labelColor = Ocean.color.colorInterfaceDarkDown
                 changeColor(text: color,
                 border: border,
                 labelTitle: labelColor)
@@ -283,6 +283,14 @@ extension Ocean {
         public func textViewDidChange(_ textView: UITextView) {
             updateState()
             onValueChanged?(textView.text ?? "")
+        }
+        
+        public override func becomeFirstResponder() -> Bool {
+            return textArea?.becomeFirstResponder() == true
+        }
+
+        public override func resignFirstResponder() -> Bool {
+            return textArea?.resignFirstResponder() == true
         }
     }
     
