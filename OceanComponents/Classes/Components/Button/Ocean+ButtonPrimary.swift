@@ -144,7 +144,7 @@ extension Ocean {
                 imageView.tintColor = activeLabelColor
                 contentStack.addArrangedSubview(imageView)
                 contentStack.addArrangedSubview(Spacer(space: Ocean.size.spacingInlineXxs))
-                
+                self.imageView.isUserInteractionEnabled = false
                 self.imageView.translatesAutoresizingMaskIntoConstraints = false
                 self.imageView.widthAnchor.constraint(equalToConstant: self.iconSize.width).isActive = true
                 self.imageView.heightAnchor.constraint(equalToConstant: self.iconSize.height).isActive = true
@@ -158,7 +158,8 @@ extension Ocean {
             label.textColor = activeLabelColor
             label.text = text
             label.textAlignment = labelAlignment
-            
+            label.isUserInteractionEnabled = false
+            contentStack.isUserInteractionEnabled = false
             contentStack.addArrangedSubview(label)
             self.addSubview(contentStack)
             
@@ -175,7 +176,7 @@ extension Ocean {
             activityIndicator = UIActivityIndicatorView(style: .white)
             activityIndicator.translatesAutoresizingMaskIntoConstraints = false
             activityIndicator.hidesWhenStopped = true
-            
+            activityIndicator.isUserInteractionEnabled = false
             self.addSubview(activityIndicator)
             
             activityIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
