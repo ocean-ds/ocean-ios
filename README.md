@@ -1,2 +1,3 @@
-# ocean-ds-ios
+# ocean-ios
+
 Design System project for ios
