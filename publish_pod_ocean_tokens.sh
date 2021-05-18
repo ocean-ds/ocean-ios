@@ -17,8 +17,8 @@ echo "Add and Commit new classes"
 git add . && git commit -am "Generating classes based npm lib version: $LATEST_VERSION_TOKENS_LIB_NPM"
 git push origin master
 #git push --set-upstream origin ${CIRCLE_BRANCH}
-#git config --global user.name "Alex Gomes"
-#git config --global user.email alexandro.gomes@useblu.com.br
+#git config --global user.name "Blu Pagamentos"
+#git config --global user.email devs@useblu.com.br
 
 
 echo "Generating release version number equals npm version…"
