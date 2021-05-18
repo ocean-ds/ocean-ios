@@ -24,8 +24,8 @@ Project created with the objective use components created by OceanTokens.
 
   s.homepage         = 'https://github.com/ocean-ds/ocean-ios'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-  s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'alex gomes' => 'alexandro.gomes@useblu.com.br' }
+  s.license          = { :type => 'GPL-3.0', :file => 'LICENSE' }
+  s.author           = { 'Blu Pagamentos' => 'devs@useblu.com.br' }
   s.source           = { :git => 'https://github.com/ocean-ds/ocean-ios.git',
                         :tag => 'OceanComponents-' + s.version.to_s }
 
