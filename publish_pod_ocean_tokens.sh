@@ -14,7 +14,7 @@ echo "Putting version number equals npm version…"
 sed -i '' "s/#NPM_VERSION#/'$LATEST_VERSION_TOKENS_LIB_NPM'/g" OceanTokens.podspec
 
 echo "Add and Commit new classes"
-git add . && git commit -am "Generating classes based npm lib version: $LATEST_VERSION_TOKENS_LIB_NPM"
+git add . && git commit -am "chore(release): publish $LATEST_VERSION_TOKENS_LIB_NPM"
 git push origin master
 #git push --set-upstream origin ${CIRCLE_BRANCH}
 #git config --global user.name "Blu Pagamentos"

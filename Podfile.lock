@@ -1,7 +1,7 @@
 PODS:
   - OceanComponents (1.0.0-beta.14):
     - OceanTokens
-  - OceanTokens (2.0.5)
+  - OceanTokens (3.0.0)
 
 DEPENDENCIES:
   - OceanComponents (from `./`)
@@ -15,7 +15,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   OceanComponents: 4abdcb9af40291a7d3a091b70dfa5545657f5f95
-  OceanTokens: c57acf497c3176cbadddf60764199a14ec68a7ff
+  OceanTokens: 1bfe46bb2655e26c911c4aca4f1e4109c537932e
 
 PODFILE CHECKSUM: 284bced81ad8ac1c7bcbb51f2b88af92c6cc18dd
 

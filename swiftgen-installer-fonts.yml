@@ -2,7 +2,7 @@
 
 json:
     inputs:
-      - node_modules/@useblu/tokens/dist/ios/tokens-fontNames.json
+      - node_modules/@useblu/ocean-tokens/ios/tokens-fontNames.json
     outputs:
       - templatePath: templates/ocean-installer-fonts.stencil
         output: OceanTokens/Classes/OceanExtensions/Typography/OceanExtensionInstallerFonts.swift

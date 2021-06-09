@@ -31,4 +31,4 @@ swiftgen config run --config swiftgen-installer-fonts.yml  --verbose
 echo '\033[1;31m Copying Fonts ttf to Resources into OceanTokens…\033[0m'
 rm -fR ./OceanTokens/Resources/Fonts &&
 mkdir -p ./OceanTokens/Resources/Fonts &&
-cp  ./node_modules/@useblu/tokens/dist/assets/fonts/**/* ./OceanTokens/Resources/Fonts
+cp  ./node_modules/@useblu/ocean-tokens/assets/fonts/**/* ./OceanTokens/Resources/Fonts
