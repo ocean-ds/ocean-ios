@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@useblu/tokens@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@useblu/tokens/-/tokens-2.0.0.tgz#52b6a020a07ae577d7fa03c4703ff4b253c5378b"
-  integrity sha512-y4YBljSoR+UO3zVUYjkLJQLsxlkNqfj/tfFrXaGgWz1UaPr401n+156vk/yASGkETVQdaucPgB1xvoOZlrcH1g==
+"@useblu/tokens@2.0.0-alpha.1":
+  version "2.0.0-alpha.1"
+  resolved "https://registry.yarnpkg.com/@useblu/tokens/-/tokens-2.0.0-alpha.1.tgz#656b4327fc4b81c6a0495dcfc22e4386fa677303"
+  integrity sha512-u3sdIGpAqWr2c0BwDrLAv/U+qQX+TS6IGO0+5WVb0f0u4TWqjz371ZsGTv6m+XeOYGrUoppgo/UYdtHDH3091w==
