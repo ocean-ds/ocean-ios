@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@useblu/ocean-tokens@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@useblu/ocean-tokens/-/ocean-tokens-3.0.0.tgz#712e80ebc4be5cd3c8593775f4cb49e4cb6879a4"
+  integrity sha512-eB4MVuuMojaP2nhmPO3Yrq5AcCnbBTDKr+HKJrg5tDWlv22NUF6In6lAXCowRYV+n4O1kJScWBDoRbcEqF0L7Q==
+
 "@useblu/tokens@2.0.0-alpha.1":
   version "2.0.0-alpha.1"
   resolved "https://registry.yarnpkg.com/@useblu/tokens/-/tokens-2.0.0-alpha.1.tgz#656b4327fc4b81c6a0495dcfc22e4386fa677303"

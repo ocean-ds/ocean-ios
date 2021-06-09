@@ -1,7 +1,7 @@
 #set error
 set -e
 
-LATEST_VERSION_TOKENS_LIB_NPM=`npm show  @useblu/tokens version` 
+LATEST_VERSION_TOKENS_LIB_NPM=`npm show  @useblu/ocean-tokens version` 
 echo "Lib in npm - version:$LATEST_VERSION_TOKENS_LIB_NPM"
 
 echo "Executing script for generate classes…"

@@ -1,7 +1,7 @@
 
 
 echo '\033[1;31m Downloading tokens into npm lib…\033[0m'
-yarn add -D @useblu/tokens@2.0.0-alpha.1
+yarn add -D @useblu/ocean-tokens
 
 echo '\033[1;31m Removing all resources in folder Resources…\033[0m'
 rm -fR OceanTokens/Classes/OceanExtensions
