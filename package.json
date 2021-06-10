@@ -1,6 +1,5 @@
 {
   "devDependencies": {
-    "@useblu/ocean-tokens": "^3.0.0",
-    "@useblu/tokens": "2.0.0"
+    "@useblu/ocean-tokens": "^3.0.0"
   }
 }
