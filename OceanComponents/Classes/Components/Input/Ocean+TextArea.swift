@@ -14,8 +14,6 @@ extension Ocean {
         private let errorEmpty = "..."
         internal var mainStack: UIStackView!
         private var textArea: UITextView!
-        //private var image: UIImage!
-        public var isBold = true
         private var labelTitle: UILabel!
         private var labelError: UILabel!
         private var hStack: UIStackView!
@@ -123,9 +121,7 @@ extension Ocean {
             labelTitle = UILabel()
             labelTitle.translatesAutoresizingMaskIntoConstraints = false
             labelTitle.font = UIFont(
-                name: isBold
-                    ? Ocean.font.fontFamilyBaseWeightBold
-                    : Ocean.font.fontFamilyHighlightWeightRegular,
+                name: Ocean.font.fontFamilyBaseWeightRegular,
                 size: Ocean.font.fontSizeXxs)
             labelTitle.textColor = Ocean.color.colorInterfaceDarkDown
         }
@@ -291,8 +287,6 @@ extension Ocean {
             return textArea?.resignFirstResponder() == true
         }
     }
-    
-    
 }
 
 extension Ocean.TextArea {

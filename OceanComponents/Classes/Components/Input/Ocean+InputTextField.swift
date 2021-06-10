@@ -5,6 +5,7 @@
 //  Created by Lucas Silveira on 01/07/20.
 //  Copyright © 2020 Blu. All rights reserved.
 //
+
 import Foundation
 import UIKit
 import OceanTokens
@@ -25,7 +26,6 @@ extension Ocean {
         private var labelError: UILabel!
         private var hStack: UIStackView!
         private var backgroundView: UIView!
-        public var isBold = true
         public var errorMessage: String = "" {
             didSet {
                 labelError?.text = errorMessage.isEmpty == true ? errorEmpty : errorMessage
@@ -97,7 +97,6 @@ extension Ocean {
             }
         }
 
-
         public override func becomeFirstResponder() -> Bool {
             return textField?.becomeFirstResponder() == true
         }
@@ -138,9 +137,7 @@ extension Ocean {
             labelTitle = UILabel()
             labelTitle.translatesAutoresizingMaskIntoConstraints = false
             labelTitle.font = UIFont(
-                name: isBold
-                    ? Ocean.font.fontFamilyBaseWeightBold
-                    : Ocean.font.fontFamilyHighlightWeightRegular,
+                name: Ocean.font.fontFamilyBaseWeightRegular,
                 size: Ocean.font.fontSizeXxs)
             labelTitle.textColor = Ocean.color.colorInterfaceDarkDown
         }
@@ -285,7 +282,6 @@ extension Ocean {
                 labelError.text = self.errorMessage
             }
             
-
             updateState()
         }
 

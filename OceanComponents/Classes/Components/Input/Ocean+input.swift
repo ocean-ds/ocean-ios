@@ -9,7 +9,6 @@ import Foundation
 import OceanTokens
 
 extension Ocean {
-
     public typealias TextAreaBuilder = (TextArea) -> Void
     public typealias InputTextFieldBuilder = (InputTextField) -> Void
     
@@ -43,8 +42,5 @@ extension Ocean {
                 builder(inputText)
             }
         }
-        
-        
     }
-
 }
