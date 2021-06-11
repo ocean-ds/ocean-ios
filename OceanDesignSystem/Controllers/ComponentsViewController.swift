@@ -33,29 +33,26 @@ class ComponentsViewController: UITableViewController {
         return indexPath
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         tableView.deselectRow(at: indexPath, animated: true)
-        if (self.designSystemComponentsTypeSelected == DesignSystemComponentsType.TextArea) {
+        
+        switch self.designSystemComponentsTypeSelected.rawValue {
+        case DesignSystemComponentsType.TextArea.rawValue:
             performSegue(withIdentifier: "SegueTextAreaComponents", sender: self)
-        } else if (self.designSystemComponentsTypeSelected == DesignSystemComponentsType.Snackbar) {
+        case DesignSystemComponentsType.Snackbar.rawValue:
             performSegue(withIdentifier: "SegueSnackbarComponents", sender: self)
-        } else if (self.designSystemComponentsTypeSelected == DesignSystemComponentsType.Button) {
+        case DesignSystemComponentsType.Button.rawValue:
             performSegue(withIdentifier: "SegueButtonsComponents", sender: self)
-        } else if (self.designSystemComponentsTypeSelected == DesignSystemComponentsType.Snackbar) {
+        case DesignSystemComponentsType.Switch.rawValue:
             performSegue(withIdentifier: "SegueSwitchComponents", sender: self)
-        } else {
+        default:
             performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }
-        
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (self.designSystemComponentsTypeSelected != DesignSystemComponentsType.TextArea &&
-            self.designSystemComponentsTypeSelected != DesignSystemComponentsType.Snackbar &&
-            self.designSystemComponentsTypeSelected != DesignSystemComponentsType.Button &&
-            self.designSystemComponentsTypeSelected != DesignSystemComponentsType.Switch) {
-            let destinationVC = segue.destination as! ComponentTypeViewController
-            destinationVC.designSystemComponentsType = self.designSystemComponentsTypeSelected
+        if (self.designSystemComponentsTypeSelected == DesignSystemComponentsType.Typography) {
+            let destinationVC = segue.destination as? ComponentTypeViewController
+            destinationVC?.designSystemComponentsType = self.designSystemComponentsTypeSelected
         }
     }
 }

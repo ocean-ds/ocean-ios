@@ -108,7 +108,6 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="title" destination="sbH-gL-Fh9" id="yWD-FK-VDf"/>
-                                    <segue destination="VyO-2g-QwC" kind="show" identifier="SegueSwitchComponents" id="FaY-0e-bZJ"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -123,11 +122,12 @@
                         <segue destination="CbQ-Zt-QpH" kind="show" identifier="SegueComponentTypeView" id="tAz-Xv-g6K"/>
                         <segue destination="Peb-Ta-70A" kind="show" identifier="SegueSnackbarComponents" id="iIG-9y-ZaT"/>
                         <segue destination="Cg8-qg-q16" kind="show" identifier="SegueButtonsComponents" id="QJW-iD-V2F"/>
+                        <segue destination="VyO-2g-QwC" kind="show" identifier="SegueSwitchComponents" id="mzO-j0-Cka"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aGw-ly-AWm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1017" y="706"/>
+            <point key="canvasLocation" x="1094" y="690"/>
         </scene>
         <!--Tokens By Category View Controller-->
         <scene sceneID="Acr-yl-duY">
