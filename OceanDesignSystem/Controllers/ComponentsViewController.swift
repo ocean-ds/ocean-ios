@@ -11,7 +11,6 @@ import OceanTokens
 import OceanComponents
 
 class ComponentsViewController: UITableViewController {
-
     var designSystemComponentsTypeSelected : DesignSystemComponentsType!
     
     override func viewDidLoad() {
@@ -19,7 +18,6 @@ class ComponentsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "ComponentsCell", for: indexPath) as! StandardCell
         let components = DSComponents.list
         cell.title.text = components[indexPath.row]
@@ -43,6 +41,8 @@ class ComponentsViewController: UITableViewController {
             performSegue(withIdentifier: "SegueSnackbarComponents", sender: self)
         } else if (self.designSystemComponentsTypeSelected == DesignSystemComponentsType.Button) {
             performSegue(withIdentifier: "SegueButtonsComponents", sender: self)
+        } else if (self.designSystemComponentsTypeSelected == DesignSystemComponentsType.Snackbar) {
+            performSegue(withIdentifier: "SegueSwitchComponents", sender: self)
         } else {
             performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }
@@ -50,10 +50,12 @@ class ComponentsViewController: UITableViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (self.designSystemComponentsTypeSelected != DesignSystemComponentsType.TextArea && self.designSystemComponentsTypeSelected != DesignSystemComponentsType.Snackbar && self.designSystemComponentsTypeSelected != DesignSystemComponentsType.Button) {
+        if (self.designSystemComponentsTypeSelected != DesignSystemComponentsType.TextArea &&
+            self.designSystemComponentsTypeSelected != DesignSystemComponentsType.Snackbar &&
+            self.designSystemComponentsTypeSelected != DesignSystemComponentsType.Button &&
+            self.designSystemComponentsTypeSelected != DesignSystemComponentsType.Switch) {
             let destinationVC = segue.destination as! ComponentTypeViewController
             destinationVC.designSystemComponentsType = self.designSystemComponentsTypeSelected
         }
-        
     }
 }
