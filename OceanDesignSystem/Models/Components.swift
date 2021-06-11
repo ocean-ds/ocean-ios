@@ -15,7 +15,8 @@ struct DSComponents {
         "Typography",
         "Button",
         "InputText",
-        "Snackbar"
+        "Snackbar",
+        "Switch"
     ]
 }
 
