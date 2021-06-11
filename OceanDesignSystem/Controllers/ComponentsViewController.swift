@@ -44,6 +44,16 @@ class ComponentsViewController: UITableViewController {
             performSegue(withIdentifier: "SegueButtonsComponents", sender: self)
         case DesignSystemComponentsType.Switch.rawValue:
             performSegue(withIdentifier: "SegueSwitchComponents", sender: self)
+        case DesignSystemComponentsType.BottomSheet.rawValue:
+            Ocean.BottomSheet(self)
+                .withImage(Ocean.icon.toolLg)
+                .withTitle("Titulo")
+                .withDescription("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Galley of type and scrambled it to make a type specimen book.")
+                .withAction(textNegative: "Cancelar", actionNegative: nil,
+                            textPositive: "Ativar", actionPositive: nil)
+                .withCode("123")
+                .build()
+                .show()
         default:
             performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }

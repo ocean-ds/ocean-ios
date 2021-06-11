@@ -1,11 +1,17 @@
 PODS:
   - OceanComponents (1.0.0-beta.14):
     - OceanTokens
+    - SPStorkController
   - OceanTokens (3.0.0)
+  - SPStorkController (1.8.5)
 
 DEPENDENCIES:
   - OceanComponents (from `./`)
   - OceanTokens (from `./`)
+
+SPEC REPOS:
+  trunk:
+    - SPStorkController
 
 EXTERNAL SOURCES:
   OceanComponents:
@@ -14,8 +20,9 @@ EXTERNAL SOURCES:
     :path: "./"
 
 SPEC CHECKSUMS:
-  OceanComponents: 4abdcb9af40291a7d3a091b70dfa5545657f5f95
+  OceanComponents: ac23727bdcec0705cd3edde935115af1e1fa186c
   OceanTokens: 1bfe46bb2655e26c911c4aca4f1e4109c537932e
+  SPStorkController: 68966ed3134de2be2a8bbd1475c7e81f3f7d01ee
 
 PODFILE CHECKSUM: 284bced81ad8ac1c7bcbb51f2b88af92c6cc18dd
 
