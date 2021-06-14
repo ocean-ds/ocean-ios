@@ -1,5 +1,5 @@
 //
-//  TextAreaViewController.swift
+//  InputViewController.swift
 //  OceanDesignSystem
 //
 //  Created by Alex Gomes on 11/08/20.
@@ -11,16 +11,15 @@ import UIKit
 import OceanComponents
 import OceanTokens
 
-public class TextAreaViewController : UIViewController {
-    
+public class InputViewController : UIViewController {
     @IBOutlet weak var states: UISegmentedControl!
     @IBOutlet weak var statesTextArea: UISegmentedControl!
     
     var textfield : Ocean.InputTextField!
     var textArea : Ocean.TextArea!
+    var select: Ocean.InputSelectField!
     
     public override func viewDidLoad() {
-        
         self.textfield = Ocean.Input.textfieldWithLabel { component in
             component.placeholder = "placeholder"
         }
@@ -31,7 +30,6 @@ public class TextAreaViewController : UIViewController {
             self.states.selectedSegmentIndex = 1
         }
         self.textfield.onValueChanged = { text in
-            //self.textfield.errorMessage = ""
             self.states.selectedSegmentIndex = 1
         }
         
@@ -49,11 +47,25 @@ public class TextAreaViewController : UIViewController {
         self.textArea.onValueChanged = { text in
             self.statesTextArea.selectedSegmentIndex = 1
         }
+        
         self.view.addSubview(self.textArea)
         self.textArea.translatesAutoresizingMaskIntoConstraints = false
         self.view.addConstraints(generateConstraintsTextAreaTop())
-    }
         
+        self.select = Ocean.Input.selectWithLabel { component in
+            component.placeholder = "placeholder"
+            component.rootViewController = self
+            component.values = ["Label 1", "Label 2", "Label 3", "Label 4", "Label 5"]
+        }
+        
+        self.view.addSubview(self.select)
+        self.select.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.select.topAnchor.constraint(equalTo: self.textArea.bottomAnchor, constant: 80),
+            self.select.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.select.widthAnchor.constraint(equalToConstant: 328)
+        ])
+    }
     
     private func generateConstraintsTextFieldTop() -> [NSLayoutConstraint] {
         let constraintTop = NSLayoutConstraint(item: self.textfield,

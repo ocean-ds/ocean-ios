@@ -17,7 +17,7 @@
 		B71D65FD24CA530000C3938C /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65FC24CA530000C3938C /* Components.swift */; };
 		B75C81FB24F6F5BD001A500B /* ButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75C81FA24F6F5BD001A500B /* ButtonViewController.swift */; };
 		B768C52624DDFA740086BF9C /* LineHeightsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B768C52524DDFA740086BF9C /* LineHeightsViewController.swift */; };
-		B768C57724E3186C0086BF9C /* TextAreaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B768C57624E3186C0086BF9C /* TextAreaViewController.swift */; };
+		B768C57724E3186C0086BF9C /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B768C57624E3186C0086BF9C /* InputViewController.swift */; };
 		B7A4FF7924BF8484006712AA /* ComponentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A4FF7824BF8484006712AA /* ComponentsViewController.swift */; };
 		B7BB717924E615B3007F8848 /* SnackbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BB717824E615B3007F8848 /* SnackbarViewController.swift */; };
 		B7BB721E24EEE8EB007F8848 /* SnackbarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7BB721D24EEE8EB007F8848 /* SnackbarView.xib */; };
@@ -59,7 +59,7 @@
 		B71D65FC24CA530000C3938C /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		B75C81FA24F6F5BD001A500B /* ButtonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonViewController.swift; sourceTree = "<group>"; };
 		B768C52524DDFA740086BF9C /* LineHeightsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineHeightsViewController.swift; sourceTree = "<group>"; };
-		B768C57624E3186C0086BF9C /* TextAreaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAreaViewController.swift; sourceTree = "<group>"; };
+		B768C57624E3186C0086BF9C /* InputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewController.swift; sourceTree = "<group>"; };
 		B7A4FF7824BF8484006712AA /* ComponentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsViewController.swift; sourceTree = "<group>"; };
 		B7BB717824E615B3007F8848 /* SnackbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarViewController.swift; sourceTree = "<group>"; };
 		B7BB721D24EEE8EB007F8848 /* SnackbarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SnackbarView.xib; sourceTree = "<group>"; };
@@ -108,7 +108,7 @@
 				B7CA694D24CB4C940051CA6A /* ComponentTypeViewController.swift */,
 				B7CA694F24CB56B90051CA6A /* RenderComponentsViewController.swift */,
 				B768C52524DDFA740086BF9C /* LineHeightsViewController.swift */,
-				B768C57624E3186C0086BF9C /* TextAreaViewController.swift */,
+				B768C57624E3186C0086BF9C /* InputViewController.swift */,
 				B7BB717824E615B3007F8848 /* SnackbarViewController.swift */,
 				B75C81FA24F6F5BD001A500B /* ButtonViewController.swift */,
 				249DC93F2672AD2600012411 /* SwitchViewController.swift */,
@@ -325,7 +325,7 @@
 				B71D65E224CA053500C3938C /* TokensBySubCategories.swift in Sources */,
 				B75C81FB24F6F5BD001A500B /* ButtonViewController.swift in Sources */,
 				B7A4FF7924BF8484006712AA /* ComponentsViewController.swift in Sources */,
-				B768C57724E3186C0086BF9C /* TextAreaViewController.swift in Sources */,
+				B768C57724E3186C0086BF9C /* InputViewController.swift in Sources */,
 				B7BB717924E615B3007F8848 /* SnackbarViewController.swift in Sources */,
 				B71D65FD24CA530000C3938C /* Components.swift in Sources */,
 				B7BB722024EEEA89007F8848 /* SnackbarView.swift in Sources */,

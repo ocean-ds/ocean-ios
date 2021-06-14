@@ -10,7 +10,7 @@ import SPStorkController
 import OceanTokens
 
 extension Ocean {
-    public class BottomSheetViewController: UIViewController {
+    public class BottomSheetViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
         private lazy var mainStack: UIStackView = {
             UIStackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
@@ -20,28 +20,50 @@ extension Ocean {
             }
         }()
         
+        private lazy var tableView: UITableView = {
+            let tableView = UITableView()
+            tableView.translatesAutoresizingMaskIntoConstraints = false
+            tableView.tableHeaderView = UIView()
+            tableView.tableFooterView = UIView()
+            tableView.delegate = self
+            tableView.dataSource = self
+            tableView.bounces = false
+            tableView.separatorStyle =  .none
+            return tableView
+        }()
+        
         private lazy var spTransitionDelegate: SPStorkTransitioningDelegate = {
             let delegate = SPStorkTransitioningDelegate()
             delegate.indicatorMode = .alwaysLine
+            delegate.cornerRadius = 24
             self.transitioningDelegate = delegate
             self.modalPresentationStyle = .custom
             self.modalPresentationCapturesStatusBarAppearance = true
             return delegate
         }()
         
+        private var heightCell: CGFloat {
+            get {
+                return 48
+            }
+        }
+        
         private var heightSpacing: CGFloat {
             get {
-                return hasTopNotch ? 100 : 80
+                return hasTopNotch ? 80 : 60
             }
         }
         
         private var rootViewController: UIViewController
 
+        var onValueSelected: ((CellModel) -> Void)?
+        
         var contentImage: UIImage?
         var contentTitle: String?
         var contentDescription: String?
         var contentDescriptionAttributeText: NSAttributedString?
         var contentCode: String?
+        var contentValues: [CellModel]?
         var actionsAxis: NSLayoutConstraint.Axis = .vertical
         var actions: [UIControl] = []
         var swipeDismiss: Bool = true {
@@ -71,7 +93,8 @@ extension Ocean {
             
             mainStack.updateConstraints()
             mainStack.layoutIfNeeded()
-            spTransitionDelegate.customHeight = mainStack.frame.height + heightSpacing
+            let tableHeight = heightCell * (CGFloat(contentValues?.count ?? 1) - 1)
+            spTransitionDelegate.customHeight = mainStack.frame.height + tableHeight + heightSpacing
         }
         
         public func show() {
@@ -117,7 +140,7 @@ extension Ocean {
 
             mainStack.addArrangedSubview(Ocean.Typography.heading3 { label in
                 label.text = title
-                label.textAlignment = .center
+                label.textAlignment = self.contentValues == nil ? .center : .left
                 label.numberOfLines = 0
                 label.textColor = Ocean.color.colorBrandPrimaryPure
             })
@@ -125,6 +148,10 @@ extension Ocean {
         }
 
         fileprivate func addDescriptionIfExist() {
+            if contentDescription == nil && contentDescriptionAttributeText == nil {
+                return
+            }
+            
             mainStack.addArrangedSubview(Ocean.Typography.paragraph { label in
                 if let contentDescription = self.contentDescription {
                     label.text = contentDescription
@@ -143,7 +170,7 @@ extension Ocean {
                 return
             }
 
-            mainStack.addArrangedSubview(Ocean.Typography.paragraph { label in
+            mainStack.addArrangedSubview(Ocean.Typography.description { label in
                 label.text = "Código \(code)"
                 label.numberOfLines = 0
                 label.textAlignment = .center
@@ -156,23 +183,79 @@ extension Ocean {
         public override func viewDidLoad() {
             self.view.backgroundColor = Ocean.color.colorInterfaceLightPure
             self.view.addSubview(mainStack)
-
-            if #available(iOS 11.0, *) {
-                NSLayoutConstraint.activate([
-                    mainStack.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,
-                                                    constant: Ocean.size.spacingStackSm),
-                    mainStack.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor,
-                                                     constant: -Ocean.size.spacingStackSm),
-                    mainStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-                ])
+            
+            if contentValues == nil {
+                if #available(iOS 11.0, *) {
+                    NSLayoutConstraint.activate([
+                        mainStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                        mainStack.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,
+                                                        constant: Ocean.size.spacingStackSm),
+                        mainStack.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor,
+                                                         constant: -Ocean.size.spacingStackSm)
+                    ])
+                } else {
+                    NSLayoutConstraint.activate([
+                        mainStack.topAnchor.constraint(equalTo: view.topAnchor),
+                        mainStack.leftAnchor.constraint(equalTo: view.leftAnchor,
+                                                        constant: Ocean.size.spacingStackSm),
+                        mainStack.rightAnchor.constraint(equalTo: view.rightAnchor,
+                                                         constant: -Ocean.size.spacingStackSm)
+                    ])
+                }
             } else {
-                NSLayoutConstraint.activate([
-                    mainStack.leftAnchor.constraint(equalTo: view.leftAnchor,
-                                                    constant: Ocean.size.spacingStackSm),
-                    mainStack.rightAnchor.constraint(equalTo: view.rightAnchor,
-                                                     constant: -Ocean.size.spacingStackSm),
-                    mainStack.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-                ])
+                self.view.addSubview(tableView)
+                
+                if #available(iOS 11.0, *) {
+                    NSLayoutConstraint.activate([
+                        mainStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                        mainStack.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,
+                                                        constant: Ocean.size.spacingStackXs),
+                        mainStack.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor,
+                                                         constant: -Ocean.size.spacingStackXs),
+                        
+                        tableView.topAnchor.constraint(equalTo: mainStack.bottomAnchor),
+                        tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+                        tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+                        tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+                    ])
+                } else {
+                    NSLayoutConstraint.activate([
+                        mainStack.topAnchor.constraint(equalTo: view.topAnchor),
+                        mainStack.leftAnchor.constraint(equalTo: view.leftAnchor,
+                                                        constant: Ocean.size.spacingStackXs),
+                        mainStack.rightAnchor.constraint(equalTo: view.rightAnchor,
+                                                         constant: -Ocean.size.spacingStackXs),
+                        
+                        tableView.topAnchor.constraint(equalTo: mainStack.bottomAnchor),
+                        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+                    ])
+                }
+            }
+        }
+        
+        public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return contentValues?.count ?? 0
+        }
+
+        public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let cell = Ocean.BottomSheetCell()
+
+            cell.titleLabel.text = contentValues?[indexPath.row].value
+            cell.isSelected = contentValues?[indexPath.row].isSelected ?? false
+
+            return cell
+        }
+
+        public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            return heightCell
+        }
+
+        public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            if let value = contentValues?[indexPath.row] {
+                self.dismiss(animated: true, completion: nil)
+                self.onValueSelected?(value)
             }
         }
     }

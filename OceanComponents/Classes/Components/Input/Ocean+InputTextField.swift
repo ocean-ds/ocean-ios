@@ -22,10 +22,11 @@ extension Ocean {
         private let errorEmpty = "..."
         private var labelTitle: UILabel!
         public var textField: UITextField!
-        private var image: UIImage!
+        private var imageView: UIImageView!
         private var labelError: UILabel!
         private var hStack: UIStackView!
         private var backgroundView: UIView!
+        
         public var errorMessage: String = "" {
             didSet {
                 labelError?.text = errorMessage.isEmpty == true ? errorEmpty : errorMessage
@@ -45,11 +46,17 @@ extension Ocean {
             }
         }
 
-        public var text: String = ""{
+        public var text: String = "" {
             didSet {
                 textField?.text = text
                 textField?.placeholder = ""
                 self.updateState()
+            }
+        }
+        
+        public var image: UIImage? = nil {
+            didSet {
+                imageView.image = image
             }
         }
 
@@ -156,7 +163,6 @@ extension Ocean {
         }
 
         @objc func editingChanged(textField: UITextField) {
-
             guard self.text != textField.text else {
                 return
             }
@@ -173,6 +179,11 @@ extension Ocean {
             labelError.textColor = Ocean.color.colorStatusNegativePure
             labelError.text = errorEmpty
             labelError.alpha = 0
+        }
+        
+        func makeImageView() {
+            imageView = UIImageView()
+            imageView.translatesAutoresizingMaskIntoConstraints = false
         }
 
         func updateState() {
@@ -227,6 +238,9 @@ extension Ocean {
             self.makeLabel()
             self.makeTextField()
             self.makeLabelError()
+            self.makeImageView()
+            
+            textField.addSubview(imageView)
 
             mainStack.addArrangedSubview(labelTitle)
             mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxs))
@@ -270,6 +284,11 @@ extension Ocean {
             hStack.leftAnchor.constraint(equalTo: backgroundView.leftAnchor).isActive = true
             hStack.rightAnchor.constraint(equalTo: backgroundView.rightAnchor).isActive = true
             hStack.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor).isActive = true
+            
+            imageView.heightAnchor.constraint(equalToConstant: 20).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: 20).isActive = true
+            imageView.trailingAnchor.constraint(equalTo: textField.trailingAnchor).isActive = true
+            imageView.centerYAnchor.constraint(equalTo: textField.centerYAnchor).isActive = true
 
             labelTitle.text = self.title
             textField.text = self.text

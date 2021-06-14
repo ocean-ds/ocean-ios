@@ -30,7 +30,7 @@ public enum SubCategorySizeType: Int {
 public enum DesignSystemComponentsType: Int {
     case Typography
     case Button
-    case TextArea
+    case Input
     case Snackbar
     case Switch
     case BottomSheet

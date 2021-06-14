@@ -36,8 +36,8 @@ class ComponentsViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         switch self.designSystemComponentsTypeSelected.rawValue {
-        case DesignSystemComponentsType.TextArea.rawValue:
-            performSegue(withIdentifier: "SegueTextAreaComponents", sender: self)
+        case DesignSystemComponentsType.Input.rawValue:
+            performSegue(withIdentifier: "SegueInputComponents", sender: self)
         case DesignSystemComponentsType.Snackbar.rawValue:
             performSegue(withIdentifier: "SegueSnackbarComponents", sender: self)
         case DesignSystemComponentsType.Button.rawValue:
