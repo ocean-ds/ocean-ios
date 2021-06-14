@@ -11,14 +11,16 @@ import UIKit
 import OceanTokens
 import OceanComponents
 
-final public class SwitchViewController : UIViewController, OceanSwitchDelegate {
+final public class SwitchViewController : UIViewController {
     private var oceanSwitch: Ocean.Switch!
     private var label: UILabel!
     
     public override func viewDidLoad() {
         oceanSwitch = Ocean.Switch { component in
             component.translatesAutoresizingMaskIntoConstraints = false
-            component.delegate = self
+            component.onValueChanged = { value in
+                self.label.text = value.description
+            }
         }
         label = Ocean.Typography.description { label in
             label.translatesAutoresizingMaskIntoConstraints = false
@@ -34,10 +36,6 @@ final public class SwitchViewController : UIViewController, OceanSwitchDelegate 
         stack.addArrangedSubview(label)
         
         self.add(view: stack)
-    }
-    
-    public func didTapSwitch(isOn: Bool) {
-        self.label.text = isOn.description
     }
     
     private func add(view: UIView) {

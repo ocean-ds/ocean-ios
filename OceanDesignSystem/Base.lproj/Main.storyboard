@@ -69,7 +69,7 @@
                             <outlet property="delegate" destination="6WR-ko-ii5" id="Yms-Sw-JYj"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Tokens" id="1FN-b3-q5c"/>
+                    <tabBarItem key="tabBarItem" title="Tokens" image="align-center-md.png" id="1FN-b3-q5c"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N1B-3u-f28" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -116,9 +116,9 @@
                             <outlet property="delegate" destination="f3g-c2-F66" id="2Se-px-rZT"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Components" id="eMM-aA-MbI"/>
+                    <tabBarItem key="tabBarItem" title="Components" image="apps-md.png" id="eMM-aA-MbI"/>
                     <connections>
-                        <segue destination="5ef-au-a5S" kind="show" identifier="SegueTextAreaComponents" id="ZJ2-le-hGI"/>
+                        <segue destination="5ef-au-a5S" kind="show" identifier="SegueInputComponents" id="ZJ2-le-hGI"/>
                         <segue destination="CbQ-Zt-QpH" kind="show" identifier="SegueComponentTypeView" id="tAz-Xv-g6K"/>
                         <segue destination="Peb-Ta-70A" kind="show" identifier="SegueSnackbarComponents" id="iIG-9y-ZaT"/>
                         <segue destination="Cg8-qg-q16" kind="show" identifier="SegueButtonsComponents" id="QJW-iD-V2F"/>
@@ -740,10 +740,10 @@
             </objects>
             <point key="canvasLocation" x="2659" y="-691"/>
         </scene>
-        <!--Text Area View Controller-->
+        <!--Input View Controller-->
         <scene sceneID="aWc-CR-LzV">
             <objects>
-                <viewController id="5ef-au-a5S" customClass="TextAreaViewController" customModule="OceanDesignSystem" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="5ef-au-a5S" customClass="InputViewController" customModule="OceanDesignSystem" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wnd-1q-lug">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -970,6 +970,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="align-center-md.png" width="24" height="24"/>
+        <image name="apps-md.png" width="24" height="24"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -36,14 +36,24 @@ class ComponentsViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         switch self.designSystemComponentsTypeSelected.rawValue {
-        case DesignSystemComponentsType.TextArea.rawValue:
-            performSegue(withIdentifier: "SegueTextAreaComponents", sender: self)
+        case DesignSystemComponentsType.Input.rawValue:
+            performSegue(withIdentifier: "SegueInputComponents", sender: self)
         case DesignSystemComponentsType.Snackbar.rawValue:
             performSegue(withIdentifier: "SegueSnackbarComponents", sender: self)
         case DesignSystemComponentsType.Button.rawValue:
             performSegue(withIdentifier: "SegueButtonsComponents", sender: self)
         case DesignSystemComponentsType.Switch.rawValue:
             performSegue(withIdentifier: "SegueSwitchComponents", sender: self)
+        case DesignSystemComponentsType.BottomSheet.rawValue:
+            Ocean.BottomSheet(self)
+                .withImage(Ocean.icon.toolLg)
+                .withTitle("Titulo")
+                .withDescription("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Galley of type and scrambled it to make a type specimen book.")
+                .withAction(textNegative: "Cancelar", actionNegative: nil,
+                            textPositive: "Ativar", actionPositive: nil)
+                .withCode("123")
+                .build()
+                .show()
         default:
             performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }

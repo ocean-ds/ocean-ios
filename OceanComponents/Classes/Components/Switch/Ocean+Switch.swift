@@ -8,10 +8,6 @@
 import OceanTokens
 import UIKit
 
-public protocol OceanSwitchDelegate {
-    func didTapSwitch(isOn: Bool)
-}
-
 extension Ocean {
     public class Switch: UIControl {
         public typealias SwitchBuilder = (Switch) -> Void
@@ -23,7 +19,7 @@ extension Ocean {
                                                                 .beginFromCurrentState,
                                                                 .allowUserInteraction]
         
-        public var delegate: OceanSwitchDelegate?
+        public var onValueChanged: ((Bool) -> Void)?
         
         private var privateIsOn: Bool = false
         public var isOn: Bool {
@@ -140,7 +136,7 @@ extension Ocean {
             super.beginTracking(touch, with: event)
             
             self.animate()
-            self.delegate?.didTapSwitch(isOn: self.privateIsOn)
+            self.onValueChanged?(self.privateIsOn)
             
             return true
         }
@@ -155,7 +151,7 @@ extension Ocean {
                 self.completeAction()
             }
             
-            self.delegate?.didTapSwitch(isOn: self.privateIsOn)
+            self.onValueChanged?(self.privateIsOn)
         }
         
         fileprivate func animate(on: Bool? = nil) {
