@@ -27,6 +27,7 @@ extension Ocean {
                 return privateIsOn
             }
             set {
+                self.layoutSubviews()
                 self.setOn(on: newValue, animated: true)
             }
         }
@@ -105,6 +106,12 @@ extension Ocean {
             setupUI()
         }
         
+        public override var intrinsicContentSize: CGSize {
+            get {
+                return CGSize(width: 44, height: 24)
+            }
+        }
+        
         fileprivate func setupUI() {
             self.clear()
             
@@ -118,11 +125,6 @@ extension Ocean {
             self.layer.borderColor = self.isOn ? self.onBorderTintColor.cgColor : self.offBorderTintColor.cgColor
             
             self.addSubview(self.thumbView)
-            
-            NSLayoutConstraint.activate([
-                self.widthAnchor.constraint(equalToConstant: 44),
-                self.heightAnchor.constraint(equalToConstant: 24)
-            ])
         }
         
         private func clear() {
