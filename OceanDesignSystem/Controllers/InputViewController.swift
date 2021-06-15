@@ -54,6 +54,7 @@ public class InputViewController : UIViewController {
         
         self.select = Ocean.Input.selectWithLabel { component in
             component.placeholder = "placeholder"
+            component.titleBottomSheet = "Title"
             component.rootViewController = self
             component.values = ["Label 1", "Label 2", "Label 3", "Label 4", "Label 5"]
         }
