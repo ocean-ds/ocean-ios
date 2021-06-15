@@ -12,89 +12,35 @@ extension Ocean {
     public class Switch: UIControl {
         public typealias SwitchBuilder = (Switch) -> Void
         
+        public var onValueChanged: ((Bool) -> Void)?
+        
+        private var privateIsOn: Bool = true
+        public var isOn: Bool {
+            get {
+                return privateIsOn
+            }
+            set {
+                self.setOn(on: newValue, animated: true)
+            }
+        }
+        
         private var animationDelay: Double = 0
         private var animationSpriteWithDamping = CGFloat(0.7)
         private var initialSpringVelocity = CGFloat(0.5)
         private var animationOptions: UIView.AnimationOptions = [.curveEaseOut,
                                                                 .beginFromCurrentState,
                                                                 .allowUserInteraction]
-        
-        public var onValueChanged: ((Bool) -> Void)?
-        
-        private var privateIsOn: Bool = false
-        public var isOn: Bool {
-            get {
-                return privateIsOn
-            }
-            set {
-                self.layoutSubviews()
-                self.setOn(on: newValue, animated: true)
-            }
-        }
-        
         private var animationDuration: Double = 0.5
-        
-        private var padding: CGFloat = 4 {
-            didSet {
-                self.layoutSubviews()
-            }
-        }
-            
-        private var onTintColor: UIColor = Ocean.color.colorComplementaryPure {
-            didSet {
-                self.setupUI()
-            }
-        }
-        
-        private var offTintColor: UIColor = Ocean.color.colorInterfaceLightPure {
-            didSet {
-                self.setupUI()
-            }
-        }
-        
-        private var onThumbTintColor: UIColor = .white {
-            didSet {
-                self.setupUI()
-            }
-        }
-        
-        private var offThumbTintColor: UIColor = Ocean.color.colorInterfaceDarkUp {
-            didSet {
-                self.setupUI()
-            }
-        }
-        
-        private var onBorderTintColor: UIColor = Ocean.color.colorComplementaryPure {
-            didSet {
-                self.setupUI()
-            }
-        }
-        
-        private var offBorderTintColor: UIColor = Ocean.color.colorInterfaceDarkUp {
-            didSet {
-                self.setupUI()
-            }
-        }
-        
-        private var cornerRadius: CGFloat = 0.5 {
-            didSet {
-                self.layoutSubviews()
-            }
-        }
-        
-        private var thumbCornerRadius: CGFloat = 0.5 {
-            didSet {
-                self.layoutSubviews()
-                
-            }
-        }
-        
-        private var thumbSize: CGSize = CGSize.zero {
-            didSet {
-                self.layoutSubviews()
-            }
-        }
-        
+        private var padding: CGFloat = 4
+        private var onTintColor: UIColor = Ocean.color.colorComplementaryPure
+        private var offTintColor: UIColor = Ocean.color.colorInterfaceLightPure
+        private var onThumbTintColor: UIColor = .white
+        private var offThumbTintColor: UIColor = Ocean.color.colorInterfaceDarkUp
+        private var onBorderTintColor: UIColor = Ocean.color.colorComplementaryPure
+        private var offBorderTintColor: UIColor = Ocean.color.colorInterfaceDarkUp
+        private var cornerRadius: CGFloat = 0.5
+        private var thumbCornerRadius: CGFloat = 0.5
+        private var thumbSize: CGSize = CGSize.zero
         private var thumbView = UIView(frame: CGRect.zero)
         private var onPoint = CGPoint.zero
         private var offPoint = CGPoint.zero
@@ -125,6 +71,11 @@ extension Ocean {
             self.layer.borderColor = self.isOn ? self.onBorderTintColor.cgColor : self.offBorderTintColor.cgColor
             
             self.addSubview(self.thumbView)
+            
+            NSLayoutConstraint.activate([
+                self.widthAnchor.constraint(equalToConstant: 44),
+                self.heightAnchor.constraint(equalToConstant: 24)
+            ])
         }
         
         private func clear() {

@@ -18,7 +18,6 @@ final public class SwitchViewController : UIViewController {
     public override func viewDidLoad() {
         oceanSwitch = Ocean.Switch { component in
             component.translatesAutoresizingMaskIntoConstraints = false
-            component.isOn = true
             component.onValueChanged = { value in
                 self.label.text = value.description
             }
