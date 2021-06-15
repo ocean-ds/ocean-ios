@@ -1,0 +1,25 @@
+name: CI
+
+on: push
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+        with:
+          # we actually need "github.event.pull_request.commits + 1" commit
+          fetch-depth: 0
+
+      - name: Build
+        run: swift build
+
+      - name: Runs linter
+        run: swiftlint
+
+      - name: Lint commit message
+        uses: wagoid/commitlint-github-action@v3
+
+      - name: Run tests
+        run: swift test
