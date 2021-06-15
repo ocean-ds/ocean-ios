@@ -44,6 +44,7 @@ extension Ocean {
                 
                 bottomSheetList.onValueSelected = { value in
                     self.text = value.value
+                    self.onValueChanged?(self.text)
                 }
                 
                 bottomSheetList.show()
