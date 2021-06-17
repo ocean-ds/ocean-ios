@@ -194,16 +194,19 @@ extension Ocean {
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
                             border: Ocean.color.colorStatusNegativePure,
                             labelTitle: Ocean.color.colorInterfaceDarkDown)
+                backgroundView.ocean.borderWidth.applyHairline()
             } else if textField?.isFirstResponder == true {
                 textField?.placeholder = ""
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
                             border: Ocean.color.colorBrandPrimaryDown,
                             labelTitle: Ocean.color.colorInterfaceDarkDown)
+                backgroundView.ocean.borderWidth.applyThin()
             } else if isActivated == false {
                 changeColor(text: Ocean.color.colorInterfaceLightDeep,
                             border: Ocean.color.colorInterfaceLightDeep,
                             placeHolder: Ocean.color.colorInterfaceLightDeep,
                             labelTitle: Ocean.color.colorInterfaceDarkUp)
+                backgroundView.ocean.borderWidth.applyHairline()
             } else if isEnabled {
                 let isActivated = self.textField?.text?.isEmpty == true
                 let color = isActivated ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorInterfaceDarkDeep
@@ -211,12 +214,16 @@ extension Ocean {
                 let labelColor = Ocean.color.colorInterfaceDarkDown
                 changeColor(text: color,
                             border: border,
-                            placeHolder: Ocean.color.colorInterfaceLightDeep, labelTitle: labelColor)
+                            placeHolder: Ocean.color.colorInterfaceLightDeep,
+                            labelTitle: labelColor)
+                backgroundView.ocean.borderWidth.applyHairline()
             } else {
                 changeColor(text: Ocean.color.colorInterfaceDarkUp,
                             border: Ocean.color.colorInterfaceLightDown,
                             background: Ocean.color.colorInterfaceLightDown,
-                            placeHolder: Ocean.color.colorInterfaceDarkUp, labelTitle: Ocean.color.colorInterfaceDarkUp)
+                            placeHolder: Ocean.color.colorInterfaceDarkUp,
+                            labelTitle: Ocean.color.colorInterfaceDarkUp)
+                backgroundView.ocean.borderWidth.applyHairline()
             }
         }
 
@@ -224,7 +231,7 @@ extension Ocean {
                          border: UIColor,
                          background: UIColor? = Ocean.color.colorInterfaceLightPure,
                          placeHolder: UIColor? = Ocean.color.colorInterfaceLightUp,
-                         labelTitle: UIColor ) {
+                         labelTitle: UIColor) {
             self.textField?.textColor = text
             self.backgroundView?.backgroundColor = background
             self.backgroundView?.layer.borderColor = border.cgColor
