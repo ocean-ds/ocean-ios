@@ -202,7 +202,7 @@ struct PrimaryButtons {
     
     static let primaryLGIcon = Ocean.Button.primaryLG { button in
         button.text = "Icon"
-        button.icon = Ocean.icon.addLg
+        button.icon = Ocean.icon.plusOutline
     }
     
     static let primaryBlockedLG = Ocean.Button.primaryBlockedLG { button in
@@ -240,7 +240,7 @@ struct SecondaryButtons {
     
     static let secondaryLGIcon = Ocean.Button.secondaryLG { button in
         button.text = "Icon"
-        button.icon = Ocean.icon.addLg
+        button.icon = Ocean.icon.plusOutline
     }
     
     static let secondaryBlockedLG = Ocean.Button.secondaryBlockedLG { button in
@@ -276,7 +276,7 @@ struct TextButtons {
     }
     
     static let textLGIcon = Ocean.Button.textLG { button in
-        button.icon = Ocean.icon.addLg
+        button.icon = Ocean.icon.plusOutline
     }
     static let textBlockedLG = Ocean.Button.textBlockedLG { button in
         button.text = "Large"
@@ -316,7 +316,7 @@ struct PrimaryInverseButtons {
     
     static let primaryInverseLGIcon = Ocean.Button.primaryInverseLG { button in
         button.text = "Icon"
-        button.icon = Ocean.icon.addLg
+        button.icon = Ocean.icon.replyOutline
     }
     
     static let primaryInverseBlockedLGIcon = Ocean.Button.primaryInverseBlockedLG { button in

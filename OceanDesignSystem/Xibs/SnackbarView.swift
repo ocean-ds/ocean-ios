@@ -21,7 +21,7 @@ class SnackbarView: UIView {
     }
     
     var symbol : String = "" {
-        didSet { messageIcon.image = Ocean.icon.infoMd }
+        didSet { messageIcon.image = Ocean.icon.informationCircleOutline }
     }
     
     

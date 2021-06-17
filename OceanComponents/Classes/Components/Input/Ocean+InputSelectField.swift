@@ -28,7 +28,7 @@ extension Ocean {
         
         override func makeView() {
             super.makeView()
-            self.image = Ocean.icon.chevronDownSm
+            self.image = Ocean.icon.chevronDownSolid
         }
         
         @objc func inputSelectorAction(_ sender: Any) {
