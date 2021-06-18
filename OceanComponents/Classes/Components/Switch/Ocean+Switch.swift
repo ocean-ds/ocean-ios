@@ -67,7 +67,7 @@ extension Ocean {
             self.thumbView.isUserInteractionEnabled = false
             
             self.backgroundColor = self.isOn ? self.onTintColor : self.offTintColor
-            self.layer.borderWidth = Ocean.size.borderWidthThin
+            self.layer.borderWidth = Ocean.size.borderWidthHairline
             self.layer.borderColor = self.isOn ? self.onBorderTintColor.cgColor : self.offBorderTintColor.cgColor
             
             self.addSubview(self.thumbView)
