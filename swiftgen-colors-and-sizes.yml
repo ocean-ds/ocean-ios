@@ -3,11 +3,11 @@ colors:
       - node_modules/@useblu/ocean-tokens/ios/tokens-color.json
     outputs:
       - templatePath: templates/ocean-colors.stencil
-        output: OceanTokens/Classes/OceanExtensions/Colors/OceanExtensionColor.swift
+        output: OceanTokens/Classes/OceanExtensionColor.swift
 
 json:
     inputs:
       - node_modules/@useblu/ocean-tokens/ios/tokens-size.json
     outputs:
       - templatePath: templates/ocean-sizes.stencil
-        output: OceanTokens/Classes/OceanExtensions/Sizes/OceanExtensionSize.swift
+        output: OceanTokens/Classes/OceanExtensionSize.swift

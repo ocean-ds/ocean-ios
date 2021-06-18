@@ -4,4 +4,4 @@ json:
       - node_modules/@useblu/ocean-tokens/ios/tokens-shadow.json
     outputs:
       - templatePath: templates/ocean-shadows.stencil
-        output: OceanTokens/Classes/OceanExtensions/Shadows/OceanExtensionShadow.swift
+        output: OceanTokens/Classes/OceanExtensionShadow.swift

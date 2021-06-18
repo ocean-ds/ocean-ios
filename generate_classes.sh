@@ -3,21 +3,6 @@
 echo '\033[1;31m Downloading tokens into npm lib…\033[0m'
 yarn add -D @useblu/ocean-tokens
 
-echo '\033[1;31m Removing all resources in folder Resources…\033[0m'
-rm -fR OceanTokens/Classes/OceanExtensions
-
-echo '\033[1;31m Creating Colors folder…\033[0m'
-mkdir -p OceanTokens/Classes/OceanExtensions/Colors
-
-echo '\033[1;31m Creating Sizes folder…\033[0m'
-mkdir -p OceanTokens/Classes/OceanExtensions/Sizes
-
-echo '\033[1;31m Creating Shadows folder…\033[0m'
-mkdir -p OceanTokens/Classes/OceanExtensions/Shadows
-
-echo '\033[1;31m Creating Typography folder…\033[0m'
-mkdir -p OceanTokens/Classes/OceanExtensions/Typography
-
 echo '\033[1;31m Checking config swiftgen.yml and run…\033[0m'
 swiftgen config lint --config swiftgen-colors-and-sizes.yml && 
 swiftgen config run --config swiftgen-colors-and-sizes.yml  --verbose && 
