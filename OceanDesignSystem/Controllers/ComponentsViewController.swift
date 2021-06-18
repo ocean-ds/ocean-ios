@@ -54,6 +54,8 @@ class ComponentsViewController: UITableViewController {
                 .withCode("123")
                 .build()
                 .show()
+        case DesignSystemComponentsType.RadioButton.rawValue:
+            performSegue(withIdentifier: "SegueRadioButtonComponents", sender: self)
         default:
             performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }

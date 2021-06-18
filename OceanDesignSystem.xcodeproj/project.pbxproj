@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1C8CBC30A7EB8375212384D4 /* Pods_OceanDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D9D9A171B743DED8A2B2297 /* Pods_OceanDesignSystem.framework */; };
+		2482CDD4267D055100A50422 /* RadioButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2482CDD3267D055100A50422 /* RadioButtonViewController.swift */; };
 		249DC9402672AD2600012411 /* SwitchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249DC93F2672AD2600012411 /* SwitchViewController.swift */; };
 		B71D65C824C8F28100C3938C /* TokensByCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65C724C8F28100C3938C /* TokensByCategoryViewController.swift */; };
 		B71D65DC24CA038B00C3938C /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65DB24CA038B00C3938C /* Models.swift */; };
@@ -48,6 +49,7 @@
 
 /* Begin PBXFileReference section */
 		043BA5BEEE6D99AE945720B4 /* Pods-OceanDesignSystem.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OceanDesignSystem.debug.xcconfig"; path = "Target Support Files/Pods-OceanDesignSystem/Pods-OceanDesignSystem.debug.xcconfig"; sourceTree = "<group>"; };
+		2482CDD3267D055100A50422 /* RadioButtonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonViewController.swift; sourceTree = "<group>"; };
 		249DC93F2672AD2600012411 /* SwitchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchViewController.swift; sourceTree = "<group>"; };
 		5D9D9A171B743DED8A2B2297 /* Pods_OceanDesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OceanDesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7964E389FBEAFC86B3DC30B /* Pods-OceanDesignSystem.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OceanDesignSystem.release.xcconfig"; path = "Target Support Files/Pods-OceanDesignSystem/Pods-OceanDesignSystem.release.xcconfig"; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				B7BB717824E615B3007F8848 /* SnackbarViewController.swift */,
 				B75C81FA24F6F5BD001A500B /* ButtonViewController.swift */,
 				249DC93F2672AD2600012411 /* SwitchViewController.swift */,
+				2482CDD3267D055100A50422 /* RadioButtonViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -328,6 +331,7 @@
 				B768C57724E3186C0086BF9C /* InputViewController.swift in Sources */,
 				B7BB717924E615B3007F8848 /* SnackbarViewController.swift in Sources */,
 				B71D65FD24CA530000C3938C /* Components.swift in Sources */,
+				2482CDD4267D055100A50422 /* RadioButtonViewController.swift in Sources */,
 				B7BB722024EEEA89007F8848 /* SnackbarView.swift in Sources */,
 				B833D03724A6796100587FDE /* SceneDelegate.swift in Sources */,
 				B71D65E724CA2A8200C3938C /* Cells.swift in Sources */,
