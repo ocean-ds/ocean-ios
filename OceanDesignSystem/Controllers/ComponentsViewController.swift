@@ -46,7 +46,7 @@ class ComponentsViewController: UITableViewController {
             performSegue(withIdentifier: "SegueSwitchComponents", sender: self)
         case DesignSystemComponentsType.BottomSheet.rawValue:
             Ocean.BottomSheet(self)
-                .withImage(Ocean.icon.toolLg)
+                .withImage(Ocean.icon.calculatorSolid)
                 .withTitle("Titulo")
                 .withDescription("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Galley of type and scrambled it to make a type specimen book.")
                 .withAction(textNegative: "Cancelar", actionNegative: nil,
@@ -54,6 +54,8 @@ class ComponentsViewController: UITableViewController {
                 .withCode("123")
                 .build()
                 .show()
+        case DesignSystemComponentsType.RadioButton.rawValue:
+            performSegue(withIdentifier: "SegueRadioButtonComponents", sender: self)
         default:
             performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }

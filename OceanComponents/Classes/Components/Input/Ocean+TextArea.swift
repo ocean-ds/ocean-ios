@@ -157,35 +157,39 @@ extension Ocean {
             if errorMessage != errorEmpty {
                 labelError.alpha = 1
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
-                border: Ocean.color.colorStatusNegativePure,
-                labelTitle: Ocean.color.colorInterfaceDarkDown)
+                            border: Ocean.color.colorStatusNegativePure,
+                            labelTitle: Ocean.color.colorInterfaceDarkDown)
                 checkPlaceholder()
+                backgroundView.ocean.borderWidth.applyHairline()
             } else if textArea.isFirstResponder {
                 labelPlaceholder?.isHidden = true
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
-                border: Ocean.color.colorBrandPrimaryDown,
-                labelTitle: Ocean.color.colorInterfaceDarkDown)
+                            border: Ocean.color.colorBrandPrimaryDown,
+                            labelTitle: Ocean.color.colorInterfaceDarkDown)
+                backgroundView.ocean.borderWidth.applyThin()
             } else if isActivated == false {
-                
                 checkPlaceholder()
                 changeColor(text: Ocean.color.colorInterfaceLightDeep,
-                                           border: Ocean.color.colorInterfaceLightDeep,
-                                           labelTitle: Ocean.color.colorInterfaceDarkUp)
+                            border: Ocean.color.colorInterfaceLightDeep,
+                            labelTitle: Ocean.color.colorInterfaceDarkUp)
+                backgroundView.ocean.borderWidth.applyHairline()
             } else if isEnabled {
                 let isActivated = self.textArea?.text?.isEmpty == true
                 let color = isActivated ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorInterfaceDarkDeep
                 let border = isActivated ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorBrandPrimaryUp
                 let labelColor = Ocean.color.colorInterfaceDarkDown
                 changeColor(text: color,
-                border: border,
-                labelTitle: labelColor)
+                            border: border,
+                            labelTitle: labelColor)
                 checkPlaceholder()
+                backgroundView.ocean.borderWidth.applyHairline()
             } else {
                 changeColor(text: Ocean.color.colorInterfaceDarkUp,
                 border: Ocean.color.colorInterfaceLightDown,
                 background: Ocean.color.colorInterfaceLightDown,
                 labelTitle: Ocean.color.colorInterfaceDarkUp)
                 checkPlaceholder()
+                backgroundView.ocean.borderWidth.applyHairline()
             }
         }
         

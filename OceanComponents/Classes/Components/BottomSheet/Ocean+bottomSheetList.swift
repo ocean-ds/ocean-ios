@@ -32,10 +32,7 @@ extension Ocean {
         }
         
         public func build() -> BottomSheetViewController {
-            DispatchQueue.main.async {
-                self.bottomSheetViewController.makeView()
-            }
-            
+            self.bottomSheetViewController.makeView()
             return bottomSheetViewController
         }
     }

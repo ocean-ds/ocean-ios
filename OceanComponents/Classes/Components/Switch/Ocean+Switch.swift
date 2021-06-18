@@ -24,6 +24,7 @@ extension Ocean {
             }
         }
         
+        private let generator = UISelectionFeedbackGenerator()
         private var animationDelay: Double = 0
         private var animationSpriteWithDamping = CGFloat(0.7)
         private var initialSpringVelocity = CGFloat(0.5)
@@ -67,7 +68,7 @@ extension Ocean {
             self.thumbView.isUserInteractionEnabled = false
             
             self.backgroundColor = self.isOn ? self.onTintColor : self.offTintColor
-            self.layer.borderWidth = Ocean.size.borderWidthThin
+            self.layer.borderWidth = Ocean.size.borderWidthHairline
             self.layer.borderColor = self.isOn ? self.onBorderTintColor.cgColor : self.offBorderTintColor.cgColor
             
             self.addSubview(self.thumbView)
@@ -89,6 +90,7 @@ extension Ocean {
             
             self.animate()
             self.onValueChanged?(self.privateIsOn)
+            generator.selectionChanged()
             
             return true
         }
@@ -104,6 +106,7 @@ extension Ocean {
             }
             
             self.onValueChanged?(self.privateIsOn)
+            generator.selectionChanged()
         }
         
         fileprivate func animate(on: Bool? = nil) {

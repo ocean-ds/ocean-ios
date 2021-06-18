@@ -34,6 +34,7 @@ public enum DesignSystemComponentsType: Int {
     case Snackbar
     case Switch
     case BottomSheet
+    case RadioButton
 }
 
 public enum DesignSystemTypographyType: Int {

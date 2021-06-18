@@ -62,16 +62,16 @@ extension Ocean {
         public var iconType: IconType? {
             didSet {
                 if (self.iconType == .info) {
-                    imageViewIcon.image = Ocean.icon.infoMd
+                    imageViewIcon.image = Ocean.icon.informationCircleOutline
                     imageViewIcon.image = imageViewIcon.image?.withRenderingMode(.alwaysTemplate)
                 } else if (self.iconType == .alert) {
-                    imageViewIcon.image = Ocean.icon.errorMd
+                    imageViewIcon.image = Ocean.icon.exclamationCircleOutline
                     imageViewIcon.image = imageViewIcon.image?.withRenderingMode(.alwaysTemplate)
                 } else if (self.iconType == .error) {
-                    imageViewIcon.image = Ocean.icon.notAllowedMd
+                    imageViewIcon.image = Ocean.icon.banOutline
                     imageViewIcon.image = imageViewIcon.image?.withRenderingMode(.alwaysTemplate)
                 } else if (self.iconType == .success) {
-                    imageViewIcon.image = Ocean.icon.okCircleMd
+                    imageViewIcon.image = Ocean.icon.checkCircleOutline
                     imageViewIcon.image = imageViewIcon.image?.withRenderingMode(.alwaysTemplate)
                 }
                 updateIconColor()
