@@ -80,13 +80,13 @@ extension Ocean {
         }()
 
         private lazy var foregroundExpandPath: CGPath = {
-            let circleSize = size * 0.8
+            let circleSize = size * 0.9
             let center = size * 0.5 - circleSize * 0.5
             return UIBezierPath(ovalIn: CGRect(x: center, y: center, width: circleSize, height: circleSize)).cgPath
         }()
 
         @objc private func toogleRadio() {
-            isSelected = !isSelected
+            isSelected = true
             onTouch?()
         }
 
