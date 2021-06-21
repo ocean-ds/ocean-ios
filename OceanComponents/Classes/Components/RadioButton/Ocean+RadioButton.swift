@@ -12,6 +12,8 @@ extension Ocean {
     public class RadioButton: UIControl {
         public typealias RadioButtonBuilder = (RadioButton) -> Void
         
+        private let generator = UISelectionFeedbackGenerator()
+        
         private var mainStack: UIStackView!
         private var radioBkgView: UIControl!
         private var radioStack: UIStackView!
@@ -88,6 +90,7 @@ extension Ocean {
         @objc private func toogleRadio() {
             isSelected = true
             onTouch?()
+            generator.selectionChanged()
         }
 
         private func updateState() {
