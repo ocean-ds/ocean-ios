@@ -1,5 +1,7 @@
 PODS:
-  - OceanComponents (1.1.6):
+  - FSCalendar (2.8.2)
+  - OceanComponents (1.1.7):
+    - FSCalendar
     - OceanTokens
     - SPStorkController
   - OceanTokens (3.1.0)
@@ -11,6 +13,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - FSCalendar
     - SPStorkController
 
 EXTERNAL SOURCES:
@@ -20,7 +23,8 @@ EXTERNAL SOURCES:
     :path: "./"
 
 SPEC CHECKSUMS:
-  OceanComponents: 7aa7fa01ec7a1be767cc664bbc4ec063124fd2f4
+  FSCalendar: e6a2eb9c571bf0719ed797ef807e08426753c241
+  OceanComponents: c0712c96afedb226028752f289698daa449268f2
   OceanTokens: 381d1e8ad998e3e81913eff8d30dc7c5de600ad4
   SPStorkController: 68966ed3134de2be2a8bbd1475c7e81f3f7d01ee
 

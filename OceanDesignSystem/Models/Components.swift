@@ -18,7 +18,8 @@ struct DSComponents {
         "Snackbar",
         "Switch",
         "BottomSheet",
-        "RadioButton"
+        "RadioButton",
+        "DatePicker"
     ]
 }
 

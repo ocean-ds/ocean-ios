@@ -28,10 +28,12 @@ class ComponentsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return DSComponents.list.count
     }
+    
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         self.designSystemComponentsTypeSelected = DesignSystemComponentsType.init(rawValue: indexPath.row)
         return indexPath
     }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
@@ -56,6 +58,8 @@ class ComponentsViewController: UITableViewController {
                 .show()
         case DesignSystemComponentsType.RadioButton.rawValue:
             performSegue(withIdentifier: "SegueRadioButtonComponents", sender: self)
+        case DesignSystemComponentsType.DatePicker.rawValue:
+            performSegue(withIdentifier: "SegueDatePickerComponents", sender: self)
         default:
             performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }
