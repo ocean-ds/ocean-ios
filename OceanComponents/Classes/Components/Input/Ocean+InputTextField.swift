@@ -24,6 +24,7 @@ extension Ocean {
         public var textField: UITextField!
         private var imageView: UIImageView!
         private var labelError: UILabel!
+        private var labelCharactersLimit: UILabel!
         private var hStack: UIStackView!
         private var backgroundView: UIView!
         
@@ -71,7 +72,11 @@ extension Ocean {
                 isEnabled = isActivated
             }
         }
-
+        
+        public var isValidCharactersRange: Bool {
+            return charactersLimitValidator()
+        }
+        
         public var isSecureTextEntry: Bool = false {
             didSet {
                 textField?.isSecureTextEntry = isSecureTextEntry
@@ -101,6 +106,12 @@ extension Ocean {
                 if #available(iOS 12.0, *) {
                     textField?.textContentType = textContentType
                 }
+            }
+        }
+        
+        public var charactersLimitNumber: Int? = nil {
+            didSet {
+                updateState()
             }
         }
 
@@ -178,7 +189,17 @@ extension Ocean {
                 size: Ocean.font.fontSizeXxxs)
             labelError.textColor = Ocean.color.colorStatusNegativePure
             labelError.text = errorEmpty
-            labelError.alpha = 0
+            labelError.isHidden = true
+        }
+        
+        func makeLabelCharactersLimit() {
+            labelCharactersLimit = UILabel()
+            labelCharactersLimit.translatesAutoresizingMaskIntoConstraints = false
+            labelCharactersLimit.font = UIFont(
+                name: Ocean.font.fontFamilyBaseWeightRegular,
+                size: Ocean.font.fontSizeXxxs)
+            labelCharactersLimit.textColor = Ocean.color.colorInterfaceDarkUp
+            labelCharactersLimit.isHidden = true
         }
         
         func makeImageView() {
@@ -188,13 +209,18 @@ extension Ocean {
 
         func updateState() {
             textField?.isEnabled = isEnabled
-            labelError?.alpha = 0
+            labelError?.isHidden = true
+            labelCharactersLimit.isHidden = true
+    
             if labelError?.text != nil && labelError?.text != errorEmpty {
-                labelError?.alpha = 1
+                labelError?.isHidden = false
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
                             border: Ocean.color.colorStatusNegativePure,
                             labelTitle: Ocean.color.colorInterfaceDarkDown)
                 backgroundView.ocean.borderWidth.applyHairline()
+            } else if let limitValue = self.charactersLimitNumber {
+                labelCharactersLimit.isHidden = false
+                labelCharactersLimit?.text = "\(textField.text?.count ?? 0)/\(limitValue)"
             } else if textField?.isFirstResponder == true {
                 textField?.placeholder = ""
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
@@ -245,6 +271,7 @@ extension Ocean {
             self.makeLabel()
             self.makeTextField()
             self.makeLabelError()
+            self.makeLabelCharactersLimit()
             self.makeImageView()
             
             textField.addSubview(imageView)
@@ -273,8 +300,16 @@ extension Ocean {
             hStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
             backgroundView.addSubview(hStack)
 
-            mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxxs))
+            if #available(iOS 11.0, *) {
+                mainStack.setCustomSpacing(Ocean.size.spacingStackXxxs, after: hStack)
+            } else {
+                mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxxs))
+            }
+            
             mainStack.addArrangedSubview(labelError)
+            
+            mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxxs))
+            mainStack.addArrangedSubview(labelCharactersLimit)
 
             self.addSubview(mainStack)
 
@@ -304,13 +339,19 @@ extension Ocean {
             textField.keyboardType = self.keyboardType
             textField.autocapitalizationType = self.autocapitalizationType
             textField.autocorrectionType = self.autocorrectionType
-            if (self.errorMessage.isEmpty == false) {
+            
+            if !self.errorMessage.isEmpty {
                 labelError.text = self.errorMessage
             }
             
             updateState()
         }
 
+        func charactersLimitValidator() -> Bool {
+            guard let textCount = textField.text?.count, let limitValue = charactersLimitNumber else { return true }
+            return textCount < (limitValue)
+        }
+        
         public func textFieldDidEndEditing(_ textField: UITextField) {
             updateState()
             if (textField.text?.isEmpty == true) {
@@ -327,12 +368,14 @@ extension Ocean {
                               shouldChangeCharactersIn range: NSRange,
                               replacementString string: String) -> Bool {
             updateState()
-            return true
+            guard !string.isEmpty else { return true }
+            return charactersLimitValidator()
         }
 
         public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
             onKeyEnterTouched?()
             return true
         }
+        
     }
 }
