@@ -11,6 +11,7 @@
 		2482CDD4267D055100A50422 /* RadioButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2482CDD3267D055100A50422 /* RadioButtonViewController.swift */; };
 		249DC9402672AD2600012411 /* SwitchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249DC93F2672AD2600012411 /* SwitchViewController.swift */; };
 		24C8013C2680FE4F00744F30 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C8013B2680FE4F00744F30 /* DatePickerViewController.swift */; };
+		24C801522682585600744F30 /* OceanDesignSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C801512682585600744F30 /* OceanDesignSystemTests.swift */; };
 		B71D65C824C8F28100C3938C /* TokensByCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65C724C8F28100C3938C /* TokensByCategoryViewController.swift */; };
 		B71D65DC24CA038B00C3938C /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65DB24CA038B00C3938C /* Models.swift */; };
 		B71D65E224CA053500C3938C /* TokensBySubCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65E124CA053500C3938C /* TokensBySubCategories.swift */; };
@@ -35,6 +36,16 @@
 		B833D04124A6796300587FDE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B833D03F24A6796300587FDE /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		24C801542682585600744F30 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B833D02924A6796100587FDE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B833D03024A6796100587FDE;
+			remoteInfo = OceanDesignSystem;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		B833D12A24A9839F00587FDE /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -53,6 +64,9 @@
 		2482CDD3267D055100A50422 /* RadioButtonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonViewController.swift; sourceTree = "<group>"; };
 		249DC93F2672AD2600012411 /* SwitchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchViewController.swift; sourceTree = "<group>"; };
 		24C8013B2680FE4F00744F30 /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
+		24C8014F2682585600744F30 /* OceanDesignSystemTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OceanDesignSystemTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		24C801512682585600744F30 /* OceanDesignSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanDesignSystemTests.swift; sourceTree = "<group>"; };
+		24C801532682585600744F30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5D9D9A171B743DED8A2B2297 /* Pods_OceanDesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OceanDesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7964E389FBEAFC86B3DC30B /* Pods-OceanDesignSystem.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OceanDesignSystem.release.xcconfig"; path = "Target Support Files/Pods-OceanDesignSystem/Pods-OceanDesignSystem.release.xcconfig"; sourceTree = "<group>"; };
 		B71D65C724C8F28100C3938C /* TokensByCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensByCategoryViewController.swift; sourceTree = "<group>"; };
@@ -82,6 +96,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		24C8014C2682585600744F30 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B833D02E24A6796100587FDE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -93,6 +114,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		24C801502682585600744F30 /* OceanDesignSystemTests */ = {
+			isa = PBXGroup;
+			children = (
+				24C801512682585600744F30 /* OceanDesignSystemTests.swift */,
+				24C801532682585600744F30 /* Info.plist */,
+			);
+			path = OceanDesignSystemTests;
+			sourceTree = "<group>";
+		};
 		B71D65DA24CA037500C3938C /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -152,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				B833D03324A6796100587FDE /* OceanDesignSystem */,
+				24C801502682585600744F30 /* OceanDesignSystemTests */,
 				B833D03224A6796100587FDE /* Products */,
 				DE43E9D2BE865C23C41C8096 /* Pods */,
 				D9B94E76DDE1BFF01047EFE7 /* Frameworks */,
@@ -162,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				B833D03124A6796100587FDE /* OceanDesignSystem.app */,
+				24C8014F2682585600744F30 /* OceanDesignSystemTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -204,6 +236,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		24C8014E2682585600744F30 /* OceanDesignSystemTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 24C801582682585600744F30 /* Build configuration list for PBXNativeTarget "OceanDesignSystemTests" */;
+			buildPhases = (
+				24C8014B2682585600744F30 /* Sources */,
+				24C8014C2682585600744F30 /* Frameworks */,
+				24C8014D2682585600744F30 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				24C801552682585600744F30 /* PBXTargetDependency */,
+			);
+			name = OceanDesignSystemTests;
+			productName = OceanDesignSystemTests;
+			productReference = 24C8014F2682585600744F30 /* OceanDesignSystemTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		B833D03024A6796100587FDE /* OceanDesignSystem */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B833D04524A6796300587FDE /* Build configuration list for PBXNativeTarget "OceanDesignSystem" */;
@@ -230,10 +280,14 @@
 		B833D02924A6796100587FDE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1150;
+				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = "Blu Pagamentos";
 				TargetAttributes = {
+					24C8014E2682585600744F30 = {
+						CreatedOnToolsVersion = 12.5;
+						TestTargetID = B833D03024A6796100587FDE;
+					};
 					B833D03024A6796100587FDE = {
 						CreatedOnToolsVersion = 11.5;
 					};
@@ -253,11 +307,19 @@
 			projectRoot = "";
 			targets = (
 				B833D03024A6796100587FDE /* OceanDesignSystem */,
+				24C8014E2682585600744F30 /* OceanDesignSystemTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		24C8014D2682585600744F30 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B833D02F24A6796100587FDE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -314,6 +376,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		24C8014B2682585600744F30 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24C801522682585600744F30 /* OceanDesignSystemTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B833D02D24A6796100587FDE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -344,6 +414,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		24C801552682585600744F30 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B833D03024A6796100587FDE /* OceanDesignSystem */;
+			targetProxy = 24C801542682585600744F30 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		B833D03A24A6796100587FDE /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -364,6 +442,50 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		24C801562682585600744F30 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 57KSFR5UHN;
+				INFOPLIST_FILE = OceanDesignSystemTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.blu.ocean.OceanDesignSystemTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OceanDesignSystem.app/OceanDesignSystem";
+			};
+			name = Debug;
+		};
+		24C801572682585600744F30 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 57KSFR5UHN;
+				INFOPLIST_FILE = OceanDesignSystemTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.blu.ocean.OceanDesignSystemTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OceanDesignSystem.app/OceanDesignSystem";
+			};
+			name = Release;
+		};
 		B833D04324A6796300587FDE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -531,6 +653,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		24C801582682585600744F30 /* Build configuration list for PBXNativeTarget "OceanDesignSystemTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				24C801562682585600744F30 /* Debug */,
+				24C801572682585600744F30 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B833D02C24A6796100587FDE /* Build configuration list for PBXProject "OceanDesignSystem" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
