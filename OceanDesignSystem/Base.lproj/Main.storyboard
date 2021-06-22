@@ -758,6 +758,7 @@
                                     <segment title="Activated"/>
                                     <segment title="Disabled"/>
                                     <segment title="Error"/>
+                                    <segment title="Limit"/>
                                 </segments>
                                 <connections>
                                     <action selector="onValueChanged:" destination="5ef-au-a5S" eventType="valueChanged" id="eJQ-Ys-i6T"/>
@@ -771,6 +772,7 @@
                                     <segment title="Activated"/>
                                     <segment title="Disabled"/>
                                     <segment title="Error"/>
+                                    <segment title="Limit"/>
                                 </segments>
                                 <connections>
                                     <action selector="onValueChangedTextArea:" destination="5ef-au-a5S" eventType="valueChanged" id="CBi-St-3oS"/>

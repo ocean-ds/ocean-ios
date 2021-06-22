@@ -127,6 +127,7 @@ public class InputViewController : UIViewController {
             self.textfield.isEnabled = true
             self.textfield.text = ""
             self.textfield.errorMessage = ""
+            self.textfield.charactersLimitNumber = nil
             self.textfield.endEditing(true)
             
             break
@@ -136,23 +137,29 @@ public class InputViewController : UIViewController {
             }
             self.textfield.isEnabled = true
             self.textfield.errorMessage = ""
+            self.textfield.charactersLimitNumber = nil
             self.textfield.becomeFirstResponder()
             break
         case 2: //Activated
             self.textfield.isEnabled = true
             self.textfield.text = "Activated"
             self.textfield.errorMessage = ""
+            self.textfield.charactersLimitNumber = nil
             self.textfield.endEditing(true)
             break
         case 3: //Disabled
             self.textfield.isEnabled = false
             self.textfield.errorMessage = ""
+            self.textfield.charactersLimitNumber = nil
             break
         case 4: //Error
             self.textfield.isEnabled = true
             self.textfield.errorMessage = "error message"
             break
-        
+        case 5://Characters validator
+            self.textfield.errorMessage = ""
+            self.textfield.isEnabled = true
+            self.textfield.charactersLimitNumber = 10
         default:
             break
         }
@@ -165,27 +172,35 @@ public class InputViewController : UIViewController {
             self.textArea.isEnabled = true
             self.textArea.text = ""
             self.textArea.errorMessage = ""
+            self.textArea.charactersLimitNumber = nil
             self.textArea.endEditing(true)
             break
         case 1: //Focused
             self.textArea.isEnabled = true
             self.textArea.errorMessage = ""
+            self.textArea.charactersLimitNumber = nil
             self.textArea.becomeFirstResponder()
             break
         case 2: //Activated
             self.textArea.isEnabled = true
             self.textArea.text = "Activated"
             self.textArea.errorMessage = ""
+            self.textArea.charactersLimitNumber = nil
             self.textArea.endEditing(true)
             break
         case 3: //Disabled
             self.textArea.isEnabled = false
             self.textArea.errorMessage = ""
+            self.textArea.charactersLimitNumber = nil
             break
         case 4: //Error
             self.textArea.isEnabled = true
             self.textArea.errorMessage = "error message"
             break
+        case 5: //Characters validator
+            self.textArea.errorMessage = ""
+            self.textArea.charactersLimitNumber = 10
+            self.textArea.isEnabled = true
         default:
             break
         }

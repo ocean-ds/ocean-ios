@@ -16,6 +16,7 @@ extension Ocean {
         private var textArea: UITextView!
         private var labelTitle: UILabel!
         private var labelError: UILabel!
+        private var labelCharactersLimit: UILabel!
         private var hStack: UIStackView!
         private var backgroundView: UIView!
         private var height: CGFloat = 78
@@ -39,6 +40,12 @@ extension Ocean {
             set {
                 labelError.text = newValue == nil || newValue?.isEmpty == true ? errorEmpty : newValue
                 self.updateState()
+            }
+        }
+        
+        public var charactersLimitNumber: Int? = nil {
+            didSet {
+                updateState()
             }
         }
         
@@ -148,19 +155,34 @@ extension Ocean {
             labelError.textColor = Ocean.color.colorStatusNegativePure
             labelError.heightAnchor.constraint(equalToConstant: 15.5).isActive = true
             labelError.text = errorEmpty
-            labelError.alpha = 0
+            labelError.isHidden = true
+        }
+        
+        func makeLabelCharactersLimit() {
+            labelCharactersLimit = UILabel()
+            labelCharactersLimit.translatesAutoresizingMaskIntoConstraints = false
+            labelCharactersLimit.font = UIFont(
+                name: Ocean.font.fontFamilyBaseWeightRegular,
+                size: Ocean.font.fontSizeXxxs)
+            labelCharactersLimit.textColor = Ocean.color.colorInterfaceDarkUp
+            labelCharactersLimit.isHidden = true
         }
         
         func updateState() {
             textArea.isEditable = isEnabled
-            labelError.alpha = 0
+            labelError.isHidden = true
+            labelCharactersLimit.isHidden = true
+            
             if errorMessage != errorEmpty {
-                labelError.alpha = 1
+                labelError.isHidden = false
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
                             border: Ocean.color.colorStatusNegativePure,
                             labelTitle: Ocean.color.colorInterfaceDarkDown)
                 checkPlaceholder()
                 backgroundView.ocean.borderWidth.applyHairline()
+            } else if let limitValue = self.charactersLimitNumber {
+                labelCharactersLimit.isHidden = false
+                labelCharactersLimit?.text = "\(textArea.text?.count ?? 0)/\(limitValue)"
             } else if textArea.isFirstResponder {
                 labelPlaceholder?.isHidden = true
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
@@ -193,6 +215,11 @@ extension Ocean {
             }
         }
         
+        func charactersLimitValidator() -> Bool {
+            guard let textCount = textArea.text?.count, let limitValue = charactersLimitNumber else { return true }
+            return textCount < limitValue
+        }
+        
         func changeColor(text: UIColor,
                          border: UIColor,
                          background: UIColor? = Ocean.color.colorInterfaceLightPure,
@@ -212,6 +239,7 @@ extension Ocean {
             self.makeLabel()
             self.makeTextArea()
             self.makeLabelError()
+            self.makeLabelCharactersLimit()
             
             mainStack.addArrangedSubview(labelTitle)
             mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxs))
@@ -232,6 +260,9 @@ extension Ocean {
             mainStack.addArrangedSubview(backgroundView)
             mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxxs))
             mainStack.addArrangedSubview(labelError)
+            
+            mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxxs))
+            mainStack.addArrangedSubview(labelCharactersLimit)
             self.addSubview(mainStack)
             
             backgroundView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
@@ -281,6 +312,12 @@ extension Ocean {
         public func textViewDidChange(_ textView: UITextView) {
             updateState()
             onValueChanged?(textView.text ?? "")
+        }
+        
+        public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+            updateState()
+            guard !text.isEmpty else { return true }
+            return charactersLimitValidator()
         }
         
         public override func becomeFirstResponder() -> Bool {
