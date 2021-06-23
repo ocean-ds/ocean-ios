@@ -31,7 +31,7 @@ jobs:
       - name: Update tokens
         run: sh update_tokens.sh
 
-      - name: Increment version
+      - name: Increment version cocoapod
         run: |
           LATEST_VERSION_TOKENS_LIB_NPM=`npm show @useblu/ocean-tokens version`
           rm OceanTokens.podspec
@@ -47,13 +47,16 @@ jobs:
           git add . && git commit -am "chore: update tokens v$LATEST_VERSION_TOKENS_LIB_NPM [skip ci]" && git push
           git tag -a "OceanComponents-$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" -m "Release of version $LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" && git push --tags
 
-      - name: Update pod
+      - name: Update libary cocoapod
         env:
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
         run: pod trunk push OceanComponents.podspec 
 
       # - name: Install pods
       #   run: pod install
+
+      # - name: Increment version app sample
+      #   run: bundle exec fastlane prepare_new_version
 
       # - name: Publish app sample
       #   run: bundle exec fastlane beta_testflight

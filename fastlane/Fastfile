@@ -20,6 +20,7 @@ team = "57KSFR5UHN"
 adhoc_provision_profile = "match AdHoc br.com.blu.ocean.DesignSystem"
 appstore_provision_profile = "match AppStore br.com.blu.ocean.DesignSystem"
 bundle_identifier = "br.com.blu.ocean.DesignSystem"
+xcodeproj = "./OceanDesignSystem.xcodeproj"
 
 platform :ios do
   desc "Mandatory for use in circle-ci"
@@ -34,24 +35,19 @@ platform :ios do
     run_tests(scheme: "OceanDesignSystem")
   end
 
+  desc "Prepare new version on master"
+  lane :prepare_new_version do |options|
+    build_number = increment_build_number(xcodeproj: xcodeproj)
+    version = get_version_number(xcodeproj: xcodeproj, target: scheme)
+
+    newTag = "OceanDesignSystem-" + version + "-" + build_number
+    puts("Commit in develop increment version" + newTag)
+    sh("git commit -am 'chore: update version v" + newTag + " [ci skip]'")
+    sh("git push")
+  end
+
   desc "Upload to TestFlight"
   lane :beta_testflight do
-    update_code_signing_settings(
-      use_automatic_signing: false
-    )
-
-    api_key = app_store_connect_api_key(
-      key_id: "#{ENV["APP_STORE_CONNECT_API_KEY_KEY_ID"]}",
-      issuer_id: "#{ENV["APP_STORE_CONNECT_API_KEY_ISSUER_ID"]}",
-      key_content: "#{ENV["APP_STORE_CONNECT_API_KEY_KEY"]}".gsub('\n', '\\n'),
-      in_house: false
-    )
-    
-    get_certificates(
-      api_key: api_key,
-      development: true
-    )
-    
     increment_build_number()
     
     get_profiles_step(type: 'appstore')
@@ -67,42 +63,19 @@ platform :ios do
 
   end
 
-  desc "Prepare version"
-  lane :prepare_release do
-    #build_version = increment_build_number()
-    build_version = increment_build_number()
-    #build_version = latest_testflight_build_number().to_s
-    version = get_version_number()
-    newTag = "OceanDesignSystem-" + version + "-" + build_version
-    puts(newTag)
-  end
-
   private_lane :get_profiles_step do |options|
+    api_key = app_store_connect_api_key(
+      key_id: "#{ENV["APP_STORE_CONNECT_API_KEY_KEY_ID"]}",
+      issuer_id: "#{ENV["APP_STORE_CONNECT_API_KEY_ISSUER_ID"]}",
+      key_content: "#{ENV["APP_STORE_CONNECT_API_KEY_KEY"]}".gsub('\n', '\\n'),
+      in_house: false
+    )
+
     match(
-      type: options[:type],#"adhoc"
+      api_key: api_key,
+      app_identifier: bundle_identifier,
+      type: options[:type],
       readonly: is_ci
-    )
-  end
-
-  private_lane :archive_app_step do |options|
-
-    settings_to_override = {
-      :BUNDLE_IDENTIFIER => options[:bundle_identifier],
-      :PROVISIONING_PROFILE_SPECIFIER => options[:provision_profile],
-      :DEVELOPMENT_TEAM => options[:team]
-    }
-
-    gym( 
-      scheme: scheme,
-      export_method: options[:export_method],
-      xcargs: settings_to_override
-    )
-  end
-
-  private_lane :upload_diawi_step do 
-    diawi(
-      token: diawi_token,
-      password: diawi_password
     )
   end
 
