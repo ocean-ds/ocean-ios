@@ -9,22 +9,21 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v2
         with:
-          # we actually need "github.event.pull_request.commits + 1" commit
           fetch-depth: 0
+
+      - name: Lint commit message
+        uses: wagoid/commitlint-github-action@v3
 
       - name: Select Xcode Version
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: latest-stable
-    
+
       - name: Bundle install
-        run: |
-          bundle install
-        
+        run: bundle install
+
       - name: Install Pods
-        run: |
-          pod install
-            
-      - name: Run tests 
-        run: |
-          bundle exec fastlane build_test
+        run: pod install
+
+      - name: Run tests
+        run: bundle exec fastlane build_test
