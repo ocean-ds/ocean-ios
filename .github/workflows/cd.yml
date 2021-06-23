@@ -25,44 +25,45 @@ jobs:
       - name: Bundle install
         run: bundle install
 
-      - name: Install swiftgen
-        run: brew install swiftgen
+      # - name: Install swiftgen
+      #   run: brew install swiftgen
 
-      - name: Update tokens
-        run: sh update_tokens.sh
+      # - name: Update tokens
+      #   run: sh update_tokens.sh
 
-      - name: Increment version cocoapod
-        run: |
-          LATEST_VERSION_TOKENS_LIB_NPM=`npm show @useblu/ocean-tokens version`
-          rm OceanTokens.podspec
-          rm OceanComponents.podspec
-          cp -fR OceanTokens.template OceanTokens.podspec
-          cp -fR OceanComponents.template OceanComponents.podspec
-          sed -i '' "s/#VERSION_NAME#/'$LATEST_VERSION_TOKENS_LIB_NPM'/g" OceanTokens.podspec
-          sed -i '' "s/#VERSION_NAME#/'$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER'/g" OceanComponents.podspec
+      # - name: Increment version cocoapod
+      #   run: |
+      #     LATEST_VERSION_TOKENS_LIB_NPM=`npm show @useblu/ocean-tokens version`
+      #     rm OceanTokens.podspec
+      #     rm OceanComponents.podspec
+      #     cp -fR OceanTokens.template OceanTokens.podspec
+      #     cp -fR OceanComponents.template OceanComponents.podspec
+      #     sed -i '' "s/#VERSION_NAME#/'$LATEST_VERSION_TOKENS_LIB_NPM'/g" OceanTokens.podspec
+      #     sed -i '' "s/#VERSION_NAME#/'$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER'/g" OceanComponents.podspec
 
-      - name: Commit changes
-        run: |
-          LATEST_VERSION_TOKENS_LIB_NPM=`npm show @useblu/ocean-tokens version`
-          git add . && git commit -am "chore: update tokens v$LATEST_VERSION_TOKENS_LIB_NPM [skip ci]" && git push
-          git tag -a "OceanComponents-$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" -m "Release of version $LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" && git push --tags
+      # - name: Commit changes
+      #   run: |
+      #     LATEST_VERSION_TOKENS_LIB_NPM=`npm show @useblu/ocean-tokens version`
+      #     git add . && git commit -am "chore: update tokens v$LATEST_VERSION_TOKENS_LIB_NPM [skip ci]" && git push
+      #     git tag -a "OceanComponents-$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" -m "Release of version $LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" && git push --tags
 
-      - name: Register libary cocoapod
+      # - name: Deploy libary cocoapod
+      #   env:
+      #       COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
+      #   run: pod trunk push OceanComponents.podspec
+
+      - name: Install pods
+        run: pod install
+
+      - name: Increment version app sample
+        run: bundle exec fastlane prepare_new_version
+
+      - name: Deploy app sample
         env:
-          COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
-        run: pod trunk me
-
-      - name: Deploy libary cocoapod
-        env:
-            COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
-        run: pod trunk push OceanComponents.podspec
-        
-
-      # - name: Install pods
-      #   run: pod install
-
-      # - name: Increment version app sample
-      #   run: bundle exec fastlane prepare_new_version
-
-      # - name: Deploy app sample
-      #   run: bundle exec fastlane beta_testflight
+          APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }}
+          APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY }}
+          APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY_ID }}
+          FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
+          FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        run: bundle exec fastlane beta_testflight
