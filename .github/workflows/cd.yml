@@ -49,7 +49,7 @@ jobs:
 
       - name: Deploy libary cocoapod
         run: |
-          pod trunk me
+          COCOAPODS_TRUNK_TOKEN=$COCOAPODS_TRUNK_TOKEN pod trunk me
           pod trunk push OceanComponents.podspec
         env:
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
