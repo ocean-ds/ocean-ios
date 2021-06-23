@@ -1,0 +1,54 @@
+name: CD
+
+on: push
+  # push:
+  #   branches:
+  #     - master
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: Select Xcode Version
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Set git identity
+        run: |
+          git config --global user.name "Blu Release Bot"
+          git config --global user.email "devs@useblu.com.br"
+          pod trunk register devs@useblu.com.br 'Blu Release Bot'
+
+      - name: Bundle install
+        run: bundle install
+
+      - name: Install swiftgen
+        run: brew install swiftgen
+
+      - name: Install pods
+        run: pod install
+
+      - name: Update tokens
+        run: sh update_tokens.sh
+
+      - name: Increment version tokens
+        run: |
+          cp -fR OceanTokens.template OceanTokens.podspec
+          LATEST_VERSION_TOKENS_LIB_NPM=`npm show @useblu/ocean-tokens version`
+          sed -i-e "/VERSION_NAME=/ s/=.*/=$LATEST_VERSION_TOKENS_LIB_NPM/g" OceanTokens.podspec
+
+      - name: Commit changes tokens
+        run: |
+          LATEST_VERSION_TOKENS_LIB_NPM=`npm show @useblu/ocean-tokens version`
+          git add . && git commit -am "chore: update tokens v$LATEST_VERSION_TOKENS_LIB_NPM [skip ci]" && git push
+          git tag -a "OceanTokens-$LATEST_VERSION_TOKENS_LIB_NPM" -m "Release of version $LATEST_VERSION_TOKENS_LIB_NPM" && git push --tags
+
+      - name: Update pod tokens
+        run: pod trunk push OceanTokens.podspec  
+
+      # - name: Publish App Sample
+      #   run: bundle exec fastlane beta_testflight
