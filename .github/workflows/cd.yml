@@ -51,9 +51,9 @@ jobs:
         env:
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
         run: |
-        set -eo pipefail
-        pod lib lint OceanComponents.podspec --allow-warnings
-        pod trunk push OceanComponents.podspec --allow-warnings
+          set -eo pipefail
+          pod lib lint OceanComponents.podspec --allow-warnings
+          pod trunk push OceanComponents.podspec --allow-warnings
         
 
       # - name: Install pods
