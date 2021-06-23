@@ -49,9 +49,8 @@ jobs:
 
       - name: Deploy libary cocoapod
         run: |
-          set -eo pipefail
-          pod lib lint OceanComponents.podspec --verbose
-          pod trunk push OceanComponents.podspec --verbose
+          pod trunk me
+          pod trunk push OceanComponents.podspec
         env:
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
         
