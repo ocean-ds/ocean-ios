@@ -24,7 +24,13 @@ extension Ocean {
         
         public var title: String  = "" {
             didSet {
-                labelTitle?.text = title
+                labelTitle?.text = isOptional ? "\(title) (opcional)" : title
+            }
+        }
+        
+        public var isOptional: Bool = false {
+            didSet {
+                labelTitle?.text = isOptional ? "\(title) (opcional)" : title
             }
         }
         

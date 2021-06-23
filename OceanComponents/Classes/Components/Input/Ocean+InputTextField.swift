@@ -37,7 +37,7 @@ extension Ocean {
 
         public var title: String  = "" {
             didSet {
-                labelTitle?.text = title
+                labelTitle?.text = isOptional ? "\(title) (opcional)" : title
             }
         }
 
@@ -70,6 +70,12 @@ extension Ocean {
         public var isActivated: Bool = true {
             didSet {
                 isEnabled = isActivated
+            }
+        }
+        
+        public var isOptional: Bool = false {
+            didSet {
+                labelTitle?.text = isOptional ? "\(title) (opcional)" : title
             }
         }
         
@@ -151,7 +157,7 @@ extension Ocean {
             hStack.distribution = .fill
         }
 
-        func makeLabel() {
+        func makeTitleLabel() {
             labelTitle = UILabel()
             labelTitle.translatesAutoresizingMaskIntoConstraints = false
             labelTitle.font = UIFont(
@@ -268,7 +274,7 @@ extension Ocean {
         func makeView() {
             self.makemainStack()
             self.makeHStack()
-            self.makeLabel()
+            self.makeTitleLabel()
             self.makeTextField()
             self.makeLabelError()
             self.makeLabelCharactersLimit()
@@ -332,7 +338,7 @@ extension Ocean {
             imageView.trailingAnchor.constraint(equalTo: textField.trailingAnchor).isActive = true
             imageView.centerYAnchor.constraint(equalTo: textField.centerYAnchor).isActive = true
 
-            labelTitle.text = self.title
+            labelTitle.text = isOptional ? "\(title) (opcional)" : title
             textField.text = self.text
             textField.placeholder = self.placeholder
             textField.isSecureTextEntry = self.isSecureTextEntry
