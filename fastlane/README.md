@@ -16,13 +16,11 @@ or alternatively using `brew install fastlane`
 
 # Available Actions
 ## iOS
-### ios beta_diawi
+### ios build_test
 ```
-fastlane ios beta_diawi
+fastlane ios build_test
 ```
-Mandatory for use in circle-ci
-
-Description of what the lane does
+Build and Test App
 ### ios beta_testflight
 ```
 fastlane ios beta_testflight

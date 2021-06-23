@@ -5,16 +5,22 @@ PODS:
     - OceanTokens
     - SPStorkController
   - OceanTokens (3.1.0)
+  - Sourcery (1.0.3)
   - SPStorkController (1.8.5)
+  - SwiftyMocky (4.0.4):
+    - Sourcery (~> 1.0.2)
 
 DEPENDENCIES:
   - OceanComponents (from `./`)
   - OceanTokens (from `./`)
+  - SwiftyMocky (= 4.0.4)
 
 SPEC REPOS:
   trunk:
     - FSCalendar
+    - Sourcery
     - SPStorkController
+    - SwiftyMocky
 
 EXTERNAL SOURCES:
   OceanComponents:
@@ -26,8 +32,10 @@ SPEC CHECKSUMS:
   FSCalendar: e6a2eb9c571bf0719ed797ef807e08426753c241
   OceanComponents: c0712c96afedb226028752f289698daa449268f2
   OceanTokens: 381d1e8ad998e3e81913eff8d30dc7c5de600ad4
+  Sourcery: 70a6048014bd4f37ea80e6bd4354d47bf3b760e1
   SPStorkController: 68966ed3134de2be2a8bbd1475c7e81f3f7d01ee
+  SwiftyMocky: 1fb3ceca9ded134dad4da58a0f20023d7f685ccf
 
-PODFILE CHECKSUM: 284bced81ad8ac1c7bcbb51f2b88af92c6cc18dd
+PODFILE CHECKSUM: 262fbb67804fa2c33c2fcd4deabaa48d889940b9
 
 COCOAPODS: 1.10.1

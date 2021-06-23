@@ -1,6 +1,9 @@
 <h1 align="center">Ocean iOS</h1>
 
 <p align="center">
+  <a href="https://github.com/ocean-ds/ocean-ios/actions">
+    <img alt="Actions Status" src="https://github.com/ocean-ds/ocean-ios/workflows/CI/badge.svg">
+  </a>
   <a href="https://sonarcloud.io/dashboard?id=ocean-ds_ocean-ios">
     <img alt="Sonarcloud Status" src="https://sonarcloud.io/api/project_badges/measure?project=ocean-ds_ocean-ios&metric=alert_status">
   </a>
