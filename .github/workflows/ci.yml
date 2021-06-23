@@ -9,7 +9,7 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v2
 
-      - name: Select Xcode Version
+      - name: Select xcode version
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: latest-stable
@@ -17,7 +17,7 @@ jobs:
       - name: Bundle install
         run: bundle install
 
-      - name: Install Pods
+      - name: Install pods
         run: pod install
 
       - name: Run tests
