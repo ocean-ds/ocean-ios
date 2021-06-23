@@ -21,13 +21,28 @@ extension Ocean {
         private var backgroundView: UIView!
         private var height: CGFloat = 78
         private var labelPlaceholder: UILabel!
+        private var titleStackContent: UIStackView!
+        private var titleStackView: UIStackView!
+        private var infoIconImageView: UIImageView!
         
         public var title: String  = "" {
             didSet {
-                labelTitle?.text = title
+                labelTitle?.text = isOptional ? "\(title) (opcional)" : title
             }
         }
         
+        public var isOptional: Bool = false {
+            didSet {
+                labelTitle?.text = isOptional ? "\(title) (opcional)" : title
+            }
+        }
+        
+        public var showInfoIcon: Bool = false {
+            didSet {
+                infoIconImageView?.isHidden = !showInfoIcon
+            }
+        }
+
         public var keyboardType: UIKeyboardType = .default {
             didSet {
                 textArea?.keyboardType = keyboardType
@@ -91,6 +106,7 @@ extension Ocean {
         
         public var onValueChanged: ((String) -> Void)?
         public var onBeginEditing: (() -> Void)?
+        public var onInfoIconTouched: (() -> Void)?
         
         public override init(frame: CGRect) {
             super.init(frame: frame)
@@ -146,6 +162,42 @@ extension Ocean {
             textArea.autocorrectionType = .no
         }
         
+        func makeTitleStackContent() {
+            makeTitleStackView()
+            titleStackContent = UIStackView()
+            titleStackContent.axis = .vertical
+            titleStackContent.alignment = .leading
+            titleStackContent.distribution = .fillProportionally
+            titleStackContent.addArrangedSubview(Spacer(space: 5))
+            titleStackContent.addArrangedSubview(titleStackView)
+        }
+        
+        func makeTitleStackView() {
+            makeLabel()
+            makeInfoIconImageView()
+            titleStackView = UIStackView()
+            titleStackView.axis = .horizontal
+            titleStackView.alignment = .fill
+            titleStackView.distribution = .fill
+            titleStackView.spacing = 5
+            titleStackView.addArrangedSubview(labelTitle)
+            titleStackView.addArrangedSubview(infoIconImageView)
+        }
+        
+        private func makeInfoIconImageView() {
+            infoIconImageView = UIImageView()
+            infoIconImageView.image = Ocean.icon.informationCircleSolid?.withRenderingMode(.alwaysTemplate)
+            infoIconImageView.tintColor = Ocean.color.colorInterfaceDarkUp
+            infoIconImageView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                infoIconImageView.heightAnchor.constraint(equalToConstant: 12.8),
+                infoIconImageView.widthAnchor.constraint(equalToConstant: 12.8)
+            ])
+            infoIconImageView.isUserInteractionEnabled = true
+            infoIconImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(infoAction)))
+            infoIconImageView.isHidden = !showInfoIcon
+        }
+        
         func makeLabelError() {
             labelError = UILabel()
             labelError.translatesAutoresizingMaskIntoConstraints = false
@@ -166,6 +218,10 @@ extension Ocean {
                 size: Ocean.font.fontSizeXxxs)
             labelCharactersLimit.textColor = Ocean.color.colorInterfaceDarkUp
             labelCharactersLimit.isHidden = true
+        }
+        
+        @objc func infoAction(_ sender: Any) {
+            onInfoIconTouched?()
         }
         
         func updateState() {
@@ -236,12 +292,12 @@ extension Ocean {
         func makeView() {
             self.makemainStack()
             self.makeHStack()
-            self.makeLabel()
+            self.makeTitleStackContent()
             self.makeTextArea()
             self.makeLabelError()
             self.makeLabelCharactersLimit()
             
-            mainStack.addArrangedSubview(labelTitle)
+            mainStack.addArrangedSubview(titleStackContent)
             mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxs))
             
             backgroundView = UIView()

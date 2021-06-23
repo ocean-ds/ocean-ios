@@ -22,6 +22,10 @@ public class InputViewController : UIViewController {
     public override func viewDidLoad() {
         self.textfield = Ocean.Input.textfieldWithLabel { component in
             component.placeholder = "placeholder"
+            component.showInfoIcon = true
+            component.onInfoIconTouched = {
+                
+            }
         }
         
         self.textfield.onBeginEditing = {
@@ -39,6 +43,7 @@ public class InputViewController : UIViewController {
         
         self.textArea = Ocean.Input.textareaWithLabel { component in
             component.placeholder = "placeholder"
+            component.showInfoIcon = true
         }
         self.textArea.onBeginEditing = {
             self.textArea.errorMessage = ""

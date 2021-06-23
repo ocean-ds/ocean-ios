@@ -27,6 +27,9 @@ extension Ocean {
         private var labelCharactersLimit: UILabel!
         private var hStack: UIStackView!
         private var backgroundView: UIView!
+        private var titleStackContent: UIStackView!
+        private var titleStackView: UIStackView!
+        private var infoIconImageView: UIImageView!
         
         public var errorMessage: String = "" {
             didSet {
@@ -37,7 +40,7 @@ extension Ocean {
 
         public var title: String  = "" {
             didSet {
-                labelTitle?.text = title
+                labelTitle?.text = isOptional ? "\(title) (opcional)" : title
             }
         }
 
@@ -70,6 +73,18 @@ extension Ocean {
         public var isActivated: Bool = true {
             didSet {
                 isEnabled = isActivated
+            }
+        }
+        
+        public var isOptional: Bool = false {
+            didSet {
+                labelTitle?.text = isOptional ? "\(title) (opcional)" : title
+            }
+        }
+        
+        public var showInfoIcon: Bool = false {
+            didSet {
+                infoIconImageView?.isHidden = !showInfoIcon
             }
         }
         
@@ -126,6 +141,7 @@ extension Ocean {
         public var onValueChanged: ((String) -> Void)?
         public var onKeyEnterTouched: (() -> Void)?
         public var onBeginEditing: (() -> Void)?
+        public var onInfoIconTouched: (() -> Void)?
 
         public var rightButton: UIButton?
 
@@ -150,14 +166,35 @@ extension Ocean {
             hStack.alignment = .fill
             hStack.distribution = .fill
         }
-
-        func makeLabel() {
+        
+        func makeTitleLabel() {
             labelTitle = UILabel()
-            labelTitle.translatesAutoresizingMaskIntoConstraints = false
             labelTitle.font = UIFont(
                 name: Ocean.font.fontFamilyBaseWeightRegular,
                 size: Ocean.font.fontSizeXxs)
             labelTitle.textColor = Ocean.color.colorInterfaceDarkDown
+        }
+         
+        func makeTitleStackContent() {
+            makeTitleStackView()
+            titleStackContent = UIStackView()
+            titleStackContent.axis = .vertical
+            titleStackContent.alignment = .leading
+            titleStackContent.distribution = .fillProportionally
+            titleStackContent.addArrangedSubview(Spacer(space: 5))
+            titleStackContent.addArrangedSubview(titleStackView)
+        }
+        
+        func makeTitleStackView() {
+            makeTitleLabel()
+            makeInfoIconImageView()
+            titleStackView = UIStackView()
+            titleStackView.axis = .horizontal
+            titleStackView.alignment = .fill
+            titleStackView.distribution = .fill
+            titleStackView.spacing = 5
+            titleStackView.addArrangedSubview(labelTitle)
+            titleStackView.addArrangedSubview(infoIconImageView)
         }
 
         func makeTextField() {
@@ -206,7 +243,25 @@ extension Ocean {
             imageView = UIImageView()
             imageView.translatesAutoresizingMaskIntoConstraints = false
         }
+        
+        private func makeInfoIconImageView() {
+            infoIconImageView = UIImageView()
+            infoIconImageView.image = Ocean.icon.informationCircleSolid?.withRenderingMode(.alwaysTemplate)
+            infoIconImageView.tintColor = Ocean.color.colorInterfaceDarkUp
+            infoIconImageView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                infoIconImageView.heightAnchor.constraint(equalToConstant: 12.8),
+                infoIconImageView.widthAnchor.constraint(equalToConstant: 12.8)
+            ])
+            infoIconImageView.isUserInteractionEnabled = true
+            infoIconImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(infoAction)))
+            infoIconImageView.isHidden = !showInfoIcon
+        }
 
+        @objc func infoAction(_ sender: Any) {
+            onInfoIconTouched?()
+        }
+        
         func updateState() {
             textField?.isEnabled = isEnabled
             labelError?.isHidden = true
@@ -268,7 +323,7 @@ extension Ocean {
         func makeView() {
             self.makemainStack()
             self.makeHStack()
-            self.makeLabel()
+            self.makeTitleStackContent()
             self.makeTextField()
             self.makeLabelError()
             self.makeLabelCharactersLimit()
@@ -276,7 +331,7 @@ extension Ocean {
             
             textField.addSubview(imageView)
 
-            mainStack.addArrangedSubview(labelTitle)
+            mainStack.addArrangedSubview(titleStackContent)
             mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxs))
 
             backgroundView = UIView()
@@ -332,7 +387,7 @@ extension Ocean {
             imageView.trailingAnchor.constraint(equalTo: textField.trailingAnchor).isActive = true
             imageView.centerYAnchor.constraint(equalTo: textField.centerYAnchor).isActive = true
 
-            labelTitle.text = self.title
+            labelTitle.text = isOptional ? "\(title) (opcional)" : title
             textField.text = self.text
             textField.placeholder = self.placeholder
             textField.isSecureTextEntry = self.isSecureTextEntry
