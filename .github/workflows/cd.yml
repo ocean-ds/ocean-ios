@@ -47,10 +47,14 @@ jobs:
           git add . && git commit -am "chore: update tokens v$LATEST_VERSION_TOKENS_LIB_NPM [skip ci]" && git push
           git tag -a "OceanComponents-$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" -m "Release of version $LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" && git push --tags
 
-      - name: Update libary cocoapod
+      - name: Deploy libary cocoapod
         env:
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
-        run: pod trunk push OceanComponents.podspec 
+        run: |
+        set -eo pipefail
+        pod lib lint OceanComponents.podspec --allow-warnings
+        pod trunk push OceanComponents.podspec --allow-warnings
+        
 
       # - name: Install pods
       #   run: pod install
@@ -58,5 +62,5 @@ jobs:
       # - name: Increment version app sample
       #   run: bundle exec fastlane prepare_new_version
 
-      # - name: Publish app sample
+      # - name: Deploy app sample
       #   run: bundle exec fastlane beta_testflight
