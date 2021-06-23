@@ -39,8 +39,8 @@ jobs:
           rm OceanComponents.podspec
           cp -fR OceanTokens.template OceanTokens.podspec
           cp -fR OceanComponents.template OceanComponents.podspec
-          sed -i-e "/VERSION_NAME=/ s/=.*/=$LATEST_VERSION_TOKENS_LIB_NPM/g" OceanTokens.podspec
-          sed -i-e "/VERSION_NAME=/ s/=.*/=$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER/g" OceanComponents.podspec
+          sed -i '' "s/#VERSION_NAME#/'$LATEST_VERSION_TOKENS_LIB_NPM'/g" OceanTokens.podspec
+          sed -i '' "s/#VERSION_NAME#/'$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER'/g" OceanComponents.podspec
 
       - name: Commit changes
         run: |
