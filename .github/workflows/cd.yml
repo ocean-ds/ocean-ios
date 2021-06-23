@@ -29,15 +29,14 @@ jobs:
       - name: Install swiftgen
         run: brew install swiftgen
 
-      - name: Install pods
-        run: pod install
-
       - name: Update tokens
         run: sh update_tokens.sh
 
       - name: Increment version
         run: |
           LATEST_VERSION_TOKENS_LIB_NPM=`npm show @useblu/ocean-tokens version`
+          rm OceanTokens.podspec
+          rm OceanComponents.podspec
           cp -fR OceanTokens.template OceanTokens.podspec
           cp -fR OceanComponents.template OceanComponents.podspec
           sed -i-e "/VERSION_NAME=/ s/=.*/=$LATEST_VERSION_TOKENS_LIB_NPM/g" OceanTokens.podspec
@@ -50,7 +49,10 @@ jobs:
           git tag -a "OceanComponents-$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" -m "Release of version $LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" && git push --tags
 
       - name: Update pod
-        run: pod trunk push OceanComponents.podspec  
+        run: pod trunk push OceanComponents.podspec 
+
+      # - name: Install pods
+      #   run: pod install
 
       # - name: Publish app sample
       #   run: bundle exec fastlane beta_testflight
