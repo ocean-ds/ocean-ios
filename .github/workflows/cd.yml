@@ -12,7 +12,7 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v2
 
-      - name: Select Xcode Version
+      - name: Select xcode version
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: latest-stable
@@ -21,7 +21,7 @@ jobs:
         run: |
           git config --global user.name "Blu Release Bot"
           git config --global user.email "devs@useblu.com.br"
-          pod trunk register devs@useblu.com.br 'Blu Release Bot'
+          pod trunk register mobile@useblu.com.br 'Blu Release Bot'
 
       - name: Bundle install
         run: bundle install
@@ -35,20 +35,22 @@ jobs:
       - name: Update tokens
         run: sh update_tokens.sh
 
-      - name: Increment version tokens
+      - name: Increment version
         run: |
-          cp -fR OceanTokens.template OceanTokens.podspec
           LATEST_VERSION_TOKENS_LIB_NPM=`npm show @useblu/ocean-tokens version`
+          cp -fR OceanTokens.template OceanTokens.podspec
+          cp -fR OceanComponents.template OceanComponents.podspec
           sed -i-e "/VERSION_NAME=/ s/=.*/=$LATEST_VERSION_TOKENS_LIB_NPM/g" OceanTokens.podspec
+          sed -i-e "/VERSION_NAME=/ s/=.*/=$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER/g" OceanComponents.podspec
 
-      - name: Commit changes tokens
+      - name: Commit changes
         run: |
           LATEST_VERSION_TOKENS_LIB_NPM=`npm show @useblu/ocean-tokens version`
           git add . && git commit -am "chore: update tokens v$LATEST_VERSION_TOKENS_LIB_NPM [skip ci]" && git push
-          git tag -a "OceanTokens-$LATEST_VERSION_TOKENS_LIB_NPM" -m "Release of version $LATEST_VERSION_TOKENS_LIB_NPM" && git push --tags
+          git tag -a "OceanComponents-$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" -m "Release of version $LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" && git push --tags
 
-      - name: Update pod tokens
-        run: pod trunk push OceanTokens.podspec  
+      - name: Update pod
+        run: pod trunk push OceanComponents.podspec  
 
-      # - name: Publish App Sample
+      # - name: Publish app sample
       #   run: bundle exec fastlane beta_testflight
