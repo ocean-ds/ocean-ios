@@ -21,7 +21,6 @@ jobs:
         run: |
           git config --global user.name "Blu Release Bot"
           git config --global user.email "devs@useblu.com.br"
-          pod trunk register mobile@useblu.com.br 'Blu Release Bot'
 
       - name: Bundle install
         run: bundle install
@@ -49,6 +48,8 @@ jobs:
           git tag -a "OceanComponents-$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" -m "Release of version $LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" && git push --tags
 
       - name: Update pod
+        env:
+          COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
         run: pod trunk push OceanComponents.podspec 
 
       # - name: Install pods
