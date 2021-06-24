@@ -20,17 +20,19 @@ or alternatively using `brew install fastlane`
 ```
 fastlane ios build_test
 ```
+Mandatory for use in circle-ci
+
 Build and Test App
+### ios prepare_new_version
+```
+fastlane ios prepare_new_version
+```
+Prepare new version on master
 ### ios beta_testflight
 ```
 fastlane ios beta_testflight
 ```
 Upload to TestFlight
-### ios prepare_release
-```
-fastlane ios prepare_release
-```
-Prepare version
 
 ----
 
