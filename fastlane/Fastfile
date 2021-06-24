@@ -80,6 +80,18 @@ platform :ios do
     )
   end
 
+  private_lane :archive_app_step do |options|
+    build_app(
+      scheme: scheme,
+      export_options: {
+        method: options[:export_method],
+        provisioningProfiles: { 
+          options[:bundle_identifier] => options[:provision_profile]
+        }
+      }
+    )
+  end
+
   private_lane :upload_testflight_step do 
     api_key = app_store_connect_api_key(
       key_id: "#{ENV["APP_STORE_CONNECT_API_KEY_KEY_ID"]}",
