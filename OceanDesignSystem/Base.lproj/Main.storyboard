@@ -125,6 +125,7 @@
                         <segue destination="VyO-2g-QwC" kind="show" identifier="SegueSwitchComponents" id="mzO-j0-Cka"/>
                         <segue destination="vWA-gU-kFb" kind="show" identifier="SegueRadioButtonComponents" id="3no-cJ-D1d"/>
                         <segue destination="cME-pK-hwx" kind="show" identifier="SegueDatePickerComponents" id="WrY-HC-dZK"/>
+                        <segue destination="dR4-M7-U3p" kind="show" identifier="SegueAlertBoxComponents" id="k02-dd-Xpb"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aGw-ly-AWm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -676,7 +677,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="boK-7r-z15" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-697" y="768"/>
+            <point key="canvasLocation" x="-713" y="544"/>
         </scene>
         <!--Line Heights View Controller-->
         <scene sceneID="Hbl-sC-KR3">
@@ -988,6 +989,22 @@
             </objects>
             <point key="canvasLocation" x="-41" y="1369"/>
         </scene>
+        <!--Alert Box View Controller-->
+        <scene sceneID="w3d-fI-kgF">
+            <objects>
+                <viewController id="dR4-M7-U3p" customClass="AlertBoxViewController" customModule="OceanDesignSystem" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="grf-3o-Cb1">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="kfq-eV-xfZ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="fBA-47-qFr"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QbW-PB-LmB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1416" y="1369"/>
+        </scene>
         <!--Date Picker View Controller-->
         <scene sceneID="B2f-xu-TA1">
             <objects>
@@ -1002,7 +1019,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MOz-iE-fzc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-697" y="1414"/>
+            <point key="canvasLocation" x="-693" y="1369"/>
         </scene>
     </scenes>
     <resources>
