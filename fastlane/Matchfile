@@ -1,4 +1,4 @@
-git_url("git@github.com:Pagnet/fastlane-ios.git")
+git_url("https://github.com/Pagnet/fastlane-ios.git")
 app_identifier("br.com.blu.ocean.DesignSystem")
-username("mobile@useblu.com.br")
+username("seguranca@useblu.com.br")
 storage_mode("git")
