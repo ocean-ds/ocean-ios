@@ -53,7 +53,7 @@ platform :ios do
     get_profiles_step(type: 'appstore')
     
     archive_app_step(
-      export_method: 'app-store', 
+      export_method: 'appstore', 
       bundle_identifier: bundle_identifier, 
       provision_profile: appstore_provision_profile, 
       team: team 
