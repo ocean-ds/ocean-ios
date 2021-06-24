@@ -1,6 +1,6 @@
 name: CD
 
-on: 
+on:
   push:
     branches:
       - master
@@ -48,9 +48,9 @@ jobs:
           git tag -a "OceanComponents-$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" -m "Release of version $LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" && git push --tags
 
       - name: Deploy libary cocoapod
-        env:
-            COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
         run: pod trunk push OceanComponents.podspec
+        env:
+          COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
 
       - name: Install pods
         run: pod install
@@ -59,6 +59,7 @@ jobs:
         run: bundle exec fastlane prepare_new_version
 
       - name: Deploy app sample
+        run: bundle exec fastlane beta_testflight
         env:
           APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }}
           APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY }}
@@ -67,4 +68,3 @@ jobs:
           FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
-        run: bundle exec fastlane beta_testflight
