@@ -11,6 +11,11 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
+        with:
+          # Check out as an admin to allow for pushing back to master
+          token: ${{ secrets.GH_TOKEN }}
+          # We need to fetch all tags and branches
+          fetch-depth: 0
 
       - name: Select xcode version
         uses: maxim-lobanov/setup-xcode@v1
