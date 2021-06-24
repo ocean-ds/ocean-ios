@@ -60,6 +60,8 @@ class ComponentsViewController: UITableViewController {
             performSegue(withIdentifier: "SegueRadioButtonComponents", sender: self)
         case DesignSystemComponentsType.DatePicker.rawValue:
             performSegue(withIdentifier: "SegueDatePickerComponents", sender: self)
+        case DesignSystemComponentsType.AlertBox.rawValue:
+            performSegue(withIdentifier: "SegueAlertBoxComponents", sender: self)
         default:
             performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }
