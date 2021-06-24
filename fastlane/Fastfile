@@ -51,9 +51,13 @@ platform :ios do
     increment_build_number()
     
     get_profiles_step(type: 'appstore')
+    get_profiles_step(type: 'development')
     
-    build_app(
-      scheme: scheme
+    archive_app_step(
+      export_method: 'app-store', 
+      bundle_identifier: bundle_identifier, 
+      provision_profile: appstore_provision_profile, 
+      team: team 
     )
 
     upload_testflight_step()
@@ -74,6 +78,18 @@ platform :ios do
       app_identifier: bundle_identifier,
       type: options[:type],
       readonly: is_ci
+    )
+  end
+
+  private_lane :archive_app_step do |options|
+    build_app(
+      scheme: scheme,
+      export_options: {
+        method: options[:export_method],
+        provisioningProfiles: { 
+          options[:bundle_identifier] => options[:provision_profile]
+        }
+      }
     )
   end
 
