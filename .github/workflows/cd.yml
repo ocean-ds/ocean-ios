@@ -66,4 +66,5 @@ jobs:
           FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
           FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
         run: bundle exec fastlane beta_testflight

@@ -73,6 +73,7 @@ platform :ios do
 
     match(
       api_key: api_key,
+      git_basic_authorization: "#{ENV["MATCH_GIT_BASIC_AUTHORIZATION"]}",
       app_identifier: bundle_identifier,
       type: options[:type],
       readonly: is_ci
