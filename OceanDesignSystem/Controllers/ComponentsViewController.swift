@@ -62,6 +62,8 @@ class ComponentsViewController: UITableViewController {
             performSegue(withIdentifier: "SegueDatePickerComponents", sender: self)
         case DesignSystemComponentsType.AlertBox.rawValue:
             performSegue(withIdentifier: "SegueAlertBoxComponents", sender: self)
+        case DesignSystemComponentsType.Divider.rawValue:
+            performSegue(withIdentifier: "SegueDividerComponents", sender: self)
         default:
             performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }

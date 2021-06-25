@@ -37,6 +37,7 @@ public enum DesignSystemComponentsType: Int {
     case RadioButton
     case DatePicker
     case AlertBox
+    case Divider
 }
 
 public enum DesignSystemTypographyType: Int {
