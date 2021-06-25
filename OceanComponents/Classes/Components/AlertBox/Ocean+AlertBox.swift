@@ -34,6 +34,12 @@ extension Ocean {
             }
         }
         
+        public var text: String = "" {
+            didSet {
+                messageLabel.text = text
+            }
+        }
+        
         private lazy var mainContentStack: UIStackView = {
             let contentStack = UIStackView()
             contentStack.axis = .vertical
@@ -91,7 +97,6 @@ extension Ocean {
             Ocean.Typography.paragraph { label in
                 label.numberOfLines = 0
                 label.font = .baseRegular(size: 12)
-                label.text = "Na hora de pagar lembre-se de conferir os dados de quem vai receber o dinheiro."
                 label.textColor = Ocean.color.colorInterfaceDarkDown
             }
         }()
