@@ -10,6 +10,7 @@
 		138EF63E268502E1000E65EA /* AlertBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138EF63D268502E0000E65EA /* AlertBoxViewController.swift */; };
 		1B95B14353B2F1B583E717AA /* Pods_OceanDesignSystemTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC2FB672AAC2DF64A6545D88 /* Pods_OceanDesignSystemTests.framework */; };
 		1C8CBC30A7EB8375212384D4 /* Pods_OceanDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D9D9A171B743DED8A2B2297 /* Pods_OceanDesignSystem.framework */; };
+		2456BF94268612E800E2361E /* DividerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2456BF93268612E800E2361E /* DividerViewController.swift */; };
 		2482CDD4267D055100A50422 /* RadioButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2482CDD3267D055100A50422 /* RadioButtonViewController.swift */; };
 		249DC9402672AD2600012411 /* SwitchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249DC93F2672AD2600012411 /* SwitchViewController.swift */; };
 		24C8013C2680FE4F00744F30 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C8013B2680FE4F00744F30 /* DatePickerViewController.swift */; };
@@ -64,6 +65,7 @@
 /* Begin PBXFileReference section */
 		043BA5BEEE6D99AE945720B4 /* Pods-OceanDesignSystem.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OceanDesignSystem.debug.xcconfig"; path = "Target Support Files/Pods-OceanDesignSystem/Pods-OceanDesignSystem.debug.xcconfig"; sourceTree = "<group>"; };
 		138EF63D268502E0000E65EA /* AlertBoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBoxViewController.swift; sourceTree = "<group>"; };
+		2456BF93268612E800E2361E /* DividerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerViewController.swift; sourceTree = "<group>"; };
 		2482CDD3267D055100A50422 /* RadioButtonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonViewController.swift; sourceTree = "<group>"; };
 		249DC93F2672AD2600012411 /* SwitchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchViewController.swift; sourceTree = "<group>"; };
 		24C8013B2680FE4F00744F30 /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				2482CDD3267D055100A50422 /* RadioButtonViewController.swift */,
 				24C8013B2680FE4F00744F30 /* DatePickerViewController.swift */,
 				138EF63D268502E0000E65EA /* AlertBoxViewController.swift */,
+				2456BF93268612E800E2361E /* DividerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -454,6 +457,7 @@
 				B71D65E224CA053500C3938C /* TokensBySubCategories.swift in Sources */,
 				B75C81FB24F6F5BD001A500B /* ButtonViewController.swift in Sources */,
 				B7A4FF7924BF8484006712AA /* ComponentsViewController.swift in Sources */,
+				2456BF94268612E800E2361E /* DividerViewController.swift in Sources */,
 				B768C57724E3186C0086BF9C /* InputViewController.swift in Sources */,
 				B7BB717924E615B3007F8848 /* SnackbarViewController.swift in Sources */,
 				B71D65FD24CA530000C3938C /* Components.swift in Sources */,

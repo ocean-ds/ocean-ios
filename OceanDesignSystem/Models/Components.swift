@@ -20,8 +20,8 @@ struct DSComponents {
         "BottomSheet",
         "RadioButton",
         "DatePicker",
-        "AlertBox"
-        
+        "AlertBox",
+        "Divider"
     ]
 }
 
