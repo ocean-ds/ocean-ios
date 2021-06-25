@@ -60,7 +60,8 @@ extension Ocean {
         
         public var charactersLimitNumber: Int? = nil {
             didSet {
-                updateState()
+                guard let limitValue = charactersLimitNumber else { return }
+                labelCharactersLimit?.text = "\(textArea.text?.count ?? 0)/\(limitValue)"
             }
         }
         
@@ -236,9 +237,6 @@ extension Ocean {
                             labelTitle: Ocean.color.colorInterfaceDarkDown)
                 checkPlaceholder()
                 backgroundView.ocean.borderWidth.applyHairline()
-            } else if let limitValue = self.charactersLimitNumber {
-                labelCharactersLimit.isHidden = false
-                labelCharactersLimit?.text = "\(textArea.text?.count ?? 0)/\(limitValue)"
             } else if textArea.isFirstResponder {
                 labelPlaceholder?.isHidden = true
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
@@ -268,6 +266,11 @@ extension Ocean {
                 labelTitle: Ocean.color.colorInterfaceDarkUp)
                 checkPlaceholder()
                 backgroundView.ocean.borderWidth.applyHairline()
+            }
+            
+            if let limitValue = self.charactersLimitNumber {
+                labelCharactersLimit.isHidden = false
+                labelCharactersLimit?.text = "\(textArea.text?.count ?? 0)/\(limitValue)"
             }
         }
         
