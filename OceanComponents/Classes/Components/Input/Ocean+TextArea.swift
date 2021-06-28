@@ -224,6 +224,7 @@ extension Ocean {
                 name: Ocean.font.fontFamilyBaseWeightRegular,
                 size: Ocean.font.fontSizeXxxs)
             labelHelper.textColor = Ocean.color.colorInterfaceDarkUp
+            labelHelper.text = " "
             labelHelper.isHidden = false
         }
         
@@ -324,6 +325,7 @@ extension Ocean {
             
             mainStack.addArrangedSubview(backgroundView)
             mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxxs))
+            
             mainStack.addArrangedSubview(labelError)
             mainStack.addArrangedSubview(labelHelper)
             
