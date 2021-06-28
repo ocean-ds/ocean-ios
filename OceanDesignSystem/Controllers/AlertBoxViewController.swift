@@ -27,6 +27,7 @@ class AlertBoxViewController: UIViewController {
     private lazy var alertBoxComponent: Ocean.AlertBox = {
         Ocean.AlertBox { component in
             component.size = .small
+            component.text = "Na hora de pagar lembre-se de conferir os dados de quem vai receber o dinheiro."
         }
     }()
     
