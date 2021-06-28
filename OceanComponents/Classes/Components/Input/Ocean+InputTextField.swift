@@ -254,6 +254,7 @@ extension Ocean {
                 name: Ocean.font.fontFamilyBaseWeightRegular,
                 size: Ocean.font.fontSizeXxxs)
             labelHelper.textColor = Ocean.color.colorInterfaceDarkUp
+            labelHelper.text = " "
             labelHelper.isHidden = false
         }
         

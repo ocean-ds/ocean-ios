@@ -22,7 +22,7 @@ public class InputViewController : UIViewController {
     public override func viewDidLoad() {
         self.textfield = Ocean.Input.textfieldWithLabel { component in
             component.placeholder = "placeholder"
-            component.helper = "heler text"
+            component.helper = "helper text"
             component.showInfoIcon = true
             component.onInfoIconTouched = {
                 
@@ -44,7 +44,7 @@ public class InputViewController : UIViewController {
         
         self.textArea = Ocean.Input.textareaWithLabel { component in
             component.placeholder = "placeholder"
-            component.helper = "heler text"
+            component.helper = "helper text"
             component.showInfoIcon = true
         }
         self.textArea.onBeginEditing = {
@@ -61,7 +61,7 @@ public class InputViewController : UIViewController {
         
         self.select = Ocean.Input.selectWithLabel { component in
             component.placeholder = "placeholder"
-            component.helper = "heler text"
+            component.helper = "helper text"
             component.titleBottomSheet = "Title"
             component.rootViewController = self
             component.values = ["Label 1", "Label 2", "Label 3", "Label 4", "Label 5"]
