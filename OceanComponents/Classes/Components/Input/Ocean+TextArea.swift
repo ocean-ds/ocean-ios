@@ -16,7 +16,7 @@ extension Ocean {
         private var textArea: UITextView!
         private var labelTitle: UILabel!
         private var labelError: UILabel!
-        private var labelCharactersLimit: UILabel!
+        private var labelHelper: UILabel!
         private var hStack: UIStackView!
         private var backgroundView: UIView!
         private var height: CGFloat = 78
@@ -61,7 +61,7 @@ extension Ocean {
         public var charactersLimitNumber: Int? = nil {
             didSet {
                 guard let limitValue = charactersLimitNumber else { return }
-                labelCharactersLimit?.text = "\(textArea.text?.count ?? 0)/\(limitValue)"
+                labelHelper?.text = "\(textArea.text?.count ?? 0)/\(limitValue)"
             }
         }
         
@@ -76,7 +76,13 @@ extension Ocean {
             
             set {
                 textArea.text = newValue
-                //checkPlaceholder()
+                self.updateState()
+            }
+        }
+        
+        public var helper: String = "" {
+            didSet {
+                labelHelper?.text = helper
                 self.updateState()
             }
         }
@@ -211,14 +217,14 @@ extension Ocean {
             labelError.isHidden = true
         }
         
-        func makeLabelCharactersLimit() {
-            labelCharactersLimit = UILabel()
-            labelCharactersLimit.translatesAutoresizingMaskIntoConstraints = false
-            labelCharactersLimit.font = UIFont(
+        func makeLabelHelper() {
+            labelHelper = UILabel()
+            labelHelper.translatesAutoresizingMaskIntoConstraints = false
+            labelHelper.font = UIFont(
                 name: Ocean.font.fontFamilyBaseWeightRegular,
                 size: Ocean.font.fontSizeXxxs)
-            labelCharactersLimit.textColor = Ocean.color.colorInterfaceDarkUp
-            labelCharactersLimit.isHidden = true
+            labelHelper.textColor = Ocean.color.colorInterfaceDarkUp
+            labelHelper.isHidden = false
         }
         
         @objc func infoAction(_ sender: Any) {
@@ -227,28 +233,29 @@ extension Ocean {
         
         func updateState() {
             textArea.isEditable = isEnabled
-            labelError.isHidden = true
-            labelCharactersLimit.isHidden = true
+            labelError?.isHidden = true
+            labelHelper?.isHidden = false
             
             if errorMessage != errorEmpty {
-                labelError.isHidden = false
+                labelError?.isHidden = false
+                labelHelper?.isHidden = true
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
                             border: Ocean.color.colorStatusNegativePure,
                             labelTitle: Ocean.color.colorInterfaceDarkDown)
                 checkPlaceholder()
-                backgroundView.ocean.borderWidth.applyHairline()
+                backgroundView?.ocean.borderWidth.applyHairline()
             } else if textArea.isFirstResponder {
                 labelPlaceholder?.isHidden = true
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
                             border: Ocean.color.colorBrandPrimaryDown,
                             labelTitle: Ocean.color.colorInterfaceDarkDown)
-                backgroundView.ocean.borderWidth.applyThin()
+                backgroundView?.ocean.borderWidth.applyThin()
             } else if isActivated == false {
                 checkPlaceholder()
                 changeColor(text: Ocean.color.colorInterfaceLightDeep,
                             border: Ocean.color.colorInterfaceLightDeep,
                             labelTitle: Ocean.color.colorInterfaceDarkUp)
-                backgroundView.ocean.borderWidth.applyHairline()
+                backgroundView?.ocean.borderWidth.applyHairline()
             } else if isEnabled {
                 let isActivated = self.textArea?.text?.isEmpty == true
                 let color = isActivated ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorInterfaceDarkDeep
@@ -258,19 +265,18 @@ extension Ocean {
                             border: border,
                             labelTitle: labelColor)
                 checkPlaceholder()
-                backgroundView.ocean.borderWidth.applyHairline()
+                backgroundView?.ocean.borderWidth.applyHairline()
             } else {
                 changeColor(text: Ocean.color.colorInterfaceDarkUp,
                 border: Ocean.color.colorInterfaceLightDown,
                 background: Ocean.color.colorInterfaceLightDown,
                 labelTitle: Ocean.color.colorInterfaceDarkUp)
                 checkPlaceholder()
-                backgroundView.ocean.borderWidth.applyHairline()
+                backgroundView?.ocean.borderWidth.applyHairline()
             }
             
             if let limitValue = self.charactersLimitNumber {
-                labelCharactersLimit.isHidden = false
-                labelCharactersLimit?.text = "\(textArea.text?.count ?? 0)/\(limitValue)"
+                labelHelper?.text = "\(textArea.text?.count ?? 0)/\(limitValue)"
             }
         }
         
@@ -298,7 +304,7 @@ extension Ocean {
             self.makeTitleStackContent()
             self.makeTextArea()
             self.makeLabelError()
-            self.makeLabelCharactersLimit()
+            self.makeLabelHelper()
             
             mainStack.addArrangedSubview(titleStackContent)
             mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxs))
@@ -319,9 +325,8 @@ extension Ocean {
             mainStack.addArrangedSubview(backgroundView)
             mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxxs))
             mainStack.addArrangedSubview(labelError)
+            mainStack.addArrangedSubview(labelHelper)
             
-            mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxxs))
-            mainStack.addArrangedSubview(labelCharactersLimit)
             self.addSubview(mainStack)
             
             backgroundView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true

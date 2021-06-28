@@ -24,7 +24,7 @@ extension Ocean {
         public var textField: UITextField!
         private var imageView: UIImageView!
         private var labelError: UILabel!
-        private var labelCharactersLimit: UILabel!
+        private var labelHelper: UILabel!
         private var hStack: UIStackView!
         private var backgroundView: UIView!
         private var titleStackContent: UIStackView!
@@ -54,6 +54,13 @@ extension Ocean {
             didSet {
                 textField?.text = text
                 textField?.placeholder = ""
+                self.updateState()
+            }
+        }
+        
+        public var helper: String = "" {
+            didSet {
+                labelHelper?.text = helper
                 self.updateState()
             }
         }
@@ -127,7 +134,7 @@ extension Ocean {
         public var charactersLimitNumber: Int? = nil {
             didSet {
                 guard let limitValue = charactersLimitNumber else { return }
-                labelCharactersLimit?.text = "\(textField.text?.count ?? 0)/\(limitValue)"
+                labelHelper?.text = "\(textField.text?.count ?? 0)/\(limitValue)"
             }
         }
 
@@ -145,11 +152,21 @@ extension Ocean {
         public var onInfoIconTouched: (() -> Void)?
 
         public var rightButton: UIButton?
+        
+        public override init(frame: CGRect) {
+            super.init(frame: frame)
+            self.makeView()
+        }
+        
+        required init?(coder: NSCoder) {
+            super.init(coder: coder)
+            self.makeView()
+        }
 
         public convenience init(builder: InputTextFieldBuilder) {
-            self.init()
+            self.init(frame: .zero)
             builder(self)
-            makeView()
+            updateState()
         }
 
         func makemainStack() {
@@ -230,14 +247,14 @@ extension Ocean {
             labelError.isHidden = true
         }
         
-        func makeLabelCharactersLimit() {
-            labelCharactersLimit = UILabel()
-            labelCharactersLimit.translatesAutoresizingMaskIntoConstraints = false
-            labelCharactersLimit.font = UIFont(
+        func makeLabelHelper() {
+            labelHelper = UILabel()
+            labelHelper.translatesAutoresizingMaskIntoConstraints = false
+            labelHelper.font = UIFont(
                 name: Ocean.font.fontFamilyBaseWeightRegular,
                 size: Ocean.font.fontSizeXxxs)
-            labelCharactersLimit.textColor = Ocean.color.colorInterfaceDarkUp
-            labelCharactersLimit.isHidden = true
+            labelHelper.textColor = Ocean.color.colorInterfaceDarkUp
+            labelHelper.isHidden = false
         }
         
         func makeImageView() {
@@ -266,26 +283,27 @@ extension Ocean {
         func updateState() {
             textField?.isEnabled = isEnabled
             labelError?.isHidden = true
-            labelCharactersLimit.isHidden = true
+            labelHelper?.isHidden = false
     
             if labelError?.text != nil && labelError?.text != errorEmpty {
                 labelError?.isHidden = false
+                labelHelper?.isHidden = true
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
                             border: Ocean.color.colorStatusNegativePure,
                             labelTitle: Ocean.color.colorInterfaceDarkDown)
-                backgroundView.ocean.borderWidth.applyHairline()
+                backgroundView?.ocean.borderWidth.applyHairline()
             } else if textField?.isFirstResponder == true {
                 textField?.placeholder = ""
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
                             border: Ocean.color.colorBrandPrimaryDown,
                             labelTitle: Ocean.color.colorInterfaceDarkDown)
-                backgroundView.ocean.borderWidth.applyThin()
+                backgroundView?.ocean.borderWidth.applyThin()
             } else if isActivated == false {
                 changeColor(text: Ocean.color.colorInterfaceLightDeep,
                             border: Ocean.color.colorInterfaceLightDeep,
                             placeHolder: Ocean.color.colorInterfaceLightDeep,
                             labelTitle: Ocean.color.colorInterfaceDarkUp)
-                backgroundView.ocean.borderWidth.applyHairline()
+                backgroundView?.ocean.borderWidth.applyHairline()
             } else if isEnabled {
                 let isActivated = self.textField?.text?.isEmpty == true
                 let color = isActivated ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorInterfaceDarkDeep
@@ -295,19 +313,18 @@ extension Ocean {
                             border: border,
                             placeHolder: Ocean.color.colorInterfaceLightDeep,
                             labelTitle: labelColor)
-                backgroundView.ocean.borderWidth.applyHairline()
+                backgroundView?.ocean.borderWidth.applyHairline()
             } else {
                 changeColor(text: Ocean.color.colorInterfaceDarkUp,
                             border: Ocean.color.colorInterfaceLightDown,
                             background: Ocean.color.colorInterfaceLightDown,
                             placeHolder: Ocean.color.colorInterfaceDarkUp,
                             labelTitle: Ocean.color.colorInterfaceDarkUp)
-                backgroundView.ocean.borderWidth.applyHairline()
+                backgroundView?.ocean.borderWidth.applyHairline()
             }
             
             if let limitValue = self.charactersLimitNumber {
-                labelCharactersLimit.isHidden = false
-                labelCharactersLimit?.text = "\(textField.text?.count ?? 0)/\(limitValue)"
+                labelHelper?.text = "\(textField.text?.count ?? 0)/\(limitValue)"
             }
         }
 
@@ -329,7 +346,7 @@ extension Ocean {
             self.makeTitleStackContent()
             self.makeTextField()
             self.makeLabelError()
-            self.makeLabelCharactersLimit()
+            self.makeLabelHelper()
             self.makeImageView()
             
             textField.addSubview(imageView)
@@ -365,9 +382,7 @@ extension Ocean {
             }
             
             mainStack.addArrangedSubview(labelError)
-            
-            mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxxs))
-            mainStack.addArrangedSubview(labelCharactersLimit)
+            mainStack.addArrangedSubview(labelHelper)
 
             self.addSubview(mainStack)
 
