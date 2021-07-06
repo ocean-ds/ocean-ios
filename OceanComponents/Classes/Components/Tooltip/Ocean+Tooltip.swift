@@ -24,7 +24,7 @@ extension Ocean {
         public var onTouch: (() -> Void)?
         
         private var backgroundRounded = UIView()
-        private var triangleView = TriangleView(frame: .init(x: 0, y: 0, width: Constants.triangleWidth, height: Constants.triangleHeight))
+        private var triangleView = UIView()
         private var targetView = UIView()
         private var parent: UIView?
         private var position: Position = .bottom
@@ -93,6 +93,7 @@ extension Ocean {
             self.position = position
             self.parent = view
             
+            presenter.layoutIfNeeded()
             presenter.addSubview(self)
             
             switch position {
@@ -125,17 +126,15 @@ extension Ocean {
             
             switch position {
             case .top:
-//                triangleView = TriangleView(frame: .init(x: xValue, y: backgroundRounded.frame.height, width: Constants.triangleWidth, height: Constants.triangleHeight))
-                triangleView.frame = .init(x: xValue, y: backgroundRounded.frame.height, width: Constants.triangleWidth, height: Constants.triangleHeight)
+                triangleView = TriangleView(frame: .init(x: xValue, y: backgroundRounded.frame.height, width: Constants.triangleWidth, height: Constants.triangleHeight))
                 triangleView.rotate(angle: 180)
             case .bottom:
-                triangleView.frame = .init(x: xValue, y: -Constants.triangleHeight, width: Constants.triangleWidth, height: Constants.triangleHeight)
-//                triangleView = TriangleView(frame: .init(x: xValue, y: -Constants.triangleHeight, width: Constants.triangleWidth, height: Constants.triangleHeight))
+                triangleView = TriangleView(frame: .init(x: xValue, y: -Constants.triangleHeight, width: Constants.triangleWidth, height: Constants.triangleHeight))
             }
+
+            self.backgroundRounded.subviews.first?.removeFromSuperview()
+            self.backgroundRounded.addSubview(triangleView)
             
-            if !self.backgroundRounded.subviews.contains(triangleView) {
-                self.backgroundRounded.addSubview(triangleView)
-            }
         }
     }
 }

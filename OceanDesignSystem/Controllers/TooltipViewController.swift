@@ -100,6 +100,11 @@ class TooltipViewController: UIViewController {
     }
     
     private func show() {
+        tooltipComponent.removeFromSuperview()
         tooltipComponent.show(presenter: self.view, target: leftButtonExample, position: verticalPosition, parent: leftButtonExampleStack)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
     }
 }
