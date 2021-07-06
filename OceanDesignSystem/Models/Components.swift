@@ -21,7 +21,8 @@ struct DSComponents {
         "RadioButton",
         "DatePicker",
         "AlertBox",
-        "Divider"
+        "Divider",
+        "Tooltip"
     ]
 }
 

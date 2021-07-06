@@ -127,11 +127,12 @@
                         <segue destination="cME-pK-hwx" kind="show" identifier="SegueDatePickerComponents" id="WrY-HC-dZK"/>
                         <segue destination="dR4-M7-U3p" kind="show" identifier="SegueAlertBoxComponents" id="k02-dd-Xpb"/>
                         <segue destination="etg-2f-dJ3" kind="show" identifier="SegueDividerComponents" id="NaO-qa-CkN"/>
+                        <segue destination="Iba-iR-Lfc" kind="show" identifier="SegueTooltipComponents" id="ylx-jg-TZj"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aGw-ly-AWm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1094" y="690"/>
+            <point key="canvasLocation" x="1010" y="690"/>
         </scene>
         <!--Tokens By Category View Controller-->
         <scene sceneID="Acr-yl-duY">
@@ -1021,6 +1022,58 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MOz-iE-fzc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-693" y="1369"/>
+        </scene>
+        <!--Tooltip View Controller-->
+        <scene sceneID="UzC-W6-8bg">
+            <objects>
+                <viewController id="Iba-iR-Lfc" customClass="TooltipViewController" customModule="OceanDesignSystem" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JAg-wa-M0b">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="7Lz-rQ-ELw">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="63"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="QFX-BJ-1Ij">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="32"/>
+                                        <segments>
+                                            <segment title="Left"/>
+                                            <segment title="Right"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="horizontalValueChanged:" destination="Iba-iR-Lfc" eventType="valueChanged" id="0kR-Hr-KHr"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="xt4-KG-qmD">
+                                        <rect key="frame" x="0.0" y="32" width="414" height="32"/>
+                                        <segments>
+                                            <segment title="Top"/>
+                                            <segment title="Bottom"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="verticalValueChanged:" destination="Iba-iR-Lfc" eventType="valueChanged" id="yya-nK-RFW"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="OQl-ZH-EYZ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="7Lz-rQ-ELw" firstAttribute="leading" secondItem="OQl-ZH-EYZ" secondAttribute="leading" id="9Eb-eE-Kdp"/>
+                            <constraint firstItem="7Lz-rQ-ELw" firstAttribute="top" secondItem="OQl-ZH-EYZ" secondAttribute="top" id="Tmd-eT-qlO"/>
+                            <constraint firstItem="OQl-ZH-EYZ" firstAttribute="trailing" secondItem="7Lz-rQ-ELw" secondAttribute="trailing" id="fC9-hP-S7c"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="BSs-Hb-en3"/>
+                    <connections>
+                        <outlet property="horizontalPositionControll" destination="QFX-BJ-1Ij" id="tuG-Xb-3gh"/>
+                        <outlet property="verticalPositionControll" destination="xt4-KG-qmD" id="1HC-xj-9Ge"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZdD-N3-7mr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2771.0144927536235" y="1368.75"/>
         </scene>
         <!--Divider View Controller-->
         <scene sceneID="iCO-zo-mSp">
