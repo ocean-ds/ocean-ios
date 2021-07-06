@@ -53,7 +53,8 @@ class TooltipViewController: UIViewController {
     
     private var tooltipComponent: Ocean.Tooltip = {
         Ocean.Tooltip { component in
-            
+            component.title = "Title test"
+            component.message = "Message test"
         }
     }()
     

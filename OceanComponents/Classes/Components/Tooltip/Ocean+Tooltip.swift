@@ -23,6 +23,20 @@ extension Ocean {
         public typealias TooltipBuilder = (Tooltip) -> Void
         public var onTouch: (() -> Void)?
         
+        public var message: String = "" {
+            didSet {
+                messageLabel.text = message
+                messageLabel.isHidden = message.isEmpty
+            }
+        }
+        
+        public var title: String = "" {
+            didSet {
+                titleLabel.text = title
+                titleLabel.isHidden = title.isEmpty
+            }
+        }
+        
         private var backgroundRounded = UIView()
         private var triangleView = UIView()
         private var targetView = UIView()
@@ -34,7 +48,7 @@ extension Ocean {
             stack.distribution = .fill
             stack.alignment = .fill
             stack.axis = .vertical
-            stack.spacing = 10
+            stack.spacing = Ocean.size.spacingInsetXs
             stack.translatesAutoresizingMaskIntoConstraints = false
             stack.addArrangedSubview(titleLabel)
             stack.addArrangedSubview(messageLabel)
@@ -43,16 +57,16 @@ extension Ocean {
         
         private lazy var titleLabel: UILabel = {
             Ocean.Typography.heading4 { label in
-                label.text = "Titulo exemplo texto."
-                label.textColor = .white
+                label.textColor = Ocean.color.colorInterfaceLightPure
+                label.text = self.title
                 label.numberOfLines = 0
             }
         }()
         
         private lazy var messageLabel: UILabel = {
             Ocean.Typography.description { label in
-                label.text = "Uma identificação sobre o que é este pagamento. Exibido para quem for pagar."
-                label.textColor = .white
+                label.textColor = Ocean.color.colorInterfaceLightPure
+                label.text = self.message
                 label.numberOfLines = 0
             }
         }()
@@ -78,10 +92,10 @@ extension Ocean {
             
             addSubview(contentStack)
             NSLayoutConstraint.activate([
-                contentStack.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-                contentStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-                contentStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-                contentStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
+                contentStack.topAnchor.constraint(equalTo: topAnchor, constant: Ocean.size.borderRadiusLg),
+                contentStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Ocean.size.borderRadiusLg),
+                contentStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Ocean.size.borderRadiusLg),
+                contentStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Ocean.size.borderRadiusLg)
             ])
             
             self.isUserInteractionEnabled = true
