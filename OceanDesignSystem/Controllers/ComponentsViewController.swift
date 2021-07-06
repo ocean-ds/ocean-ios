@@ -64,6 +64,8 @@ class ComponentsViewController: UITableViewController {
             performSegue(withIdentifier: "SegueAlertBoxComponents", sender: self)
         case DesignSystemComponentsType.Divider.rawValue:
             performSegue(withIdentifier: "SegueDividerComponents", sender: self)
+        case DesignSystemComponentsType.Tooltip.rawValue:
+            performSegue(withIdentifier: "SegueTooltipComponents", sender: self)
         default:
             performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }
