@@ -33,6 +33,8 @@ extension Ocean {
         
         @objc func inputSelectorAction(_ sender: Any) {
             if let rootViewController = rootViewController {
+                rootViewController.view.endEditing(true)
+                
                 let model = values.compactMap { value in
                     CellModel(value: value, isSelected: self.text == value)
                 }
