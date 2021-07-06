@@ -376,12 +376,7 @@ extension Ocean {
             hStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
             backgroundView.addSubview(hStack)
 
-            if #available(iOS 11.0, *) {
-                mainStack.setCustomSpacing(Ocean.size.spacingStackXxxs, after: hStack)
-            } else {
-                mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxxs))
-            }
-            
+            mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxxs))
             mainStack.addArrangedSubview(labelError)
             mainStack.addArrangedSubview(labelHelper)
 
