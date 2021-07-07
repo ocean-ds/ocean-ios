@@ -31,6 +31,12 @@ extension Ocean {
         private var titleStackView: UIStackView!
         private var infoIconImageView: UIImageView!
         
+        private lazy var tooltip: Ocean.Tooltip = {
+            Ocean.Tooltip { component in
+                component.message = infoMessage
+            }
+        }()
+        
         public var errorMessage: String = "" {
             didSet {
                 labelError?.text = errorMessage.isEmpty == true ? errorEmpty : errorMessage
@@ -89,9 +95,10 @@ extension Ocean {
             }
         }
         
-        public var showInfoIcon: Bool = false {
+        public var infoMessage: String = "" {
             didSet {
-                infoIconImageView?.isHidden = !showInfoIcon
+                infoIconImageView?.isHidden = infoMessage.isEmpty
+                tooltip.message = infoMessage
             }
         }
         
@@ -274,11 +281,12 @@ extension Ocean {
             ])
             infoIconImageView.isUserInteractionEnabled = true
             infoIconImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(infoAction)))
-            infoIconImageView.isHidden = !showInfoIcon
+            infoIconImageView.isHidden = infoMessage.isEmpty
         }
 
         @objc func infoAction(_ sender: Any) {
             onInfoIconTouched?()
+            tooltip.show(target: infoIconImageView)
         }
         
         func updateState() {

@@ -103,7 +103,7 @@ extension Ocean {
         }
 
         public func show(target: UIView, position: Position = .top) {
-            guard let presenter = UIApplication.shared.keyWindow?.rootViewController?.presentedViewController?.view else { return }
+            guard let presenter = UIApplication.shared.keyWindow?.rootViewController?.presentedViewController?.view ?? UIApplication.shared.keyWindow?.rootViewController?.view else { return }
             self.targetView = target
             self.position = position
             self.presenter = presenter
