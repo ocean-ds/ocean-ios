@@ -9,7 +9,7 @@
 import OceanTokens
 import UIKit
 
-protocol OceanNavigationBar: UIViewController {
+public protocol OceanNavigationBar: UIViewController {
     var navigationBackImage: UIImage? { get }
     var navigationTitle: String? { get }
     var navigationTintColor: UIColor { get }
@@ -18,32 +18,32 @@ protocol OceanNavigationBar: UIViewController {
     var navigationShadow: Bool { get }
 }
 
-extension OceanNavigationBar {
-    var navigationBackImage: UIImage? {
+public extension OceanNavigationBar {
+    public var navigationBackImage: UIImage? {
         return self.navigationController?.navigationBar.backIndicatorImage
     }
     
-    var navigationTitle: String? {
+    public var navigationTitle: String? {
         return self.navigationController?.navigationItem.title
     }
     
-    var navigationTintColor: UIColor {
+    public var navigationTintColor: UIColor {
         return Ocean.color.colorBrandPrimaryPure
     }
     
-    var navigationBackButtonTitle: String {
+    public var navigationBackButtonTitle: String {
         return ""
     }
     
-    var navigationBackgroundColor: UIColor? {
+    public var navigationBackgroundColor: UIColor? {
         return nil
     }
     
-    var navigationShadow: Bool {
+    public var navigationShadow: Bool {
         return false
     }
     
-    func setupNavigation() {
+    public func setupNavigation() {
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.tintColor = navigationTintColor
@@ -75,7 +75,7 @@ extension OceanNavigationBar {
         }
     }
     
-    func addCloseButton(action: Selector?) {
+    public func addCloseButton(action: Selector?) {
         let image = Ocean.icon.xOutline?.tinted(with: navigationTintColor)
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: image,
                                                            style: .plain,

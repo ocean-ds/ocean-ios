@@ -63,13 +63,13 @@ extension Ocean {
                         let filterViewController = FilterViewController(title: self.titleBottomSheet,
                                                                         placeholder: self.placeholderFilter,
                                                                         values: values)
-                        filterViewController.modalTransitionStyle = .coverVertical
-                        filterViewController.modalPresentationStyle = .overCurrentContext
                         filterViewController.onValueSelected = { filterValue in
                             self.text = filterValue.value
                             self.onValueChanged?(self.text)
                         }
                         let navigationController = UINavigationController(rootViewController: filterViewController)
+                        navigationController.modalTransitionStyle = .coverVertical
+                        navigationController.modalPresentationStyle = .overFullScreen
                         rootViewController.present(navigationController, animated: true, completion: nil)
                     } else {
                         self.text = value.value
