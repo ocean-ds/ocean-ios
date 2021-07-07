@@ -14,6 +14,8 @@ extension Ocean {
         public var rootViewController: UIViewController?
         public var titleBottomSheet: String?
         public var values: [String] = []
+        public var maxValues: Int? = nil
+        public var placeholderFilter: String?
         
         public convenience init(builder: InputSelectFieldBuilder) {
             self.init()
@@ -35,8 +37,17 @@ extension Ocean {
             if let rootViewController = rootViewController {
                 rootViewController.view.endEditing(true)
                 
-                let model = values.compactMap { value in
-                    CellModel(value: value, isSelected: self.text == value)
+                var model: [CellModel]
+                
+                if let maxValues = self.maxValues {
+                    model = self.values.prefix(maxValues).compactMap { value in
+                        CellModel(value: value, isSelected: self.text == value)
+                    }
+                    model.append(CellModel(value: "Ver todos", isSelected: false))
+                } else {
+                    model = self.values.compactMap { value in
+                        CellModel(value: value, isSelected: self.text == value)
+                    }
                 }
                 
                 let bottomSheetList = BottomSheetList(rootViewController)
@@ -45,8 +56,25 @@ extension Ocean {
                     .build()
                 
                 bottomSheetList.onValueSelected = { value in
-                    self.text = value.value
-                    self.onValueChanged?(self.text)
+                    if value.value == "Ver todos" {
+                        let values = self.values.compactMap { value in
+                            CellModel(value: value, isSelected: self.text == value)
+                        }
+                        let filterViewController = FilterViewController(title: self.titleBottomSheet,
+                                                                        placeholder: self.placeholderFilter,
+                                                                        values: values)
+                        filterViewController.modalTransitionStyle = .coverVertical
+                        filterViewController.modalPresentationStyle = .overCurrentContext
+                        filterViewController.onValueSelected = { filterValue in
+                            self.text = filterValue.value
+                            self.onValueChanged?(self.text)
+                        }
+                        let navigationController = UINavigationController(rootViewController: filterViewController)
+                        rootViewController.present(navigationController, animated: true, completion: nil)
+                    } else {
+                        self.text = value.value
+                        self.onValueChanged?(self.text)
+                    }
                 }
                 
                 bottomSheetList.show()

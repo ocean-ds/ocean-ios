@@ -18,6 +18,7 @@ public class InputViewController : UIViewController {
     var textfield : Ocean.InputTextField!
     var textArea : Ocean.TextArea!
     var select: Ocean.InputSelectField!
+    var search: Ocean.InputSearchField!
     
     public override func viewDidLoad() {
         self.textfield = Ocean.Input.textfieldWithLabel { component in
@@ -59,18 +60,32 @@ public class InputViewController : UIViewController {
         self.textArea.translatesAutoresizingMaskIntoConstraints = false
         self.view.addConstraints(generateConstraintsTextAreaTop())
         
+        self.search = Ocean.Input.search { component in
+            component.placeholder = "placeholder"
+        }
+        
+        self.view.addSubview(self.search)
+        self.search.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.search.topAnchor.constraint(equalTo: self.textArea.bottomAnchor, constant: 20),
+            self.search.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.search.widthAnchor.constraint(equalToConstant: 328)
+        ])
+        
         self.select = Ocean.Input.selectWithLabel { component in
             component.placeholder = "placeholder"
             component.helper = "helper text"
             component.titleBottomSheet = "Title"
             component.rootViewController = self
-            component.values = ["Label 1", "Label 2", "Label 3", "Label 4", "Label 5"]
+            component.placeholderFilter = "Digite o texto para filtrar"
+            component.values = ["Label 1", "Label 2", "Label 3", "Label 4", "Label 5", "Label 6", "Label 7", "Label 8", "Label 9", "Label 10", "Label 11", "Label 12", "Label 13", "Label 14", "Label 15", "Label 16", "Label 17", "Label 18", "Label 19", "Label 20", "Label 21", "Label 22", "Label 23", "Label 24", "Label 25"]
+            component.maxValues = 4
         }
         
         self.view.addSubview(self.select)
         self.select.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.select.topAnchor.constraint(equalTo: self.textArea.bottomAnchor, constant: 80),
+            self.select.topAnchor.constraint(equalTo: self.search.bottomAnchor, constant: 20),
             self.select.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             self.select.widthAnchor.constraint(equalToConstant: 328)
         ])
