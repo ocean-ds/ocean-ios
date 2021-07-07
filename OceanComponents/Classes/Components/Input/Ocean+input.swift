@@ -12,6 +12,7 @@ extension Ocean {
     public typealias TextAreaBuilder = (TextArea) -> Void
     public typealias InputTextFieldBuilder = (InputTextField) -> Void
     public typealias InputSelectFieldBuilder = (InputSelectField) -> Void
+    public typealias InputSearchFieldBuilder = (InputSearchField) -> Void
     
     public struct Input {
         public static func textarea(builder: TextAreaBuilder) -> TextArea {
@@ -56,6 +57,13 @@ extension Ocean {
                 inputSelect.title = "Label"
                 inputSelect.placeholder = "inputSelect"
                 builder(inputSelect)
+            }
+        }
+        
+        public static func search(builder: InputSearchFieldBuilder) -> InputSearchField {
+            return InputSearchField { inputSearch in
+                inputSearch.placeholder = "inputSelect"
+                builder(inputSearch)
             }
         }
     }
