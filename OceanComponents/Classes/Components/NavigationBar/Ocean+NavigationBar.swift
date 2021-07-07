@@ -19,27 +19,27 @@ public protocol OceanNavigationBar: UIViewController {
 }
 
 public extension OceanNavigationBar {
-    public var navigationBackImage: UIImage? {
+    var navigationBackImage: UIImage? {
         return self.navigationController?.navigationBar.backIndicatorImage
     }
     
-    public var navigationTitle: String? {
+    var navigationTitle: String? {
         return self.navigationController?.navigationItem.title
     }
     
-    public var navigationTintColor: UIColor {
+    var navigationTintColor: UIColor {
         return Ocean.color.colorBrandPrimaryPure
     }
     
-    public var navigationBackButtonTitle: String {
+    var navigationBackButtonTitle: String {
         return ""
     }
     
-    public var navigationBackgroundColor: UIColor? {
+    var navigationBackgroundColor: UIColor? {
         return nil
     }
     
-    public var navigationShadow: Bool {
+    var navigationShadow: Bool {
         return false
     }
     
