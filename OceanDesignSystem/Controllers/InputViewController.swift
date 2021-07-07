@@ -46,7 +46,7 @@ public class InputViewController : UIViewController {
         self.textArea = Ocean.Input.textareaWithLabel { component in
             component.placeholder = "placeholder"
             component.helper = "helper text"
-            component.showInfoIcon = true
+            component.infoMessage = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."
         }
         self.textArea.onBeginEditing = {
             self.textArea.errorMessage = ""
