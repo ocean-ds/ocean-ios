@@ -156,6 +156,7 @@ extension Ocean {
         public static let currencyYenSolid = UIImage(named: "OceanComponents.bundle/currency-yen-solid", in: .bundleOceanComponents, compatibleWith: .none)
         public static let cursorClickOutline = UIImage(named: "OceanComponents.bundle/cursor-click-outline", in: .bundleOceanComponents, compatibleWith: .none)
         public static let cursorClickSolid = UIImage(named: "OceanComponents.bundle/cursor-click-solid", in: .bundleOceanComponents, compatibleWith: .none)
+        public static let divider = UIImage(named: "OceanComponents.bundle/divider", in: .bundleOceanComponents, compatibleWith: .none)
         public static let databaseOutline = UIImage(named: "OceanComponents.bundle/database-outline", in: .bundleOceanComponents, compatibleWith: .none)
         public static let databaseSolid = UIImage(named: "OceanComponents.bundle/database-solid", in: .bundleOceanComponents, compatibleWith: .none)
         public static let desktopComputerOutline = UIImage(named: "OceanComponents.bundle/desktop-computer-outline", in: .bundleOceanComponents, compatibleWith: .none)
