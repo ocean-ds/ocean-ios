@@ -9,7 +9,7 @@
 import OceanTokens
 import UIKit
 
-protocol OceanNavigationBar: UIViewController {
+public protocol OceanNavigationBar: UIViewController {
     var navigationBackImage: UIImage? { get }
     var navigationTitle: String? { get }
     var navigationTintColor: UIColor { get }
@@ -18,7 +18,7 @@ protocol OceanNavigationBar: UIViewController {
     var navigationShadow: Bool { get }
 }
 
-extension OceanNavigationBar {
+public extension OceanNavigationBar {
     var navigationBackImage: UIImage? {
         return self.navigationController?.navigationBar.backIndicatorImage
     }
