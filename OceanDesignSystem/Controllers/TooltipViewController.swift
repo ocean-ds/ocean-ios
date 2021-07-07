@@ -11,10 +11,6 @@ import OceanTokens
 
 class TooltipViewController: UIViewController {
     
-    @IBOutlet weak var horizontalPositionControll: UISegmentedControl!
-    @IBOutlet weak var verticalPositionControll: UISegmentedControl!
-    private var verticalPosition: Ocean.Tooltip.Position = .top
-    
     private lazy var contentStack: UIStackView = {
         let contentStack = UIStackView()
         contentStack.axis = .vertical
@@ -48,12 +44,12 @@ class TooltipViewController: UIViewController {
         button.layer.cornerRadius = 4
         button.widthAnchor.constraint(equalToConstant: 130).isActive = true
         button.setTitle("Show tooltip", for: .normal)
+        button.addTarget(self, action: #selector(showActionButton), for: .touchUpInside)
         return button
     }()
     
     private var tooltipComponent: Ocean.Tooltip = {
         Ocean.Tooltip { component in
-            component.title = "Title test"
             component.message = "Message test"
         }
     }()
@@ -70,42 +66,11 @@ class TooltipViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        show()
+        showActionButton()
     }
     
-    @IBAction func horizontalValueChanged(_ sender: Any) {
-        
-        switch horizontalPositionControll.selectedSegmentIndex {
-        case 0:
-            leftButtonExampleStack.alignment = .leading
-        case 1:
-            leftButtonExampleStack.alignment = .trailing
-        default:
-            break
-        }
+    @objc func showActionButton() {
+        tooltipComponent.show(target: leftButtonExample, position: .top)
+    }
 
-        show()
-    }
-    
-    @IBAction func verticalValueChanged(_ sender: Any) {
-        switch verticalPositionControll.selectedSegmentIndex {
-        case 0:
-            verticalPosition = .top
-        case 1:
-            verticalPosition = .bottom
-        default:
-            break
-        }
-
-        show()
-    }
-    
-    private func show() {
-        tooltipComponent.removeFromSuperview()
-        tooltipComponent.show(presenter: self.view, target: leftButtonExample, position: verticalPosition, parent: leftButtonExampleStack)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-    }
 }

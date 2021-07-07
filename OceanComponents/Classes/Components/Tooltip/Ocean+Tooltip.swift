@@ -40,7 +40,7 @@ extension Ocean {
         private var backgroundRounded = UIView()
         private var triangleView = UIView()
         private var targetView = UIView()
-        private var parent: UIView?
+        private var presenter = UIView()
         private var position: Position = .bottom
         
         private lazy var contentStack: UIStackView = {
@@ -102,13 +102,14 @@ extension Ocean {
             self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tooltipAction)))
         }
 
-        public func show(presenter: UIView, target: UIView, position: Position = .top, parent view: UIView? = nil) {
+        public func show(target: UIView, position: Position = .top) {
+            guard let presenter = UIApplication.shared.keyWindow?.rootViewController?.presentedViewController?.view else { return }
             self.targetView = target
             self.position = position
-            self.parent = view
+            self.presenter = presenter
             
-            presenter.layoutIfNeeded()
-            presenter.addSubview(self)
+            self.presenter.layoutIfNeeded()
+            self.presenter.addSubview(self)
             
             switch position {
             case .top:
@@ -119,7 +120,7 @@ extension Ocean {
 
             NSLayoutConstraint.activate([
                 self.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - Ocean.size.spacingInlineLg),
-                self.centerXAnchor.constraint(equalTo: presenter.centerXAnchor)
+                self.centerXAnchor.constraint(equalTo: self.presenter.centerXAnchor)
             ])
             
             layoutSubviews()
@@ -132,23 +133,21 @@ extension Ocean {
         public override func layoutSubviews() {
             super.layoutSubviews()
             
-            var xValue: CGFloat = targetView.frame.origin.x + Constants.triangleHeight
-            
-            if let parent = self.parent {
-                xValue = parent.convert(targetView.center, from: parent).x - Constants.triangleHeight
-            }
-            
-            switch position {
-            case .top:
-                triangleView = TriangleView(frame: .init(x: xValue, y: backgroundRounded.frame.height, width: Constants.triangleWidth, height: Constants.triangleHeight))
-                triangleView.rotate(angle: 180)
-            case .bottom:
-                triangleView = TriangleView(frame: .init(x: xValue, y: -Constants.triangleHeight, width: Constants.triangleWidth, height: Constants.triangleHeight))
-            }
-
             self.backgroundRounded.subviews.first?.removeFromSuperview()
             self.backgroundRounded.addSubview(triangleView)
             
+            self.targetView.layoutIfNeeded()
+            self.backgroundRounded.layoutIfNeeded()
+            
+            switch position {
+            case .top:
+                triangleView = TriangleView(frame: .init(x: targetView.center.x, y: backgroundRounded.frame.height, width: Constants.triangleWidth, height: Constants.triangleHeight))
+                triangleView.center = .init(x: targetView.center.x - 5, y: triangleView.center.y)
+                triangleView.rotate(angle: 180)
+            case .bottom:
+                triangleView = TriangleView(frame: .init(x: targetView.center.x, y: -Constants.triangleHeight, width: Constants.triangleWidth, height: Constants.triangleHeight))
+                triangleView.center = .init(x: targetView.center.x - 5, y: triangleView.center.y)
+            }
         }
     }
 }
@@ -160,3 +159,4 @@ fileprivate extension UIView {
         self.transform = rotation
     }
 }
+
