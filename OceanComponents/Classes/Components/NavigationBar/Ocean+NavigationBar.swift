@@ -43,7 +43,7 @@ public extension OceanNavigationBar {
         return false
     }
     
-    public func setupNavigation() {
+    func setupNavigation() {
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.tintColor = navigationTintColor
@@ -75,7 +75,7 @@ public extension OceanNavigationBar {
         }
     }
     
-    public func addCloseButton(action: Selector?) {
+    func addCloseButton(action: Selector?) {
         let image = Ocean.icon.xOutline?.tinted(with: navigationTintColor)
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: image,
                                                            style: .plain,
