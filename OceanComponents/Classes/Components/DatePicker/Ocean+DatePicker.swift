@@ -38,7 +38,12 @@ extension Ocean {
         public var maximumDate: Date?
         public var datesToHide: [Date]?
         
-        private var datePickerViewController: UIViewController!
+        private lazy var datePickerViewController: UIViewController = {
+            let viewController = UIViewController()
+            viewController.modalPresentationStyle = .overFullScreen
+            viewController.modalTransitionStyle = .crossDissolve
+            return viewController
+        }()
 
         func createViews() {
             makeCalendarOverlay()
@@ -53,9 +58,6 @@ extension Ocean {
             makeBackForwardButtons()
             calendarContainer.addSubview(calendarBackForwardButtons)
             
-            self.datePickerViewController = UIViewController()
-            self.datePickerViewController.modalPresentationStyle = .overFullScreen
-            self.datePickerViewController.modalTransitionStyle = .crossDissolve
             self.datePickerViewController.view.addSubview(self)
             
             self.translatesAutoresizingMaskIntoConstraints = false

@@ -53,7 +53,7 @@ extension Ocean {
         
         public var onTouch: (() -> Void)?
         
-        lazy var mainStack: UIStackView = {
+        private lazy var mainStack: UIStackView = {
             UIStackView { stack in
                 stack.axis = .vertical
                 stack.distribution = .fill
@@ -67,7 +67,7 @@ extension Ocean {
             }
         }()
         
-        lazy var contentStack: UIStackView = {
+        private lazy var contentStack: UIStackView = {
             UIStackView { stack in
                 stack.axis = .horizontal
                 stack.distribution = .fill
@@ -86,7 +86,7 @@ extension Ocean {
             }
         }()
         
-        lazy var roundedIconView: UIView = {
+        private lazy var roundedIconView: UIView = {
             let view = UIView()
             view.translatesAutoresizingMaskIntoConstraints = false
             view.clipsToBounds = true
