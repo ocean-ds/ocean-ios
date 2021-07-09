@@ -128,6 +128,7 @@
                         <segue destination="dR4-M7-U3p" kind="show" identifier="SegueAlertBoxComponents" id="k02-dd-Xpb"/>
                         <segue destination="etg-2f-dJ3" kind="show" identifier="SegueDividerComponents" id="NaO-qa-CkN"/>
                         <segue destination="Iba-iR-Lfc" kind="show" identifier="SegueTooltipComponents" id="ylx-jg-TZj"/>
+                        <segue destination="Eg3-uz-9SG" kind="show" identifier="SegueTextListComponents" id="Chv-bd-1fU"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aGw-ly-AWm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1054,6 +1055,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Azz-Kh-fuy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2093" y="1369"/>
+        </scene>
+        <!--Text List View Controller-->
+        <scene sceneID="yry-pd-2Wp">
+            <objects>
+                <viewController id="Eg3-uz-9SG" customClass="TextListViewController" customModule="OceanDesignSystem" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HGf-DP-Khu">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="ObC-CN-R2y"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="LMe-Vk-jB4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wkE-k0-JBW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3465" y="1369"/>
         </scene>
     </scenes>
     <resources>

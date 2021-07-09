@@ -12,6 +12,7 @@
 		1B95B14353B2F1B583E717AA /* Pods_OceanDesignSystemTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC2FB672AAC2DF64A6545D88 /* Pods_OceanDesignSystemTests.framework */; };
 		1C8CBC30A7EB8375212384D4 /* Pods_OceanDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D9D9A171B743DED8A2B2297 /* Pods_OceanDesignSystem.framework */; };
 		2456BF94268612E800E2361E /* DividerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2456BF93268612E800E2361E /* DividerViewController.swift */; };
+		245E5D812698B90100CCF41D /* TextListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245E5D802698B90100CCF41D /* TextListViewController.swift */; };
 		2482CDD4267D055100A50422 /* RadioButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2482CDD3267D055100A50422 /* RadioButtonViewController.swift */; };
 		249DC9402672AD2600012411 /* SwitchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249DC93F2672AD2600012411 /* SwitchViewController.swift */; };
 		24C8013C2680FE4F00744F30 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C8013B2680FE4F00744F30 /* DatePickerViewController.swift */; };
@@ -68,6 +69,7 @@
 		1385ADEE2694719B003F6D07 /* TooltipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipViewController.swift; sourceTree = "<group>"; };
 		138EF63D268502E0000E65EA /* AlertBoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBoxViewController.swift; sourceTree = "<group>"; };
 		2456BF93268612E800E2361E /* DividerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerViewController.swift; sourceTree = "<group>"; };
+		245E5D802698B90100CCF41D /* TextListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextListViewController.swift; sourceTree = "<group>"; };
 		2482CDD3267D055100A50422 /* RadioButtonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonViewController.swift; sourceTree = "<group>"; };
 		249DC93F2672AD2600012411 /* SwitchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchViewController.swift; sourceTree = "<group>"; };
 		24C8013B2680FE4F00744F30 /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 				138EF63D268502E0000E65EA /* AlertBoxViewController.swift */,
 				1385ADEE2694719B003F6D07 /* TooltipViewController.swift */,
 				2456BF93268612E800E2361E /* DividerViewController.swift */,
+				245E5D802698B90100CCF41D /* TextListViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -452,6 +455,7 @@
 				B833D03924A6796100587FDE /* TokensViewController.swift in Sources */,
 				B71D65EA24CA47C500C3938C /* Enums.swift in Sources */,
 				B7CA694E24CB4C940051CA6A /* ComponentTypeViewController.swift in Sources */,
+				245E5D812698B90100CCF41D /* TextListViewController.swift in Sources */,
 				B833D03524A6796100587FDE /* AppDelegate.swift in Sources */,
 				B7BB722224EEEB6F007F8848 /* NibWrapperView.swift in Sources */,
 				1385ADEF2694719B003F6D07 /* TooltipViewController.swift in Sources */,
