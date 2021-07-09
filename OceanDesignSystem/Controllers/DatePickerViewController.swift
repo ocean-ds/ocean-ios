@@ -28,7 +28,7 @@ final public class DatePickerViewController : UIViewController {
         button = Ocean.Button.primaryMD { button in
             button.text = "Abrir Date Picker"
             button.onTouch = {
-                self.presentCalendar()
+                self.datePicker.show(rootViewController: self)
             }
         }
         
@@ -41,19 +41,6 @@ final public class DatePickerViewController : UIViewController {
         stack.addArrangedSubview(button)
         
         self.add(view: stack)
-    }
-    
-    private func presentCalendar() {
-        if view.subviews.contains(datePicker) {
-            datePicker.toogleCalendar()
-        } else {
-            view.addSubview(datePicker)
-            datePicker.translatesAutoresizingMaskIntoConstraints = false
-            datePicker.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-            datePicker.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-            datePicker.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-            datePicker.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        }
     }
     
     private func add(view: UIView) {
