@@ -22,7 +22,8 @@ struct DSComponents {
         "DatePicker",
         "AlertBox",
         "Divider",
-        "Tooltip"
+        "Tooltip",
+        "TextList"
     ]
 }
 

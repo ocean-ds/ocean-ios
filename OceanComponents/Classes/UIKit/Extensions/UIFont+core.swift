@@ -9,21 +9,23 @@
 import OceanTokens
 
 extension UIFont {
-    static func highlightExtraBold(size: CGFloat) -> UIFont? {
+    public static func highlightExtraBold(size: CGFloat) -> UIFont? {
         return UIFont(name: Ocean.font.fontFamilyHighlightWeightExtraBold, size: size)
     }
     
-    static func highlightBold(size: CGFloat) -> UIFont? {
+    public static func highlightBold(size: CGFloat) -> UIFont? {
         return UIFont(name: Ocean.font.fontFamilyHighlightWeightBold, size: size)
     }
 
-    static func baseRegular(size: CGFloat) -> UIFont? {
+    public static func baseRegular(size: CGFloat) -> UIFont? {
         return UIFont(name: Ocean.font.fontFamilyBaseWeightRegular, size: size)
     }
     
-    static func baseBold(size: CGFloat) -> UIFont? {
-        return UIFont(name: Ocean.font.fontFamilyBaseWeightBold, size: size)
+    public static func baseSemiBold(size: CGFloat) -> UIFont? {
+        return UIFont(name: Ocean.font.fontFamilyBaseWeightMedium, size: size)
     }
     
-    
+    public static func baseBold(size: CGFloat) -> UIFont? {
+        return UIFont(name: Ocean.font.fontFamilyBaseWeightBold, size: size)
+    }
 }

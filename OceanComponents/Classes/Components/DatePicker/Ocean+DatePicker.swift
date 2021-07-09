@@ -37,10 +37,13 @@ extension Ocean {
         public var minimumDate: Date?
         public var maximumDate: Date?
         public var datesToHide: [Date]?
-
-        public func toogleCalendar() {
-            self.isHidden = !self.isHidden
-        }
+        
+        private lazy var datePickerViewController: UIViewController = {
+            let viewController = UIViewController()
+            viewController.modalPresentationStyle = .overFullScreen
+            viewController.modalTransitionStyle = .crossDissolve
+            return viewController
+        }()
 
         func createViews() {
             makeCalendarOverlay()
@@ -54,6 +57,14 @@ extension Ocean {
             calendarContainer.addSubview(calendarButtons)
             makeBackForwardButtons()
             calendarContainer.addSubview(calendarBackForwardButtons)
+            
+            self.datePickerViewController.view.addSubview(self)
+            
+            self.translatesAutoresizingMaskIntoConstraints = false
+            self.leftAnchor.constraint(equalTo: self.datePickerViewController.view.leftAnchor).isActive = true
+            self.topAnchor.constraint(equalTo: self.datePickerViewController.view.topAnchor).isActive = true
+            self.rightAnchor.constraint(equalTo: self.datePickerViewController.view.rightAnchor).isActive = true
+            self.bottomAnchor.constraint(equalTo: self.datePickerViewController.view.bottomAnchor).isActive = true
         }
 
         func makeCalendarOverlay() {
@@ -154,7 +165,7 @@ extension Ocean {
                     stack.addArrangedSubview(Ocean.ButtonText { component in
                         component.text = "CANCELAR"
                         component.onTouch = {
-                            self.toogleCalendar()
+                            self.datePickerViewController.dismiss(animated: true, completion: nil)
                             self.onCancelAction?()
                         }
                     })
@@ -163,7 +174,7 @@ extension Ocean {
                         component.text = "OK"
                         component.onTouch = {
                             self.onReleaseCalendar?(self.selectedDate ?? Date())
-                            self.toogleCalendar()
+                            self.datePickerViewController.dismiss(animated: true, completion: nil)
                         }
                     })
                     stack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxs))
@@ -311,6 +322,10 @@ extension Ocean {
             calendar.calendarWeekdayView.weekdayLabels[4].text = "Q"
             calendar.calendarWeekdayView.weekdayLabels[5].text = "S"
             calendar.calendarWeekdayView.weekdayLabels[6].text = "S"
+        }
+        
+        public func show(rootViewController: UIViewController) {
+            rootViewController.present(self.datePickerViewController, animated: true, completion: nil)
         }
 
         private func getFirstDateToSchedule() {

@@ -39,6 +39,7 @@ public enum DesignSystemComponentsType: Int {
     case AlertBox
     case Divider
     case Tooltip
+    case TextList
 }
 
 public enum DesignSystemTypographyType: Int {
