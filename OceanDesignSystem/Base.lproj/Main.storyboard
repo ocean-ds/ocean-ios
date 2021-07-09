@@ -128,11 +128,12 @@
                         <segue destination="dR4-M7-U3p" kind="show" identifier="SegueAlertBoxComponents" id="k02-dd-Xpb"/>
                         <segue destination="etg-2f-dJ3" kind="show" identifier="SegueDividerComponents" id="NaO-qa-CkN"/>
                         <segue destination="Iba-iR-Lfc" kind="show" identifier="SegueTooltipComponents" id="ylx-jg-TZj"/>
+                        <segue destination="aw7-S8-jW5" kind="show" identifier="SegueBottomSheetComponents" id="mcp-yR-T7D"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aGw-ly-AWm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1010" y="690"/>
+            <point key="canvasLocation" x="910" y="710"/>
         </scene>
         <!--Tokens By Category View Controller-->
         <scene sceneID="Acr-yl-duY">
@@ -802,6 +803,56 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O6H-6x-1BD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2596" y="1370"/>
+        </scene>
+        <!--Bottom Sheet View Controller-->
+        <scene sceneID="7Tm-Co-eYL">
+            <objects>
+                <viewController id="aw7-S8-jW5" customClass="BottomSheetViewController" customModule="OceanDesignSystem" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lzk-EF-YLg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Pw1-Es-bjh">
+                                <rect key="frame" x="0.0" y="20" width="414" height="32"/>
+                                <segments>
+                                    <segment title="With actions"/>
+                                    <segment title="List style"/>
+                                </segments>
+                                <connections>
+                                    <action selector="onMainSegmentedChanged:" destination="aw7-S8-jW5" eventType="valueChanged" id="5pX-zi-zZT"/>
+                                </connections>
+                            </segmentedControl>
+                            <segmentedControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="jgs-Gr-3R2">
+                                <rect key="frame" x="20" y="59" width="374" height="32"/>
+                                <segments>
+                                    <segment title="Simple list"/>
+                                    <segment title="With images"/>
+                                </segments>
+                                <connections>
+                                    <action selector="onSubSegmentedChanged:" destination="aw7-S8-jW5" eventType="valueChanged" id="1hW-T2-Pt1"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="wQ5-a8-LuQ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="jgs-Gr-3R2" firstAttribute="leading" secondItem="wQ5-a8-LuQ" secondAttribute="leading" constant="20" id="Cw2-b4-lUF"/>
+                            <constraint firstItem="Pw1-Es-bjh" firstAttribute="trailing" secondItem="wQ5-a8-LuQ" secondAttribute="trailing" id="K8Z-3u-sqJ"/>
+                            <constraint firstItem="wQ5-a8-LuQ" firstAttribute="trailing" secondItem="jgs-Gr-3R2" secondAttribute="trailing" constant="20" id="Ozh-3G-EEw"/>
+                            <constraint firstItem="Pw1-Es-bjh" firstAttribute="leading" secondItem="wQ5-a8-LuQ" secondAttribute="leading" id="bkW-61-PJP"/>
+                            <constraint firstItem="jgs-Gr-3R2" firstAttribute="top" secondItem="Pw1-Es-bjh" secondAttribute="bottom" constant="8" symbolic="YES" id="cMm-vL-3Bn"/>
+                            <constraint firstItem="Pw1-Es-bjh" firstAttribute="top" secondItem="wQ5-a8-LuQ" secondAttribute="top" constant="20" id="x3X-BU-ZMn"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="JBE-Jb-889"/>
+                    <connections>
+                        <outlet property="mainSegmentControl" destination="Pw1-Es-bjh" id="5D1-SM-zgj"/>
+                        <outlet property="subSegmentControl" destination="jgs-Gr-3R2" id="FIG-k8-vMF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FKV-gI-EGz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3240.579710144928" y="1368.75"/>
         </scene>
         <!--Snackbar View Controller-->
         <scene sceneID="C5i-WU-gdJ">
