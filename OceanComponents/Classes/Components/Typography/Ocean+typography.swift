@@ -163,17 +163,17 @@ extension Ocean {
         }
         
         
-        public static func caption(isBold: Bool = false, builder: TypographyBuilder = nil) -> UILabel {
+        public static func caption(builder: TypographyBuilder = nil) -> UILabel {
             return UILabel { label in
-                label.font = isBold ? .baseBold(size: Ocean.font.fontSizeXxxs) : .baseRegular(size: Ocean.font.fontSizeXxxs)
+                label.font = .baseRegular(size: Ocean.font.fontSizeXxxs)
                 label.textColor = Ocean.color.colorInterfaceDarkDown
                 label.setLineHeight(lineHeight: Ocean.font.lineHeightComfy)
                 builder?( label )
             }
         }
         
-        public static func captionInverse(isBold: Bool = false, builder: TypographyBuilder = nil) -> UILabel {
-            return Ocean.Typography.caption(isBold: isBold) { label in
+        public static func captionInverse(builder: TypographyBuilder = nil) -> UILabel {
+            return Ocean.Typography.caption { label in
                 builder?(label)
                 label.textColor = Ocean.color.colorBrandPrimaryUp
             }
