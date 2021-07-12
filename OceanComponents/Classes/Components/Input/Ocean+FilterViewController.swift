@@ -32,7 +32,7 @@ extension Ocean {
                             self.contentValues = self.values
                         } else {
                             self.contentValues = self.values?.filter({ model in
-                                model.value.lowercased().contains(value.lowercased())
+                                model.title.lowercased().contains(value.lowercased())
                             })
                         }
                         self.tableView.reloadData()
@@ -122,8 +122,8 @@ extension Ocean {
         public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell = Ocean.BottomSheetCell()
 
-            cell.titleLabel.text = contentValues?[indexPath.row].value
-            cell.isSelected = contentValues?[indexPath.row].isSelected ?? false
+            cell.model = contentValues?[indexPath.row]
+//            cell.isSelected = contentValues?[indexPath.row].isSelected ?? false
 
             return cell
         }

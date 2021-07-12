@@ -41,12 +41,12 @@ extension Ocean {
                 
                 if let maxValues = self.maxValues {
                     model = self.values.prefix(maxValues).compactMap { value in
-                        CellModel(value: value, isSelected: self.text == value)
+                        CellModel(title: value, isSelected: self.text == value)
                     }
-                    model.append(CellModel(value: "Ver todos", isSelected: false))
+                    model.append(CellModel(title: "Ver todos", isSelected: false))
                 } else {
                     model = self.values.compactMap { value in
-                        CellModel(value: value, isSelected: self.text == value)
+                        CellModel(title: value, isSelected: self.text == value)
                     }
                 }
                 
@@ -56,15 +56,15 @@ extension Ocean {
                     .build()
                 
                 bottomSheetList.onValueSelected = { value in
-                    if value.value == "Ver todos" {
+                    if value.title == "Ver todos" {
                         let values = self.values.compactMap { value in
-                            CellModel(value: value, isSelected: self.text == value)
+                            CellModel(title: value, isSelected: self.text == value)
                         }
                         let filterViewController = FilterViewController(title: self.titleBottomSheet,
                                                                         placeholder: self.placeholderFilter,
                                                                         values: values)
                         filterViewController.onValueSelected = { filterValue in
-                            self.text = filterValue.value
+                            self.text = filterValue.title
                             self.onValueChanged?(self.text)
                         }
                         let navigationController = UINavigationController(rootViewController: filterViewController)
@@ -72,7 +72,7 @@ extension Ocean {
                         navigationController.modalPresentationStyle = .overFullScreen
                         rootViewController.present(navigationController, animated: true, completion: nil)
                     } else {
-                        self.text = value.value
+                        self.text = value.title
                         self.onValueChanged?(self.text)
                     }
                 }
