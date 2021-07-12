@@ -77,14 +77,16 @@ extension Ocean {
                 stack.add([
                     Ocean.Spacer(space: Ocean.size.spacingStackXs),
                     roundedIconView,
-                    Ocean.Spacer(space: Ocean.size.spacingStackXs),
+                    roundedIconViewSpacer,
                     infoStack,
-                    Ocean.Spacer(space: Ocean.size.spacingStackXs),
+                    arrowImageViewSpacer,
                     arrowImageView,
                     Ocean.Spacer(space: Ocean.size.spacingStackXs)
                 ])
             }
         }()
+        
+        lazy var roundedIconViewSpacer = Ocean.Spacer(space: Ocean.size.spacingStackXs)
         
         public lazy var roundedIconView: UIView = {
             let view = UIView()
@@ -109,6 +111,8 @@ extension Ocean {
             view.translatesAutoresizingMaskIntoConstraints = false
             return view
         }()
+        
+        lazy var arrowImageViewSpacer = Ocean.Spacer(space: Ocean.size.spacingStackXs)
         
         public lazy var arrowImageView: UIImageView = {
             let view = UIImageView()
@@ -197,7 +201,9 @@ extension Ocean {
             textLabel.isHidden = text.isEmpty
             textLabel.text = text
             typeImageView.image = image
+            roundedIconViewSpacer.isHidden = image == nil
             roundedIconView.isHidden = image == nil
+            arrowImageViewSpacer.isHidden = !arrow
             arrowImageView.isHidden = !arrow
             badgeView.isHidden = !badge
         }
