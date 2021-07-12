@@ -9,14 +9,14 @@ import OceanTokens
 import UIKit
 
 extension Ocean {
-    public typealias TextListCellBuilder = (TextListCell) -> Void
+    public typealias TextListCellBuilder = ((TextListCell) -> Void)?
     
     public struct TextList {
-        public static func cell(builder: TextListCellBuilder) -> TextListCell {
+        public static func cell(builder: TextListCellBuilder = nil) -> TextListCell {
             return TextListCell(builder: builder)
         }
         
-        public static func cellInverse(builder: TextListCellBuilder) -> TextListCell {
+        public static func cellInverse(builder: TextListCellBuilder = nil) -> TextListCell {
             let textList = TextListCell(builder: builder)
             textList.titleLabel.font = .baseRegular(size: Ocean.font.fontSizeXxs)
             textList.titleLabel.textColor = Ocean.color.colorInterfaceDarkDown
@@ -25,7 +25,7 @@ extension Ocean {
             return textList
         }
         
-        public static func cellInverseHighlight(builder: TextListCellBuilder) -> TextListCell {
+        public static func cellInverseHighlight(builder: TextListCellBuilder = nil) -> TextListCell {
             let textList = TextListCell(builder: builder)
             textList.titleLabel.font = .baseRegular(size: Ocean.font.fontSizeXxs)
             textList.titleLabel.textColor = Ocean.color.colorInterfaceDarkDown

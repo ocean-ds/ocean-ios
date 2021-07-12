@@ -170,9 +170,9 @@ extension Ocean {
             }
         }()
         
-        public convenience init(builder: TextListCellBuilder) {
+        public convenience init(builder: TextListCellBuilder = nil) {
             self.init()
-            builder(self)
+            builder?(self)
         }
         
         override init(frame: CGRect) {
