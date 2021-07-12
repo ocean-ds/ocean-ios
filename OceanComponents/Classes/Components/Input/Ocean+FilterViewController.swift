@@ -123,7 +123,6 @@ extension Ocean {
             let cell = Ocean.BottomSheetCell()
 
             cell.model = contentValues?[indexPath.row]
-//            cell.isSelected = contentValues?[indexPath.row].isSelected ?? false
 
             return cell
         }
