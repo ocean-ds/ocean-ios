@@ -53,7 +53,7 @@ extension Ocean {
         
         public var onTouch: (() -> Void)?
         
-        private lazy var mainStack: UIStackView = {
+        public lazy var mainStack: UIStackView = {
             UIStackView { stack in
                 stack.axis = .vertical
                 stack.distribution = .fill
@@ -67,7 +67,7 @@ extension Ocean {
             }
         }()
         
-        private lazy var contentStack: UIStackView = {
+        public lazy var contentStack: UIStackView = {
             UIStackView { stack in
                 stack.axis = .horizontal
                 stack.distribution = .fill
@@ -86,7 +86,7 @@ extension Ocean {
             }
         }()
         
-        private lazy var roundedIconView: UIView = {
+        public lazy var roundedIconView: UIView = {
             let view = UIView()
             view.translatesAutoresizingMaskIntoConstraints = false
             view.clipsToBounds = true
@@ -104,13 +104,13 @@ extension Ocean {
             return view
         }()
         
-        lazy var typeImageView: UIImageView = {
+        public lazy var typeImageView: UIImageView = {
             let view = UIImageView()
             view.translatesAutoresizingMaskIntoConstraints = false
             return view
         }()
         
-        lazy var arrowImageView: UIImageView = {
+        public lazy var arrowImageView: UIImageView = {
             let view = UIImageView()
             view.translatesAutoresizingMaskIntoConstraints = false
             view.image = Ocean.icon.chevronRightSolid
@@ -118,9 +118,9 @@ extension Ocean {
             return view
         }()
         
-        lazy var badgeView = Ocean.Badge()
+        public lazy var badgeView = Ocean.Badge()
         
-        lazy var infoStackTitle: UIStackView = {
+        public lazy var infoStackTitle: UIStackView = {
             UIStackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
                 stack.axis = .horizontal
@@ -135,7 +135,7 @@ extension Ocean {
             }
         }()
         
-        lazy var infoStack: UIStackView = {
+        public lazy var infoStack: UIStackView = {
             UIStackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
                 stack.axis = .vertical
@@ -150,16 +150,16 @@ extension Ocean {
             }
         }()
         
-        lazy var titleLabel: UILabel = {
+        public lazy var titleLabel: UILabel = {
             Ocean.Typography.paragraph { label in
                 label.font = .baseSemiBold(size: Ocean.font.fontSizeXs)
                 label.textColor = Ocean.color.colorInterfaceDarkDeep
             }
         }()
         
-        lazy var subtitleLabel = Ocean.Typography.description()
+        public lazy var subtitleLabel = Ocean.Typography.description()
 
-        lazy var textLabel = Ocean.Typography.caption()
+        public lazy var textLabel = Ocean.Typography.caption()
         
         public convenience init(builder: TextListCellBuilder) {
             self.init()
