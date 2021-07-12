@@ -17,7 +17,7 @@ final public class TextListViewController : UIViewController {
         stack.alignment = .center
         stack.distribution = .fillProportionally
         stack.axis = .vertical
-        stack.spacing = Ocean.size.spacingStackXxs
+        stack.spacing = 0
         
         let textList1 = Ocean.TextList.cell { textList in
             textList.title = "Title"

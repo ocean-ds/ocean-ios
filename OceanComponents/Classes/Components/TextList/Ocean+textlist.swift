@@ -17,21 +17,11 @@ extension Ocean {
         }
         
         public static func cellInverse(builder: TextListCellBuilder = nil) -> TextListCell {
-            let textList = TextListCell(builder: builder)
-            textList.titleLabel.font = .baseRegular(size: Ocean.font.fontSizeXxs)
-            textList.titleLabel.textColor = Ocean.color.colorInterfaceDarkDown
-            textList.subtitleLabel.font = .baseRegular(size: Ocean.font.fontSizeXs)
-            textList.subtitleLabel.textColor = Ocean.color.colorInterfaceDarkDeep
-            return textList
+            return TextListCell(type: .inverse, builder: builder)
         }
         
         public static func cellInverseHighlight(builder: TextListCellBuilder = nil) -> TextListCell {
-            let textList = TextListCell(builder: builder)
-            textList.titleLabel.font = .baseRegular(size: Ocean.font.fontSizeXxs)
-            textList.titleLabel.textColor = Ocean.color.colorInterfaceDarkDown
-            textList.subtitleLabel.font = .baseSemiBold(size: Ocean.font.fontSizeSm)
-            textList.subtitleLabel.textColor = Ocean.color.colorInterfaceDarkDeep
-            return textList
+            return TextListCell(type: .inverseHighlight, builder: builder)
         }
     }
 }
