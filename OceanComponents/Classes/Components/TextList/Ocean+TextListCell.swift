@@ -154,12 +154,21 @@ extension Ocean {
             Ocean.Typography.paragraph { label in
                 label.font = .baseSemiBold(size: Ocean.font.fontSizeXs)
                 label.textColor = Ocean.color.colorInterfaceDarkDeep
+                label.numberOfLines = 1
             }
         }()
         
-        public lazy var subtitleLabel = Ocean.Typography.description()
+        public lazy var subtitleLabel: UILabel = {
+            Ocean.Typography.description { label in
+                label.numberOfLines = 1
+            }
+        }()
 
-        public lazy var textLabel = Ocean.Typography.caption()
+        public lazy var textLabel: UILabel = {
+            Ocean.Typography.caption { label in
+                label.numberOfLines = 1
+            }
+        }()
         
         public convenience init(builder: TextListCellBuilder) {
             self.init()

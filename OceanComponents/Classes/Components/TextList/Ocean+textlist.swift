@@ -22,6 +22,7 @@ extension Ocean {
             textList.titleLabel.textColor = Ocean.color.colorInterfaceDarkDown
             textList.subtitleLabel.font = .baseRegular(size: Ocean.font.fontSizeXs)
             textList.subtitleLabel.textColor = Ocean.color.colorInterfaceDarkDeep
+            textList.subtitleLabel.numberOfLines = 2
             return textList
         }
         
@@ -31,6 +32,7 @@ extension Ocean {
             textList.titleLabel.textColor = Ocean.color.colorInterfaceDarkDown
             textList.subtitleLabel.font = .baseSemiBold(size: Ocean.font.fontSizeSm)
             textList.subtitleLabel.textColor = Ocean.color.colorInterfaceDarkDeep
+            textList.subtitleLabel.numberOfLines = 2
             return textList
         }
     }
