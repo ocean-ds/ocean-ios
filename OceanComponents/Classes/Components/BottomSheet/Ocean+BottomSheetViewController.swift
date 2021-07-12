@@ -50,7 +50,7 @@ extension Ocean {
         
         private var heightSpacing: CGFloat {
             get {
-                return hasTopNotch ? 80 : 60
+                return hasTopNotch ? 30 : 20
             }
         }
         
@@ -93,7 +93,10 @@ extension Ocean {
             
             mainStack.updateConstraints()
             mainStack.layoutIfNeeded()
-            let tableHeight = Constants.heightCellWithImages * (CGFloat(contentValues?.count ?? 1))
+            
+            let pureHeight = contentValues?.first?.imageIcon != nil ? Constants.heightCellWithImages : Constants.heightCell
+            let tableHeight = pureHeight * (CGFloat(contentValues?.count ?? 1))
+            
             spTransitionDelegate.customHeight = mainStack.frame.height + tableHeight + heightSpacing
         }
         
@@ -176,7 +179,7 @@ extension Ocean {
                 label.textAlignment = .center
                 label.textColor = Ocean.color.colorInterfaceDarkUp
             })
-            
+
             mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
         }
 

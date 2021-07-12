@@ -70,11 +70,8 @@ class BottomSheetViewController: UIViewController {
     private lazy var sheetListWithImageComponent: Ocean.BottomSheetViewController = {
         Ocean.BottomSheetList(self)
             .withTitle("Teste").withValues([
-                Ocean.CellModel(title: "Via PIX", subTitle: "Transferência grátis e imediata", imageIcon: Ocean.icon.adjustmentsSolid),
-                Ocean.CellModel(title: "Via TED", subTitle: "Recebimento em até um dia útil", imageIcon: Ocean.icon.annotationSolid),
-                Ocean.CellModel(title: "Via TED", subTitle: "Recebimento em até um dia útil", imageIcon: Ocean.icon.annotationSolid),
-                Ocean.CellModel(title: "Via TED", subTitle: "Recebimento em até um dia útil", imageIcon: Ocean.icon.annotationSolid)
-                
+                Ocean.CellModel(title: "Via PIX", subTitle: "Transferência", imageIcon: Ocean.icon.annotationSolid, hideChevron: false),
+                Ocean.CellModel(title: "Via TED", subTitle: "Recebimento", imageIcon: Ocean.icon.archiveSolid, hideChevron: false)
             ])
             .build()
     }()

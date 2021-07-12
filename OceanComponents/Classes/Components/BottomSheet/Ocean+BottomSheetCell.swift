@@ -28,6 +28,7 @@ extension Ocean {
             stack.translatesAutoresizingMaskIntoConstraints = false
             stack.addArrangedSubview(iconImageView)
             stack.addArrangedSubview(labelsStack)
+            stack.addArrangedSubview(chevronStack)
             
             return stack
         }()
@@ -66,6 +67,23 @@ extension Ocean {
             }
         }()
         
+        private lazy var chevronStack: UIStackView = {
+            let stack = UIStackView()
+            stack.axis = .vertical
+            stack.distribution = .fillProportionally
+            stack.alignment = .trailing
+            stack.addArrangedSubview(chevronImageView)
+            return stack
+        }()
+        
+        public lazy var chevronImageView: UIImageView = {
+            let imageView = UIImageView()
+            imageView.image = Ocean.icon.chevronRightSolid
+            imageView.contentMode = .scaleAspectFit
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            return imageView
+        }()
+
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
             setupUI()
@@ -89,6 +107,8 @@ extension Ocean {
             
             iconImageView.image = model.imageIcon
             iconImageView.isHidden = model.imageIcon == nil
+            
+            chevronImageView.isHidden = model.hideChevron
         }
         
         private func setupUI() {
