@@ -47,7 +47,7 @@ public extension OceanNavigationBar {
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.tintColor = navigationTintColor
-        navigationController?.navigationBar.shadowImage = navigationShadow ? Ocean.icon.divider : UIImage()
+        navigationController?.navigationBar.shadowImage = navigationShadow ? Ocean.color.colorInterfaceLightDeep.as1ptImage() : UIImage()
 
         navigationController?.title = navigationTitle
         navigationController?.navigationBar.titleTextAttributes = [
