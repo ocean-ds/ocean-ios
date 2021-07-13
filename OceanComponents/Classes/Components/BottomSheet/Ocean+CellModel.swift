@@ -10,7 +10,18 @@ import OceanTokens
 
 extension Ocean {
     public struct CellModel {
-        let value: String
+        let title: String
+        let subTitle: String
+        let imageIcon: UIImage?
+        let hideChevron: Bool
         var isSelected: Bool
+        
+        public init(title: String, isSelected: Bool = false, subTitle: String = "", imageIcon: UIImage? = nil, hideChevron: Bool = true) {
+            self.title = title
+            self.subTitle = subTitle
+            self.imageIcon = imageIcon
+            self.isSelected = isSelected
+            self.hideChevron = hideChevron
+        }
     }
 }

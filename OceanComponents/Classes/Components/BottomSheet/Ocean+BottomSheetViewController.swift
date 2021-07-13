@@ -11,6 +11,12 @@ import OceanTokens
 
 extension Ocean {
     public class BottomSheetViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+        
+        struct Constants {
+            static let heightCell: CGFloat = 48
+            static let heightCellWithImages: CGFloat = 73
+        }
+        
         private lazy var mainStack: UIStackView = {
             UIStackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
@@ -42,15 +48,9 @@ extension Ocean {
             return delegate
         }()
         
-        private var heightCell: CGFloat {
-            get {
-                return 48
-            }
-        }
-        
         private var heightSpacing: CGFloat {
             get {
-                return hasTopNotch ? 80 : 60
+                return hasTopNotch ? 30 : 20
             }
         }
         
@@ -93,7 +93,10 @@ extension Ocean {
             
             mainStack.updateConstraints()
             mainStack.layoutIfNeeded()
-            let tableHeight = heightCell * (CGFloat(contentValues?.count ?? 1) - 1)
+            
+            let pureHeight = contentValues?.first?.imageIcon != nil ? Constants.heightCellWithImages : Constants.heightCell
+            let tableHeight = pureHeight * (CGFloat(contentValues?.count ?? 1))
+            
             spTransitionDelegate.customHeight = mainStack.frame.height + tableHeight + heightSpacing
         }
         
@@ -176,7 +179,7 @@ extension Ocean {
                 label.textAlignment = .center
                 label.textColor = Ocean.color.colorInterfaceDarkUp
             })
-            
+
             mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
         }
 
@@ -242,14 +245,14 @@ extension Ocean {
         public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell = Ocean.BottomSheetCell()
 
-            cell.titleLabel.text = contentValues?[indexPath.row].value
-            cell.isSelected = contentValues?[indexPath.row].isSelected ?? false
+            cell.model = contentValues?[indexPath.row]
 
             return cell
         }
 
         public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            return heightCell
+            let hasImageIcon = self.contentValues?[indexPath.row].imageIcon != nil
+            return hasImageIcon ? Constants.heightCellWithImages : Constants.heightCell
         }
 
         public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

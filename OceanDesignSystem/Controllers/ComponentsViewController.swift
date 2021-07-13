@@ -47,15 +47,7 @@ class ComponentsViewController: UITableViewController {
         case DesignSystemComponentsType.Switch.rawValue:
             performSegue(withIdentifier: "SegueSwitchComponents", sender: self)
         case DesignSystemComponentsType.BottomSheet.rawValue:
-            Ocean.BottomSheet(self)
-                .withImage(Ocean.icon.calculatorSolid)
-                .withTitle("Titulo")
-                .withDescription("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Galley of type and scrambled it to make a type specimen book.")
-                .withAction(textNegative: "Cancelar", actionNegative: nil,
-                            textPositive: "Ativar", actionPositive: nil)
-                .withCode("123")
-                .build()
-                .show()
+            performSegue(withIdentifier: "SegueBottomSheetComponents", sender: self)
         case DesignSystemComponentsType.RadioButton.rawValue:
             performSegue(withIdentifier: "SegueRadioButtonComponents", sender: self)
         case DesignSystemComponentsType.DatePicker.rawValue:

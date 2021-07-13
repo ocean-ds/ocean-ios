@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1385ADEF2694719B003F6D07 /* TooltipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1385ADEE2694719B003F6D07 /* TooltipViewController.swift */; };
 		138EF63E268502E1000E65EA /* AlertBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138EF63D268502E0000E65EA /* AlertBoxViewController.swift */; };
+		13F2534526986B9400883519 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F2534426986B9400883519 /* BottomSheetViewController.swift */; };
 		1B95B14353B2F1B583E717AA /* Pods_OceanDesignSystemTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC2FB672AAC2DF64A6545D88 /* Pods_OceanDesignSystemTests.framework */; };
 		1C8CBC30A7EB8375212384D4 /* Pods_OceanDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D9D9A171B743DED8A2B2297 /* Pods_OceanDesignSystem.framework */; };
 		2456BF94268612E800E2361E /* DividerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2456BF93268612E800E2361E /* DividerViewController.swift */; };
@@ -68,6 +69,7 @@
 		043BA5BEEE6D99AE945720B4 /* Pods-OceanDesignSystem.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OceanDesignSystem.debug.xcconfig"; path = "Target Support Files/Pods-OceanDesignSystem/Pods-OceanDesignSystem.debug.xcconfig"; sourceTree = "<group>"; };
 		1385ADEE2694719B003F6D07 /* TooltipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipViewController.swift; sourceTree = "<group>"; };
 		138EF63D268502E0000E65EA /* AlertBoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBoxViewController.swift; sourceTree = "<group>"; };
+		13F2534426986B9400883519 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		2456BF93268612E800E2361E /* DividerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerViewController.swift; sourceTree = "<group>"; };
 		245E5D802698B90100CCF41D /* TextListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextListViewController.swift; sourceTree = "<group>"; };
 		2482CDD3267D055100A50422 /* RadioButtonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonViewController.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				24C8013B2680FE4F00744F30 /* DatePickerViewController.swift */,
 				138EF63D268502E0000E65EA /* AlertBoxViewController.swift */,
 				1385ADEE2694719B003F6D07 /* TooltipViewController.swift */,
+				13F2534426986B9400883519 /* BottomSheetViewController.swift */,
 				2456BF93268612E800E2361E /* DividerViewController.swift */,
 				245E5D802698B90100CCF41D /* TextListViewController.swift */,
 			);
@@ -473,6 +476,7 @@
 				2482CDD4267D055100A50422 /* RadioButtonViewController.swift in Sources */,
 				B7BB722024EEEA89007F8848 /* SnackbarView.swift in Sources */,
 				B833D03724A6796100587FDE /* SceneDelegate.swift in Sources */,
+				13F2534526986B9400883519 /* BottomSheetViewController.swift in Sources */,
 				B71D65E724CA2A8200C3938C /* Cells.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
