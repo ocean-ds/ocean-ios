@@ -191,7 +191,7 @@ extension Ocean {
             makeInfoIconImageView()
             titleStackView = UIStackView()
             titleStackView.axis = .horizontal
-            titleStackView.alignment = .fill
+            titleStackView.alignment = .center
             titleStackView.distribution = .fill
             titleStackView.spacing = 5
             titleStackView.addArrangedSubview(labelTitle)
