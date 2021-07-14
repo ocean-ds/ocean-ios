@@ -14,10 +14,10 @@ extension Ocean {
         
         private let generator = UISelectionFeedbackGenerator()
         
-        private var mainStack: UIStackView!
-        private var radioBkgView: UIControl!
-        private var radioStack: UIStackView!
-        private var textLabel: UILabel!
+        public var mainStack: UIStackView!
+        public var radioBkgView: UIControl!
+        public var radioStack: UIStackView!
+        public var textLabel: UILabel!
 
         public var label: String = ""{
             didSet {
