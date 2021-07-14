@@ -11,19 +11,20 @@ import OceanTokens
 
 extension Ocean {
     public class TextArea: UIControl, UITextViewDelegate {
-        private let errorEmpty = "..."
-        internal var mainStack: UIStackView!
-        private var textArea: UITextView!
-        private var labelTitle: UILabel!
-        private var labelError: UILabel!
-        private var labelHelper: UILabel!
-        private var hStack: UIStackView!
-        private var backgroundView: UIView!
+        public var mainStack: UIStackView!
+        public var textArea: UITextView!
+        public var labelTitle: UILabel!
+        public var labelError: UILabel!
+        public var labelHelper: UILabel!
+        public var hStack: UIStackView!
+        public var backgroundView: UIView!
+        public var labelPlaceholder: UILabel!
+        public var titleStackContent: UIStackView!
+        public var titleStackView: UIStackView!
+        public var infoIconImageView: UIImageView!
+        
         private var height: CGFloat = 78
-        private var labelPlaceholder: UILabel!
-        private var titleStackContent: UIStackView!
-        private var titleStackView: UIStackView!
-        private var infoIconImageView: UIImageView!
+        private let errorEmpty = "..."
         
         private lazy var tooltip: Ocean.Tooltip = {
             Ocean.Tooltip { component in

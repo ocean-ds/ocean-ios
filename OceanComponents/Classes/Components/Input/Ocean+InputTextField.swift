@@ -17,19 +17,19 @@ extension Ocean {
     }
 
     public class InputTextField: UIControl, UITextFieldDelegate {
-        var mainStack: UIStackView!
-
-        private let errorEmpty = "..."
-        private var labelTitle: UILabel!
+        public var mainStack: UIStackView!
+        public var labelTitle: UILabel!
         public var textField: UITextField!
-        private var imageView: UIImageView!
-        private var labelError: UILabel!
-        private var labelHelper: UILabel!
-        private var hStack: UIStackView!
-        private var backgroundView: UIView!
-        private var titleStackContent: UIStackView!
-        private var titleStackView: UIStackView!
-        private var infoIconImageView: UIImageView!
+        public var imageView: UIImageView!
+        public var labelError: UILabel!
+        public var labelHelper: UILabel!
+        public var hStack: UIStackView!
+        public var backgroundView: UIView!
+        public var titleStackContent: UIStackView!
+        public var titleStackView: UIStackView!
+        public var infoIconImageView: UIImageView!
+        
+        private let errorEmpty = "..."
         
         private lazy var tooltip: Ocean.Tooltip = {
             Ocean.Tooltip { component in
