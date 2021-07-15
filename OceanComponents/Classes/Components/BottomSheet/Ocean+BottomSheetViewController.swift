@@ -56,7 +56,7 @@ extension Ocean {
         
         private var rootViewController: UIViewController
 
-        var onValueSelected: ((CellModel) -> Void)?
+        public var onValueSelected: ((Int, CellModel) -> Void)?
         
         var contentImage: UIImage?
         var contentTitle: String?
@@ -258,7 +258,7 @@ extension Ocean {
         public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             if let value = contentValues?[indexPath.row] {
                 self.dismiss(animated: true, completion: nil)
-                self.onValueSelected?(value)
+                self.onValueSelected?(indexPath.row, value)
             }
         }
     }

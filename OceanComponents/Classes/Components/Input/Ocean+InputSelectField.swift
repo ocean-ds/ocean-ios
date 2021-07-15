@@ -55,7 +55,7 @@ extension Ocean {
                     .withValues(model)
                     .build()
                 
-                bottomSheetList.onValueSelected = { value in
+                bottomSheetList.onValueSelected = { _, value in
                     if value.title == "Ver todos" {
                         let values = self.values.compactMap { value in
                             CellModel(title: value, isSelected: self.text == value)
