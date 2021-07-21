@@ -10,9 +10,9 @@ import UIKit
 import OceanTokens
 
 class BottomSheetViewController: UIViewController {
-    
     enum ShowCases {
-        case withActons
+        case withActonsNormal
+        case withActonsCritical
         case listWithImages
         case simpleList
     }
@@ -20,7 +20,7 @@ class BottomSheetViewController: UIViewController {
     @IBOutlet weak var mainSegmentControl: UISegmentedControl!
     @IBOutlet weak var subSegmentControl: UISegmentedControl!
     
-    private var showCase: ShowCases = .withActons
+    private var showCase: ShowCases = .withActonsNormal
     
     private lazy var contentStack: UIStackView = {
         let contentStack = UIStackView()
@@ -35,16 +35,11 @@ class BottomSheetViewController: UIViewController {
         return contentStack
     }()
     
-    private lazy var showSheetButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .blue
-        button.clipsToBounds = true
-        button.layer.cornerRadius = 4
-        button.widthAnchor.constraint(equalToConstant: 130).isActive = true
-        button.setTitle("Show Sheet", for: .normal)
-        button.addTarget(self, action: #selector(showBottomSheetActionButton), for: .touchUpInside)
-        return button
+    private lazy var showSheetButton: Ocean.ButtonPrimary = {
+        Ocean.Button.primaryBlockedMD { button in
+            button.text = "Show Sheet"
+            button.onTouch = self.showBottomSheetActionButton
+        }
     }()
 
     private lazy var sheetComponent: Ocean.BottomSheetViewController = {
@@ -58,9 +53,19 @@ class BottomSheetViewController: UIViewController {
             .build()
     }()
     
+    private lazy var sheetCriticalComponent: Ocean.BottomSheetViewController = {
+        Ocean.BottomSheetCritical(self)
+            .withTitle("Titulo")
+            .withDescription("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Galley of type and scrambled it to make a type specimen book?")
+            .withAction(textNegative: "Cancelar", actionNegative: nil,
+                        textPositive: "Recusar", actionPositive: nil)
+            .build()
+    }()
+    
     private lazy var sheetListComponent: Ocean.BottomSheetViewController = {
         Ocean.BottomSheetList(self)
-            .withTitle("Teste").withValues([
+            .withTitle("Teste")
+            .withValues([
                 Ocean.CellModel(title: "Teste 1"),
                 Ocean.CellModel(title: "Teste 2"),
             ])
@@ -86,10 +91,12 @@ class BottomSheetViewController: UIViewController {
         ])
     }
     
-    @objc private func showBottomSheetActionButton() {
+    private func showBottomSheetActionButton() {
         switch showCase {
-        case .withActons:
+        case .withActonsNormal:
             sheetComponent.show()
+        case .withActonsCritical:
+            sheetCriticalComponent.show()
         case .simpleList:
             sheetListComponent.show()
         case .listWithImages:
@@ -100,10 +107,14 @@ class BottomSheetViewController: UIViewController {
     @IBAction func onMainSegmentedChanged(_ sender: Any) {
         switch mainSegmentControl.selectedSegmentIndex {
         case 0:
-            subSegmentControl.isHidden = true
-            showCase = .withActons
+            subSegmentControl.selectedSegmentIndex = 0
+            subSegmentControl.setTitle("Normal", forSegmentAt: 0)
+            subSegmentControl.setTitle("Critical", forSegmentAt: 1)
+            showCase = .withActonsNormal
         case 1:
-            subSegmentControl.isHidden = false
+            subSegmentControl.selectedSegmentIndex = 0
+            subSegmentControl.setTitle("Simple List", forSegmentAt: 0)
+            subSegmentControl.setTitle("With Image", forSegmentAt: 1)
             showCase = .simpleList
         default:
             break
@@ -113,10 +124,9 @@ class BottomSheetViewController: UIViewController {
     @IBAction func onSubSegmentedChanged(_ sender: Any) {
         switch subSegmentControl.selectedSegmentIndex {
         case 0:
-            showCase = .simpleList
+            showCase = mainSegmentControl.selectedSegmentIndex == 0 ? .withActonsNormal : .simpleList
         case 1:
-            subSegmentControl.isHidden = false
-            showCase = .listWithImages
+            showCase = mainSegmentControl.selectedSegmentIndex == 0 ? .withActonsCritical : .listWithImages
         default:
             break
         }
