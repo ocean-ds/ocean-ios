@@ -20,6 +20,7 @@ extension Ocean {
 
         public var textField: UITextField!
         private var imageView: UIImageView!
+        private var imageCloseView: UIImageView!
         private var hStack: UIStackView!
         private var backgroundView: UIView!
         
@@ -140,6 +141,7 @@ extension Ocean {
             }
             self.text = textField.text ?? ""
             self.onValueChanged?(self.text)
+            self.imageCloseView.isHidden = self.text.isEmpty
         }
 
         func makeImageView() {
@@ -148,6 +150,21 @@ extension Ocean {
             imageView.tintColor = Ocean.color.colorInterfaceLightDeep
             imageView.contentMode = .scaleAspectFit
             imageView.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        func makeImageCloseView() {
+            imageCloseView = UIImageView()
+            imageCloseView.image = Ocean.icon.xSolid?.withRenderingMode(.alwaysTemplate)
+            imageCloseView.tintColor = Ocean.color.colorInterfaceLightDeep
+            imageCloseView.contentMode = .scaleAspectFit
+            imageCloseView.translatesAutoresizingMaskIntoConstraints = false
+            imageCloseView.isHidden = true
+            imageCloseView.addTapGesture(target: self, selector: #selector(imageCloseTap))
+        }
+        
+        @objc func imageCloseTap() {
+            textField.text = ""
+            editingChanged(textField: textField)
         }
         
         func updateState() {
@@ -194,6 +211,7 @@ extension Ocean {
             self.backgroundView?.backgroundColor = background
             self.backgroundView?.layer.borderColor = border.cgColor
             self.textField?.placeHolderColor = placeHolder
+            self.imageView.tintColor = border
         }
 
         func makeView() {
@@ -201,6 +219,7 @@ extension Ocean {
             self.makeHStack()
             self.makeTextField()
             self.makeImageView()
+            self.makeImageCloseView()
             
             backgroundView = UIView()
             backgroundView.translatesAutoresizingMaskIntoConstraints = false
@@ -214,6 +233,8 @@ extension Ocean {
             hStack.addArrangedSubview(imageView)
             hStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxs))
             hStack.addArrangedSubview(textField)
+            hStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxs))
+            hStack.addArrangedSubview(imageCloseView)
             hStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
             
             backgroundView.addSubview(hStack)
