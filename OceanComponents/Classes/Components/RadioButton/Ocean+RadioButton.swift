@@ -99,6 +99,8 @@ extension Ocean {
             } else {
                 changeToUnchecked()
             }
+            
+            textLabel.textColor = isEnabled ? Ocean.color.colorInterfaceDarkDown : Ocean.color.colorInterfaceLightDeep
         }
 
         func makeView() {
@@ -164,14 +166,14 @@ extension Ocean {
 
         private func changeToChecked() {
             changeForegroundCircle(path: foregroundShrinkPath)
-            let color = isEnabled ? Ocean.color.colorComplementaryPure : Ocean.color.colorInterfaceDarkUp
+            let color = isEnabled ? Ocean.color.colorComplementaryPure : Ocean.color.colorInterfaceLightDown
             changeShapeColorOf(layer: backgroundCircleLayer, color: color)
             radioBkgView.isUserInteractionEnabled = self.isInteractionEnabled
         }
 
         private func changeToUnchecked() {
             changeForegroundCircle(path: foregroundExpandPath)
-            let backgroundCircleColor = isEnabled ? Ocean.color.colorInterfaceDarkUp : Ocean.color.colorInterfaceLightDeep
+            let backgroundCircleColor = isEnabled ? Ocean.color.colorInterfaceDarkUp : Ocean.color.colorInterfaceLightDown
             changeShapeColorOf(layer: backgroundCircleLayer, color: backgroundCircleColor)
 
             if let foregroundCircleColor = isEnabled ? Ocean.color.colorInterfaceLightPure : backgroundColor {
