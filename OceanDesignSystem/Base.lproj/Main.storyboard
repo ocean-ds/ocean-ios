@@ -928,6 +928,7 @@
                                     <segment title="Secondary"/>
                                     <segment title="Inverse"/>
                                     <segment title="Text"/>
+                                    <segment title="Critical"/>
                                 </segments>
                                 <connections>
                                     <action selector="onValueChangedTypes:" destination="Cg8-qg-q16" eventType="valueChanged" id="2Bv-Rw-kxc"/>

@@ -9,7 +9,7 @@ import Foundation
 import OceanTokens
 
 extension Ocean {
-    final public class ButtonPrimary: UIControl {
+    public class ButtonPrimary: UIControl {
         public enum Size {
             case medium
             case small
@@ -69,16 +69,17 @@ extension Ocean {
         private var label: UILabel!
         private var imageView: UIImageView!
         private var activityIndicator: UIActivityIndicatorView!
-        private var activeBackgroundColor: UIColor!
-        private var activeLabelColor: UIColor!
-        private var hoverBackgroundColor: UIColor!
-        private var hoverLabelColor: UIColor!
-        private var pressedBackgroundColor: UIColor!
-        private var pressedLabelColor: UIColor!
-        private var focusedBackgroundColor: UIColor!
-        private var focusedLabelColor: UIColor!
-        private var disabledBackgroundColor: UIColor!
-        private var disabledLabelColor: UIColor!
+        
+        internal var activeBackgroundColor: UIColor!
+        internal var activeLabelColor: UIColor!
+        internal var hoverBackgroundColor: UIColor!
+        internal var hoverLabelColor: UIColor!
+        internal var pressedBackgroundColor: UIColor!
+        internal var pressedLabelColor: UIColor!
+        internal var focusedBackgroundColor: UIColor!
+        internal var focusedLabelColor: UIColor!
+        internal var disabledBackgroundColor: UIColor!
+        internal var disabledLabelColor: UIColor!
 
         private var paddingLeftConstraints: NSLayoutConstraint!
         private var paddingRightConstraints: NSLayoutConstraint!
@@ -131,7 +132,6 @@ extension Ocean {
         }
         
         private func makeView() {
-
             let contentStack = UIStackView()
             contentStack.translatesAutoresizingMaskIntoConstraints = false
             contentStack.axis = .horizontal

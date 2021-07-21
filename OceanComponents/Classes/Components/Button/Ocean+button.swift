@@ -16,30 +16,28 @@ extension Ocean {
     public typealias ButtonPrimaryInverseBuilder = (ButtonPrimaryInverse) -> Void
     
     public struct Button {
-        
-        public static func primarySM(builder:ButtonPrimaryBuilder) -> ButtonPrimary {
+        public static func primarySM(builder: ButtonPrimaryBuilder) -> ButtonPrimary {
             return ButtonPrimary { button in
                 button.size = .small
                 builder( button )
             }
         }
         
-        public static func primaryMD(builder:ButtonPrimaryBuilder) -> ButtonPrimary {
+        public static func primaryMD(builder: ButtonPrimaryBuilder) -> ButtonPrimary {
             return ButtonPrimary { button in
                 button.size = .medium
-                
                 builder( button )
             }
         }
         
-        public static func primaryLG(builder:ButtonPrimaryBuilder) -> ButtonPrimary {
+        public static func primaryLG(builder: ButtonPrimaryBuilder) -> ButtonPrimary {
             return ButtonPrimary { button in
                 button.size = .large
                 builder( button )
             }
         }
         
-        public static func primaryBlockedSM(builder:ButtonPrimaryBuilder) -> ButtonPrimary {
+        public static func primaryBlockedSM(builder: ButtonPrimaryBuilder) -> ButtonPrimary {
             return ButtonPrimary { button in
                 button.size = .small
                 button.isBlocked = true
@@ -47,7 +45,7 @@ extension Ocean {
             }
         }
         
-        public static func primaryBlockedMD(builder:ButtonPrimaryBuilder) -> ButtonPrimary {
+        public static func primaryBlockedMD(builder: ButtonPrimaryBuilder) -> ButtonPrimary {
             return ButtonPrimary { button in
                 button.size = .medium
                 button.isBlocked = true
@@ -55,134 +53,179 @@ extension Ocean {
             }
         }
         
-        public static func primaryBlockedLG(builder:ButtonPrimaryBuilder) -> ButtonPrimary {
-                   return ButtonPrimary { button in
-                       button.size = .large
-                       button.isBlocked = true
-                       builder( button )
-                   }
-               }
-        
-        public static func secondarySM(builder:ButtonSecondaryBuilder) -> ButtonSecondary {
-            return ButtonSecondary { button in
-                button.size = .small
-                builder( button )
-            }
-        }
-        
-        public static func secondaryMD(builder:ButtonSecondaryBuilder) -> ButtonSecondary {
-            return ButtonSecondary { button in
-                button.size = .medium
-                builder( button )
-            }
-        }
-        
-        public static func secondaryLG(builder:ButtonSecondaryBuilder) -> ButtonSecondary {
-            return ButtonSecondary { button in
-                button.size = .large
-                builder( button )
-            }
-        }
-        
-        public static func secondaryBlockedSM(builder:ButtonSecondaryBuilder) -> ButtonSecondary {
-            return ButtonSecondary { button in
-                button.size = .small
-                button.isBlocked = true
-                builder( button )
-            }
-        }
-        
-        public static func secondaryBlockedMD(builder:ButtonSecondaryBuilder) -> ButtonSecondary {
-            return ButtonSecondary { button in
-                button.size = .medium
-                button.isBlocked = true
-                builder( button )
-            }
-        }
-        
-        public static func secondaryBlockedLG(builder:ButtonSecondaryBuilder) -> ButtonSecondary {
-            return ButtonSecondary { button in
+        public static func primaryBlockedLG(builder: ButtonPrimaryBuilder) -> ButtonPrimary {
+            return ButtonPrimary { button in
                 button.size = .large
                 button.isBlocked = true
                 builder( button )
             }
         }
         
-        public static func textSM(builder:ButtonTextBuilder) -> ButtonText {
-            return ButtonText { button in
+        public static func primaryCriticalSM(builder: ButtonPrimaryBuilder) -> ButtonPrimaryCritical {
+            return ButtonPrimaryCritical { button in
                 button.size = .small
                 builder( button )
             }
         }
         
-        public static func textMD(builder:ButtonTextBuilder) -> ButtonText {
-            return ButtonText { button in
+        public static func primaryCriticalMD(builder: ButtonPrimaryBuilder) -> ButtonPrimaryCritical {
+            return ButtonPrimaryCritical { button in
                 button.size = .medium
                 builder( button )
             }
         }
         
-        public static func textLG(builder:ButtonTextBuilder) -> ButtonText {
-            return ButtonText { button in
+        public static func primaryCriticalLG(builder: ButtonPrimaryBuilder) -> ButtonPrimaryCritical {
+            return ButtonPrimaryCritical { button in
                 button.size = .large
                 builder( button )
             }
         }
         
-        public static func textBlockedSM(builder:ButtonTextBuilder) -> ButtonText {
-            return ButtonText { button in
-                button.size = .small
-                button.isBlocked = true
-                builder( button )
-            }
-        }
-        
-        public static func textBlockedMD(builder:ButtonTextBuilder) -> ButtonText {
-            return ButtonText { button in
-                button.size = .medium
-                button.isBlocked = true
-                builder( button )
-            }
-        }
-        
-        public static func textBlockedLG(builder:ButtonTextBuilder) -> ButtonText {
-            return ButtonText { button in
-                button.size = .large
-                button.isBlocked = true
-                builder( button )
-            }
-        }
-        
-        public static func primaryInverseSM(builder:ButtonPrimaryInverseBuilder) -> ButtonPrimaryInverse {
-            return ButtonPrimaryInverse { button in
-                button.size = .small
-                builder( button )
-            }
-        }
-        
-        public static func primaryInverseMD(builder:ButtonPrimaryInverseBuilder) -> ButtonPrimaryInverse {
-            return ButtonPrimaryInverse { button in
-                button.size = .medium
-                builder( button )
-            }
-        }
-        
-        public static func primaryInverseLG(builder:ButtonPrimaryInverseBuilder) -> ButtonPrimaryInverse {
-            return ButtonPrimaryInverse { button in
-                button.size = .large
-                builder( button )
-            }
-        }
-        
-        public static func primaryInverseBlockedSM(builder:ButtonPrimaryInverseBuilder) -> ButtonPrimaryInverse {
-            return ButtonPrimaryInverse { button in
+        public static func primaryCriticalBlockedSM(builder: ButtonPrimaryBuilder) -> ButtonPrimaryCritical {
+            return ButtonPrimaryCritical { button in
                 button.size = .small
                 button.isBlocked = true
                 builder( button )
             }
         }
         
-        public static func primaryInverseBlockedMD(builder:ButtonPrimaryInverseBuilder) -> ButtonPrimaryInverse {
+        public static func primaryCriticalBlockedMD(builder: ButtonPrimaryBuilder) -> ButtonPrimaryCritical {
+            return ButtonPrimaryCritical { button in
+                button.size = .medium
+                button.isBlocked = true
+                builder( button )
+            }
+        }
+        
+        public static func primaryCriticalBlockedLG(builder: ButtonPrimaryBuilder) -> ButtonPrimaryCritical {
+            return ButtonPrimaryCritical { button in
+                button.size = .large
+                button.isBlocked = true
+                builder( button )
+            }
+        }
+        
+        public static func secondarySM(builder: ButtonSecondaryBuilder) -> ButtonSecondary {
+            return ButtonSecondary { button in
+                button.size = .small
+                builder( button )
+            }
+        }
+        
+        public static func secondaryMD(builder: ButtonSecondaryBuilder) -> ButtonSecondary {
+            return ButtonSecondary { button in
+                button.size = .medium
+                builder( button )
+            }
+        }
+        
+        public static func secondaryLG(builder: ButtonSecondaryBuilder) -> ButtonSecondary {
+            return ButtonSecondary { button in
+                button.size = .large
+                builder( button )
+            }
+        }
+        
+        public static func secondaryBlockedSM(builder: ButtonSecondaryBuilder) -> ButtonSecondary {
+            return ButtonSecondary { button in
+                button.size = .small
+                button.isBlocked = true
+                builder( button )
+            }
+        }
+        
+        public static func secondaryBlockedMD(builder: ButtonSecondaryBuilder) -> ButtonSecondary {
+            return ButtonSecondary { button in
+                button.size = .medium
+                button.isBlocked = true
+                builder( button )
+            }
+        }
+        
+        public static func secondaryBlockedLG(builder: ButtonSecondaryBuilder) -> ButtonSecondary {
+            return ButtonSecondary { button in
+                button.size = .large
+                button.isBlocked = true
+                builder( button )
+            }
+        }
+        
+        public static func textSM(builder: ButtonTextBuilder) -> ButtonText {
+            return ButtonText { button in
+                button.size = .small
+                builder( button )
+            }
+        }
+        
+        public static func textMD(builder: ButtonTextBuilder) -> ButtonText {
+            return ButtonText { button in
+                button.size = .medium
+                builder( button )
+            }
+        }
+        
+        public static func textLG(builder: ButtonTextBuilder) -> ButtonText {
+            return ButtonText { button in
+                button.size = .large
+                builder( button )
+            }
+        }
+        
+        public static func textBlockedSM(builder: ButtonTextBuilder) -> ButtonText {
+            return ButtonText { button in
+                button.size = .small
+                button.isBlocked = true
+                builder( button )
+            }
+        }
+        
+        public static func textBlockedMD(builder: ButtonTextBuilder) -> ButtonText {
+            return ButtonText { button in
+                button.size = .medium
+                button.isBlocked = true
+                builder( button )
+            }
+        }
+        
+        public static func textBlockedLG(builder: ButtonTextBuilder) -> ButtonText {
+            return ButtonText { button in
+                button.size = .large
+                button.isBlocked = true
+                builder( button )
+            }
+        }
+        
+        public static func primaryInverseSM(builder: ButtonPrimaryInverseBuilder) -> ButtonPrimaryInverse {
+            return ButtonPrimaryInverse { button in
+                button.size = .small
+                builder( button )
+            }
+        }
+        
+        public static func primaryInverseMD(builder: ButtonPrimaryInverseBuilder) -> ButtonPrimaryInverse {
+            return ButtonPrimaryInverse { button in
+                button.size = .medium
+                builder( button )
+            }
+        }
+        
+        public static func primaryInverseLG(builder: ButtonPrimaryInverseBuilder) -> ButtonPrimaryInverse {
+            return ButtonPrimaryInverse { button in
+                button.size = .large
+                builder( button )
+            }
+        }
+        
+        public static func primaryInverseBlockedSM(builder: ButtonPrimaryInverseBuilder) -> ButtonPrimaryInverse {
+            return ButtonPrimaryInverse { button in
+                button.size = .small
+                button.isBlocked = true
+                builder( button )
+            }
+        }
+        
+        public static func primaryInverseBlockedMD(builder: ButtonPrimaryInverseBuilder) -> ButtonPrimaryInverse {
             return ButtonPrimaryInverse { button in
                 button.size = .medium
                 button.isBlocked = true
@@ -190,14 +233,12 @@ extension Ocean {
             }
         }
         
-        public static func primaryInverseBlockedLG(builder:ButtonPrimaryInverseBuilder) -> ButtonPrimaryInverse {
+        public static func primaryInverseBlockedLG(builder: ButtonPrimaryInverseBuilder) -> ButtonPrimaryInverse {
             return ButtonPrimaryInverse { button in
                 button.size = .large
                 button.isBlocked = true
                 builder( button )
             }
         }
-
-
     }
 }

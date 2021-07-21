@@ -23,6 +23,7 @@ final public class ButtonViewController : UIViewController {
     var buttonSecondary : Ocean.ButtonSecondary!
     var buttonInverse : Ocean.ButtonPrimaryInverse!
     var buttonText : Ocean.ButtonText!
+    var buttonPrimaryCritical: Ocean.ButtonPrimaryCritical!
     
     //var button : Ocean.Button!
     
@@ -55,19 +56,19 @@ final public class ButtonViewController : UIViewController {
     }
     
     fileprivate func configButton(_ button: Ocean.ButtonSecondary) {
-           button.isHighlighted = false
-           button.isEnabled = true
-           button.isLoading = false
-            button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
-           if (self.states.selectedSegmentIndex == 1) {
-               button.isPressed = true
-           } else if (self.states.selectedSegmentIndex == 2) {
-               button.isEnabled = false
-           }
-           else if (self.states.selectedSegmentIndex == 3) {
-               button.isHidden = true
-           }
-       }
+        button.isHighlighted = false
+        button.isEnabled = true
+        button.isLoading = false
+        button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
+        if (self.states.selectedSegmentIndex == 1) {
+           button.isPressed = true
+        } else if (self.states.selectedSegmentIndex == 2) {
+           button.isEnabled = false
+        }
+        else if (self.states.selectedSegmentIndex == 3) {
+           button.isHidden = true
+        }
+    }
     
     fileprivate func configButton(_ button: Ocean.ButtonText) {
         button.isHighlighted = false
@@ -99,6 +100,21 @@ final public class ButtonViewController : UIViewController {
         }
     }
     
+    fileprivate func configButton(_ button: Ocean.ButtonPrimaryCritical) {
+        button.isHighlighted = false
+        button.isEnabled = true
+        button.isLoading = false
+        button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
+        if (self.states.selectedSegmentIndex == 1) {
+            button.isPressed = true
+        } else if (self.states.selectedSegmentIndex == 2) {
+            button.isEnabled = false
+        } else if (self.states.selectedSegmentIndex == 3) {
+            button.isLoading = true
+            button.icon = nil
+        }
+    }
+    
     func updateChanges() {
         self.buttonPrimary?.isHidden = true
         self.buttonPrimary = nil
@@ -108,11 +124,11 @@ final public class ButtonViewController : UIViewController {
         self.buttonText = nil
         self.buttonInverse?.isHidden = true
         self.buttonInverse = nil
+        self.buttonPrimaryCritical?.isHidden = true
+        self.buttonPrimaryCritical = nil
         switch self.types.selectedSegmentIndex {
         case 0: //primary
-            
             if (self.sizes.selectedSegmentIndex == 0) {
-                
                 self.buttonPrimary = Ocean.Button.primarySM { button in
                     button.text = "Small"
                     if (self.normalOrIcon.selectedSegmentIndex == 1) {
@@ -169,7 +185,6 @@ final public class ButtonViewController : UIViewController {
             }
             configButton(self.buttonSecondary)
             self.addButton(view: self.buttonSecondary)
-            
             break
         case 2: //inverse
             self.buttonInverse = nil
@@ -230,10 +245,37 @@ final public class ButtonViewController : UIViewController {
             configButton(self.buttonText)
             self.addButton(view: self.buttonText)
             break
+        case 4: //primaryCritical
+            if (self.sizes.selectedSegmentIndex == 0) {
+                self.buttonPrimaryCritical = Ocean.Button.primaryCriticalSM { button in
+                    button.text = "Small"
+                    if (self.normalOrIcon.selectedSegmentIndex == 1) {
+                        button.icon = Ocean.icon.plusOutline
+                    }
+                }
+            } else if (self.sizes.selectedSegmentIndex == 1) {
+                self.buttonPrimaryCritical = Ocean.Button.primaryCriticalMD { button in
+                    button.text = "Medium"
+                    if (self.normalOrIcon.selectedSegmentIndex == 1) {
+                        button.icon = Ocean.icon.plusOutline
+                        button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
+                    }
+                }
+            } else if (self.sizes.selectedSegmentIndex == 2) {
+                self.buttonPrimaryCritical = Ocean.Button.primaryCriticalLG { button in
+                    button.text = "Large"
+                    if (self.normalOrIcon.selectedSegmentIndex == 1) {
+                        button.icon = Ocean.icon.plusOutline
+                        button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
+                    }
+                }
+            }
+            configButton(self.buttonPrimaryCritical)
+            self.addButton(view: self.buttonPrimaryCritical)
+            break
         default:
             break
         }
-
     }
     
     @IBAction func onValueChangedTypes(_ sender: Any) {
@@ -257,10 +299,7 @@ final public class ButtonViewController : UIViewController {
     }
     
     private func generateConstraintsButtonBottom(view:AnyObject) -> Void {
-        //view.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         view.centerXAnchor?.constraint(equalTo: self.view.centerXAnchor).isActive = true
         view.centerYAnchor?.constraint(equalTo: self.view.centerYAnchor).isActive = true
-        //view.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        //return [constraintTop, constraintX,constraintWidth]
     }
 }
