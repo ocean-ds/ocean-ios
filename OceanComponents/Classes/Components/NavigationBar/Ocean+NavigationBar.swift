@@ -82,5 +82,43 @@ public extension OceanNavigationBar {
                                                            target: self, action: action)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
+    
+    func addOptionsButton(options: [OceanNavigationBarOption]) {
+        let image = Ocean.icon.dotsVerticalOutline?.tinted(with: navigationTintColor)
+        let barButtonItem = OceanBarButtonItem(image: image,
+                                            style: .plain,
+                                            target: self, action: nil)
+        
+        if #available(iOS 14.0, *) {
+            var children: [UIAction] = []
+            for item in options {
+                let action = UIAction(title: item.title, image: item.isDestructive ? item.image?.tinted(with: .systemRed) : item.image, attributes: item.isDestructive ? [.destructive] : [], handler: { _ in
+                    item.action()
+                })
+                children.append(action)
+            }
+            barButtonItem.menu = UIMenu(title: "", children: children)
+        } else {
+            barButtonItem.options = options
+            barButtonItem.action = #selector(optionsClick(_:))
+        }
+        
+        navigationItem.rightBarButtonItem = barButtonItem
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+    }
 }
 
+fileprivate extension UIViewController {
+    @objc func optionsClick(_ sender: Any) {
+        if let options = (sender as? OceanBarButtonItem)?.options {
+            let menu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            for item in options {
+                menu.addAction(UIAlertAction(title: item.title, style: item.isDestructive ? .destructive : .default, handler: { _ in
+                    item.action()
+                }))
+            }
+            menu.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
+            self.present(menu, animated: true, completion: nil)
+        }
+    }
+}

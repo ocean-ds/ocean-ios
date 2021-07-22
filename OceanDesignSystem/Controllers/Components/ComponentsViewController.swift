@@ -60,6 +60,11 @@ class ComponentsViewController: UITableViewController {
             performSegue(withIdentifier: "SegueTooltipComponents", sender: self)
         case DesignSystemComponentsType.TextList.rawValue:
             performSegue(withIdentifier: "SegueTextListComponents", sender: self)
+        case DesignSystemComponentsType.NavigationBar.rawValue:
+            let navigationController = UINavigationController(rootViewController: NavigationBarViewController())
+            navigationController.modalTransitionStyle = .coverVertical
+            navigationController.modalPresentationStyle = .overFullScreen
+            self.present(navigationController, animated: true, completion: nil)
         default:
             performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }

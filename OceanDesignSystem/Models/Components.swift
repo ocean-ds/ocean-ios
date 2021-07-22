@@ -23,7 +23,8 @@ struct DSComponents {
         "AlertBox",
         "Divider",
         "Tooltip",
-        "TextList"
+        "TextList",
+        "NavigationBar"
     ]
 }
 

@@ -40,6 +40,7 @@ public enum DesignSystemComponentsType: Int {
     case Divider
     case Tooltip
     case TextList
+    case NavigationBar
 }
 
 public enum DesignSystemTypographyType: Int {
