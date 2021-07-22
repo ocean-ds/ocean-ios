@@ -30,37 +30,38 @@ class ComponentsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        self.designSystemComponentsTypeSelected = DesignSystemComponentsType.init(rawValue: indexPath.row)
+        let selected = DSComponents.list[indexPath.row]
+        self.designSystemComponentsTypeSelected = DesignSystemComponentsType(rawValue: selected)
         return indexPath
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        switch self.designSystemComponentsTypeSelected.rawValue {
-        case DesignSystemComponentsType.Input.rawValue:
+        switch self.designSystemComponentsTypeSelected! {
+        case DesignSystemComponentsType.Input:
             performSegue(withIdentifier: "SegueInputComponents", sender: self)
-        case DesignSystemComponentsType.Snackbar.rawValue:
+        case DesignSystemComponentsType.Snackbar:
             performSegue(withIdentifier: "SegueSnackbarComponents", sender: self)
-        case DesignSystemComponentsType.Button.rawValue:
+        case DesignSystemComponentsType.Button:
             performSegue(withIdentifier: "SegueButtonsComponents", sender: self)
-        case DesignSystemComponentsType.Switch.rawValue:
+        case DesignSystemComponentsType.Switch:
             performSegue(withIdentifier: "SegueSwitchComponents", sender: self)
-        case DesignSystemComponentsType.BottomSheet.rawValue:
+        case DesignSystemComponentsType.BottomSheet:
             performSegue(withIdentifier: "SegueBottomSheetComponents", sender: self)
-        case DesignSystemComponentsType.RadioButton.rawValue:
+        case DesignSystemComponentsType.RadioButton:
             performSegue(withIdentifier: "SegueRadioButtonComponents", sender: self)
-        case DesignSystemComponentsType.DatePicker.rawValue:
+        case DesignSystemComponentsType.DatePicker:
             performSegue(withIdentifier: "SegueDatePickerComponents", sender: self)
-        case DesignSystemComponentsType.AlertBox.rawValue:
+        case DesignSystemComponentsType.AlertBox:
             performSegue(withIdentifier: "SegueAlertBoxComponents", sender: self)
-        case DesignSystemComponentsType.Divider.rawValue:
+        case DesignSystemComponentsType.Divider:
             performSegue(withIdentifier: "SegueDividerComponents", sender: self)
-        case DesignSystemComponentsType.Tooltip.rawValue:
+        case DesignSystemComponentsType.Tooltip:
             performSegue(withIdentifier: "SegueTooltipComponents", sender: self)
-        case DesignSystemComponentsType.TextList.rawValue:
+        case DesignSystemComponentsType.TextList:
             performSegue(withIdentifier: "SegueTextListComponents", sender: self)
-        case DesignSystemComponentsType.NavigationBar.rawValue:
+        case DesignSystemComponentsType.NavigationBar:
             let navigationController = UINavigationController(rootViewController: NavigationBarViewController())
             navigationController.modalTransitionStyle = .coverVertical
             navigationController.modalPresentationStyle = .overFullScreen

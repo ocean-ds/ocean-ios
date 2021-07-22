@@ -12,20 +12,19 @@ import OceanTokens
 
 struct DSComponents {
     static let list = [
-        "Typography",
+        "AlertBox",
+        "BottomSheet",
         "Button",
-        "InputText",
+        "DatePicker",
+        "Divider",
+        "Input",
+        "NavigationBar",
+        "RadioButton",
         "Snackbar",
         "Switch",
-        "BottomSheet",
-        "RadioButton",
-        "DatePicker",
-        "AlertBox",
-        "Divider",
-        "Tooltip",
         "TextList",
-        "NavigationBar"
-    ]
+        "Tooltip",
+        "Typography"]
 }
 
 struct DSTypographies {
