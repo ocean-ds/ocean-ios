@@ -46,21 +46,21 @@ class ComponentsViewController: UITableViewController {
             case .Button:
                 performSegue(withIdentifier: "SegueButtonsComponents", sender: self)
             case .Switch:
-                performSegue(withIdentifier: "SegueSwitchComponents", sender: self)
+                self.present(SwitchViewController(), animated: true, completion: nil)
             case .BottomSheet:
                 performSegue(withIdentifier: "SegueBottomSheetComponents", sender: self)
             case .RadioButton:
-                performSegue(withIdentifier: "SegueRadioButtonComponents", sender: self)
+                self.present(RadioButtonViewController(), animated: true, completion: nil)
             case .DatePicker:
-                performSegue(withIdentifier: "SegueDatePickerComponents", sender: self)
+                self.present(DatePickerViewController(), animated: true, completion: nil)
             case .AlertBox:
-                performSegue(withIdentifier: "SegueAlertBoxComponents", sender: self)
+                self.present(AlertBoxViewController(), animated: true, completion: nil)
             case .Divider:
-                performSegue(withIdentifier: "SegueDividerComponents", sender: self)
+                self.present(DividerViewController(), animated: true, completion: nil)
             case .Tooltip:
-                performSegue(withIdentifier: "SegueTooltipComponents", sender: self)
+                self.present(TooltipViewController(), animated: true, completion: nil)
             case .TextList:
-                performSegue(withIdentifier: "SegueTextListComponents", sender: self)
+                self.present(TextListViewController(), animated: true, completion: nil)
             case .NavigationBar:
                 let navigationController = UINavigationController(rootViewController: NavigationBarViewController())
                 navigationController.modalTransitionStyle = .coverVertical

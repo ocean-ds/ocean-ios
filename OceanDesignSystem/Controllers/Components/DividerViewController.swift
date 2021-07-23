@@ -13,6 +13,8 @@ import OceanComponents
 
 final public class DividerViewController : UIViewController {
     public override func viewDidLoad() {
+        self.view.backgroundColor = .white
+        
         let stack = UIStackView()
         stack.alignment = .center
         stack.distribution = .fillProportionally

@@ -16,6 +16,8 @@ final public class DatePickerViewController : UIViewController {
     private var button: Ocean.ButtonPrimary!
     
     public override func viewDidLoad() {
+        self.view.backgroundColor = .white
+        
         datePicker = Ocean.DatePicker { datePicker in
             datePicker.currentDate = Date()
             datePicker.minimumDate = Date()

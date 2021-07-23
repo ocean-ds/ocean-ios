@@ -18,6 +18,8 @@ final public class RadioButtonViewController : UIViewController {
     private var rb4: Ocean.RadioButton!
     
     public override func viewDidLoad() {
+        self.view.backgroundColor = .white
+        
         rb1 = Ocean.RadioButton { rb in
             rb.label = "Radio button 1"
             rb.onTouch = {

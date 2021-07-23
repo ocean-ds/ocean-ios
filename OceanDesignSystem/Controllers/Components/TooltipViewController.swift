@@ -36,16 +36,13 @@ class TooltipViewController: UIViewController {
         return contentStack
     }()
     
-    private lazy var leftButtonExample: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .blue
-        button.clipsToBounds = true
-        button.layer.cornerRadius = 4
-        button.widthAnchor.constraint(equalToConstant: 130).isActive = true
-        button.setTitle("Show tooltip", for: .normal)
-        button.addTarget(self, action: #selector(showActionButton), for: .touchUpInside)
-        return button
+    private lazy var leftButtonExample: Ocean.ButtonPrimary = {
+        Ocean.Button.primaryMD { button in
+            button.text = "Show tooltip"
+            button.onTouch = {
+                self.showActionButton()
+            }
+        }
     }()
     
     private var tooltipComponent: Ocean.Tooltip = {
@@ -56,6 +53,8 @@ class TooltipViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = .white
+        
         view.addSubview(contentStack)
         NSLayoutConstraint.activate([
             contentStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -69,7 +68,7 @@ class TooltipViewController: UIViewController {
         showActionButton()
     }
     
-    @objc func showActionButton() {
+    func showActionButton() {
         tooltipComponent.show(target: leftButtonExample, position: .top)
     }
 

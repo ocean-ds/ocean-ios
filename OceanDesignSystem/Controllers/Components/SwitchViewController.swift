@@ -16,6 +16,8 @@ final public class SwitchViewController : UIViewController {
     private var label: UILabel!
     
     public override func viewDidLoad() {
+        self.view.backgroundColor = .white
+        
         oceanSwitch = Ocean.Switch { component in
             component.translatesAutoresizingMaskIntoConstraints = false
             component.onValueChanged = { value in
