@@ -39,35 +39,37 @@ class ComponentsViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         switch self.designSystemComponentsTypeSelected! {
-        case DesignSystemComponentsType.Input:
-            performSegue(withIdentifier: "SegueInputComponents", sender: self)
-        case DesignSystemComponentsType.Snackbar:
-            performSegue(withIdentifier: "SegueSnackbarComponents", sender: self)
-        case DesignSystemComponentsType.Button:
-            performSegue(withIdentifier: "SegueButtonsComponents", sender: self)
-        case DesignSystemComponentsType.Switch:
-            performSegue(withIdentifier: "SegueSwitchComponents", sender: self)
-        case DesignSystemComponentsType.BottomSheet:
-            performSegue(withIdentifier: "SegueBottomSheetComponents", sender: self)
-        case DesignSystemComponentsType.RadioButton:
-            performSegue(withIdentifier: "SegueRadioButtonComponents", sender: self)
-        case DesignSystemComponentsType.DatePicker:
-            performSegue(withIdentifier: "SegueDatePickerComponents", sender: self)
-        case DesignSystemComponentsType.AlertBox:
-            performSegue(withIdentifier: "SegueAlertBoxComponents", sender: self)
-        case DesignSystemComponentsType.Divider:
-            performSegue(withIdentifier: "SegueDividerComponents", sender: self)
-        case DesignSystemComponentsType.Tooltip:
-            performSegue(withIdentifier: "SegueTooltipComponents", sender: self)
-        case DesignSystemComponentsType.TextList:
-            performSegue(withIdentifier: "SegueTextListComponents", sender: self)
-        case DesignSystemComponentsType.NavigationBar:
-            let navigationController = UINavigationController(rootViewController: NavigationBarViewController())
-            navigationController.modalTransitionStyle = .coverVertical
-            navigationController.modalPresentationStyle = .overFullScreen
-            self.present(navigationController, animated: true, completion: nil)
-        default:
-            performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
+            case .Input:
+                performSegue(withIdentifier: "SegueInputComponents", sender: self)
+            case .Snackbar:
+                performSegue(withIdentifier: "SegueSnackbarComponents", sender: self)
+            case .Button:
+                performSegue(withIdentifier: "SegueButtonsComponents", sender: self)
+            case .Switch:
+                performSegue(withIdentifier: "SegueSwitchComponents", sender: self)
+            case .BottomSheet:
+                performSegue(withIdentifier: "SegueBottomSheetComponents", sender: self)
+            case .RadioButton:
+                performSegue(withIdentifier: "SegueRadioButtonComponents", sender: self)
+            case .DatePicker:
+                performSegue(withIdentifier: "SegueDatePickerComponents", sender: self)
+            case .AlertBox:
+                performSegue(withIdentifier: "SegueAlertBoxComponents", sender: self)
+            case .Divider:
+                performSegue(withIdentifier: "SegueDividerComponents", sender: self)
+            case .Tooltip:
+                performSegue(withIdentifier: "SegueTooltipComponents", sender: self)
+            case .TextList:
+                performSegue(withIdentifier: "SegueTextListComponents", sender: self)
+            case .NavigationBar:
+                let navigationController = UINavigationController(rootViewController: NavigationBarViewController())
+                navigationController.modalTransitionStyle = .coverVertical
+                navigationController.modalPresentationStyle = .overFullScreen
+                self.present(navigationController, animated: true, completion: nil)
+            case .OptionCard:
+                self.present(OptionCardViewController(), animated: true, completion: nil)
+            default:
+                performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }
     }
 

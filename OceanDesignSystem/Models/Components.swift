@@ -19,12 +19,14 @@ struct DSComponents {
         "Divider",
         "Input",
         "NavigationBar",
+        "OptionCard",
         "RadioButton",
         "Snackbar",
         "Switch",
         "TextList",
         "Tooltip",
-        "Typography"]
+        "Typography"
+    ]
 }
 
 struct DSTypographies {

@@ -16,6 +16,7 @@
 		245E5D812698B90100CCF41D /* TextListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245E5D802698B90100CCF41D /* TextListViewController.swift */; };
 		2482CDD4267D055100A50422 /* RadioButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2482CDD3267D055100A50422 /* RadioButtonViewController.swift */; };
 		249999B626A9CDA5004DAB05 /* NavigationBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249999B526A9CDA5004DAB05 /* NavigationBarViewController.swift */; };
+		249999BC26AAFB2D004DAB05 /* OptionCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249999BB26AAFB2D004DAB05 /* OptionCardViewController.swift */; };
 		249DC9402672AD2600012411 /* SwitchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249DC93F2672AD2600012411 /* SwitchViewController.swift */; };
 		24C8013C2680FE4F00744F30 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C8013B2680FE4F00744F30 /* DatePickerViewController.swift */; };
 		24C801522682585600744F30 /* OceanDesignSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C801512682585600744F30 /* OceanDesignSystemTests.swift */; };
@@ -75,6 +76,7 @@
 		245E5D802698B90100CCF41D /* TextListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextListViewController.swift; sourceTree = "<group>"; };
 		2482CDD3267D055100A50422 /* RadioButtonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonViewController.swift; sourceTree = "<group>"; };
 		249999B526A9CDA5004DAB05 /* NavigationBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarViewController.swift; sourceTree = "<group>"; };
+		249999BB26AAFB2D004DAB05 /* OptionCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionCardViewController.swift; sourceTree = "<group>"; };
 		249DC93F2672AD2600012411 /* SwitchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchViewController.swift; sourceTree = "<group>"; };
 		24C8013B2680FE4F00744F30 /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		24C8014F2682585600744F30 /* OceanDesignSystemTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OceanDesignSystemTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -149,6 +151,7 @@
 				2456BF93268612E800E2361E /* DividerViewController.swift */,
 				245E5D802698B90100CCF41D /* TextListViewController.swift */,
 				249999B526A9CDA5004DAB05 /* NavigationBarViewController.swift */,
+				249999BB26AAFB2D004DAB05 /* OptionCardViewController.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -490,6 +493,7 @@
 				B833D03724A6796100587FDE /* SceneDelegate.swift in Sources */,
 				13F2534526986B9400883519 /* BottomSheetViewController.swift in Sources */,
 				B71D65E724CA2A8200C3938C /* Cells.swift in Sources */,
+				249999BC26AAFB2D004DAB05 /* OptionCardViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

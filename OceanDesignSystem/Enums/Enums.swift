@@ -41,6 +41,7 @@ public enum DesignSystemComponentsType: String {
     case Tooltip
     case TextList
     case NavigationBar
+    case OptionCard
 }
 
 public enum DesignSystemTypographyType: Int {
