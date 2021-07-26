@@ -31,9 +31,16 @@ extension UIView {
         }
     }
     
-    public func addTapGesture(selector: Selector) {
-        let tap = UITapGestureRecognizer(target: self, action: selector)
+    public func addTapGesture(target: Any? = nil, selector: Selector) {
+        let tap = UITapGestureRecognizer(target: target == nil ? self : target, action: selector)
         self.addGestureRecognizer(tap)
+        self.isUserInteractionEnabled = true
+    }
+    
+    public func addPressGesture(target: Any? = nil, selector: Selector) {
+        let press = UILongPressGestureRecognizer(target: target == nil ? self : target, action: selector)
+        press.minimumPressDuration = 0
+        self.addGestureRecognizer(press)
         self.isUserInteractionEnabled = true
     }
 }

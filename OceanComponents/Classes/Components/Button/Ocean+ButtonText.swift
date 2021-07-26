@@ -11,7 +11,7 @@ import UIKit
 import OceanTokens
 
 extension Ocean {
-    final public class ButtonText: UIControl {
+    public class ButtonText: UIControl {
         public enum Size {
             case medium
             case small

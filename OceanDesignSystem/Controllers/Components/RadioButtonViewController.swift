@@ -14,8 +14,12 @@ import OceanComponents
 final public class RadioButtonViewController : UIViewController {
     private var rb1: Ocean.RadioButton!
     private var rb2: Ocean.RadioButton!
+    private var rb3: Ocean.RadioButton!
+    private var rb4: Ocean.RadioButton!
     
     public override func viewDidLoad() {
+        self.view.backgroundColor = .white
+        
         rb1 = Ocean.RadioButton { rb in
             rb.label = "Radio button 1"
             rb.onTouch = {
@@ -28,6 +32,15 @@ final public class RadioButtonViewController : UIViewController {
                 self.rb1.isSelected = false
             }
         }
+        rb3 = Ocean.RadioButton { rb in
+            rb.label = "Radio button 1 Disabled"
+            rb.isSelected = true
+            rb.isEnabled = false
+        }
+        rb4 = Ocean.RadioButton { rb in
+            rb.label = "Radio button 2 Disabled"
+            rb.isEnabled = false
+        }
         
         let stack = UIStackView()
         stack.alignment = .center
@@ -37,6 +50,9 @@ final public class RadioButtonViewController : UIViewController {
         
         stack.addArrangedSubview(rb1)
         stack.addArrangedSubview(rb2)
+        stack.addArrangedSubview(Ocean.Spacer(space: Ocean.size.spacingStackSm))
+        stack.addArrangedSubview(rb3)
+        stack.addArrangedSubview(rb4)
         
         self.add(view: stack)
     }

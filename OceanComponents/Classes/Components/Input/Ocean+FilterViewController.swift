@@ -38,6 +38,7 @@ extension Ocean {
                         self.tableView.reloadData()
                     }
                 })
+                stack.addArrangedSubview(Ocean.Spacer(space: Ocean.size.spacingStackXs))
             }
         }()
         

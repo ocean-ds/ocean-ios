@@ -10,7 +10,7 @@ import OceanTokens
 
 extension Ocean {
     public class BottomSheet {
-        private var bottomSheetViewController: BottomSheetViewController
+        internal var bottomSheetViewController: BottomSheetViewController
         
         public init(_ rootViewController: UIViewController) {
             bottomSheetViewController = BottomSheetViewController(rootViewController)

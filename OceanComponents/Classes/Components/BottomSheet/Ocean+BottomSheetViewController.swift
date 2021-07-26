@@ -11,7 +11,6 @@ import OceanTokens
 
 extension Ocean {
     public class BottomSheetViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-        
         struct Constants {
             static let heightCell: CGFloat = 48
             static let heightCellWithImages: CGFloat = 73
@@ -58,6 +57,7 @@ extension Ocean {
 
         public var onValueSelected: ((Int, CellModel) -> Void)?
         
+        var contentIsCritical: Bool = false
         var contentImage: UIImage?
         var contentTitle: String?
         var contentDescription: String?
@@ -145,7 +145,7 @@ extension Ocean {
                 label.text = title
                 label.textAlignment = self.contentValues == nil ? .center : .left
                 label.numberOfLines = 0
-                label.textColor = Ocean.color.colorBrandPrimaryPure
+                label.textColor = self.contentIsCritical ? Ocean.color.colorStatusNegativePure : Ocean.color.colorBrandPrimaryPure
             })
             mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
         }

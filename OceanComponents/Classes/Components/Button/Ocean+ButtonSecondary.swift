@@ -9,9 +9,7 @@ import Foundation
 import OceanTokens
 
 extension Ocean {
-    
-    
-    final public class ButtonSecondary: UIControl {
+    public class ButtonSecondary: UIControl {
         public enum Size {
             case medium
             case small

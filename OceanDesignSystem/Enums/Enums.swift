@@ -27,7 +27,7 @@ public enum SubCategorySizeType: Int {
     case SpacingInline
 }
 
-public enum DesignSystemComponentsType: Int {
+public enum DesignSystemComponentsType: String {
     case Typography
     case Button
     case Input
@@ -40,6 +40,8 @@ public enum DesignSystemComponentsType: Int {
     case Divider
     case Tooltip
     case TextList
+    case NavigationBar
+    case OptionCard
 }
 
 public enum DesignSystemTypographyType: Int {
