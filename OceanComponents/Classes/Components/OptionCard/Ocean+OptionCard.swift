@@ -17,6 +17,9 @@ extension Ocean {
             static let roundedViewHeightWidthSm: CGFloat = 32
             static let iconHeightWidthLg: CGFloat = 16
             static let iconHeightWidthSm: CGFloat = 14
+            static let lockWidth: CGFloat = 32
+            static let recommendWidth: CGFloat = 84
+            static let recommendHeight: CGFloat = 20
         }
         
         public typealias OptionCardBuilder = (OptionCard) -> Void
@@ -31,7 +34,7 @@ extension Ocean {
         
         public lazy var mainStack: UIStackView = {
             UIStackView { stack in
-                stack.axis = .vertical
+                stack.axis = .horizontal
                 stack.distribution = .fillProportionally
                 stack.spacing = 0
                 stack.translatesAutoresizingMaskIntoConstraints = false
@@ -42,9 +45,54 @@ extension Ocean {
                 stack.ocean.radius.applyMd()
                 
                 stack.add([
+                    headStack,
+                    lockView
+                ])
+            }
+        }()
+        
+        public lazy var headStack: UIStackView = {
+            UIStackView { stack in
+                stack.axis = .vertical
+                stack.distribution = .fillProportionally
+                stack.spacing = 0
+                stack.translatesAutoresizingMaskIntoConstraints = false
+                
+                stack.add([
+                    recommendView,
                     contentStack
                 ])
             }
+        }()
+        
+        public lazy var recommendView: UIView = {
+            let recommendLabel = UILabel { label in
+                label.translatesAutoresizingMaskIntoConstraints = false
+                label.clipsToBounds = true
+                label.font = .baseBold(size: 10)
+                label.textColor = .white
+                label.text = "Recomendado"
+                label.textAlignment = .center
+                label.backgroundColor = Ocean.color.colorComplementaryPure
+                label.layer.cornerRadius = 8
+                if #available(iOS 11.0, *) {
+                    label.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMaxYCorner]
+                }
+            }
+            
+            let view = UIView()
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(recommendLabel)
+            view.isHidden = true
+            
+            NSLayoutConstraint.activate([
+                recommendLabel.widthAnchor.constraint(equalToConstant: Constants.recommendWidth),
+                recommendLabel.heightAnchor.constraint(equalToConstant: Constants.recommendHeight),
+                recommendLabel.topAnchor.constraint(equalTo: view.topAnchor),
+                recommendLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            ])
+            
+            return view
         }()
         
         public lazy var contentStack: UIStackView = {
@@ -67,6 +115,30 @@ extension Ocean {
                                             bottom: Ocean.size.spacingStackSm,
                                             right: Ocean.size.spacingStackSm)
             }
+        }()
+        
+        public lazy var lockView: UIView = {
+            let lockIcon = UIImageView { imageView in
+                imageView.translatesAutoresizingMaskIntoConstraints = false
+                imageView.image = Ocean.icon.lockClosedSolid?.withRenderingMode(.alwaysTemplate)
+                imageView.tintColor = Ocean.color.colorInterfaceDarkUp
+            }
+            
+            let view = UIView()
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.backgroundColor = Ocean.color.colorInterfaceLightUp
+            view.addSubview(lockIcon)
+            view.isHidden = true
+            
+            NSLayoutConstraint.activate([
+                lockIcon.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+                lockIcon.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                lockIcon.widthAnchor.constraint(equalToConstant: Constants.iconHeightWidthLg),
+                lockIcon.heightAnchor.constraint(equalToConstant: Constants.iconHeightWidthLg),
+                view.widthAnchor.constraint(equalToConstant: Constants.lockWidth)
+            ])
+            
+            return view
         }()
         
         public lazy var roundedIconView: UIView = {
@@ -163,7 +235,25 @@ extension Ocean {
             }
         }
 
+        private var isDisabled: Bool = false
         public override var isEnabled: Bool {
+            get {
+                return true
+            }
+            set {
+                isDisabled = !newValue
+                recommendView.isHidden = isDisabled
+                updateState()
+            }
+        }
+        
+        public var isRecommend: Bool = false {
+            didSet {
+                recommendView.isHidden = !isRecommend
+            }
+        }
+        
+        public var isError: Bool = false {
             didSet {
                 updateState()
             }
@@ -177,20 +267,45 @@ extension Ocean {
             iconView.image = image?.withRenderingMode(.alwaysTemplate)
             
             roundedIconView.layer.cornerRadius = subtitle.isEmpty ? Constants.roundedViewHeightWidthSm / 2 : Constants.roundedViewHeightWidthLg / 2
+            
             heightConstraint?.constant = subtitle.isEmpty ? Constants.heightSm : Constants.heightLg
             imageHeightConstraint?.constant = subtitle.isEmpty ? Constants.roundedViewHeightWidthSm : Constants.roundedViewHeightWidthLg
             imageWidthConstraint?.constant = subtitle.isEmpty ? Constants.roundedViewHeightWidthSm : Constants.roundedViewHeightWidthLg
             iconHeightConstraint?.constant = subtitle.isEmpty ? Constants.iconHeightWidthSm : Constants.iconHeightWidthLg
             iconWidthConstraint?.constant = subtitle.isEmpty ? Constants.iconHeightWidthSm : Constants.iconHeightWidthLg
+            
             let margin = subtitle.isEmpty ? Ocean.size.spacingStackXs : Ocean.size.spacingStackSm
-            contentStack.layoutMargins = .init(top: margin, left: margin, bottom: margin, right: margin)
+            contentStack.layoutMargins = .init(top: margin,
+                                               left: margin,
+                                               bottom: margin,
+                                               right: margin)
         }
 
         private func updateState() {
             mainStack.backgroundColor = isSelected ? Ocean.color.colorInterfaceLightUp : Ocean.color.colorInterfaceLightPure
-            mainStack.layer.borderColor = isSelected ? Ocean.color.colorBrandPrimaryUp.cgColor : Ocean.color.colorInterfaceLightDown.cgColor
+            mainStack.layer.borderColor = isSelected ? Ocean.color.colorBrandPrimaryUp.cgColor : isError ? Ocean.color.colorStatusNegativePure.cgColor : Ocean.color.colorInterfaceLightDown.cgColor
             roundedIconView.backgroundColor = isSelected ? Ocean.color.colorBrandPrimaryDown : Ocean.color.colorInterfaceLightUp
-            iconView.tintColor = isSelected ? .white : Ocean.color.colorBrandPrimaryDown
+            iconView.tintColor = isSelected ? .white : isDisabled ? Ocean.color.colorInterfaceDarkDown : Ocean.color.colorBrandPrimaryDown
+            titleLabel.textColor = isDisabled ? Ocean.color.colorInterfaceDarkDown : Ocean.color.colorBrandPrimaryDown
+            
+            lockView.isHidden = !isDisabled
+        }
+        
+        private func pressState() {
+            mainStack.backgroundColor = Ocean.color.colorInterfaceLightDown
+            mainStack.layer.borderColor = Ocean.color.colorBrandPrimaryUp.cgColor
+            roundedIconView.backgroundColor = Ocean.color.colorBrandPrimaryDown
+            iconView.tintColor = .white
+            titleLabel.textColor = Ocean.color.colorBrandPrimaryDown
+        }
+        
+        private func animateShake() {
+            let animation = CAKeyframeAnimation(keyPath: "position.x")
+            animation.values = [ 0, 10, -10, 10, 0 ]
+            animation.keyTimes = [ 0, NSNumber(value: (1 / 6.0)), NSNumber(value: (3 / 6.0)), NSNumber(value: (5 / 6.0)), 1 ]
+            animation.duration = 0.4
+            animation.isAdditive = true
+            self.layer.add(animation, forKey: "shake")
         }
 
         func makeView() {
@@ -213,14 +328,17 @@ extension Ocean {
         
         @objc func pressed(gesture: UILongPressGestureRecognizer) {
             if gesture.state == .began {
-                mainStack.backgroundColor = Ocean.color.colorInterfaceLightDown
-                mainStack.layer.borderColor = Ocean.color.colorBrandPrimaryUp.cgColor
-                roundedIconView.backgroundColor = Ocean.color.colorBrandPrimaryDown
-                iconView.tintColor = .white
+                if !isDisabled {
+                    pressState()
+                }
             } else {
-                isSelected = true
-                onTouch?()
-                generator.selectionChanged()
+                if !isDisabled {
+                    isSelected = true
+                    onTouch?()
+                    generator.selectionChanged()
+                } else {
+                    animateShake()
+                }
             }
         }
     }

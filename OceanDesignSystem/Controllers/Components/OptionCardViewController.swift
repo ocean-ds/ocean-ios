@@ -16,6 +16,7 @@ final public class OptionCardViewController : UIViewController {
     var oc2: Ocean.OptionCard!
     var oc3: Ocean.OptionCard!
     var oc4: Ocean.OptionCard!
+    var oc5: Ocean.OptionCard!
     
     public override func viewDidLoad() {
         self.view.backgroundColor = .white
@@ -24,11 +25,12 @@ final public class OptionCardViewController : UIViewController {
             option.title = "Title"
             option.subtitle = "Subtitle"
             option.image = Ocean.icon.documentOutline
-            option.isEnabled = true
+            option.isEnabled = false
             option.onTouch = {
                 self.oc2.isSelected = false
                 self.oc3.isSelected = false
                 self.oc4.isSelected = false
+                self.oc5.isSelected = false
                 print(1)
             }
         }
@@ -36,33 +38,48 @@ final public class OptionCardViewController : UIViewController {
             option.title = "Title"
             option.subtitle = "Subtitle"
             option.image = Ocean.icon.documentOutline
-            option.isEnabled = true
+            option.isRecommend = true
             option.onTouch = {
                 self.oc1.isSelected = false
                 self.oc3.isSelected = false
                 self.oc4.isSelected = false
+                self.oc5.isSelected = false
                 print(2)
             }
         }
         oc3 = Ocean.OptionCard { option in
             option.title = "Title"
+            option.subtitle = "Subtitle"
             option.image = Ocean.icon.documentOutline
-            option.isEnabled = true
+            option.isError = true
             option.onTouch = {
                 self.oc1.isSelected = false
                 self.oc2.isSelected = false
                 self.oc4.isSelected = false
-                print(3)
+                self.oc5.isSelected = false
+                print(2)
             }
         }
         oc4 = Ocean.OptionCard { option in
             option.title = "Title"
             option.image = Ocean.icon.documentOutline
-            option.isEnabled = true
+            option.isEnabled = false
             option.onTouch = {
                 self.oc1.isSelected = false
                 self.oc2.isSelected = false
                 self.oc3.isSelected = false
+                self.oc5.isSelected = false
+                print(3)
+            }
+        }
+        oc5 = Ocean.OptionCard { option in
+            option.title = "Title"
+            option.image = Ocean.icon.documentOutline
+            option.onTouch = {
+                self.oc1.isSelected = false
+                self.oc2.isSelected = false
+                self.oc3.isSelected = false
+                self.oc4.isSelected = false
                 print(4)
             }
         }
@@ -77,6 +94,7 @@ final public class OptionCardViewController : UIViewController {
         stack.addArrangedSubview(oc2)
         stack.addArrangedSubview(oc3)
         stack.addArrangedSubview(oc4)
+        stack.addArrangedSubview(oc5)
         
         self.add(view: stack)
         
@@ -84,6 +102,7 @@ final public class OptionCardViewController : UIViewController {
         oc2.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: -32).isActive = true
         oc3.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: -32).isActive = true
         oc4.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: -32).isActive = true
+        oc5.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: -32).isActive = true
     }
     
     private func add(view: UIView) {
