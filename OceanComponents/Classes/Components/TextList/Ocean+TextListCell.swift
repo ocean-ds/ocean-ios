@@ -239,7 +239,7 @@ extension Ocean {
             subtitleLabel.text = subtitle
             textLabel.isHidden = text.isEmpty
             textLabel.text = text
-            iconView.image = image?.withRenderingMode(.alwaysTemplate)
+            iconView.image = image
             roundedIconViewSpacer.isHidden = imageNotExist
             roundedIconView.isHidden = imageNotExist
             arrowImageViewSpacer.isHidden = !arrow

@@ -25,7 +25,7 @@ final public class TextListViewController : UIViewController {
             textList.title = "Title"
             textList.subtitle = "Subtitle"
             textList.text = "text"
-            textList.image = Ocean.icon.documentOutline
+            textList.image = Ocean.icon.documentOutline?.withRenderingMode(.alwaysTemplate)
             textList.arrow = true
             textList.badge = true
         }
@@ -38,7 +38,7 @@ final public class TextListViewController : UIViewController {
         
         let textList3 = Ocean.TextList.cell { textList in
             textList.title = "Title"
-            textList.image = Ocean.icon.documentOutline
+            textList.image = Ocean.icon.documentOutline?.withRenderingMode(.alwaysTemplate)
         }
         
         let textList4 = Ocean.TextList.cell { textList in
@@ -48,7 +48,7 @@ final public class TextListViewController : UIViewController {
         let textList5 = Ocean.TextList.cellInverseHighlight { textList in
             textList.title = "Title"
             textList.subtitle = "Subtitle"
-            textList.image = Ocean.icon.documentOutline
+            textList.image = Ocean.icon.documentOutline?.withRenderingMode(.alwaysTemplate)
             textList.arrow = true
         }
         
@@ -61,7 +61,7 @@ final public class TextListViewController : UIViewController {
         let textList7 = Ocean.TextList.cellInverse { textList in
             textList.title = "Title"
             textList.subtitle = "Subtitle"
-            textList.image = Ocean.icon.documentOutline
+            textList.image = Ocean.icon.documentOutline?.withRenderingMode(.alwaysTemplate)
         }
         
         let textList8 = Ocean.TextList.cellInverseHighlight { textList in
