@@ -338,6 +338,7 @@ extension Ocean {
                     generator.selectionChanged()
                 } else {
                     animateShake()
+                    onTouch?()
                 }
             }
         }
