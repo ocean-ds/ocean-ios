@@ -121,6 +121,7 @@ extension Ocean {
         public lazy var iconView: UIImageView = {
             let view = UIImageView()
             view.translatesAutoresizingMaskIntoConstraints = false
+            view.tintColor = Ocean.color.colorBrandPrimaryDown
             return view
         }()
         
@@ -238,7 +239,7 @@ extension Ocean {
             subtitleLabel.text = subtitle
             textLabel.isHidden = text.isEmpty
             textLabel.text = text
-            iconView.image = image
+            iconView.image = image?.withRenderingMode(.alwaysTemplate)
             roundedIconViewSpacer.isHidden = imageNotExist
             roundedIconView.isHidden = imageNotExist
             arrowImageViewSpacer.isHidden = !arrow
