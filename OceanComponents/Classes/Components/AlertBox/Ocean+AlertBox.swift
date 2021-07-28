@@ -69,37 +69,34 @@ extension Ocean {
         }
         
         private lazy var mainContentStack: UIStackView = {
-            let contentStack = UIStackView()
-            contentStack.axis = .horizontal
-            contentStack.spacing = Ocean.size.spacingStackXxs
-            contentStack.distribution = .fill
-            contentStack.alignment = .center
-            contentStack.translatesAutoresizingMaskIntoConstraints = false
+            UIStackView { stack in
+                stack.axis = .horizontal
+                stack.spacing = Ocean.size.spacingStackXxs
+                stack.distribution = .fillProportionally
+                stack.alignment = .center
+                stack.translatesAutoresizingMaskIntoConstraints = false
 
-            contentStack.addArrangedSubview(iconImageView)
-            contentStack.addArrangedSubview(messageStack)
-            
-            contentStack.isLayoutMarginsRelativeArrangement = true
-            contentStack.layoutMargins = .init(top: Ocean.size.spacingStackXs,
-                                               left: Ocean.size.spacingStackXs,
-                                               bottom: Ocean.size.spacingStackXs,
-                                               right: Ocean.size.spacingStackXs)
-            
-            return contentStack
+                stack.addArrangedSubview(iconImageView)
+                stack.addArrangedSubview(messageStack)
+                
+                stack.isLayoutMarginsRelativeArrangement = true
+                stack.layoutMargins = .init(top: Ocean.size.spacingStackXs,
+                                            left: Ocean.size.spacingStackXs,
+                                            bottom: Ocean.size.spacingStackXs,
+                                            right: Ocean.size.spacingStackXs)
+            }
         }()
         
         private lazy var messageStack: UIStackView = {
-            let contentStack = UIStackView()
-            contentStack.axis = .vertical
-            contentStack.spacing = Ocean.size.spacingStackXxxs
-            contentStack.distribution = .fillProportionally
-            contentStack.alignment = .fill
-            contentStack.translatesAutoresizingMaskIntoConstraints = false
+            UIStackView { stack in
+                stack.axis = .vertical
+                stack.spacing = Ocean.size.spacingStackXxxs
+                stack.distribution = .fillProportionally
+                stack.translatesAutoresizingMaskIntoConstraints = false
 
-            contentStack.addArrangedSubview(titleLabel)
-            contentStack.addArrangedSubview(messageLabel)
-            
-            return contentStack
+                stack.addArrangedSubview(titleLabel)
+                stack.addArrangedSubview(messageLabel)
+            }
         }()
         
         private lazy var iconImageView: UIImageView = {

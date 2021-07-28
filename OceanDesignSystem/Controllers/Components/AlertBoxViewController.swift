@@ -35,15 +35,15 @@ class AlertBoxViewController: UIViewController {
     }
     
     lazy var alert6 = Ocean.Alert.warning { alert in
-        alert.text = "This is a success message."
-    }
-    
-    lazy var alert7 = Ocean.Alert.error { alert in
         alert.text = "This is a warning message."
     }
     
-    lazy var alert8 = Ocean.Alert.success { alert in
+    lazy var alert7 = Ocean.Alert.error { alert in
         alert.text = "This is an error message."
+    }
+    
+    lazy var alert8 = Ocean.Alert.success { alert in
+        alert.text = "This is a success message."
     }
     
     lazy var contentStack: UIStackView = {
