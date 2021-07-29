@@ -454,6 +454,14 @@ extension Ocean {
             return true
         }
         
+        public func makeTextSpaced() {
+            self.textField.leftView = Ocean.Spacer(space: Ocean.size.spacingStackXxs)
+            self.textField.leftViewMode = .always
+            self.textField.defaultTextAttributes.updateValue(Ocean.size.spacingStackXxs,
+                forKey: NSAttributedString.Key.kern)
+            self.textField.textAlignment = .center
+        }
+        
         public func setSkeleton() {
             self.isSkeletonable = true
         }
