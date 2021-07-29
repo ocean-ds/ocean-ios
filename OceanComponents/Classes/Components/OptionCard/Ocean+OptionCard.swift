@@ -338,7 +338,9 @@ extension Ocean {
                     generator.selectionChanged()
                 } else {
                     animateShake()
-                    onTouch?()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                        self.onTouch?()
+                    }
                 }
             }
         }
