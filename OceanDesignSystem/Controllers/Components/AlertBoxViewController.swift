@@ -10,25 +10,60 @@ import UIKit
 import OceanTokens
 
 class AlertBoxViewController: UIViewController {
+    lazy var alert1 = Ocean.Alert.info { alert in
+        alert.title = "Informational title"
+        alert.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    }
+    
+    lazy var alert2 = Ocean.Alert.warning { alert in
+        alert.title = "Warning title"
+        alert.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    }
+    
+    lazy var alert3 = Ocean.Alert.error { alert in
+        alert.title = "Error title"
+        alert.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    }
+    
+    lazy var alert4 = Ocean.Alert.success { alert in
+        alert.title = "Sucess title!"
+        alert.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    }
+    
+    lazy var alert5 = Ocean.Alert.info { alert in
+        alert.text = "This is an informational message."
+    }
+    
+    lazy var alert6 = Ocean.Alert.warning { alert in
+        alert.text = "This is a warning message."
+    }
+    
+    lazy var alert7 = Ocean.Alert.error { alert in
+        alert.text = "This is an error message."
+    }
+    
+    lazy var alert8 = Ocean.Alert.success { alert in
+        alert.text = "This is a success message."
+    }
     
     lazy var contentStack: UIStackView = {
         let contentStack = UIStackView()
         contentStack.axis = .vertical
-        contentStack.spacing = 0
-        contentStack.distribution = .fill
-        contentStack.alignment = .fill
+        contentStack.spacing = Ocean.size.spacingStackXxs
+        contentStack.distribution = .fillProportionally
+        contentStack.alignment = .center
         contentStack.translatesAutoresizingMaskIntoConstraints = false
         
-        contentStack.addArrangedSubview(alertBoxComponent)
+        contentStack.addArrangedSubview(alert1)
+        contentStack.addArrangedSubview(alert2)
+        contentStack.addArrangedSubview(alert3)
+        contentStack.addArrangedSubview(alert4)
+        contentStack.addArrangedSubview(alert5)
+        contentStack.addArrangedSubview(alert6)
+        contentStack.addArrangedSubview(alert7)
+        contentStack.addArrangedSubview(alert8)
 
         return contentStack
-    }()
-    
-    private lazy var alertBoxComponent: Ocean.AlertBox = {
-        Ocean.AlertBox { component in
-            component.size = .small
-            component.text = "Na hora de pagar lembre-se de conferir os dados de quem vai receber o dinheiro."
-        }
     }()
     
     override func viewDidLoad() {
@@ -36,10 +71,18 @@ class AlertBoxViewController: UIViewController {
         self.view.backgroundColor = .white
         
         view.addSubview(contentStack)
+        
         NSLayoutConstraint.activate([
-            contentStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            contentStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            contentStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10)
+            contentStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            contentStack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            alert1.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: -32),
+            alert2.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: -32),
+            alert3.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: -32),
+            alert4.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: -32),
+            alert5.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: -32),
+            alert6.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: -32),
+            alert7.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: -32),
+            alert8.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: -32),
         ])
     }
 }

@@ -9,95 +9,116 @@ import OceanTokens
 
 extension Ocean {
     final public class AlertBox: UIView {
-
-        public typealias AlertBoxBuilder = (AlertBox) -> Void
-        public var onTouch: (() -> Void)?
-        
-        private var iconSize: CGSize = .init(width: 15, height: 15)
-        
-        public enum Size {
-            case medium
-            case small
-            case large
+        public enum IconType {
+            case info
+            case error
+            case warning
+            case success
         }
         
-        public var size: Size = .small {
+        public var onTouch: (() -> Void)?
+        
+        public var iconType: IconType? {
             didSet {
-                switch size {
-                case .large:
-                    iconSize = .init(width: 32, height: 32)
-                case .medium:
-                    iconSize = .init(width: 24, height: 24)
-                case .small:
-                    iconSize = .init(width: 15, height: 15)
+                if (self.iconType == .info) {
+                    backgroundColor = Ocean.color.colorInterfaceLightUp
+                    iconImageView.tintColor = Ocean.color.colorBrandPrimaryDown
+                    titleLabel.textColor = Ocean.color.colorBrandPrimaryDown
+                    image = Ocean.icon.informationCircleOutline?.withRenderingMode(.alwaysTemplate)
+                } else if (self.iconType == .warning) {
+                    backgroundColor = Ocean.color.colorStatusNeutralUp
+                    iconImageView.tintColor = Ocean.color.colorStatusNeutralDeep
+                    titleLabel.textColor = Ocean.color.colorStatusNeutralDeep
+                    image = Ocean.icon.exclamationCircleOutline?.withRenderingMode(.alwaysTemplate)
+                } else if (self.iconType == .error) {
+                    backgroundColor = Ocean.color.colorStatusNegativeUp
+                    iconImageView.tintColor = Ocean.color.colorStatusNegativePure
+                    titleLabel.textColor = Ocean.color.colorStatusNegativePure
+                    image = Ocean.icon.banOutline?.withRenderingMode(.alwaysTemplate)
+                } else if (self.iconType == .success) {
+                    backgroundColor = Ocean.color.colorStatusPositiveUp
+                    iconImageView.tintColor = Ocean.color.colorStatusPositiveDeep
+                    titleLabel.textColor = Ocean.color.colorStatusPositiveDeep
+                    image = Ocean.icon.checkCircleOutline?.withRenderingMode(.alwaysTemplate)
                 }
+            }
+        }
+        
+        public var image: UIImage? {
+            didSet {
+                updateUI()
+            }
+        }
+        
+        public var title: String = ""{
+            didSet {
+                updateUI()
             }
         }
         
         public var text: String = "" {
             didSet {
-                messageLabel.text = text
+                updateUI()
+            }
+        }
+        
+        public var textAttributedString: NSAttributedString? {
+            didSet {
+                updateUI()
             }
         }
         
         private lazy var mainContentStack: UIStackView = {
-            let contentStack = UIStackView()
-            contentStack.axis = .vertical
-            contentStack.spacing = 0
-            contentStack.distribution = .fill
-            contentStack.alignment = .fill
-            contentStack.translatesAutoresizingMaskIntoConstraints = false
+            UIStackView { stack in
+                stack.axis = .horizontal
+                stack.spacing = Ocean.size.spacingStackXxs
+                stack.distribution = .fillProportionally
+                stack.alignment = .center
+                stack.translatesAutoresizingMaskIntoConstraints = false
 
-            contentStack.addArrangedSubview(Spacer(space: Ocean.size.borderRadiusLg))
-            contentStack.addArrangedSubview(horizontalContentStack)
-            contentStack.addArrangedSubview(Spacer(space: Ocean.size.borderRadiusLg))
-            
-            return contentStack
+                stack.addArrangedSubview(iconImageView)
+                stack.addArrangedSubview(messageStack)
+                
+                stack.isLayoutMarginsRelativeArrangement = true
+                stack.layoutMargins = .init(top: Ocean.size.spacingStackXs,
+                                            left: Ocean.size.spacingStackXs,
+                                            bottom: Ocean.size.spacingStackXs,
+                                            right: Ocean.size.spacingStackXs)
+            }
         }()
         
-        private lazy var horizontalContentStack: UIStackView = {
-            let contentStack = UIStackView()
-            contentStack.axis = .horizontal
-            contentStack.spacing = 18.5
-            contentStack.distribution = .fill
-            contentStack.alignment = .center
+        private lazy var messageStack: UIStackView = {
+            UIStackView { stack in
+                stack.axis = .vertical
+                stack.spacing = Ocean.size.spacingStackXxxs
+                stack.distribution = .fillProportionally
+                stack.translatesAutoresizingMaskIntoConstraints = false
 
-            contentStack.addArrangedSubview(iconImageView)
-            contentStack.addArrangedSubview(messageStack)
-            
-            contentStack.isLayoutMarginsRelativeArrangement = true
-            contentStack.layoutMargins = .init(top: 0, left: 18.5, bottom: 0, right: Ocean.size.borderRadiusLg)
-            
-            return contentStack
+                stack.addArrangedSubview(titleLabel)
+                stack.addArrangedSubview(messageLabel)
+            }
         }()
         
         private lazy var iconImageView: UIImageView = {
             let imageView = UIImageView()
-            imageView.image = Ocean.icon.informationCircleOutline?.withRenderingMode(.alwaysTemplate)
-            imageView.tintColor = Ocean.color.colorBrandPrimaryDown
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            imageView.heightAnchor.constraint(equalToConstant: iconSize.height).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: iconSize.width).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: 24).isActive = true
+            imageView.heightAnchor.constraint(equalToConstant: 24).isActive = true
             return imageView
         }()
         
-        private lazy var messageStack: UIStackView = {
-            let contentStack = UIStackView()
-            contentStack.axis = .vertical
-            contentStack.spacing = 0
-            contentStack.distribution = .fill
-            contentStack.alignment = .fill
-
-            contentStack.addArrangedSubview(messageLabel)
-            
-            return contentStack
+        private lazy var titleLabel: UILabel = {
+            UILabel { label in
+                label.font = .baseBold(size: 14)
+                label.numberOfLines = 1
+                label.translatesAutoresizingMaskIntoConstraints = false
+            }
         }()
         
-        lazy var messageLabel: UILabel = {
-            Ocean.Typography.paragraph { label in
+        private lazy var messageLabel: UILabel = {
+            Ocean.Typography.caption { label in
                 label.numberOfLines = 0
-                label.font = .baseRegular(size: 12)
-                label.textColor = Ocean.color.colorInterfaceDarkDown
+                label.translatesAutoresizingMaskIntoConstraints = false
             }
         }()
 
@@ -108,7 +129,6 @@ extension Ocean {
         }
         
         private func setupUI() {
-            backgroundColor = Ocean.color.colorInterfaceLightUp
             layer.cornerRadius = 4
             clipsToBounds = true
             addSubview(mainContentStack)
@@ -121,6 +141,18 @@ extension Ocean {
             ])
             
             addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(touchAction(_:))))
+        }
+        
+        private func updateUI() {
+            iconImageView.image = image
+            titleLabel.text = title
+            titleLabel.isHidden = title.isEmpty
+            messageLabel.text = text
+            if let textAttributedString = self.textAttributedString {
+                messageLabel.attributedText = textAttributedString
+            }
+            
+            mainContentStack.spacing = title.isEmpty ? Ocean.size.spacingStackXxs : Ocean.size.spacingStackXs
         }
         
         @objc private func touchAction(_ sender: Any) {

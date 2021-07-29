@@ -8,6 +8,7 @@
 import Foundation
 import OceanTokens
 import UIKit
+import SkeletonView
 
 extension Ocean {
     public enum TextListType {
@@ -61,7 +62,7 @@ extension Ocean {
         
         public var onTouch: (() -> Void)?
         
-        public lazy var mainStack: UIStackView = {
+        private lazy var mainStack: UIStackView = {
             UIStackView { stack in
                 stack.axis = .vertical
                 stack.distribution = .fill
@@ -79,7 +80,7 @@ extension Ocean {
             }
         }()
         
-        public lazy var contentStack: UIStackView = {
+        private lazy var contentStack: UIStackView = {
             UIStackView { stack in
                 stack.axis = .horizontal
                 stack.distribution = .fill
@@ -98,9 +99,9 @@ extension Ocean {
             }
         }()
         
-        lazy var roundedIconViewSpacer = Ocean.Spacer(space: Ocean.size.spacingStackXs)
+        private lazy var roundedIconViewSpacer = Ocean.Spacer(space: Ocean.size.spacingStackXs)
         
-        public lazy var roundedIconView: UIView = {
+        private lazy var roundedIconView: UIView = {
             let view = UIView()
             view.translatesAutoresizingMaskIntoConstraints = false
             view.clipsToBounds = true
@@ -118,15 +119,16 @@ extension Ocean {
             return view
         }()
         
-        public lazy var iconView: UIImageView = {
+        private lazy var iconView: UIImageView = {
             let view = UIImageView()
             view.translatesAutoresizingMaskIntoConstraints = false
+            view.tintColor = Ocean.color.colorBrandPrimaryDown
             return view
         }()
         
-        lazy var arrowImageViewSpacer = Ocean.Spacer(space: Ocean.size.spacingStackXs)
+        private lazy var arrowImageViewSpacer = Ocean.Spacer(space: Ocean.size.spacingStackXs)
         
-        public lazy var arrowImageView: UIImageView = {
+        private lazy var arrowImageView: UIImageView = {
             let view = UIImageView()
             view.translatesAutoresizingMaskIntoConstraints = false
             view.image = Ocean.icon.chevronRightSolid
@@ -134,9 +136,9 @@ extension Ocean {
             return view
         }()
         
-        public lazy var badgeView = Ocean.Badge()
+        private lazy var badgeView = Ocean.Badge()
         
-        public lazy var infoStackTitle: UIStackView = {
+        private lazy var infoStackTitle: UIStackView = {
             UIStackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
                 stack.axis = .horizontal
@@ -151,7 +153,7 @@ extension Ocean {
             }
         }()
         
-        public lazy var infoStack: UIStackView = {
+        private lazy var infoStack: UIStackView = {
             UIStackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
                 stack.axis = .vertical
@@ -166,7 +168,7 @@ extension Ocean {
             }
         }()
         
-        public lazy var titleLabel: UILabel = {
+        private lazy var titleLabel: UILabel = {
             Ocean.Typography.paragraph { label in
                 label.font = .baseSemiBold(size: Ocean.font.fontSizeXs)
                 label.textColor = Ocean.color.colorInterfaceDarkDeep
@@ -174,13 +176,13 @@ extension Ocean {
             }
         }()
         
-        public lazy var subtitleLabel: UILabel = {
+        private lazy var subtitleLabel: UILabel = {
             Ocean.Typography.description { label in
                 label.numberOfLines = 1
             }
         }()
 
-        public lazy var textLabel: UILabel = {
+        private lazy var textLabel: UILabel = {
             Ocean.Typography.caption { label in
                 label.numberOfLines = 1
             }
@@ -230,7 +232,7 @@ extension Ocean {
             self.addTapGesture(selector: #selector(viewTapped))
         }
 
-        func updateUI() {
+        private func updateUI() {
             let imageNotExist = image == nil
             
             titleLabel.text = title
@@ -258,6 +260,26 @@ extension Ocean {
                                                 right: 0)
                 }
             }
+        }
+        
+        public func setSkeleton() {
+            self.isSkeletonable = true
+            self.mainStack.isSkeletonable = true
+            self.contentStack.isSkeletonable = true
+            self.roundedIconView.isSkeletonable = true
+            self.iconView.isSkeletonable = true
+            self.infoStackTitle.isSkeletonable = true
+            self.infoStack.isSkeletonable = true
+            self.titleLabel.isSkeletonable = true
+            self.subtitleLabel.isSkeletonable = true
+            self.textLabel.isSkeletonable = true
+        }
+        
+        public func setSkeletonInverse() {
+            self.isSkeletonable = true
+            self.mainStack.isSkeletonable = true
+            self.contentStack.isSkeletonable = true
+            self.infoStack.isSkeletonable = true
         }
         
         @objc func viewTapped() {

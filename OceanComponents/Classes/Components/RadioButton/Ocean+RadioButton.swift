@@ -14,10 +14,10 @@ extension Ocean {
         
         private let generator = UISelectionFeedbackGenerator()
         
-        public var mainStack: UIStackView!
-        public var radioBkgView: UIControl!
-        public var radioStack: UIStackView!
-        public var textLabel: UILabel!
+        private var mainStack: UIStackView!
+        private var radioBkgView: UIControl!
+        private var radioStack: UIStackView!
+        private var textLabel: UILabel!
 
         public var label: String = ""{
             didSet {
@@ -215,6 +215,14 @@ extension Ocean {
             animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
             layer.fillColor = color.cgColor
             layer.add(animation, forKey: key)
+        }
+        
+        public func setSkeleton() {
+            self.isSkeletonable = true
+            self.mainStack.isSkeletonable = true
+            self.radioBkgView.isSkeletonable = true
+            self.radioStack.isSkeletonable = true
+            self.textLabel.isSkeletonable = true
         }
     }
 }

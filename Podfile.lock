@@ -3,8 +3,10 @@ PODS:
   - OceanComponents (3.1.0-52):
     - FSCalendar
     - OceanTokens
+    - SkeletonView
     - SPStorkController
   - OceanTokens (3.1.0)
+  - SkeletonView (1.21.2)
   - Sourcery (1.0.3)
   - SPStorkController (1.8.5)
   - SwiftyMocky (4.0.4):
@@ -18,6 +20,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - FSCalendar
+    - SkeletonView
     - Sourcery
     - SPStorkController
     - SwiftyMocky
@@ -30,8 +33,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FSCalendar: e6a2eb9c571bf0719ed797ef807e08426753c241
-  OceanComponents: f83e0eefa09621f601a9dbf10f9dcf2b6f906b0a
+  OceanComponents: 9a76d07054f26d28d1fd35b37b98f9327f7e157b
   OceanTokens: 381d1e8ad998e3e81913eff8d30dc7c5de600ad4
+  SkeletonView: a085533443fed0198309f1979780afb6e80eaedd
   Sourcery: 70a6048014bd4f37ea80e6bd4354d47bf3b760e1
   SPStorkController: 68966ed3134de2be2a8bbd1475c7e81f3f7d01ee
   SwiftyMocky: 1fb3ceca9ded134dad4da58a0f20023d7f685ccf

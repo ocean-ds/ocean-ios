@@ -17,17 +17,17 @@ extension Ocean {
     }
 
     public class InputTextField: UIControl, UITextFieldDelegate {
-        public var mainStack: UIStackView!
-        public var labelTitle: UILabel!
-        public var textField: UITextField!
-        public var imageView: UIImageView!
-        public var labelError: UILabel!
-        public var labelHelper: UILabel!
-        public var hStack: UIStackView!
-        public var backgroundView: UIView!
-        public var titleStackContent: UIStackView!
-        public var titleStackView: UIStackView!
-        public var infoIconImageView: UIImageView!
+        internal var mainStack: UIStackView!
+        internal var labelTitle: UILabel!
+        internal var textField: UITextField!
+        internal var imageView: UIImageView!
+        internal var labelError: UILabel!
+        internal var labelHelper: UILabel!
+        internal var hStack: UIStackView!
+        internal var backgroundView: UIView!
+        internal var titleStackContent: UIStackView!
+        internal var titleStackView: UIStackView!
+        internal var infoIconImageView: UIImageView!
         
         private let errorEmpty = "..."
         
@@ -454,5 +454,8 @@ extension Ocean {
             return true
         }
         
+        public func setSkeleton() {
+            self.isSkeletonable = true
+        }
     }
 }
