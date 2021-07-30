@@ -129,7 +129,7 @@ extension Ocean {
         }
         
         private func setupUI() {
-            layer.cornerRadius = 4
+            ocean.radius.applyMd()
             clipsToBounds = true
             addSubview(mainContentStack)
         
