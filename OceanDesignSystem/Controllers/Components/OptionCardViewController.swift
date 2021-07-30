@@ -33,6 +33,9 @@ final public class OptionCardViewController : UIViewController {
                 self.oc5.isSelected = false
                 print(1)
             }
+            option.onTouchDisabled = {
+                print(1)
+            }
         }
         oc2 = Ocean.OptionCard { option in
             option.title = "Title"
@@ -57,7 +60,7 @@ final public class OptionCardViewController : UIViewController {
                 self.oc2.isSelected = false
                 self.oc4.isSelected = false
                 self.oc5.isSelected = false
-                print(2)
+                print(3)
             }
         }
         oc4 = Ocean.OptionCard { option in
@@ -69,7 +72,10 @@ final public class OptionCardViewController : UIViewController {
                 self.oc2.isSelected = false
                 self.oc3.isSelected = false
                 self.oc5.isSelected = false
-                print(3)
+                print(4)
+            }
+            option.onTouchDisabled = {
+                print(4)
             }
         }
         oc5 = Ocean.OptionCard { option in
@@ -80,7 +86,7 @@ final public class OptionCardViewController : UIViewController {
                 self.oc2.isSelected = false
                 self.oc3.isSelected = false
                 self.oc4.isSelected = false
-                print(4)
+                print(5)
             }
         }
         

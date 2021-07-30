@@ -195,6 +195,7 @@ extension Ocean {
         }()
         
         public var onTouch: (() -> Void)?
+        public var onTouchDisabled: (() -> Void)?
 
         override init(frame: CGRect) {
             super.init(frame: frame)
@@ -231,6 +232,7 @@ extension Ocean {
 
         public override var isSelected: Bool {
             didSet {
+                isError = false
                 updateState()
             }
         }
@@ -299,13 +301,20 @@ extension Ocean {
             titleLabel.textColor = Ocean.color.colorBrandPrimaryDown
         }
         
-        private func animateShake() {
+        private func animateShake(completion: (() -> Void)?) {
+            CATransaction.begin()
+            CATransaction.setCompletionBlock({
+                completion?()
+            })
+            
             let animation = CAKeyframeAnimation(keyPath: "position.x")
             animation.values = [ 0, 10, -10, 10, 0 ]
             animation.keyTimes = [ 0, NSNumber(value: (1 / 6.0)), NSNumber(value: (3 / 6.0)), NSNumber(value: (5 / 6.0)), 1 ]
             animation.duration = 0.4
             animation.isAdditive = true
             self.layer.add(animation, forKey: "shake")
+            
+            CATransaction.commit()
         }
 
         func makeView() {
@@ -337,10 +346,7 @@ extension Ocean {
                     onTouch?()
                     generator.selectionChanged()
                 } else {
-                    animateShake()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                        self.onTouch?()
-                    }
+                    animateShake(completion: self.onTouchDisabled)
                 }
             }
         }
