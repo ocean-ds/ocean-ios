@@ -340,7 +340,7 @@ extension Ocean {
                 if !isDisabled {
                     pressState()
                 }
-            } else {
+            } else if gesture.state == .ended {
                 if !isDisabled {
                     isSelected = true
                     onTouch?()

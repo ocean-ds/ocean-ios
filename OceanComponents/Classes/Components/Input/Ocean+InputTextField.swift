@@ -159,20 +159,11 @@ extension Ocean {
         public var onInfoIconTouched: (() -> Void)?
 
         public var rightButton: UIButton?
-        
-        public override init(frame: CGRect) {
-            super.init(frame: frame)
-            self.makeView()
-        }
-        
-        required init?(coder: NSCoder) {
-            super.init(coder: coder)
-            self.makeView()
-        }
 
         public convenience init(builder: InputTextFieldBuilder) {
             self.init(frame: .zero)
             builder(self)
+            makeView()
             updateState()
         }
 
