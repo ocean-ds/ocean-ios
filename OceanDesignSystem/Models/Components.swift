@@ -15,6 +15,7 @@ struct DSComponents {
         "AlertBox",
         "BottomSheet",
         "Button",
+        "CheckBox",
         "DatePicker",
         "Divider",
         "Input",

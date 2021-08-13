@@ -15,6 +15,7 @@
 		2456BF94268612E800E2361E /* DividerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2456BF93268612E800E2361E /* DividerViewController.swift */; };
 		245E5D812698B90100CCF41D /* TextListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245E5D802698B90100CCF41D /* TextListViewController.swift */; };
 		2482CDD4267D055100A50422 /* RadioButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2482CDD3267D055100A50422 /* RadioButtonViewController.swift */; };
+		2491356C26C5BB10005EE76E /* CheckBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2491356B26C5BB10005EE76E /* CheckBoxViewController.swift */; };
 		249999B626A9CDA5004DAB05 /* NavigationBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249999B526A9CDA5004DAB05 /* NavigationBarViewController.swift */; };
 		249999BC26AAFB2D004DAB05 /* OptionCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249999BB26AAFB2D004DAB05 /* OptionCardViewController.swift */; };
 		249DC9402672AD2600012411 /* SwitchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249DC93F2672AD2600012411 /* SwitchViewController.swift */; };
@@ -75,6 +76,7 @@
 		2456BF93268612E800E2361E /* DividerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerViewController.swift; sourceTree = "<group>"; };
 		245E5D802698B90100CCF41D /* TextListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextListViewController.swift; sourceTree = "<group>"; };
 		2482CDD3267D055100A50422 /* RadioButtonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonViewController.swift; sourceTree = "<group>"; };
+		2491356B26C5BB10005EE76E /* CheckBoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxViewController.swift; sourceTree = "<group>"; };
 		249999B526A9CDA5004DAB05 /* NavigationBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarViewController.swift; sourceTree = "<group>"; };
 		249999BB26AAFB2D004DAB05 /* OptionCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionCardViewController.swift; sourceTree = "<group>"; };
 		249DC93F2672AD2600012411 /* SwitchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchViewController.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				245E5D802698B90100CCF41D /* TextListViewController.swift */,
 				249999B526A9CDA5004DAB05 /* NavigationBarViewController.swift */,
 				249999BB26AAFB2D004DAB05 /* OptionCardViewController.swift */,
+				2491356B26C5BB10005EE76E /* CheckBoxViewController.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -487,6 +490,7 @@
 				B768C57724E3186C0086BF9C /* InputViewController.swift in Sources */,
 				B7BB717924E615B3007F8848 /* SnackbarViewController.swift in Sources */,
 				B71D65FD24CA530000C3938C /* Components.swift in Sources */,
+				2491356C26C5BB10005EE76E /* CheckBoxViewController.swift in Sources */,
 				138EF63E268502E1000E65EA /* AlertBoxViewController.swift in Sources */,
 				2482CDD4267D055100A50422 /* RadioButtonViewController.swift in Sources */,
 				B7BB722024EEEA89007F8848 /* SnackbarView.swift in Sources */,
