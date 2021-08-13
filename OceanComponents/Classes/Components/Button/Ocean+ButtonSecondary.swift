@@ -69,7 +69,8 @@ extension Ocean {
         private var stack: UIStackView!
         private var label: UILabel!
         private var imageView: UIImageView!
-        private var activityIndicator: UIActivityIndicatorView!
+        private var spinner: Ocean.Spinner!
+        
         private var activeBackgroundColor: UIColor!
         private var activeLabelColor: UIColor!
         private var hoverBackgroundColor: UIColor!
@@ -132,7 +133,6 @@ extension Ocean {
         }
         
         private func makeView() {
-            
             let contentStack = UIStackView()
             contentStack.translatesAutoresizingMaskIntoConstraints = false
             contentStack.axis = .horizontal
@@ -169,22 +169,17 @@ extension Ocean {
             self.heightAnchor.constraint(equalToConstant: height).isActive = true
             self.widthAnchor.constraint(greaterThanOrEqualToConstant: minWidth).isActive = true
             
-            //self.stack.isUserInteractionEnabled = false
-            
             self.addTarget(self, action: #selector(pressed), for: .touchDown)
             self.addTarget(self, action: #selector(touchUpInSide), for: .touchUpInside)
             self.addTarget(self, action: #selector(touchUpOutSide), for: .touchUpOutside)
             
-            activityIndicator = UIActivityIndicatorView(style: .white)
-            activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-            activityIndicator.hidesWhenStopped = true
-            activityIndicator.isUserInteractionEnabled = false
-            self.addSubview(activityIndicator)
+            spinner = Ocean.Spinner()
+            spinner.translatesAutoresizingMaskIntoConstraints = false
+            spinner.isHidden = true
+            self.addSubview(spinner)
             
-            activityIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-            activityIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-            
-            activityIndicator.stopAnimating()
+            spinner.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+            spinner.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
             
             contentStack.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 0).isActive = true
                        contentStack.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).isActive = true
@@ -192,6 +187,15 @@ extension Ocean {
                        paddingRightConstraints = contentStack.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -padding)
             
             self.setContentHuggingPriority(.fittingSizeLevel, for: .horizontal)
+            
+            switch size {
+            case .large:
+                spinner.size = .large
+            case .small:
+                spinner.size = .small
+            default:
+                spinner.size = .medium
+            }
         }
         
         final public override func didMoveToSuperview() {
@@ -235,14 +239,16 @@ extension Ocean {
             self.isUserInteractionEnabled = true
             self.label.alpha = 1
             self.imageView?.alpha = 1
-            self.activityIndicator.stopAnimating()
+            self.spinner.stopAnimating()
+            self.spinner.isHidden = true
         }
         
         func startActivityIndicator() {
             self.isUserInteractionEnabled = false
             self.label.alpha = 0
             self.imageView?.alpha = 0
-            activityIndicator.startAnimating()
+            self.spinner.startAnimating()
+            self.spinner.isHidden = false
         }
         
         func active() {

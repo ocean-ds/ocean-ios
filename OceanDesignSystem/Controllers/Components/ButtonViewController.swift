@@ -66,7 +66,8 @@ final public class ButtonViewController : UIViewController {
            button.isEnabled = false
         }
         else if (self.states.selectedSegmentIndex == 3) {
-           button.isHidden = true
+            button.isLoading = true
+            button.icon = nil
         }
     }
     
@@ -81,7 +82,8 @@ final public class ButtonViewController : UIViewController {
             button.isEnabled = false
         }
         else if (self.states.selectedSegmentIndex == 3) {
-            button.isHidden = true
+            button.isLoading = true
+            button.icon = nil
         }
     }
     
