@@ -43,6 +43,7 @@ public enum DesignSystemComponentsType: String {
     case NavigationBar
     case OptionCard
     case CheckBox
+    case Spinner
 }
 
 public enum DesignSystemTypographyType: Int {

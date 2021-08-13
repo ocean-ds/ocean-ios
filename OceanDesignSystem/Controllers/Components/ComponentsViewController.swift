@@ -70,6 +70,8 @@ class ComponentsViewController: UITableViewController {
                 self.present(OptionCardViewController(), animated: true, completion: nil)
             case .CheckBox:
                 self.present(CheckBoxViewController(), animated: true, completion: nil)
+            case .Spinner:
+                self.present(SpinnerViewController(), animated: true, completion: nil)
             default:
                 performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }

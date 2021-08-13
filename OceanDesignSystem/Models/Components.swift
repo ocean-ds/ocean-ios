@@ -23,6 +23,7 @@ struct DSComponents {
         "OptionCard",
         "RadioButton",
         "Snackbar",
+        "Spinner",
         "Switch",
         "TextList",
         "Tooltip",
