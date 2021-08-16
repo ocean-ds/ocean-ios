@@ -72,6 +72,8 @@ class ComponentsViewController: UITableViewController {
                 self.present(CheckBoxViewController(), animated: true, completion: nil)
             case .ProgressIndicator:
                 self.present(ProgressIndicatorViewController(), animated: true, completion: nil)
+            case .BottomNavigationBar:
+                self.present(BottomNavigationBarViewController(), animated: true, completion: nil)
             default:
                 performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }

@@ -13,6 +13,7 @@ import OceanTokens
 struct DSComponents {
     static let list = [
         "AlertBox",
+        "BottomNavigationBar",
         "BottomSheet",
         "Button",
         "CheckBox",

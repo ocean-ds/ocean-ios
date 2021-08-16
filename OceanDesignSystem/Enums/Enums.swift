@@ -44,6 +44,7 @@ public enum DesignSystemComponentsType: String {
     case OptionCard
     case CheckBox
     case ProgressIndicator
+    case BottomNavigationBar
 }
 
 public enum DesignSystemTypographyType: Int {
