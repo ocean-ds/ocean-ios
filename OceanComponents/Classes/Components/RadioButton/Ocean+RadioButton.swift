@@ -126,8 +126,6 @@ extension Ocean {
 
             radioBkgView = UIControl()
             radioBkgView.translatesAutoresizingMaskIntoConstraints = false
-            radioBkgView.clipsToBounds = true
-            radioBkgView.ocean.radius.applySm()
 
             if backgroundColor == nil || backgroundColor == UIColor.clear {
                 backgroundColor = Ocean.color.colorInterfaceLightPure
@@ -138,7 +136,7 @@ extension Ocean {
 
             backgroundCircleLayer = CAShapeLayer()
             backgroundCircleLayer.path = backgroundPath
-            backgroundCircleLayer.fillColor = Ocean.color.colorHighlightPure.cgColor
+            backgroundCircleLayer.fillColor = Ocean.color.colorInterfaceLightPure.cgColor
 
             foregroundCircleLayer = CAShapeLayer()
             foregroundCircleLayer.path = foregroundShrinkPath
