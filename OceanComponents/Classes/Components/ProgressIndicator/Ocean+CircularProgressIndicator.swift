@@ -1,5 +1,5 @@
 //
-//  Ocean+Spinner.swift
+//  Ocean+CircularProgressIndicator.swift
 //  OceanComponents-OceanComponents
 //
 //  Created by Vini on 13/08/21.
@@ -9,7 +9,7 @@ import OceanTokens
 import UIKit
 
 extension Ocean {
-    public class Spinner: UIView {
+    public class CircularProgressIndicator: UIView {
         public enum Size {
             case small
             case medium
@@ -19,7 +19,7 @@ extension Ocean {
         private var widthConstraint: NSLayoutConstraint?
         private var heightConstraint: NSLayoutConstraint?
         
-        public var size: Spinner.Size = .medium {
+        public var size: CircularProgressIndicator.Size = .medium {
             didSet {
                 setSize()
             }

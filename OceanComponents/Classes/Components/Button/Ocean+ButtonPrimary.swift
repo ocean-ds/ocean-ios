@@ -68,7 +68,7 @@ extension Ocean {
         private var padding: CGFloat = Ocean.size.spacingInlineSm
         private var label: UILabel!
         private var imageView: UIImageView!
-        private var spinner: Ocean.Spinner!
+        private var spinner: Ocean.CircularProgressIndicator!
         
         internal var activeBackgroundColor: UIColor!
         internal var activeLabelColor: UIColor!
@@ -173,7 +173,7 @@ extension Ocean {
             self.addTarget(self, action: #selector(touchUpInSide), for: .touchUpInside)
             self.addTarget(self, action: #selector(touchUpOutSide), for: .touchUpOutside)
             
-            spinner = Ocean.Spinner()
+            spinner = Ocean.CircularProgressIndicator()
             spinner.translatesAutoresizingMaskIntoConstraints = false
             spinner.isHidden = true
             self.addSubview(spinner)

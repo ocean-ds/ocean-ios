@@ -1,5 +1,5 @@
 //
-//  SpinnerViewController.swift
+//  ProgressIndicatorViewController.swift
 //  OceanDesignSystem
 //
 //  Created by Vini on 13/08/21.
@@ -11,10 +11,10 @@ import UIKit
 import OceanTokens
 import OceanComponents
 
-final public class SpinnerViewController : UIViewController {
-    let sp1 = Ocean.Spinner()
-    let sp2 = Ocean.Spinner()
-    let sp3 = Ocean.Spinner()
+final public class ProgressIndicatorViewController : UIViewController {
+    let sp1 = Ocean.CircularProgressIndicator()
+    let sp2 = Ocean.CircularProgressIndicator()
+    let sp3 = Ocean.CircularProgressIndicator()
     
     public override func viewDidLoad() {
         self.view.backgroundColor = Ocean.color.colorBrandPrimaryPure

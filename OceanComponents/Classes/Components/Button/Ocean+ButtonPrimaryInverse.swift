@@ -69,7 +69,7 @@ extension Ocean {
         private var stack: UIStackView!
         private var label: UILabel!
         private var imageView: UIImageView!
-        private var spinner: Ocean.Spinner!
+        private var spinner: Ocean.CircularProgressIndicator!
         
         private var activeBackgroundColor: UIColor!
         private var activeLabelColor: UIColor!
@@ -174,7 +174,7 @@ extension Ocean {
             self.addTarget(self, action: #selector(touchUpInSide), for: .touchUpInside)
             self.addTarget(self, action: #selector(touchUpOutSide), for: .touchUpOutside)
             
-            spinner = Ocean.Spinner()
+            spinner = Ocean.CircularProgressIndicator()
             spinner.translatesAutoresizingMaskIntoConstraints = false
             spinner.isHidden = true
             self.addSubview(spinner)
