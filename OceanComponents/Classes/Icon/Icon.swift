@@ -14,6 +14,8 @@ extension Ocean {
     public static let bundleComponents = Bundle(url: Bundle.bundleOceanComponents.resourceURL!.appendingPathComponent(resourceComponentsBundleName))!
     
     public struct icon {
+        public static let spinner = UIImage(named: "OceanComponents.bundle/spinner", in: .bundleOceanComponents, compatibleWith: .none)
+        
         public static let academicCapOutline = UIImage(named: "OceanComponents.bundle/academic-cap-outline", in: .bundleOceanComponents, compatibleWith: .none)
         public static let academicCapSolid = UIImage(named: "OceanComponents.bundle/academic-cap-solid", in: .bundleOceanComponents, compatibleWith: .none)
         public static let adjustmentsOutline = UIImage(named: "OceanComponents.bundle/adjustments-outline", in: .bundleOceanComponents, compatibleWith: .none)

@@ -12,14 +12,14 @@ extension Ocean {
     public class RadioButton: UIControl {
         public typealias RadioButtonBuilder = (RadioButton) -> Void
         
-        private let generator = UISelectionFeedbackGenerator()
+        internal let generator = UISelectionFeedbackGenerator()
         
         private var mainStack: UIStackView!
         private var radioBkgView: UIControl!
         private var radioStack: UIStackView!
         private var textLabel: UILabel!
 
-        public var label: String = ""{
+        public var label: String = "" {
             didSet {
                 textLabel?.text = label
             }
@@ -69,25 +69,31 @@ extension Ocean {
         private var backgroundCircleLayer: CAShapeLayer!
         private var foregroundCircleLayer: CAShapeLayer!
 
-        private var size: CGFloat = 24
+        internal var size: CGFloat = 24
 
-        private lazy var backgroundPath: CGPath = {
-            return UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: size, height: size)).cgPath
-        }()
+        internal var backgroundPath: CGPath {
+            get {
+                return UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: size, height: size)).cgPath
+            }
+        }
 
-        private lazy var foregroundShrinkPath: CGPath = {
-            let circleSize = size * 0.3
-            let center = size * 0.5 - circleSize * 0.5
-            return UIBezierPath(ovalIn: CGRect(x: center, y: center, width: circleSize, height: circleSize)).cgPath
-        }()
+        internal var foregroundShrinkPath: CGPath {
+            get {
+                let circleSize = size * 0.3
+                let center = size * 0.5 - circleSize * 0.5
+                return UIBezierPath(ovalIn: CGRect(x: center, y: center, width: circleSize, height: circleSize)).cgPath
+            }
+        }
 
-        private lazy var foregroundExpandPath: CGPath = {
-            let circleSize = size * 0.9
-            let center = size * 0.5 - circleSize * 0.5
-            return UIBezierPath(ovalIn: CGRect(x: center, y: center, width: circleSize, height: circleSize)).cgPath
-        }()
+        internal var foregroundExpandPath: CGPath {
+            get {
+                let circleSize = size * 0.9
+                let center = size * 0.5 - circleSize * 0.5
+                return UIBezierPath(ovalIn: CGRect(x: center, y: center, width: circleSize, height: circleSize)).cgPath
+            }
+        }
 
-        @objc private func toogleRadio() {
+        @objc internal func toogleRadio() {
             isSelected = true
             onTouch?()
             generator.selectionChanged()
@@ -130,7 +136,7 @@ extension Ocean {
 
             backgroundCircleLayer = CAShapeLayer()
             backgroundCircleLayer.path = backgroundPath
-            backgroundCircleLayer.fillColor = Ocean.color.colorHighlightPure.cgColor
+            backgroundCircleLayer.fillColor = Ocean.color.colorInterfaceLightPure.cgColor
 
             foregroundCircleLayer = CAShapeLayer()
             foregroundCircleLayer.path = foregroundShrinkPath

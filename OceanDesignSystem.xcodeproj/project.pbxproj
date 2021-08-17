@@ -14,7 +14,10 @@
 		1C8CBC30A7EB8375212384D4 /* Pods_OceanDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D9D9A171B743DED8A2B2297 /* Pods_OceanDesignSystem.framework */; };
 		2456BF94268612E800E2361E /* DividerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2456BF93268612E800E2361E /* DividerViewController.swift */; };
 		245E5D812698B90100CCF41D /* TextListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245E5D802698B90100CCF41D /* TextListViewController.swift */; };
+		2479450726CAE9E6000F4DF0 /* BottomNavigationBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2479450626CAE9E6000F4DF0 /* BottomNavigationBarViewController.swift */; };
 		2482CDD4267D055100A50422 /* RadioButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2482CDD3267D055100A50422 /* RadioButtonViewController.swift */; };
+		2491356C26C5BB10005EE76E /* CheckBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2491356B26C5BB10005EE76E /* CheckBoxViewController.swift */; };
+		2491357826C6F634005EE76E /* ProgressIndicatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2491357726C6F634005EE76E /* ProgressIndicatorViewController.swift */; };
 		249999B626A9CDA5004DAB05 /* NavigationBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249999B526A9CDA5004DAB05 /* NavigationBarViewController.swift */; };
 		249999BC26AAFB2D004DAB05 /* OptionCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249999BB26AAFB2D004DAB05 /* OptionCardViewController.swift */; };
 		249DC9402672AD2600012411 /* SwitchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249DC93F2672AD2600012411 /* SwitchViewController.swift */; };
@@ -74,7 +77,10 @@
 		13F2534426986B9400883519 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		2456BF93268612E800E2361E /* DividerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerViewController.swift; sourceTree = "<group>"; };
 		245E5D802698B90100CCF41D /* TextListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextListViewController.swift; sourceTree = "<group>"; };
+		2479450626CAE9E6000F4DF0 /* BottomNavigationBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomNavigationBarViewController.swift; sourceTree = "<group>"; };
 		2482CDD3267D055100A50422 /* RadioButtonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonViewController.swift; sourceTree = "<group>"; };
+		2491356B26C5BB10005EE76E /* CheckBoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxViewController.swift; sourceTree = "<group>"; };
+		2491357726C6F634005EE76E /* ProgressIndicatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressIndicatorViewController.swift; sourceTree = "<group>"; };
 		249999B526A9CDA5004DAB05 /* NavigationBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarViewController.swift; sourceTree = "<group>"; };
 		249999BB26AAFB2D004DAB05 /* OptionCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionCardViewController.swift; sourceTree = "<group>"; };
 		249DC93F2672AD2600012411 /* SwitchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchViewController.swift; sourceTree = "<group>"; };
@@ -152,6 +158,9 @@
 				245E5D802698B90100CCF41D /* TextListViewController.swift */,
 				249999B526A9CDA5004DAB05 /* NavigationBarViewController.swift */,
 				249999BB26AAFB2D004DAB05 /* OptionCardViewController.swift */,
+				2491356B26C5BB10005EE76E /* CheckBoxViewController.swift */,
+				2491357726C6F634005EE76E /* ProgressIndicatorViewController.swift */,
+				2479450626CAE9E6000F4DF0 /* BottomNavigationBarViewController.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -470,6 +479,7 @@
 				249999B626A9CDA5004DAB05 /* NavigationBarViewController.swift in Sources */,
 				B71D65C824C8F28100C3938C /* TokensByCategoryViewController.swift in Sources */,
 				24C8013C2680FE4F00744F30 /* DatePickerViewController.swift in Sources */,
+				2491357826C6F634005EE76E /* ProgressIndicatorViewController.swift in Sources */,
 				B833D03924A6796100587FDE /* TokensViewController.swift in Sources */,
 				B71D65EA24CA47C500C3938C /* Enums.swift in Sources */,
 				B7CA694E24CB4C940051CA6A /* ComponentTypeViewController.swift in Sources */,
@@ -487,6 +497,7 @@
 				B768C57724E3186C0086BF9C /* InputViewController.swift in Sources */,
 				B7BB717924E615B3007F8848 /* SnackbarViewController.swift in Sources */,
 				B71D65FD24CA530000C3938C /* Components.swift in Sources */,
+				2491356C26C5BB10005EE76E /* CheckBoxViewController.swift in Sources */,
 				138EF63E268502E1000E65EA /* AlertBoxViewController.swift in Sources */,
 				2482CDD4267D055100A50422 /* RadioButtonViewController.swift in Sources */,
 				B7BB722024EEEA89007F8848 /* SnackbarView.swift in Sources */,
@@ -494,6 +505,7 @@
 				13F2534526986B9400883519 /* BottomSheetViewController.swift in Sources */,
 				B71D65E724CA2A8200C3938C /* Cells.swift in Sources */,
 				249999BC26AAFB2D004DAB05 /* OptionCardViewController.swift in Sources */,
+				2479450726CAE9E6000F4DF0 /* BottomNavigationBarViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
