@@ -21,6 +21,8 @@ extension Ocean {
             }
         }
         
+        public var onTouch: ((Int) -> Void)?
+        
         private lazy var carouselCollectionView: UICollectionView = {
             let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
             collection.dataSource = self
@@ -116,6 +118,10 @@ extension Ocean {
             cell.image = self.images[indexPath.row]
 
             return cell
+        }
+        
+        public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            onTouch?(indexPath.row)
         }
         
         private func getCurrentPage() -> Int {

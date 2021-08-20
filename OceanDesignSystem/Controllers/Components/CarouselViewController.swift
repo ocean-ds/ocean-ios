@@ -25,6 +25,10 @@ final public class CarouselViewController : UIViewController {
         
         stack.addArrangedSubview(carousel)
         
+        carousel.onTouch = { index in
+            print(index)
+        }
+        
         self.add(view: stack)
     }
     
