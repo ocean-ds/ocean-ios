@@ -69,7 +69,7 @@
                             <outlet property="delegate" destination="6WR-ko-ii5" id="Yms-Sw-JYj"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Tokens" image="align-center-md.png" id="1FN-b3-q5c"/>
+                    <tabBarItem key="tabBarItem" title="Tokens" image="note.text" catalog="system" id="1FN-b3-q5c"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N1B-3u-f28" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -116,7 +116,7 @@
                             <outlet property="delegate" destination="f3g-c2-F66" id="2Se-px-rZT"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Components" image="apps-md.png" id="eMM-aA-MbI"/>
+                    <tabBarItem key="tabBarItem" title="Components" image="rectangle.3.offgrid" catalog="system" id="eMM-aA-MbI"/>
                     <connections>
                         <segue destination="5ef-au-a5S" kind="show" identifier="SegueInputComponents" id="ZJ2-le-hGI"/>
                         <segue destination="CbQ-Zt-QpH" kind="show" identifier="SegueComponentTypeView" id="tAz-Xv-g6K"/>
@@ -1007,8 +1007,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="align-center-md.png" width="24" height="24"/>
-        <image name="apps-md.png" width="24" height="24"/>
+        <image name="note.text" catalog="system" width="128" height="106"/>
+        <image name="rectangle.3.offgrid" catalog="system" width="128" height="81"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
