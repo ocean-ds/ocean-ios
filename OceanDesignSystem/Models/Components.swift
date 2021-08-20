@@ -16,6 +16,7 @@ struct DSComponents {
         "BottomNavigationBar",
         "BottomSheet",
         "Button",
+        "Carousel",
         "CheckBox",
         "DatePicker",
         "Divider",
