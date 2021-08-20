@@ -10,6 +10,12 @@ import UIKit
 
 extension Ocean {
     public class CheckBox: RadioButton {
+        override var withAnimation: Bool {
+            get {
+                return false
+            }
+        }
+        
         override var backgroundPath: CGPath {
             get {
                 return UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: size, height: size), cornerRadius: Ocean.size.borderRadiusSm).cgPath

@@ -70,6 +70,12 @@ extension Ocean {
         private var foregroundCircleLayer: CAShapeLayer!
 
         internal var size: CGFloat = 24
+        
+        internal var withAnimation: Bool {
+            get {
+                return true
+            }
+        }
 
         internal var backgroundPath: CGPath {
             get {
@@ -189,21 +195,24 @@ extension Ocean {
             radioBkgView.isUserInteractionEnabled = self.isInteractionEnabled
         }
 
-        private func changeForegroundCircle(path: CGPath) {
+        internal func changeForegroundCircle(path: CGPath) {
             guard path != foregroundCircleLayer.path else {
                 return
             }
-
+            
             let key = "foregroundRadioPath"
             layer.removeAnimation(forKey: key)
 
-            let animation = CABasicAnimation(keyPath: "path")
-            animation.duration = 0.3
-            animation.fromValue = foregroundCircleLayer.path
-            animation.toValue = path
-            animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
+            if withAnimation {
+                let animation = CABasicAnimation(keyPath: "path")
+                animation.duration = 0.3
+                animation.fromValue = foregroundCircleLayer.path
+                animation.toValue = path
+                animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
+                foregroundCircleLayer.add(animation, forKey: key)
+            }
+            
             foregroundCircleLayer.path = path
-            foregroundCircleLayer.add(animation, forKey: key)
         }
 
         private func changeShapeColorOf(layer: CAShapeLayer, color: UIColor) {
