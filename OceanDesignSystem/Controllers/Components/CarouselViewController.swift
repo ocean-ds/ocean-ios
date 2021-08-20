@@ -25,14 +25,16 @@ final public class CarouselViewController : UIViewController {
         
         stack.addArrangedSubview(carousel)
         
+        carousel.onTouch = { index in
+            print(index)
+        }
+        
         self.add(view: stack)
     }
     
     public override func viewDidAppear(_ animated: Bool) {
-        carousel.addImages(with: [Ocean.icon.documentOutline!,
-                                  Ocean.icon.eyeOutline!,
-                                  Ocean.icon.keyOutline!,
-                                  Ocean.icon.codeOutline!])
+        carousel.addImages(with: [UIImage(named: "banner1")!,
+                                  UIImage(named: "banner2")!])
     }
     
     private func add(view: UIView) {
