@@ -33,11 +33,14 @@ public extension OceanBottomNavigationBar {
         } else {
             setupOld()
         }
+        
+        object_setClass(self.tabBar, OceanTabBar.self)
     }
     
     private func setupOld() {
         UITabBar.appearance().backgroundColor = bottomNavigationBackgroundColor
         UITabBar.appearance().isTranslucent = false
+        UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -6)
         
         tabBar.backgroundImage = UIImage()
         tabBar.tintColor = bottomNavigationSelectedColor
@@ -58,22 +61,34 @@ public extension OceanBottomNavigationBar {
     
     @available(iOS 13.0, *)
     private func setTabBarItemColors(_ itemAppearance: UITabBarItemAppearance) {
+        itemAppearance.normal.titlePositionAdjustment = .init(horizontal: 0, vertical: -6)
         itemAppearance.normal.iconColor = bottomNavigationUnselectedColor
         itemAppearance.normal.titleTextAttributes = [
             NSAttributedString.Key.font: UIFont.highlightExtraBold(size: Ocean.font.fontSizeXxxs)!,
             NSAttributedString.Key.foregroundColor: bottomNavigationUnselectedColor
         ]
         
+        itemAppearance.focused.titlePositionAdjustment = .init(horizontal: 0, vertical: -6)
         itemAppearance.focused.iconColor = bottomNavigationSelectedColor
-        itemAppearance.selected.titleTextAttributes = [
+        itemAppearance.focused.titleTextAttributes = [
             NSAttributedString.Key.font: UIFont.highlightExtraBold(size: Ocean.font.fontSizeXxxs)!,
             NSAttributedString.Key.foregroundColor: bottomNavigationSelectedColor
         ]
         
+        itemAppearance.selected.titlePositionAdjustment = .init(horizontal: 0, vertical: -6)
         itemAppearance.selected.iconColor = bottomNavigationSelectedColor
         itemAppearance.selected.titleTextAttributes = [
             NSAttributedString.Key.font: UIFont.highlightExtraBold(size: Ocean.font.fontSizeXxxs)!,
             NSAttributedString.Key.foregroundColor: bottomNavigationSelectedColor
         ]
+    }
+}
+
+class OceanTabBar : UITabBar {
+    override open func sizeThatFits(_ size: CGSize) -> CGSize {
+        var sizeThatFits = super.sizeThatFits(size)
+        let newHeight = sizeThatFits.height + 7
+        sizeThatFits.height = newHeight
+        return sizeThatFits
     }
 }
