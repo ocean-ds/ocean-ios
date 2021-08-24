@@ -16,7 +16,19 @@ extension Ocean {
             case success
         }
         
+        public enum TextType {
+            case shortText
+            case longText
+        }
+        
         public var onTouch: (() -> Void)?
+        
+        public var textType: TextType = .shortText {
+            didSet {
+                messageLabel.isHidden = textType == .longText
+                messageLongLabel.isHidden = textType == .shortText
+            }
+        }
         
         public var iconType: IconType? {
             didSet {
@@ -70,14 +82,13 @@ extension Ocean {
         
         private lazy var mainContentStack: UIStackView = {
             UIStackView { stack in
-                stack.axis = .horizontal
-                stack.spacing = Ocean.size.spacingStackXxs
-                stack.distribution = .fillProportionally
-                stack.alignment = .center
+                stack.axis = .vertical
+                stack.spacing = Ocean.size.spacingStackXxxs
+                stack.distribution = .fill
                 stack.translatesAutoresizingMaskIntoConstraints = false
 
-                stack.addArrangedSubview(iconImageView)
-                stack.addArrangedSubview(messageStack)
+                stack.addArrangedSubview(contentStack)
+                stack.addArrangedSubview(messageLongLabel)
                 
                 stack.isLayoutMarginsRelativeArrangement = true
                 stack.layoutMargins = .init(top: Ocean.size.spacingStackXs,
@@ -87,11 +98,25 @@ extension Ocean {
             }
         }()
         
+        private lazy var contentStack: UIStackView = {
+            UIStackView { stack in
+                stack.axis = .horizontal
+                stack.spacing = Ocean.size.spacingStackXxs
+                stack.distribution = .fill
+                stack.alignment = .center
+                stack.translatesAutoresizingMaskIntoConstraints = false
+
+                stack.addArrangedSubview(iconImageView)
+                stack.addArrangedSubview(messageStack)
+            }
+        }()
+        
         private lazy var messageStack: UIStackView = {
             UIStackView { stack in
                 stack.axis = .vertical
-                stack.spacing = Ocean.size.spacingStackXxxs
-                stack.distribution = .fillProportionally
+                stack.spacing = 2
+                stack.distribution = .fill
+                stack.alignment = .leading
                 stack.translatesAutoresizingMaskIntoConstraints = false
 
                 stack.addArrangedSubview(titleLabel)
@@ -118,6 +143,15 @@ extension Ocean {
         private lazy var messageLabel: UILabel = {
             Ocean.Typography.caption { label in
                 label.numberOfLines = 0
+                label.isHidden = self.textType == .longText
+                label.translatesAutoresizingMaskIntoConstraints = false
+            }
+        }()
+        
+        private lazy var messageLongLabel: UILabel = {
+            Ocean.Typography.caption { label in
+                label.numberOfLines = 0
+                label.isHidden = self.textType == .shortText
                 label.translatesAutoresizingMaskIntoConstraints = false
             }
         }()
@@ -148,8 +182,10 @@ extension Ocean {
             titleLabel.text = title
             titleLabel.isHidden = title.isEmpty
             messageLabel.text = text
+            messageLongLabel.text = text
             if let textAttributedString = self.textAttributedString {
                 messageLabel.attributedText = textAttributedString
+                messageLongLabel.attributedText = textAttributedString
             }
             
             mainContentStack.spacing = title.isEmpty ? Ocean.size.spacingStackXxs : Ocean.size.spacingStackXs

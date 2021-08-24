@@ -12,6 +12,7 @@
 		13F2534526986B9400883519 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F2534426986B9400883519 /* BottomSheetViewController.swift */; };
 		1B95B14353B2F1B583E717AA /* Pods_OceanDesignSystemTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC2FB672AAC2DF64A6545D88 /* Pods_OceanDesignSystemTests.framework */; };
 		1C8CBC30A7EB8375212384D4 /* Pods_OceanDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D9D9A171B743DED8A2B2297 /* Pods_OceanDesignSystem.framework */; };
+		2445B86B26D4147D0067B680 /* ShortcutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2445B86A26D4147D0067B680 /* ShortcutViewController.swift */; };
 		2456BF94268612E800E2361E /* DividerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2456BF93268612E800E2361E /* DividerViewController.swift */; };
 		245E5D812698B90100CCF41D /* TextListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245E5D802698B90100CCF41D /* TextListViewController.swift */; };
 		2479450726CAE9E6000F4DF0 /* BottomNavigationBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2479450626CAE9E6000F4DF0 /* BottomNavigationBarViewController.swift */; };
@@ -76,6 +77,7 @@
 		1385ADEE2694719B003F6D07 /* TooltipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipViewController.swift; sourceTree = "<group>"; };
 		138EF63D268502E0000E65EA /* AlertBoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBoxViewController.swift; sourceTree = "<group>"; };
 		13F2534426986B9400883519 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
+		2445B86A26D4147D0067B680 /* ShortcutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutViewController.swift; sourceTree = "<group>"; };
 		2456BF93268612E800E2361E /* DividerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerViewController.swift; sourceTree = "<group>"; };
 		245E5D802698B90100CCF41D /* TextListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextListViewController.swift; sourceTree = "<group>"; };
 		2479450626CAE9E6000F4DF0 /* BottomNavigationBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomNavigationBarViewController.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				2491357726C6F634005EE76E /* ProgressIndicatorViewController.swift */,
 				2479450626CAE9E6000F4DF0 /* BottomNavigationBarViewController.swift */,
 				2479453126CFEAD6000F4DF0 /* CarouselViewController.swift */,
+				2445B86A26D4147D0067B680 /* ShortcutViewController.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -487,6 +490,7 @@
 				B71D65EA24CA47C500C3938C /* Enums.swift in Sources */,
 				B7CA694E24CB4C940051CA6A /* ComponentTypeViewController.swift in Sources */,
 				245E5D812698B90100CCF41D /* TextListViewController.swift in Sources */,
+				2445B86B26D4147D0067B680 /* ShortcutViewController.swift in Sources */,
 				B833D03524A6796100587FDE /* AppDelegate.swift in Sources */,
 				B7BB722224EEEB6F007F8848 /* NibWrapperView.swift in Sources */,
 				1385ADEF2694719B003F6D07 /* TooltipViewController.swift in Sources */,

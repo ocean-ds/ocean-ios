@@ -23,11 +23,13 @@ class AlertBoxViewController: UIViewController {
     lazy var alert3 = Ocean.Alert.error { alert in
         alert.title = "Error title"
         alert.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        alert.textType = .longText
     }
     
     lazy var alert4 = Ocean.Alert.success { alert in
         alert.title = "Sucess title!"
         alert.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        alert.textType = .longText
     }
     
     lazy var alert5 = Ocean.Alert.info { alert in
