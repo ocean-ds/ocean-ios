@@ -27,6 +27,7 @@ extension Ocean {
             let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
             collection.dataSource = self
             collection.delegate = self
+            collection.isPrefetchingEnabled = false
             collection.showsHorizontalScrollIndicator = false
             collection.showsVerticalScrollIndicator = false
             collection.isPagingEnabled = false

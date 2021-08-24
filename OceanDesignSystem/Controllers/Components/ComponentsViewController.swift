@@ -76,6 +76,8 @@ class ComponentsViewController: UITableViewController {
                 self.present(BottomNavigationBarViewController(), animated: true, completion: nil)
             case .Carousel:
                 self.present(CarouselViewController(), animated: true, completion: nil)
+            case .Shortcut:
+                self.present(ShortcutViewController(), animated: true, completion: nil)
             default:
                 performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }

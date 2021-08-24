@@ -25,6 +25,7 @@ struct DSComponents {
         "OptionCard",
         "ProgressIndicator",
         "RadioButton",
+        "Shortcut",
         "Snackbar",
         "Switch",
         "TextList",
