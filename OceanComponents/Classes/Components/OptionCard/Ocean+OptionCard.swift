@@ -334,15 +334,26 @@ extension Ocean {
             iconWidthConstraint?.isActive = true
             
             self.isUserInteractionEnabled = true
-            self.addPressGesture(selector: #selector(pressed(gesture:)))
+            self.addTapGesture(selector: #selector(tapped(sender:)))
+            self.addLongPressGesture(selector: #selector(longPressed(sender:)))
         }
         
-        @objc func pressed(gesture: UILongPressGestureRecognizer) {
-            if gesture.state == .began {
+        @objc func tapped(sender: UITapGestureRecognizer){
+            if !isDisabled {
+                isSelected = true
+                onTouch?()
+                generator.selectionChanged()
+            } else {
+                animateShake(completion: self.onTouchDisabled)
+            }
+        }
+
+        @objc func longPressed(sender: UILongPressGestureRecognizer) {
+            if sender.state == .began {
                 if !isDisabled {
                     pressState()
                 }
-            } else if gesture.state == .ended {
+            } else if sender.state == .ended {
                 if !isDisabled {
                     isSelected = true
                     onTouch?()

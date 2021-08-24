@@ -37,6 +37,12 @@ extension UIView {
         self.isUserInteractionEnabled = true
     }
     
+    public func addLongPressGesture(target: Any? = nil, selector: Selector) {
+        let longPress = UILongPressGestureRecognizer(target: target == nil ? self : target, action: selector)
+        self.addGestureRecognizer(longPress)
+        self.isUserInteractionEnabled = true
+    }
+    
     public func addPressGesture(target: Any? = nil, selector: Selector) {
         let press = UILongPressGestureRecognizer(target: target == nil ? self : target, action: selector)
         press.minimumPressDuration = 0
