@@ -39,10 +39,6 @@ extension Ocean {
                 stack.spacing = 0
                 stack.translatesAutoresizingMaskIntoConstraints = false
                 stack.isUserInteractionEnabled = true
-                stack.backgroundColor = Ocean.color.colorInterfaceLightPure
-                stack.layer.borderColor = Ocean.color.colorInterfaceLightDown.cgColor
-                stack.ocean.borderWidth.applyHairline()
-                stack.ocean.radius.applyMd()
                 
                 stack.add([
                     headStack,
@@ -284,8 +280,8 @@ extension Ocean {
         }
 
         private func updateState() {
-            mainStack.backgroundColor = isSelected ? Ocean.color.colorInterfaceLightUp : Ocean.color.colorInterfaceLightPure
-            mainStack.layer.borderColor = isSelected ? Ocean.color.colorBrandPrimaryUp.cgColor : isError ? Ocean.color.colorStatusNegativePure.cgColor : Ocean.color.colorInterfaceLightDown.cgColor
+            self.backgroundColor = isSelected ? Ocean.color.colorInterfaceLightUp : Ocean.color.colorInterfaceLightPure
+            self.layer.borderColor = isSelected ? Ocean.color.colorBrandPrimaryUp.cgColor : isError ? Ocean.color.colorStatusNegativePure.cgColor : Ocean.color.colorInterfaceLightDown.cgColor
             roundedIconView.backgroundColor = isSelected ? Ocean.color.colorBrandPrimaryDown : Ocean.color.colorInterfaceLightUp
             iconView.tintColor = isSelected ? .white : isDisabled ? Ocean.color.colorInterfaceDarkDown : Ocean.color.colorBrandPrimaryDown
             titleLabel.textColor = isDisabled ? Ocean.color.colorInterfaceDarkDown : Ocean.color.colorBrandPrimaryDown
@@ -294,8 +290,8 @@ extension Ocean {
         }
         
         private func pressState() {
-            mainStack.backgroundColor = Ocean.color.colorInterfaceLightDown
-            mainStack.layer.borderColor = Ocean.color.colorBrandPrimaryUp.cgColor
+            self.backgroundColor = Ocean.color.colorInterfaceLightDown
+            self.layer.borderColor = Ocean.color.colorBrandPrimaryUp.cgColor
             roundedIconView.backgroundColor = Ocean.color.colorBrandPrimaryDown
             iconView.tintColor = .white
             titleLabel.textColor = Ocean.color.colorBrandPrimaryDown
@@ -318,6 +314,12 @@ extension Ocean {
         }
 
         func makeView() {
+            self.clipsToBounds = true
+            self.backgroundColor = Ocean.color.colorInterfaceLightPure
+            self.layer.borderColor = Ocean.color.colorInterfaceLightDown.cgColor
+            self.ocean.borderWidth.applyHairline()
+            self.ocean.radius.applyMd()
+            
             add(view: mainStack)
             
             heightConstraint = mainStack.heightAnchor.constraint(equalToConstant: Constants.heightLg)
