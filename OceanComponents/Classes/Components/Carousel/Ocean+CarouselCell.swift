@@ -9,6 +9,10 @@ import OceanTokens
 
 extension Ocean {
     public class CarouselCell: UICollectionViewCell {
+        struct Constants {
+            static let minWidth: CGFloat = 328
+        }
+        
         static let cellId = "CarouselCell"
         
         public var image: UIImage? {
@@ -20,7 +24,7 @@ extension Ocean {
         private lazy var imageView: UIImageView = {
             UIImageView { imageView in
                 imageView.translatesAutoresizingMaskIntoConstraints = false
-                imageView.contentMode = .scaleAspectFill
+                imageView.contentMode = UIScreen.main.bounds.width < Constants.minWidth ? .scaleAspectFit : .scaleAspectFill
             }
         }()
         
