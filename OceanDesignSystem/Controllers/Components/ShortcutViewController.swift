@@ -50,8 +50,7 @@ final public class ShortcutViewController : UIViewController {
         NSLayoutConstraint.activate([
             view.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             view.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-            shortcut1.widthAnchor.constraint(equalTo: self.view.widthAnchor),
-            shortcut1.heightAnchor.constraint(equalToConstant: 200),
+            shortcut1.widthAnchor.constraint(equalTo: self.view.widthAnchor)
         ])
     }
 }

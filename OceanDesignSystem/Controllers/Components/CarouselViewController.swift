@@ -44,8 +44,7 @@ final public class CarouselViewController : UIViewController {
         NSLayoutConstraint.activate([
             view.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             view.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-            carousel.widthAnchor.constraint(equalTo: self.view.widthAnchor),
-            carousel.heightAnchor.constraint(equalToConstant: 200)
+            carousel.widthAnchor.constraint(equalTo: self.view.widthAnchor)
         ])
     }
 }

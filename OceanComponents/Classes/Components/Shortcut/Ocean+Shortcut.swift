@@ -52,6 +52,12 @@ extension Ocean {
             carouselCollectionView.reloadData()
         }
         
+        public override var intrinsicContentSize: CGSize {
+            get {
+                return CGSize(width: frame.width, height: Constants.height)
+            }
+        }
+        
         override init(frame: CGRect) {
             super.init(frame: frame)
             setupUI()

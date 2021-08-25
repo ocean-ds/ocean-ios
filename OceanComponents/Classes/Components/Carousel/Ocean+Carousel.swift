@@ -10,9 +10,11 @@ import OceanTokens
 extension Ocean {
     public class Carousel: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
         struct Constants {
-            static let heightContent: CGFloat = 144
+            static let heightContentDefault: CGFloat = 168
             static let heightPage: CGFloat = 4
         }
+        
+        private var heightContentConstraint: NSLayoutConstraint? = nil
         
         private var images: [UIImage] = []
         private var currentPage = 0 {
@@ -49,11 +51,25 @@ extension Ocean {
         }()
         
         public func addImages(with images: [UIImage]) {
+            if images.count == 0 { return }
+            
+            let firstImage = images.first!
+            var itemWidth = frame.width - (Ocean.size.spacingStackXs * 2)
+            var itemHeight = firstImage.size.height
+            let ratio = firstImage.size.width / firstImage.size.height
+            if itemWidth > itemHeight {
+                itemHeight = itemWidth / ratio
+            } else {
+                itemWidth = itemHeight * ratio
+            }
+            
+            heightContentConstraint?.constant = itemHeight
+            
             let carouselLayout = UICollectionViewFlowLayout()
             carouselLayout.scrollDirection = .horizontal
             carouselLayout.minimumLineSpacing = Ocean.size.spacingStackXxs
-            carouselLayout.itemSize = .init(width: frame.width - (Ocean.size.spacingStackXs * 2),
-                                            height: Constants.heightContent)
+            carouselLayout.itemSize = .init(width: itemWidth,
+                                            height: itemHeight)
             carouselLayout.sectionInset = .init(top: 0,
                                                 left: Ocean.size.spacingStackXs,
                                                 bottom: 0,
@@ -64,7 +80,14 @@ extension Ocean {
             
             self.images = images
             self.currentPage = 0
+            
             carouselCollectionView.reloadData()
+        }
+        
+        public override var intrinsicContentSize: CGSize {
+            get {
+                return CGSize(width: frame.width, height: Constants.heightContentDefault)
+            }
         }
         
         override init(frame: CGRect) {
@@ -89,8 +112,10 @@ extension Ocean {
                 carouselCollectionView.topAnchor.constraint(equalTo: topAnchor),
                 carouselCollectionView.leftAnchor.constraint(equalTo: leftAnchor),
                 carouselCollectionView.rightAnchor.constraint(equalTo: rightAnchor),
-                carouselCollectionView.heightAnchor.constraint(equalToConstant: Constants.heightContent)
             ])
+            
+            heightContentConstraint = carouselCollectionView.heightAnchor.constraint(equalToConstant: Constants.heightContentDefault)
+            heightContentConstraint?.isActive = true
         }
         
         private func setupPageControl() {
