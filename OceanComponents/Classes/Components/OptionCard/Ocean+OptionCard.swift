@@ -15,8 +15,8 @@ extension Ocean {
             static let heightSm: CGFloat = 64
             static let roundedViewHeightWidthLg: CGFloat = 40
             static let roundedViewHeightWidthSm: CGFloat = 32
-            static let iconHeightWidthLg: CGFloat = 16
-            static let iconHeightWidthSm: CGFloat = 14
+            static let iconHeightWidthLg: CGFloat = 24
+            static let iconHeightWidthSm: CGFloat = 20
             static let lockWidth: CGFloat = 32
             static let recommendWidth: CGFloat = 84
             static let recommendHeight: CGFloat = 20
