@@ -46,7 +46,7 @@ extension Ocean {
   ///public static let colorStatusNegativeDeep = 0xd31441ff (r: 211, g: 20, b: 65, a: 255)
   public static let colorStatusNegativeDeep = #colorLiteral(red: 0.827451, green: 0.078431375, blue: 0.25490198, alpha: 1.0)
   ///public static let colorStatusNegativeDown = 0xf27592ff (r: 242, g: 117, b: 146, a: 255)
-  public static let colorStatusNegativeDown = #colorLiteral(red: 0.9490196, green: 0.45882353, blue: 0.57254905, alpha: 1.0)
+  public static let colorStatusNegativeDown = #colorLiteral(red: 0.8784313725, green: 0.05098039216, blue: 0.2470588235, alpha: 1)
   ///public static let colorStatusNegativePure = 0xf5456eff (r: 245, g: 69, b: 110, a: 255)
   public static let colorStatusNegativePure = #colorLiteral(red: 0.9607843, green: 0.27058825, blue: 0.43137255, alpha: 1.0)
   ///public static let colorStatusNegativeUp = 0xfff1f4ff (r: 255, g: 241, b: 244, a: 255)
