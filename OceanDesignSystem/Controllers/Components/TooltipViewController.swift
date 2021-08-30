@@ -25,24 +25,35 @@ class TooltipViewController: UIViewController {
     
     private lazy var leftButtonExampleStack: UIStackView = {
         let contentStack = UIStackView()
-        contentStack.axis = .vertical
+        contentStack.axis = .horizontal
         contentStack.spacing = 0
         contentStack.distribution = .fillProportionally
-        contentStack.alignment = .leading
+        contentStack.alignment = .center
         contentStack.translatesAutoresizingMaskIntoConstraints = false
         
+        contentStack.addArrangedSubview(lebelExample)
         contentStack.addArrangedSubview(leftButtonExample)
-
+        
         return contentStack
     }()
     
     private lazy var leftButtonExample: Ocean.ButtonPrimary = {
         Ocean.Button.primaryMD { button in
             button.text = "Show tooltip"
+            button.clipsToBounds = false
             button.onTouch = {
                 self.showActionButton()
             }
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.widthAnchor.constraint(equalToConstant: 20).isActive = true
+            button.heightAnchor.constraint(equalToConstant: 20).isActive = true
         }
+    }()
+    
+    private lazy var lebelExample: UILabel = {
+        let label = UILabel()
+        label.text = "testanto label com"
+        return label
     }()
     
     private var tooltipComponent: Ocean.Tooltip = {
@@ -69,7 +80,7 @@ class TooltipViewController: UIViewController {
     }
     
     func showActionButton() {
-        tooltipComponent.show(target: leftButtonExample, position: .top)
+        tooltipComponent.show(target: leftButtonExample, position: .top, presenter: self.contentStack)
     }
 
 }

@@ -277,7 +277,7 @@ extension Ocean {
 
         @objc func infoAction(_ sender: Any) {
             onInfoIconTouched?()
-            tooltip.show(target: infoIconImageView)
+            tooltip.show(target: infoIconImageView, presenter: self)
         }
         
         func updateState() {
