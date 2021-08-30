@@ -69,7 +69,7 @@ class TooltipViewController: UIViewController {
     }
     
     func showActionButton() {
-        tooltipComponent.show(target: leftButtonExample, position: .top)
+        tooltipComponent.show(target: leftButtonExample, position: .top, presenter: self.contentStack)
     }
 
 }

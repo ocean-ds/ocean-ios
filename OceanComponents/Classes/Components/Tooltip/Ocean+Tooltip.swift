@@ -38,7 +38,7 @@ extension Ocean {
         }
         
         private var backgroundRounded = UIView()
-        private var triangleView = UIView()
+        private var triangleView = TriangleView()
         private var targetView = UIView()
         private var presenter = UIView()
         private var position: Position = .bottom
@@ -102,25 +102,26 @@ extension Ocean {
             self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tooltipAction)))
         }
 
-        public func show(target: UIView, position: Position = .top) {
-            guard let presenter = UIApplication.shared.keyWindow?.rootViewController?.presentedViewController?.view ?? UIApplication.shared.keyWindow?.rootViewController?.view else { return }
+        public func show(target: UIView, position: Position = .top, presenter: UIView) {
+            guard let topView = UIApplication.shared.keyWindow?.rootViewController?.presentedViewController?.view ?? UIApplication.shared.keyWindow?.rootViewController?.view else { return }
             self.targetView = target
             self.position = position
             self.presenter = presenter
-            
-            self.presenter.layoutIfNeeded()
-            self.presenter.addSubview(self)
+            topView.layoutIfNeeded()
+            topView.addSubview(self)
             
             switch position {
             case .top:
                 self.bottomAnchor.constraint(equalTo: target.topAnchor, constant: -20).isActive = true
+                triangleView.transform = .identity
+                triangleView.rotate(angle: 180)
             case .bottom:
                 self.topAnchor.constraint(equalTo: target.bottomAnchor, constant: 20).isActive = true
             }
 
             NSLayoutConstraint.activate([
                 self.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - Ocean.size.spacingInlineLg),
-                self.centerXAnchor.constraint(equalTo: self.presenter.centerXAnchor)
+                self.centerXAnchor.constraint(equalTo: topView.centerXAnchor)
             ])
             
             layoutSubviews()
@@ -139,14 +140,13 @@ extension Ocean {
             self.targetView.layoutIfNeeded()
             self.backgroundRounded.layoutIfNeeded()
             
+            let xPosition = convert(targetView.frame, from: presenter).origin.x - (Constants.triangleWidth - (targetView.frame.width / 2) - (Constants.triangleWidth / 2))
+            
             switch position {
             case .top:
-                triangleView = TriangleView(frame: .init(x: targetView.center.x, y: backgroundRounded.frame.height, width: Constants.triangleWidth, height: Constants.triangleHeight))
-                triangleView.center = .init(x: targetView.center.x - 5, y: triangleView.center.y)
-                triangleView.rotate(angle: 180)
+                triangleView.frame = .init(x: xPosition, y: backgroundRounded.frame.height, width: Constants.triangleWidth, height: Constants.triangleHeight)
             case .bottom:
-                triangleView = TriangleView(frame: .init(x: targetView.center.x, y: -Constants.triangleHeight, width: Constants.triangleWidth, height: Constants.triangleHeight))
-                triangleView.center = .init(x: targetView.center.x - 5, y: triangleView.center.y)
+                triangleView.frame = .init(x: xPosition, y: -Constants.triangleHeight, width: Constants.triangleWidth, height: Constants.triangleHeight)
             }
         }
     }
@@ -159,4 +159,5 @@ fileprivate extension UIView {
         self.transform = rotation
     }
 }
+
 
