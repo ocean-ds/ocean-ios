@@ -47,6 +47,7 @@ public enum DesignSystemComponentsType: String {
     case BottomNavigationBar
     case Carousel
     case Shortcut
+    case Balance
 }
 
 public enum DesignSystemTypographyType: Int {
