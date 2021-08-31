@@ -96,6 +96,11 @@ extension Ocean {
             return self
         }
         
+        public func withCustomView(view: UIView) -> BottomSheet {
+            bottomSheetViewController.customContent = view
+            return self
+        }
+        
         public func build() -> BottomSheetViewController {
             self.bottomSheetViewController.makeView()
             return bottomSheetViewController
