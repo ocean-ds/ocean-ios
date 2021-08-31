@@ -23,6 +23,9 @@ class ChargeNewsViewController: UIViewController {
         stack.addArrangedSubview(topImageView)
         stack.addArrangedSubview(newsInfoLabelStack)
         stack.addArrangedSubview(newsInfoStack)
+        stack.addArrangedSubview(Ocean.Spacer(space: Ocean.size.borderRadiusMd))
+        stack.addArrangedSubview(actionButton)
+        stack.addArrangedSubview(Ocean.Spacer(space: Ocean.size.borderRadiusLg))
         
         stack.isLayoutMarginsRelativeArrangement = true
         stack.layoutMargins = .init(top: Ocean.size.borderRadiusLg, left: 0, bottom: 0, right: 0)
@@ -60,7 +63,7 @@ class ChargeNewsViewController: UIViewController {
         stack.axis = .vertical
         stack.spacing = Ocean.size.borderRadiusMd
         stack.addArrangedSubview(newsTitleInfoLabel)
-        stack.addArrangedSubview(newsTitleInfoLabel)
+        stack.addArrangedSubview(newsSubtitleInfoLabel)
         return stack
     }()
     
@@ -90,6 +93,15 @@ class ChargeNewsViewController: UIViewController {
         optionInfoView.title = "Simplifique sua vida"
         optionInfoView.subtitle = "Centralize todos os seus pagamentos a fornecedores em um só lugar."
         return optionInfoView
+    }()
+    
+    private lazy var actionButton: Ocean.ButtonPrimary = {
+        Ocean.ButtonPrimary { button in
+            button.text = "Entendi!"
+            button.onTouch = {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
     }()
 
     override func viewDidLoad() {

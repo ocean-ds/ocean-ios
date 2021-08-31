@@ -86,9 +86,7 @@ class BottomSheetViewController: UIViewController {
     
     private lazy var customBottomSheet: Ocean.BottomSheetViewController = {
         Ocean.BottomSheet(self)
-            .withCustomViewAndPrimaryAction(view: chargeNewsDetails.view, actionTitle: "Title action", action: {
-                print("Action")
-            })
+            .withCustomView(view: chargeNewsDetails.view)
             .build()
     }()
     

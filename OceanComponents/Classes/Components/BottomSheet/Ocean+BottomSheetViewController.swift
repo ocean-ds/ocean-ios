@@ -97,7 +97,7 @@ extension Ocean {
             mainStack.layoutIfNeeded()
             
             let pureHeight = contentValues?.first?.imageIcon != nil ? Constants.heightCellWithImages : Constants.heightCell
-            let tableHeight = pureHeight * (CGFloat(contentValues?.count ?? 0))
+            let tableHeight = pureHeight * (CGFloat(contentValues?.count ?? 1))
             
             spTransitionDelegate.customHeight = mainStack.frame.height + tableHeight + heightSpacing
         }

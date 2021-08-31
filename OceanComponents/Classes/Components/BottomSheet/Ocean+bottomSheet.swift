@@ -101,11 +101,6 @@ extension Ocean {
             return self
         }
         
-        public func withCustomViewAndPrimaryAction(view: UIView, actionTitle: String, action: (() -> Void)? = nil) -> BottomSheet {
-            bottomSheetViewController.customContent = view
-            return withActionPrimary(text: actionTitle, action: action)
-        }
-        
         public func build() -> BottomSheetViewController {
             self.bottomSheetViewController.makeView()
             return bottomSheetViewController
