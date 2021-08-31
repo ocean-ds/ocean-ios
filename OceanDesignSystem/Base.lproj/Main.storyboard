@@ -811,6 +811,7 @@
                                 <segments>
                                     <segment title="With actions"/>
                                     <segment title="List style"/>
+                                    <segment title="Custom View"/>
                                 </segments>
                                 <connections>
                                     <action selector="onMainSegmentedChanged:" destination="aw7-S8-jW5" eventType="valueChanged" id="5pX-zi-zZT"/>

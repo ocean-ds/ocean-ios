@@ -15,6 +15,7 @@ class BottomSheetViewController: UIViewController {
         case withActonsCritical
         case listWithImages
         case simpleList
+        case customView
     }
     
     @IBOutlet weak var mainSegmentControl: UISegmentedControl!
@@ -81,6 +82,14 @@ class BottomSheetViewController: UIViewController {
             .build()
     }()
     
+    private lazy var customBottomSheet: Ocean.BottomSheetViewController = {
+        Ocean.BottomSheet(self)
+            .withCustomViewAndPrimaryAction(view: showSheetButton, actionTitle: "Title action", action: {
+                print("Action")
+            })
+            .build()
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(contentStack)
@@ -101,6 +110,8 @@ class BottomSheetViewController: UIViewController {
             sheetListComponent.show()
         case .listWithImages:
             sheetListWithImageComponent.show()
+        case .customView:
+            customBottomSheet.show()
         }
     }
     
@@ -116,6 +127,8 @@ class BottomSheetViewController: UIViewController {
             subSegmentControl.setTitle("Simple List", forSegmentAt: 0)
             subSegmentControl.setTitle("With Image", forSegmentAt: 1)
             showCase = .simpleList
+        case 2:
+            showCase = .customView
         default:
             break
         }

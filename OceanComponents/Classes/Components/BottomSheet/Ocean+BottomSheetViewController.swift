@@ -66,6 +66,7 @@ extension Ocean {
         var contentValues: [CellModel]?
         var actionsAxis: NSLayoutConstraint.Axis = .vertical
         var actions: [UIControl] = []
+        var customContent: UIView?
         var swipeDismiss: Bool = true {
             didSet {
                 spTransitionDelegate.swipeToDismissEnabled = swipeDismiss
@@ -88,6 +89,7 @@ extension Ocean {
             addImageIfExist()
             addTitleIfExist()
             addDescriptionIfExist()
+            addCustomViewIfExist()
             addActionsIfExist()
             addErrorCodeIfExist()
             
@@ -95,7 +97,7 @@ extension Ocean {
             mainStack.layoutIfNeeded()
             
             let pureHeight = contentValues?.first?.imageIcon != nil ? Constants.heightCellWithImages : Constants.heightCell
-            let tableHeight = pureHeight * (CGFloat(contentValues?.count ?? 1))
+            let tableHeight = pureHeight * (CGFloat(contentValues?.count ?? 0))
             
             spTransitionDelegate.customHeight = mainStack.frame.height + tableHeight + heightSpacing
         }
@@ -128,6 +130,11 @@ extension Ocean {
             })
             mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackSm))
         }
+        
+        fileprivate func addCustomViewIfExist() {
+            guard let customContent = self.customContent else { return }
+            mainStack.addArrangedSubview(customContent)
+        }
 
         fileprivate func addImageIfExist() {
             guard let image = contentImage else {
@@ -139,7 +146,6 @@ extension Ocean {
                 imageView.contentMode = .scaleAspectFit
             })
             mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackSm))
-
         }
 
         fileprivate func addTitleIfExist() {
