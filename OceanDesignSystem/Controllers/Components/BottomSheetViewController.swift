@@ -42,8 +42,6 @@ class BottomSheetViewController: UIViewController {
             button.onTouch = self.showBottomSheetActionButton
         }
     }()
-    
-    private lazy var chargeNewsDetails = ChargeNewsViewController()
 
     private lazy var sheetComponent: Ocean.BottomSheetViewController = {
         Ocean.BottomSheet(self)
@@ -86,7 +84,7 @@ class BottomSheetViewController: UIViewController {
     
     private lazy var customBottomSheet: Ocean.BottomSheetViewController = {
         Ocean.BottomSheet(self)
-            .withCustomView(view: chargeNewsDetails.view)
+            .withCustomView(view: UIView())
             .build()
     }()
     
