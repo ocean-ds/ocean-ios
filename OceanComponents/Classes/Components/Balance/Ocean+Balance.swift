@@ -11,7 +11,6 @@ extension Ocean {
     final public class Balance: UIView {
         struct Constants {
             static let height: CGFloat = 56
-            static let eyeSize: CGFloat = 48
             static let eyeImageSize: CGFloat = 24
             static let arrowSize: CGFloat = 16
         }
@@ -74,23 +73,6 @@ extension Ocean {
             }
         }()
         
-        private lazy var eyeView: UIView = {
-            let view = UIView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(eyeImageView)
-            
-            NSLayoutConstraint.activate([
-                view.widthAnchor.constraint(equalToConstant: Constants.eyeSize),
-                view.heightAnchor.constraint(equalToConstant: Constants.eyeSize),
-                eyeImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                eyeImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-            ])
-            
-            view.addTapGesture(target: self, selector: #selector(tapEye))
-            
-            return view
-        }()
-        
         private lazy var eyeImageView: UIImageView = {
             UIImageView { imageView in
                 imageView.image = Ocean.icon.eyeOutline?.withRenderingMode(.alwaysTemplate)
@@ -102,6 +84,8 @@ extension Ocean {
                     imageView.widthAnchor.constraint(equalToConstant: Constants.eyeImageSize),
                     imageView.heightAnchor.constraint(equalToConstant: Constants.eyeImageSize)
                 ])
+                
+                imageView.addTapGesture(target: self, selector: #selector(tapEye))
             }
         }()
         
@@ -161,8 +145,8 @@ extension Ocean {
             
             stack.add([
                 titleHighlightLabel,
-                eyeView,
-                Ocean.Spacer(space: Ocean.size.spacingStackXxxs),
+                eyeImageView,
+                Ocean.Spacer(space: Ocean.size.spacingStackXs),
                 titleStack,
                 Ocean.Spacer(space: Ocean.size.spacingStackXs),
                 arrowView
@@ -409,13 +393,13 @@ extension Ocean {
                     self.arrowView.tintColor = Ocean.color.colorInterfaceDarkUp
                 } completion: { _ in
                     UIView.animate(withDuration: 0.3) {
-                        self.eyeView.alpha = 1
+                        self.eyeImageView.alpha = 1
                         self.titleStack.alpha = 1
                     }
                 }
             case .expanded:
                 UIView.animate(withDuration: 0.3) {
-                    self.eyeView.alpha = 0
+                    self.eyeImageView.alpha = 0
                     self.titleStack.alpha = 0
                     self.arrowView.transform = CGAffineTransform(rotationAngle: (180.0 * .pi) / 180.0)
                     self.arrowView.tintColor = Ocean.color.colorBrandPrimaryPure
