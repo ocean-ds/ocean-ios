@@ -29,6 +29,7 @@ struct DSComponents {
         "Shortcut",
         "Snackbar",
         "Switch",
+        "Tag",
         "TextList",
         "Tooltip",
         "Typography"

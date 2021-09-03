@@ -80,6 +80,8 @@ class ComponentsViewController: UITableViewController {
                 self.present(ShortcutViewController(), animated: true, completion: nil)
             case .Balance:
                 self.present(BalanceViewController(), animated: true, completion: nil)
+            case .Tag:
+                self.present(TagViewController(), animated: true, completion: nil)
             default:
                 performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }
