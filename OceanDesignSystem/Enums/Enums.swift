@@ -49,6 +49,7 @@ public enum DesignSystemComponentsType: String {
     case Shortcut
     case Balance
     case Tag
+    case Badge
 }
 
 public enum DesignSystemTypographyType: Int {

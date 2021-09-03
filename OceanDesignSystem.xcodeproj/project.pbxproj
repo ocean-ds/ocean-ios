@@ -16,6 +16,7 @@
 		2456BF94268612E800E2361E /* DividerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2456BF93268612E800E2361E /* DividerViewController.swift */; };
 		245E5D812698B90100CCF41D /* TextListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245E5D802698B90100CCF41D /* TextListViewController.swift */; };
 		246535F726E259C20079354A /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246535F626E259C20079354A /* TagViewController.swift */; };
+		246535FC26E28B760079354A /* BadgeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246535FB26E28B760079354A /* BadgeViewController.swift */; };
 		2479450726CAE9E6000F4DF0 /* BottomNavigationBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2479450626CAE9E6000F4DF0 /* BottomNavigationBarViewController.swift */; };
 		2479453226CFEAD6000F4DF0 /* CarouselViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2479453126CFEAD6000F4DF0 /* CarouselViewController.swift */; };
 		2482CDD4267D055100A50422 /* RadioButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2482CDD3267D055100A50422 /* RadioButtonViewController.swift */; };
@@ -83,6 +84,7 @@
 		2456BF93268612E800E2361E /* DividerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerViewController.swift; sourceTree = "<group>"; };
 		245E5D802698B90100CCF41D /* TextListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextListViewController.swift; sourceTree = "<group>"; };
 		246535F626E259C20079354A /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewController.swift; sourceTree = "<group>"; };
+		246535FB26E28B760079354A /* BadgeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeViewController.swift; sourceTree = "<group>"; };
 		2479450626CAE9E6000F4DF0 /* BottomNavigationBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomNavigationBarViewController.swift; sourceTree = "<group>"; };
 		2479453126CFEAD6000F4DF0 /* CarouselViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselViewController.swift; sourceTree = "<group>"; };
 		2482CDD3267D055100A50422 /* RadioButtonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonViewController.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				2445B86A26D4147D0067B680 /* ShortcutViewController.swift */,
 				24E39BA226DE5BCE006B6A02 /* BalanceViewController.swift */,
 				246535F626E259C20079354A /* TagViewController.swift */,
+				246535FB26E28B760079354A /* BadgeViewController.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -513,6 +516,7 @@
 				24E39BA326DE5BCE006B6A02 /* BalanceViewController.swift in Sources */,
 				B71D65FD24CA530000C3938C /* Components.swift in Sources */,
 				2491356C26C5BB10005EE76E /* CheckBoxViewController.swift in Sources */,
+				246535FC26E28B760079354A /* BadgeViewController.swift in Sources */,
 				138EF63E268502E1000E65EA /* AlertBoxViewController.swift in Sources */,
 				246535F726E259C20079354A /* TagViewController.swift in Sources */,
 				2482CDD4267D055100A50422 /* RadioButtonViewController.swift in Sources */,

@@ -136,7 +136,7 @@ extension Ocean {
             return view
         }()
         
-        private lazy var badgeView = Ocean.Badge()
+        private lazy var badgeView = Ocean.Badge.text()
         
         private lazy var infoStackTitle: UIStackView = {
             UIStackView { stack in

@@ -82,6 +82,8 @@ class ComponentsViewController: UITableViewController {
                 self.present(BalanceViewController(), animated: true, completion: nil)
             case .Tag:
                 self.present(TagViewController(), animated: true, completion: nil)
+            case .Badge:
+                self.present(BadgeViewController(), animated: true, completion: nil)
             default:
                 performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }
