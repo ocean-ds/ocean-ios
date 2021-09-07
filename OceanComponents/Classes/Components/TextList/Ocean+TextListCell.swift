@@ -142,7 +142,7 @@ extension Ocean {
             UIStackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
                 stack.axis = .horizontal
-                stack.distribution = .fillProportionally
+                stack.distribution = .fill
                 stack.alignment = .leading
                 
                 stack.add([
