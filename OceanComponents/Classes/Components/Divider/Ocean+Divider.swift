@@ -1,6 +1,6 @@
 //
 //  Ocean+Divider.swift
-//  FSCalendar
+//  OceanComponents
 //
 //  Created by Vini on 25/06/21.
 //
@@ -10,6 +10,7 @@ import OceanTokens
 
 extension Ocean {
     public class Divider: UIView {
+        private var widhtConstraint: NSLayoutDimension?
         private var width: CGFloat = UIScreen.main.bounds.width
         private var height: CGFloat = 1
         
@@ -37,12 +38,23 @@ extension Ocean {
             setupUI()
         }
         
+        public convenience init(widthConstraint: NSLayoutDimension) {
+            self.init(frame: .zero)
+            self.widhtConstraint = widhtConstraint
+            self.height = height
+            setupUI()
+        }
+        
         private func setupUI() {
             backgroundColor = Ocean.color.colorInterfaceLightDown
             translatesAutoresizingMaskIntoConstraints = false
             
-            widthAnchor.constraint(equalToConstant: self.width).isActive = true
             heightAnchor.constraint(equalToConstant: self.height).isActive = true
+            if let widthConstraint = widhtConstraint {
+                widthAnchor.constraint(equalTo: widthConstraint).isActive = true
+            } else {
+                widthAnchor.constraint(equalToConstant: self.width).isActive = true
+            }
         }
     }
 }

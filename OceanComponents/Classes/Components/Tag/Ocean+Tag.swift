@@ -67,19 +67,17 @@ extension Ocean {
         private lazy var mainStack: UIStackView = {
             let stack = UIStackView()
             stack.axis = .horizontal
-            stack.distribution = .fill
-            stack.spacing = Ocean.size.spacingStackXxxs
+            stack.distribution = .fillProportionally
+            stack.alignment = .center
+            stack.spacing = 0
             
             stack.add([
+                Ocean.Spacer(space: Ocean.size.spacingStackXxxs),
                 imageView,
-                titleLabel
+                Ocean.Spacer(space: Ocean.size.spacingStackXxxs),
+                titleLabel,
+                Ocean.Spacer(space: Ocean.size.spacingStackXxs)
             ])
-            
-            stack.isLayoutMarginsRelativeArrangement = true
-            stack.layoutMargins = .init(top: 0,
-                                        left: Ocean.size.spacingStackXxs,
-                                        bottom: 0,
-                                        right: Ocean.size.spacingStackXxs)
             
             return stack
         }()
@@ -91,7 +89,6 @@ extension Ocean {
         }
         
         private func setupUI() {
-            self.clipsToBounds = true
             self.layer.cornerRadius = Constants.height * Ocean.size.borderRadiusCircular
             self.backgroundColor = Ocean.color.colorInterfaceLightUp
             self.add(view: mainStack)

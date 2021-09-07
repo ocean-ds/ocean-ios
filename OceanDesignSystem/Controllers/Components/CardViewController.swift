@@ -12,8 +12,6 @@ import OceanTokens
 import OceanComponents
 
 final public class CardViewController : UIViewController {
-    let cardWithShadow = Ocean.Badge.tiny()
-    
     public override func viewDidLoad() {
         self.view.backgroundColor = Ocean.color.colorInterfaceLightUp
         
