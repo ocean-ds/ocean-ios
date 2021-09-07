@@ -50,6 +50,7 @@ public enum DesignSystemComponentsType: String {
     case Balance
     case Tag
     case Badge
+    case Card
 }
 
 public enum DesignSystemTypographyType: Int {

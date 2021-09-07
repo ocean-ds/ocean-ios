@@ -48,27 +48,40 @@ public struct OceanStyle {
         init(view: UIView) {
             self.view = view
         }
-        public func applyThin() {
-            self.view.layer.borderWidth = Ocean.size.borderWidthThin
-        }
-        public func applyThick() {
-            self.view.layer.borderWidth = Ocean.size.borderWidthThick
-        }
-        public func applyNone() {
-            self.view.layer.borderWidth = Ocean.size.borderWidthNone
-        }
-        public func applyHeavy() {
-            self.view.layer.borderWidth = Ocean.size.borderWidthHeavy
-        }
-        public func applyHairline() {
-            self.view.layer.borderWidth = Ocean.size.borderWidthHairline
-        }
-    }
-    public struct OceanOpacity {
-        private let view: UIView
         
-        init(view: UIView) {
-            self.view = view
+        public func applyThin(color: UIColor? = nil) {
+            self.view.layer.borderWidth = Ocean.size.borderWidthThin
+            if let color = color {
+                self.view.layer.borderColor = color.cgColor
+            }
+        }
+        
+        public func applyThick(color: UIColor? = nil) {
+            self.view.layer.borderWidth = Ocean.size.borderWidthThick
+            if let color = color {
+                self.view.layer.borderColor = color.cgColor
+            }
+        }
+        
+        public func applyNone(color: UIColor? = nil) {
+            self.view.layer.borderWidth = Ocean.size.borderWidthNone
+            if let color = color {
+                self.view.layer.borderColor = color.cgColor
+            }
+        }
+        
+        public func applyHeavy(color: UIColor? = nil) {
+            self.view.layer.borderWidth = Ocean.size.borderWidthHeavy
+            if let color = color {
+                self.view.layer.borderColor = color.cgColor
+            }
+        }
+        
+        public func applyHairline(color: UIColor? = nil) {
+            self.view.layer.borderWidth = Ocean.size.borderWidthHairline
+            if let color = color {
+                self.view.layer.borderColor = color.cgColor
+            }
         }
     }
     
@@ -95,10 +108,12 @@ public struct OceanStyle {
             self.view.applyShadow(parameters: Ocean.shadow.shadowLevel4)
         }
     }
+    
     private let view: UIView
     init(view: UIView) {
        self.view = view
     }
+    
     public var radius: OceanRadius { OceanRadius(view: self.view) }
     public var shadow: OceanShadow { OceanShadow(view: self.view) }
     public var borderWidth: OceanBorderWidth { OceanBorderWidth(view: self.view) }
