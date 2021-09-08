@@ -88,6 +88,8 @@ class ComponentsViewController: UITableViewController {
                 self.present(CardViewController(), animated: true, completion: nil)
             case .TransactionList:
                 self.present(TransactionListViewController(), animated: true, completion: nil)
+            case .CardContent:
+                self.present(CardContentViewController(), animated: true, completion: nil)
             default:
                 performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }

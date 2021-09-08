@@ -43,7 +43,6 @@ extension Ocean {
         
         public static func heading4(builder: TypographyBuilder = nil) -> UILabel {
             return UILabel { label in
-                
                 label.font = .highlightBold(size: Ocean.font.fontSizeXs)
                 label.textColor = Ocean.color.colorInterfaceDarkPure
                 label.setLineHeight(lineHeight: Ocean.font.lineHeightMedium)

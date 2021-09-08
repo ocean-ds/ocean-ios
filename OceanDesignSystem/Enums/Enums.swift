@@ -52,6 +52,7 @@ public enum DesignSystemComponentsType: String {
     case Badge
     case Card
     case TransactionList
+    case CardContent
 }
 
 public enum DesignSystemTypographyType: Int {

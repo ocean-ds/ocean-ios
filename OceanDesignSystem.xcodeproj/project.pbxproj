@@ -27,6 +27,7 @@
 		249DC9402672AD2600012411 /* SwitchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249DC93F2672AD2600012411 /* SwitchViewController.swift */; };
 		24B70BB226E79CDA00C9CE1E /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B70BB126E79CDA00C9CE1E /* CardViewController.swift */; };
 		24B70BB826E7D0B400C9CE1E /* TransactionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B70BB726E7D0B400C9CE1E /* TransactionListViewController.swift */; };
+		24B70BBD26E91F0F00C9CE1E /* CardContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B70BBC26E91F0F00C9CE1E /* CardContentViewController.swift */; };
 		24C8013C2680FE4F00744F30 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C8013B2680FE4F00744F30 /* DatePickerViewController.swift */; };
 		24C801522682585600744F30 /* OceanDesignSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C801512682585600744F30 /* OceanDesignSystemTests.swift */; };
 		24E39BA326DE5BCE006B6A02 /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E39BA226DE5BCE006B6A02 /* BalanceViewController.swift */; };
@@ -97,6 +98,7 @@
 		249DC93F2672AD2600012411 /* SwitchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchViewController.swift; sourceTree = "<group>"; };
 		24B70BB126E79CDA00C9CE1E /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 		24B70BB726E7D0B400C9CE1E /* TransactionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListViewController.swift; sourceTree = "<group>"; };
+		24B70BBC26E91F0F00C9CE1E /* CardContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardContentViewController.swift; sourceTree = "<group>"; };
 		24C8013B2680FE4F00744F30 /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		24C8014F2682585600744F30 /* OceanDesignSystemTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OceanDesignSystemTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		24C801512682585600744F30 /* OceanDesignSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanDesignSystemTests.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				246535FB26E28B760079354A /* BadgeViewController.swift */,
 				24B70BB126E79CDA00C9CE1E /* CardViewController.swift */,
 				24B70BB726E7D0B400C9CE1E /* TransactionListViewController.swift */,
+				24B70BBC26E91F0F00C9CE1E /* CardContentViewController.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -517,6 +520,7 @@
 				B71D65E224CA053500C3938C /* TokensBySubCategories.swift in Sources */,
 				B75C81FB24F6F5BD001A500B /* ButtonViewController.swift in Sources */,
 				B7A4FF7924BF8484006712AA /* ComponentsViewController.swift in Sources */,
+				24B70BBD26E91F0F00C9CE1E /* CardContentViewController.swift in Sources */,
 				2456BF94268612E800E2361E /* DividerViewController.swift in Sources */,
 				B768C57724E3186C0086BF9C /* InputViewController.swift in Sources */,
 				2479453226CFEAD6000F4DF0 /* CarouselViewController.swift in Sources */,

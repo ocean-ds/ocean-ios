@@ -19,6 +19,7 @@ struct DSComponents {
         "BottomSheet",
         "Button",
         "Card",
+        "CardContent",
         "Carousel",
         "CheckBox",
         "DatePicker",

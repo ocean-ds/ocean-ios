@@ -15,9 +15,9 @@ extension Ocean {
         
         public var withShadow: Bool = false
         
-        public var view: UIView? {
+        public var view: UIView = UIView() {
             didSet {
-                updateUI()
+                updateView()
             }
         }
         
@@ -27,7 +27,7 @@ extension Ocean {
             setupUI()
         }
         
-        private func setupUI() {
+        internal func setupUI() {
             self.translatesAutoresizingMaskIntoConstraints = false
             self.backgroundColor = Ocean.color.colorInterfaceLightPure
             self.ocean.radius.applyMd()
@@ -37,14 +37,12 @@ extension Ocean {
             }
         }
         
-        private func updateUI() {
+        internal func updateView() {
             self.subviews.forEach { subview in
                 subview.removeFromSuperview()
             }
             
-            if let view = self.view {
-                self.add(view: view)
-            }
+            self.add(view: view)
         }
     }
 }
