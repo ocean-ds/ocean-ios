@@ -55,16 +55,6 @@ extension Ocean {
             self.heightAnchor.constraint(equalToConstant: self.size == .medium ? Constants.height : Constants.heightSmall)
         }()
         
-        private lazy var label: UILabel = {
-            UILabel { label in
-                label.font = .baseExtraBold(size: self.size == .medium ? 12 : 10)
-                label.text = self.number.description
-                label.textColor = Ocean.color.colorInterfaceLightPure
-                label.textAlignment = .center
-                label.translatesAutoresizingMaskIntoConstraints = false
-            }
-        }()
-        
         private lazy var mainStack: UIStackView = {
             let stack = UIStackView()
             stack.axis = .horizontal
@@ -82,6 +72,16 @@ extension Ocean {
                                         right: Ocean.size.spacingStackXxxs)
             
             return stack
+        }()
+        
+        private lazy var label: UILabel = {
+            UILabel { label in
+                label.font = .baseExtraBold(size: self.size == .medium ? 12 : 10)
+                label.text = self.number.description
+                label.textColor = Ocean.color.colorInterfaceLightPure
+                label.textAlignment = .center
+                label.translatesAutoresizingMaskIntoConstraints = false
+            }
         }()
         
         public override var intrinsicContentSize: CGSize {
