@@ -48,6 +48,11 @@ public enum DesignSystemComponentsType: String {
     case Carousel
     case Shortcut
     case Balance
+    case Tag
+    case Badge
+    case Card
+    case TransactionList
+    case CardContent
 }
 
 public enum DesignSystemTypographyType: Int {

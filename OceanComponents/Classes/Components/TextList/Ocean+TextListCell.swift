@@ -136,13 +136,13 @@ extension Ocean {
             return view
         }()
         
-        private lazy var badgeView = Ocean.Badge()
+        private lazy var badgeView = Ocean.Badge.text()
         
         private lazy var infoStackTitle: UIStackView = {
             UIStackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
                 stack.axis = .horizontal
-                stack.distribution = .fillProportionally
+                stack.distribution = .fill
                 stack.alignment = .leading
                 
                 stack.add([

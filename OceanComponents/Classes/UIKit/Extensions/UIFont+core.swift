@@ -28,4 +28,8 @@ extension UIFont {
     public static func baseBold(size: CGFloat) -> UIFont? {
         return UIFont(name: Ocean.font.fontFamilyBaseWeightBold, size: size)
     }
+    
+    public static func baseExtraBold(size: CGFloat) -> UIFont? {
+        return UIFont(name: Ocean.font.fontFamilyBaseWeightExtraBold, size: size)
+    }
 }
