@@ -31,6 +31,7 @@ final public class TransactionListViewController : UIViewController {
             view.tagImage = Ocean.icon.exclamationCircleSolid
             view.tagTitle = "Pendente"
             view.date = "09:00"
+            view.onTouch = { print("1") }
         }
         
         let transactionListItem2 = Ocean.TransactionListItem { view in
@@ -42,6 +43,7 @@ final public class TransactionListViewController : UIViewController {
             view.tagImage = Ocean.icon.exclamationCircleSolid
             view.tagTitle = "Pendente"
             view.date = "19:00"
+            view.onTouch = { print("2") }
         }
         
         let transactionListItem3 = Ocean.TransactionListItem { view in
@@ -52,6 +54,7 @@ final public class TransactionListViewController : UIViewController {
             view.tagImage = Ocean.icon.exclamationCircleSolid
             view.tagTitle = "Pendente"
             view.date = "12:00"
+            view.onTouch = { print("3") }
         }
         
         let transactionListItem4 = Ocean.TransactionListItem { view in
@@ -61,12 +64,14 @@ final public class TransactionListViewController : UIViewController {
             view.tagStatus = .warning
             view.tagImage = Ocean.icon.exclamationCircleSolid
             view.tagTitle = "Pendente"
+            view.onTouch = { print("4") }
         }
         
         let transactionListItem5 = Ocean.TransactionListItem { view in
             view.level1 = "Antecipação de recebíveis"
             view.value = -800
             view.date = "13:00"
+            view.onTouch = { print("5") }
         }
         
         stack.addArrangedSubview(transactionListItem1)

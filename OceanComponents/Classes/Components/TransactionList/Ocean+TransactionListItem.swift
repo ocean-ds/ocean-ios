@@ -13,6 +13,8 @@ extension Ocean {
     public class TransactionListItem: UIView {
         public typealias TransactionListItemBuilder = (TransactionListItem) -> Void
         
+        public var onTouch: (() -> Void)?
+        
         public var level1: String = "" {
             didSet {
                 updateUI()
@@ -227,6 +229,10 @@ extension Ocean {
         private func setupUI() {
             self.backgroundColor = Ocean.color.colorInterfaceLightPure
             add(view: mainStack)
+            
+            self.isUserInteractionEnabled = true
+            self.addTapGesture(selector: #selector(tapped(sender:)))
+            self.addLongPressGesture(selector: #selector(longPressed(sender:)))
         }
         
         private func updateUI() {
@@ -249,6 +255,20 @@ extension Ocean {
             tagSpacer.isHidden = tagTitle.isEmpty
             dateLabel.text = date
             dateLabel.isHidden = date.isEmpty
+        }
+        
+        @objc func tapped(sender: UITapGestureRecognizer){
+            self.backgroundColor = Ocean.color.colorInterfaceLightPure
+            onTouch?()
+        }
+
+        @objc func longPressed(sender: UILongPressGestureRecognizer) {
+            if sender.state == .began {
+                self.backgroundColor = Ocean.color.colorInterfaceLightDown
+            } else if sender.state == .ended {
+                self.backgroundColor = Ocean.color.colorInterfaceLightPure
+                onTouch?()
+            }
         }
     }
 }
