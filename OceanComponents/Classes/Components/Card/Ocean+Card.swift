@@ -31,7 +31,8 @@ extension Ocean {
             self.translatesAutoresizingMaskIntoConstraints = false
             self.backgroundColor = Ocean.color.colorInterfaceLightPure
             self.ocean.radius.applyMd()
-            self.ocean.borderWidth.applyHairline(color: Ocean.color.colorInterfaceLightDown)
+            self.ocean.borderWidth.applyHairline()
+            self.layer.borderColor = Ocean.color.colorInterfaceLightDown.cgColor
             if withShadow {
                 self.ocean.shadow.applyLevel1()
             }
