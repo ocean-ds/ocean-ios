@@ -26,6 +26,7 @@ final public class TransactionListViewController : UIViewController {
             view.level2 = "Digilab Laboratório Óptico Digital Ltda"
             view.level3 = "Lente de contato Mônica"
             view.level4 = "Lojista 2"
+            view.valueStatus = .positive
             view.value = 2000
             view.tagStatus = .warning
             view.tagImage = Ocean.icon.exclamationCircleSolid
@@ -38,7 +39,8 @@ final public class TransactionListViewController : UIViewController {
             view.level1 = "Boleto pago"
             view.level2 = "Digilab Laboratório Óptico Digital Ltda"
             view.level3 = "Lente de contato Mônica"
-            view.value = -1546.90
+            view.valueStatus = .negative
+            view.value = 1546.90
             view.tagStatus = .warning
             view.tagImage = Ocean.icon.exclamationCircleSolid
             view.tagTitle = "Pendente"
@@ -49,6 +51,7 @@ final public class TransactionListViewController : UIViewController {
         let transactionListItem3 = Ocean.TransactionListItem { view in
             view.level1 = "Transferência recebida"
             view.level2 = "Digilab Laboratório Óptico Digital Ltda"
+            view.valueStatus = .positive
             view.value = 500
             view.tagStatus = .warning
             view.tagImage = Ocean.icon.exclamationCircleSolid
@@ -60,7 +63,8 @@ final public class TransactionListViewController : UIViewController {
         let transactionListItem4 = Ocean.TransactionListItem { view in
             view.level1 = "Transferência enviada"
             view.level2 = "Digilab Laboratório Óptico Digital Ltda"
-            view.value = -200
+            view.valueStatus = .negative
+            view.value = 200
             view.tagStatus = .warning
             view.tagImage = Ocean.icon.exclamationCircleSolid
             view.tagTitle = "Pendente"
@@ -69,7 +73,8 @@ final public class TransactionListViewController : UIViewController {
         
         let transactionListItem5 = Ocean.TransactionListItem { view in
             view.level1 = "Antecipação de recebíveis"
-            view.value = -800
+            view.valueStatus = .neutral
+            view.value = 800
             view.date = "13:00"
             view.onTouch = { print("5") }
         }

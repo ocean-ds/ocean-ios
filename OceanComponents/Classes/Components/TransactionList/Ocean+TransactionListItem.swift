@@ -13,6 +13,12 @@ extension Ocean {
     public class TransactionListItem: UIView {
         public typealias TransactionListItemBuilder = (TransactionListItem) -> Void
         
+        public enum ValueStatus {
+            case neutral
+            case positive
+            case negative
+        }
+        
         public var onTouch: (() -> Void)?
         
         public var level1: String = "" {
@@ -40,6 +46,12 @@ extension Ocean {
         }
         
         public var value: Double = 0 {
+            didSet {
+                updateUI()
+            }
+        }
+        
+        public var valueStatus: ValueStatus = .neutral {
             didSet {
                 updateUI()
             }
@@ -164,7 +176,7 @@ extension Ocean {
             UILabel { label in
                 label.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
                 label.textAlignment = .right
-                label.textColor = Ocean.color.colorInterfaceDarkUp
+                label.textColor = Ocean.color.colorInterfaceDarkDown
                 label.numberOfLines = 1
                 label.translatesAutoresizingMaskIntoConstraints = false
             }
@@ -245,9 +257,18 @@ extension Ocean {
             level4Label.text = level4
             level4Label.isHidden = level4.isEmpty
             level4Spacer.isHidden = level4.isEmpty
-            let valueCurrency = value.toCurrency(symbolSpace: true) ?? ""
-            valueLabel.text = value > 0 ? "+" + valueCurrency : valueCurrency
-            valueLabel.textColor = value > 0 ? Ocean.color.colorStatusPositiveDeep : Ocean.color.colorInterfaceDarkDeep
+            let valueCurrency = value.toCurrency(symbolSpace: true) ?? " R$ 0,00"
+            switch self.valueStatus {
+            case .positive:
+                valueLabel.text = "+" + valueCurrency
+                valueLabel.textColor = Ocean.color.colorStatusPositiveDeep
+            case .negative:
+                valueLabel.text = "-" + valueCurrency
+                valueLabel.textColor = Ocean.color.colorInterfaceDarkDeep
+            default:
+                valueLabel.text = valueCurrency
+                valueLabel.textColor = Ocean.color.colorInterfaceDarkDeep
+            }
             tagView.status = tagStatus
             tagView.image = tagImage
             tagView.title = tagTitle
