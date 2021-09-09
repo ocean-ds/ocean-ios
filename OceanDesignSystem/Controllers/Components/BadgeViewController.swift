@@ -34,11 +34,11 @@ final public class BadgeViewController : UIViewController {
     let badgeNumber5 = Ocean.Badge.number { view in
         view.status = .neutral
         view.size = .small
-        view.number = 2
+        view.number = 10
     }
     
     public override func viewDidLoad() {
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = Ocean.color.colorInterfaceLightUp
         
         let stack = UIStackView()
         stack.axis = .horizontal
