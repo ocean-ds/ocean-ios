@@ -57,18 +57,20 @@ extension Ocean {
         }()
         
         private lazy var titleLabel: UILabel = {
-            Ocean.Typography.caption { label in
+            UILabel { label in
+                label.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
                 label.text = ""
                 label.textColor = Ocean.color.colorInterfaceDarkUp
                 label.translatesAutoresizingMaskIntoConstraints = false
             }
         }()
         
+        private lazy var imageSpacer = Ocean.Spacer(space: Ocean.size.spacingStackXxxs)
+        
         private lazy var mainStack: UIStackView = {
             let stack = UIStackView()
             stack.axis = .horizontal
             stack.distribution = .fillProportionally
-            stack.alignment = .center
             stack.spacing = 0
             
             stack.add([
@@ -76,7 +78,8 @@ extension Ocean {
                 imageView,
                 Ocean.Spacer(space: Ocean.size.spacingStackXxxs),
                 titleLabel,
-                Ocean.Spacer(space: Ocean.size.spacingStackXxs)
+                Ocean.Spacer(space: Ocean.size.spacingStackXxxs),
+                imageSpacer
             ])
             
             return stack
@@ -99,6 +102,7 @@ extension Ocean {
         private func updateUI() {
             imageView.image = image?.withRenderingMode(.alwaysTemplate)
             imageView.isHidden = image == nil
+            imageSpacer.isHidden = image != nil
             titleLabel.text = title
         }
         

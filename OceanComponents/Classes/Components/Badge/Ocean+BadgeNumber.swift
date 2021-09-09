@@ -109,7 +109,9 @@ extension Ocean {
         }
         
         private func updateUI() {
-            label.text = number > 99 ? "\(number)+" : number.description
+            label.text = self.size == .medium ?
+                number > 99 ? "99+" : number.description :
+                number > 9 ? "9+" : number.description
         }
         
         private func updateSize() {

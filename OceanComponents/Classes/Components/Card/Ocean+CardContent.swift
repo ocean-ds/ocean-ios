@@ -132,10 +132,6 @@ extension Ocean {
                 arrowView
             ])
             
-            stack.isUserInteractionEnabled = true
-            stack.addTapGesture(target: self, selector: #selector(tapped(sender:)))
-            stack.addLongPressGesture(target: self, selector: #selector(longPressed(sender:)))
-            
             stack.isLayoutMarginsRelativeArrangement = true
             stack.layoutMargins = .init(top: Ocean.size.spacingStackXs,
                                         left: Ocean.size.spacingStackXs,
@@ -143,6 +139,21 @@ extension Ocean {
                                         right: Ocean.size.spacingStackXs)
             
             return stack
+        }()
+        
+        private lazy var bottomView: UIView = {
+            let view = UIView()
+            view.ocean.radius.applyMd()
+            if #available(iOS 11.0, *) {
+                view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+            }
+            view.add(view: bottomStack)
+            
+            view.isUserInteractionEnabled = true
+            view.addTapGesture(target: self, selector: #selector(tapped(sender:)))
+            view.addLongPressGesture(target: self, selector: #selector(longPressed(sender:)))
+            
+            return view
         }()
         
         private lazy var bottomDivider = Ocean.Divider(widthConstraint: self.widthAnchor)
@@ -159,7 +170,7 @@ extension Ocean {
                 topDivider,
                 self.view,
                 bottomDivider,
-                bottomStack
+                bottomView
             ])
             
             return stack
@@ -189,20 +200,20 @@ extension Ocean {
             badgeView.number = badgeNumber
             badgeView.isHidden = badgeNumber == 0
             actionTitleLabel.text = actionTitle
-            bottomStack.isHidden = actionTitle.isEmpty
+            bottomView.isHidden = actionTitle.isEmpty
             bottomDivider.isHidden = actionTitle.isEmpty
         }
         
         @objc func tapped(sender: UITapGestureRecognizer){
-            bottomStack.backgroundColor = Ocean.color.colorInterfaceLightPure
+            bottomView.backgroundColor = .clear
             onTouch?()
         }
 
         @objc func longPressed(sender: UILongPressGestureRecognizer) {
             if sender.state == .began {
-                bottomStack.backgroundColor = Ocean.color.colorInterfaceLightDeep
+                bottomView.backgroundColor = Ocean.color.colorInterfaceLightDeep
             } else if sender.state == .ended {
-                bottomStack.backgroundColor = Ocean.color.colorInterfaceLightPure
+                bottomView.backgroundColor = .clear
                 onTouch?()
             }
         }

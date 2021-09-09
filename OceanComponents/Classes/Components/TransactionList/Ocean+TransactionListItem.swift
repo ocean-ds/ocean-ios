@@ -245,7 +245,7 @@ extension Ocean {
             level4Label.text = level4
             level4Label.isHidden = level4.isEmpty
             level4Spacer.isHidden = level4.isEmpty
-            let valueCurrency = value.toCurrency() ?? ""
+            let valueCurrency = value.toCurrency(symbolSpace: true) ?? ""
             valueLabel.text = value > 0 ? "+" + valueCurrency : valueCurrency
             valueLabel.textColor = value > 0 ? Ocean.color.colorStatusPositiveDeep : Ocean.color.colorInterfaceDarkDeep
             tagView.status = tagStatus

@@ -12,7 +12,7 @@ import OceanTokens
 extension Ocean {
     public class BadgeText: UIView {
         struct Constants {
-            static let height: CGFloat = 16
+            static let height: CGFloat = 17
         }
         
         public var text: String = "Novo" {
@@ -63,11 +63,13 @@ extension Ocean {
         }
         
         private func setupUI() {
-            self.clipsToBounds = true
+            self.translatesAutoresizingMaskIntoConstraints = false
             self.layer.cornerRadius = Constants.height * Ocean.size.borderRadiusCircular
             self.backgroundColor = Ocean.color.colorHighlightPure
-            self.translatesAutoresizingMaskIntoConstraints = false
-            self.ocean.shadow.applyLevel1()
+            self.layer.shadowOffset = CGSize(width: 0, height: 4)
+            self.layer.shadowRadius = 8
+            self.layer.shadowColor = Ocean.color.colorHighlightPure.withAlphaComponent(0.24).cgColor
+            self.layer.shadowOpacity = 1
             self.add(view: mainStack)
             
             self.heightAnchor.constraint(equalToConstant: Constants.height).isActive = true
