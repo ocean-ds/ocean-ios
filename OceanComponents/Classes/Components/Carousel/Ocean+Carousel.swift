@@ -11,10 +11,17 @@ extension Ocean {
     public class Carousel: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
         struct Constants {
             static let heightContentDefault: CGFloat = 168
+            static let space: CGFloat = Ocean.size.spacingStackXs
             static let heightPage: CGFloat = 4
         }
         
-        private var heightContentConstraint: NSLayoutConstraint? = nil
+        private lazy var heightConstraint: NSLayoutConstraint = {
+            return self.heightAnchor.constraint(equalToConstant: Constants.heightContentDefault + Constants.space + Constants.heightPage)
+        }()
+        
+        private lazy var heightContentConstraint: NSLayoutConstraint = {
+            return carouselCollectionView.heightAnchor.constraint(equalToConstant: Constants.heightContentDefault)
+        }()
         
         private var images: [UIImage] = []
         private var currentPage = 0 {
@@ -63,7 +70,8 @@ extension Ocean {
                 itemWidth = itemHeight * ratio
             }
             
-            heightContentConstraint?.constant = itemHeight
+            heightContentConstraint.constant = itemHeight
+            heightConstraint.constant = itemHeight + Constants.space + Constants.heightPage
             
             let carouselLayout = UICollectionViewFlowLayout()
             carouselLayout.scrollDirection = .horizontal
@@ -84,12 +92,6 @@ extension Ocean {
             carouselCollectionView.reloadData()
         }
         
-        public override var intrinsicContentSize: CGSize {
-            get {
-                return CGSize(width: frame.width, height: Constants.heightContentDefault)
-            }
-        }
-        
         override init(frame: CGRect) {
             super.init(frame: frame)
             setupUI()
@@ -103,6 +105,8 @@ extension Ocean {
             backgroundColor = .clear
             setupCollectionView()
             setupPageControl()
+            
+            heightConstraint.isActive = true
         }
         
         private func setupCollectionView() {
@@ -114,8 +118,7 @@ extension Ocean {
                 carouselCollectionView.rightAnchor.constraint(equalTo: rightAnchor),
             ])
             
-            heightContentConstraint = carouselCollectionView.heightAnchor.constraint(equalToConstant: Constants.heightContentDefault)
-            heightContentConstraint?.isActive = true
+            heightContentConstraint.isActive = true
         }
         
         private func setupPageControl() {
@@ -123,7 +126,7 @@ extension Ocean {
             
             NSLayoutConstraint.activate([
                 pageControl.topAnchor.constraint(equalTo: carouselCollectionView.bottomAnchor,
-                                                 constant: Ocean.size.spacingStackXs),
+                                                 constant: Constants.space),
                 pageControl.centerXAnchor.constraint(equalTo: centerXAnchor),
                 pageControl.widthAnchor.constraint(equalTo: widthAnchor),
                 pageControl.heightAnchor.constraint(equalToConstant: Constants.heightPage)

@@ -72,6 +72,7 @@ extension Ocean {
             stack.axis = .horizontal
             stack.distribution = .fillProportionally
             stack.spacing = 0
+            stack.translatesAutoresizingMaskIntoConstraints = false
             
             stack.add([
                 Ocean.Spacer(space: Ocean.size.spacingStackXxxs),
@@ -92,6 +93,7 @@ extension Ocean {
         }
         
         private func setupUI() {
+            self.translatesAutoresizingMaskIntoConstraints = false
             self.layer.cornerRadius = Constants.height * Ocean.size.borderRadiusCircular
             self.backgroundColor = Ocean.color.colorInterfaceLightUp
             self.add(view: mainStack)
