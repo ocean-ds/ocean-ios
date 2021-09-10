@@ -17,6 +17,7 @@ extension Ocean {
             static let roundedViewHeightWidthSm: CGFloat = 32
             static let iconHeightWidthLg: CGFloat = 24
             static let iconHeightWidthSm: CGFloat = 20
+            static let lockImageSize: CGFloat = 16
             static let lockWidth: CGFloat = 32
             static let recommendWidth: CGFloat = 84
             static let recommendHeight: CGFloat = 20
@@ -129,8 +130,8 @@ extension Ocean {
             NSLayoutConstraint.activate([
                 lockIcon.centerYAnchor.constraint(equalTo: view.centerYAnchor),
                 lockIcon.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                lockIcon.widthAnchor.constraint(equalToConstant: Constants.iconHeightWidthLg),
-                lockIcon.heightAnchor.constraint(equalToConstant: Constants.iconHeightWidthLg),
+                lockIcon.widthAnchor.constraint(equalToConstant: Constants.lockImageSize),
+                lockIcon.heightAnchor.constraint(equalToConstant: Constants.lockImageSize),
                 view.widthAnchor.constraint(equalToConstant: Constants.lockWidth)
             ])
             
