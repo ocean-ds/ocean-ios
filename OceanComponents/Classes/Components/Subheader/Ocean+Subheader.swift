@@ -129,7 +129,15 @@ extension Ocean {
         
         private func setupUI() {
             backgroundColor = Ocean.color.colorInterfaceLightUp
-            add(view: mainStack)
+            isSkeletonable = true
+            addSubview(mainStack)
+            
+            NSLayoutConstraint.activate([
+                mainStack.topAnchor.constraint(equalTo: topAnchor),
+                mainStack.bottomAnchor.constraint(equalTo: bottomAnchor),
+                mainStack.leadingAnchor.constraint(equalTo: leadingAnchor),
+                mainStack.trailingAnchor.constraint(equalTo: trailingAnchor)
+            ])
             
             heightConstraint.isActive = true
         }
