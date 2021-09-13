@@ -31,6 +31,7 @@ struct DSComponents {
         "RadioButton",
         "Shortcut",
         "Snackbar",
+        "Subheader",
         "Switch",
         "Tag",
         "TextList",

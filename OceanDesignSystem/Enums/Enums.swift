@@ -53,6 +53,7 @@ public enum DesignSystemComponentsType: String {
     case Card
     case TransactionList
     case CardContent
+    case Subheader
 }
 
 public enum DesignSystemTypographyType: Int {
