@@ -202,6 +202,8 @@ extension Ocean {
                                             left: 0,
                                             bottom: Ocean.size.spacingStackXs,
                                             right: Ocean.size.spacingStackXs)
+                
+                stack.widthAnchor.constraint(greaterThanOrEqualToConstant: 110).isActive = true
             }
         }()
         
@@ -210,6 +212,7 @@ extension Ocean {
                 stack.axis = .horizontal
                 stack.distribution = .fillProportionally
                 stack.alignment = .center
+                stack.spacing = Ocean.size.spacingStackXxxs
                 stack.translatesAutoresizingMaskIntoConstraints = false
                 
                 stack.add([
