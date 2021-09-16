@@ -81,6 +81,12 @@ extension Ocean {
             }
         }
         
+        public var withDivider: Bool = true {
+            didSet {
+                divider.isHidden = !withDivider
+            }
+        }
+        
         private lazy var level1Label: UILabel = {
             UILabel { label in
                 label.font = .baseSemiBold(size: Ocean.font.fontSizeXs)
@@ -203,7 +209,7 @@ extension Ocean {
                                             bottom: Ocean.size.spacingStackXs,
                                             right: Ocean.size.spacingStackXs)
                 
-                stack.widthAnchor.constraint(greaterThanOrEqualToConstant: 110).isActive = true
+                stack.widthAnchor.constraint(greaterThanOrEqualToConstant: 125).isActive = true
             }
         }()
         
@@ -222,6 +228,8 @@ extension Ocean {
             }
         }()
         
+        private lazy var divider = Ocean.Divider(widthConstraint: self.widthAnchor)
+        
         private lazy var mainStack: UIStackView = {
             UIStackView { stack in
                 stack.axis = .vertical
@@ -230,7 +238,7 @@ extension Ocean {
                 
                 stack.add([
                     contentStack,
-                    Ocean.Divider(widthConstraint: self.widthAnchor)
+                    divider
                 ])
             }
         }()
@@ -276,17 +284,36 @@ extension Ocean {
             tagView.image = tagImage
             tagView.title = tagTitle
             tagView.isHidden = tagTitle.isEmpty
-            tagSpacer.isHidden = tagTitle.isEmpty
+            tagSpacer.isHidden = date.isEmpty
             dateLabel.text = date
             dateLabel.isHidden = date.isEmpty
         }
         
-        @objc func tapped(sender: UITapGestureRecognizer){
+        public func setSkeleton() {
+            self.isSkeletonable = true
+            level1Label.isSkeletonable = true
+            level2Label.isSkeletonable = true
+            level3Label.isSkeletonable = true
+            level3Label.isHiddenWhenSkeletonIsActive = true
+            level4Label.isSkeletonable = true
+            level4Label.isHiddenWhenSkeletonIsActive = true
+            valueLabel.isSkeletonable = true
+            valueLabel.isHiddenWhenSkeletonIsActive = true
+            tagView.setSkeleton()
+            dateLabel.isSkeletonable = true
+            dateLabel.isHiddenWhenSkeletonIsActive = true
+            leftContentStack.isSkeletonable = true
+            rightContentStack.isSkeletonable = true
+            contentStack.isSkeletonable = true
+            mainStack.isSkeletonable = true
+        }
+        
+        @objc private func tapped(sender: UITapGestureRecognizer) {
             self.backgroundColor = Ocean.color.colorInterfaceLightPure
             onTouch?()
         }
 
-        @objc func longPressed(sender: UILongPressGestureRecognizer) {
+        @objc private func longPressed(sender: UILongPressGestureRecognizer) {
             if sender.state == .began {
                 self.backgroundColor = Ocean.color.colorInterfaceLightDown
             } else if sender.state == .ended {
