@@ -32,6 +32,26 @@ final public class ProgressIndicatorViewController : UIViewController {
         stack.addArrangedSubview(sp1)
         stack.addArrangedSubview(sp2)
         stack.addArrangedSubview(sp3)
+        stack.addArrangedSubview(Ocean.Spacer(space: Ocean.size.spacingInsetMd))
+        
+        stack.addArrangedSubview(Ocean.Button.secondaryMD { button in
+            button.text = "Default"
+            button.onTouch = {
+                self.sp1.style = .normal
+                self.sp2.style = .normal
+                self.sp3.style = .normal
+                self.view.backgroundColor = Ocean.color.colorBrandPrimaryPure
+            }
+        })
+        stack.addArrangedSubview(Ocean.Button.secondaryMD { button in
+            button.text = "Primary"
+            button.onTouch = {
+                self.sp1.style = .primary
+                self.sp2.style = .primary
+                self.sp3.style = .primary
+                self.view.backgroundColor = Ocean.color.colorInterfaceLightPure
+            }
+        })
         
         self.add(view: stack)
     }

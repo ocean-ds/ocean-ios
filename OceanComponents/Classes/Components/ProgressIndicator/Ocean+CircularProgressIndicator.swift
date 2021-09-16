@@ -16,12 +16,27 @@ extension Ocean {
             case large
         }
         
+        public enum Style {
+            case normal
+            case primary
+        }
+        
         private var widthConstraint: NSLayoutConstraint?
         private var heightConstraint: NSLayoutConstraint?
         
         public var size: CircularProgressIndicator.Size = .medium {
             didSet {
                 setSize()
+            }
+        }
+        
+        public var style: CircularProgressIndicator.Style = .normal {
+            didSet {
+                if style == .normal {
+                    imageView.image = Ocean.icon.spinner
+                } else {
+                    imageView.image = Ocean.icon.spinnerPrimary
+                }
             }
         }
         
