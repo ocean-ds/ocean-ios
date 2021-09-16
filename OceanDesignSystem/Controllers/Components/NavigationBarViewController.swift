@@ -49,6 +49,22 @@ final public class NavigationBarViewController : UIViewController, OceanNavigati
                 self.setupNavigation()
             }
         })
+        stack.addArrangedSubview(Ocean.Button.primaryMD { button in
+            button.text = "Primary Large"
+            button.onTouch = {
+                self.navigationBackgroundColor = Ocean.color.colorBrandPrimaryPure
+                self.navigationTintColor = Ocean.color.colorInterfaceLightPure
+                self.setupNavigation(largeTitle: true)
+            }
+        })
+        stack.addArrangedSubview(Ocean.Button.secondaryMD { button in
+            button.text = "Secondary Large"
+            button.onTouch = {
+                self.navigationBackgroundColor = Ocean.color.colorInterfaceLightPure
+                self.navigationTintColor = Ocean.color.colorBrandPrimaryPure
+                self.setupNavigation(largeTitle: true)
+            }
+        })
         
         self.add(view: stack)
     }
