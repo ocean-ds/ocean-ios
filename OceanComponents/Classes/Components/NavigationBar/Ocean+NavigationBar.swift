@@ -65,8 +65,6 @@ public extension OceanNavigationBar {
         ]
         
         if #available(iOS 13.0, *) {
-            navigationItem.backButtonTitle = navigationBackButtonTitle
-            
             let navBarAppearance = UINavigationBarAppearance()
             navBarAppearance.configureWithOpaqueBackground()
             navBarAppearance.titleTextAttributes = titleAttr
@@ -80,6 +78,7 @@ public extension OceanNavigationBar {
             navigationController?.navigationBar.compactAppearance = navBarAppearance
             navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
             navigationController?.navigationBar.prefersLargeTitles = largeTitle
+            navigationItem.backButtonTitle = navigationBackButtonTitle
         } else {
             navigationController?.navigationBar.shadowImage = navigationShadow ? Ocean.color.colorInterfaceLightDeep.as1ptImage() : UIImage()
             
@@ -99,6 +98,7 @@ public extension OceanNavigationBar {
             if #available(iOS 11.0, *) {
                 navigationController?.navigationBar.prefersLargeTitles = largeTitle
                 navigationController?.navigationBar.largeTitleTextAttributes = largeTitleAttr
+                navigationItem.backButtonTitle = navigationBackButtonTitle
             }
         }
     }
