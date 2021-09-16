@@ -27,7 +27,7 @@ final public class TransactionListViewController : UIViewController {
             view.level3 = "Lente de contato Mônica"
             view.level4 = "Lojista 2"
             view.valueStatus = .positive
-            view.value = 2000
+            view.value = 250000
             view.tagStatus = .warning
             view.tagImage = Ocean.icon.exclamationCircleSolid
             view.tagTitle = "Pendente"

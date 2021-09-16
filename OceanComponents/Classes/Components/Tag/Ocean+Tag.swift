@@ -70,7 +70,8 @@ extension Ocean {
         private lazy var mainStack: UIStackView = {
             let stack = UIStackView()
             stack.axis = .horizontal
-            stack.distribution = .fillProportionally
+            stack.distribution = .fill
+            stack.alignment = .center
             stack.spacing = 0
             stack.translatesAutoresizingMaskIntoConstraints = false
             
@@ -131,6 +132,10 @@ extension Ocean {
                 self.imageView.tintColor = Ocean.color.colorInterfaceDarkUp
                 self.titleLabel.textColor = Ocean.color.colorInterfaceDarkUp
             }
+        }
+        
+        public func setSkeleton() {
+            self.isSkeletonable = true
         }
     }
 }
