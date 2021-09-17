@@ -20,11 +20,11 @@ public protocol OceanNavigationBar: UIViewController {
 
 public extension OceanNavigationBar {
     var navigationBackImage: UIImage? {
-        return self.navigationController?.navigationBar.backIndicatorImage
+        return Ocean.icon.arrowLeftOutline?.tinted(with: navigationTintColor)
     }
     
     var navigationTitle: String? {
-        return self.navigationController?.navigationItem.title
+        return self.title
     }
     
     var navigationTintColor: UIColor {
@@ -36,7 +36,7 @@ public extension OceanNavigationBar {
     }
     
     var navigationBackgroundColor: UIColor? {
-        return nil
+        return Ocean.color.colorInterfaceLightPure
     }
     
     var navigationShadow: Bool {
