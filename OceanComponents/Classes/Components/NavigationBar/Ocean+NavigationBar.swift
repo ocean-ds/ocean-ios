@@ -104,7 +104,7 @@ public extension OceanNavigationBar {
     }
     
     func addCloseButton(action: Selector?) {
-        let image = navigationBackImage //Ocean.icon.xOutline?.tinted(with: navigationTintColor)
+        let image = Ocean.icon.xOutline?.tinted(with: navigationTintColor)
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: image,
                                                            style: .plain,
                                                            target: self, action: action)
