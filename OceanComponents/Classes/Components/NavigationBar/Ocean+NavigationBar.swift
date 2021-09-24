@@ -101,6 +101,10 @@ public extension OceanNavigationBar {
                 navigationItem.backButtonTitle = navigationBackButtonTitle
             }
         }
+        
+        self.navigationController?.navigationBar.setNeedsLayout()
+        self.navigationController?.navigationBar.layoutIfNeeded()
+        self.navigationController?.navigationBar.setNeedsDisplay()
     }
     
     func addCloseButton(action: Selector?) {
