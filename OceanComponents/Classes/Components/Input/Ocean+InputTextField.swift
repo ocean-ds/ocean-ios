@@ -64,7 +64,7 @@ extension Ocean {
             }
         }
         
-        public var helper: String = "" {
+        public var helper: String = " " {
             didSet {
                 labelHelper?.text = helper
                 self.updateState()
@@ -252,7 +252,7 @@ extension Ocean {
                 name: Ocean.font.fontFamilyBaseWeightRegular,
                 size: Ocean.font.fontSizeXxxs)
             labelHelper.textColor = Ocean.color.colorInterfaceDarkUp
-            labelHelper.text = " "
+            labelHelper.text = helper
             labelHelper.isHidden = false
         }
         
