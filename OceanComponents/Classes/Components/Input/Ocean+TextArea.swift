@@ -280,6 +280,7 @@ extension Ocean {
                 changeColor(text: Ocean.color.colorInterfaceDarkUp,
                 border: Ocean.color.colorInterfaceLightDown,
                 background: Ocean.color.colorInterfaceLightDown,
+                placeHolderColor: Ocean.color.colorInterfaceDarkUp,
                 labelTitle: Ocean.color.colorInterfaceDarkUp)
                 checkPlaceholder()
                 backgroundView?.ocean.borderWidth.applyHairline()
