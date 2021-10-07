@@ -301,7 +301,6 @@ extension Ocean {
             } else if isActivated == false {
                 changeColor(text: Ocean.color.colorInterfaceLightDeep,
                             border: Ocean.color.colorInterfaceLightDeep,
-                            placeHolder: Ocean.color.colorInterfaceLightDeep,
                             labelTitle: Ocean.color.colorInterfaceDarkUp)
                 backgroundView?.ocean.borderWidth.applyHairline()
             } else if isEnabled {
@@ -311,7 +310,6 @@ extension Ocean {
                 let labelColor = Ocean.color.colorInterfaceDarkDown
                 changeColor(text: color,
                             border: border,
-                            placeHolder: Ocean.color.colorInterfaceLightDeep,
                             labelTitle: labelColor)
                 backgroundView?.ocean.borderWidth.applyHairline()
             } else {
@@ -331,7 +329,7 @@ extension Ocean {
         func changeColor(text: UIColor,
                          border: UIColor,
                          background: UIColor? = Ocean.color.colorInterfaceLightPure,
-                         placeHolder: UIColor? = Ocean.color.colorInterfaceLightUp,
+                         placeHolder: UIColor? = Ocean.color.colorInterfaceLightDeep,
                          labelTitle: UIColor) {
             self.textField?.textColor = text
             self.backgroundView?.backgroundColor = background
