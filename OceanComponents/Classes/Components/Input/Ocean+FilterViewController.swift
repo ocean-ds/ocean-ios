@@ -32,9 +32,13 @@ extension Ocean {
                             self.contentValues = self.values
                         } else {
                             self.contentValues = self.values?.filter({ model in
-                                model.title.lowercased().contains(value.lowercased())
+                                let titleProcessed = model.title.lowercased().folding(options: .diacriticInsensitive, locale: .current)
+                                let valueProcessed = value.lowercased().folding(options: .diacriticInsensitive, locale: .current)
+                                return titleProcessed.contains(valueProcessed)
                             })
                         }
+                        
+                        self.emptyLabel.attributedText = !(self.contentValues?.isEmpty ?? true) ? NSAttributedString() : self.getEmptyMessage(value: value)
                         self.tableView.reloadData()
                     }
                 })
@@ -42,11 +46,36 @@ extension Ocean {
             }
         }()
         
+        private lazy var emptyLabel: UILabel = {
+            let label = UILabel()
+            label.font = .baseRegular(size: Ocean.font.fontSizeXxs)
+            label.textColor = Ocean.color.colorInterfaceDarkUp
+            label.textAlignment = .center
+            label.text = ""
+            label.numberOfLines = 2
+            label.translatesAutoresizingMaskIntoConstraints = false
+            return label
+        }()
+        
+        private lazy var emptyView: UIView = {
+            let view = UIView()
+            view.addSubview(emptyLabel)
+            
+            NSLayoutConstraint.activate([
+                emptyLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: Ocean.size.spacingStackXs),
+                emptyLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Ocean.size.spacingStackXs),
+                emptyLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Ocean.size.spacingStackXs)
+            ])
+            
+            return view
+        }()
+        
         private lazy var tableView: UITableView = {
             let tableView = UITableView()
             tableView.translatesAutoresizingMaskIntoConstraints = false
             tableView.tableHeaderView = UIView()
             tableView.tableFooterView = UIView()
+            tableView.backgroundView = emptyView
             tableView.delegate = self
             tableView.dataSource = self
             tableView.separatorStyle =  .none
@@ -90,6 +119,7 @@ extension Ocean {
                                                     constant: Ocean.size.spacingStackXs),
                     mainStack.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor,
                                                      constant: -Ocean.size.spacingStackXs),
+                    mainStack.heightAnchor.constraint(equalToConstant: 64),
                     
                     tableView.topAnchor.constraint(equalTo: mainStack.bottomAnchor),
                     tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -103,6 +133,7 @@ extension Ocean {
                                                     constant: Ocean.size.spacingStackXs),
                     mainStack.rightAnchor.constraint(equalTo: view.rightAnchor,
                                                      constant: -Ocean.size.spacingStackXs),
+                    mainStack.heightAnchor.constraint(equalToConstant: 64),
                     
                     tableView.topAnchor.constraint(equalTo: mainStack.bottomAnchor),
                     tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -137,6 +168,20 @@ extension Ocean {
                 self.dismiss(animated: true, completion: nil)
                 self.onValueSelected?(value)
             }
+        }
+        
+        private func getEmptyMessage(value: String) -> NSAttributedString {
+            let message = "Não foram econtrados resultados para\n"
+            let messageBold = "＂\(value)＂"
+            let fontSize = Ocean.font.fontSizeXxs
+            let fontMedium = Ocean.font.fontFamilyBaseWeightMedium
+            let fontBold = Ocean.font.fontFamilyBaseWeightBold
+            let attr = NSMutableAttributedString()
+            attr.append(NSAttributedString(string: message,
+                                           attributes: [NSAttributedString.Key.font: UIFont(name: fontMedium, size: fontSize)!]))
+            attr.append(NSAttributedString(string: messageBold,
+                                           attributes: [NSAttributedString.Key.font: UIFont(name: fontBold, size: fontSize)!]))
+            return attr
         }
     }
 }
