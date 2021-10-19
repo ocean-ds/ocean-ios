@@ -78,7 +78,8 @@ extension Ocean {
         
         public var placeholder: String = "" {
             didSet {
-                setPlaceholder(text: placeholder)
+                labelPlaceholder?.text = placeholder
+                labelPlaceholder?.isHidden = !self.text.isEmpty
             }
         }
         
@@ -239,6 +240,24 @@ extension Ocean {
             labelHelper.isHidden = false
         }
         
+        func makePlaceholder() {
+            labelPlaceholder = UILabel()
+            labelPlaceholder.text = placeholder
+            labelPlaceholder.font = UIFont(name: Ocean.font.fontFamilyBaseWeightRegular, size: Ocean.font.fontSizeXs)
+            labelPlaceholder.textColor = Ocean.color.colorInterfaceLightDeep
+            labelPlaceholder.numberOfLines = -1
+            labelPlaceholder.tag = 222
+            labelPlaceholder.translatesAutoresizingMaskIntoConstraints = false
+            
+            textArea.addSubview(labelPlaceholder)
+            
+            NSLayoutConstraint.activate([
+                labelPlaceholder.topAnchor.constraint(equalTo: textArea.topAnchor, constant: Ocean.size.spacingStackXxs),
+                labelPlaceholder.leadingAnchor.constraint(equalTo: textArea.leadingAnchor, constant: Ocean.size.spacingStackXxxs),
+                labelPlaceholder.widthAnchor.constraint(equalTo: textArea.widthAnchor)
+            ])
+        }
+        
         @objc func infoAction(_ sender: Any) {
             onInfoIconTouched?()
             tooltip.show(target: infoIconImageView, presenter: self)
@@ -319,6 +338,7 @@ extension Ocean {
             self.makeTextArea()
             self.makeLabelError()
             self.makeLabelHelper()
+            self.makePlaceholder()
             
             mainStack.addArrangedSubview(titleStackContent)
             mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxs))
@@ -363,18 +383,6 @@ extension Ocean {
                 constant: -Ocean.size.spacingStackXxxs).isActive = true
             hStack.leftAnchor.constraint(equalTo: backgroundView.leftAnchor).isActive = true
             
-            labelPlaceholder = UILabel()
-            
-            if ((labelTitle?.text?.isEmpty) != nil) {
-                labelPlaceholder.frame.origin = CGPoint(
-                    x: Ocean.size.spacingStackXs,
-                    y: Ocean.size.spacingInsetSm)
-            } else {
-                labelPlaceholder.frame.origin = CGPoint(
-                    x: Ocean.size.spacingStackXs,
-                    y: Ocean.size.spacingInsetXl)
-            }
-            setPlaceholder(text: placeholder)
             updateState()
         }
         
@@ -414,20 +422,6 @@ extension Ocean.TextArea {
         if let placeholderLabel = self.viewWithTag(222) as? UILabel {
             placeholderLabel.textColor = color
         }
-    }
-    
-    func setPlaceholder(text: String) {
-        labelPlaceholder.text = text
-        labelPlaceholder.font = UIFont(
-            name: Ocean.font.fontFamilyBaseWeightRegular,
-            size: Ocean.font.fontSizeXs)
-        labelPlaceholder.textColor = Ocean.color.colorInterfaceLightDeep
-        labelPlaceholder.sizeToFit()
-        labelPlaceholder.tag = 222
-        
-        labelPlaceholder.isHidden = !self.text.isEmpty
-        
-        self.addSubview(labelPlaceholder)
     }
     
     func checkPlaceholder() {
