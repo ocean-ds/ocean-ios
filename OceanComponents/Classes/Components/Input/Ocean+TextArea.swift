@@ -253,8 +253,6 @@ extension Ocean {
             
             NSLayoutConstraint.activate([
                 labelPlaceholder.topAnchor.constraint(equalTo: textArea.topAnchor, constant: Ocean.size.spacingStackXxs),
-                labelPlaceholder.leadingAnchor.constraint(equalTo: textArea.leadingAnchor, constant: Ocean.size.spacingStackXxxs),
-                labelPlaceholder.trailingAnchor.constraint(equalTo: textArea.trailingAnchor, constant: -Ocean.size.spacingStackXxxs),
                 labelPlaceholder.widthAnchor.constraint(equalTo: textArea.widthAnchor)
             ])
         }
