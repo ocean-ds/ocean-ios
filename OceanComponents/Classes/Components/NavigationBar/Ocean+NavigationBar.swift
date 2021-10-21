@@ -16,6 +16,7 @@ public protocol OceanNavigationBar: UIViewController {
     var navigationBackButtonTitle: String { get }
     var navigationBackgroundColor: UIColor? { get }
     var navigationShadow: Bool { get }
+    var navigationLargeTitle: Bool { get }
 }
 
 public extension OceanNavigationBar {
@@ -43,9 +44,12 @@ public extension OceanNavigationBar {
         return false
     }
     
-    func setupNavigation(largeTitle: Bool = false) {
+    var navigationLargeTitle: Bool {
+        return false
+    }
+    
+    func setupNavigation() {
         navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.navigationBar.isHidden = false
         
         navigationController?.navigationBar.tintColor = navigationTintColor
         
@@ -77,7 +81,7 @@ public extension OceanNavigationBar {
             navigationController?.navigationBar.standardAppearance = navBarAppearance
             navigationController?.navigationBar.compactAppearance = navBarAppearance
             navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
-            navigationController?.navigationBar.prefersLargeTitles = largeTitle
+            navigationController?.navigationBar.prefersLargeTitles = navigationLargeTitle
             navigationItem.backButtonTitle = navigationBackButtonTitle
         } else {
             navigationController?.navigationBar.shadowImage = navigationShadow ? Ocean.color.colorInterfaceLightDeep.as1ptImage() : UIImage()
@@ -96,7 +100,7 @@ public extension OceanNavigationBar {
             }
             
             if #available(iOS 11.0, *) {
-                navigationController?.navigationBar.prefersLargeTitles = largeTitle
+                navigationController?.navigationBar.prefersLargeTitles = navigationLargeTitle
                 navigationController?.navigationBar.largeTitleTextAttributes = largeTitleAttr
                 navigationItem.backButtonTitle = navigationBackButtonTitle
             }
@@ -105,6 +109,10 @@ public extension OceanNavigationBar {
         self.navigationController?.navigationBar.setNeedsLayout()
         self.navigationController?.navigationBar.layoutIfNeeded()
         self.navigationController?.navigationBar.setNeedsDisplay()
+    }
+    
+    func hideNavigation(animated: Bool = true) {
+        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     func addCloseButton(action: Selector?) {

@@ -15,6 +15,7 @@ final public class NavigationBarViewController : UIViewController, OceanNavigati
     public var navigationTitle: String? = "NavigationBar"
     public var navigationBackgroundColor: UIColor? = Ocean.color.colorBrandPrimaryPure
     public var navigationTintColor: UIColor = Ocean.color.colorInterfaceLightPure
+    public var navigationLargeTitle: Bool = false
     
     public override func viewDidLoad() {
         setupNavigation()
@@ -38,6 +39,7 @@ final public class NavigationBarViewController : UIViewController, OceanNavigati
             button.onTouch = {
                 self.navigationBackgroundColor = Ocean.color.colorBrandPrimaryPure
                 self.navigationTintColor = Ocean.color.colorInterfaceLightPure
+                self.navigationLargeTitle = false
                 self.setupNavigation()
             }
         })
@@ -46,6 +48,7 @@ final public class NavigationBarViewController : UIViewController, OceanNavigati
             button.onTouch = {
                 self.navigationBackgroundColor = Ocean.color.colorInterfaceLightPure
                 self.navigationTintColor = Ocean.color.colorBrandPrimaryPure
+                self.navigationLargeTitle = false
                 self.setupNavigation()
             }
         })
@@ -54,7 +57,8 @@ final public class NavigationBarViewController : UIViewController, OceanNavigati
             button.onTouch = {
                 self.navigationBackgroundColor = Ocean.color.colorBrandPrimaryPure
                 self.navigationTintColor = Ocean.color.colorInterfaceLightPure
-                self.setupNavigation(largeTitle: true)
+                self.navigationLargeTitle = true
+                self.setupNavigation()
             }
         })
         stack.addArrangedSubview(Ocean.Button.secondaryMD { button in
@@ -62,7 +66,8 @@ final public class NavigationBarViewController : UIViewController, OceanNavigati
             button.onTouch = {
                 self.navigationBackgroundColor = Ocean.color.colorInterfaceLightPure
                 self.navigationTintColor = Ocean.color.colorBrandPrimaryPure
-                self.setupNavigation(largeTitle: true)
+                self.navigationLargeTitle = true
+                self.setupNavigation()
             }
         })
         
