@@ -49,8 +49,6 @@ public extension OceanNavigationBar {
     }
     
     func setupNavigation() {
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        
         navigationController?.navigationBar.tintColor = navigationTintColor
         
         navigationController?.title = navigationTitle
@@ -111,6 +109,10 @@ public extension OceanNavigationBar {
         self.navigationController?.navigationBar.setNeedsDisplay()
     }
     
+    func showNavigation(animated: Bool = true) {
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     func hideNavigation(animated: Bool = true) {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
@@ -120,7 +122,6 @@ public extension OceanNavigationBar {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: image,
                                                            style: .plain,
                                                            target: self, action: action)
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     func addOptionsButton(options: [OceanNavigationBarOption]) {
@@ -144,7 +145,6 @@ public extension OceanNavigationBar {
         }
         
         navigationItem.rightBarButtonItem = barButtonItem
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
 }
 
