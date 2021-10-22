@@ -19,6 +19,7 @@ final public class NavigationBarViewController : UIViewController, OceanNavigati
     
     public override func viewDidLoad() {
         setupNavigation()
+        showNavigation()
         addCloseButton(action: #selector(closeClick))
         addOptionsButton(options: [OceanNavigationBarOption(title: "Item 1", image: Ocean.icon.documentTextOutline, action: {
             print("Item 1")

@@ -107,6 +107,7 @@ extension Ocean {
         public override func viewDidLoad() {
             super.viewDidLoad()
             setupNavigation()
+            showNavigation()
             addCloseButton(action: #selector(closeClick))
             self.view.backgroundColor = Ocean.color.colorInterfaceLightPure
             self.view.addSubview(mainStack)
