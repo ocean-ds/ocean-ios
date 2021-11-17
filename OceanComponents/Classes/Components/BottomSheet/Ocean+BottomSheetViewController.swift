@@ -48,7 +48,7 @@ extension Ocean {
         
         private var heightSpacing: CGFloat {
             get {
-                return hasTopNotch ? 80 : 50
+                return hasTopNotch ? contentValues == nil ? 80 : 40 : contentValues == nil ? 50 : 20
             }
         }
         
