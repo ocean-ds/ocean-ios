@@ -32,6 +32,7 @@
 		24C801522682585600744F30 /* OceanDesignSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C801512682585600744F30 /* OceanDesignSystemTests.swift */; };
 		24E301B526EF911400D2296C /* SubheaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E301B426EF911400D2296C /* SubheaderViewController.swift */; };
 		24E39BA326DE5BCE006B6A02 /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E39BA226DE5BCE006B6A02 /* BalanceViewController.swift */; };
+		24FEEBC12744282E00211FEC /* StepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FEEBC02744282E00211FEC /* StepViewController.swift */; };
 		B71D65C824C8F28100C3938C /* TokensByCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65C724C8F28100C3938C /* TokensByCategoryViewController.swift */; };
 		B71D65DC24CA038B00C3938C /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65DB24CA038B00C3938C /* Models.swift */; };
 		B71D65E224CA053500C3938C /* TokensBySubCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65E124CA053500C3938C /* TokensBySubCategories.swift */; };
@@ -106,6 +107,7 @@
 		24C801532682585600744F30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		24E301B426EF911400D2296C /* SubheaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubheaderViewController.swift; sourceTree = "<group>"; };
 		24E39BA226DE5BCE006B6A02 /* BalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceViewController.swift; sourceTree = "<group>"; };
+		24FEEBC02744282E00211FEC /* StepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepViewController.swift; sourceTree = "<group>"; };
 		2FDF6A3790FFDCE821511C4F /* Pods-OceanDesignSystemTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OceanDesignSystemTests.debug.xcconfig"; path = "Target Support Files/Pods-OceanDesignSystemTests/Pods-OceanDesignSystemTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5D9D9A171B743DED8A2B2297 /* Pods_OceanDesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OceanDesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7964E389FBEAFC86B3DC30B /* Pods-OceanDesignSystem.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OceanDesignSystem.release.xcconfig"; path = "Target Support Files/Pods-OceanDesignSystem/Pods-OceanDesignSystem.release.xcconfig"; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				24B70BB726E7D0B400C9CE1E /* TransactionListViewController.swift */,
 				24B70BBC26E91F0F00C9CE1E /* CardContentViewController.swift */,
 				24E301B426EF911400D2296C /* SubheaderViewController.swift */,
+				24FEEBC02744282E00211FEC /* StepViewController.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -526,6 +529,7 @@
 				24B70BBD26E91F0F00C9CE1E /* CardContentViewController.swift in Sources */,
 				2456BF94268612E800E2361E /* DividerViewController.swift in Sources */,
 				B768C57724E3186C0086BF9C /* InputViewController.swift in Sources */,
+				24FEEBC12744282E00211FEC /* StepViewController.swift in Sources */,
 				2479453226CFEAD6000F4DF0 /* CarouselViewController.swift in Sources */,
 				B7BB717924E615B3007F8848 /* SnackbarViewController.swift in Sources */,
 				24E39BA326DE5BCE006B6A02 /* BalanceViewController.swift in Sources */,

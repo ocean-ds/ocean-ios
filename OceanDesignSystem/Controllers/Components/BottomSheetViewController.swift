@@ -47,6 +47,7 @@ class BottomSheetViewController: UIViewController {
         Ocean.BottomSheet(self)
             .withImage(Ocean.icon.calculatorSolid)
             .withTitle("Titulo")
+            .withCode("123")
             .withDescription("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Galley of type and scrambled it to make a type specimen book.")
             .withAction(textNegative: "Cancelar", actionNegative: nil,
                         textPositive: "Ativar", actionPositive: nil)

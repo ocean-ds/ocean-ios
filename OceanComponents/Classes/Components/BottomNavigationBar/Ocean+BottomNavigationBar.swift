@@ -50,6 +50,7 @@ public extension OceanBottomNavigationBar {
     @available(iOS 13.0, *)
     private func setupNew() {
         let appearance = UITabBarAppearance()
+        appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = bottomNavigationBackgroundColor
         
         setTabBarItemColors(appearance.stackedLayoutAppearance)
@@ -57,6 +58,9 @@ public extension OceanBottomNavigationBar {
         setTabBarItemColors(appearance.compactInlineLayoutAppearance)
         
         tabBar.standardAppearance = appearance
+        if #available(iOS 15.0, *) {
+            tabBar.scrollEdgeAppearance = appearance
+        }
     }
     
     @available(iOS 13.0, *)
