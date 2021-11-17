@@ -19,7 +19,6 @@ extension Ocean {
         private lazy var mainStack: UIStackView = {
             UIStackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
-                stack.alignment = .fill
                 stack.distribution = .fillProportionally
                 stack.axis = .vertical
             }
@@ -49,7 +48,7 @@ extension Ocean {
         
         private var heightSpacing: CGFloat {
             get {
-                return hasTopNotch ? 30 : 20
+                return hasTopNotch ? 80 : 50
             }
         }
         
@@ -85,21 +84,25 @@ extension Ocean {
         }
         
         func makeView() {
-            mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackMd))
-            addImageIfExist()
-            addTitleIfExist()
-            addDescriptionIfExist()
-            addCustomViewIfExist()
-            addActionsIfExist()
-            addErrorCodeIfExist()
+            var totalSpacing = heightSpacing
+            let topSpacing = Ocean.size.spacingStackMd
+            mainStack.addArrangedSubview(Spacer(space: topSpacing))
             
-            mainStack.updateConstraints()
-            mainStack.layoutIfNeeded()
+            totalSpacing += topSpacing
+            totalSpacing += addImageIfExist()
+            totalSpacing += addTitleIfExist()
+            totalSpacing += addDescriptionIfExist()
+            totalSpacing += addCustomViewIfExist()
+            totalSpacing += addActionsIfExist()
+            totalSpacing += addErrorCodeIfExist()
             
-            let pureHeight = contentValues?.first?.imageIcon != nil ? Constants.heightCellWithImages : Constants.heightCell
-            let tableHeight = pureHeight * (CGFloat(contentValues?.count ?? 1))
+            if let contentValues = contentValues {
+                let pureHeight = contentValues.first?.imageIcon != nil ? Constants.heightCellWithImages : Constants.heightCell
+                let tableHeight = pureHeight * (CGFloat(contentValues.count))
+                totalSpacing += tableHeight
+            }
             
-            spTransitionDelegate.customHeight = mainStack.frame.height + tableHeight + heightSpacing
+            spTransitionDelegate.customHeight = totalSpacing
         }
         
         public func show() {
@@ -114,60 +117,91 @@ extension Ocean {
             }
         }
 
-        fileprivate func addActionsIfExist() {
+        fileprivate func addActionsIfExist() -> CGFloat {
             guard !actions.isEmpty else {
-                return
+                return 0
             }
             
-            mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackMd))
-            mainStack.addArrangedSubview(UIStackView { stack in
+            let stackView = UIStackView { stack in
                 stack.axis = actionsAxis
                 stack.distribution = .fillEqually
                 stack.spacing = stack.axis == .vertical ? Ocean.size.spacingStackXs : Ocean.size.spacingInlineXs
                 actions.forEach { (control) in
                     stack.addArrangedSubview(control)
                 }
-            })
-            mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackSm))
-        }
-        
-        fileprivate func addCustomViewIfExist() {
-            guard let customContent = self.customContent else { return }
-            mainStack.addArrangedSubview(customContent)
-        }
-
-        fileprivate func addImageIfExist() {
-            guard let image = contentImage else {
-                return
-            }
-
-            mainStack.addArrangedSubview(UIImageView { imageView in
-                imageView.image = image
-                imageView.contentMode = .scaleAspectFit
-            })
-            mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackSm))
-        }
-
-        fileprivate func addTitleIfExist() {
-            guard let title = contentTitle else {
-                return
-            }
-
-            mainStack.addArrangedSubview(Ocean.Typography.heading3 { label in
-                label.text = title
-                label.textAlignment = self.contentValues == nil ? .center : .left
-                label.numberOfLines = 0
-                label.textColor = self.contentIsCritical ? Ocean.color.colorStatusNegativePure : Ocean.color.colorBrandPrimaryPure
-            })
-            mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
-        }
-
-        fileprivate func addDescriptionIfExist() {
-            if contentDescription == nil && contentDescriptionAttributeText == nil {
-                return
             }
             
-            mainStack.addArrangedSubview(Ocean.Typography.paragraph { label in
+            let actionsHeight: CGFloat = 48
+            let topSpacing = Ocean.size.spacingStackMd
+            let bottomSpacing = Ocean.size.spacingStackSm
+            
+            mainStack.addArrangedSubview(Spacer(space: topSpacing))
+            mainStack.addArrangedSubview(stackView)
+            mainStack.addArrangedSubview(Spacer(space: bottomSpacing))
+            
+            return actionsHeight + topSpacing + bottomSpacing
+        }
+        
+        fileprivate func addCustomViewIfExist() -> CGFloat {
+            guard let customContent = self.customContent else {
+                return 0
+            }
+            
+            customContent.sizeToFit()
+            
+            mainStack.addArrangedSubview(customContent)
+            
+            return customContent.frame.height
+        }
+
+        fileprivate func addImageIfExist() -> CGFloat {
+            guard let image = contentImage else {
+                return 0
+            }
+            
+            let imageView = UIImageView { imageView in
+                imageView.image = image
+                imageView.contentMode = .scaleAspectFit
+                imageView.translatesAutoresizingMaskIntoConstraints = false
+                imageView.sizeToFit()
+            }
+            
+            let bottomSpacing = Ocean.size.spacingStackSm
+
+            mainStack.addArrangedSubview(imageView)
+            mainStack.addArrangedSubview(Spacer(space: bottomSpacing))
+            
+            return imageView.frame.height + bottomSpacing
+        }
+
+        fileprivate func addTitleIfExist() -> CGFloat {
+            guard let title = contentTitle else {
+                return 0
+            }
+            
+            let label = Ocean.Typography.heading3 { label in
+                label.text = title
+                label.textAlignment = self.contentValues == nil ? .center : .left
+                label.numberOfLines = 1
+                label.textColor = self.contentIsCritical ? Ocean.color.colorStatusNegativePure : Ocean.color.colorBrandPrimaryPure
+                label.translatesAutoresizingMaskIntoConstraints = false
+                label.sizeToFit()
+            }
+            
+            let bottomSpacing = Ocean.size.spacingStackXs
+
+            mainStack.addArrangedSubview(label)
+            mainStack.addArrangedSubview(Spacer(space: bottomSpacing))
+            
+            return label.frame.height + bottomSpacing
+        }
+
+        fileprivate func addDescriptionIfExist() -> CGFloat {
+            if contentDescription == nil && contentDescriptionAttributeText == nil {
+                return 0
+            }
+            
+            let label = Ocean.Typography.paragraph { label in
                 if let contentDescription = self.contentDescription {
                     label.text = contentDescription
                 }
@@ -177,22 +211,36 @@ extension Ocean {
                 label.numberOfLines = 0
                 label.textAlignment = .center
                 label.textColor = Ocean.color.colorInterfaceDarkDown
-            })
+                label.translatesAutoresizingMaskIntoConstraints = false
+                label.sizeToFit()
+            }
+            
+            mainStack.addArrangedSubview(label)
+            
+            let totalLines = (label.frame.width / view.frame.width).rounded()
+            return totalLines * label.frame.height
         }
         
-        fileprivate func addErrorCodeIfExist() {
+        fileprivate func addErrorCodeIfExist() -> CGFloat {
             guard let code = contentCode else {
-                return
+                return 0
             }
-
-            mainStack.addArrangedSubview(Ocean.Typography.description { label in
+            
+            let label = Ocean.Typography.description { label in
                 label.text = "Código \(code)"
-                label.numberOfLines = 0
+                label.numberOfLines = 1
                 label.textAlignment = .center
                 label.textColor = Ocean.color.colorInterfaceDarkUp
-            })
+                label.translatesAutoresizingMaskIntoConstraints = false
+                label.sizeToFit()
+            }
+            
+            let bottomSpacing = Ocean.size.spacingStackXs
 
-            mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
+            mainStack.addArrangedSubview(label)
+            mainStack.addArrangedSubview(Spacer(space: bottomSpacing))
+            
+            return label.frame.height + bottomSpacing
         }
 
         public override func viewDidLoad() {
@@ -200,53 +248,57 @@ extension Ocean {
             self.view.addSubview(mainStack)
             
             if contentValues == nil {
-                if #available(iOS 11.0, *) {
-                    NSLayoutConstraint.activate([
-                        mainStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                        mainStack.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,
-                                                        constant: Ocean.size.spacingStackSm),
-                        mainStack.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor,
-                                                         constant: -Ocean.size.spacingStackSm)
-                    ])
-                } else {
-                    NSLayoutConstraint.activate([
-                        mainStack.topAnchor.constraint(equalTo: view.topAnchor),
-                        mainStack.leftAnchor.constraint(equalTo: view.leftAnchor,
-                                                        constant: Ocean.size.spacingStackSm),
-                        mainStack.rightAnchor.constraint(equalTo: view.rightAnchor,
-                                                         constant: -Ocean.size.spacingStackSm)
-                    ])
-                }
+                addConstraintMainStack(addConstraintBottom: true)
             } else {
                 self.view.addSubview(tableView)
+                addConstraintMainStack(addConstraintBottom: false)
+                addConstraintTableView()
+            }
+        }
+        
+        private func addConstraintMainStack(addConstraintBottom: Bool) {
+            if #available(iOS 11.0, *) {
+                NSLayoutConstraint.activate([
+                    mainStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                    mainStack.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,
+                                                    constant: Ocean.size.spacingStackSm),
+                    mainStack.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor,
+                                                     constant: -Ocean.size.spacingStackSm)
+                ])
                 
-                if #available(iOS 11.0, *) {
-                    NSLayoutConstraint.activate([
-                        mainStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                        mainStack.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,
-                                                        constant: Ocean.size.spacingStackXs),
-                        mainStack.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor,
-                                                         constant: -Ocean.size.spacingStackXs),
-                        
-                        tableView.topAnchor.constraint(equalTo: mainStack.bottomAnchor),
-                        tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-                        tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-                        tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
-                    ])
-                } else {
-                    NSLayoutConstraint.activate([
-                        mainStack.topAnchor.constraint(equalTo: view.topAnchor),
-                        mainStack.leftAnchor.constraint(equalTo: view.leftAnchor,
-                                                        constant: Ocean.size.spacingStackXs),
-                        mainStack.rightAnchor.constraint(equalTo: view.rightAnchor,
-                                                         constant: -Ocean.size.spacingStackXs),
-                        
-                        tableView.topAnchor.constraint(equalTo: mainStack.bottomAnchor),
-                        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-                    ])
+                if addConstraintBottom {
+                    mainStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
                 }
+            } else {
+                NSLayoutConstraint.activate([
+                    mainStack.topAnchor.constraint(equalTo: view.topAnchor),
+                    mainStack.leftAnchor.constraint(equalTo: view.leftAnchor,
+                                                    constant: Ocean.size.spacingStackSm),
+                    mainStack.rightAnchor.constraint(equalTo: view.rightAnchor,
+                                                     constant: -Ocean.size.spacingStackSm)
+                ])
+                
+                if addConstraintBottom {
+                    mainStack.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+                }
+            }
+        }
+        
+        private func addConstraintTableView() {
+            if #available(iOS 11.0, *) {
+                NSLayoutConstraint.activate([
+                    tableView.topAnchor.constraint(equalTo: mainStack.bottomAnchor),
+                    tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+                    tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+                    tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+                ])
+            } else {
+                NSLayoutConstraint.activate([
+                    tableView.topAnchor.constraint(equalTo: mainStack.bottomAnchor),
+                    tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                    tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                    tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+                ])
             }
         }
         
