@@ -39,61 +39,63 @@ class ComponentsViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         switch self.designSystemComponentsTypeSelected! {
-            case .Input:
-                performSegue(withIdentifier: "SegueInputComponents", sender: self)
-            case .Snackbar:
-                performSegue(withIdentifier: "SegueSnackbarComponents", sender: self)
-            case .Button:
-                performSegue(withIdentifier: "SegueButtonsComponents", sender: self)
-            case .Switch:
-                self.present(SwitchViewController(), animated: true, completion: nil)
-            case .BottomSheet:
-                performSegue(withIdentifier: "SegueBottomSheetComponents", sender: self)
-            case .RadioButton:
-                self.present(RadioButtonViewController(), animated: true, completion: nil)
-            case .DatePicker:
-                self.present(DatePickerViewController(), animated: true, completion: nil)
-            case .AlertBox:
-                self.present(AlertBoxViewController(), animated: true, completion: nil)
-            case .Divider:
-                self.present(DividerViewController(), animated: true, completion: nil)
-            case .Tooltip:
-                self.present(TooltipViewController(), animated: true, completion: nil)
-            case .TextList:
-                self.present(TextListViewController(), animated: true, completion: nil)
-            case .NavigationBar:
-                let navigationController = UINavigationController(rootViewController: NavigationBarViewController())
-                navigationController.modalTransitionStyle = .coverVertical
-                navigationController.modalPresentationStyle = .overFullScreen
-                self.present(navigationController, animated: true, completion: nil)
-            case .OptionCard:
-                self.present(OptionCardViewController(), animated: true, completion: nil)
-            case .CheckBox:
-                self.present(CheckBoxViewController(), animated: true, completion: nil)
-            case .ProgressIndicator:
-                self.present(ProgressIndicatorViewController(), animated: true, completion: nil)
-            case .BottomNavigationBar:
-                self.present(BottomNavigationBarViewController(), animated: true, completion: nil)
-            case .Carousel:
-                self.present(CarouselViewController(), animated: true, completion: nil)
-            case .Shortcut:
-                self.present(ShortcutViewController(), animated: true, completion: nil)
-            case .Balance:
-                self.present(BalanceViewController(), animated: true, completion: nil)
-            case .Tag:
-                self.present(TagViewController(), animated: true, completion: nil)
-            case .Badge:
-                self.present(BadgeViewController(), animated: true, completion: nil)
-            case .Card:
-                self.present(CardViewController(), animated: true, completion: nil)
-            case .TransactionList:
-                self.present(TransactionListViewController(), animated: true, completion: nil)
-            case .CardContent:
-                self.present(CardContentViewController(), animated: true, completion: nil)
-            case .Subheader:
-                self.present(SubheaderViewController(), animated: true, completion: nil)
-            default:
-                performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
+        case .Input:
+            performSegue(withIdentifier: "SegueInputComponents", sender: self)
+        case .Snackbar:
+            performSegue(withIdentifier: "SegueSnackbarComponents", sender: self)
+        case .Button:
+            performSegue(withIdentifier: "SegueButtonsComponents", sender: self)
+        case .Switch:
+            self.present(SwitchViewController(), animated: true, completion: nil)
+        case .BottomSheet:
+            performSegue(withIdentifier: "SegueBottomSheetComponents", sender: self)
+        case .RadioButton:
+            self.present(RadioButtonViewController(), animated: true, completion: nil)
+        case .DatePicker:
+            self.present(DatePickerViewController(), animated: true, completion: nil)
+        case .AlertBox:
+            self.present(AlertBoxViewController(), animated: true, completion: nil)
+        case .Divider:
+            self.present(DividerViewController(), animated: true, completion: nil)
+        case .Tooltip:
+            self.present(TooltipViewController(), animated: true, completion: nil)
+        case .TextList:
+            self.present(TextListViewController(), animated: true, completion: nil)
+        case .NavigationBar:
+            let navigationController = UINavigationController(rootViewController: NavigationBarViewController())
+            navigationController.modalTransitionStyle = .coverVertical
+            navigationController.modalPresentationStyle = .overFullScreen
+            self.present(navigationController, animated: true, completion: nil)
+        case .OptionCard:
+            self.present(OptionCardViewController(), animated: true, completion: nil)
+        case .CheckBox:
+            self.present(CheckBoxViewController(), animated: true, completion: nil)
+        case .ProgressIndicator:
+            self.present(ProgressIndicatorViewController(), animated: true, completion: nil)
+        case .BottomNavigationBar:
+            self.present(BottomNavigationBarViewController(), animated: true, completion: nil)
+        case .Carousel:
+            self.present(CarouselViewController(), animated: true, completion: nil)
+        case .Shortcut:
+            self.present(ShortcutViewController(), animated: true, completion: nil)
+        case .Balance:
+            self.present(BalanceViewController(), animated: true, completion: nil)
+        case .Tag:
+            self.present(TagViewController(), animated: true, completion: nil)
+        case .Badge:
+            self.present(BadgeViewController(), animated: true, completion: nil)
+        case .Card:
+            self.present(CardViewController(), animated: true, completion: nil)
+        case .TransactionList:
+            self.present(TransactionListViewController(), animated: true, completion: nil)
+        case .CardContent:
+            self.present(CardContentViewController(), animated: true, completion: nil)
+        case .Subheader:
+            self.present(SubheaderViewController(), animated: true, completion: nil)
+        case .Step:
+            self.present(StepViewController(), animated: true, completion: nil)
+        default:
+            performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }
     }
 
