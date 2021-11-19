@@ -76,6 +76,7 @@ extension Ocean {
                 labelError.text = errorMessage
                 labelError.isHidden = errorMessage.isEmpty
                 otpStackView.setAllFieldColor(color: Ocean.color.colorStatusNegativePure)
+                otpStackView.emptyOTP()
             }
         }
         
@@ -180,6 +181,12 @@ extension Ocean {
             self.onValueCompleted?(otp)
         }
         
+        public func emptyOTP() {
+            for textField in textFieldsCollection {
+                textField.text = ""
+            }
+        }
+        
         private func getOTP() -> String {
             var OTP = ""
             for textField in textFieldsCollection {
@@ -195,7 +202,7 @@ extension Ocean {
             showsWarningColor = isWarningColor
         }
         
-        private final func autoFillTextField(with string: String) {
+        private func autoFillTextField(with string: String) {
             remainingStrStack = string.reversed().compactMap{String($0)}
             for textField in textFieldsCollection {
                 if let charToAdd = remainingStrStack.popLast() {
