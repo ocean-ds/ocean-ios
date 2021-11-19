@@ -19,6 +19,7 @@ public class InputViewController : UIViewController {
     var textArea : Ocean.TextArea!
     var select: Ocean.InputSelectField!
     var search: Ocean.InputSearchField!
+    var token: Ocean.InputTokenField!
     
     public override func viewDidLoad() {
         self.textfield = Ocean.Input.textfieldWithLabel { component in
@@ -72,6 +73,20 @@ public class InputViewController : UIViewController {
             self.search.widthAnchor.constraint(equalToConstant: 328)
         ])
         
+        self.token = Ocean.Input.token { component in
+            component.title = "Label"
+            component.onValueCompleted = { value in
+                print(value)
+            }
+        }
+        
+        self.view.addSubview(self.token)
+        self.token.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.token.topAnchor.constraint(equalTo: self.search.bottomAnchor, constant: 20),
+            self.token.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+        ])
+        
         self.select = Ocean.Input.selectWithLabel { component in
             component.placeholder = "placeholder"
             component.helper = "helper text"
@@ -85,7 +100,7 @@ public class InputViewController : UIViewController {
         self.view.addSubview(self.select)
         self.select.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.select.topAnchor.constraint(equalTo: self.search.bottomAnchor, constant: 20),
+            self.select.topAnchor.constraint(equalTo: self.token.bottomAnchor, constant: 20),
             self.select.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             self.select.widthAnchor.constraint(equalToConstant: 328)
         ])
