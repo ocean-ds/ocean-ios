@@ -182,7 +182,7 @@ extension Ocean {
             let label = Ocean.Typography.heading3 { label in
                 label.text = title
                 label.textAlignment = self.contentValues == nil ? .center : .left
-                label.numberOfLines = 1
+                label.numberOfLines = 2
                 label.textColor = self.contentIsCritical ? Ocean.color.colorStatusNegativePure : Ocean.color.colorBrandPrimaryPure
                 label.translatesAutoresizingMaskIntoConstraints = false
                 label.sizeToFit()
