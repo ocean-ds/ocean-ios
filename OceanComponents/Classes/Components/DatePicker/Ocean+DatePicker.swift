@@ -342,8 +342,10 @@ extension Ocean {
         }
 
         private func loadDates() {
-            dates = datesRange(fromDate: minimumDate!, toDate: maximumDate!)
-            getFirstDateToSchedule()
+            if let minimumDate = self.minimumDate, let maximumDate = self.maximumDate {
+                dates = datesRange(fromDate: minimumDate, toDate: maximumDate)
+                getFirstDateToSchedule()
+            }
         }
 
         private func updateHeaderDate(date: Date) {
