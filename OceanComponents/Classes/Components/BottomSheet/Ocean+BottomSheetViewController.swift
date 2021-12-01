@@ -125,13 +125,13 @@ extension Ocean {
             let stackView = UIStackView { stack in
                 stack.axis = actionsAxis
                 stack.distribution = .fillEqually
-                stack.spacing = stack.axis == .vertical ? Ocean.size.spacingStackXs : Ocean.size.spacingInlineXs
+                stack.spacing = Ocean.size.spacingStackXs
                 actions.forEach { (control) in
                     stack.addArrangedSubview(control)
                 }
             }
             
-            let actionsHeight: CGFloat = 48
+            let actionsHeight: CGFloat = actionsAxis == .horizontal ? 48 : actions.count > 1 ? 112 : 48
             let topSpacing = Ocean.size.spacingStackMd
             let bottomSpacing = Ocean.size.spacingStackSm
             
