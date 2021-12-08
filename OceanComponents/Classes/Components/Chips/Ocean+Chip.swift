@@ -13,6 +13,7 @@ extension Ocean {
     public typealias ChipChoiceWithIconBuilder = (ChipChoiceWithIcon) -> Void
     public typealias ChipChoiceWithBadgeBuilder = (ChipChoiceWithBagde) ->  Void
     public typealias ChipFilterBuilder = (ChipFilter) -> Void
+    public typealias ChipsBuilder = (Chips) -> Void
     
     public struct Chip {
         public static func choice(builder: ChipChoiceBuilder? = nil) -> ChipChoice {
@@ -40,8 +41,18 @@ extension Ocean {
         }
     }
     
+    public static func chips(builder: ChipsBuilder? = nil) -> Chips {
+        return Chips { view in
+            builder?(view)
+        }
+    }
+    
     public enum ChipStatus {
         case normal, selected, disabled, error
+    }
+    
+    public enum ChipType {
+        case choice, choiceWithIcon, choiceWithBadge, filter
     }
     
 }

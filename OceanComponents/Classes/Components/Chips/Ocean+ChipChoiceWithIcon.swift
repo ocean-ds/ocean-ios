@@ -48,7 +48,8 @@ extension Ocean {
         private lazy var imageView: UIImageView = {
             let view = UIImageView()
             view.image = self.icon
-            view.frame = CGRect(x: 0, y: 0, width: 16, height: 10)
+            view.contentMode = .scaleAspectFit
+            view.frame = CGRect(x: 0, y: 0, width: 16, height: 16)
             view.translatesAutoresizingMaskIntoConstraints = false
             view.tintColor = Ocean.color.colorBrandPrimaryDown
             return view

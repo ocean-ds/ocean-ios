@@ -15,6 +15,8 @@ extension Ocean {
             static let height: CGFloat = 32
         }
         
+        public var index: Int = 0
+        
         public var text: String = "Label" {
             didSet {
                 updateUI()
@@ -37,7 +39,8 @@ extension Ocean {
             }
         }()
         
-        public var onSelected: (() -> Void)? = nil
+        public var onSelected: ((ChipChoice) -> Void)? = nil
+        public var onDeselected: ((ChipChoice) -> Void)? = nil
         
         private lazy var mainStack: UIStackView = {
             let stack = UIStackView()
@@ -128,9 +131,10 @@ extension Ocean {
             switch status {
             case .normal:
                 self.status = .selected
-                onSelected?()
+                onSelected?(self)
             case .selected:
                 self.status = .normal
+                onDeselected?(self)
             default:
                 break
             }

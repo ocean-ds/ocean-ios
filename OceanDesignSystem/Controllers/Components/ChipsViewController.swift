@@ -16,7 +16,7 @@ final public class ChipsViewController: UIViewController {
     private lazy var chipView: Ocean.ChipChoice = {
         Ocean.Chip.choice { view in
             view.text = "Label"
-            view.onSelected = {
+            view.onSelected = { chip in
                 
             }
         }
@@ -26,7 +26,7 @@ final public class ChipsViewController: UIViewController {
         Ocean.Chip.choice { view in
             view.text = "Label"
             view.status = .selected
-            view.onSelected = {
+            view.onSelected = { chip in
                 
             }
         }
@@ -36,7 +36,7 @@ final public class ChipsViewController: UIViewController {
         Ocean.Chip.choice { view in
             view.text = "Label"
             view.status = .disabled
-            view.onSelected = {
+            view.onSelected = { chip in
                 
             }
         }
@@ -46,7 +46,7 @@ final public class ChipsViewController: UIViewController {
         Ocean.Chip.choice { view in
             view.text = "Label"
             view.status = .error
-            view.onSelected = {
+            view.onSelected = { chip in
                 
             }
         }
@@ -56,7 +56,7 @@ final public class ChipsViewController: UIViewController {
         Ocean.Chip.choiceWithIcon { view in
             view.text = "Label"
             view.icon = Ocean.icon.calendarSolid?.withRenderingMode(.alwaysTemplate)
-            view.onSelected = {
+            view.onSelected = { 
                 
             }
         }
@@ -147,6 +147,12 @@ final public class ChipsViewController: UIViewController {
         }
     }()
     
+    private lazy var chips: Ocean.Chips = {
+        Ocean.chips { view in
+            view.items = ["Label 1", "Label 2", "Label 3", "Label 4", "Label 2", "Label 3"]
+        }
+    }()
+    
     public override func viewDidLoad() {
         self.view.backgroundColor = Ocean.color.colorInterfaceLightPure
         
@@ -157,19 +163,21 @@ final public class ChipsViewController: UIViewController {
         stack.spacing = Ocean.size.spacingStackXs
         stack.translatesAutoresizingMaskIntoConstraints = false
         
-        stack.addArrangedSubview(chipView)
-        stack.addArrangedSubview(chipView2)
-        stack.addArrangedSubview(chipView3)
-        stack.addArrangedSubview(chipView4)
-        stack.addArrangedSubview(chipViewWithIcon1)
-        stack.addArrangedSubview(chipViewWithIcon2)
-        stack.addArrangedSubview(chipViewWithIcon3)
-        stack.addArrangedSubview(chipViewWithIcon4)
-        stack.addArrangedSubview(chipViewWithBadge1)
-        stack.addArrangedSubview(chipViewWithBadge2)
-        stack.addArrangedSubview(chipViewWithBadge3)
-        stack.addArrangedSubview(chipViewWithBadge4)
-        stack.addArrangedSubview(chipFilter)
+//        stack.addArrangedSubview(chipView)
+//        stack.addArrangedSubview(chipView2)
+//        stack.addArrangedSubview(chipView3)
+//        stack.addArrangedSubview(chipView4)
+//        stack.addArrangedSubview(chipViewWithIcon1)
+//        stack.addArrangedSubview(chipViewWithIcon2)
+//        stack.addArrangedSubview(chipViewWithIcon3)
+//        stack.addArrangedSubview(chipViewWithIcon4)
+//        stack.addArrangedSubview(chipViewWithBadge1)
+//        stack.addArrangedSubview(chipViewWithBadge2)
+//        stack.addArrangedSubview(chipViewWithBadge3)
+//        stack.addArrangedSubview(chipViewWithBadge4)
+//        stack.addArrangedSubview(chipFilter)
+        
+        stack.addArrangedSubview(chips)
         
         self.view.addSubview(stack)
         
