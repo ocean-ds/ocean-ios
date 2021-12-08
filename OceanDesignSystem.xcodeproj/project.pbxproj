@@ -55,6 +55,7 @@
 		B833D03C24A6796100587FDE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B833D03A24A6796100587FDE /* Main.storyboard */; };
 		B833D03E24A6796300587FDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B833D03D24A6796300587FDE /* Assets.xcassets */; };
 		B833D04124A6796300587FDE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B833D03F24A6796300587FDE /* LaunchScreen.storyboard */; };
+		E985454E275EA0EF0010B9EC /* ChipsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985454D275EA0EF0010B9EC /* ChipsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,6 +138,7 @@
 		B833D04024A6796300587FDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B833D04224A6796300587FDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEF0897C97A977F0864993D7 /* Pods-OceanDesignSystemTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OceanDesignSystemTests.release.xcconfig"; path = "Target Support Files/Pods-OceanDesignSystemTests/Pods-OceanDesignSystemTests.release.xcconfig"; sourceTree = "<group>"; };
+		E985454D275EA0EF0010B9EC /* ChipsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +193,7 @@
 				24B70BBC26E91F0F00C9CE1E /* CardContentViewController.swift */,
 				24E301B426EF911400D2296C /* SubheaderViewController.swift */,
 				24FEEBC02744282E00211FEC /* StepViewController.swift */,
+				E985454D275EA0EF0010B9EC /* ChipsViewController.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -539,6 +542,7 @@
 				138EF63E268502E1000E65EA /* AlertBoxViewController.swift in Sources */,
 				246535F726E259C20079354A /* TagViewController.swift in Sources */,
 				2482CDD4267D055100A50422 /* RadioButtonViewController.swift in Sources */,
+				E985454E275EA0EF0010B9EC /* ChipsViewController.swift in Sources */,
 				B7BB722024EEEA89007F8848 /* SnackbarView.swift in Sources */,
 				24E301B526EF911400D2296C /* SubheaderViewController.swift in Sources */,
 				B833D03724A6796100587FDE /* SceneDelegate.swift in Sources */,

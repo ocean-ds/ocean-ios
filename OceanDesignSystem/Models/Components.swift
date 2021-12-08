@@ -22,6 +22,7 @@ struct DSComponents {
         "CardContent",
         "Carousel",
         "CheckBox",
+        "Chips",
         "DatePicker",
         "Divider",
         "Input",

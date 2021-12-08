@@ -55,6 +55,7 @@ public enum DesignSystemComponentsType: String {
     case CardContent
     case Subheader
     case Step
+    case Chips
 }
 
 public enum DesignSystemTypographyType: Int {
