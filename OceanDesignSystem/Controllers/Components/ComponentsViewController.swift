@@ -94,6 +94,8 @@ class ComponentsViewController: UITableViewController {
             self.present(SubheaderViewController(), animated: true, completion: nil)
         case .Step:
             self.present(StepViewController(), animated: true, completion: nil)
+        case .Chips:
+            self.present(ChipsViewController(), animated: true, completion: nil)
         default:
             performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }
