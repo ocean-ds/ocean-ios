@@ -10,7 +10,9 @@ import UIKit
 import OceanTokens
 
 extension Ocean {
-    public class ChipChoice: UIView {
+    public class ChipChoice: UICollectionViewCell {
+        static let cellId = "ChipCell"
+        
         struct Constants {
             static let height: CGFloat = 32
         }
@@ -29,24 +31,25 @@ extension Ocean {
             }
         }
         
-        private lazy var label: UILabel = {
+        public lazy var label: UILabel = {
             UILabel { label in
                 label.font = .baseRegular(size: 14)
                 label.text = self.text
                 label.textColor = Ocean.color.colorBrandPrimaryDown
                 label.textAlignment = .center
                 label.translatesAutoresizingMaskIntoConstraints = false
+                label.sizeToFit()
             }
         }()
         
-        public var onSelected: ((ChipChoice) -> Void)? = nil
-        public var onDeselected: ((ChipChoice) -> Void)? = nil
+        public var onValueChange: ((Bool, ChipChoice) -> Void)? = nil
         
         private lazy var mainStack: UIStackView = {
             let stack = UIStackView()
             stack.axis = .horizontal
             stack.distribution = .fill
             stack.spacing = 0
+            stack.alignment = .center
             
             stack.add([
                 label
@@ -61,29 +64,24 @@ extension Ocean {
             return stack
         }()
         
-        public override var intrinsicContentSize: CGSize {
-            get {
-                return CGSize(width: frame.width, height: Constants.height)
-            }
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            setupUI()
         }
         
-        public convenience init(builder: ChipChoiceBuilder) {
-            self.init()
-            setupUI()
-            builder(self)
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
         }
         
         private func setupUI() {
-            self.translatesAutoresizingMaskIntoConstraints = false
             self.layer.cornerRadius = Constants.height * Ocean.size.borderRadiusCircular
-            self.backgroundColor = Ocean.color.colorInterfaceLightUp
-            self.layer.shadowRadius = 8
+            self.layer.masksToBounds = true
             self.layer.borderColor = Ocean.color.colorStatusNegativePure.cgColor
-            self.layer.borderWidth = 0
-            self.add(view: mainStack)
+
+            contentView.add(view: mainStack)
             
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.touchUpInSide))
-            self.addGestureRecognizer(tapGesture)
+            self.contentView.addGestureRecognizer(tapGesture)
             
             self.heightAnchor.constraint(equalToConstant: Constants.height).isActive = true
         }
@@ -131,10 +129,10 @@ extension Ocean {
             switch status {
             case .normal:
                 self.status = .selected
-                onSelected?(self)
+                onValueChange?(true, self)
             case .selected:
                 self.status = .normal
-                onDeselected?(self)
+                onValueChange?(false, self)
             default:
                 break
             }

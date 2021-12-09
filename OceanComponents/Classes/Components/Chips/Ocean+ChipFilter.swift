@@ -10,7 +10,9 @@ import UIKit
 import OceanTokens
 
 extension Ocean {
-    public class ChipFilter: UIView {
+    public class ChipFilter: UICollectionViewCell {
+        static let cellId = "ChipFilterCell"
+        
         struct Constants {
             static let height: CGFloat = 32
         }
@@ -33,9 +35,10 @@ extension Ocean {
         
         private lazy var imageView: UIImageView = {
             let view = UIImageView()
-            view.image = Ocean.icon.xSolid?.withRenderingMode(.alwaysTemplate)
+            let img = Ocean.icon.xSolid?.withRenderingMode(.alwaysTemplate)
+            view.image = img
             view.contentMode = .scaleAspectFit
-            view.frame = CGRect(x: 0, y: 0, width: 12, height: 12)
+//            view.frame = CGRect(x: 0, y: 0, width: 12, height: 12)
             view.layer.cornerRadius = view.frame.height / 2.0
             view.layer.masksToBounds = true
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -43,6 +46,10 @@ extension Ocean {
             view.isUserInteractionEnabled = true
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.touchUpInSide))
             view.addGestureRecognizer(tapGesture)
+            NSLayoutConstraint.activate([
+                view.widthAnchor.constraint(equalToConstant: 16),
+                view.heightAnchor.constraint(equalToConstant: 16),
+            ])
             return view
         }()
         
@@ -66,20 +73,23 @@ extension Ocean {
             return stack
         }()
         
-        public var onClickIcon: (() -> Void)? = nil
+        public var onClickIcon: ((Ocean.ChipFilter) -> Void)? = nil
         
-        public convenience init(builder: ChipFilterBuilder) {
-            self.init()
+        override init(frame: CGRect) {
+            super.init(frame: frame)
             setupUI()
-            builder(self)
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
         }
         
         private func setupUI() {
             self.translatesAutoresizingMaskIntoConstraints = false
             self.layer.cornerRadius = Constants.height * Ocean.size.borderRadiusCircular
             self.backgroundColor = Ocean.color.colorInterfaceLightUp
-            self.layer.shadowRadius = 8
-            self.add(view: mainStack)
+            
+            contentView.add(view: mainStack)
             
             self.heightAnchor.constraint(equalToConstant: Constants.height).isActive = true
         }
@@ -89,7 +99,7 @@ extension Ocean {
         }
         
         @objc func touchUpInSide() {
-            onClickIcon?()
+            onClickIcon?(self)
         }
     }
 }

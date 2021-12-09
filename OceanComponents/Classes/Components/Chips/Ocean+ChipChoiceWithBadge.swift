@@ -10,10 +10,14 @@ import UIKit
 import OceanTokens
 
 extension Ocean {
-    public class ChipChoiceWithBagde: UIView {
+    public class ChipChoiceWithBagde: UICollectionViewCell {
+        static let cellId = "ChipWithBadgeCell"
+        
         struct Constants {
             static let height: CGFloat = 32
         }
+        
+        public var index: Int = 0
         
         public var text: String = "Label" {
             didSet {
@@ -33,7 +37,7 @@ extension Ocean {
             }
         }
         
-        public var onSelected: (() -> Void)? = nil
+        public var onValueChange: ((Bool, ChipChoiceWithBagde) -> Void)? = nil
         
         private lazy var label: UILabel = {
             UILabel { label in
@@ -75,26 +79,23 @@ extension Ocean {
             return stack
         }()
         
-        public override var intrinsicContentSize: CGSize {
-            get {
-                return CGSize(width: frame.width, height: Constants.height)
-            }
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            setupUI()
         }
         
-        public convenience init(builder: ChipChoiceWithBadgeBuilder) {
-            self.init()
-            setupUI()
-            builder(self)
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
         }
         
         private func setupUI() {
             self.translatesAutoresizingMaskIntoConstraints = false
             self.layer.cornerRadius = Constants.height * Ocean.size.borderRadiusCircular
             self.backgroundColor = Ocean.color.colorInterfaceLightUp
-            self.layer.shadowRadius = 8
             self.layer.borderColor = Ocean.color.colorStatusNegativePure.cgColor
             self.layer.borderWidth = 0
-            self.add(view: mainStack)
+            
+            contentView.add(view: mainStack)
             
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.touchUpInSide))
             self.addGestureRecognizer(tapGesture)
@@ -148,9 +149,10 @@ extension Ocean {
             switch status {
             case .normal:
                 self.status = .selected
-                onSelected?()
+                onValueChange?(true, self)
             case .selected:
                 self.status = .normal
+                onValueChange?(false, self)
             default:
                 break
             }
