@@ -19,6 +19,8 @@ extension Ocean {
         
         public var index: Int = 0
         
+        public var allowDeselect = false
+        
         public var text: String = "Label" {
             didSet {
                 updateUI()
@@ -155,8 +157,10 @@ extension Ocean {
                 self.status = .selected
                 onValueChange?(true, self)
             case .selected:
-                self.status = .normal
-                onValueChange?(false, self)
+                if self.allowDeselect {
+                    self.status = .normal
+                    onValueChange?(false, self)
+                }
             default:
                 break
             }
