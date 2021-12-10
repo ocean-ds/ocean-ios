@@ -20,6 +20,7 @@ extension Ocean {
         public var chipType: Ocean.ChipType = .choice
         
         public var isMultipleSelect = false
+        public var allowDeselect = false
         
         public var onValueChange: ((Bool, ChipModel) -> Void)?
         public var onRemoved: ((ChipModel) -> Void)?
@@ -121,6 +122,7 @@ extension Ocean {
         private func createChipChoiceCell(indexPath: IndexPath, collectionView: UICollectionView) -> UICollectionViewCell {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Ocean.ChipChoice.cellId, for: indexPath) as? Ocean.ChipChoice else { return UICollectionViewCell() }
             cell.index = indexPath.row
+            cell.allowDeselect = self.allowDeselect
             cell.text = data[cell.index].title
             cell.status = data[cell.index].status
             cell.onValueChange = { selected, chip in
@@ -134,6 +136,7 @@ extension Ocean {
         private func createChipChoiceWithIconCell(indexPath: IndexPath, collectionView: UICollectionView) -> UICollectionViewCell {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Ocean.ChipChoiceWithIcon.cellId, for: indexPath) as? Ocean.ChipChoiceWithIcon else { return UICollectionViewCell() }
             cell.index = indexPath.row
+            cell.allowDeselect = self.allowDeselect
             cell.icon = data[cell.index].icon
             cell.text = data[cell.index].title
             cell.status = data[cell.index].status
@@ -148,6 +151,7 @@ extension Ocean {
         private func createChipChoiceWithBadgeCell(indexPath: IndexPath, collectionView: UICollectionView) -> UICollectionViewCell {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Ocean.ChipChoiceWithBagde.cellId, for: indexPath) as? Ocean.ChipChoiceWithBagde else { return UICollectionViewCell() }
             cell.index = indexPath.row
+            cell.allowDeselect = self.allowDeselect
             cell.number = data[cell.index].number
             cell.text = data[cell.index].title
             cell.status = data[cell.index].status
