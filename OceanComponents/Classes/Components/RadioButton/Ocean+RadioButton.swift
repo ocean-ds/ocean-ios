@@ -22,6 +22,7 @@ extension Ocean {
         public var label: String = "" {
             didSet {
                 textLabel?.text = label
+                textLabel?.isHidden = label.isEmpty
             }
         }
 
@@ -120,14 +121,14 @@ extension Ocean {
             mainStack.translatesAutoresizingMaskIntoConstraints = false
             mainStack.axis = .vertical
             mainStack.alignment = .leading
-            mainStack.distribution = .fill
+            mainStack.distribution = .fillProportionally
             mainStack.isUserInteractionEnabled = true
 
             radioStack = UIStackView()
             radioStack.translatesAutoresizingMaskIntoConstraints = false
             radioStack.axis = .horizontal
             radioStack.alignment = .center
-            radioStack.distribution = .fill
+            radioStack.distribution = .fillProportionally
             mainStack.addArrangedSubview(radioStack)
 
             radioBkgView = UIControl()
@@ -154,6 +155,7 @@ extension Ocean {
             textLabel = Ocean.Typography.paragraph { paragraph in
                 paragraph.translatesAutoresizingMaskIntoConstraints = false
                 paragraph.text = self.label
+                paragraph.isHidden = self.label.isEmpty
             }
 
             radioStack.addArrangedSubview(radioBkgView)

@@ -19,73 +19,88 @@ extension Ocean {
             case negative
         }
         
+        public struct Model {
+            public var level1: String = ""
+            public var level2: String = ""
+            public var level3: String = ""
+            public var level4: String = ""
+            public var value: Double = 0
+            public var valueStatus: ValueStatus = .neutral
+            public var date: String = ""
+            public var tagTitle: String = ""
+            public var tagImage: UIImage? = nil
+            public var tagStatus: Tag.Status = .warning
+            public var withDivider: Bool = true
+            
+            public init(level1: String = "",
+                        level2: String = "",
+                        level3: String = "",
+                        level4: String = "",
+                        value: Double = 0,
+                        valueStatus: ValueStatus = .neutral,
+                        date: String = "",
+                        tagTitle: String = "",
+                        tagImage: UIImage? = nil,
+                        tagStatus: Tag.Status = .warning,
+                        withDivider: Bool = true) {
+                self.level1 = level1
+                self.level2 = level2
+                self.level3 = level3
+                self.level4 = level4
+                self.value = value
+                self.valueStatus = valueStatus
+                self.date = date
+                self.tagTitle = tagTitle
+                self.tagImage = tagImage
+                self.tagStatus = tagStatus
+                self.withDivider = withDivider
+            }
+        }
+        
         public var onTouch: (() -> Void)?
+        public var onTouchCheckbox: (() -> Void)?
         
-        public var level1: String = "" {
+        public var model: Model? {
             didSet {
                 updateUI()
             }
         }
         
-        public var level2: String = "" {
+        public var hasCheckbox: Bool = false {
             didSet {
-                updateUI()
+                UIView.animate(withDuration: 0.3) {
+                    self.selectCheckBox.isHidden = !self.hasCheckbox
+                    self.selectCheckBoxSpacer.isHidden = !self.hasCheckbox
+                    self.selectCheckBox.alpha = self.hasCheckbox ? 1 : 0
+                }
             }
         }
         
-        public var level3: String = "" {
-            didSet {
-                updateUI()
+        public var isSelected: Bool {
+            get {
+                return selectCheckBox.isSelected
+            }
+            set {
+                selectCheckBox.isSelected = newValue
             }
         }
         
-        public var level4: String = "" {
-            didSet {
-                updateUI()
+        private lazy var selectCheckBox: Ocean.CheckBox = {
+            Ocean.CheckBox { view in
+                view.label = ""
+                view.isHidden = true
+                view.alpha = 0
+                view.onTouch = {
+                    self.onTouchCheckbox?()
+                }
             }
-        }
+        }()
         
-        public var value: Double = 0 {
-            didSet {
-                updateUI()
-            }
-        }
-        
-        public var valueStatus: ValueStatus = .neutral {
-            didSet {
-                updateUI()
-            }
-        }
-        
-        public var date: String = "" {
-            didSet {
-                updateUI()
-            }
-        }
-        
-        public var tagTitle: String = "" {
-            didSet {
-                updateUI()
-            }
-        }
-        
-        public var tagImage: UIImage? = nil {
-            didSet {
-                updateUI()
-            }
-        }
-        
-        public var tagStatus: Tag.Status = .warning {
-            didSet {
-                updateUI()
-            }
-        }
-        
-        public var withDivider: Bool = true {
-            didSet {
-                divider.isHidden = !withDivider
-            }
-        }
+        private lazy var selectCheckBoxSpacer: UIView = {
+            let view = Ocean.Spacer(space: Ocean.size.spacingStackXxs)
+            view.isHidden = true
+            return view
+        }()
         
         private lazy var level1Label: UILabel = {
             UILabel { label in
@@ -149,12 +164,6 @@ extension Ocean {
                     level2Spacer,
                     level3Label
                 ])
-                
-                stack.isLayoutMarginsRelativeArrangement = true
-                stack.layoutMargins = .init(top: Ocean.size.spacingStackXs,
-                                            left: Ocean.size.spacingStackXs,
-                                            bottom: Ocean.size.spacingStackXs,
-                                            right: 0)
             }
         }()
         
@@ -202,12 +211,6 @@ extension Ocean {
                     tagSpacer,
                     dateLabel
                 ])
-
-                stack.isLayoutMarginsRelativeArrangement = true
-                stack.layoutMargins = .init(top: Ocean.size.spacingStackXs,
-                                            left: 0,
-                                            bottom: Ocean.size.spacingStackXs,
-                                            right: Ocean.size.spacingStackXs)
                 
                 stack.widthAnchor.constraint(greaterThanOrEqualToConstant: 125).isActive = true
             }
@@ -222,9 +225,17 @@ extension Ocean {
                 stack.translatesAutoresizingMaskIntoConstraints = false
                 
                 stack.add([
+                    selectCheckBox,
+                    selectCheckBoxSpacer,
                     leftContentStack,
                     rightContentStack
                 ])
+                
+                stack.isLayoutMarginsRelativeArrangement = true
+                stack.layoutMargins = .init(top: Ocean.size.spacingStackXs,
+                                            left: Ocean.size.spacingStackXs,
+                                            bottom: Ocean.size.spacingStackXs,
+                                            right: Ocean.size.spacingStackXs)
             }
         }()
         
@@ -259,17 +270,20 @@ extension Ocean {
         }
         
         private func updateUI() {
-            level1Label.text = level1
-            level2Label.text = level2
-            level2Label.isHidden = level2.isEmpty
-            level2Spacer.isHidden = level2.isEmpty
-            level3Label.text = level3
-            level3Label.isHidden = level3.isEmpty
-            level4Label.text = level4
-            level4Label.isHidden = level4.isEmpty
-            level4Spacer.isHidden = level4.isEmpty
-            let valueCurrency = value.toCurrency(symbolSpace: true) ?? " R$ 0,00"
-            switch self.valueStatus {
+            guard let model = self.model else { return }
+            
+            level1Label.text = model.level1
+            level1Spacer.isHidden = model.level2.isEmpty
+            level2Label.text = model.level2
+            level2Label.isHidden = model.level2.isEmpty
+            level2Spacer.isHidden = model.level2.isEmpty
+            level3Label.text = model.level3
+            level3Label.isHidden = model.level3.isEmpty
+            level4Label.text = model.level4
+            level4Label.isHidden = model.level4.isEmpty
+            level4Spacer.isHidden = model.level4.isEmpty
+            let valueCurrency = model.value.toCurrency(symbolSpace: true) ?? " R$ 0,00"
+            switch model.valueStatus {
             case .positive:
                 valueLabel.text = "+" + valueCurrency
                 valueLabel.textColor = Ocean.color.colorStatusPositiveDeep
@@ -280,13 +294,14 @@ extension Ocean {
                 valueLabel.text = valueCurrency
                 valueLabel.textColor = Ocean.color.colorInterfaceDarkDeep
             }
-            tagView.status = tagStatus
-            tagView.image = tagImage
-            tagView.title = tagTitle
-            tagView.isHidden = tagTitle.isEmpty
-            tagSpacer.isHidden = date.isEmpty
-            dateLabel.text = date
-            dateLabel.isHidden = date.isEmpty
+            tagView.status = model.tagStatus
+            tagView.image = model.tagImage
+            tagView.title = model.tagTitle
+            tagView.isHidden = model.tagTitle.isEmpty
+            tagSpacer.isHidden = model.date.isEmpty
+            dateLabel.text = model.date
+            dateLabel.isHidden = model.date.isEmpty
+            divider.isHidden = !model.withDivider
         }
         
         public func setSkeleton() {
