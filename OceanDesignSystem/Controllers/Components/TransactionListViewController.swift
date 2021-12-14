@@ -22,61 +22,81 @@ final public class TransactionListViewController : UIViewController {
         stack.spacing = 0
         
         let transactionListItem1 = Ocean.TransactionListItem { view in
-            view.level1 = "Transferência recebida"
-            view.level2 = "Digilab Laboratório Óptico Digital Ltda"
-            view.level3 = "Lente de contato Mônica"
-            view.level4 = "Lojista 2"
-            view.valueStatus = .positive
-            view.value = 250000
-            view.tagStatus = .warning
-            view.tagImage = Ocean.icon.exclamationCircleSolid
-            view.tagTitle = "Pendente"
-            view.date = "09:00"
-            view.onTouch = { print("1") }
+            view.model = Ocean.TransactionListItem.Model(level1: "Transferência recebida",
+                                                         level2: "Digilab Laboratório Óptico Digital Ltda",
+                                                         level3: "Lente de contato Mônica",
+                                                         level4: "Lojista 2",
+                                                         value: 250000,
+                                                         valueStatus: .positive,
+                                                         date: "09:00",
+                                                         tagTitle: "Pendente",
+                                                         tagImage: Ocean.icon.exclamationCircleSolid,
+                                                         tagStatus: .warning,
+                                                         withDivider: true)
+            view.onTouch = {
+                print("1")
+                view.hasCheckbox = !view.hasCheckbox
+            }
         }
         
         let transactionListItem2 = Ocean.TransactionListItem { view in
-            view.level1 = "Boleto pago"
-            view.level2 = "Digilab Laboratório Óptico Digital Ltda"
-            view.level3 = "Lente de contato Mônica"
-            view.valueStatus = .negative
-            view.value = 1546.90
-            view.tagStatus = .warning
-            view.tagImage = Ocean.icon.exclamationCircleSolid
-            view.tagTitle = "Pendente"
-            view.date = "19:00"
-            view.onTouch = { print("2") }
+            view.model = Ocean.TransactionListItem.Model(level1: "Boleto pago",
+                                                         level2: "Digilab Laboratório Óptico Digital Ltda",
+                                                         level3: "Lente de contato Mônica",
+                                                         value: 1546.90,
+                                                         valueStatus: .negative,
+                                                         date: "19:00",
+                                                         tagTitle: "Pendente",
+                                                         tagImage: Ocean.icon.exclamationCircleSolid,
+                                                         tagStatus: .warning,
+                                                         withDivider: true)
+            view.onTouch = {
+                print("2")
+                view.hasCheckbox = !view.hasCheckbox
+            }
         }
         
         let transactionListItem3 = Ocean.TransactionListItem { view in
-            view.level1 = "Transferência recebida"
-            view.level2 = "Digilab Laboratório Óptico Digital Ltda"
-            view.valueStatus = .positive
-            view.value = 500
-            view.tagStatus = .warning
-            view.tagImage = Ocean.icon.exclamationCircleSolid
-            view.tagTitle = "Pendente"
-            view.date = "12:00"
-            view.onTouch = { print("3") }
+            view.model = Ocean.TransactionListItem.Model(level1: "Transferência recebida",
+                                                         level2: "Digilab Laboratório Óptico Digital Ltda",
+                                                         value: 500,
+                                                         valueStatus: .positive,
+                                                         date: "12:00",
+                                                         tagTitle: "Pendente",
+                                                         tagImage: Ocean.icon.exclamationCircleSolid,
+                                                         tagStatus: .warning,
+                                                         withDivider: true)
+            view.onTouch = {
+                print("3")
+                view.hasCheckbox = !view.hasCheckbox
+            }
         }
         
         let transactionListItem4 = Ocean.TransactionListItem { view in
-            view.level1 = "Transferência enviada"
-            view.level2 = "Digilab Laboratório Óptico Digital Ltda"
-            view.valueStatus = .negative
-            view.value = 200
-            view.tagStatus = .warning
-            view.tagImage = Ocean.icon.exclamationCircleSolid
-            view.tagTitle = "Pendente"
-            view.onTouch = { print("4") }
+            view.model = Ocean.TransactionListItem.Model(level1: "Transferência enviada",
+                                                         level2: "Digilab Laboratório Óptico Digital Ltda",
+                                                         value: 200,
+                                                         valueStatus: .negative,
+                                                         tagTitle: "Pendente",
+                                                         tagImage: Ocean.icon.exclamationCircleSolid,
+                                                         tagStatus: .warning,
+                                                         withDivider: true)
+            view.onTouch = {
+                print("4")
+                view.hasCheckbox = !view.hasCheckbox
+            }
         }
         
         let transactionListItem5 = Ocean.TransactionListItem { view in
-            view.level1 = "Antecipação de recebíveis"
-            view.valueStatus = .neutral
-            view.value = 800
-            view.date = "13:00"
-            view.onTouch = { print("5") }
+            view.model = Ocean.TransactionListItem.Model(level1: "Antecipação de recebíveis",
+                                                         value: 800,
+                                                         valueStatus: .neutral,
+                                                         date: "13:00",
+                                                         withDivider: true)
+            view.onTouch = {
+                print("5")
+                view.hasCheckbox = !view.hasCheckbox
+            }
         }
         
         stack.addArrangedSubview(transactionListItem1)
