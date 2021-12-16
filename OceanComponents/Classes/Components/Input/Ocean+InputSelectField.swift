@@ -12,7 +12,7 @@ import OceanTokens
 extension Ocean {
     public class InputSelectField: InputTextField {
         public var rootViewController: UIViewController?
-        public var titleBottomSheet: String?
+        public var titleBottomSheet: String = ""
         public var values: [String] = []
         public var maxValues: Int? = nil
         public var placeholderFilter: String?

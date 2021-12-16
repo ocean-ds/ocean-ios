@@ -14,7 +14,7 @@ extension Ocean {
         private var values: [CellModel]?
         private var contentValues: [CellModel]?
         
-        public var navigationTitle: String? = ""
+        public var navigationTitle: String = ""
         public var navigationBackgroundColor: UIColor? = Ocean.color.colorInterfaceLightPure
         public var navigationTintColor: UIColor = Ocean.color.colorBrandPrimaryPure
         
@@ -90,7 +90,7 @@ extension Ocean {
 
         var onValueSelected: ((CellModel) -> Void)?
         
-        init(title: String?,
+        init(title: String,
              placeholder: String?,
              values: [CellModel]) {
             self.navigationTitle = title
