@@ -11,7 +11,7 @@ import UIKit
 
 public protocol OceanNavigationBar: UIViewController {
     var navigationBackImage: UIImage? { get }
-    var navigationTitle: String? { get }
+    var navigationTitle: String { get }
     var navigationTintColor: UIColor { get }
     var navigationBackButtonTitle: String { get }
     var navigationBackgroundColor: UIColor? { get }
@@ -24,8 +24,8 @@ public extension OceanNavigationBar {
         return Ocean.icon.arrowLeftOutline?.tinted(with: navigationTintColor)
     }
     
-    var navigationTitle: String? {
-        return self.title
+    var navigationTitle: String {
+        return ""
     }
     
     var navigationTintColor: UIColor {
@@ -51,9 +51,7 @@ public extension OceanNavigationBar {
     func setupNavigation() {
         navigationController?.navigationBar.tintColor = navigationTintColor
         
-        navigationController?.title = navigationTitle
-        title = navigationTitle
-        navigationItem.title = navigationTitle
+        updateTitle(newTitle: navigationTitle)
         
         let titleAttr = [
             NSAttributedString.Key.foregroundColor: navigationTintColor,
@@ -109,12 +107,23 @@ public extension OceanNavigationBar {
         self.navigationController?.navigationBar.setNeedsDisplay()
     }
     
+    func updateTitle(newTitle: String) {
+        navigationController?.title = newTitle
+        title = newTitle
+        navigationItem.title = newTitle
+    }
+    
     func showNavigation(animated: Bool = true) {
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     func hideNavigation(animated: Bool = true) {
         navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    func showBackButton(animated: Bool = true) {
+        navigationItem.leftBarButtonItem = nil
+        navigationItem.setHidesBackButton(false, animated: animated)
     }
     
     func hideBackButton(animated: Bool = true) {
@@ -149,6 +158,10 @@ public extension OceanNavigationBar {
         }
         
         navigationItem.rightBarButtonItem = barButtonItem
+    }
+    
+    func removeOptionsButton() {
+        navigationItem.rightBarButtonItem = nil
     }
 }
 

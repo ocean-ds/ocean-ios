@@ -12,7 +12,7 @@ import OceanTokens
 import OceanComponents
 
 final public class NavigationBarViewController : UIViewController, OceanNavigationBar {
-    public var navigationTitle: String? = "NavigationBar"
+    public var navigationTitle: String = "NavigationBar"
     public var navigationBackgroundColor: UIColor? = Ocean.color.colorBrandPrimaryPure
     public var navigationTintColor: UIColor = Ocean.color.colorInterfaceLightPure
     public var navigationLargeTitle: Bool = false
