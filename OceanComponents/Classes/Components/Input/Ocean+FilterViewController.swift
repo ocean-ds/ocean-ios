@@ -90,7 +90,7 @@ extension Ocean {
 
         var onValueSelected: ((CellModel) -> Void)?
         
-        init(title: String?,
+        init(title: String,
              placeholder: String?,
              values: [CellModel]) {
             self.navigationTitle = title
