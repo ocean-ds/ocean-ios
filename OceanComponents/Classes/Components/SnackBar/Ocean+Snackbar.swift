@@ -15,7 +15,6 @@ extension Ocean {
     
     public class Snackbar: UIView {
         var mainStack: UIStackView!
-        private var backgroundView: UIView!
         private var backgroundViewContent: UIStackView!
         private var labelText: UILabel!
         private var imageViewIcon: UIImageView!
@@ -95,15 +94,13 @@ extension Ocean {
             makeLabel()
             makeIcon()
             
-            backgroundView = UIView()
-            backgroundView.backgroundColor = Ocean.color.colorInterfaceDarkDeep
-            backgroundView.layer.cornerRadius = Ocean.size.borderRadiusSm
-            backgroundView.translatesAutoresizingMaskIntoConstraints = false
-            self.addSubview(backgroundView)
+            self.backgroundColor = Ocean.color.colorInterfaceDarkDeep
+            self.layer.cornerRadius = Ocean.size.borderRadiusSm
+            self.translatesAutoresizingMaskIntoConstraints = false
             
             backgroundViewContent = UIStackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
-                stack.alignment = .center
+                stack.distribution = .fill
                 stack.axis = .horizontal
                 stack.addArrangedSubview(Spacer(space: Ocean.size.spacingInlineXs))
                 stack.addArrangedSubview(imageViewIcon)
@@ -114,17 +111,16 @@ extension Ocean {
             
             mainStack = UIStackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
-                stack.alignment = .leading
+                stack.distribution = .fillProportionally
                 stack.axis = .horizontal
                 stack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
                 stack.addArrangedSubview(backgroundViewContent)
                 stack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
             }
             
-            backgroundView.addSubview(mainStack)
+            self.addSubview(mainStack)
             addConstraints()
             self.alpha = 0
-            
         }
         
         public func show(_ duration: Int = 2) {
@@ -151,6 +147,7 @@ extension Ocean {
         
         fileprivate func makeIcon() {
             imageViewIcon = UIImageView()
+            imageViewIcon.translatesAutoresizingMaskIntoConstraints = false
             imageViewIcon.image = imageViewIcon.image?.withRenderingMode(.alwaysTemplate)
             updateIconColor()
             imageViewIcon.widthAnchor.constraint(equalToConstant: Ocean.size.spacingInlineSm).isActive = true
@@ -182,7 +179,6 @@ extension Ocean {
                 label.setLineHeight(lineHeight: Ocean.font.lineHeightComfy)
                 label.numberOfLines = 0
                 label.textColor = Ocean.color.colorInterfaceLightPure
-                label.widthAnchor.constraint(lessThanOrEqualToConstant: 221).isActive = true
             }
         }
         
@@ -214,15 +210,13 @@ extension Ocean {
         }
         
         fileprivate func addConstraints() {
-            backgroundViewContent.leftAnchor.constraint(equalTo: backgroundView.leftAnchor).isActive = true
-            backgroundViewContent.topAnchor.constraint(equalTo: backgroundView.topAnchor).isActive = true
-            backgroundViewContent.rightAnchor.constraint(equalTo: backgroundView.rightAnchor).isActive = true
-            backgroundViewContent.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor).isActive = true
-            
-            mainStack.leftAnchor.constraint(equalTo: backgroundView.leftAnchor).isActive = true
-            mainStack.topAnchor.constraint(equalTo: backgroundView.topAnchor).isActive = true
-            mainStack.rightAnchor.constraint(equalTo: backgroundView.rightAnchor).isActive = true
-            mainStack.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor).isActive = true
+            mainStack.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+            mainStack.topAnchor.constraint(equalTo: self.topAnchor,
+                                           constant: Ocean.size.spacingStackXs).isActive = true
+            mainStack.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+            mainStack.bottomAnchor.constraint(equalTo: self.bottomAnchor,
+                                              constant: -Ocean.size.spacingStackXs).isActive = true
+            mainStack.heightAnchor.constraint(equalToConstant: line.rawValue).isActive = true
         }
         
         public override func didMoveToSuperview() {
@@ -232,21 +226,19 @@ extension Ocean {
                 return
             }
             
-            backgroundView.leftAnchor.constraint(equalTo: superview.leftAnchor,
-                                                 constant: Ocean.size.spacingStackXxs).isActive = true
-            backgroundView.rightAnchor.constraint(equalTo: superview.rightAnchor,
-                                                  constant: -Ocean.size.spacingStackXxs).isActive = true
+            self.leftAnchor.constraint(equalTo: superview.leftAnchor,
+                                       constant: Ocean.size.spacingStackXxs).isActive = true
+            self.rightAnchor.constraint(equalTo: superview.rightAnchor,
+                                        constant: -Ocean.size.spacingStackXxs).isActive = true
             if #available(iOS 11.0, *) {
-                backgroundView.bottomAnchor.constraint(equalTo: superview.safeAreaLayoutGuide.bottomAnchor,
-                                                       constant: -Ocean.size.spacingStackXxs).isActive = true
+                self.bottomAnchor.constraint(equalTo: superview.safeAreaLayoutGuide.bottomAnchor,
+                                             constant: -Ocean.size.spacingStackXxs).isActive = true
             } else {
-                backgroundView.bottomAnchor.constraint(equalTo: superview.bottomAnchor,
-                constant: -Ocean.size.spacingStackXxs).isActive = true
+                self.bottomAnchor.constraint(equalTo: superview.bottomAnchor,
+                                             constant: -Ocean.size.spacingStackXxs).isActive = true
             }
-            backgroundView.heightAnchor.constraint(equalToConstant: line.rawValue).isActive = true
+            self.heightAnchor.constraint(equalToConstant: line.rawValue).isActive = true
         }
-        
-        
         
         public override init(frame: CGRect) {
             super.init(frame: frame)
