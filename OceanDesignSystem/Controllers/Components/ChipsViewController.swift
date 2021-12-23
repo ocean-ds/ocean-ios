@@ -116,9 +116,6 @@ final public class ChipsViewController: UIViewController {
             view.line = .one
             view.snackbarText = text
         }
-        snackbar.show()
-        self.view.addSubview(snackbar)
-        snackbar.translatesAutoresizingMaskIntoConstraints = false
+        snackbar.show(in: self.view)
     }
-    
 }

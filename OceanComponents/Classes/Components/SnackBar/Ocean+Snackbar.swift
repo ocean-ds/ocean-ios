@@ -15,7 +15,6 @@ extension Ocean {
     
     public class Snackbar: UIView {
         var mainStack: UIStackView!
-        private var backgroundViewContent: UIStackView!
         private var labelText: UILabel!
         private var imageViewIcon: UIImageView!
         private var actionText: String = "Action"
@@ -98,23 +97,14 @@ extension Ocean {
             self.layer.cornerRadius = Ocean.size.borderRadiusSm
             self.translatesAutoresizingMaskIntoConstraints = false
             
-            backgroundViewContent = UIStackView { stack in
-                stack.translatesAutoresizingMaskIntoConstraints = false
-                stack.distribution = .fill
-                stack.axis = .horizontal
-                stack.addArrangedSubview(Spacer(space: Ocean.size.spacingInlineXs))
-                stack.addArrangedSubview(imageViewIcon)
-                stack.addArrangedSubview(Spacer(space: Ocean.size.spacingInlineXs))
-                stack.addArrangedSubview(labelText)
-                stack.addArrangedSubview(Spacer(space: Ocean.size.spacingInlineXs))
-            }
-            
             mainStack = UIStackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
                 stack.distribution = .fillProportionally
                 stack.axis = .horizontal
                 stack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
-                stack.addArrangedSubview(backgroundViewContent)
+                stack.addArrangedSubview(imageViewIcon)
+                stack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
+                stack.addArrangedSubview(labelText)
                 stack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
             }
             
@@ -123,7 +113,21 @@ extension Ocean {
             self.alpha = 0
         }
         
-        public func show(_ duration: Int = 2) {
+        public func show(in view: UIView, duration: Int = 2) {
+            view.addSubview(self)
+            self.leftAnchor.constraint(equalTo: view.leftAnchor,
+                                       constant: Ocean.size.spacingStackXxs).isActive = true
+            self.rightAnchor.constraint(equalTo: view.rightAnchor,
+                                        constant: -Ocean.size.spacingStackXxs).isActive = true
+            if #available(iOS 11.0, *) {
+                self.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                                             constant: -Ocean.size.spacingStackXxs).isActive = true
+            } else {
+                self.bottomAnchor.constraint(equalTo: view.bottomAnchor,
+                                             constant: -Ocean.size.spacingStackXxs).isActive = true
+            }
+            self.heightAnchor.constraint(equalToConstant: line.rawValue).isActive = true
+            
             self.state = .loading
             self.alpha = 0
             DispatchQueue.main.async {
@@ -141,7 +145,9 @@ extension Ocean {
                 UIView.transition(with: self, duration: 1.0, options: .curveEaseOut, animations: {
                     self.alpha = 0
                     self.state = .hide
-                })
+                }) { _ in
+                    self.removeFromSuperview()
+                }
             }
         }
         
@@ -149,9 +155,8 @@ extension Ocean {
             imageViewIcon = UIImageView()
             imageViewIcon.translatesAutoresizingMaskIntoConstraints = false
             imageViewIcon.image = imageViewIcon.image?.withRenderingMode(.alwaysTemplate)
+            imageViewIcon.contentMode = .scaleAspectFit
             updateIconColor()
-            imageViewIcon.widthAnchor.constraint(equalToConstant: Ocean.size.spacingInlineSm).isActive = true
-            imageViewIcon.heightAnchor.constraint(equalToConstant: Ocean.size.spacingInlineSm).isActive = true
         }
         
         fileprivate func updateIconColor() {
@@ -204,40 +209,20 @@ extension Ocean {
             
             self.touchUpInsideGesture = UITapGestureRecognizer(target: self, action: #selector(self.touchUpInside(_:)))
             labelButton.addGestureRecognizer(self.touchUpInsideGesture)
-            backgroundViewContent.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
-            backgroundViewContent.addArrangedSubview(labelButton)
-            backgroundViewContent.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
+            mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
+            mainStack.addArrangedSubview(labelButton)
+            mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
         }
         
         fileprivate func addConstraints() {
             mainStack.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-            mainStack.topAnchor.constraint(equalTo: self.topAnchor,
-                                           constant: Ocean.size.spacingStackXs).isActive = true
+            mainStack.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
             mainStack.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-            mainStack.bottomAnchor.constraint(equalTo: self.bottomAnchor,
-                                              constant: -Ocean.size.spacingStackXs).isActive = true
+            mainStack.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
             mainStack.heightAnchor.constraint(equalToConstant: line.rawValue).isActive = true
-        }
-        
-        public override func didMoveToSuperview() {
-            super.didMoveToSuperview()
             
-            guard let superview = superview else {
-                return
-            }
-            
-            self.leftAnchor.constraint(equalTo: superview.leftAnchor,
-                                       constant: Ocean.size.spacingStackXxs).isActive = true
-            self.rightAnchor.constraint(equalTo: superview.rightAnchor,
-                                        constant: -Ocean.size.spacingStackXxs).isActive = true
-            if #available(iOS 11.0, *) {
-                self.bottomAnchor.constraint(equalTo: superview.safeAreaLayoutGuide.bottomAnchor,
-                                             constant: -Ocean.size.spacingStackXxs).isActive = true
-            } else {
-                self.bottomAnchor.constraint(equalTo: superview.bottomAnchor,
-                                             constant: -Ocean.size.spacingStackXxs).isActive = true
-            }
-            self.heightAnchor.constraint(equalToConstant: line.rawValue).isActive = true
+            imageViewIcon.widthAnchor.constraint(equalToConstant: Ocean.size.spacingInlineSm).isActive = true
+            imageViewIcon.heightAnchor.constraint(equalToConstant: Ocean.size.spacingInlineSm).isActive = true
         }
         
         public override init(frame: CGRect) {
