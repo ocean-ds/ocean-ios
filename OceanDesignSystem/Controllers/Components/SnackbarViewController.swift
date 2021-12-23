@@ -63,7 +63,7 @@ public class SnackbarViewController : UIViewController {
             self.snackbar = Ocean.View.snackbarInfo(builder: { snackbar in
                 snackbar.line =  self.lines.selectedSegmentIndex == 0 ? .one : .two
                 snackbar.snackbarText = self.texts[self.lines.selectedSegmentIndex]
-                snackbar.snackbarActionText = "Action"
+                snackbar.snackbarActionText = "Desfazer"
                 snackbar.snackbarActionTouch = {
                     let alert = UIAlertController(title: "Alert", message: "Action", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (_) in
@@ -72,7 +72,13 @@ public class SnackbarViewController : UIViewController {
                     self.present(alert, animated: true, completion: nil)
                 }
             })
-            self.snackbar.show(in: self.view)
+            self.snackbar.show(in: self.view, duration: 4, completion: {
+                let alert = UIAlertController(title: "Alert", message: "Snackbar is not visible anymore", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (_) in
+                    print("You've pressed ok")
+                }))
+                self.present(alert, animated: true, completion: nil)
+            })
             break
         default:
             break
