@@ -35,6 +35,7 @@ final public class ChipsViewController: UIViewController {
         Ocean.ChipModel(number: 10, title: "Label 2", type: .choiceWithBadge, status: .selected),
         Ocean.ChipModel(number: 6, title: "Label 3", type: .choiceWithBadge, status: .disabled),
         Ocean.ChipModel(number: 9, title: "Label 4", type: .choiceWithBadge, status: .error),
+        Ocean.ChipModel(number: 0, title: "Label 5", type: .choiceWithBadge, status: .normal),
     ]
     
     private let chipsModel4 = [

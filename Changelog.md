@@ -1,0 +1,1 @@
+- 23/12/2021: (Chips -> ChipChoiceWithBagde) New chip with 'neutral' badge status when the badge number is equal to 0.

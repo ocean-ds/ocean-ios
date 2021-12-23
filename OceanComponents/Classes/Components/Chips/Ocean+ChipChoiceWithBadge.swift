@@ -89,7 +89,12 @@ extension Ocean {
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
-        
+
+        public override func prepareForReuse() {
+            super.prepareForReuse()
+            self.badge.status = .alert
+        }
+
         private func setupUI() {
             self.translatesAutoresizingMaskIntoConstraints = false
             self.layer.cornerRadius = Constants.height * Ocean.size.borderRadiusCircular
@@ -107,8 +112,11 @@ extension Ocean {
         
         private func updateUI() {
             self.label.text = self.text
-            if let value = self.number {
-                self.badge.number = value
+            if let numberValue = self.number {
+                self.badge.number = numberValue
+                if numberValue == 0 {
+                    self.badge.status = .neutral
+                }
             }
             
             switch status {
