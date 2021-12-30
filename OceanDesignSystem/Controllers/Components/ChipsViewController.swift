@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import OceanTokens
 import OceanComponents
+import SkeletonView
 
 final public class ChipsViewController: UIViewController {
     
@@ -72,6 +73,7 @@ final public class ChipsViewController: UIViewController {
             self.showSnackbar(text: "Item: \(item.title) - Selected: \(selected)")
         }
         chips.addData(with: chipsModel3)
+        chips.isSkeletonable = true
         return chips
     }()
     

@@ -13,20 +13,17 @@ extension Ocean {
         public let icon: UIImage?
         public let number: Int?
         public let title: String
-        public let type: Ocean.ChipType
         public var status: Ocean.ChipStatus
         
         public init(id: String? = nil,
                     icon: UIImage? = nil,
                     number: Int? = nil,
                     title: String,
-                    type: Ocean.ChipType = .choice,
                     status: Ocean.ChipStatus = .normal) {
             self.id = id
             self.icon = icon
             self.number = number
             self.title = title
-            self.type = type
             self.status = status
         }
     }

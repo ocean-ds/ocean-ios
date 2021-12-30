@@ -101,6 +101,10 @@ extension Ocean {
             self.backgroundColor = Ocean.color.colorInterfaceLightUp
             self.layer.borderColor = Ocean.color.colorStatusNegativePure.cgColor
             self.layer.borderWidth = 0
+
+            self.isSkeletonable = true
+            self.contentView.isSkeletonable = true
+            self.skeletonCornerRadius = Float(self.layer.cornerRadius)
             
             contentView.add(view: mainStack)
             
