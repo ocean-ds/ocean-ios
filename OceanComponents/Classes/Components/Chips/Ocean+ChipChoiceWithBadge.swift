@@ -116,8 +116,11 @@ extension Ocean {
         
         private func updateUI() {
             self.label.text = self.text
+
+            self.badge.isHidden = true
             if let numberValue = self.number {
                 self.badge.number = numberValue
+                self.badge.isHidden = false
                 if numberValue == 0 {
                     self.badge.status = .neutral
                 }
