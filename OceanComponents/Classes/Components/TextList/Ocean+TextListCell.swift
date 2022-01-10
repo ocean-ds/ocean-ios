@@ -106,7 +106,7 @@ extension Ocean {
                     infoStack,
                     arrowImageViewSpacer,
                     arrowImageView,
-                    buttonLink,
+                    button,
                     Ocean.Spacer(space: Ocean.size.spacingStackXs)
                 ])
             }
@@ -181,7 +181,7 @@ extension Ocean {
             }
         }()
 
-        private lazy var buttonLink: UIButton = {
+        private lazy var button: UIButton = {
             UIButton(frame: .zero)
         }()
 
@@ -263,7 +263,7 @@ extension Ocean {
             arrowImageViewSpacer.isHidden = !arrow
             arrowImageView.isHidden = !arrow
             badgeView.isHidden = !badge
-            buttonLink.isHidden = true
+            button.isHidden = true
 
             if let title = buttonTitle {
                 setupButton(title: title)
@@ -285,16 +285,16 @@ extension Ocean {
         }
 
         private func setupButton(title: String) {
-            buttonLink.isHidden = false
-            buttonLink.setTitle(title, for: .normal)
-            buttonLink.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+            button.isHidden = false
+            button.setTitle(title, for: .normal)
+            button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
 
-            buttonLink.titleLabel?.font = UIFont(name: Ocean.font.fontFamilyBaseWeightRegular, size: Ocean.font.fontSizeXxs)
-            buttonLink.setTitleColor(Ocean.color.colorBrandPrimaryPure, for: .normal)
-            buttonLink.contentEdgeInsets = UIEdgeInsets(top: Ocean.size.spacingInsetXs, left: Ocean.size.spacingInsetSm, bottom: Ocean.size.spacingInsetXs, right: Ocean.size.spacingInsetSm)
-            buttonLink.titleLabel?.textAlignment = .center
-            buttonLink.titleLabel?.adjustsFontSizeToFitWidth = true
-            buttonLink.titleLabel?.minimumScaleFactor = 0.6
+            button.titleLabel?.font = UIFont(name: Ocean.font.fontFamilyBaseWeightRegular, size: Ocean.font.fontSizeXxs)
+            button.setTitleColor(Ocean.color.colorBrandPrimaryPure, for: .normal)
+            button.contentEdgeInsets = UIEdgeInsets(top: Ocean.size.spacingInsetXs, left: Ocean.size.spacingInsetSm, bottom: Ocean.size.spacingInsetXs, right: Ocean.size.spacingInsetSm)
+            button.titleLabel?.textAlignment = .center
+            button.titleLabel?.adjustsFontSizeToFitWidth = true
+            button.titleLabel?.minimumScaleFactor = 0.6
         }
 
         public func setSkeleton() {
