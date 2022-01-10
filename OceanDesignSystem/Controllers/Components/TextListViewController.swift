@@ -68,26 +68,41 @@ final public class TextListViewController : UIViewController {
             textList.title = "Title"
             textList.subtitle = "Subtitle"
         }
-        
-        stack.addArrangedSubview(textList1)
-        stack.addArrangedSubview(textList2)
-        stack.addArrangedSubview(textList3)
-        stack.addArrangedSubview(textList4)
-        stack.addArrangedSubview(textList5)
-        stack.addArrangedSubview(textList6)
-        stack.addArrangedSubview(textList7)
-        stack.addArrangedSubview(textList8)
+
+        let textList9 = Ocean.TextList.cell { textList in
+            textList.title = "Title"
+            textList.subtitle = "Subitle"
+            textList.text = "Text"
+            textList.setupButtonLink(id: "1", title: "Botão") { itemId in
+                print(itemId)
+            }
+        }
+
+        [textList1,
+         textList2,
+         textList3,
+         textList4,
+         textList5,
+         textList6,
+         textList7,
+         textList8,
+         textList9].forEach { textListCell in
+            stack.addArrangedSubview(textListCell)
+        }
         
         self.add(view: stack)
-        
-        textList1.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
-        textList2.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
-        textList3.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
-        textList4.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
-        textList5.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
-        textList6.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
-        textList7.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
-        textList8.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
+
+        [textList1,
+         textList2,
+         textList3,
+         textList4,
+         textList5,
+         textList6,
+         textList7,
+         textList8,
+         textList9].forEach { textListCell in
+            textListCell.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
+        }
     }
     
     private func add(view: UIView) {
