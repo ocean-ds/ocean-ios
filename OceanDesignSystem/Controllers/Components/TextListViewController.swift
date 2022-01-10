@@ -73,9 +73,8 @@ final public class TextListViewController : UIViewController {
             textList.title = "Title"
             textList.subtitle = "Subitle"
             textList.text = "Text"
-            textList.setupButtonLink(id: "1", title: "Botão") { itemId in
-                print(itemId)
-            }
+            textList.buttonTitle = "Botão"
+            textList.onTouchButton = self.triggerButton
         }
 
         [textList1,
@@ -113,5 +112,9 @@ final public class TextListViewController : UIViewController {
             view.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             view.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
         ])
+    }
+
+    private func triggerButton() {
+        print("button tapped")
     }
 }

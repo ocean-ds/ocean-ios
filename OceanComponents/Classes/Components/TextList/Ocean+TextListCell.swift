@@ -60,13 +60,13 @@ extension Ocean {
             }
         }
 
-        public var buttonLinkId: String? = nil {
+        public var buttonTitle: String? = nil {
             didSet {
                 updateUI()
             }
         }
 
-        public var onTouchButtonLink: ((String) -> Void)? {
+        public var onTouchButton: (() -> Void)? {
             didSet {
                 updateUI()
             }
@@ -265,6 +265,10 @@ extension Ocean {
             badgeView.isHidden = !badge
             buttonLink.isHidden = true
 
+            if let title = buttonTitle {
+                setupButton(title: title)
+            }
+
             if isInverse {
                 if imageNotExist {
                     mainStack.layoutMargins = .init(top: Ocean.size.spacingStackXxs,
@@ -280,13 +284,10 @@ extension Ocean {
             }
         }
 
-        public func setupButtonLink(id: String, title: String, onTouch: @escaping ((String) -> Void)) {
-            self.buttonLinkId = id
-            self.onTouchButtonLink = onTouch
-
+        private func setupButton(title: String) {
             buttonLink.isHidden = false
             buttonLink.setTitle(title, for: .normal)
-            buttonLink.addTarget(self, action: #selector(buttonLinkTapped), for: .touchUpInside)
+            buttonLink.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
 
             buttonLink.titleLabel?.font = UIFont(name: Ocean.font.fontFamilyBaseWeightRegular, size: Ocean.font.fontSizeXxs)
             buttonLink.setTitleColor(Ocean.color.colorBrandPrimaryPure, for: .normal)
@@ -320,10 +321,8 @@ extension Ocean {
             self.onTouch?()
         }
 
-        @objc
-        private func buttonLinkTapped() {
-            guard let buttonId = self.buttonLinkId else { return }
-            self.onTouchButtonLink?(buttonId)
+        @objc private func buttonTapped() {
+            self.onTouchButton?()
         }
     }
 }
