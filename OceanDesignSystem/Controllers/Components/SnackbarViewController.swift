@@ -60,7 +60,7 @@ public class SnackbarViewController : UIViewController {
             self.snackbar.show(in: self.view)
             break
         case 4: //+ icon
-            self.snackbar = Ocean.View.snackbarInfo(builder: { snackbar in
+            self.snackbar = Ocean.View.snackbarSuccess(builder: { snackbar in
                 snackbar.line =  self.lines.selectedSegmentIndex == 0 ? .one : .two
                 snackbar.snackbarText = self.texts[self.lines.selectedSegmentIndex]
                 snackbar.snackbarActionText = "Desfazer"
