@@ -60,17 +60,13 @@ extension Ocean {
         public var iconType: IconType? {
             didSet {
                 if (self.iconType == .info) {
-                    imageViewIcon.image = Ocean.icon.informationCircleOutline
-                    imageViewIcon.image = imageViewIcon.image?.withRenderingMode(.alwaysTemplate)
+                    imageViewIcon.image = Ocean.icon.informationCircleOutline?.withRenderingMode(.alwaysTemplate)
                 } else if (self.iconType == .alert) {
-                    imageViewIcon.image = Ocean.icon.exclamationCircleOutline
-                    imageViewIcon.image = imageViewIcon.image?.withRenderingMode(.alwaysTemplate)
+                    imageViewIcon.image = Ocean.icon.exclamationCircleOutline?.withRenderingMode(.alwaysTemplate)
                 } else if (self.iconType == .error) {
-                    imageViewIcon.image = Ocean.icon.banOutline
-                    imageViewIcon.image = imageViewIcon.image?.withRenderingMode(.alwaysTemplate)
+                    imageViewIcon.image = Ocean.icon.banOutline?.withRenderingMode(.alwaysTemplate)
                 } else if (self.iconType == .success) {
-                    imageViewIcon.image = Ocean.icon.checkCircleOutline
-                    imageViewIcon.image = imageViewIcon.image?.withRenderingMode(.alwaysTemplate)
+                    imageViewIcon.image = Ocean.icon.checkCircleOutline?.withRenderingMode(.alwaysTemplate)
                 }
                 updateIconColor()
             }
@@ -114,6 +110,7 @@ extension Ocean {
         }
         
         public func show(in view: UIView, duration: Int = 2, completion: (() -> Void)? = nil) {
+            self.isHidden = false
             view.addSubview(self)
             self.leftAnchor.constraint(equalTo: view.leftAnchor,
                                        constant: Ocean.size.spacingStackXxs).isActive = true
@@ -204,7 +201,6 @@ extension Ocean {
             labelButton = UILabel()
             labelButton.font = UIFont(name: Ocean.font.fontFamilyBaseWeightBold,
                                       size: Ocean.font.fontSizeXxs)
-            labelButton.textColor = Ocean.color.colorBrandPrimaryUp
             labelButton.text = actionText
             labelButton.widthAnchor.constraint(equalToConstant: 63).isActive = true
             labelButton.numberOfLines = 3
@@ -215,6 +211,24 @@ extension Ocean {
             mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
             mainStack.addArrangedSubview(labelButton)
             mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
+
+            switch iconType {
+            case .info:
+                labelButton.textColor = Ocean.color.colorBrandPrimaryUp
+                break
+            case .alert:
+                labelButton.textColor = Ocean.color.colorStatusNeutralPure
+                break
+            case .error:
+                labelButton.textColor = Ocean.color.colorStatusNegativePure
+                break
+            case .success:
+                labelButton.textColor = Ocean.color.colorStatusPositivePure
+                break
+            case .none:
+                labelButton.textColor = Ocean.color.colorInterfaceLightPure
+                break
+            }
         }
         
         fileprivate func addConstraints() {
