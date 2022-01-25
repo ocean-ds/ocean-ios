@@ -109,7 +109,7 @@ extension Ocean {
             DispatchQueue.main.async {
                 if let presentedViewController = self.rootViewController.presentedViewController {
                     presentedViewController.dismiss(animated: true) {
-                        self.present(self, animated: true, completion: nil)
+                        self.rootViewController.present(self, animated: true, completion: nil)
                     }
                 } else {
                     self.rootViewController.present(self, animated: true, completion: nil)
