@@ -6,43 +6,46 @@
 //
 
 import OceanTokens
+import UIKit
+import SkeletonView
 
 extension Ocean {
     public final class Tooltip: UIView {
-        
+
         public enum Position {
             case top
             case bottom
         }
-        
+
         struct Constants {
             static let triangleHeight: CGFloat = 12
             static let triangleWidth: CGFloat = 24
         }
-        
+
         public typealias TooltipBuilder = (Tooltip) -> Void
         public var onTouch: (() -> Void)?
-        
+
         public var message: String = "" {
             didSet {
                 messageLabel.text = message
                 messageLabel.isHidden = message.isEmpty
+                messageLabel.textAlignment = .center
             }
         }
-        
+
         public var title: String = "" {
             didSet {
                 titleLabel.text = title
                 titleLabel.isHidden = title.isEmpty
             }
         }
-        
+
         private var backgroundRounded = UIView()
         private var triangleView = TriangleView()
         private var targetView = UIView()
         private var presenter = UIView()
         private var position: Position = .bottom
-        
+
         private lazy var contentStack: UIStackView = {
             let stack = UIStackView()
             stack.distribution = .fill
@@ -54,7 +57,7 @@ extension Ocean {
             stack.addArrangedSubview(messageLabel)
             return stack
         }()
-        
+
         private lazy var titleLabel: UILabel = {
             Ocean.Typography.heading4 { label in
                 label.textColor = Ocean.color.colorInterfaceLightPure
@@ -62,7 +65,7 @@ extension Ocean {
                 label.numberOfLines = 0
             }
         }()
-        
+
         private lazy var messageLabel: UILabel = {
             Ocean.Typography.description { label in
                 label.textColor = Ocean.color.colorInterfaceLightPure
@@ -70,36 +73,48 @@ extension Ocean {
                 label.numberOfLines = 0
             }
         }()
-        
+
+        private lazy var contentView: UIView = {
+            let view = UIView(frame: .zero)
+            view.backgroundColor = .clear
+            return view
+        }()
+
+        private lazy var backgroundClearView: UIView = {
+            let view = UIView(frame: .zero)
+            view.backgroundColor = .clear
+            return view
+        }()
+
         public convenience init(builder: TooltipBuilder) {
             self.init()
             builder(self)
             setupUI()
         }
-        
+
         private func setupUI() {
             translatesAutoresizingMaskIntoConstraints = false
-            
-            addSubview(backgroundRounded)
+
+            self.addSubview(backgroundClearView)
+            self.addSubview(contentView)
+            contentView.addSubview(backgroundRounded)
+            contentView.addSubview(contentStack)
+            contentView.addSubview(triangleView)
+
             backgroundRounded.backgroundColor = Ocean.color.colorInterfaceDarkDeep
             backgroundRounded.layer.cornerRadius = 4
             backgroundRounded.clipsToBounds = false
-            backgroundRounded.translatesAutoresizingMaskIntoConstraints = false
-            backgroundRounded.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 1).isActive = true
-            backgroundRounded.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -1).isActive = true
-            backgroundRounded.topAnchor.constraint(equalTo: topAnchor, constant: 1).isActive = true
-            backgroundRounded.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -1).isActive = true
-            
-            addSubview(contentStack)
-            NSLayoutConstraint.activate([
-                contentStack.topAnchor.constraint(equalTo: topAnchor, constant: Ocean.size.borderRadiusLg),
-                contentStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Ocean.size.borderRadiusLg),
-                contentStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Ocean.size.borderRadiusLg),
-                contentStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Ocean.size.borderRadiusLg)
-            ])
-            
-            self.isUserInteractionEnabled = true
-            self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tooltipAction)))
+            backgroundRounded.setConstraints(([.horizontalMargin(.zero)], toView: contentView))
+
+            contentStack.setConstraints(([.horizontalMargin(Ocean.size.spacingStackXxs),
+                                          .bottomToBottom(Ocean.size.spacingStackXxs),
+                                          .topToTop(Ocean.size.borderRadiusSm)], toView: backgroundRounded))
+            backgroundClearView.setConstraints((.fillSuperView, toView: self))
+
+            [backgroundClearView, contentView].forEach({ view in
+                view.isUserInteractionEnabled = true
+                view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tooltipAction)))
+            })
         }
 
         public func show(target: UIView, position: Position = .top, presenter: UIView) {
@@ -109,45 +124,43 @@ extension Ocean {
             self.presenter = presenter
             topView.layoutIfNeeded()
             topView.addSubview(self)
-            
+
             switch position {
             case .top:
-                self.bottomAnchor.constraint(equalTo: target.topAnchor, constant: -20).isActive = true
+                contentView.setConstraints((.bottomToTop(20), toView: target))
+                backgroundRounded.setConstraints((.bondToTop, toView: contentView))
                 triangleView.transform = .identity
                 triangleView.rotate(angle: 180)
+                triangleView.setConstraints(([.topToBottom(-2),
+                                              .width(Constants.triangleWidth),
+                                              .height(Constants.triangleHeight)
+                                            ], toView: backgroundRounded),
+                                            ([.bondToBottom], toView: contentView),
+                                            ([.bondToLeading], toView: target))
             case .bottom:
-                self.topAnchor.constraint(equalTo: target.bottomAnchor, constant: 20).isActive = true
+                contentView.setConstraints((.topToBottom(20), toView: target))
+                backgroundRounded.setConstraints((.bondToBottom, toView: contentView))
+                triangleView.setConstraints(([.bottomToTop(-2),
+                                              .width(Constants.triangleWidth),
+                                              .height(Constants.triangleHeight)
+                                            ], toView: backgroundRounded),
+                                            ([.bondToTop], toView: contentView),
+                                            ([.bondToLeading], toView: target))
             }
 
-            NSLayoutConstraint.activate([
-                self.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - Ocean.size.spacingInlineLg),
-                self.centerXAnchor.constraint(equalTo: topView.centerXAnchor)
-            ])
-            
-            layoutSubviews()
+            contentView.setConstraints(([.width(UIScreen.main.bounds.width - Ocean.size.spacingInlineLg),
+                                         .centerHorizontally], toView: self))
+
+            self.setConstraints(([.width(UIScreen.main.bounds.width),
+                                  .height(UIScreen.main.bounds.height),
+                                  .sameCenter], toView: self.superview))
+
+            self.setNeedsLayout()
+            self.layoutIfNeeded()
         }
-        
+
         @objc private func tooltipAction(_ sender: Any) {
             self.removeFromSuperview()
-        }
-        
-        public override func layoutSubviews() {
-            super.layoutSubviews()
-            
-            self.backgroundRounded.subviews.first?.removeFromSuperview()
-            self.backgroundRounded.addSubview(triangleView)
-            
-            self.targetView.layoutIfNeeded()
-            self.backgroundRounded.layoutIfNeeded()
-            
-            let xPosition = convert(targetView.frame, from: presenter).origin.x - (Constants.triangleWidth - (targetView.frame.width / 2) - (Constants.triangleWidth / 2))
-            
-            switch position {
-            case .top:
-                triangleView.frame = .init(x: xPosition, y: backgroundRounded.frame.height, width: Constants.triangleWidth, height: Constants.triangleHeight)
-            case .bottom:
-                triangleView.frame = .init(x: xPosition, y: -Constants.triangleHeight, width: Constants.triangleWidth, height: Constants.triangleHeight)
-            }
         }
     }
 }
@@ -159,5 +172,7 @@ fileprivate extension UIView {
         self.transform = rotation
     }
 }
+
+
 
 
