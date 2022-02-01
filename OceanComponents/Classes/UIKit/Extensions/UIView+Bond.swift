@@ -9,7 +9,7 @@
 // swiftlint:disable all
 import UIKit
 
-enum BondType {
+public enum BondType {
     case width(CGFloat)
     case height(CGFloat)
     case squareSize(CGFloat)
@@ -53,21 +53,21 @@ enum BondType {
 }
 
 extension UIView {
-    open func addSubviews(_ viewsToAdd: UIView...) {
+    public func addSubviews(_ viewsToAdd: UIView...) {
         viewsToAdd.forEach { self.addSubview($0) }
     }
 
-    open func removeSubviews() {
+    public func removeSubviews() {
         self.subviews.forEach{ $0.removeFromSuperview() }
     }
 
-    func setConstraints(_ singleConstraintToView: (BondType, toView: UIView?)...) {
+    public func setConstraints(_ singleConstraintToView: (BondType, toView: UIView?)...) {
         singleConstraintToView.forEach { (type, toView) in
             self.setBond(type: type, toView: toView)
         }
     }
 
-    func setConstraints(_ constraintsToView: ([BondType], toView: UIView?)...) {
+    public func setConstraints(_ constraintsToView: ([BondType], toView: UIView?)...) {
         constraintsToView.forEach { (types, toView) in
             types.forEach {
                 self.setBond(type: $0, toView: toView)
@@ -189,14 +189,14 @@ extension UIView {
 }
 
 extension UIView {
-    var safeTopAnchor: NSLayoutYAxisAnchor {
+    public var safeTopAnchor: NSLayoutYAxisAnchor {
         if #available(iOS 11.0, *) {
           return safeAreaLayoutGuide.topAnchor
         }
         return topAnchor
       }
 
-    var safeBottomAnchor: NSLayoutYAxisAnchor {
+    public var safeBottomAnchor: NSLayoutYAxisAnchor {
       if #available(iOS 11.0, *) {
         return safeAreaLayoutGuide.bottomAnchor
       }
@@ -204,14 +204,14 @@ extension UIView {
     }
 
 
-      var safeLeftAnchor: NSLayoutXAxisAnchor {
+    public var safeLeftAnchor: NSLayoutXAxisAnchor {
         if #available(iOS 11.0, *){
           return safeAreaLayoutGuide.leftAnchor
         }
         return leftAnchor
       }
 
-      var safeRightAnchor: NSLayoutXAxisAnchor {
+    public var safeRightAnchor: NSLayoutXAxisAnchor {
         if #available(iOS 11.0, *){
           return safeAreaLayoutGuide.rightAnchor
         }
