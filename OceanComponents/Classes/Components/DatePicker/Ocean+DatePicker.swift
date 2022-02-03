@@ -17,13 +17,13 @@ extension Ocean {
         var calendarContainer: UIView!
         var calendar: FSCalendar!
         var header: UIView!
-        var headerStack: UIStackView!
+        var headerStack: Ocean.StackView!
         var headerYear: UILabel!
         var headerDate: UILabel!
         var backView: UIImageView!
 
-        var calendarButtons: UIStackView!
-        var calendarBackForwardButtons: UIStackView!
+        var calendarButtons: Ocean.StackView!
+        var calendarBackForwardButtons: Ocean.StackView!
         var calendarContainerHeight: CGFloat = 473
         var calendarBodyHeight: CGFloat = 300
         var calendarHeaderHeight: CGFloat = 96
@@ -94,12 +94,12 @@ extension Ocean {
                 // Fallback on earlier versions
             }
 
-            headerStack = UIStackView { stack in
+            headerStack = Ocean.StackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
                 stack.axis = .horizontal
                 stack.alignment = .fill
                 stack.addArrangedSubview(Spacer(space: Ocean.size.spacingInsetSm))
-                stack.addArrangedSubview(UIStackView { stack in
+                stack.addArrangedSubview(Ocean.StackView { stack in
                     stack.axis = .vertical
                     stack.alignment = .leading
                     stack.addArrangedSubview(Spacer(space: Ocean.size.spacingInsetXs))
@@ -151,12 +151,12 @@ extension Ocean {
         }
 
         func makeCalendarButtons() {
-            calendarButtons = UIStackView { stack in
+            calendarButtons = Ocean.StackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
                 stack.alignment = .fill
                 stack.axis = .vertical
                 stack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackSm))
-                stack.addArrangedSubview(UIStackView { stack in
+                stack.addArrangedSubview(Ocean.StackView { stack in
                     stack.alignment = .trailing
                     stack.axis = .horizontal
                     stack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxs))
@@ -184,7 +184,7 @@ extension Ocean {
         }
 
         func makeBackForwardButtons() {
-            calendarBackForwardButtons = UIStackView { stack in
+            calendarBackForwardButtons = Ocean.StackView { stack in
                 stack.axis = .horizontal
                 stack.alignment = .fill
                 stack.translatesAutoresizingMaskIntoConstraints = false

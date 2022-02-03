@@ -14,9 +14,9 @@ extension Ocean {
         
         internal let generator = UISelectionFeedbackGenerator()
         
-        private var mainStack: UIStackView!
+        private var mainStack: Ocean.StackView!
         private var radioBkgView: UIControl!
-        private var radioStack: UIStackView!
+        private var radioStack: Ocean.StackView!
         private var textLabel: UILabel!
 
         public var label: String = "" {
@@ -117,18 +117,18 @@ extension Ocean {
         }
 
         func makeView() {
-            mainStack = UIStackView()
+            mainStack = Ocean.StackView()
             mainStack.translatesAutoresizingMaskIntoConstraints = false
             mainStack.axis = .vertical
             mainStack.alignment = .leading
             mainStack.distribution = .fillProportionally
             mainStack.isUserInteractionEnabled = true
 
-            radioStack = UIStackView()
+            radioStack = Ocean.StackView()
             radioStack.translatesAutoresizingMaskIntoConstraints = false
             radioStack.axis = .horizontal
             radioStack.alignment = .center
-            radioStack.distribution = .fillProportionally
+            radioStack.distribution = .fill
             mainStack.addArrangedSubview(radioStack)
 
             radioBkgView = UIControl()

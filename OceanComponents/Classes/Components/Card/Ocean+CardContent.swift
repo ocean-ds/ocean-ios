@@ -73,8 +73,8 @@ extension Ocean {
         
         private lazy var badgeView = Ocean.Badge.number()
         
-        private lazy var topStack: UIStackView = {
-            let stack = UIStackView()
+        private lazy var topStack: Ocean.StackView = {
+            let stack = Ocean.StackView()
             stack.axis = .horizontal
             stack.distribution = .fill
             stack.spacing = Ocean.size.spacingStackXs
@@ -120,8 +120,8 @@ extension Ocean {
             }
         }()
         
-        private lazy var bottomStack: UIStackView = {
-            let stack = UIStackView()
+        private lazy var bottomStack: Ocean.StackView = {
+            let stack = Ocean.StackView()
             stack.axis = .horizontal
             stack.distribution = .fill
             stack.spacing = Ocean.size.spacingStackXs
@@ -158,8 +158,8 @@ extension Ocean {
         
         private lazy var bottomDivider = Ocean.Divider(widthConstraint: self.widthAnchor)
         
-        private lazy var mainStack: UIStackView = {
-            let stack = UIStackView()
+        private lazy var mainStack: Ocean.StackView = {
+            let stack = Ocean.StackView()
             stack.axis = .vertical
             stack.distribution = .fill
             stack.spacing = 0

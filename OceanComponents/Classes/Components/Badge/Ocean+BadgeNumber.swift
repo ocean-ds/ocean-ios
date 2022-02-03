@@ -55,8 +55,8 @@ extension Ocean {
             self.heightAnchor.constraint(equalToConstant: self.size == .medium ? Constants.height : Constants.heightSmall)
         }()
         
-        private lazy var mainStack: UIStackView = {
-            let stack = UIStackView()
+        private lazy var mainStack: Ocean.StackView = {
+            let stack = Ocean.StackView()
             stack.axis = .horizontal
             stack.distribution = .fill
             stack.spacing = 0

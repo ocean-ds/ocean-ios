@@ -107,8 +107,8 @@ extension Ocean {
             }
         }()
         
-        private lazy var titleStack: UIStackView = {
-            let stack = UIStackView()
+        private lazy var titleStack: Ocean.StackView = {
+            let stack = Ocean.StackView()
             stack.axis = .vertical
             stack.distribution = .fillProportionally
             stack.spacing = 0
@@ -135,8 +135,8 @@ extension Ocean {
             }
         }()
         
-        private lazy var headerStack: UIStackView = {
-            let stack = UIStackView()
+        private lazy var headerStack: Ocean.StackView = {
+            let stack = Ocean.StackView()
             stack.axis = .horizontal
             stack.distribution = .fillProportionally
             stack.alignment = .center
@@ -181,8 +181,8 @@ extension Ocean {
             }
         }()
         
-        private lazy var listBalanceAvailableStack: UIStackView = {
-            let stack = UIStackView()
+        private lazy var listBalanceAvailableStack: Ocean.StackView = {
+            let stack = Ocean.StackView()
             stack.axis = .horizontal
             stack.distribution = .fill
             stack.spacing = 0
@@ -219,8 +219,8 @@ extension Ocean {
             }
         }()
         
-        private lazy var listCurrentBalanceStack: UIStackView = {
-            let stack = UIStackView()
+        private lazy var listCurrentBalanceStack: Ocean.StackView = {
+            let stack = Ocean.StackView()
             stack.axis = .horizontal
             stack.distribution = .fill
             stack.spacing = 0
@@ -257,8 +257,8 @@ extension Ocean {
             }
         }()
         
-        private lazy var listScheduleBluStack: UIStackView = {
-            let stack = UIStackView()
+        private lazy var listScheduleBluStack: Ocean.StackView = {
+            let stack = Ocean.StackView()
             stack.axis = .horizontal
             stack.distribution = .fill
             stack.spacing = 0
@@ -296,8 +296,8 @@ extension Ocean {
             }
         }()
         
-        private lazy var listScheduleNotBluStack: UIStackView = {
-            let stack = UIStackView()
+        private lazy var listScheduleNotBluStack: Ocean.StackView = {
+            let stack = Ocean.StackView()
             stack.axis = .horizontal
             stack.distribution = .fill
             stack.spacing = 0
@@ -316,8 +316,8 @@ extension Ocean {
             return stack
         }()
         
-        private lazy var listStack: UIStackView = {
-            let stack = UIStackView()
+        private lazy var listStack: Ocean.StackView = {
+            let stack = Ocean.StackView()
             stack.axis = .vertical
             stack.distribution = .fill
             stack.alignment = .fill
@@ -338,8 +338,8 @@ extension Ocean {
             return stack
         }()
         
-        private lazy var mainStack: UIStackView = {
-            let stack = UIStackView()
+        private lazy var mainStack: Ocean.StackView = {
+            let stack = Ocean.StackView()
             stack.axis = .vertical
             stack.distribution = .fillProportionally
             stack.spacing = 0

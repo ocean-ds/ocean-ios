@@ -46,8 +46,8 @@ extension Ocean {
         private var presenter = UIView()
         private var position: Position = .bottom
 
-        private lazy var contentStack: UIStackView = {
-            let stack = UIStackView()
+        private lazy var contentStack: Ocean.StackView = {
+            let stack = Ocean.StackView()
             stack.distribution = .fill
             stack.alignment = .fill
             stack.axis = .vertical

@@ -16,10 +16,10 @@ extension Ocean {
             static let heightCellWithImages: CGFloat = 73
         }
         
-        private lazy var mainStack: UIStackView = {
-            UIStackView { stack in
+        private lazy var mainStack: Ocean.StackView = {
+            Ocean.StackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
-                stack.distribution = .fillProportionally
+                stack.distribution = .fill
                 stack.axis = .vertical
             }
         }()
@@ -122,7 +122,7 @@ extension Ocean {
                 return 0
             }
             
-            let stackView = UIStackView { stack in
+            let stackView = Ocean.StackView { stack in
                 stack.axis = actionsAxis
                 stack.distribution = .fillEqually
                 stack.spacing = Ocean.size.spacingStackXs

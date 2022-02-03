@@ -19,8 +19,8 @@ extension Ocean {
         
         static let identifier = "bottomSheetCellIdentifier"
         
-        private lazy var contentStack: UIStackView = {
-            let stack = UIStackView()
+        private lazy var contentStack: Ocean.StackView = {
+            let stack = Ocean.StackView()
             stack.axis = .horizontal
             stack.distribution = .fillProportionally
             stack.spacing = Ocean.size.borderRadiusLg
@@ -42,8 +42,8 @@ extension Ocean {
             return imageView
         }()
         
-        private lazy var labelsStack: UIStackView = {
-            let stack = UIStackView()
+        private lazy var labelsStack: Ocean.StackView = {
+            let stack = Ocean.StackView()
             stack.axis = .vertical
             stack.distribution = .fillProportionally
             stack.alignment = .leading
@@ -67,8 +67,8 @@ extension Ocean {
             }
         }()
         
-        private lazy var chevronStack: UIStackView = {
-            let stack = UIStackView()
+        private lazy var chevronStack: Ocean.StackView = {
+            let stack = Ocean.StackView()
             stack.axis = .vertical
             stack.distribution = .fillProportionally
             stack.alignment = .trailing

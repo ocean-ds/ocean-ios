@@ -47,8 +47,8 @@ extension Ocean {
             return view
         }()
         
-        private lazy var contentStack: UIStackView = {
-            let stack = UIStackView()
+        private lazy var contentStack: Ocean.StackView = {
+            let stack = Ocean.StackView()
             stack.axis = .vertical
             stack.distribution = .fillProportionally
             stack.spacing = 0
@@ -104,7 +104,7 @@ extension Ocean {
         }
     }
     
-    class OTPStackView: UIStackView, UITextFieldDelegate {
+    class OTPStackView: Ocean.StackView, UITextFieldDelegate {
         let numberOfFields = 4
         var textFieldsCollection: [OTPTextField] = []
         var showsWarningColor = false

@@ -40,7 +40,7 @@ final public class BadgeViewController : UIViewController {
     public override func viewDidLoad() {
         self.view.backgroundColor = Ocean.color.colorInterfaceLightUp
         
-        let stack = UIStackView()
+        let stack = Ocean.StackView()
         stack.axis = .horizontal
         stack.distribution = .fill
         stack.alignment = .center

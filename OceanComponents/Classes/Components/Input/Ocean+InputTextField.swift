@@ -17,16 +17,16 @@ extension Ocean {
     }
 
     public class InputTextField: UIControl, UITextFieldDelegate {
-        internal var mainStack: UIStackView!
+        internal var mainStack: Ocean.StackView!
         internal var labelTitle: UILabel!
         internal var textField: UITextField!
         internal var imageView: UIImageView!
         internal var labelError: UILabel!
         internal var labelHelper: UILabel!
-        internal var hStack: UIStackView!
+        internal var hStack: Ocean.StackView!
         internal var backgroundView: UIView!
-        internal var titleStackContent: UIStackView!
-        internal var titleStackView: UIStackView!
+        internal var titleStackContent: Ocean.StackView!
+        internal var titleStackView: Ocean.StackView!
         internal var infoIconImageView: UIImageView!
         
         private let errorEmpty = "..."
@@ -171,7 +171,7 @@ extension Ocean {
         }
 
         func makemainStack() {
-            mainStack = UIStackView()
+            mainStack = Ocean.StackView()
             mainStack.translatesAutoresizingMaskIntoConstraints = false
             mainStack.axis = .vertical
             mainStack.alignment = .fill
@@ -179,7 +179,7 @@ extension Ocean {
         }
 
         func makeHStack() {
-            hStack = UIStackView()
+            hStack = Ocean.StackView()
             hStack.translatesAutoresizingMaskIntoConstraints = false
             hStack.axis = .horizontal
             hStack.alignment = .fill
@@ -196,7 +196,7 @@ extension Ocean {
          
         func makeTitleStackContent() {
             makeTitleStackView()
-            titleStackContent = UIStackView()
+            titleStackContent = Ocean.StackView()
             titleStackContent.axis = .vertical
             titleStackContent.alignment = .leading
             titleStackContent.distribution = .fillProportionally
@@ -207,7 +207,7 @@ extension Ocean {
         func makeTitleStackView() {
             makeTitleLabel()
             makeInfoIconImageView()
-            titleStackView = UIStackView()
+            titleStackView = Ocean.StackView()
             titleStackView.axis = .horizontal
             titleStackView.alignment = .center
             titleStackView.distribution = .fill

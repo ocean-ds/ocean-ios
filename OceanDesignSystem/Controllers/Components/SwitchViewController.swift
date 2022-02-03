@@ -29,9 +29,9 @@ final public class SwitchViewController : UIViewController {
             label.text = self.oceanSwitch.isOn.description
         }
         
-        let stack = UIStackView()
+        let stack = Ocean.StackView()
         stack.alignment = .center
-        stack.distribution = .fillProportionally
+        stack.distribution = .fill
         stack.axis = .vertical
         
         stack.addArrangedSubview(oceanSwitch)

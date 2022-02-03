@@ -34,9 +34,9 @@ final public class DatePickerViewController : UIViewController {
             }
         }
         
-        let stack = UIStackView()
+        let stack = Ocean.StackView()
         stack.alignment = .center
-        stack.distribution = .fillProportionally
+        stack.distribution = .fill
         stack.axis = .vertical
         stack.spacing = Ocean.size.spacingStackXxs
         

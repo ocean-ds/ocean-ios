@@ -48,11 +48,11 @@ class AlertBoxViewController: UIViewController {
         alert.text = "This is a success message."
     }
     
-    lazy var contentStack: UIStackView = {
-        let contentStack = UIStackView()
+    lazy var contentStack: Ocean.StackView = {
+        let contentStack = Ocean.StackView()
         contentStack.axis = .vertical
         contentStack.spacing = Ocean.size.spacingStackXxs
-        contentStack.distribution = .fillProportionally
+        contentStack.distribution = .fill
         contentStack.alignment = .center
         contentStack.translatesAutoresizingMaskIntoConstraints = false
         

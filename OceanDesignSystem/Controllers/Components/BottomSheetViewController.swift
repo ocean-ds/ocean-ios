@@ -23,11 +23,11 @@ class BottomSheetViewController: UIViewController {
     
     private var showCase: ShowCases = .withActonsNormal
     
-    private lazy var contentStack: UIStackView = {
-        let contentStack = UIStackView()
+    private lazy var contentStack: Ocean.StackView = {
+        let contentStack = Ocean.StackView()
         contentStack.axis = .vertical
         contentStack.spacing = 30
-        contentStack.distribution = .fillProportionally
+        contentStack.distribution = .fill
         contentStack.alignment = .fill
         contentStack.translatesAutoresizingMaskIntoConstraints = false
         

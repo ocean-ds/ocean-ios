@@ -36,9 +36,9 @@ final public class CheckBoxViewController : UIViewController {
             ck.isEnabled = false
         }
         
-        let stack = UIStackView()
+        let stack = Ocean.StackView()
         stack.alignment = .center
-        stack.distribution = .fillProportionally
+        stack.distribution = .fill
         stack.axis = .vertical
         stack.spacing = Ocean.size.spacingStackXxs
         
@@ -54,7 +54,7 @@ final public class CheckBoxViewController : UIViewController {
     private func add(view: UIView) {
         self.view.addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
-        
+
         NSLayoutConstraint.activate([
             view.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             view.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)

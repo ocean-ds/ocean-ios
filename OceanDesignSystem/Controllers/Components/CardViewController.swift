@@ -15,7 +15,7 @@ final public class CardViewController : UIViewController {
     public override func viewDidLoad() {
         self.view.backgroundColor = Ocean.color.colorInterfaceLightUp
         
-        let stack = UIStackView()
+        let stack = Ocean.StackView()
         stack.axis = .vertical
         stack.distribution = .fill
         stack.alignment = .center

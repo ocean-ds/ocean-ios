@@ -11,11 +11,11 @@ import OceanTokens
 
 class TooltipViewController: UIViewController {
     
-    private lazy var contentStack: UIStackView = {
-        let contentStack = UIStackView()
+    private lazy var contentStack: Ocean.StackView = {
+        let contentStack = Ocean.StackView()
         contentStack.axis = .vertical
         contentStack.spacing = 0
-        contentStack.distribution = .fillProportionally
+        contentStack.distribution = .fill
         contentStack.alignment = .fill
         contentStack.translatesAutoresizingMaskIntoConstraints = false
         
@@ -23,11 +23,11 @@ class TooltipViewController: UIViewController {
         return contentStack
     }()
     
-    private lazy var leftButtonExampleStack: UIStackView = {
-        let contentStack = UIStackView()
+    private lazy var leftButtonExampleStack: Ocean.StackView = {
+        let contentStack = Ocean.StackView()
         contentStack.axis = .vertical
         contentStack.spacing = 0
-        contentStack.distribution = .fillProportionally
+        contentStack.distribution = .fill
         contentStack.alignment = .leading
         contentStack.translatesAutoresizingMaskIntoConstraints = false
         

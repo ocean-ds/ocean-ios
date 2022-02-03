@@ -19,9 +19,9 @@ final public class ProgressIndicatorViewController : UIViewController {
     public override func viewDidLoad() {
         self.view.backgroundColor = Ocean.color.colorBrandPrimaryPure
         
-        let stack = UIStackView()
+        let stack = Ocean.StackView()
         stack.alignment = .center
-        stack.distribution = .fillProportionally
+        stack.distribution = .fill
         stack.axis = .vertical
         stack.spacing = Ocean.size.spacingStackXs
         

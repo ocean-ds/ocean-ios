@@ -22,8 +22,8 @@ final public class BalanceViewController : UIViewController {
     public override func viewDidLoad() {
         self.view.backgroundColor = .white
         
-        let stack = UIStackView()
-        stack.distribution = .fillProportionally
+        let stack = Ocean.StackView()
+        stack.distribution = .fill
         stack.axis = .vertical
         stack.spacing = 0
         

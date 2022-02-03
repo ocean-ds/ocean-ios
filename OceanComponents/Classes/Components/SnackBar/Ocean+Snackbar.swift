@@ -14,7 +14,7 @@ extension Ocean {
     public typealias SnackbarBuilder = (Snackbar) -> Void
     
     public class Snackbar: UIView {
-        var mainStack: UIStackView!
+        var mainStack: Ocean.StackView!
         private var labelText: UILabel!
         private var imageViewIcon: UIImageView!
         private var actionText: String = "Action"
@@ -93,7 +93,7 @@ extension Ocean {
             self.layer.cornerRadius = Ocean.size.borderRadiusSm
             self.translatesAutoresizingMaskIntoConstraints = false
             
-            mainStack = UIStackView { stack in
+            mainStack = Ocean.StackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
                 stack.distribution = .fillProportionally
                 stack.axis = .horizontal

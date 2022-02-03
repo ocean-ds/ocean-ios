@@ -70,7 +70,7 @@ final public class TagViewController : UIViewController {
     public override func viewDidLoad() {
         self.view.backgroundColor = .white
         
-        let stack1 = UIStackView()
+        let stack1 = Ocean.StackView()
         stack1.distribution = .fill
         stack1.axis = .vertical
         stack1.spacing = Ocean.size.spacingStackXs
@@ -84,7 +84,7 @@ final public class TagViewController : UIViewController {
         
         self.view.addSubview(stack1)
         
-        let stack2 = UIStackView()
+        let stack2 = Ocean.StackView()
         stack2.distribution = .fill
         stack2.axis = .vertical
         stack2.spacing = Ocean.size.spacingStackXs

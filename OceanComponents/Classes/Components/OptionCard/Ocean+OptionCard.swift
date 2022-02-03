@@ -33,8 +33,8 @@ extension Ocean {
         
         private let generator = UISelectionFeedbackGenerator()
         
-        public lazy var mainStack: UIStackView = {
-            UIStackView { stack in
+        public lazy var mainStack: Ocean.StackView = {
+            Ocean.StackView { stack in
                 stack.axis = .horizontal
                 stack.distribution = .fillProportionally
                 stack.spacing = 0
@@ -48,8 +48,8 @@ extension Ocean {
             }
         }()
         
-        public lazy var headStack: UIStackView = {
-            UIStackView { stack in
+        public lazy var headStack: Ocean.StackView = {
+            Ocean.StackView { stack in
                 stack.axis = .vertical
                 stack.distribution = .fillProportionally
                 stack.spacing = 0
@@ -92,8 +92,8 @@ extension Ocean {
             return view
         }()
         
-        public lazy var contentStack: UIStackView = {
-            UIStackView { stack in
+        public lazy var contentStack: Ocean.StackView = {
+            Ocean.StackView { stack in
                 stack.axis = .horizontal
                 stack.distribution = .fillProportionally
                 stack.spacing = 0
@@ -161,8 +161,8 @@ extension Ocean {
             return view
         }()
         
-        public lazy var textStack: UIStackView = {
-            UIStackView { stack in
+        public lazy var textStack: Ocean.StackView = {
+            Ocean.StackView { stack in
                 stack.axis = .vertical
                 stack.distribution = .fillProportionally
                 stack.spacing = 0
