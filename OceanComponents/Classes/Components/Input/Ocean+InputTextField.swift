@@ -200,7 +200,6 @@ extension Ocean {
             titleStackContent.axis = .vertical
             titleStackContent.alignment = .leading
             titleStackContent.distribution = .fill
-            titleStackContent.addArrangedSubview(Spacer(space: 5))
             titleStackContent.addArrangedSubview(titleStackView)
         }
         
