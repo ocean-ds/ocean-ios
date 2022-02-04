@@ -148,8 +148,8 @@ extension Ocean {
         
         private lazy var level4Spacer = Ocean.Spacer(space: Ocean.size.spacingStackXxs)
         
-        private lazy var leftContentStack: UIStackView = {
-            UIStackView { stack in
+        private lazy var leftContentStack: Ocean.StackView = {
+            Ocean.StackView { stack in
                 stack.axis = .vertical
                 stack.distribution = .fill
                 stack.alignment = .leading
@@ -197,8 +197,8 @@ extension Ocean {
             }
         }()
         
-        private lazy var rightContentStack: UIStackView = {
-            UIStackView { stack in
+        private lazy var rightContentStack: Ocean.StackView = {
+            Ocean.StackView { stack in
                 stack.axis = .vertical
                 stack.distribution = .fill
                 stack.alignment = .trailing
@@ -216,10 +216,10 @@ extension Ocean {
             }
         }()
         
-        private lazy var contentStack: UIStackView = {
-            UIStackView { stack in
+        private lazy var contentStack: Ocean.StackView = {
+            Ocean.StackView { stack in
                 stack.axis = .horizontal
-                stack.distribution = .fillProportionally
+                stack.distribution = .fill
                 stack.alignment = .center
                 stack.spacing = Ocean.size.spacingStackXxxs
                 stack.translatesAutoresizingMaskIntoConstraints = false
@@ -241,10 +241,10 @@ extension Ocean {
         
         private lazy var divider = Ocean.Divider(widthConstraint: self.widthAnchor)
         
-        private lazy var mainStack: UIStackView = {
-            UIStackView { stack in
+        private lazy var mainStack: Ocean.StackView = {
+            Ocean.StackView { stack in
                 stack.axis = .vertical
-                stack.distribution = .fillProportionally
+                stack.distribution = .fill
                 stack.translatesAutoresizingMaskIntoConstraints = false
                 
                 stack.add([

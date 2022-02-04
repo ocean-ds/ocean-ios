@@ -1,13 +1,14 @@
 //
-//  UIStackView+Extensions.swift
+//  Ocean.StackView+Extensions.swift
 //  OceanComponents
 //
 //  Created by Vini on 09/07/21.
 //
 
 import UIKit
+import OceanTokens
 
-extension UIStackView {
+extension Ocean.StackView {
     @discardableResult
     func removeAllArrangedSubviews() -> [UIView] {
         let removedSubviews = arrangedSubviews.reduce([]) { (removedSubviews, subview) -> [UIView] in

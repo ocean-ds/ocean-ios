@@ -15,9 +15,9 @@ final public class TextListViewController : UIViewController {
     public override func viewDidLoad() {
         self.view.backgroundColor = .white
         
-        let stack = UIStackView()
+        let stack = Ocean.StackView()
         stack.alignment = .center
-        stack.distribution = .fillProportionally
+        stack.distribution = .fill
         stack.axis = .vertical
         stack.spacing = 0
         

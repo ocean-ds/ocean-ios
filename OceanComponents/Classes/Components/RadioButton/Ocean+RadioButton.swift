@@ -14,9 +14,9 @@ extension Ocean {
         
         internal let generator = UISelectionFeedbackGenerator()
         
-        private var mainStack: UIStackView!
+        private var mainStack: Ocean.StackView!
         private var radioBkgView: UIControl!
-        private var radioStack: UIStackView!
+        private var radioStack: Ocean.StackView!
         private var textLabel: UILabel!
 
         public var label: String = "" {
@@ -117,18 +117,18 @@ extension Ocean {
         }
 
         func makeView() {
-            mainStack = UIStackView()
+            mainStack = Ocean.StackView()
             mainStack.translatesAutoresizingMaskIntoConstraints = false
             mainStack.axis = .vertical
             mainStack.alignment = .leading
-            mainStack.distribution = .fillProportionally
+            mainStack.distribution = .fill
             mainStack.isUserInteractionEnabled = true
 
-            radioStack = UIStackView()
+            radioStack = Ocean.StackView()
             radioStack.translatesAutoresizingMaskIntoConstraints = false
             radioStack.axis = .horizontal
             radioStack.alignment = .center
-            radioStack.distribution = .fillProportionally
+            radioStack.distribution = .fill
             mainStack.addArrangedSubview(radioStack)
 
             radioBkgView = UIControl()
@@ -167,13 +167,7 @@ extension Ocean {
             self.isUserInteractionEnabled = true
             self.addGestureRecognizer(tapIconGesture)
 
-            mainStack.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-            mainStack.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-            mainStack.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-            mainStack.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-
-            radioStack.heightAnchor.constraint(equalToConstant: 24).isActive = true
-            radioStack.widthAnchor.constraint(equalTo: mainStack.widthAnchor).isActive = true
+            mainStack.setConstraints((.fillSuperView, toView: self))
 
             self.updateState()
         }

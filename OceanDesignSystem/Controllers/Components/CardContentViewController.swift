@@ -30,9 +30,9 @@ final public class CardContentViewController : UIViewController {
         spacer3.widthAnchor.constraint(equalToConstant: 220).isActive = true
         spacer3.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
-        let stack = UIStackView()
+        let stack = Ocean.StackView()
         stack.axis = .vertical
-        stack.distribution = .fillProportionally
+        stack.distribution = .fill
         stack.alignment = .center
         stack.spacing = Ocean.size.spacingStackXs
         stack.translatesAutoresizingMaskIntoConstraints = false

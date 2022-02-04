@@ -18,11 +18,11 @@ extension Ocean {
         public var navigationBackgroundColor: UIColor? = Ocean.color.colorInterfaceLightPure
         public var navigationTintColor: UIColor = Ocean.color.colorBrandPrimaryPure
         
-        private lazy var mainStack: UIStackView = {
-            UIStackView { stack in
+        private lazy var mainStack: Ocean.StackView = {
+            Ocean.StackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
                 stack.alignment = .fill
-                stack.distribution = .fillProportionally
+                stack.distribution = .fill
                 stack.axis = .vertical
                 
                 stack.addArrangedSubview(Ocean.Input.search { input in

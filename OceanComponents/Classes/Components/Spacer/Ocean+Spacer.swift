@@ -11,6 +11,8 @@ import OceanTokens
 
 extension Ocean {
     public class Spacer: UIView {
+        public var space: CGFloat = 0
+
         public override init(frame: CGRect) {
             super.init(frame: frame)
         }
@@ -21,49 +23,12 @@ extension Ocean {
 
         public convenience init(space: CGFloat) {
             self.init(frame: .zero)
-            translatesAutoresizingMaskIntoConstraints = false
+            self.space = space
+            self.backgroundColor = .clear
 
+            self.translatesAutoresizingMaskIntoConstraints = false
             self.heightAnchor.constraint(equalToConstant: space).isActive = true
             self.widthAnchor.constraint(equalToConstant: space).isActive = true
-        }
-
-        public convenience init(lessThan space: CGFloat) {
-            self.init(frame: .zero)
-            translatesAutoresizingMaskIntoConstraints = false
-
-            self.heightAnchor.constraint(lessThanOrEqualToConstant: space).isActive = true
-            self.widthAnchor.constraint(lessThanOrEqualToConstant: space).isActive = true
-
-            let constraints = self.heightAnchor.constraint(equalToConstant: space)
-            constraints.priority = .defaultLow
-            constraints.isActive = true
-        }
-
-        public convenience init(greaterThan space: CGFloat) {
-            self.init(frame: .zero)
-            translatesAutoresizingMaskIntoConstraints = false
-
-            self.heightAnchor.constraint(greaterThanOrEqualToConstant: space).isActive = true
-            self.widthAnchor.constraint(greaterThanOrEqualToConstant: space).isActive = true
-
-            let constraints = self.heightAnchor.constraint(equalToConstant: space)
-            constraints.priority = .defaultLow
-            constraints.isActive = true
-        }
-
-        public convenience init(lessThan less: CGFloat, greaterThan greater: CGFloat) {
-            self.init(frame: .zero)
-            translatesAutoresizingMaskIntoConstraints = false
-
-            self.heightAnchor.constraint(greaterThanOrEqualToConstant: greater).isActive = true
-            self.widthAnchor.constraint(greaterThanOrEqualToConstant: greater).isActive = true
-
-            self.heightAnchor.constraint(lessThanOrEqualToConstant: less).isActive = true
-            self.widthAnchor.constraint(lessThanOrEqualToConstant: less).isActive = true
-
-            let constraints = self.heightAnchor.constraint(equalToConstant: less)
-            constraints.priority = .defaultLow
-            constraints.isActive = true
         }
     }
 }

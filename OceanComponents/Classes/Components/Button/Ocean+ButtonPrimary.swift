@@ -132,7 +132,7 @@ extension Ocean {
         }
         
         private func makeView() {
-            let contentStack = UIStackView()
+            let contentStack = Ocean.StackView()
             contentStack.translatesAutoresizingMaskIntoConstraints = false
             contentStack.axis = .horizontal
             contentStack.alignment = .center

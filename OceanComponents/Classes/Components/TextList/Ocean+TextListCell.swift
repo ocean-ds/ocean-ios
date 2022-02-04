@@ -74,8 +74,8 @@ extension Ocean {
 
         public var onTouch: (() -> Void)?
 
-        private lazy var mainStack: UIStackView = {
-            UIStackView { stack in
+        private lazy var mainStack: Ocean.StackView = {
+            Ocean.StackView { stack in
                 stack.axis = .vertical
                 stack.distribution = .fill
                 stack.translatesAutoresizingMaskIntoConstraints = false
@@ -92,8 +92,8 @@ extension Ocean {
             }
         }()
 
-        private lazy var contentStack: UIStackView = {
-            UIStackView { stack in
+        private lazy var contentStack: Ocean.StackView = {
+            Ocean.StackView { stack in
                 stack.axis = .horizontal
                 stack.distribution = .fill
                 stack.alignment = .center
@@ -151,8 +151,8 @@ extension Ocean {
 
         private lazy var badgeView = Ocean.Badge.text()
 
-        private lazy var infoStackTitle: UIStackView = {
-            UIStackView { stack in
+        private lazy var infoStackTitle: Ocean.StackView = {
+            Ocean.StackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
                 stack.axis = .horizontal
                 stack.distribution = .fill
@@ -166,8 +166,8 @@ extension Ocean {
             }
         }()
 
-        private lazy var infoStack: UIStackView = {
-            UIStackView { stack in
+        private lazy var infoStack: Ocean.StackView = {
+            Ocean.StackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
                 stack.axis = .vertical
                 stack.distribution = .fill

@@ -67,8 +67,8 @@ extension Ocean {
         
         private lazy var imageSpacer = Ocean.Spacer(space: Ocean.size.spacingStackXxxs)
         
-        private lazy var mainStack: UIStackView = {
-            let stack = UIStackView()
+        private lazy var mainStack: Ocean.StackView = {
+            let stack = Ocean.StackView()
             stack.axis = .horizontal
             stack.distribution = .fill
             stack.alignment = .center

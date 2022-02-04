@@ -1,13 +1,15 @@
 //
-//  UIStackView+builder.swift
+//  Ocean.StackView+builder.swift
 //  OceanComponents
 //
 //  Created by Alex Gomes on 13/08/20.
 //
 
 import Foundation
-extension UIStackView {
-    public typealias BuilderStackView = (UIStackView) -> Void
+import OceanTokens
+
+extension Ocean.StackView {
+    public typealias BuilderStackView = (Ocean.StackView) -> Void
     
     convenience init(builder: BuilderStackView) {
         self.init()

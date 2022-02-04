@@ -90,7 +90,7 @@ final public class ChipsViewController: UIViewController {
     public override func viewDidLoad() {
         self.view.backgroundColor = Ocean.color.colorInterfaceLightPure
         
-        let stack = UIStackView()
+        let stack = Ocean.StackView()
         stack.axis = .vertical
         stack.distribution = .fill
         stack.alignment = .center

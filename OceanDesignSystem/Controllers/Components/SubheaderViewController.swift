@@ -15,9 +15,9 @@ final public class SubheaderViewController : UIViewController {
     public override func viewDidLoad() {
         self.view.backgroundColor = .white
         
-        let stack = UIStackView()
+        let stack = Ocean.StackView()
         stack.axis = .vertical
-        stack.distribution = .fillProportionally
+        stack.distribution = .fill
         stack.alignment = .center
         stack.spacing = Ocean.size.spacingStackXs
         stack.translatesAutoresizingMaskIntoConstraints = false

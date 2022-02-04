@@ -16,12 +16,12 @@ extension Ocean {
     }
 
     public class InputSearchField: UIControl, UITextFieldDelegate {
-        var mainStack: UIStackView!
+        var mainStack: Ocean.StackView!
 
         public var textField: UITextField!
         private var imageView: UIImageView!
         private var imageCloseView: UIImageView!
-        private var hStack: UIStackView!
+        private var hStack: Ocean.StackView!
         private var backgroundView: UIView!
         
         public var placeholder: String = "" {
@@ -107,7 +107,7 @@ extension Ocean {
         }
 
         func makemainStack() {
-            mainStack = UIStackView()
+            mainStack = Ocean.StackView()
             mainStack.translatesAutoresizingMaskIntoConstraints = false
             mainStack.axis = .vertical
             mainStack.alignment = .fill
@@ -115,7 +115,7 @@ extension Ocean {
         }
 
         func makeHStack() {
-            hStack = UIStackView()
+            hStack = Ocean.StackView()
             hStack.translatesAutoresizingMaskIntoConstraints = false
             hStack.axis = .horizontal
             hStack.alignment = .fill

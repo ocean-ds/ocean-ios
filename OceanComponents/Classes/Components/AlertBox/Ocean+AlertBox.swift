@@ -80,8 +80,8 @@ extension Ocean {
             }
         }
         
-        private lazy var mainContentStack: UIStackView = {
-            UIStackView { stack in
+        private lazy var mainContentStack: Ocean.StackView = {
+            Ocean.StackView { stack in
                 stack.axis = .vertical
                 stack.spacing = Ocean.size.spacingStackXxxs
                 stack.distribution = .fill
@@ -98,8 +98,8 @@ extension Ocean {
             }
         }()
         
-        private lazy var contentStack: UIStackView = {
-            UIStackView { stack in
+        private lazy var contentStack: Ocean.StackView = {
+            Ocean.StackView { stack in
                 stack.axis = .horizontal
                 stack.spacing = Ocean.size.spacingStackXxs
                 stack.distribution = .fill
@@ -111,8 +111,8 @@ extension Ocean {
             }
         }()
         
-        private lazy var messageStack: UIStackView = {
-            UIStackView { stack in
+        private lazy var messageStack: Ocean.StackView = {
+            Ocean.StackView { stack in
                 stack.axis = .vertical
                 stack.spacing = 2
                 stack.distribution = .fill

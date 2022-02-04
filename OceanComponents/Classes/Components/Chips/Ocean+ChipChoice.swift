@@ -46,8 +46,8 @@ extension Ocean {
         
         public var onValueChange: ((Bool, ChipChoice) -> Void)? = nil
         
-        private lazy var mainStack: UIStackView = {
-            let stack = UIStackView()
+        private lazy var mainStack: Ocean.StackView = {
+            let stack = Ocean.StackView()
             stack.axis = .horizontal
             stack.distribution = .fill
             stack.spacing = 0

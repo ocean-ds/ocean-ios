@@ -66,7 +66,7 @@ extension Ocean {
         private var height: CGFloat = 48
         private var fontSize: CGFloat = Ocean.font.fontSizeXs
         private var padding: CGFloat = Ocean.size.spacingInlineSm
-        private var stack: UIStackView!
+        private var stack: Ocean.StackView!
         private var label: UILabel!
         private var imageView: UIImageView!
         private var spinner: Ocean.CircularProgressIndicator!
@@ -133,7 +133,7 @@ extension Ocean {
         }
         
         private func makeView() {
-            let contentStack = UIStackView()
+            let contentStack = Ocean.StackView()
             contentStack.translatesAutoresizingMaskIntoConstraints = false
             contentStack.axis = .horizontal
             contentStack.alignment = .center
