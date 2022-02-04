@@ -53,11 +53,6 @@ final public class CheckBoxViewController : UIViewController {
     
     private func add(view: UIView) {
         self.view.addSubview(view)
-        view.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            view.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            view.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
-        ])
+        view.setConstraints((.sameCenter, toView: self.view))
     }
 }

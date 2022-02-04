@@ -24,8 +24,9 @@ extension Ocean {
         public convenience init(space: CGFloat) {
             self.init(frame: .zero)
             self.space = space
-            translatesAutoresizingMaskIntoConstraints = false
+            self.backgroundColor = .clear
 
+            self.translatesAutoresizingMaskIntoConstraints = false
             self.heightAnchor.constraint(equalToConstant: space).isActive = true
             self.widthAnchor.constraint(equalToConstant: space).isActive = true
         }

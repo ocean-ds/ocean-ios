@@ -186,7 +186,7 @@ extension Ocean {
             titleStackContent = Ocean.StackView()
             titleStackContent.axis = .vertical
             titleStackContent.alignment = .leading
-            titleStackContent.distribution = .fillProportionally
+            titleStackContent.distribution = .fill
             titleStackContent.addArrangedSubview(Spacer(space: 5))
             titleStackContent.addArrangedSubview(titleStackView)
         }

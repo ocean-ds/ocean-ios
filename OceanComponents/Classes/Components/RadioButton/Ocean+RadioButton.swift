@@ -121,7 +121,7 @@ extension Ocean {
             mainStack.translatesAutoresizingMaskIntoConstraints = false
             mainStack.axis = .vertical
             mainStack.alignment = .leading
-            mainStack.distribution = .fillProportionally
+            mainStack.distribution = .fill
             mainStack.isUserInteractionEnabled = true
 
             radioStack = Ocean.StackView()
@@ -167,13 +167,7 @@ extension Ocean {
             self.isUserInteractionEnabled = true
             self.addGestureRecognizer(tapIconGesture)
 
-            mainStack.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-            mainStack.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-            mainStack.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-            mainStack.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-
-            radioStack.heightAnchor.constraint(equalToConstant: 24).isActive = true
-            radioStack.widthAnchor.constraint(equalTo: mainStack.widthAnchor).isActive = true
+            mainStack.setConstraints((.fillSuperView, toView: self))
 
             self.updateState()
         }

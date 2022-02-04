@@ -110,7 +110,7 @@ extension Ocean {
         private lazy var titleStack: Ocean.StackView = {
             let stack = Ocean.StackView()
             stack.axis = .vertical
-            stack.distribution = .fillProportionally
+            stack.distribution = .fill
             stack.spacing = 0
             
             stack.add([
@@ -138,7 +138,7 @@ extension Ocean {
         private lazy var headerStack: Ocean.StackView = {
             let stack = Ocean.StackView()
             stack.axis = .horizontal
-            stack.distribution = .fillProportionally
+            stack.distribution = .fill
             stack.alignment = .center
             stack.spacing = 0
             stack.translatesAutoresizingMaskIntoConstraints = false
@@ -341,7 +341,7 @@ extension Ocean {
         private lazy var mainStack: Ocean.StackView = {
             let stack = Ocean.StackView()
             stack.axis = .vertical
-            stack.distribution = .fillProportionally
+            stack.distribution = .fill
             stack.spacing = 0
             
             stack.add([

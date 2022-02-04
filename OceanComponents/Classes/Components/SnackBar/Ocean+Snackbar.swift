@@ -95,7 +95,7 @@ extension Ocean {
             
             mainStack = Ocean.StackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
-                stack.distribution = .fillProportionally
+                stack.distribution = .fill
                 stack.axis = .horizontal
                 stack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
                 stack.addArrangedSubview(imageViewIcon)

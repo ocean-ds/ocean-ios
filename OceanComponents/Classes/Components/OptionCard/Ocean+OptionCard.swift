@@ -36,7 +36,7 @@ extension Ocean {
         public lazy var mainStack: Ocean.StackView = {
             Ocean.StackView { stack in
                 stack.axis = .horizontal
-                stack.distribution = .fillProportionally
+                stack.distribution = .fill
                 stack.spacing = 0
                 stack.translatesAutoresizingMaskIntoConstraints = false
                 stack.isUserInteractionEnabled = true
@@ -51,7 +51,7 @@ extension Ocean {
         public lazy var headStack: Ocean.StackView = {
             Ocean.StackView { stack in
                 stack.axis = .vertical
-                stack.distribution = .fillProportionally
+                stack.distribution = .fill
                 stack.spacing = 0
                 stack.translatesAutoresizingMaskIntoConstraints = false
                 
@@ -95,7 +95,7 @@ extension Ocean {
         public lazy var contentStack: Ocean.StackView = {
             Ocean.StackView { stack in
                 stack.axis = .horizontal
-                stack.distribution = .fillProportionally
+                stack.distribution = .fill
                 stack.spacing = 0
                 stack.alignment = .center
                 stack.translatesAutoresizingMaskIntoConstraints = false
@@ -164,7 +164,7 @@ extension Ocean {
         public lazy var textStack: Ocean.StackView = {
             Ocean.StackView { stack in
                 stack.axis = .vertical
-                stack.distribution = .fillProportionally
+                stack.distribution = .fill
                 stack.spacing = 0
                 stack.translatesAutoresizingMaskIntoConstraints = false
                 

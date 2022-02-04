@@ -50,7 +50,7 @@ extension Ocean {
         private lazy var contentStack: Ocean.StackView = {
             let stack = Ocean.StackView()
             stack.axis = .vertical
-            stack.distribution = .fillProportionally
+            stack.distribution = .fill
             stack.spacing = 0
             stack.translatesAutoresizingMaskIntoConstraints = false
             
@@ -134,7 +134,7 @@ extension Ocean {
             self.isUserInteractionEnabled = true
             self.translatesAutoresizingMaskIntoConstraints = false
             self.contentMode = .center
-            self.distribution = .fillProportionally
+            self.distribution = .fill
             self.spacing = Ocean.size.spacingStackXxs
         }
         

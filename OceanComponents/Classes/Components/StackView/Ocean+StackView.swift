@@ -20,19 +20,17 @@ extension Ocean {
                       return
                   }
 
-            let emptyView = UIView()
-            emptyView.backgroundColor = .clear
-            super.addArrangedSubview(emptyView)
+            spacerView.backgroundColor = .clear
+            super.addArrangedSubview(spacerView)
+            spacerView.removeConstraints(spacerView.constraints)
 
             switch self.axis {
             case .vertical:
-                emptyView.setConstraints((.height(spacerView.space), toView: nil))
+                spacerView.setConstraints((.height(spacerView.space), toView: nil))
             case .horizontal:
-                emptyView.setConstraints((.width(spacerView.space), toView: nil))
+                spacerView.setConstraints((.width(spacerView.space), toView: nil))
             default: break
             }
-            setNeedsLayout()
-            layoutIfNeeded()
         }
     }
 }

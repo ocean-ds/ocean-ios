@@ -22,7 +22,7 @@ extension Ocean {
             Ocean.StackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
                 stack.alignment = .fill
-                stack.distribution = .fillProportionally
+                stack.distribution = .fill
                 stack.axis = .vertical
                 
                 stack.addArrangedSubview(Ocean.Input.search { input in

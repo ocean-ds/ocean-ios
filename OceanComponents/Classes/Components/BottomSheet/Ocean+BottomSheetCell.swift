@@ -22,7 +22,7 @@ extension Ocean {
         private lazy var contentStack: Ocean.StackView = {
             let stack = Ocean.StackView()
             stack.axis = .horizontal
-            stack.distribution = .fillProportionally
+            stack.distribution = .fill
             stack.spacing = Ocean.size.borderRadiusLg
             stack.alignment = .center
             stack.translatesAutoresizingMaskIntoConstraints = false
@@ -45,7 +45,7 @@ extension Ocean {
         private lazy var labelsStack: Ocean.StackView = {
             let stack = Ocean.StackView()
             stack.axis = .vertical
-            stack.distribution = .fillProportionally
+            stack.distribution = .fill
             stack.alignment = .leading
             stack.addArrangedSubview(titleLabel)
             stack.addArrangedSubview(subtitleLabel)
@@ -70,7 +70,7 @@ extension Ocean {
         private lazy var chevronStack: Ocean.StackView = {
             let stack = Ocean.StackView()
             stack.axis = .vertical
-            stack.distribution = .fillProportionally
+            stack.distribution = .fill
             stack.alignment = .trailing
             stack.addArrangedSubview(chevronImageView)
             return stack
