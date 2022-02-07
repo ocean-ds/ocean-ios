@@ -11,9 +11,9 @@ import UIKit
 extension Ocean {
     public class RadioButton: UIControl {
         public typealias RadioButtonBuilder = (RadioButton) -> Void
-        
+
         internal let generator = UISelectionFeedbackGenerator()
-        
+
         private var mainStack: Ocean.StackView!
         private var radioBkgView: UIControl!
         private var radioStack: Ocean.StackView!
@@ -71,7 +71,7 @@ extension Ocean {
         private var foregroundCircleLayer: CAShapeLayer!
 
         internal var size: CGFloat = 24
-        
+
         internal var withAnimation: Bool {
             get {
                 return true
@@ -112,7 +112,7 @@ extension Ocean {
             } else {
                 changeToUnchecked()
             }
-            
+
             textLabel.textColor = isEnabled ? Ocean.color.colorInterfaceDarkDown : Ocean.color.colorInterfaceLightDeep
         }
 
@@ -120,7 +120,7 @@ extension Ocean {
             mainStack = Ocean.StackView()
             mainStack.translatesAutoresizingMaskIntoConstraints = false
             mainStack.axis = .vertical
-            mainStack.alignment = .leading
+            mainStack.alignment = .fill
             mainStack.distribution = .fill
             mainStack.isUserInteractionEnabled = true
 
@@ -195,7 +195,7 @@ extension Ocean {
             guard path != foregroundCircleLayer.path else {
                 return
             }
-            
+
             let key = "foregroundRadioPath"
             layer.removeAnimation(forKey: key)
 
@@ -207,7 +207,7 @@ extension Ocean {
                 animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
                 foregroundCircleLayer.add(animation, forKey: key)
             }
-            
+
             foregroundCircleLayer.path = path
         }
 
@@ -227,7 +227,7 @@ extension Ocean {
             layer.fillColor = color.cgColor
             layer.add(animation, forKey: key)
         }
-        
+
         public func setSkeleton() {
             self.isSkeletonable = true
             self.mainStack.isSkeletonable = true

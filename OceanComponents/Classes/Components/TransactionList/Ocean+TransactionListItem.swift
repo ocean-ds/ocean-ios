@@ -12,13 +12,13 @@ import OceanTokens
 extension Ocean {
     public class TransactionListItem: UIView {
         public typealias TransactionListItemBuilder = (TransactionListItem) -> Void
-        
+
         public enum ValueStatus {
             case neutral
             case positive
             case negative
         }
-        
+
         public struct Model {
             public var level1: String = ""
             public var level2: String = ""
@@ -31,7 +31,7 @@ extension Ocean {
             public var tagImage: UIImage? = nil
             public var tagStatus: Tag.Status = .warning
             public var withDivider: Bool = true
-            
+
             public init(level1: String = "",
                         level2: String = "",
                         level3: String = "",
@@ -56,16 +56,16 @@ extension Ocean {
                 self.withDivider = withDivider
             }
         }
-        
+
         public var onTouch: (() -> Void)?
         public var onTouchCheckbox: (() -> Void)?
-        
+
         public var model: Model? {
             didSet {
                 updateUI()
             }
         }
-        
+
         public var hasCheckbox: Bool = false {
             didSet {
                 UIView.animate(withDuration: 0.3) {
@@ -75,7 +75,7 @@ extension Ocean {
                 }
             }
         }
-        
+
         public var isSelected: Bool {
             get {
                 return selectCheckBox.isSelected
@@ -84,7 +84,7 @@ extension Ocean {
                 selectCheckBox.isSelected = newValue
             }
         }
-        
+
         private lazy var selectCheckBox: Ocean.CheckBox = {
             Ocean.CheckBox { view in
                 view.label = ""
@@ -95,13 +95,13 @@ extension Ocean {
                 }
             }
         }()
-        
+
         private lazy var selectCheckBoxSpacer: UIView = {
             let view = Ocean.Spacer(space: Ocean.size.spacingStackXxs)
             view.isHidden = true
             return view
         }()
-        
+
         private lazy var level1Label: UILabel = {
             UILabel { label in
                 label.font = .baseSemiBold(size: Ocean.font.fontSizeXs)
@@ -111,9 +111,9 @@ extension Ocean {
                 label.translatesAutoresizingMaskIntoConstraints = false
             }
         }()
-        
+
         private lazy var level1Spacer = Ocean.Spacer(space: Ocean.size.spacingStackXxxs)
-        
+
         private lazy var level2Label: UILabel = {
             UILabel { label in
                 label.font = .baseRegular(size: Ocean.font.fontSizeXxs)
@@ -123,9 +123,9 @@ extension Ocean {
                 label.translatesAutoresizingMaskIntoConstraints = false
             }
         }()
-        
+
         private lazy var level2Spacer = Ocean.Spacer(space: Ocean.size.spacingStackXxs)
-        
+
         private lazy var level3Label: UILabel = {
             UILabel { label in
                 label.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
@@ -135,7 +135,7 @@ extension Ocean {
                 label.translatesAutoresizingMaskIntoConstraints = false
             }
         }()
-        
+
         private lazy var level4Label: UILabel = {
             UILabel { label in
                 label.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
@@ -145,16 +145,15 @@ extension Ocean {
                 label.translatesAutoresizingMaskIntoConstraints = false
             }
         }()
-        
+
         private lazy var level4Spacer = Ocean.Spacer(space: Ocean.size.spacingStackXxs)
-        
+
         private lazy var leftContentStack: Ocean.StackView = {
             Ocean.StackView { stack in
                 stack.axis = .vertical
                 stack.distribution = .fill
                 stack.alignment = .leading
-                stack.translatesAutoresizingMaskIntoConstraints = false
-                
+
                 stack.add([
                     level4Label,
                     level4Spacer,
@@ -166,7 +165,7 @@ extension Ocean {
                 ])
             }
         }()
-        
+
         private lazy var valueLabel: UILabel = {
             UILabel { label in
                 label.font = .baseBold(size: Ocean.font.fontSizeXxs)
@@ -176,17 +175,17 @@ extension Ocean {
                 label.translatesAutoresizingMaskIntoConstraints = false
             }
         }()
-        
+
         private lazy var valueSpacer = Ocean.Spacer(space: Ocean.size.spacingStackXxxs)
-        
+
         private lazy var tagView: Ocean.Tag = {
             Ocean.Tag { view in
                 view.translatesAutoresizingMaskIntoConstraints = false
             }
         }()
-        
+
         private lazy var tagSpacer = Ocean.Spacer(space: Ocean.size.spacingStackXxxs)
-        
+
         private lazy var dateLabel: UILabel = {
             UILabel { label in
                 label.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
@@ -196,7 +195,7 @@ extension Ocean {
                 label.translatesAutoresizingMaskIntoConstraints = false
             }
         }()
-        
+
         private lazy var rightContentStack: Ocean.StackView = {
             Ocean.StackView { stack in
                 stack.axis = .vertical
@@ -211,26 +210,26 @@ extension Ocean {
                     tagSpacer,
                     dateLabel
                 ])
-                
+
                 stack.widthAnchor.constraint(greaterThanOrEqualToConstant: 125).isActive = true
             }
         }()
-        
+
         private lazy var contentStack: Ocean.StackView = {
             Ocean.StackView { stack in
                 stack.axis = .horizontal
                 stack.distribution = .fill
-                stack.alignment = .center
+                stack.alignment = .fill
                 stack.spacing = Ocean.size.spacingStackXxxs
                 stack.translatesAutoresizingMaskIntoConstraints = false
-                
+
                 stack.add([
                     selectCheckBox,
                     selectCheckBoxSpacer,
                     leftContentStack,
                     rightContentStack
                 ])
-                
+
                 stack.isLayoutMarginsRelativeArrangement = true
                 stack.layoutMargins = .init(top: Ocean.size.spacingStackXs,
                                             left: Ocean.size.spacingStackXs,
@@ -238,40 +237,41 @@ extension Ocean {
                                             right: Ocean.size.spacingStackXs)
             }
         }()
-        
+
         private lazy var divider = Ocean.Divider(widthConstraint: self.widthAnchor)
-        
+
         private lazy var mainStack: Ocean.StackView = {
             Ocean.StackView { stack in
                 stack.axis = .vertical
                 stack.distribution = .fill
+                stack.alignment = .fill
                 stack.translatesAutoresizingMaskIntoConstraints = false
-                
+
                 stack.add([
                     contentStack,
                     divider
                 ])
             }
         }()
-        
+
         public convenience init(builder: TransactionListItemBuilder) {
             self.init()
             builder(self)
             setupUI()
         }
-        
+
         private func setupUI() {
             self.backgroundColor = Ocean.color.colorInterfaceLightPure
             add(view: mainStack)
-            
+
             self.isUserInteractionEnabled = true
             self.addTapGesture(selector: #selector(tapped(sender:)))
             self.addLongPressGesture(selector: #selector(longPressed(sender:)))
         }
-        
+
         private func updateUI() {
             guard let model = self.model else { return }
-            
+
             level1Label.text = model.level1
             level1Spacer.isHidden = model.level2.isEmpty
             level2Label.text = model.level2
@@ -303,7 +303,7 @@ extension Ocean {
             dateLabel.isHidden = model.date.isEmpty
             divider.isHidden = !model.withDivider
         }
-        
+
         public func setSkeleton() {
             self.isSkeletonable = true
             level1Label.isSkeletonable = true
@@ -322,7 +322,7 @@ extension Ocean {
             contentStack.isSkeletonable = true
             mainStack.isSkeletonable = true
         }
-        
+
         @objc private func tapped(sender: UITapGestureRecognizer) {
             self.backgroundColor = Ocean.color.colorInterfaceLightPure
             onTouch?()
