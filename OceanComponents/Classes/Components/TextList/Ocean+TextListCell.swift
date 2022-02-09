@@ -229,7 +229,7 @@ extension Ocean {
             self.titleLabel.font = .baseRegular(size: Ocean.font.fontSizeXxs)
             self.titleLabel.textColor = Ocean.color.colorInterfaceDarkDown
             self.subtitleLabel.font = .baseRegular(size: Ocean.font.fontSizeXs)
-            self.subtitleLabel.textColor = Ocean.color.colorInterfaceDarkDeep
+            self.subtitleLabel.textColor = Ocean.color.colorInterfaceDarkPure
             self.subtitleLabel.numberOfLines = 0
         }
 
