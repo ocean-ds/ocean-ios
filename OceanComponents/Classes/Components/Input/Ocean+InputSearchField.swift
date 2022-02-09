@@ -23,7 +23,7 @@ extension Ocean {
         private var imageCloseView: UIImageView!
         private var hStack: Ocean.StackView!
         private var backgroundView: UIView!
-        
+
         public var placeholder: String = "" {
             didSet {
                 textField?.placeholder = placeholder
@@ -37,7 +37,7 @@ extension Ocean {
                 self.updateState()
             }
         }
-        
+
         public override var isEnabled: Bool {
             didSet {
                 self.updateState()
@@ -49,7 +49,7 @@ extension Ocean {
                 isEnabled = isActivated
             }
         }
-        
+
         public var autocorrectionType: UITextAutocorrectionType = .default {
             didSet {
                 textField?.autocorrectionType = autocorrectionType
@@ -75,7 +75,7 @@ extension Ocean {
                 }
             }
         }
-        
+
         public override func becomeFirstResponder() -> Bool {
             return textField?.becomeFirstResponder() == true
         }
@@ -89,12 +89,12 @@ extension Ocean {
         public var onBeginEditing: (() -> Void)?
 
         public var rightButton: UIButton?
-        
+
         public override init(frame: CGRect) {
             super.init(frame: frame)
             self.makeView()
         }
-        
+
         required init?(coder: NSCoder) {
             super.init(coder: coder)
             self.makeView()
@@ -121,7 +121,7 @@ extension Ocean {
             hStack.alignment = .fill
             hStack.distribution = .fill
         }
-        
+
         func makeTextField() {
             textField = UITextField()
             textField.translatesAutoresizingMaskIntoConstraints = false
@@ -151,25 +151,25 @@ extension Ocean {
             imageView.contentMode = .scaleAspectFit
             imageView.translatesAutoresizingMaskIntoConstraints = false
         }
-        
+
         func makeImageCloseView() {
             imageCloseView = UIImageView()
             imageCloseView.image = Ocean.icon.xSolid?.withRenderingMode(.alwaysTemplate)
             imageCloseView.tintColor = Ocean.color.colorInterfaceLightDeep
-            imageCloseView.contentMode = .scaleAspectFit
+            imageCloseView.contentMode = .center
             imageCloseView.translatesAutoresizingMaskIntoConstraints = false
             imageCloseView.isHidden = true
             imageCloseView.addTapGesture(target: self, selector: #selector(imageCloseTap))
         }
-        
+
         @objc func imageCloseTap() {
             textField.text = ""
             editingChanged(textField: textField)
         }
-        
+
         func updateState() {
             textField?.isEnabled = isEnabled
-    
+
             if textField?.isFirstResponder == true {
                 textField?.placeholder = ""
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
@@ -218,7 +218,7 @@ extension Ocean {
             self.makeTextField()
             self.makeImageView()
             self.makeImageCloseView()
-            
+
             backgroundView = UIView()
             backgroundView.translatesAutoresizingMaskIntoConstraints = false
             backgroundView.ocean.borderWidth.applyHairline()
@@ -231,10 +231,9 @@ extension Ocean {
             hStack.addArrangedSubview(imageView)
             hStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxs))
             hStack.addArrangedSubview(textField)
-            hStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxs))
+            hStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxxs))
             hStack.addArrangedSubview(imageCloseView)
-            hStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
-            
+
             backgroundView.addSubview(hStack)
 
             mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxxs))
@@ -254,16 +253,18 @@ extension Ocean {
             hStack.leftAnchor.constraint(equalTo: backgroundView.leftAnchor).isActive = true
             hStack.rightAnchor.constraint(equalTo: backgroundView.rightAnchor).isActive = true
             hStack.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor).isActive = true
-            
+
             imageView.heightAnchor.constraint(equalToConstant: 24).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: 24).isActive = true
+
+            imageCloseView.setConstraints((.width(Ocean.size.spacingStackMd), toView: nil))
 
             textField.text = self.text
             textField.placeholder = self.placeholder
             textField.keyboardType = self.keyboardType
             textField.autocapitalizationType = self.autocapitalizationType
             textField.autocorrectionType = self.autocorrectionType
-            
+
             updateState()
         }
 
@@ -278,7 +279,7 @@ extension Ocean {
             self.onBeginEditing?()
             updateState()
         }
-        
+
         public func textField(_ textField: UITextField,
                               shouldChangeCharactersIn range: NSRange,
                               replacementString string: String) -> Bool {

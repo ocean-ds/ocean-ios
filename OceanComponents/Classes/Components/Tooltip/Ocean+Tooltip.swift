@@ -45,6 +45,7 @@ extension Ocean {
         private var targetView = UIView()
         private var presenter = UIView()
         private var position: Position = .bottom
+        private var timer: Timer?
 
         private lazy var contentStack: Ocean.StackView = {
             let stack = Ocean.StackView()
@@ -92,6 +93,11 @@ extension Ocean {
             setupUI()
         }
 
+        public override func removeFromSuperview() {
+            super.removeFromSuperview()
+            self.timer?.invalidate()
+        }
+
         private func setupUI() {
             translatesAutoresizingMaskIntoConstraints = false
 
@@ -114,6 +120,7 @@ extension Ocean {
             [backgroundClearView, contentView].forEach({ view in
                 view.isUserInteractionEnabled = true
                 view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tooltipAction)))
+                view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(tooltipAction)))
             })
         }
 
@@ -124,6 +131,8 @@ extension Ocean {
             self.presenter = presenter
             topView.layoutIfNeeded()
             topView.addSubview(self)
+
+            self.setupTimerToClose()
 
             switch position {
             case .top:
@@ -157,6 +166,13 @@ extension Ocean {
 
             self.setNeedsLayout()
             self.layoutIfNeeded()
+        }
+
+        private func setupTimerToClose() {
+            self.timer?.invalidate()
+            self.timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { [self] _ in
+                self.removeFromSuperview()
+            }
         }
 
         @objc private func tooltipAction(_ sender: Any) {
