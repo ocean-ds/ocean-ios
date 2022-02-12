@@ -98,12 +98,25 @@ final public class TransactionListViewController : UIViewController {
                 view.hasCheckbox = !view.hasCheckbox
             }
         }
+
+        let transactionListItem6 = Ocean.TransactionListItem { view in
+            view.model = Ocean.TransactionListItem.Model(level1: "Maskel Indústria e Comércio de Colchões da Silva Sauro Industrial",
+                                                         value: 15000,
+                                                         valueStatus: .neutral,
+                                                         date: "Agendado 24 Jun 2021",
+                                                         withDivider: true)
+            view.onTouch = {
+                print("5")
+                view.hasCheckbox = !view.hasCheckbox
+            }
+        }
         
         stack.addArrangedSubview(transactionListItem1)
         stack.addArrangedSubview(transactionListItem2)
         stack.addArrangedSubview(transactionListItem3)
         stack.addArrangedSubview(transactionListItem4)
         stack.addArrangedSubview(transactionListItem5)
+        stack.addArrangedSubview(transactionListItem6)
         
         self.add(view: stack)
         
@@ -112,6 +125,7 @@ final public class TransactionListViewController : UIViewController {
         transactionListItem3.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
         transactionListItem4.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
         transactionListItem5.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
+        transactionListItem6.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
     }
     
     private func add(view: UIView) {
