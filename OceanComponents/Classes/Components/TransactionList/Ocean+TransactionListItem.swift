@@ -107,8 +107,9 @@ extension Ocean {
                 label.font = .baseSemiBold(size: Ocean.font.fontSizeXs)
                 label.textAlignment = .left
                 label.textColor = Ocean.color.colorInterfaceDarkDeep
-                label.numberOfLines = 1
+                label.numberOfLines = 2
                 label.translatesAutoresizingMaskIntoConstraints = false
+                label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
             }
         }()
 
@@ -121,6 +122,7 @@ extension Ocean {
                 label.textColor = Ocean.color.colorInterfaceDarkDown
                 label.numberOfLines = 1
                 label.translatesAutoresizingMaskIntoConstraints = false
+                label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
             }
         }()
 
@@ -133,6 +135,7 @@ extension Ocean {
                 label.textColor = Ocean.color.colorInterfaceDarkUp
                 label.numberOfLines = 1
                 label.translatesAutoresizingMaskIntoConstraints = false
+                label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
             }
         }()
 
@@ -166,6 +169,22 @@ extension Ocean {
             }
         }()
 
+        private lazy var rightContentStack: Ocean.StackView = {
+            Ocean.StackView { stack in
+                stack.axis = .vertical
+                stack.distribution = .fill
+                stack.alignment = .trailing
+
+                stack.add([
+                    valueLabel,
+                    valueSpacer,
+                    tagView,
+                    tagSpacer,
+                    dateLabel
+                ])
+            }
+        }()
+
         private lazy var valueLabel: UILabel = {
             UILabel { label in
                 label.font = .baseBold(size: Ocean.font.fontSizeXxs)
@@ -173,6 +192,7 @@ extension Ocean {
                 label.textColor = Ocean.color.colorInterfaceDarkDeep
                 label.numberOfLines = 1
                 label.translatesAutoresizingMaskIntoConstraints = false
+                label.setContentCompressionResistancePriority(.required, for: .horizontal)
             }
         }()
 
@@ -193,27 +213,12 @@ extension Ocean {
                 label.textColor = Ocean.color.colorInterfaceDarkDown
                 label.numberOfLines = 1
                 label.translatesAutoresizingMaskIntoConstraints = false
+                label.setContentCompressionResistancePriority(.required, for: .horizontal)
+                label.adjustsFontSizeToFitWidth = true
+                label.minimumScaleFactor = 0.8
             }
         }()
 
-        private lazy var rightContentStack: Ocean.StackView = {
-            Ocean.StackView { stack in
-                stack.axis = .vertical
-                stack.distribution = .fill
-                stack.alignment = .trailing
-                stack.translatesAutoresizingMaskIntoConstraints = false
-
-                stack.add([
-                    valueLabel,
-                    valueSpacer,
-                    tagView,
-                    tagSpacer,
-                    dateLabel
-                ])
-
-                stack.widthAnchor.constraint(greaterThanOrEqualToConstant: 125).isActive = true
-            }
-        }()
 
         private lazy var contentStack: Ocean.StackView = {
             Ocean.StackView { stack in
@@ -221,7 +226,6 @@ extension Ocean {
                 stack.distribution = .fill
                 stack.alignment = .fill
                 stack.spacing = Ocean.size.spacingStackXxxs
-                stack.translatesAutoresizingMaskIntoConstraints = false
 
                 stack.add([
                     selectCheckBox,
@@ -245,7 +249,6 @@ extension Ocean {
                 stack.axis = .vertical
                 stack.distribution = .fill
                 stack.alignment = .fill
-                stack.translatesAutoresizingMaskIntoConstraints = false
 
                 stack.add([
                     contentStack,
