@@ -14,11 +14,11 @@ import OceanComponents
 final public class ButtonViewController : UIViewController {
     
     @IBOutlet weak var types: UISegmentedControl!
-    @IBOutlet weak var normalOrIcon: UISegmentedControl!
+    @IBOutlet weak var normalOrIconOrModified: UISegmentedControl!
     @IBOutlet weak var unblockedOrBlocked: UISegmentedControl!
     @IBOutlet weak var states: UISegmentedControl!
     @IBOutlet weak var sizes: UISegmentedControl!
-    
+
     var buttonPrimary : Ocean.ButtonPrimary!
     var buttonSecondary : Ocean.ButtonSecondary!
     var buttonInverse : Ocean.ButtonPrimaryInverse!
@@ -35,6 +35,11 @@ final public class ButtonViewController : UIViewController {
     }
     
     private func addButton(view: UIView) {
+        self.view.subviews.forEach { view in
+            if !(view is UISegmentedControl) {
+                view.removeFromSuperview()
+            }
+        }
         self.view.addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
         self.generateConstraintsButtonBottom(view: view)
@@ -61,9 +66,9 @@ final public class ButtonViewController : UIViewController {
         button.isLoading = false
         button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
         if (self.states.selectedSegmentIndex == 1) {
-           button.isPressed = true
+            button.isPressed = true
         } else if (self.states.selectedSegmentIndex == 2) {
-           button.isEnabled = false
+            button.isEnabled = false
         }
         else if (self.states.selectedSegmentIndex == 3) {
             button.isLoading = true
@@ -83,7 +88,7 @@ final public class ButtonViewController : UIViewController {
         }
         else if (self.states.selectedSegmentIndex == 3) {
             button.isLoading = true
-            button.icon = nil
+            button.leftIcon = nil
         }
     }
     
@@ -133,14 +138,14 @@ final public class ButtonViewController : UIViewController {
             if (self.sizes.selectedSegmentIndex == 0) {
                 self.buttonPrimary = Ocean.Button.primarySM { button in
                     button.text = "Small"
-                    if (self.normalOrIcon.selectedSegmentIndex == 1) {
+                    if (self.normalOrIconOrModified.selectedSegmentIndex == 1) {
                         button.icon = Ocean.icon.plusOutline
                     }
                 }
             } else if (self.sizes.selectedSegmentIndex == 1) {
                 self.buttonPrimary = Ocean.Button.primaryMD { button in
                     button.text = "Medium"
-                    if (self.normalOrIcon.selectedSegmentIndex == 1) {
+                    if (self.normalOrIconOrModified.selectedSegmentIndex == 1) {
                         button.icon = Ocean.icon.plusOutline
                         button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
                     }
@@ -148,7 +153,7 @@ final public class ButtonViewController : UIViewController {
             } else if (self.sizes.selectedSegmentIndex == 2) {
                 self.buttonPrimary = Ocean.Button.primaryLG { button in
                     button.text = "Large"
-                    if (self.normalOrIcon.selectedSegmentIndex == 1) {
+                    if (self.normalOrIconOrModified.selectedSegmentIndex == 1) {
                         button.icon = Ocean.icon.plusOutline
                         button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
                     }
@@ -161,7 +166,7 @@ final public class ButtonViewController : UIViewController {
             if (self.sizes.selectedSegmentIndex == 0) {
                 self.buttonSecondary = Ocean.Button.secondarySM { button in
                     button.text = "Small"
-                    if (self.normalOrIcon.selectedSegmentIndex == 1) {
+                    if (self.normalOrIconOrModified.selectedSegmentIndex == 1) {
                         button.icon = Ocean.icon.plusOutline
                         button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
                     }
@@ -169,7 +174,7 @@ final public class ButtonViewController : UIViewController {
             } else if (self.sizes.selectedSegmentIndex == 1) {
                 self.buttonSecondary = Ocean.Button.secondaryMD { button in
                     button.text = "Medium"
-                    if (self.normalOrIcon.selectedSegmentIndex == 1) {
+                    if (self.normalOrIconOrModified.selectedSegmentIndex == 1) {
                         button.icon = Ocean.icon.plusOutline
                         button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
                     }
@@ -178,7 +183,7 @@ final public class ButtonViewController : UIViewController {
             } else if (self.sizes.selectedSegmentIndex == 2) {
                 self.buttonSecondary = Ocean.Button.secondaryLG { button in
                     button.text = "Large"
-                    if (self.normalOrIcon.selectedSegmentIndex == 1) {
+                    if (self.normalOrIconOrModified.selectedSegmentIndex == 1) {
                         button.icon = Ocean.icon.plusOutline
                         button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
                     }
@@ -193,7 +198,7 @@ final public class ButtonViewController : UIViewController {
             if (self.sizes.selectedSegmentIndex == 0) {
                 self.buttonInverse = Ocean.Button.primaryInverseSM { button in
                     button.text = "Small"
-                    if (self.normalOrIcon.selectedSegmentIndex == 1) {
+                    if (self.normalOrIconOrModified.selectedSegmentIndex == 1) {
                         button.icon = Ocean.icon.plusOutline
                         button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
                     }
@@ -201,7 +206,7 @@ final public class ButtonViewController : UIViewController {
             } else if (self.sizes.selectedSegmentIndex == 1) {
                 self.buttonInverse = Ocean.Button.primaryInverseMD { button in
                     button.text = "Medium"
-                    if (self.normalOrIcon.selectedSegmentIndex == 1) {
+                    if (self.normalOrIconOrModified.selectedSegmentIndex == 1) {
                         button.icon = Ocean.icon.plusOutline
                         button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
                     }
@@ -209,7 +214,7 @@ final public class ButtonViewController : UIViewController {
             } else if (self.sizes.selectedSegmentIndex == 2) {
                 self.buttonInverse = Ocean.Button.primaryInverseLG { button in
                     button.text = "Large"
-                    if (self.normalOrIcon.selectedSegmentIndex == 1) {
+                    if (self.normalOrIconOrModified.selectedSegmentIndex == 1) {
                         button.icon = Ocean.icon.plusOutline
                         button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
                     }
@@ -220,28 +225,62 @@ final public class ButtonViewController : UIViewController {
             break
         case 3: //text
             if (self.sizes.selectedSegmentIndex == 0) {
-                self.buttonText = Ocean.Button.textSM { button in
-                    button.text = "Small"
-                    if (self.normalOrIcon.selectedSegmentIndex == 1) {
-                        button.icon = Ocean.icon.plusOutline
+                switch self.normalOrIconOrModified.selectedSegmentIndex {
+                case 0,  1: // Normal, Icon
+                    self.buttonText = Ocean.Button.textSM { button in
+                        button.text = "Small"
+                        button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
+
+                        if self.normalOrIconOrModified.selectedSegmentIndex == 1 {
+                            button.leftIcon = Ocean.icon.plusOutline
+                            button.rightIcon = Ocean.icon.plusOutline
+                        }
+                    }
+                case 2: // Modified
+                    self.buttonText = Ocean.Button.textModifiedSM { button in
+                        button.text = "Small"
                         button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
                     }
+                default: break
                 }
+
             } else if (self.sizes.selectedSegmentIndex == 1) {
-                self.buttonText = Ocean.Button.textMD { button in
-                    button.text = "Medium"
-                    if (self.normalOrIcon.selectedSegmentIndex == 1) {
-                        button.icon = Ocean.icon.plusOutline
+                switch self.normalOrIconOrModified.selectedSegmentIndex {
+                case 0,  1:
+                    self.buttonText = Ocean.Button.textMD { button in
+                        button.text = "Medium"
+                        button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
+
+                        if self.normalOrIconOrModified.selectedSegmentIndex == 1 {
+                            button.leftIcon = Ocean.icon.plusOutline
+                            button.rightIcon = Ocean.icon.plusOutline
+                        }
+                    }
+                case 2:
+                    self.buttonText = Ocean.Button.textModifiedMD { button in
+                        button.text = "Medium"
                         button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
                     }
+                default: break
                 }
             } else if (self.sizes.selectedSegmentIndex == 2) {
-                self.buttonText = Ocean.Button.textLG { button in
-                    button.text = "Large"
-                    if (self.normalOrIcon.selectedSegmentIndex == 1) {
-                        button.icon = Ocean.icon.plusOutline
+                switch self.normalOrIconOrModified.selectedSegmentIndex {
+                case 0,  1:
+                    self.buttonText = Ocean.Button.textLG { button in
+                        button.text = "Large"
+                        button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
+
+                        if self.normalOrIconOrModified.selectedSegmentIndex == 1 {
+                            button.leftIcon = Ocean.icon.plusOutline
+                            button.rightIcon = Ocean.icon.plusOutline
+                        }
+                    }
+                case 2:
+                    self.buttonText = Ocean.Button.textModifiedLG { button in
+                        button.text = "Large"
                         button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
                     }
+                default: break
                 }
             }
             configButton(self.buttonText)
@@ -251,14 +290,14 @@ final public class ButtonViewController : UIViewController {
             if (self.sizes.selectedSegmentIndex == 0) {
                 self.buttonPrimaryCritical = Ocean.Button.primaryCriticalSM { button in
                     button.text = "Small"
-                    if (self.normalOrIcon.selectedSegmentIndex == 1) {
+                    if (self.normalOrIconOrModified.selectedSegmentIndex == 1) {
                         button.icon = Ocean.icon.plusOutline
                     }
                 }
             } else if (self.sizes.selectedSegmentIndex == 1) {
                 self.buttonPrimaryCritical = Ocean.Button.primaryCriticalMD { button in
                     button.text = "Medium"
-                    if (self.normalOrIcon.selectedSegmentIndex == 1) {
+                    if (self.normalOrIconOrModified.selectedSegmentIndex == 1) {
                         button.icon = Ocean.icon.plusOutline
                         button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
                     }
@@ -266,7 +305,7 @@ final public class ButtonViewController : UIViewController {
             } else if (self.sizes.selectedSegmentIndex == 2) {
                 self.buttonPrimaryCritical = Ocean.Button.primaryCriticalLG { button in
                     button.text = "Large"
-                    if (self.normalOrIcon.selectedSegmentIndex == 1) {
+                    if (self.normalOrIconOrModified.selectedSegmentIndex == 1) {
                         button.icon = Ocean.icon.plusOutline
                         button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
                     }

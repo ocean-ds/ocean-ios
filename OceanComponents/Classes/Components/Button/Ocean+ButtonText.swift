@@ -184,7 +184,7 @@ extension Ocean {
             self.layer.cornerRadius = Ocean.size.borderRadiusCircular * height
             self.translatesAutoresizingMaskIntoConstraints = false
             self.heightAnchor.constraint(equalToConstant: height).isActive = true
-            self.widthAnchor.constraint(greaterThanOrEqualToConstant: minWidth).isActive = true
+            //self.widthAnchor.constraint(greaterThanOrEqualToConstant: minWidth).isActive = true
 
             self.addTarget(self, action: #selector(pressed), for: .touchDown)
             self.addTarget(self, action: #selector(touchUpInSide), for: .touchUpInside)

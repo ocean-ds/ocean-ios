@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JZg-yn-Kg0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JZg-yn-Kg0">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -621,7 +621,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view tag="102" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fPV-8a-xrt">
-                                            <rect key="frame" x="10" y="11" width="394" height="99"/>
+                                            <rect key="frame" x="10" y="11" width="393" height="99"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" red="0.88203666710482975" green="0.88203666710482975" blue="0.88203666710482975" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </view>
@@ -639,7 +639,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view tag="102" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GKT-ku-AAk">
-                                            <rect key="frame" x="10" y="11" width="394" height="99"/>
+                                            <rect key="frame" x="10" y="11" width="393" height="99"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" red="0.88203666709999995" green="0.88203666709999995" blue="0.88203666709999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </view>
@@ -933,6 +933,7 @@
                                 <segments>
                                     <segment title="Normal"/>
                                     <segment title="Icon"/>
+                                    <segment title="Modified"/>
                                 </segments>
                                 <connections>
                                     <action selector="onValueChangedIcon:" destination="Cg8-qg-q16" eventType="valueChanged" id="Gwd-N3-rJt"/>
@@ -995,7 +996,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="4ko-ft-QHt"/>
                     <connections>
-                        <outlet property="normalOrIcon" destination="vky-v0-F99" id="p04-ve-lbF"/>
+                        <outlet property="normalOrIconOrModified" destination="vky-v0-F99" id="ceO-uw-aD9"/>
                         <outlet property="sizes" destination="mEi-MW-FaR" id="tiG-Ru-QVY"/>
                         <outlet property="states" destination="em1-OU-fxW" id="W4P-qU-m4d"/>
                         <outlet property="types" destination="P0Z-Kw-9nG" id="hqN-P7-fC0"/>
