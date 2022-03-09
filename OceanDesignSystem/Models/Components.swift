@@ -298,7 +298,7 @@ struct TextButtons {
     }
     
     static let textLGIcon = Ocean.Button.textLG { button in
-        button.icon = Ocean.icon.plusOutline
+        button.leftIcon = Ocean.icon.plusOutline
     }
     static let textBlockedLG = Ocean.Button.textBlockedLG { button in
         button.text = "Large"
