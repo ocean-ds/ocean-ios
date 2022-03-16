@@ -23,6 +23,7 @@ extension Ocean {
             didSet {
                 textLabel?.text = label
                 textLabel?.isHidden = label.isEmpty
+                textLabel?.numberOfLines = 0
             }
         }
 
@@ -127,7 +128,7 @@ extension Ocean {
             radioStack = Ocean.StackView()
             radioStack.translatesAutoresizingMaskIntoConstraints = false
             radioStack.axis = .horizontal
-            radioStack.alignment = .center
+            radioStack.alignment = .top
             radioStack.distribution = .fill
             mainStack.addArrangedSubview(radioStack)
 
@@ -159,7 +160,7 @@ extension Ocean {
             }
 
             radioStack.addArrangedSubview(radioBkgView)
-            radioStack.addArrangedSubview(Ocean.Spacer(space: Ocean.size.spacingInsetXxs))
+            radioStack.addArrangedSubview(Ocean.Spacer(space: Ocean.size.spacingInsetXs))
             radioStack.addArrangedSubview(textLabel)
 
             self.addSubview(mainStack)
