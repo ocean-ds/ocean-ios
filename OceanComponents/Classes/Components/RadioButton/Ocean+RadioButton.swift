@@ -18,13 +18,25 @@ extension Ocean {
         private var radioBkgView: UIControl!
         private var radioStack: Ocean.StackView!
         private var textLabel: UILabel!
+        private var errorLabel: UILabel!
 
         public var label: String = "" {
             didSet {
                 textLabel?.text = label
                 textLabel?.isHidden = label.isEmpty
+                textLabel?.numberOfLines = 0
             }
         }
+
+        private let errorEmpty = "..."
+
+        public var errorMessage: String = "" {
+            didSet {
+                errorLabel?.text = errorMessage.isEmpty ? errorEmpty : errorMessage
+                updateState()
+            }
+        }
+
 
         public var isInteractionEnabled: Bool = true {
             didSet {
@@ -111,12 +123,28 @@ extension Ocean {
                 changeToChecked()
             } else {
                 changeToUnchecked()
+                if let errorText = errorLabel?.text, errorText != errorEmpty {
+                    changeToError()
+                }
             }
 
             textLabel.textColor = isEnabled ? Ocean.color.colorInterfaceDarkDown : Ocean.color.colorInterfaceLightDeep
         }
 
+        private func makeLabelError() {
+            errorLabel = UILabel()
+            errorLabel.translatesAutoresizingMaskIntoConstraints = false
+            errorLabel.font = UIFont(
+                name: Ocean.font.fontFamilyBaseWeightRegular,
+                size: Ocean.font.fontSizeXxxs)
+            errorLabel.textColor = Ocean.color.colorStatusNegativePure
+            errorLabel.text = errorEmpty
+            errorLabel.isHidden = true
+        }
+
         func makeView() {
+            makeLabelError()
+
             mainStack = Ocean.StackView()
             mainStack.translatesAutoresizingMaskIntoConstraints = false
             mainStack.axis = .vertical
@@ -127,9 +155,12 @@ extension Ocean {
             radioStack = Ocean.StackView()
             radioStack.translatesAutoresizingMaskIntoConstraints = false
             radioStack.axis = .horizontal
-            radioStack.alignment = .center
+            radioStack.alignment = .top
             radioStack.distribution = .fill
-            mainStack.addArrangedSubview(radioStack)
+
+            mainStack.add([radioStack,
+                           Ocean.Spacer(space: Ocean.size.spacingInsetXs),
+                           errorLabel])
 
             radioBkgView = UIControl()
             radioBkgView.translatesAutoresizingMaskIntoConstraints = false
@@ -159,7 +190,7 @@ extension Ocean {
             }
 
             radioStack.addArrangedSubview(radioBkgView)
-            radioStack.addArrangedSubview(Ocean.Spacer(space: Ocean.size.spacingInsetXxs))
+            radioStack.addArrangedSubview(Ocean.Spacer(space: Ocean.size.spacingInsetXs))
             radioStack.addArrangedSubview(textLabel)
 
             self.addSubview(mainStack)
@@ -173,6 +204,9 @@ extension Ocean {
         }
 
         private func changeToChecked() {
+            errorLabel?.text = errorEmpty
+            errorLabel?.isHidden = true
+
             changeForegroundCircle(path: foregroundShrinkPath)
             let color = isEnabled ? Ocean.color.colorComplementaryPure : Ocean.color.colorInterfaceLightDown
             changeShapeColorOf(layer: backgroundCircleLayer, color: color)
@@ -180,6 +214,8 @@ extension Ocean {
         }
 
         private func changeToUnchecked() {
+            errorLabel?.isHidden = true
+
             changeForegroundCircle(path: foregroundExpandPath)
             let backgroundCircleColor = isEnabled ? Ocean.color.colorInterfaceDarkUp : Ocean.color.colorInterfaceLightDown
             changeShapeColorOf(layer: backgroundCircleLayer, color: backgroundCircleColor)
@@ -187,6 +223,16 @@ extension Ocean {
             if let foregroundCircleColor = isEnabled ? Ocean.color.colorInterfaceLightPure : backgroundColor {
                 changeShapeColorOf(layer: foregroundCircleLayer, color: foregroundCircleColor)
             }
+
+            radioBkgView.isUserInteractionEnabled = self.isInteractionEnabled
+        }
+
+        private func changeToError() {
+            errorLabel?.isHidden = false
+
+            changeForegroundCircle(path: foregroundExpandPath)
+            let backgroundCircleColor = Ocean.color.colorStatusNegativePure
+            changeShapeColorOf(layer: backgroundCircleLayer, color: backgroundCircleColor)
 
             radioBkgView.isUserInteractionEnabled = self.isInteractionEnabled
         }
