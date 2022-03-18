@@ -12,7 +12,7 @@ import OceanComponents
 
 class ComponentsViewController: UITableViewController {
     var designSystemComponentsTypeSelected : DesignSystemComponentsType!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -88,6 +88,8 @@ class ComponentsViewController: UITableViewController {
             self.present(CardViewController(), animated: true, completion: nil)
         case .TransactionList:
             self.present(TransactionListViewController(), animated: true, completion: nil)
+        case .FloatVerticalMenuList:
+            self.navigationController?.pushViewController(FloatVerticalMenuListViewController(), animated: true)
         case .CardContent:
             self.present(CardContentViewController(), animated: true, completion: nil)
         case .Subheader:

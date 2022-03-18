@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UIImage {
+public extension UIImage {
     func tinted(with color: UIColor) -> UIImage? {
         defer { UIGraphicsEndImageContext() }
         UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
