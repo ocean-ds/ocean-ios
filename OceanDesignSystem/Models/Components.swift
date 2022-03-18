@@ -39,6 +39,7 @@ struct DSComponents {
         "TextList",
         "Tooltip",
         "TransactionList",
+        "FloatVerticalMenuList",
         "Typography"
     ]
 }
