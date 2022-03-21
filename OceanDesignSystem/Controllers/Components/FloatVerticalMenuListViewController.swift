@@ -30,7 +30,7 @@ final public class FloatVerticalMenuListViewController: UIViewController, OceanN
     }()
 
     public override func viewDidLoad() {
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = Ocean.color.colorBrandPrimaryUp
         self.navigationController?.navigationBar.isHidden = false
         self.setupNavBar()
     }

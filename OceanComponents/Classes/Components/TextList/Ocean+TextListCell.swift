@@ -42,6 +42,24 @@ extension Ocean {
             }
         }
 
+        public var tagTitle: String = "" {
+            didSet {
+                updateUI()
+            }
+        }
+
+        public var tagImage: UIImage? = nil {
+            didSet {
+                updateUI()
+            }
+        }
+
+        public var tagStatus: Tag.Status = .warning {
+            didSet {
+                updateUI()
+            }
+        }
+
         public var image: UIImage? = nil {
             didSet {
                 updateUI()
@@ -49,6 +67,12 @@ extension Ocean {
         }
 
         public var arrow: Bool = false {
+            didSet {
+                updateUI()
+            }
+        }
+
+        public var arrowTintColor: UIColor = Ocean.color.colorInterfaceDarkDown {
             didSet {
                 updateUI()
             }
@@ -144,7 +168,7 @@ extension Ocean {
         private lazy var arrowImageView: UIImageView = {
             let view = UIImageView()
             view.translatesAutoresizingMaskIntoConstraints = false
-            view.image = Ocean.icon.chevronRightSolid
+            view.image = Ocean.icon.chevronRightSolid?.withRenderingMode(.alwaysTemplate)
             view.contentMode = .scaleAspectFit
             return view
         }()
@@ -172,11 +196,13 @@ extension Ocean {
                 stack.axis = .vertical
                 stack.distribution = .fill
                 stack.alignment = .leading
+                stack.spacing = Ocean.size.spacingInsetXxs
 
                 stack.add([
                     infoStackTitle,
                     subtitleLabel,
-                    textLabel
+                    textLabel,
+                    tagView
                 ])
             }
         }()
@@ -205,6 +231,12 @@ extension Ocean {
             }
         }()
 
+        private lazy var tagView: Ocean.Tag = {
+            Ocean.Tag { view in
+                view.translatesAutoresizingMaskIntoConstraints = false
+            }
+        }()
+        
         public convenience init(type: TextListType = .normal, builder: TextListCellBuilder = nil) {
             self.init()
             if type == .inverse {
@@ -257,11 +289,16 @@ extension Ocean {
             subtitleLabel.text = subtitle
             textLabel.isHidden = text.isEmpty
             textLabel.text = text
+            tagView.title = tagTitle
+            tagView.image = tagImage
+            tagView.status = tagStatus
+            tagView.isHidden = tagTitle.isEmpty
             iconView.image = image
             roundedIconViewSpacer.isHidden = imageNotExist
             roundedIconView.isHidden = imageNotExist
             arrowImageViewSpacer.isHidden = !arrow
             arrowImageView.isHidden = !arrow
+            arrowImageView.tintColor = arrowTintColor
             badgeView.isHidden = !badge
             button.isHidden = true
 
