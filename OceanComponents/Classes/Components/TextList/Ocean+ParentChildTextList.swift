@@ -14,7 +14,26 @@ extension Ocean {
     public class ParentChildTextList: UIView, UITableViewDataSource, UITableViewDelegate {
         public typealias ParentChildTextListBuilder = ((ParentChildTextList) -> Void)?
 
-        public struct Model {
+        public struct ParentModel {
+            public let title: String
+            public let subtitle: String
+            public let image: UIImage?
+
+            public init(title: String,
+                        subtitle: String,
+                        image: UIImage? = nil) {
+                self.title = title
+                self.subtitle = subtitle
+                self.image = image
+            }
+
+            public static func empty() -> ParentModel {
+                return ParentModel(title: "",
+                                   subtitle: "")
+            }
+        }
+
+        public struct ChildModel {
             public let title: String
             public let subtitle: String
             public let image: UIImage?
@@ -35,11 +54,6 @@ extension Ocean {
                 self.onTouch = onTouch
                 self.buttons = buttons
             }
-
-            public static func empty() -> Model {
-                return Model(title: "",
-                             subtitle: "")
-            }
         }
 
         public struct ButtonModel {
@@ -47,15 +61,21 @@ extension Ocean {
             public let image: UIImage?
             public let backgroundColor: UIColor?
             public let onTouch: (() -> Void)?
+            public let onSwipe: (() -> Void)?
+            public let onLongPress: (() -> Void)?
 
             public init(title: String,
                         image: UIImage? = nil,
                         backgroundColor: UIColor? = nil,
-                        onTouch: (() -> Void)? = nil) {
+                        onTouch: (() -> Void)? = nil,
+                        onSwipe: (() -> Void)? = nil,
+                        onLongPress: (() -> Void)? = nil) {
                 self.title = title
                 self.image = image
                 self.backgroundColor = backgroundColor
                 self.onTouch = onTouch
+                self.onSwipe = onSwipe
+                self.onLongPress = onLongPress
             }
         }
 
@@ -69,13 +89,13 @@ extension Ocean {
             }
         }
 
-        public var parent: Model = .empty() {
+        public var parent: ParentModel = .empty() {
             didSet {
                 updateUI()
             }
         }
 
-        public var children: [Model] = [] {
+        public var children: [ChildModel] = [] {
             didSet {
                 updateUI()
             }
@@ -114,9 +134,7 @@ extension Ocean {
             return tableView
         }()
 
-        private lazy var divider = Ocean.Divider(widthConstraint: self.widthAnchor)
-
-        public lazy var heightConstraint: NSLayoutConstraint = {
+        private lazy var heightConstraint: NSLayoutConstraint = {
             self.heightAnchor.constraint(equalToConstant: ParentChildTextListParentCell.Constants.height)
         }()
 
@@ -135,7 +153,7 @@ extension Ocean {
         }
 
         private func setupUI() {
-            self.addSubviews(parentTextList, tableView, divider)
+            self.addSubviews(parentTextList, tableView)
             parentTextList.setConstraints(([.topToTop(0),
                                             .leadingToLeading(0),
                                             .trailingToTrailing(0)], toView: self))
@@ -143,7 +161,6 @@ extension Ocean {
                                      ([.leadingToLeading(0),
                                        .trailingToTrailing(0),
                                        .bottomToBottom(0)], toView: self))
-            divider.setConstraints(([.bottomToBottom(0)], toView: self))
             heightConstraint.isActive = true
         }
 
@@ -218,6 +235,7 @@ extension Ocean {
                     buttons.forEach { button in
                         let action = UIAction(title: button.title,
                                               image: button.image) { _ in
+                            button.onLongPress?()
                             button.onTouch?()
                         }
                         actions.append(action)
@@ -238,6 +256,7 @@ extension Ocean {
                 buttons.forEach { button in
                     let action = UIContextualAction(style: .normal,
                                                     title: button.title) { _, _, _ in
+                        button.onSwipe?()
                         button.onTouch?()
                     }
                     action.image = button.image
