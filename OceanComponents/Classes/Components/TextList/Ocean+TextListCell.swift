@@ -54,6 +54,12 @@ extension Ocean {
             }
         }
 
+        public var swipe: Bool = false {
+            didSet {
+                updateUI()
+            }
+        }
+
         public var badge: Bool = false {
             didSet {
                 updateUI()
@@ -107,7 +113,9 @@ extension Ocean {
                     arrowImageViewSpacer,
                     arrowImageView,
                     button,
-                    Ocean.Spacer(space: Ocean.size.spacingStackXs)
+                    Ocean.Spacer(space: Ocean.size.spacingStackXs),
+                    swipeImageView,
+                    swipeImageViewSpacer
                 ])
             }
         }()
@@ -148,6 +156,14 @@ extension Ocean {
             view.contentMode = .scaleAspectFit
             return view
         }()
+
+        private lazy var swipeImageView: UIImageView = {
+            let view = UIImageView()
+            view.image = Ocean.icon.swipe
+            return view
+        }()
+
+        private lazy var swipeImageViewSpacer = Ocean.Spacer(space: Ocean.size.spacingStackXxs)
 
         private lazy var badgeView = Ocean.Badge.text()
 
@@ -262,6 +278,8 @@ extension Ocean {
             roundedIconView.isHidden = imageNotExist
             arrowImageViewSpacer.isHidden = !arrow
             arrowImageView.isHidden = !arrow
+            swipeImageView.isHidden = !swipe
+            swipeImageViewSpacer.isHidden = !swipe
             badgeView.isHidden = !badge
             button.isHidden = true
 
