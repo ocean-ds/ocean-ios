@@ -136,6 +136,17 @@ public extension OceanNavigationBar {
                                                            style: .plain,
                                                            target: self, action: action)
     }
+
+    func addRightBarButtonItem(icon: UIImage? = Ocean.icon.dotsVerticalOutline,
+                               icontTintColor: UIColor = Ocean.color.colorBrandPrimaryPure,
+                               onTouch: Selector) {
+        let image = icon?.tinted(with: icontTintColor)
+        let barButtonItem = OceanBarButtonItem(image: image,
+                                               style: .plain,
+                                               target: self, action: nil)
+        barButtonItem.action = onTouch
+        navigationItem.rightBarButtonItem = barButtonItem
+    }
     
     func addOptionsButton(options: [OceanNavigationBarOption]) {
         let image = Ocean.icon.dotsVerticalOutline?.tinted(with: navigationTintColor)
