@@ -45,20 +45,6 @@ extension Ocean {
 
         public var onTouch: (() -> Void)?
 
-        private lazy var mainStack: Ocean.StackView = {
-            Ocean.StackView { stack in
-                stack.axis = .vertical
-                stack.distribution = .fill
-
-                stack.add([
-                    contentStack
-                ])
-
-                stack.setMargins(top: Ocean.size.spacingStackXs,
-                                 bottom: Ocean.size.spacingStackXs)
-            }
-        }()
-
         private lazy var contentStack: Ocean.StackView = {
             Ocean.StackView { stack in
                 stack.axis = .horizontal
@@ -119,6 +105,20 @@ extension Ocean {
             Ocean.Typography.description { label in
                 label.textColor = Ocean.color.colorBrandPrimaryDown
                 label.numberOfLines = 1
+            }
+        }()
+
+        private lazy var mainStack: Ocean.StackView = {
+            Ocean.StackView { stack in
+                stack.axis = .vertical
+                stack.distribution = .fill
+
+                stack.add([
+                    contentStack
+                ])
+
+                stack.setMargins(top: Ocean.size.spacingStackXs,
+                                 bottom: Ocean.size.spacingStackXs)
             }
         }()
 

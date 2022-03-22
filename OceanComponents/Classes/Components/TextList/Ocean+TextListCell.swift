@@ -122,29 +122,10 @@ extension Ocean {
 
         private lazy var roundedIconViewSpacer = Ocean.Spacer(space: Ocean.size.spacingStackXs)
 
-        private lazy var roundedIconView: UIView = {
-            let view = UIView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.clipsToBounds = true
-            view.layer.cornerRadius = Constants.roundedViewHeightWidth / 2
-            view.backgroundColor = Ocean.color.colorInterfaceLightUp
-            view.addSubview(iconView)
-
-            NSLayoutConstraint.activate([
-                view.heightAnchor.constraint(equalToConstant: Constants.roundedViewHeightWidth),
-                view.widthAnchor.constraint(equalToConstant: Constants.roundedViewHeightWidth),
-                iconView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-                iconView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-            ])
-
-            return view
-        }()
-
-        private lazy var iconView: UIImageView = {
-            let view = UIImageView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.tintColor = Ocean.color.colorBrandPrimaryDown
-            return view
+        private lazy var roundedIconView: Ocean.RoundedIcon = {
+            Ocean.RoundedIcon { view in
+                view.roundedBackgroundColor = Ocean.color.colorInterfaceLightUp
+            }
         }()
 
         private lazy var arrowImageViewSpacer = Ocean.Spacer(space: Ocean.size.spacingStackXs)
@@ -273,7 +254,7 @@ extension Ocean {
             subtitleLabel.text = subtitle
             textLabel.isHidden = text.isEmpty
             textLabel.text = text
-            iconView.image = image
+            roundedIconView.image = image
             roundedIconViewSpacer.isHidden = imageNotExist
             roundedIconView.isHidden = imageNotExist
             arrowImageViewSpacer.isHidden = !arrow
@@ -320,7 +301,7 @@ extension Ocean {
             self.mainStack.isSkeletonable = true
             self.contentStack.isSkeletonable = true
             self.roundedIconView.isSkeletonable = true
-            self.iconView.isSkeletonable = true
+            self.roundedIconView.isSkeletonable = true
             self.infoStackTitle.isSkeletonable = true
             self.infoStack.isSkeletonable = true
             self.titleLabel.isSkeletonable = true

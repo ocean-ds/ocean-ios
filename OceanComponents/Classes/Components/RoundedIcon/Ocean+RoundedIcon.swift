@@ -52,6 +52,7 @@ extension Ocean {
             let view = UIImageView()
             view.translatesAutoresizingMaskIntoConstraints = false
             view.tintColor = Ocean.color.colorBrandPrimaryDown
+            view.isSkeletonable = true
             return view
         }()
 
@@ -71,10 +72,11 @@ extension Ocean {
 
         private func setupUI() {
             self.add(view: roundedIconView)
+            self.isSkeletonable = true
         }
 
         private func updateUI() {
-            iconView.image = image?.withRenderingMode(.alwaysTemplate)
+            iconView.image = image
             roundedIconView.backgroundColor = roundedBackgroundColor ?? Ocean.color.colorInterfaceLightUp
         }
     }
