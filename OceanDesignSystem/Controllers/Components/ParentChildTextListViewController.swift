@@ -15,8 +15,7 @@ final public class ParentChildTextListViewController : UIViewController {
     let parentChildTextList = Ocean.ParentChildTextList { parentChild in
         parentChild.parent = .init(title: "Title 1",
                                    subtitle: "Description 1",
-                                   image: Ocean.icon.documentSolid,
-                                   swipe: false)
+                                   image: Ocean.icon.documentSolid)
         parentChild.children = [.init(title: "Item 1",
                                       subtitle: "",
                                       image: Ocean.icon.documentSolid,
