@@ -98,6 +98,8 @@ class ComponentsViewController: UITableViewController {
             self.present(StepViewController(), animated: true, completion: nil)
         case .Chips:
             self.present(ChipsViewController(), animated: true, completion: nil)
+        case .ParentChildTextList:
+            self.present(ParentChildTextListViewController(), animated: true, completion: nil)
         default:
             performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }
