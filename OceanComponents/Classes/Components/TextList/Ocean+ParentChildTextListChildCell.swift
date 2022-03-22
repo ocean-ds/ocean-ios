@@ -49,17 +49,13 @@ extension Ocean {
             Ocean.StackView { stack in
                 stack.axis = .vertical
                 stack.distribution = .fill
-                stack.translatesAutoresizingMaskIntoConstraints = false
 
                 stack.add([
                     contentStack
                 ])
 
-                stack.isLayoutMarginsRelativeArrangement = true
-                stack.layoutMargins = .init(top: Ocean.size.spacingStackXs,
-                                            left: 0,
-                                            bottom: Ocean.size.spacingStackXs,
-                                            right: 0)
+                stack.setMargins(top: Ocean.size.spacingStackXs,
+                                 bottom: Ocean.size.spacingStackXs)
             }
         }()
 
@@ -68,7 +64,6 @@ extension Ocean {
                 stack.axis = .horizontal
                 stack.distribution = .fill
                 stack.alignment = .center
-                stack.translatesAutoresizingMaskIntoConstraints = false
 
                 stack.add([
                     Ocean.Spacer(space: Ocean.size.spacingStackXs),
@@ -84,29 +79,10 @@ extension Ocean {
 
         private lazy var roundedIconViewSpacer = Ocean.Spacer(space: Ocean.size.spacingStackXs)
 
-        private lazy var roundedIconView: UIView = {
-            let view = UIView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.clipsToBounds = true
-            view.layer.cornerRadius = Constants.roundedViewHeightWidth / 2
-            view.backgroundColor = Ocean.color.colorInterfaceLightPure
-            view.addSubview(iconView)
-
-            NSLayoutConstraint.activate([
-                view.heightAnchor.constraint(equalToConstant: Constants.roundedViewHeightWidth),
-                view.widthAnchor.constraint(equalToConstant: Constants.roundedViewHeightWidth),
-                iconView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-                iconView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-            ])
-
-            return view
-        }()
-
-        private lazy var iconView: UIImageView = {
-            let view = UIImageView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.tintColor = Ocean.color.colorBrandPrimaryDown
-            return view
+        private lazy var roundedIconView: Ocean.RoundedIcon = {
+            Ocean.RoundedIcon { view in
+                view.roundedBackgroundColor = Ocean.color.colorInterfaceLightPure
+            }
         }()
 
         private lazy var swipeImageView: UIImageView = {
@@ -129,10 +105,6 @@ extension Ocean {
                     subtitleLabel
                 ])
             }
-        }()
-
-        private lazy var button: UIButton = {
-            UIButton(frame: .zero)
         }()
 
         private lazy var titleLabel: UILabel = {
@@ -173,7 +145,7 @@ extension Ocean {
             titleLabel.text = title
             subtitleLabel.isHidden = subtitle.isEmpty
             subtitleLabel.text = subtitle
-            iconView.image = image?.withRenderingMode(.alwaysTemplate)
+            roundedIconView.image = image?.withRenderingMode(.alwaysTemplate)
             roundedIconViewSpacer.isHidden = imageNotExist
             roundedIconView.isHidden = imageNotExist
             swipeImageView.isHidden = !swipe
@@ -184,8 +156,6 @@ extension Ocean {
             self.isSkeletonable = true
             self.mainStack.isSkeletonable = true
             self.contentStack.isSkeletonable = true
-            self.iconView.isSkeletonable = true
-            self.iconView.isSkeletonable = true
             self.infoStack.isSkeletonable = true
             self.titleLabel.isSkeletonable = true
             self.subtitleLabel.isSkeletonable = true
