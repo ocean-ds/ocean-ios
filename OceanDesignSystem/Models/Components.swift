@@ -28,6 +28,7 @@ struct DSComponents {
         "Input",
         "NavigationBar",
         "OptionCard",
+        "ParentChildTextList",
         "ProgressIndicator",
         "RadioButton",
         "Shortcut",
