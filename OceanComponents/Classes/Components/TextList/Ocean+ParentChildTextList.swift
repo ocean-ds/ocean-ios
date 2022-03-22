@@ -19,17 +19,20 @@ extension Ocean {
             public let subtitle: String
             public let image: UIImage?
             public let swipe: Bool
+            public let onTouch: (() -> Void)?
             public let buttons: [ButtonModel]
 
             public init(title: String,
                         subtitle: String,
                         image: UIImage? = nil,
                         swipe: Bool = false,
+                        onTouch: (() -> Void)? = nil,
                         buttons: [ButtonModel] = []) {
                 self.title = title
                 self.subtitle = subtitle
                 self.image = image
                 self.swipe = swipe
+                self.onTouch = onTouch
                 self.buttons = buttons
             }
 
@@ -184,9 +187,6 @@ extension Ocean {
             cell.subtitle = child.subtitle
             cell.image = child.image
             cell.swipe = child.swipe
-            cell.onTouch = {
-                print("tap")
-            }
             return cell
         }
 
@@ -201,7 +201,8 @@ extension Ocean {
         }
 
         public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+            let child = self.children[indexPath.row]
+            child.onTouch?()
         }
 
         @available(iOS 13.0, *)

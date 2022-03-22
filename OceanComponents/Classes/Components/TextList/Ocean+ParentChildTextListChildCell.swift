@@ -43,8 +43,6 @@ extension Ocean {
             }
         }
 
-        public var onTouch: (() -> Void)?
-
         private lazy var mainStack: Ocean.StackView = {
             Ocean.StackView { stack in
                 stack.axis = .vertical
@@ -133,7 +131,6 @@ extension Ocean {
 
         private func setupUI() {
             self.contentView.add(view: mainStack)
-            self.contentView.addTapGesture(target: self, selector: #selector(viewTapped))
             self.contentView.setConstraints(([.width(UIScreen.main.bounds.width),
                                               .height(Constants.height)], toView: nil))
             self.selectionStyle = .none
@@ -159,10 +156,6 @@ extension Ocean {
             self.infoStack.isSkeletonable = true
             self.titleLabel.isSkeletonable = true
             self.subtitleLabel.isSkeletonable = true
-        }
-
-        @objc func viewTapped() {
-            self.onTouch?()
         }
     }
 }
