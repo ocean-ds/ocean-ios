@@ -18,13 +18,16 @@ extension Ocean {
             public let title: String
             public let subtitle: String
             public let image: UIImage?
+            public let onTouch: (() -> Void)?
 
             public init(title: String,
                         subtitle: String,
-                        image: UIImage? = nil) {
+                        image: UIImage? = nil,
+                        onTouch: (() -> Void)? = nil) {
                 self.title = title
                 self.subtitle = subtitle
                 self.image = image
+                self.onTouch = onTouch
             }
 
             public static func empty() -> ParentModel {
@@ -39,20 +42,23 @@ extension Ocean {
             public let image: UIImage?
             public let swipe: Bool
             public let onTouch: (() -> Void)?
-            public let buttons: [ButtonModel]
+            public let buttonsSwipe: [ButtonModel]
+            public let buttonsLongpress: [ButtonModel]
 
             public init(title: String,
                         subtitle: String,
                         image: UIImage? = nil,
                         swipe: Bool = false,
                         onTouch: (() -> Void)? = nil,
-                        buttons: [ButtonModel] = []) {
+                        buttonsSwipe: [ButtonModel] = [],
+                        buttonsLongpress: [ButtonModel] = []) {
                 self.title = title
                 self.subtitle = subtitle
                 self.image = image
                 self.swipe = swipe
                 self.onTouch = onTouch
-                self.buttons = buttons
+                self.buttonsSwipe = buttonsSwipe
+                self.buttonsLongpress = buttonsLongpress
             }
         }
 
@@ -61,21 +67,18 @@ extension Ocean {
             public let image: UIImage?
             public let backgroundColor: UIColor?
             public let onTouch: (() -> Void)?
-            public let onSwipe: (() -> Void)?
-            public let onLongPress: (() -> Void)?
+            public let onAction: (() -> Void)?
 
             public init(title: String,
                         image: UIImage? = nil,
                         backgroundColor: UIColor? = nil,
                         onTouch: (() -> Void)? = nil,
-                        onSwipe: (() -> Void)? = nil,
-                        onLongPress: (() -> Void)? = nil) {
+                        onAction: (() -> Void)? = nil) {
                 self.title = title
                 self.image = image
                 self.backgroundColor = backgroundColor
                 self.onTouch = onTouch
-                self.onSwipe = onSwipe
-                self.onLongPress = onLongPress
+                self.onAction = onAction
             }
         }
 
@@ -101,10 +104,17 @@ extension Ocean {
             }
         }
 
+        public private(set) var height: CGFloat = ParentChildTextListParentCell.Constants.height {
+            didSet {
+                self.heightConstraint.constant = height
+            }
+        }
+
         private lazy var parentTextList: Ocean.ParentChildTextListParentCell = {
-            Ocean.ParentChildTextListParentCell { parent in
-                parent.onTouch = {
+            Ocean.ParentChildTextListParentCell { parentTextList in
+                parentTextList.onTouch = {
                     self.state = self.state == .collapsed ? .expanded : .collapsed
+                    self.parent.onTouch?()
                 }
             }
         }()
@@ -134,7 +144,7 @@ extension Ocean {
             return tableView
         }()
 
-        private lazy var heightConstraint: NSLayoutConstraint = {
+        public lazy var heightConstraint: NSLayoutConstraint = {
             self.heightAnchor.constraint(equalToConstant: ParentChildTextListParentCell.Constants.height)
         }()
 
@@ -177,12 +187,12 @@ extension Ocean {
             case .collapsed:
                 UIView.animate(withDuration: 0.3) {
                     self.parentTextList.arrowTransform = CGAffineTransform(rotationAngle: 0)
-                    self.heightConstraint.constant = ParentChildTextListParentCell.Constants.height
+                    self.height = ParentChildTextListParentCell.Constants.height
                 }
             case .expanded:
                 UIView.animate(withDuration: 0.3) {
                     self.parentTextList.arrowTransform = CGAffineTransform(rotationAngle: (180.0 * .pi) / 180.0)
-                    self.heightConstraint.constant = ParentChildTextListParentCell.Constants.height + ParentChildTextListChildCell.Constants.height * CGFloat(self.children.count)
+                    self.height = ParentChildTextListParentCell.Constants.height + ParentChildTextListChildCell.Constants.height * CGFloat(self.children.count)
                 }
             }
         }
@@ -227,7 +237,7 @@ extension Ocean {
             _ tableView: UITableView,
             contextMenuConfigurationForRowAt indexPath: IndexPath,
             point: CGPoint) -> UIContextMenuConfiguration? {
-                let buttons = self.children[indexPath.row].buttons
+                let buttons = self.children[indexPath.row].buttonsLongpress
                 if buttons.isEmpty { return nil }
 
                 return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
@@ -235,7 +245,7 @@ extension Ocean {
                     buttons.forEach { button in
                         let action = UIAction(title: button.title,
                                               image: button.image) { _ in
-                            button.onLongPress?()
+                            button.onAction?()
                             button.onTouch?()
                         }
                         actions.append(action)
@@ -249,14 +259,14 @@ extension Ocean {
         public func tableView(
             _ tableView: UITableView,
             trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-                let buttons = self.children[indexPath.row].buttons
+                let buttons = self.children[indexPath.row].buttonsSwipe
                 if buttons.isEmpty { return nil }
 
                 var actions: [UIContextualAction] = []
                 buttons.forEach { button in
                     let action = UIContextualAction(style: .normal,
                                                     title: button.title) { _, _, _ in
-                        button.onSwipe?()
+                        button.onAction?()
                         button.onTouch?()
                     }
                     action.image = button.image
