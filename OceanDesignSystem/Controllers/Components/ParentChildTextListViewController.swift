@@ -21,20 +21,20 @@ final public class ParentChildTextListViewController : UIViewController {
                                       image: Ocean.icon.documentSolid,
                                       swipe: true,
                                       onTouch: { print("Tap Item 1") },
-                                      buttons: [.init(title: "Opcao 1",
-                                                      image: Ocean.icon.documentSolid,
-                                                      backgroundColor: .blue)]),
+                                      buttonsSwipe: [.init(title: "Opcao 1",
+                                                           image: Ocean.icon.documentSolid,
+                                                           backgroundColor: .blue)]),
                                 .init(title: "Item 2",
                                       subtitle: "Item Description",
                                       image: Ocean.icon.documentSolid,
                                       swipe: true,
                                       onTouch: { print("Tap Item 2") },
-                                      buttons: [.init(title: "Opcao 1",
-                                                      image: Ocean.icon.documentSolid,
-                                                      backgroundColor: .blue),
-                                                .init(title: "Opcao 2",
-                                                      image: Ocean.icon.documentSolid,
-                                                      backgroundColor: .gray)])]
+                                      buttonsLongpress: [.init(title: "Opcao 1",
+                                                               image: Ocean.icon.documentSolid,
+                                                               backgroundColor: .blue),
+                                                        .init(title: "Opcao 2",
+                                                              image: Ocean.icon.documentSolid,
+                                                              backgroundColor: .gray)])]
     }
 
     public override func viewDidLoad() {
