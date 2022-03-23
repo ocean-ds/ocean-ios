@@ -31,7 +31,8 @@ final public class ParentChildTextListViewController : UIViewController {
                                       onTouch: { print("Tap Item 2") },
                                       buttonsLongpress: [.init(title: "Opcao 1",
                                                                image: Ocean.icon.documentSolid,
-                                                               backgroundColor: .blue),
+                                                               backgroundColor: .blue,
+                                                               isDestructive: true),
                                                         .init(title: "Opcao 2",
                                                               image: Ocean.icon.documentSolid,
                                                               backgroundColor: .gray)])]

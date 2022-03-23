@@ -13,7 +13,7 @@ import SkeletonView
 extension Ocean {
     public class ParentChildTextListChildCell: UITableViewCell {
         struct Constants {
-            static let height: CGFloat = 66
+            static let height: CGFloat = 68
             static let roundedViewHeightWidth: CGFloat = 40
         }
 
