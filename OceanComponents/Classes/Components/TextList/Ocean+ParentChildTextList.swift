@@ -66,29 +66,34 @@ extension Ocean {
             public let title: String
             public let image: UIImage?
             public let backgroundColor: UIColor?
+            public let isDestructive: Bool
             public let onTouch: (() -> Void)?
             public let onAction: (() -> Void)?
 
             public init(title: String,
                         image: UIImage? = nil,
                         backgroundColor: UIColor? = nil,
+                        isDestructive: Bool = false,
                         onTouch: (() -> Void)? = nil,
                         onAction: (() -> Void)? = nil) {
                 self.title = title
                 self.image = image
                 self.backgroundColor = backgroundColor
+                self.isDestructive = isDestructive
                 self.onTouch = onTouch
                 self.onAction = onAction
             }
         }
 
-        private enum State {
+        public enum State {
             case expanded, collapsed
         }
 
-        private var state: State = .collapsed {
+        public var state: State = .collapsed {
             didSet {
-                animateUI()
+                if oldValue != state {
+                    animateUI()
+                }
             }
         }
 
@@ -113,8 +118,11 @@ extension Ocean {
         private lazy var parentTextList: Ocean.ParentChildTextListParentCell = {
             Ocean.ParentChildTextListParentCell { parentTextList in
                 parentTextList.onTouch = {
-                    self.state = self.state == .collapsed ? .expanded : .collapsed
-                    self.parent.onTouch?()
+                    if let onTouch = self.parent.onTouch {
+                        onTouch()
+                    } else {
+                        self.state = self.state == .collapsed ? .expanded : .collapsed
+                    }
                 }
             }
         }()
@@ -247,6 +255,9 @@ extension Ocean {
                                               image: button.image) { _ in
                             button.onAction?()
                             button.onTouch?()
+                        }
+                        if button.isDestructive {
+                            action.attributes = .destructive
                         }
                         actions.append(action)
                     }
