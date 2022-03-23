@@ -104,7 +104,7 @@ extension Ocean {
             }
         }
 
-        private(set) var height: CGFloat = ParentChildTextListParentCell.Constants.height {
+        public private(set) var height: CGFloat = ParentChildTextListParentCell.Constants.height {
             didSet {
                 self.heightConstraint.constant = height
             }
