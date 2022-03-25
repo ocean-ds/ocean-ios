@@ -53,6 +53,7 @@ public enum DesignSystemComponentsType: String {
     case Card
     case TransactionList
     case FloatVerticalMenuList
+    case Tab
     case CardContent
     case Subheader
     case Step

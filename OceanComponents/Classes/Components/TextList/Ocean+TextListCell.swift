@@ -66,7 +66,25 @@ extension Ocean {
             }
         }
 
+        public var imageTintColor: UIColor = Ocean.color.colorBrandPrimaryDown {
+            didSet {
+                updateUI()
+            }
+        }
+
+        public var locked: Bool = false {
+            didSet {
+                updateUI()
+            }
+        }
+
         public var arrow: Bool = false {
+            didSet {
+                updateUI()
+            }
+        }
+
+        public var arrowIcon: UIImage? = Ocean.icon.chevronRightSolid?.withRenderingMode(.alwaysTemplate) {
             didSet {
                 updateUI()
             }
@@ -159,7 +177,6 @@ extension Ocean {
         private lazy var iconView: UIImageView = {
             let view = UIImageView()
             view.translatesAutoresizingMaskIntoConstraints = false
-            view.tintColor = Ocean.color.colorBrandPrimaryDown
             return view
         }()
 
@@ -168,7 +185,6 @@ extension Ocean {
         private lazy var arrowImageView: UIImageView = {
             let view = UIImageView()
             view.translatesAutoresizingMaskIntoConstraints = false
-            view.image = Ocean.icon.chevronRightSolid?.withRenderingMode(.alwaysTemplate)
             view.contentMode = .scaleAspectFit
             return view
         }()
@@ -196,12 +212,14 @@ extension Ocean {
                 stack.axis = .vertical
                 stack.distribution = .fill
                 stack.alignment = .leading
-                stack.spacing = Ocean.size.spacingInsetXxs
 
                 stack.add([
                     infoStackTitle,
+                    Ocean.Spacer(space: Ocean.size.spacingInsetXxs),
                     subtitleLabel,
+                    Ocean.Spacer(space: Ocean.size.spacingInsetXxs),
                     textLabel,
+                    tagSpacer,
                     tagView
                 ])
             }
@@ -231,12 +249,14 @@ extension Ocean {
             }
         }()
 
+        private lazy var tagSpacer = Ocean.Spacer(space: Ocean.size.spacingStackXs)
+
         private lazy var tagView: Ocean.Tag = {
             Ocean.Tag { view in
                 view.translatesAutoresizingMaskIntoConstraints = false
             }
         }()
-        
+
         public convenience init(type: TextListType = .normal, builder: TextListCellBuilder = nil) {
             self.init()
             if type == .inverse {
@@ -293,12 +313,22 @@ extension Ocean {
             tagView.image = tagImage
             tagView.status = tagStatus
             tagView.isHidden = tagTitle.isEmpty
+            tagSpacer.isHidden = tagView.isHidden
             iconView.image = image
+            iconView.tintColor = imageTintColor
             roundedIconViewSpacer.isHidden = imageNotExist
             roundedIconView.isHidden = imageNotExist
             arrowImageViewSpacer.isHidden = !arrow
             arrowImageView.isHidden = !arrow
+            arrowImageView.image = arrowIcon
             arrowImageView.tintColor = arrowTintColor
+            if locked {
+                arrowImageViewSpacer.isHidden = false
+                arrowImageView.isHidden = false
+                arrowImageView.image = Ocean.icon.lockClosedSolid?.withRenderingMode(.alwaysTemplate)
+                arrowImageView.tintColor = Ocean.color.colorInterfaceDarkUp
+                iconView.tintColor = Ocean.color.colorInterfaceDarkUp
+            }
             badgeView.isHidden = !badge
             button.isHidden = true
 

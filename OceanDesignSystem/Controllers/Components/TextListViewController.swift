@@ -67,11 +67,14 @@ final public class TextListViewController : UIViewController {
             textList.title = "Title"
             textList.subtitle = "Subtitle"
             textList.image = Ocean.icon.documentOutline?.withRenderingMode(.alwaysTemplate)
+            textList.locked = true
         }
         
         let textList8 = Ocean.TextList.cellInverseHighlight { textList in
             textList.title = "Title"
             textList.subtitle = "Subtitle"
+            textList.arrow = true
+            textList.arrowTintColor = Ocean.color.colorInterfaceDarkUp
         }
 
         let textList9 = Ocean.TextList.cell { textList in

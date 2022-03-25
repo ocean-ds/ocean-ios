@@ -45,7 +45,10 @@ public enum BondType {
     case bottomToBottomGreaterOrEqual(CGFloat)
 
     case leadingToLeading(CGFloat)
+    
     case trailingToTrailing(CGFloat)
+    case trailingToTrailingGreaterOrEqual(CGFloat)
+
     case leadingToTrailing(CGFloat)
     case trailingToLeading(CGFloat)
 
@@ -173,8 +176,15 @@ extension UIView {
 
         case .leadingToLeading(let margin):
             self.leadingAnchor.constraint(equalTo: toView.leadingAnchor, constant: margin).isActive = true
+
         case .trailingToTrailing(let margin):
             self.trailingAnchor.constraint(equalTo: toView.trailingAnchor, constant: -margin).isActive = true
+
+        case .trailingToTrailingGreaterOrEqual(let margin):
+            let constraint = self.trailingAnchor.constraint(greaterThanOrEqualTo: toView.trailingAnchor, constant: margin)
+            //constraint.priority = .defaultLow
+            constraint.isActive = true
+
         case .leadingToTrailing(let margin):
             self.leadingAnchor.constraint(equalTo: toView.trailingAnchor, constant: margin).isActive = true
         case .trailingToLeading(let margin):
