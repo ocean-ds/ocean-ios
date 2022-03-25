@@ -131,11 +131,12 @@ extension Ocean {
         private func setupItemView(index: Int) -> UIView {
             let item = self.items[index]
 
-            let containerItemView = UIView()
-            containerItemView.backgroundColor = .clear
-
-            let itemView = UIView()
-            itemView.backgroundColor = .clear
+            let itemStack = Ocean.StackView { stack in
+                stack.axis = .horizontal
+                stack.distribution = .fill
+                stack.alignment = .fill
+                stack.spacing = Ocean.size.spacingInsetXs
+            }
 
             let titleLabel = Ocean.Typography.heading4 { label in
                 label.text = item.title
@@ -144,12 +145,7 @@ extension Ocean {
                 label.numberOfLines = 1
                 label.setContentHuggingPriority(.required, for: .horizontal)
             }
-
-            let badgeStack = Ocean.StackView { stack in
-                stack.axis = .horizontal
-                stack.distribution = .fill
-                stack.alignment = .center
-            }
+            itemStack.addArrangedSubview(titleLabel)
 
             if let badgeNumberValue = item.badgeNumber {
                 let badgeNumberView = Ocean.Badge.number { view in
@@ -157,7 +153,7 @@ extension Ocean {
                     view.size = .small
                     view.number = badgeNumberValue
                 }
-                badgeStack.addArrangedSubview(badgeNumberView)
+                itemStack.addArrangedSubview(badgeNumberView)
             }
 
             let button = UIButton(frame: .zero)
@@ -165,22 +161,21 @@ extension Ocean {
             button.setTitle("", for: .normal)
             button.addTarget(self, action: #selector(self.itemTapped(_:)), for: .touchUpInside)
 
+            let itemView = UIView()
+            itemView.backgroundColor = .clear
+            itemView.addSubview(itemStack)
+
+            let containerItemView = UIView()
+            containerItemView.backgroundColor = .clear
             containerItemView.addSubviews(itemView, button)
-            itemView.addSubviews(titleLabel, badgeStack)
 
             containerItemView.setConstraints((.width(Constants.lineWidth), toView: nil))
 
             itemView.setConstraints(([.centerVertically, .centerHorizontally], toView: containerItemView))
 
+            itemStack.setConstraints(([.fillSuperView], toView: itemView))
+
             button.setConstraints((.fillSuperView, toView: containerItemView))
-
-            titleLabel.setConstraints(([.verticalMargin(Ocean.size.spacingInsetXxs),
-                                        .leadingToLeading(.zero)],
-                                       toView: itemView),
-                                      ([.trailingToLeading(Ocean.size.spacingInsetXs)], toView: badgeStack))
-
-            badgeStack.setConstraints(([.centerVertically,
-                                        .trailingToTrailing(.zero)], toView: itemView))
 
             return containerItemView
         }
