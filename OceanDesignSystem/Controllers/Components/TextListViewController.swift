@@ -44,6 +44,7 @@ final public class TextListViewController : UIViewController {
         let textList3 = Ocean.TextList.cell { textList in
             textList.title = "Title"
             textList.image = Ocean.icon.documentOutline?.withRenderingMode(.alwaysTemplate)
+            textList.swipe = true
         }
         
         let textList4 = Ocean.TextList.cell { textList in

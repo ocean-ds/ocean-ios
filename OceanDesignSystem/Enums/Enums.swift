@@ -58,6 +58,7 @@ public enum DesignSystemComponentsType: String {
     case Subheader
     case Step
     case Chips
+    case ParentChildTextList
 }
 
 public enum DesignSystemTypographyType: Int {
