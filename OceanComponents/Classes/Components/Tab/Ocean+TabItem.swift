@@ -15,7 +15,7 @@ public struct OceanTabItem {
     public let badgeNumber: Int?
 
     public init(title: String,
-                badgeNumber: Int?) {
+                badgeNumber: Int? = nil) {
         self.title = title
         self.badgeNumber = badgeNumber
     }

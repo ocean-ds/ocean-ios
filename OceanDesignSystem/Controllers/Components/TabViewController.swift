@@ -16,7 +16,7 @@ final public class TabViewController: UIViewController, OceanNavigationBar {
     private lazy var tabView: Ocean.Tab = {
         Ocean.Tab { tab in
             tab.items = [OceanTabItem(title: "Item", badgeNumber: 3),
-                         OceanTabItem(title: "Item", badgeNumber: 12),
+                         OceanTabItem(title: "Item"),
                          OceanTabItem(title: "Item", badgeNumber: 2)]
 
             tab.onTouch = { selectedIndex in
