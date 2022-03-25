@@ -36,6 +36,7 @@ extension Ocean {
             view.clipsToBounds = true
             view.layer.cornerRadius = Constants.roundedViewHeightWidth / 2
             view.backgroundColor = Ocean.color.colorInterfaceLightUp
+            view.isSkeletonable = true
             view.addSubview(iconView)
 
             NSLayoutConstraint.activate([
@@ -52,7 +53,6 @@ extension Ocean {
             let view = UIImageView()
             view.translatesAutoresizingMaskIntoConstraints = false
             view.tintColor = Ocean.color.colorBrandPrimaryDown
-            view.isSkeletonable = true
             return view
         }()
 
