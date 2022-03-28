@@ -12,8 +12,13 @@ import OceanTokens
 import OceanComponents
 
 final public class TextListViewController : UIViewController {
+
+    lazy var scrollView: UIScrollView = { return UIScrollView(frame: .zero) }()
+    lazy var scrollableContentView: UIView = { UIView(frame: .zero) }()
+
     public override func viewDidLoad() {
-        self.view.backgroundColor = .white
+        self.addScrollView()
+        self.scrollableContentView.backgroundColor = .white
         
         let stack = Ocean.StackView()
         stack.alignment = .center
@@ -63,11 +68,14 @@ final public class TextListViewController : UIViewController {
             textList.title = "Title"
             textList.subtitle = "Subtitle"
             textList.image = Ocean.icon.documentOutline?.withRenderingMode(.alwaysTemplate)
+            textList.locked = true
         }
         
         let textList8 = Ocean.TextList.cellInverseHighlight { textList in
             textList.title = "Title"
             textList.subtitle = "Subtitle"
+            textList.arrow = true
+            textList.arrowTintColor = Ocean.color.colorInterfaceDarkUp
         }
 
         let textList9 = Ocean.TextList.cell { textList in
@@ -78,19 +86,26 @@ final public class TextListViewController : UIViewController {
             textList.onTouchButton = self.triggerButton
         }
 
-        [textList1,
-         textList2,
-         textList3,
-         textList4,
-         textList5,
-         textList6,
-         textList7,
-         textList8,
-         textList9].forEach { textListCell in
-            stack.addArrangedSubview(textListCell)
+        let textList10 = Ocean.TextList.cell { textList in
+            textList.title = "Title"
+            textList.subtitle = "Subitle"
+            textList.tagImage = Ocean.icon.exclamationCircleSolid
+            textList.tagTitle = "Tag sample"
+            textList.arrow = true
+            textList.arrowTintColor = Ocean.color.colorInterfaceDarkUp
         }
-        
-        self.add(view: stack)
+
+        let textList11 = Ocean.TextList.cell { textList in
+            textList.title = "Title"
+            textList.subtitle = "Subitle"
+            textList.tagTitle = "Tag sample"
+            textList.tagStatus = .positive
+            textList.arrow = true
+            textList.arrowTintColor = Ocean.color.colorInterfaceDarkUp
+        }
+
+        scrollableContentView.addSubview(stack)
+        stack.setConstraints((.fillSuperView, toView: scrollableContentView))
 
         [textList1,
          textList2,
@@ -100,19 +115,26 @@ final public class TextListViewController : UIViewController {
          textList6,
          textList7,
          textList8,
-         textList9].forEach { textListCell in
+         textList9,
+         textList10,
+         textList11].forEach { textListCell in
+            stack.addArrangedSubview(textListCell)
             textListCell.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
         }
     }
-    
-    private func add(view: UIView) {
-        self.view.addSubview(view)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            view.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            view.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
-        ])
+
+    private func addScrollView() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(scrollableContentView)
+
+        applyScrollViewDefaultContraints()
+    }
+
+    private func applyScrollViewDefaultContraints() {
+        scrollView.setConstraints((.fillSuperView, toView: view))
+        scrollableContentView.setConstraints(([.fillSuperView,
+                                               .centerHorizontally], toView: scrollView),
+                                             ([.fullWidth], toView: view))
     }
 
     private func triggerButton() {

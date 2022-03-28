@@ -90,6 +90,8 @@ class ComponentsViewController: UITableViewController {
             self.present(TransactionListViewController(), animated: true, completion: nil)
         case .FloatVerticalMenuList:
             self.navigationController?.pushViewController(FloatVerticalMenuListViewController(), animated: true)
+        case .Tab:
+            self.present(TabViewController(), animated: true, completion: nil)
         case .CardContent:
             self.present(CardContentViewController(), animated: true, completion: nil)
         case .Subheader:

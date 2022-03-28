@@ -24,6 +24,12 @@ extension Ocean {
             }
         }
 
+        public var imageTintColor: UIColor = Ocean.color.colorBrandPrimaryDown {
+            didSet {
+                updateUI()
+            }
+        }
+
         public var roundedBackgroundColor: UIColor? = nil {
             didSet {
                 updateUI()
@@ -52,7 +58,6 @@ extension Ocean {
         private lazy var iconView: UIImageView = {
             let view = UIImageView()
             view.translatesAutoresizingMaskIntoConstraints = false
-            view.tintColor = Ocean.color.colorBrandPrimaryDown
             return view
         }()
 
@@ -77,6 +82,7 @@ extension Ocean {
 
         private func updateUI() {
             iconView.image = image
+            iconView.tintColor = imageTintColor
             roundedIconView.backgroundColor = roundedBackgroundColor ?? Ocean.color.colorInterfaceLightUp
         }
     }

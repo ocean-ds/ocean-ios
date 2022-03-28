@@ -173,7 +173,6 @@ extension Ocean {
                 button.setTitle("", for: .normal)
                 button.addTarget(self, action: #selector(self.itemTapped(_:)), for: .touchUpInside)
 
-
                 horizontalStack.addSubview(button)
                 verticalStackView.addArrangedSubview(horizontalStack)
 
