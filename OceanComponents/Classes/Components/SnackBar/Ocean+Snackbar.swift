@@ -64,7 +64,7 @@ extension Ocean {
                 } else if (self.iconType == .alert) {
                     imageViewIcon.image = Ocean.icon.exclamationCircleOutline?.withRenderingMode(.alwaysTemplate)
                 } else if (self.iconType == .error) {
-                    imageViewIcon.image = Ocean.icon.banOutline?.withRenderingMode(.alwaysTemplate)
+                    imageViewIcon.image = Ocean.icon.xCircleOutline?.withRenderingMode(.alwaysTemplate)
                 } else if (self.iconType == .success) {
                     imageViewIcon.image = Ocean.icon.checkCircleOutline?.withRenderingMode(.alwaysTemplate)
                 }
