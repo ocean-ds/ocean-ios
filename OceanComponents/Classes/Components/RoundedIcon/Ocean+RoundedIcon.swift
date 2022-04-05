@@ -58,6 +58,7 @@ extension Ocean {
         private lazy var iconView: UIImageView = {
             let view = UIImageView()
             view.translatesAutoresizingMaskIntoConstraints = false
+            view.contentMode = .center
             return view
         }()
 
@@ -77,6 +78,9 @@ extension Ocean {
 
         private func setupUI() {
             self.add(view: roundedIconView)
+
+            iconView.setConstraints((.squareSize(Ocean.size.spacingStackMd), toView: nil))
+
             self.isSkeletonable = true
         }
 

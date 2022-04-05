@@ -60,6 +60,12 @@ extension Ocean {
             }
         }
 
+        public var roundedBackgroundColor: UIColor? = Ocean.color.colorInterfaceLightUp {
+            didSet {
+                updateUI()
+            }
+        }
+
         public var image: UIImage? = nil {
             didSet {
                 updateUI()
@@ -166,7 +172,6 @@ extension Ocean {
 
         private lazy var roundedIconView: Ocean.RoundedIcon = {
             Ocean.RoundedIcon { view in
-                view.roundedBackgroundColor = Ocean.color.colorInterfaceLightUp
             }
         }()
 
@@ -314,6 +319,7 @@ extension Ocean {
             tagSpacer.isHidden = tagView.isHidden
             roundedIconView.image = image
             roundedIconView.imageTintColor = imageTintColor
+            roundedIconView.roundedBackgroundColor = roundedBackgroundColor
             roundedIconViewSpacer.isHidden = imageNotExist
             roundedIconView.isHidden = imageNotExist
             arrowImageViewSpacer.isHidden = !arrow
