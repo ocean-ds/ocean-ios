@@ -662,21 +662,6 @@
             </objects>
             <point key="canvasLocation" x="2902.898550724638" y="659.59821428571422"/>
         </scene>
-        <!--Button View Controller-->
-        <scene sceneID="rch-uM-AiP">
-            <objects>
-                <viewController id="KZn-1k-qiJ" customClass="ButtonViewController" customModule="OceanDesignSystem" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ICM-iG-CXh">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="m2d-Se-fUs"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="boK-7r-z15" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-804" y="1289"/>
-        </scene>
         <!--Line Heights View Controller-->
         <scene sceneID="Hbl-sC-KR3">
             <objects>
@@ -916,83 +901,77 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="P0Z-Kw-9nG">
-                                <rect key="frame" x="20" y="108" width="374" height="32"/>
-                                <segments>
-                                    <segment title="Primary"/>
-                                    <segment title="Secondary"/>
-                                    <segment title="Inverse"/>
-                                    <segment title="Text"/>
-                                    <segment title="Critical"/>
-                                </segments>
-                                <connections>
-                                    <action selector="onValueChangedTypes:" destination="Cg8-qg-q16" eventType="valueChanged" id="2Bv-Rw-kxc"/>
-                                </connections>
-                            </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="vky-v0-F99">
-                                <rect key="frame" x="20" y="149" width="374" height="32"/>
-                                <segments>
-                                    <segment title="Normal"/>
-                                    <segment title="Icon"/>
-                                    <segment title="Modified"/>
-                                </segments>
-                                <connections>
-                                    <action selector="onValueChangedIcon:" destination="Cg8-qg-q16" eventType="valueChanged" id="Gwd-N3-rJt"/>
-                                </connections>
-                            </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="3J5-sR-XeN">
-                                <rect key="frame" x="20" y="190" width="374" height="32"/>
-                                <segments>
-                                    <segment title="unblocked"/>
-                                    <segment title="blocked"/>
-                                </segments>
-                                <connections>
-                                    <action selector="onValueChangedBlocked:" destination="Cg8-qg-q16" eventType="valueChanged" id="Xrk-HW-TTy"/>
-                                </connections>
-                            </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="em1-OU-fxW">
-                                <rect key="frame" x="20" y="231" width="374" height="32"/>
-                                <segments>
-                                    <segment title="normal"/>
-                                    <segment title="pressed"/>
-                                    <segment title="disabled"/>
-                                    <segment title="loading"/>
-                                </segments>
-                                <connections>
-                                    <action selector="onValueChangedStates:" destination="Cg8-qg-q16" eventType="valueChanged" id="bGF-6Q-MND"/>
-                                </connections>
-                            </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="mEi-MW-FaR">
-                                <rect key="frame" x="20" y="270" width="374" height="32"/>
-                                <segments>
-                                    <segment title="small"/>
-                                    <segment title="medium"/>
-                                    <segment title="large"/>
-                                </segments>
-                                <connections>
-                                    <action selector="onValueChangedSizes:" destination="Cg8-qg-q16" eventType="valueChanged" id="lS3-a0-CB4"/>
-                                    <action selector="onValueChangedStates:" destination="Cg8-qg-q16" eventType="valueChanged" id="FEh-1q-eXr"/>
-                                </connections>
-                            </segmentedControl>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4WY-ZV-IOb">
+                                <rect key="frame" x="8" y="104" width="398" height="187"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="P0Z-Kw-9nG">
+                                        <rect key="frame" x="0.0" y="0.0" width="398" height="32"/>
+                                        <segments>
+                                            <segment title="Prim."/>
+                                            <segment title="Sec."/>
+                                            <segment title="Inverse"/>
+                                            <segment title="Text"/>
+                                            <segment title="Prim.Critical"/>
+                                            <segment title="Sec.Critical"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="onValueChangedTypes:" destination="Cg8-qg-q16" eventType="valueChanged" id="2Bv-Rw-kxc"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="vky-v0-F99">
+                                        <rect key="frame" x="0.0" y="39" width="398" height="32"/>
+                                        <segments>
+                                            <segment title="Normal"/>
+                                            <segment title="Icon"/>
+                                            <segment title="Modified"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="onValueChangedIcon:" destination="Cg8-qg-q16" eventType="valueChanged" id="Gwd-N3-rJt"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="3J5-sR-XeN">
+                                        <rect key="frame" x="0.0" y="78" width="398" height="32"/>
+                                        <segments>
+                                            <segment title="Unblocked"/>
+                                            <segment title="Blocked"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="onValueChangedBlocked:" destination="Cg8-qg-q16" eventType="valueChanged" id="Xrk-HW-TTy"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="em1-OU-fxW">
+                                        <rect key="frame" x="0.0" y="117" width="398" height="32"/>
+                                        <segments>
+                                            <segment title="Normal"/>
+                                            <segment title="Pressed"/>
+                                            <segment title="Disabled"/>
+                                            <segment title="Loading"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="onValueChangedStates:" destination="Cg8-qg-q16" eventType="valueChanged" id="bGF-6Q-MND"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="mEi-MW-FaR">
+                                        <rect key="frame" x="0.0" y="156" width="398" height="32"/>
+                                        <segments>
+                                            <segment title="Small"/>
+                                            <segment title="Medium"/>
+                                            <segment title="Large"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="onValueChangedSizes:" destination="Cg8-qg-q16" eventType="valueChanged" id="lS3-a0-CB4"/>
+                                            <action selector="onValueChangedStates:" destination="Cg8-qg-q16" eventType="valueChanged" id="FEh-1q-eXr"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="faH-A3-Kl4"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="faH-A3-Kl4" firstAttribute="trailing" secondItem="vky-v0-F99" secondAttribute="trailing" constant="20" id="6ng-Ne-PQv"/>
-                            <constraint firstItem="faH-A3-Kl4" firstAttribute="trailing" secondItem="em1-OU-fxW" secondAttribute="trailing" constant="20" id="8f2-Fa-tJZ"/>
-                            <constraint firstItem="P0Z-Kw-9nG" firstAttribute="leading" secondItem="faH-A3-Kl4" secondAttribute="leading" constant="20" id="9XB-6i-1cC"/>
-                            <constraint firstItem="3J5-sR-XeN" firstAttribute="leading" secondItem="faH-A3-Kl4" secondAttribute="leading" constant="20" id="FoU-EF-HaZ"/>
-                            <constraint firstItem="em1-OU-fxW" firstAttribute="leading" secondItem="faH-A3-Kl4" secondAttribute="leading" constant="20" id="JfE-rV-SUn"/>
-                            <constraint firstItem="em1-OU-fxW" firstAttribute="top" secondItem="3J5-sR-XeN" secondAttribute="bottom" constant="10" id="MmN-Re-Zae"/>
-                            <constraint firstItem="mEi-MW-FaR" firstAttribute="top" secondItem="em1-OU-fxW" secondAttribute="bottom" constant="8" id="PcY-jY-Ail"/>
-                            <constraint firstItem="faH-A3-Kl4" firstAttribute="trailing" secondItem="3J5-sR-XeN" secondAttribute="trailing" constant="20" id="T54-7Z-Xlj"/>
-                            <constraint firstItem="3J5-sR-XeN" firstAttribute="top" secondItem="vky-v0-F99" secondAttribute="bottom" constant="10" id="W12-KC-eiK"/>
-                            <constraint firstItem="P0Z-Kw-9nG" firstAttribute="top" secondItem="faH-A3-Kl4" secondAttribute="top" constant="20" id="gKq-SQ-NgU"/>
-                            <constraint firstItem="vky-v0-F99" firstAttribute="leading" secondItem="faH-A3-Kl4" secondAttribute="leading" constant="20" id="hdr-NK-jJw"/>
-                            <constraint firstItem="vky-v0-F99" firstAttribute="top" secondItem="P0Z-Kw-9nG" secondAttribute="bottom" constant="10" id="mAA-f5-z9K"/>
-                            <constraint firstItem="faH-A3-Kl4" firstAttribute="trailing" secondItem="mEi-MW-FaR" secondAttribute="trailing" constant="20" id="oWc-oF-v4g"/>
-                            <constraint firstItem="mEi-MW-FaR" firstAttribute="leading" secondItem="faH-A3-Kl4" secondAttribute="leading" constant="20" id="tAu-uI-21h"/>
-                            <constraint firstItem="faH-A3-Kl4" firstAttribute="trailing" secondItem="P0Z-Kw-9nG" secondAttribute="trailing" constant="20" id="zDC-QY-2dE"/>
+                            <constraint firstItem="4WY-ZV-IOb" firstAttribute="leading" secondItem="faH-A3-Kl4" secondAttribute="leading" constant="8" id="HPp-HL-yzE"/>
+                            <constraint firstItem="faH-A3-Kl4" firstAttribute="trailing" secondItem="4WY-ZV-IOb" secondAttribute="trailing" constant="8" id="m3a-8s-qbQ"/>
+                            <constraint firstItem="4WY-ZV-IOb" firstAttribute="top" secondItem="faH-A3-Kl4" secondAttribute="top" constant="16" id="r1x-7W-Y80"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="4ko-ft-QHt"/>

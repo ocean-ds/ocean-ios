@@ -106,6 +106,51 @@ extension Ocean {
             }
         }
 
+        public static func secondaryCriticalSM(builder: ButtonSecondaryBuilder) -> ButtonSecondaryCritical {
+            return ButtonSecondaryCritical { button in
+                button.size = .small
+                builder( button )
+            }
+        }
+
+        public static func secondaryCriticalMD(builder: ButtonSecondaryBuilder) -> ButtonSecondaryCritical {
+            return ButtonSecondaryCritical { button in
+                button.size = .medium
+                builder( button )
+            }
+        }
+
+        public static func secondaryCriticalLG(builder: ButtonSecondaryBuilder) -> ButtonSecondaryCritical {
+            return ButtonSecondaryCritical { button in
+                button.size = .large
+                builder( button )
+            }
+        }
+
+        public static func secondaryCriticalBlockedSM(builder: ButtonSecondaryBuilder) -> ButtonSecondaryCritical {
+            return ButtonSecondaryCritical { button in
+                button.size = .small
+                button.isBlocked = true
+                builder( button )
+            }
+        }
+
+        public static func secondaryCriticalBlockedMD(builder: ButtonSecondaryBuilder) -> ButtonSecondaryCritical {
+            return ButtonSecondaryCritical { button in
+                button.size = .medium
+                button.isBlocked = true
+                builder( button )
+            }
+        }
+
+        public static func secondaryCriticalBlockedLG(builder: ButtonSecondaryBuilder) -> ButtonSecondaryCritical {
+            return ButtonSecondaryCritical { button in
+                button.size = .large
+                button.isBlocked = true
+                builder( button )
+            }
+        }
+
         public static func secondarySM(builder: ButtonSecondaryBuilder) -> ButtonSecondary {
             return ButtonSecondary { button in
                 button.size = .small
