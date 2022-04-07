@@ -28,27 +28,12 @@ public extension OceanBottomNavigationBar {
     }
     
     func setupBottomNavigation() {
-        if #available(iOS 13.0, *) {
-            setupNew()
-        } else {
-            setupOld()
-        }
-        
+        setup()
+
         object_setClass(self.tabBar, OceanTabBar.self)
     }
-    
-    private func setupOld() {
-        UITabBar.appearance().backgroundColor = bottomNavigationBackgroundColor
-        UITabBar.appearance().isTranslucent = false
-        UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -6)
-        
-        tabBar.backgroundImage = UIImage()
-        tabBar.tintColor = bottomNavigationSelectedColor
-        tabBar.unselectedItemTintColor = bottomNavigationUnselectedColor
-    }
-    
-    @available(iOS 13.0, *)
-    private func setupNew() {
+
+    private func setup() {
         let appearance = UITabBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = bottomNavigationBackgroundColor
@@ -62,8 +47,7 @@ public extension OceanBottomNavigationBar {
             tabBar.scrollEdgeAppearance = appearance
         }
     }
-    
-    @available(iOS 13.0, *)
+
     private func setTabBarItemColors(_ itemAppearance: UITabBarItemAppearance) {
         itemAppearance.normal.titlePositionAdjustment = .init(horizontal: 0, vertical: -6)
         itemAppearance.normal.iconColor = bottomNavigationUnselectedColor

@@ -72,9 +72,7 @@ extension Ocean {
                 label.textAlignment = .center
                 label.backgroundColor = Ocean.color.colorComplementaryPure
                 label.layer.cornerRadius = 8
-                if #available(iOS 11.0, *) {
-                    label.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMaxYCorner]
-                }
+                label.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMaxYCorner]
             }
             
             let view = UIView()

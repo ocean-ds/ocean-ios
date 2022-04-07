@@ -64,43 +64,20 @@ public extension OceanNavigationBar {
                                                      size: Ocean.font.fontSizeMd)!
         ]
         
-        if #available(iOS 13.0, *) {
-            let navBarAppearance = UINavigationBarAppearance()
-            navBarAppearance.configureWithOpaqueBackground()
-            navBarAppearance.titleTextAttributes = titleAttr
-            navBarAppearance.largeTitleTextAttributes = largeTitleAttr
-            navBarAppearance.backgroundColor = navigationBackgroundColor
-            navBarAppearance.shadowImage = navigationShadow ? Ocean.color.colorInterfaceLightDeep.as1ptImage() : UIImage()
-            navBarAppearance.shadowColor = nil
-            navBarAppearance.setBackIndicatorImage(navigationBackImage, transitionMaskImage: navigationBackImage)
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithOpaqueBackground()
+        navBarAppearance.titleTextAttributes = titleAttr
+        navBarAppearance.largeTitleTextAttributes = largeTitleAttr
+        navBarAppearance.backgroundColor = navigationBackgroundColor
+        navBarAppearance.shadowImage = navigationShadow ? Ocean.color.colorInterfaceLightDeep.as1ptImage() : UIImage()
+        navBarAppearance.shadowColor = nil
+        navBarAppearance.setBackIndicatorImage(navigationBackImage, transitionMaskImage: navigationBackImage)
 
-            navigationController?.navigationBar.standardAppearance = navBarAppearance
-            navigationController?.navigationBar.compactAppearance = navBarAppearance
-            navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
-            navigationController?.navigationBar.prefersLargeTitles = navigationLargeTitle
-            navigationItem.backButtonTitle = navigationBackButtonTitle
-        } else {
-            navigationController?.navigationBar.shadowImage = navigationShadow ? Ocean.color.colorInterfaceLightDeep.as1ptImage() : UIImage()
-            
-            navigationController?.navigationBar.backIndicatorImage = navigationBackImage
-            navigationController?.navigationBar.backIndicatorTransitionMaskImage = navigationBackImage
-            navigationController?.navigationBar.backItem?.title = navigationBackButtonTitle
-            
-            navigationController?.navigationBar.titleTextAttributes = titleAttr
-            
-            if navigationBackgroundColor != nil {
-                navigationController?.navigationBar.backgroundColor = navigationBackgroundColor
-                navigationController?.navigationBar.barTintColor = navigationBackgroundColor
-            } else {
-                navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-            }
-            
-            if #available(iOS 11.0, *) {
-                navigationController?.navigationBar.prefersLargeTitles = navigationLargeTitle
-                navigationController?.navigationBar.largeTitleTextAttributes = largeTitleAttr
-                navigationItem.backButtonTitle = navigationBackButtonTitle
-            }
-        }
+        navigationController?.navigationBar.standardAppearance = navBarAppearance
+        navigationController?.navigationBar.compactAppearance = navBarAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+        navigationController?.navigationBar.prefersLargeTitles = navigationLargeTitle
+        navigationItem.backButtonTitle = navigationBackButtonTitle
         
         self.navigationController?.navigationBar.setNeedsLayout()
         self.navigationController?.navigationBar.layoutIfNeeded()

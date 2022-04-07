@@ -200,31 +200,18 @@ extension UIView {
 
 extension UIView {
     public var safeTopAnchor: NSLayoutYAxisAnchor {
-        if #available(iOS 11.0, *) {
-          return safeAreaLayoutGuide.topAnchor
-        }
-        return topAnchor
-      }
-
-    public var safeBottomAnchor: NSLayoutYAxisAnchor {
-      if #available(iOS 11.0, *) {
-        return safeAreaLayoutGuide.bottomAnchor
-      }
-      return bottomAnchor
+        return safeAreaLayoutGuide.topAnchor
     }
 
+    public var safeBottomAnchor: NSLayoutYAxisAnchor {
+        return safeAreaLayoutGuide.bottomAnchor
+    }
 
     public var safeLeftAnchor: NSLayoutXAxisAnchor {
-        if #available(iOS 11.0, *){
-          return safeAreaLayoutGuide.leftAnchor
-        }
-        return leftAnchor
-      }
+        return safeAreaLayoutGuide.leftAnchor
+    }
 
     public var safeRightAnchor: NSLayoutXAxisAnchor {
-        if #available(iOS 11.0, *){
-          return safeAreaLayoutGuide.rightAnchor
-        }
-        return rightAnchor
-      }
+        return safeAreaLayoutGuide.rightAnchor
+    }
 }

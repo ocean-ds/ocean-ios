@@ -165,9 +165,7 @@ extension Ocean {
             textField.layer.borderColor = inactiveFieldBorderColor.cgColor
             textField.keyboardType = .default
             textField.autocorrectionType = .yes
-            if #available(iOS 12.0, *) {
-                textField.textContentType = .oneTimeCode
-            }
+            textField.textContentType = .oneTimeCode
         }
         
         private final func checkForValidity(){

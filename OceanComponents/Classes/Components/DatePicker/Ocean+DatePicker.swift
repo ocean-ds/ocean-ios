@@ -88,11 +88,7 @@ extension Ocean {
             header.translatesAutoresizingMaskIntoConstraints = false
             header.backgroundColor = Ocean.color.colorBrandPrimaryPure
             header.layer.cornerRadius = Ocean.size.borderRadiusMd
-            if #available(iOS 11.0, *) {
-                header.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-            } else {
-                // Fallback on earlier versions
-            }
+            header.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
 
             headerStack = Ocean.StackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false

@@ -112,36 +112,20 @@ extension Ocean {
             self.view.backgroundColor = Ocean.color.colorInterfaceLightPure
             self.view.addSubview(mainStack)
             self.view.addSubview(tableView)
-            
-            if #available(iOS 11.0, *) {
-                NSLayoutConstraint.activate([
-                    mainStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                    mainStack.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,
-                                                    constant: Ocean.size.spacingStackXs),
-                    mainStack.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor,
-                                                     constant: -Ocean.size.spacingStackXs),
-                    mainStack.heightAnchor.constraint(equalToConstant: 64),
-                    
-                    tableView.topAnchor.constraint(equalTo: mainStack.bottomAnchor),
-                    tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-                    tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-                    tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
-                ])
-            } else {
-                NSLayoutConstraint.activate([
-                    mainStack.topAnchor.constraint(equalTo: view.topAnchor),
-                    mainStack.leftAnchor.constraint(equalTo: view.leftAnchor,
-                                                    constant: Ocean.size.spacingStackXs),
-                    mainStack.rightAnchor.constraint(equalTo: view.rightAnchor,
-                                                     constant: -Ocean.size.spacingStackXs),
-                    mainStack.heightAnchor.constraint(equalToConstant: 64),
-                    
-                    tableView.topAnchor.constraint(equalTo: mainStack.bottomAnchor),
-                    tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                    tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                    tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-                ])
-            }
+
+            NSLayoutConstraint.activate([
+                mainStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                mainStack.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,
+                                                constant: Ocean.size.spacingStackXs),
+                mainStack.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor,
+                                                 constant: -Ocean.size.spacingStackXs),
+                mainStack.heightAnchor.constraint(equalToConstant: 64),
+
+                tableView.topAnchor.constraint(equalTo: mainStack.bottomAnchor),
+                tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+                tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+                tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+            ])
         }
         
         @objc func closeClick() {

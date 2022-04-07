@@ -117,9 +117,7 @@ extension Ocean {
         
         var textContentType: UITextContentType? {
             didSet {
-                if #available(iOS 12.0, *) {
-                    textArea.textContentType = textContentType
-                }
+                textArea.textContentType = textContentType
             }
         }
         
