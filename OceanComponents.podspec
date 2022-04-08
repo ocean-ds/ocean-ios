@@ -31,7 +31,7 @@ Project created with the objective use components created by OceanTokens.
 
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '13.0'
   s.swift_versions = ['5.0']
   
   s.dependency 'OceanTokens'

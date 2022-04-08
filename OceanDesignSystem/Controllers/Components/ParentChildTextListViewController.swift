@@ -22,20 +22,23 @@ final public class ParentChildTextListViewController : UIViewController {
                                       swipe: true,
                                       onTouch: { print("Tap Item 1") },
                                       buttonsSwipe: [.init(title: "Opcao 1",
-                                                           image: Ocean.icon.documentSolid,
-                                                           backgroundColor: .blue)]),
+                                                           image: Ocean.icon.documentSolid?.tinted(with: .white),
+                                                           backgroundColor: Ocean.color.colorInterfaceDarkUp),
+                                                     .init(title: "Opcao 2",
+                                                           image: Ocean.icon.documentSolid?.tinted(with: .white),
+                                                           backgroundColor: Ocean.color.colorStatusNegativePure)]),
                                 .init(title: "Item 2",
                                       subtitle: "Item Description",
                                       image: Ocean.icon.documentSolid,
-                                      swipe: true,
+                                      swipe: false,
                                       onTouch: { print("Tap Item 2") },
                                       buttonsLongpress: [.init(title: "Opcao 1",
                                                                image: Ocean.icon.documentSolid,
-                                                               backgroundColor: .blue,
+                                                               backgroundColor: Ocean.color.colorInterfaceDarkUp,
                                                                isDestructive: true),
                                                         .init(title: "Opcao 2",
                                                               image: Ocean.icon.documentSolid,
-                                                              backgroundColor: .gray)])]
+                                                              backgroundColor: Ocean.color.colorInterfaceDarkUp)])]
     }
 
     public override func viewDidLoad() {

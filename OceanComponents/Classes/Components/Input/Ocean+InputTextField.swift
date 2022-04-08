@@ -131,9 +131,7 @@ extension Ocean {
 
         public var textContentType: UITextContentType? {
             didSet {
-                if #available(iOS 12.0, *) {
-                    textField?.textContentType = textContentType
-                }
+                textField?.textContentType = textContentType
             }
         }
 

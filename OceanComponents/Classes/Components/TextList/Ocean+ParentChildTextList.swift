@@ -240,7 +240,6 @@ extension Ocean {
             child.onTouch?()
         }
 
-        @available(iOS 13.0, *)
         public func tableView(
             _ tableView: UITableView,
             contextMenuConfigurationForRowAt indexPath: IndexPath,
@@ -266,7 +265,6 @@ extension Ocean {
                 }
             }
 
-        @available(iOS 11.0, *)
         public func tableView(
             _ tableView: UITableView,
             trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

@@ -68,7 +68,6 @@ class TokensByCategoryViewController: UITableViewController {
             
         case .Shadow:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ColorCell", for: indexPath) as! ColorCell
-            let shadows = Shadows.list()
             
             let shadowName = Shadows.keys()[indexPath.row]
             cell.title.text = shadowName

@@ -257,49 +257,26 @@ extension Ocean {
         }
         
         private func addConstraintMainStack(addConstraintBottom: Bool) {
-            if #available(iOS 11.0, *) {
-                NSLayoutConstraint.activate([
-                    mainStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                    mainStack.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,
-                                                    constant: Ocean.size.spacingStackSm),
-                    mainStack.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor,
-                                                     constant: -Ocean.size.spacingStackSm)
-                ])
-                
-                if addConstraintBottom {
-                    mainStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-                }
-            } else {
-                NSLayoutConstraint.activate([
-                    mainStack.topAnchor.constraint(equalTo: view.topAnchor),
-                    mainStack.leftAnchor.constraint(equalTo: view.leftAnchor,
-                                                    constant: Ocean.size.spacingStackSm),
-                    mainStack.rightAnchor.constraint(equalTo: view.rightAnchor,
-                                                     constant: -Ocean.size.spacingStackSm)
-                ])
-                
-                if addConstraintBottom {
-                    mainStack.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-                }
+            NSLayoutConstraint.activate([
+                mainStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                mainStack.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,
+                                                constant: Ocean.size.spacingStackSm),
+                mainStack.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor,
+                                                 constant: -Ocean.size.spacingStackSm)
+            ])
+
+            if addConstraintBottom {
+                mainStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
             }
         }
         
         private func addConstraintTableView() {
-            if #available(iOS 11.0, *) {
-                NSLayoutConstraint.activate([
-                    tableView.topAnchor.constraint(equalTo: mainStack.bottomAnchor),
-                    tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-                    tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-                    tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
-                ])
-            } else {
-                NSLayoutConstraint.activate([
-                    tableView.topAnchor.constraint(equalTo: mainStack.bottomAnchor),
-                    tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                    tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                    tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-                ])
-            }
+            NSLayoutConstraint.activate([
+                tableView.topAnchor.constraint(equalTo: mainStack.bottomAnchor),
+                tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+                tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+                tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+            ])
         }
         
         public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

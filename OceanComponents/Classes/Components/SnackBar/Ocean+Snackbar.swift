@@ -116,13 +116,8 @@ extension Ocean {
                                        constant: Ocean.size.spacingStackXxs).isActive = true
             self.rightAnchor.constraint(equalTo: view.rightAnchor,
                                         constant: -Ocean.size.spacingStackXxs).isActive = true
-            if #available(iOS 11.0, *) {
-                self.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-                                             constant: -Ocean.size.spacingStackXxs).isActive = true
-            } else {
-                self.bottomAnchor.constraint(equalTo: view.bottomAnchor,
-                                             constant: -Ocean.size.spacingStackXxs).isActive = true
-            }
+            self.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                                         constant: -Ocean.size.spacingStackXxs).isActive = true
             self.heightAnchor.constraint(equalToConstant: line.rawValue).isActive = true
             
             self.state = .loading

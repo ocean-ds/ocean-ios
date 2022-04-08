@@ -144,9 +144,7 @@ extension Ocean {
         private lazy var bottomView: UIView = {
             let view = UIView()
             view.ocean.radius.applyMd()
-            if #available(iOS 11.0, *) {
-                view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-            }
+            view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
             view.add(view: bottomStack)
             
             view.isUserInteractionEnabled = true

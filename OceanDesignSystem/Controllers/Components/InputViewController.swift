@@ -32,7 +32,7 @@ public class InputViewController : UIViewController {
         }
         
         self.textfield.onBeginEditing = {
-            self.textfield.becomeFirstResponder()
+            _ = self.textfield.becomeFirstResponder()
             self.textfield.errorMessage = ""
             self.states.selectedSegmentIndex = 1
         }
@@ -176,7 +176,7 @@ public class InputViewController : UIViewController {
             self.textfield.isEnabled = true
             self.textfield.errorMessage = ""
             self.textfield.charactersLimitNumber = nil
-            self.textfield.becomeFirstResponder()
+            _ = self.textfield.becomeFirstResponder()
             break
         case 2: //Activated
             self.textfield.isEnabled = true
@@ -217,7 +217,7 @@ public class InputViewController : UIViewController {
             self.textArea.isEnabled = true
             self.textArea.errorMessage = ""
             self.textArea.charactersLimitNumber = nil
-            self.textArea.becomeFirstResponder()
+            _ = self.textArea.becomeFirstResponder()
             break
         case 2: //Activated
             self.textArea.isEnabled = true
