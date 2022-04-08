@@ -71,16 +71,16 @@ extension Ocean {
         private var imageView: UIImageView!
         private var spinner: Ocean.CircularProgressIndicator!
         
-        private var activeBackgroundColor: UIColor!
-        private var activeLabelColor: UIColor!
-        private var hoverBackgroundColor: UIColor!
-        private var hoverLabelColor: UIColor!
-        private var pressedBackgroundColor: UIColor!
-        private var pressedLabelColor: UIColor!
-        private var focusedBackgroundColor: UIColor!
-        private var focusedLabelColor: UIColor!
-        private var disabledBackgroundColor: UIColor!
-        private var disabledLabelColor: UIColor!
+        internal var activeBackgroundColor: UIColor!
+        internal var activeLabelColor: UIColor!
+        internal var hoverBackgroundColor: UIColor!
+        internal var hoverLabelColor: UIColor!
+        internal var pressedBackgroundColor: UIColor!
+        internal var pressedLabelColor: UIColor!
+        internal var focusedBackgroundColor: UIColor!
+        internal var focusedLabelColor: UIColor!
+        internal var disabledBackgroundColor: UIColor!
+        internal var disabledLabelColor: UIColor!
         
         public override var isEnabled: Bool {
             didSet {

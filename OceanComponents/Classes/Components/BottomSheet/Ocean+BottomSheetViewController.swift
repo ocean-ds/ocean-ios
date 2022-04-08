@@ -203,7 +203,7 @@ extension Ocean {
             
             let label = Ocean.Typography.paragraph { label in
                 if let contentDescription = self.contentDescription {
-                    label.text = contentDescription
+                    label.setTextWithBoldTag(contentDescription)
                 }
                 if let contentDescriptionAttributeText = self.contentDescriptionAttributeText {
                     label.attributedText = contentDescriptionAttributeText

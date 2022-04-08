@@ -48,7 +48,7 @@ class BottomSheetViewController: UIViewController {
             .withImage(Ocean.icon.calculatorSolid)
             .withTitle("Titulo")
             .withCode("123")
-            .withDescription("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Galley of type and scrambled it to make a type specimen book.")
+            .withDescription("Lorem Ipsum is <b>simply dummy text</b> of the printing and typesetting industry. Galley of type and scrambled it to make a type specimen book.")
             .withAction(textNegative: "Cancelar", actionNegative: nil,
                         textPositive: "Ativar", actionPositive: nil)
             .withCode("123")
@@ -58,7 +58,7 @@ class BottomSheetViewController: UIViewController {
     private lazy var sheetCriticalComponent: Ocean.BottomSheetViewController = {
         Ocean.BottomSheetCritical(self)
             .withTitle("Titulo")
-            .withDescription("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Galley of type and scrambled it to make a type specimen book?")
+            .withDescription("<b>Lorem Ipsum</b> is simply dummy text of the printing and typesetting industry. Galley of type and scrambled it to make a type specimen book?")
             .withAction(textNegative: "Cancelar", actionNegative: nil,
                         textPositive: "Recusar", actionPositive: nil)
             .build()

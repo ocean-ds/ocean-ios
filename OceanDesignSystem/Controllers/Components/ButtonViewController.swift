@@ -24,6 +24,7 @@ final public class ButtonViewController : UIViewController {
     var buttonInverse : Ocean.ButtonPrimaryInverse!
     var buttonText : Ocean.ButtonText!
     var buttonPrimaryCritical: Ocean.ButtonPrimaryCritical!
+    var buttonSecondaryCritical : Ocean.ButtonSecondaryCritical!
     
     //var button : Ocean.Button!
     
@@ -36,7 +37,7 @@ final public class ButtonViewController : UIViewController {
     
     private func addButton(view: UIView) {
         self.view.subviews.forEach { view in
-            if !(view is UISegmentedControl) {
+            if !(view is UISegmentedControl), !(view is UIStackView) {
                 view.removeFromSuperview()
             }
         }
@@ -133,6 +134,9 @@ final public class ButtonViewController : UIViewController {
         self.buttonInverse = nil
         self.buttonPrimaryCritical?.isHidden = true
         self.buttonPrimaryCritical = nil
+        self.buttonSecondaryCritical?.isHidden = true
+        self.buttonSecondaryCritical = nil
+
         switch self.types.selectedSegmentIndex {
         case 0: //primary
             if (self.sizes.selectedSegmentIndex == 0) {
@@ -313,6 +317,34 @@ final public class ButtonViewController : UIViewController {
             }
             configButton(self.buttonPrimaryCritical)
             self.addButton(view: self.buttonPrimaryCritical)
+            break
+        case 5: //secondaryCritical
+            if (self.sizes.selectedSegmentIndex == 0) {
+                self.buttonSecondaryCritical = Ocean.Button.secondaryCriticalSM { button in
+                    button.text = "Small"
+                    if (self.normalOrIconOrModified.selectedSegmentIndex == 1) {
+                        button.icon = Ocean.icon.plusOutline
+                    }
+                }
+            } else if (self.sizes.selectedSegmentIndex == 1) {
+                self.buttonSecondaryCritical = Ocean.Button.secondaryCriticalMD { button in
+                    button.text = "Medium"
+                    if (self.normalOrIconOrModified.selectedSegmentIndex == 1) {
+                        button.icon = Ocean.icon.plusOutline
+                        button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
+                    }
+                }
+            } else if (self.sizes.selectedSegmentIndex == 2) {
+                self.buttonSecondaryCritical = Ocean.Button.secondaryCriticalLG { button in
+                    button.text = "Large"
+                    if (self.normalOrIconOrModified.selectedSegmentIndex == 1) {
+                        button.icon = Ocean.icon.plusOutline
+                        button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
+                    }
+                }
+            }
+            configButton(self.buttonSecondaryCritical)
+            self.addButton(view: self.buttonSecondaryCritical)
             break
         default:
             break
