@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jKe-zc-dcH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jKe-zc-dcH">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -32,12 +32,13 @@
         <scene sceneID="Jwo-cd-Q7F">
             <objects>
                 <tableViewController title="Tokens" id="6WR-ko-ii5" customClass="TokensViewController" customModule="OceanDesignSystem" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="pyx-RK-c9B">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="pyx-RK-c9B">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="gray" indentationWidth="10" reuseIdentifier="StandardCell" rowHeight="80" id="cnd-jv-l9c" customClass="StandardCell" customModule="OceanDesignSystem" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44.5" width="414" height="80"/>
+                                <rect key="frame" x="0.0" y="49.5" width="414" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cnd-jv-l9c" id="9ub-TB-0fo">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
@@ -60,7 +61,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="title" destination="uOg-VI-HGR" id="tLy-ps-BMV"/>
-                                    <segue destination="V6P-rc-YCT" kind="modal" id="sR0-Ba-p6j"/>
+                                    <segue destination="V6P-rc-YCT" kind="show" id="sR0-Ba-p6j"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -118,11 +119,11 @@
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Components" image="rectangle.3.offgrid" catalog="system" id="eMM-aA-MbI"/>
                     <connections>
-                        <segue destination="5ef-au-a5S" kind="modal" identifier="SegueInputComponents" id="ZJ2-le-hGI"/>
-                        <segue destination="CbQ-Zt-QpH" kind="modal" identifier="SegueComponentTypeView" id="tAz-Xv-g6K"/>
-                        <segue destination="Peb-Ta-70A" kind="modal" identifier="SegueSnackbarComponents" id="iIG-9y-ZaT"/>
-                        <segue destination="Cg8-qg-q16" kind="modal" identifier="SegueButtonsComponents" id="QJW-iD-V2F"/>
-                        <segue destination="aw7-S8-jW5" kind="modal" identifier="SegueBottomSheetComponents" id="mcp-yR-T7D"/>
+                        <segue destination="5ef-au-a5S" kind="show" identifier="SegueInputComponents" id="ZJ2-le-hGI"/>
+                        <segue destination="CbQ-Zt-QpH" kind="show" identifier="SegueComponentTypeView" id="tAz-Xv-g6K"/>
+                        <segue destination="Peb-Ta-70A" kind="show" identifier="SegueSnackbarComponents" id="iIG-9y-ZaT"/>
+                        <segue destination="Cg8-qg-q16" kind="show" identifier="SegueButtonsComponents" id="QJW-iD-V2F"/>
+                        <segue destination="aw7-S8-jW5" kind="show" identifier="SegueBottomSheetComponents" id="mcp-yR-T7D"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aGw-ly-AWm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -134,7 +135,7 @@
             <objects>
                 <tableViewController id="V6P-rc-YCT" customClass="TokensByCategoryViewController" customModule="OceanDesignSystem" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="6GG-gT-XLj">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
@@ -272,7 +273,7 @@
             <objects>
                 <tableViewController id="ItX-qw-c5L" customClass="TokensBySubCategoryViewController" customModule="OceanDesignSystem" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="ZK7-db-Lfo">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
@@ -463,17 +464,17 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="280"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SVu-CN-yJg">
-                                            <rect key="frame" x="30" y="21" width="38" height="24"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SVu-CN-yJg">
+                                            <rect key="frame" x="10" y="10" width="38" height="24"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <color key="textColor" systemColor="systemGrayColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3k6-b2-jb0">
-                                            <rect key="frame" x="10" y="53" width="394" height="215"/>
+                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3k6-b2-jb0">
+                                            <rect key="frame" x="10" y="42" width="394" height="226"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DuX-Wg-sBK">
-                                                    <rect key="frame" x="147" y="0.0" width="100" height="215"/>
+                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DuX-Wg-sBK">
+                                                    <rect key="frame" x="147" y="0.0" width="100" height="226"/>
                                                     <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="yJl-bi-SEx"/>
@@ -490,12 +491,12 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="3k6-b2-jb0" firstAttribute="top" secondItem="SVu-CN-yJg" secondAttribute="bottom" constant="8" id="5Fw-Eu-heH"/>
-                                        <constraint firstItem="SVu-CN-yJg" firstAttribute="top" secondItem="lcY-t6-xub" secondAttribute="topMargin" constant="10" id="UKf-Pm-lyV"/>
+                                        <constraint firstItem="SVu-CN-yJg" firstAttribute="top" secondItem="lcY-t6-xub" secondAttribute="top" constant="10" id="SmG-l9-f7x"/>
                                         <constraint firstAttribute="bottom" secondItem="3k6-b2-jb0" secondAttribute="bottom" constant="12" id="VzI-P8-PMD"/>
-                                        <constraint firstItem="SVu-CN-yJg" firstAttribute="leading" secondItem="lcY-t6-xub" secondAttribute="leadingMargin" constant="10" id="eaL-tr-xOz"/>
                                         <constraint firstAttribute="trailing" secondItem="3k6-b2-jb0" secondAttribute="trailing" constant="10" id="hPF-F0-6j7"/>
                                         <constraint firstItem="3k6-b2-jb0" firstAttribute="leading" secondItem="lcY-t6-xub" secondAttribute="leading" constant="10" id="jBr-Od-UxW"/>
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="SVu-CN-yJg" secondAttribute="trailing" constant="20" symbolic="YES" id="nGu-vx-TMV"/>
+                                        <constraint firstItem="SVu-CN-yJg" firstAttribute="leading" secondItem="lcY-t6-xub" secondAttribute="leading" constant="10" id="qb8-cL-HT9"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -521,7 +522,7 @@
             <objects>
                 <tableViewController id="CbQ-Zt-QpH" customClass="ComponentTypeViewController" customModule="OceanDesignSystem" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="5uN-jL-tVf">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
@@ -571,7 +572,7 @@
             <objects>
                 <tableViewController id="UuO-mC-i0Q" customClass="RenderComponentsViewController" customModule="OceanDesignSystem" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="qLk-X6-Zvt">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
@@ -661,21 +662,6 @@
             </objects>
             <point key="canvasLocation" x="2902.898550724638" y="659.59821428571422"/>
         </scene>
-        <!--Button View Controller-->
-        <scene sceneID="rch-uM-AiP">
-            <objects>
-                <viewController id="KZn-1k-qiJ" customClass="ButtonViewController" customModule="OceanDesignSystem" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ICM-iG-CXh">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="m2d-Se-fUs"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="boK-7r-z15" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-804" y="1289"/>
-        </scene>
         <!--Line Heights View Controller-->
         <scene sceneID="Hbl-sC-KR3">
             <objects>
@@ -685,17 +671,17 @@
                         <viewControllerLayoutGuide type="bottom" id="nXE-1K-cH3"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="9tr-pC-hZJ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lines Heights" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dWQ-yS-wnG">
-                                <rect key="frame" x="20" y="8" width="374" height="21"/>
+                                <rect key="frame" x="20" y="96" width="374" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ENs-o8-mmP">
-                                <rect key="frame" x="20" y="44" width="374" height="32"/>
+                                <rect key="frame" x="20" y="132" width="374" height="32"/>
                                 <segments>
                                     <segment title="1.0"/>
                                     <segment title="1.1"/>
@@ -706,7 +692,7 @@
                                 </connections>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9OO-p3-qkX">
-                                <rect key="frame" x="20" y="102" width="374" height="101.5"/>
+                                <rect key="frame" x="20" y="190" width="374" height="101.5"/>
                                 <string key="text">This demo will show you how to add line spacing using custom paragraph style with iOS. This is a great use of NSAttributedString to add necessary parameters to the string value.Hope you have enjoyed it</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -745,11 +731,11 @@
             <objects>
                 <viewController id="5ef-au-a5S" customClass="InputViewController" customModule="OceanDesignSystem" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wnd-1q-lug">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dgc-bc-Y9R">
-                                <rect key="frame" x="20" y="88" width="374" height="32"/>
+                                <rect key="frame" x="20" y="132" width="374" height="32"/>
                                 <segments>
                                     <segment title="Inactive"/>
                                     <segment title="Focused"/>
@@ -763,7 +749,7 @@
                                 </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="sgW-f5-x6p">
-                                <rect key="frame" x="20" y="239" width="374" height="32"/>
+                                <rect key="frame" x="20" y="283" width="374" height="32"/>
                                 <segments>
                                     <segment title="Inactive"/>
                                     <segment title="Focused"/>
@@ -803,11 +789,11 @@
             <objects>
                 <viewController id="aw7-S8-jW5" customClass="BottomSheetViewController" customModule="OceanDesignSystem" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lzk-EF-YLg">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Pw1-Es-bjh">
-                                <rect key="frame" x="0.0" y="64" width="414" height="32"/>
+                                <rect key="frame" x="0.0" y="108" width="414" height="32"/>
                                 <segments>
                                     <segment title="With actions"/>
                                     <segment title="List style"/>
@@ -818,7 +804,7 @@
                                 </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="jgs-Gr-3R2">
-                                <rect key="frame" x="20" y="103" width="374" height="32"/>
+                                <rect key="frame" x="20" y="147" width="374" height="32"/>
                                 <segments>
                                     <segment title="Normal"/>
                                     <segment title="Critical"/>
@@ -854,11 +840,11 @@
             <objects>
                 <viewController id="Peb-Ta-70A" customClass="SnackbarViewController" customModule="OceanDesignSystem" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xGO-dG-MM9">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Xrq-TA-js0">
-                                <rect key="frame" x="20" y="64" width="374" height="32"/>
+                                <rect key="frame" x="20" y="108" width="374" height="32"/>
                                 <segments>
                                     <segment title="Info"/>
                                     <segment title="Error"/>
@@ -871,7 +857,7 @@
                                 </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="TXb-kB-AbC">
-                                <rect key="frame" x="20" y="103" width="374" height="32"/>
+                                <rect key="frame" x="20" y="147" width="374" height="32"/>
                                 <segments>
                                     <segment title="One Line"/>
                                     <segment title="Two lines"/>
@@ -912,86 +898,80 @@
             <objects>
                 <viewController id="Cg8-qg-q16" customClass="ButtonViewController" customModule="OceanDesignSystem" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VBV-pl-Qtr">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="P0Z-Kw-9nG">
-                                <rect key="frame" x="20" y="64" width="374" height="32"/>
-                                <segments>
-                                    <segment title="Primary"/>
-                                    <segment title="Secondary"/>
-                                    <segment title="Inverse"/>
-                                    <segment title="Text"/>
-                                    <segment title="Critical"/>
-                                </segments>
-                                <connections>
-                                    <action selector="onValueChangedTypes:" destination="Cg8-qg-q16" eventType="valueChanged" id="2Bv-Rw-kxc"/>
-                                </connections>
-                            </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="vky-v0-F99">
-                                <rect key="frame" x="20" y="105" width="374" height="32"/>
-                                <segments>
-                                    <segment title="Normal"/>
-                                    <segment title="Icon"/>
-                                    <segment title="Modified"/>
-                                </segments>
-                                <connections>
-                                    <action selector="onValueChangedIcon:" destination="Cg8-qg-q16" eventType="valueChanged" id="Gwd-N3-rJt"/>
-                                </connections>
-                            </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="3J5-sR-XeN">
-                                <rect key="frame" x="20" y="146" width="374" height="32"/>
-                                <segments>
-                                    <segment title="unblocked"/>
-                                    <segment title="blocked"/>
-                                </segments>
-                                <connections>
-                                    <action selector="onValueChangedBlocked:" destination="Cg8-qg-q16" eventType="valueChanged" id="Xrk-HW-TTy"/>
-                                </connections>
-                            </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="em1-OU-fxW">
-                                <rect key="frame" x="20" y="187" width="374" height="32"/>
-                                <segments>
-                                    <segment title="normal"/>
-                                    <segment title="pressed"/>
-                                    <segment title="disabled"/>
-                                    <segment title="loading"/>
-                                </segments>
-                                <connections>
-                                    <action selector="onValueChangedStates:" destination="Cg8-qg-q16" eventType="valueChanged" id="bGF-6Q-MND"/>
-                                </connections>
-                            </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="mEi-MW-FaR">
-                                <rect key="frame" x="20" y="226" width="374" height="32"/>
-                                <segments>
-                                    <segment title="small"/>
-                                    <segment title="medium"/>
-                                    <segment title="large"/>
-                                </segments>
-                                <connections>
-                                    <action selector="onValueChangedSizes:" destination="Cg8-qg-q16" eventType="valueChanged" id="lS3-a0-CB4"/>
-                                    <action selector="onValueChangedStates:" destination="Cg8-qg-q16" eventType="valueChanged" id="FEh-1q-eXr"/>
-                                </connections>
-                            </segmentedControl>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4WY-ZV-IOb">
+                                <rect key="frame" x="8" y="104" width="398" height="187"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="P0Z-Kw-9nG">
+                                        <rect key="frame" x="0.0" y="0.0" width="398" height="32"/>
+                                        <segments>
+                                            <segment title="Prim."/>
+                                            <segment title="Sec."/>
+                                            <segment title="Inverse"/>
+                                            <segment title="Text"/>
+                                            <segment title="Prim.Critical"/>
+                                            <segment title="Sec.Critical"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="onValueChangedTypes:" destination="Cg8-qg-q16" eventType="valueChanged" id="2Bv-Rw-kxc"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="vky-v0-F99">
+                                        <rect key="frame" x="0.0" y="39" width="398" height="32"/>
+                                        <segments>
+                                            <segment title="Normal"/>
+                                            <segment title="Icon"/>
+                                            <segment title="Modified"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="onValueChangedIcon:" destination="Cg8-qg-q16" eventType="valueChanged" id="Gwd-N3-rJt"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="3J5-sR-XeN">
+                                        <rect key="frame" x="0.0" y="78" width="398" height="32"/>
+                                        <segments>
+                                            <segment title="Unblocked"/>
+                                            <segment title="Blocked"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="onValueChangedBlocked:" destination="Cg8-qg-q16" eventType="valueChanged" id="Xrk-HW-TTy"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="em1-OU-fxW">
+                                        <rect key="frame" x="0.0" y="117" width="398" height="32"/>
+                                        <segments>
+                                            <segment title="Normal"/>
+                                            <segment title="Pressed"/>
+                                            <segment title="Disabled"/>
+                                            <segment title="Loading"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="onValueChangedStates:" destination="Cg8-qg-q16" eventType="valueChanged" id="bGF-6Q-MND"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="mEi-MW-FaR">
+                                        <rect key="frame" x="0.0" y="156" width="398" height="32"/>
+                                        <segments>
+                                            <segment title="Small"/>
+                                            <segment title="Medium"/>
+                                            <segment title="Large"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="onValueChangedSizes:" destination="Cg8-qg-q16" eventType="valueChanged" id="lS3-a0-CB4"/>
+                                            <action selector="onValueChangedStates:" destination="Cg8-qg-q16" eventType="valueChanged" id="FEh-1q-eXr"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="faH-A3-Kl4"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="faH-A3-Kl4" firstAttribute="trailing" secondItem="vky-v0-F99" secondAttribute="trailing" constant="20" id="6ng-Ne-PQv"/>
-                            <constraint firstItem="faH-A3-Kl4" firstAttribute="trailing" secondItem="em1-OU-fxW" secondAttribute="trailing" constant="20" id="8f2-Fa-tJZ"/>
-                            <constraint firstItem="P0Z-Kw-9nG" firstAttribute="leading" secondItem="faH-A3-Kl4" secondAttribute="leading" constant="20" id="9XB-6i-1cC"/>
-                            <constraint firstItem="3J5-sR-XeN" firstAttribute="leading" secondItem="faH-A3-Kl4" secondAttribute="leading" constant="20" id="FoU-EF-HaZ"/>
-                            <constraint firstItem="em1-OU-fxW" firstAttribute="leading" secondItem="faH-A3-Kl4" secondAttribute="leading" constant="20" id="JfE-rV-SUn"/>
-                            <constraint firstItem="em1-OU-fxW" firstAttribute="top" secondItem="3J5-sR-XeN" secondAttribute="bottom" constant="10" id="MmN-Re-Zae"/>
-                            <constraint firstItem="mEi-MW-FaR" firstAttribute="top" secondItem="em1-OU-fxW" secondAttribute="bottom" constant="8" id="PcY-jY-Ail"/>
-                            <constraint firstItem="faH-A3-Kl4" firstAttribute="trailing" secondItem="3J5-sR-XeN" secondAttribute="trailing" constant="20" id="T54-7Z-Xlj"/>
-                            <constraint firstItem="3J5-sR-XeN" firstAttribute="top" secondItem="vky-v0-F99" secondAttribute="bottom" constant="10" id="W12-KC-eiK"/>
-                            <constraint firstItem="P0Z-Kw-9nG" firstAttribute="top" secondItem="faH-A3-Kl4" secondAttribute="top" constant="20" id="gKq-SQ-NgU"/>
-                            <constraint firstItem="vky-v0-F99" firstAttribute="leading" secondItem="faH-A3-Kl4" secondAttribute="leading" constant="20" id="hdr-NK-jJw"/>
-                            <constraint firstItem="vky-v0-F99" firstAttribute="top" secondItem="P0Z-Kw-9nG" secondAttribute="bottom" constant="10" id="mAA-f5-z9K"/>
-                            <constraint firstItem="faH-A3-Kl4" firstAttribute="trailing" secondItem="mEi-MW-FaR" secondAttribute="trailing" constant="20" id="oWc-oF-v4g"/>
-                            <constraint firstItem="mEi-MW-FaR" firstAttribute="leading" secondItem="faH-A3-Kl4" secondAttribute="leading" constant="20" id="tAu-uI-21h"/>
-                            <constraint firstItem="faH-A3-Kl4" firstAttribute="trailing" secondItem="P0Z-Kw-9nG" secondAttribute="trailing" constant="20" id="zDC-QY-2dE"/>
+                            <constraint firstItem="4WY-ZV-IOb" firstAttribute="leading" secondItem="faH-A3-Kl4" secondAttribute="leading" constant="8" id="HPp-HL-yzE"/>
+                            <constraint firstItem="faH-A3-Kl4" firstAttribute="trailing" secondItem="4WY-ZV-IOb" secondAttribute="trailing" constant="8" id="m3a-8s-qbQ"/>
+                            <constraint firstItem="4WY-ZV-IOb" firstAttribute="top" secondItem="faH-A3-Kl4" secondAttribute="top" constant="16" id="r1x-7W-Y80"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="4ko-ft-QHt"/>
@@ -1010,8 +990,9 @@
         <!--Navigation Controller-->
         <scene sceneID="Y8L-F1-dF7">
             <objects>
-                <navigationController navigationBarHidden="YES" id="jKe-zc-dcH" sceneMemberID="viewController">
+                <navigationController id="jKe-zc-dcH" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="d21-hJ-9vC">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
