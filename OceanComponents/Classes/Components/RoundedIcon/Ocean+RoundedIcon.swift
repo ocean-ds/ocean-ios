@@ -58,7 +58,7 @@ extension Ocean {
         private lazy var iconView: UIImageView = {
             let view = UIImageView()
             view.translatesAutoresizingMaskIntoConstraints = false
-            view.contentMode = .center
+            view.contentMode = .scaleAspectFit
             return view
         }()
 
