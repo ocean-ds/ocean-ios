@@ -78,6 +78,12 @@ extension Ocean {
             }
         }
 
+        public var imageContentMode: UIView.ContentMode = .center {
+            didSet {
+                updateUI()
+            }
+        }
+
         public var locked: Bool = false {
             didSet {
                 updateUI()
@@ -319,6 +325,7 @@ extension Ocean {
             tagSpacer.isHidden = tagView.isHidden
             roundedIconView.image = image
             roundedIconView.imageTintColor = imageTintColor
+            roundedIconView.imageContentMode = imageContentMode
             roundedIconView.roundedBackgroundColor = roundedBackgroundColor
             roundedIconViewSpacer.isHidden = imageNotExist
             roundedIconView.isHidden = imageNotExist

@@ -30,6 +30,12 @@ extension Ocean {
             }
         }
 
+        public var imageContentMode: UIView.ContentMode = .center {
+            didSet {
+                updateUI()
+            }
+        }
+
         public var roundedBackgroundColor: UIColor? = nil {
             didSet {
                 updateUI()
@@ -57,8 +63,6 @@ extension Ocean {
 
         private lazy var iconView: UIImageView = {
             let view = UIImageView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.contentMode = .scaleAspectFit
             return view
         }()
 
@@ -87,6 +91,7 @@ extension Ocean {
         private func updateUI() {
             iconView.image = image
             iconView.tintColor = imageTintColor
+            iconView.contentMode = imageContentMode
             roundedIconView.backgroundColor = roundedBackgroundColor ?? Ocean.color.colorInterfaceLightUp
         }
     }
