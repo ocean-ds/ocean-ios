@@ -30,16 +30,14 @@ final public class FloatVerticalMenuListViewController: UIViewController, OceanN
     }()
 
     public override func viewDidLoad() {
-        self.view.backgroundColor = Ocean.color.colorBrandPrimaryUp
+        self.view.backgroundColor = Ocean.color.colorStatusPositiveUp
         self.navigationController?.navigationBar.isHidden = false
         self.setupNavBar()
     }
 
     private func setupNavBar() {
         self.view.addSubview(navBarMenu)
-        self.navBarMenu.setConstraints(([.topToTop(Ocean.size.spacingInsetXxs),
-                                         .trailingToTrailing(Ocean.size.spacingInsetXs)],
-                                        toView: self.view)) //self.mainStack
+        self.navBarMenu.setConstraints((.fillSuperView, toView: self.view)) //self.mainStack
     }
     
     @objc func actionItemMenu1() {
@@ -47,6 +45,6 @@ final public class FloatVerticalMenuListViewController: UIViewController, OceanN
     }
     
     @objc func actionItemMenu2() {
-        print("On touch itemMenu2")
+        self.navigationController?.popViewController(animated: true)
     }
 }

@@ -42,9 +42,11 @@ extension Ocean {
         private lazy var menuOptionsShadowContainerView: UIView = {
             let shadowView = UIView()
             shadowView.backgroundColor = .clear
-            shadowView.layer.shadowColor = UIColor.black.cgColor
-            shadowView.layer.shadowOpacity = 0.4
-            shadowView.layer.shadowRadius = 10.0
+            shadowView.layer.shouldRasterize = true
+            shadowView.layer.rasterizationScale = UIScreen.main.scale
+            shadowView.layer.shadowColor = #colorLiteral(red: 0.05149866641, green: 0.05984989554, blue: 0.1014773026, alpha: 0.6).cgColor
+            shadowView.layer.shadowOpacity = 0.2
+            shadowView.layer.shadowRadius = 15.0
             shadowView.layer.shadowOffset = CGSize(width: 0.0, height: 8.0)
 
             return shadowView
@@ -115,11 +117,13 @@ extension Ocean {
         }
 
         private func setupUI() {
-            self.add(view: mainStack)
+            self.addSubview(mainStack)
             self.setupConstraints()
         }
 
         private func setupConstraints() {
+            self.mainStack.setConstraints(([.topToTop(Ocean.size.spacingInsetXxs),
+                                            .trailingToTrailing(Ocean.size.spacingInsetXs)], toView: self))
             self.menuOptionsContainerView.setConstraints((.fillSuperView, toView: menuOptionsShadowContainerView))
             self.verticalStackView.setConstraints(([.marginEqual(20)], toView: menuOptionsContainerView))
             self.layoutIfNeeded()
