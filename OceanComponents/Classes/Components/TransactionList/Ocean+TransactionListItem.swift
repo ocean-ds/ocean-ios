@@ -88,6 +88,7 @@ extension Ocean {
         private lazy var selectCheckBox: Ocean.CheckBox = {
             Ocean.CheckBox { view in
                 view.label = ""
+                view.stackAlignment = .center
                 view.isHidden = true
                 view.alpha = 0
                 view.onTouch = {

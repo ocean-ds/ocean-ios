@@ -28,6 +28,13 @@ extension Ocean {
             }
         }
 
+
+        public var stackAlignment: UIStackView.Alignment = .top {
+            didSet {
+                radioStack.alignment = stackAlignment
+            }
+        }
+
         private let errorEmpty = "..."
 
         public var errorMessage: String = "" {
@@ -155,7 +162,7 @@ extension Ocean {
             radioStack = Ocean.StackView()
             radioStack.translatesAutoresizingMaskIntoConstraints = false
             radioStack.axis = .horizontal
-            radioStack.alignment = .top
+            radioStack.alignment = self.stackAlignment
             radioStack.distribution = .fill
 
             mainStack.add([radioStack,
