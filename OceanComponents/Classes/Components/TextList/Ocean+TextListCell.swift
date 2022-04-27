@@ -193,6 +193,7 @@ extension Ocean {
         private lazy var swipeImageView: UIImageView = {
             let view = UIImageView()
             view.image = Ocean.icon.swipe
+            view.isHidden = true
             return view
         }()
 
@@ -258,7 +259,7 @@ extension Ocean {
             }
         }()
 
-        private lazy var tagSpacer = Ocean.Spacer(space: Ocean.size.spacingStackXs)
+        private lazy var tagSpacer = Ocean.Spacer(space: Ocean.size.spacingInsetXxs)
 
         private lazy var tagView: Ocean.Tag = {
             Ocean.Tag { view in
@@ -316,19 +317,25 @@ extension Ocean {
             titleLabel.text = title
             subtitleLabel.isHidden = subtitle.isEmpty
             subtitleLabel.text = subtitle
+            subtitleLabel.isSkeletonable = !subtitle.isEmpty
             textLabel.isHidden = text.isEmpty
             textLabel.text = text
+            textLabel.isSkeletonable = !text.isEmpty
             tagView.title = tagTitle
             tagView.image = tagImage
             tagView.status = tagStatus
             tagView.isHidden = tagTitle.isEmpty
             tagSpacer.isHidden = tagView.isHidden
+            if !tagView.isHidden {
+                tagView.setSkeleton()
+            }
             roundedIconView.image = image
             roundedIconView.imageTintColor = imageTintColor
             roundedIconView.imageContentMode = imageContentMode
             roundedIconView.roundedBackgroundColor = roundedBackgroundColor
             roundedIconViewSpacer.isHidden = imageNotExist
             roundedIconView.isHidden = imageNotExist
+            roundedIconView.isSkeletonable = !imageNotExist
             arrowImageViewSpacer.isHidden = !arrow
             arrowImageView.isHidden = !arrow
             arrowImageView.image = arrowIcon
@@ -381,20 +388,9 @@ extension Ocean {
             self.isSkeletonable = true
             self.mainStack.isSkeletonable = true
             self.contentStack.isSkeletonable = true
-            self.roundedIconView.isSkeletonable = true
-            self.roundedIconView.isSkeletonable = true
+            self.infoStack.isSkeletonable = true
             self.infoStackTitle.isSkeletonable = true
-            self.infoStack.isSkeletonable = true
             self.titleLabel.isSkeletonable = true
-            self.subtitleLabel.isSkeletonable = true
-            self.textLabel.isSkeletonable = true
-        }
-
-        public func setSkeletonInverse() {
-            self.isSkeletonable = true
-            self.mainStack.isSkeletonable = true
-            self.contentStack.isSkeletonable = true
-            self.infoStack.isSkeletonable = true
         }
 
         @objc func viewTapped() {

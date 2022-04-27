@@ -66,6 +66,8 @@ extension Ocean {
             return view
         }()
 
+        private lazy var divider = Ocean.Divider()
+
         private lazy var mainStack: Ocean.StackView = {
             Ocean.StackView { stack in
                 stack.axis = .vertical
@@ -106,15 +108,19 @@ extension Ocean {
             mainStack.setConstraints((.fillSuperView, toView: self))
 
             containerView.addSubviews(tabStack,
+                                      divider,
                                       selectionLineView)
 
             tabStack.setConstraints(([.topToTop(.zero),
                                       .horizontalMargin(.zero),
                                       .height(Constants.tabHeight)], toView: containerView))
 
+            divider.setConstraints(([.bottomToBottom(.zero),
+                                     .horizontalMargin(.zero)], toView: containerView))
+
             selectionLineView.setConstraints(([.topToBottom(.zero)], toView: tabStack),
-                                             ([.bottomToBottom(.zero),
-                                              .height(Constants.lineHeight)], toView: containerView))
+                                             ([.bottomToTop(.zero),
+                                               .height(Constants.lineHeight)], toView: divider))
         }
 
         private func updateUI() {
@@ -186,6 +192,6 @@ extension Ocean {
                 self.onTouch?(selectedIndex)
             }
         }
-        
+
     }
 }
