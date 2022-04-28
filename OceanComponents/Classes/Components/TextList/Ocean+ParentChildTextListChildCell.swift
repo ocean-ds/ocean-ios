@@ -89,7 +89,7 @@ extension Ocean {
             return view
         }()
 
-        private lazy var swipeImageViewSpacer = Ocean.Spacer(space: Ocean.size.spacingStackXxs)
+        private lazy var swipeImageViewSpacer = Ocean.Spacer(space: Ocean.size.spacingStackSm)
 
         private lazy var infoStack: Ocean.StackView = {
             Ocean.StackView { stack in

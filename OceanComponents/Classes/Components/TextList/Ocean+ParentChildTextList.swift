@@ -40,7 +40,6 @@ extension Ocean {
             public let title: String
             public let subtitle: String
             public let image: UIImage?
-            public let swipe: Bool
             public let onTouch: (() -> Void)?
             public let buttonsSwipe: [ButtonModel]
             public let buttonsLongpress: [ButtonModel]
@@ -48,14 +47,12 @@ extension Ocean {
             public init(title: String,
                         subtitle: String,
                         image: UIImage? = nil,
-                        swipe: Bool = false,
                         onTouch: (() -> Void)? = nil,
                         buttonsSwipe: [ButtonModel] = [],
                         buttonsLongpress: [ButtonModel] = []) {
                 self.title = title
                 self.subtitle = subtitle
                 self.image = image
-                self.swipe = swipe
                 self.onTouch = onTouch
                 self.buttonsSwipe = buttonsSwipe
                 self.buttonsLongpress = buttonsLongpress
@@ -221,7 +218,7 @@ extension Ocean {
             cell.title = child.title
             cell.subtitle = child.subtitle
             cell.image = child.image
-            cell.swipe = child.swipe
+            cell.swipe = !child.buttonsSwipe.isEmpty
             return cell
         }
 
