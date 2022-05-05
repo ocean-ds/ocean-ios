@@ -33,7 +33,6 @@ extension Ocean {
         public var text: String = "" {
             didSet {
                 textField?.text = text
-                textField?.placeholder = ""
                 self.updateState()
             }
         }
@@ -169,7 +168,7 @@ extension Ocean {
             textField?.isEnabled = isEnabled
 
             if textField?.isFirstResponder == true {
-                textField?.placeholder = ""
+                textField?.placeholder = self.placeholder
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
                             border: Ocean.color.colorBrandPrimaryDown,
                             labelTitle: Ocean.color.colorInterfaceDarkDown)
