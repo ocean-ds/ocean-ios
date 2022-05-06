@@ -168,7 +168,6 @@ extension Ocean {
             textField?.isEnabled = isEnabled
 
             if textField?.isFirstResponder == true {
-                textField?.placeholder = self.placeholder
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
                             border: Ocean.color.colorBrandPrimaryDown,
                             labelTitle: Ocean.color.colorInterfaceDarkDown)
