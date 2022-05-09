@@ -66,7 +66,7 @@ extension Ocean {
                 stack.axis = .vertical
                 stack.alignment = .fill
                 stack.distribution = .fill
-                stack.spacing = Ocean.size.spacingStackXs
+                stack.spacing = .zero
             }
         }()
 
@@ -125,7 +125,7 @@ extension Ocean {
             self.mainStack.setConstraints(([.topToTop(Ocean.size.spacingInsetXxs),
                                             .trailingToTrailing(Ocean.size.spacingInsetXs)], toView: self))
             self.menuOptionsContainerView.setConstraints((.fillSuperView, toView: menuOptionsShadowContainerView))
-            self.verticalStackView.setConstraints(([.marginEqual(20)], toView: menuOptionsContainerView))
+            self.verticalStackView.setConstraints(([.marginEqual(0)], toView: menuOptionsContainerView))
             self.layoutIfNeeded()
         }
 
@@ -154,7 +154,6 @@ extension Ocean {
                     imageView.image = itemMenu.image?.withRenderingMode(.alwaysTemplate)
                     imageView.tintColor = itemMenu.tintColor
                     imageView.contentMode = .center
-                    imageView.setConstraints(([.squareSize(Ocean.size.spacingStackXs)], toView: nil))
                 }
 
                 let titleLabel = Ocean.Typography.description { label in
@@ -164,24 +163,41 @@ extension Ocean {
                     label.setContentHuggingPriority(.required, for: .horizontal)
                 }
 
-                let horizontalStack = Ocean.StackView { stack in
-                    stack.axis = .horizontal
-                    stack.distribution = .fill
-                    stack.alignment = .fill
-                    stack.spacing = Ocean.size.spacingStackXs
-                    stack.add([iconImageView, titleLabel])
-                }
-
                 let button = UIButton(frame: .zero)
                 button.tag = index
                 button.setTitle("", for: .normal)
                 button.addTarget(self, action: #selector(self.itemTapped(_:)), for: .touchUpInside)
 
-                horizontalStack.addSubview(button)
-                verticalStackView.addArrangedSubview(horizontalStack)
+                let containerItemView = UIView()
+                containerItemView.backgroundColor = .clear
+                containerItemView.addSubviews(iconImageView, titleLabel, button)
 
-                button.setConstraints((.fillSuperView, toView: horizontalStack))
+                verticalStackView.addArrangedSubview(containerItemView)
+
+
+                iconImageView.setConstraints(([.height(Ocean.size.spacingStackXs),
+                                               .leadingToLeading(20),
+                                               .topToTop(itemMarginTop(index)),
+                                               .bottomToBottom(itemMarginBottom(index))], toView: containerItemView))
+
+                titleLabel.setConstraints(([.trailingToTrailing(20)], toView: containerItemView),
+                                          ([.leadingToTrailing(Ocean.size.spacingStackXs),
+                                            .centerVertically], toView: iconImageView))
+
+                button.setConstraints((.fillSuperView, toView: containerItemView))
             }
+        }
+
+        func itemMarginTop(_ index: Int) -> CGFloat {
+            let isFirst = index == 0
+            let marginTop: CGFloat = isFirst ? 20 : 10
+            return marginTop
+        }
+
+        func itemMarginBottom(_ index: Int) -> CGFloat {
+            let isLast = index == options.count - 1
+            let marginBottom: CGFloat = isLast ? 20 : 10
+            return marginBottom
         }
 
         @objc func itemTapped(_ sender: Any?) {
