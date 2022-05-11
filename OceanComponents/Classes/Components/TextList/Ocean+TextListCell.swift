@@ -216,6 +216,8 @@ extension Ocean {
             }
         }()
 
+        private lazy var subtitleSpacer = Ocean.Spacer(space: Ocean.size.spacingInsetXxs)
+
         private lazy var infoStack: Ocean.StackView = {
             Ocean.StackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
@@ -227,7 +229,7 @@ extension Ocean {
                     infoStackTitle,
                     Ocean.Spacer(space: Ocean.size.spacingInsetXxs),
                     subtitleLabel,
-                    Ocean.Spacer(space: Ocean.size.spacingInsetXxs),
+                    subtitleSpacer,
                     textLabel,
                     tagSpacer,
                     tagView
@@ -316,6 +318,7 @@ extension Ocean {
 
             titleLabel.text = title
             subtitleLabel.isHidden = subtitle.isEmpty
+            subtitleSpacer.isHidden = subtitleLabel.isHidden
             subtitleLabel.text = subtitle
             subtitleLabel.isSkeletonable = !subtitle.isEmpty
             textLabel.isHidden = text.isEmpty
