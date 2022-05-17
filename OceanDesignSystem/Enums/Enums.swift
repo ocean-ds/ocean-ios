@@ -59,6 +59,7 @@ public enum DesignSystemComponentsType: String {
     case Step
     case Chips
     case ParentChildTextList
+    case Banner
 }
 
 public enum DesignSystemTypographyType: Int {
