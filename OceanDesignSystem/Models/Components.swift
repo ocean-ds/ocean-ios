@@ -42,7 +42,8 @@ struct DSComponents {
         "TransactionList",
         "FloatVerticalMenuList",
         "Tab",
-        "Typography"
+        "Typography",
+        "Banner"
     ]
 }
 
