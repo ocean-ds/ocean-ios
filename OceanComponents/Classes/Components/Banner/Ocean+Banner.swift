@@ -89,7 +89,8 @@ extension Ocean {
 
         lazy var gradient: CAGradientLayer = {
             let gradient = CAGradientLayer()
-            gradient.colors = [#colorLiteral(red: 0.002714407397, green: 0.2604770064, blue: 0.903519094, alpha: 1).cgColor, #colorLiteral(red: 0.4735340476, green: 0.9123227, blue: 0.9187847972, alpha: 1).cgColor]
+            gradient.colors = [Ocean.color.colorBrandPrimaryPure.cgColor,
+                               Ocean.color.colorComplementaryDown.cgColor]
             gradient.startPoint = CGPoint(x: 0, y: 0.2)
             gradient.endPoint = CGPoint(x: 1, y: 0)
             return gradient
