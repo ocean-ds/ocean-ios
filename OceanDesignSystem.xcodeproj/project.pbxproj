@@ -34,7 +34,6 @@
 		24E39BA326DE5BCE006B6A02 /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E39BA226DE5BCE006B6A02 /* BalanceViewController.swift */; };
 		24FEEBC12744282E00211FEC /* StepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FEEBC02744282E00211FEC /* StepViewController.swift */; };
 		4241FB5227E8AD4B003EF1F3 /* ParentChildTextListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4241FB5127E8AD4B003EF1F3 /* ParentChildTextListViewController.swift */; };
-		8E8000322774E7910026364F /* Changelog.md in Resources */ = {isa = PBXBuildFile; fileRef = 8E8000312774E7900026364F /* Changelog.md */; };
 		8EB41BED27E42D1800F18CC7 /* FloatVerticalMenuListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB41BEC27E42D1800F18CC7 /* FloatVerticalMenuListViewController.swift */; };
 		8ECB029F283319340037DC25 /* BannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB029E283319340037DC25 /* BannerViewController.swift */; };
 		8ED08AE727EE075500ACDCB4 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED08AE627EE075500ACDCB4 /* TabViewController.swift */; };
@@ -117,7 +116,6 @@
 		2FDF6A3790FFDCE821511C4F /* Pods-OceanDesignSystemTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OceanDesignSystemTests.debug.xcconfig"; path = "Target Support Files/Pods-OceanDesignSystemTests/Pods-OceanDesignSystemTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4241FB5127E8AD4B003EF1F3 /* ParentChildTextListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentChildTextListViewController.swift; sourceTree = "<group>"; };
 		5D9D9A171B743DED8A2B2297 /* Pods_OceanDesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OceanDesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8E8000312774E7900026364F /* Changelog.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Changelog.md; sourceTree = "<group>"; };
 		8EB41BEC27E42D1800F18CC7 /* FloatVerticalMenuListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatVerticalMenuListViewController.swift; sourceTree = "<group>"; };
 		8ECB029E283319340037DC25 /* BannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerViewController.swift; sourceTree = "<group>"; };
 		8ED08AE627EE075500ACDCB4 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
@@ -271,7 +269,6 @@
 		B833D02824A6796100587FDE = {
 			isa = PBXGroup;
 			children = (
-				8E8000312774E7900026364F /* Changelog.md */,
 				B833D03324A6796100587FDE /* OceanDesignSystem */,
 				24C801502682585600744F30 /* OceanDesignSystemTests */,
 				B833D03224A6796100587FDE /* Products */,
@@ -424,7 +421,6 @@
 				B7BB721E24EEE8EB007F8848 /* SnackbarView.xib in Resources */,
 				B833D03E24A6796300587FDE /* Assets.xcassets in Resources */,
 				B833D03C24A6796100587FDE /* Main.storyboard in Resources */,
-				8E8000322774E7910026364F /* Changelog.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
