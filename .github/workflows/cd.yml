@@ -27,6 +27,9 @@ jobs:
           git config --global user.name "Blu Release Bot"
           git config --global user.email "devs@useblu.com.br"
 
+      - name: Lint commit message
+        uses: wagoid/commitlint-github-action@v4
+
       - name: Bundle install
         run: bundle install
 
