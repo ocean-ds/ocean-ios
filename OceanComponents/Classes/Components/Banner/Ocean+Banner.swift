@@ -156,10 +156,15 @@ extension Ocean {
         private lazy var button: Ocean.ButtonText = {
             Ocean.Button.textSM { buttonText in
                 buttonText.leftIcon = Ocean.icon.plusOutline
-                buttonText.onTouch = {
-                    self.onTouchButton?()
-                }
+                buttonText.isUserInteractionEnabled = false
             }
+        }()
+
+        private lazy var mainButton: UIButton = {
+            let button = UIButton()
+            button.setTitle("", for: .normal)
+            button.addTarget(self, action: #selector(self.handleOnTouch), for: .touchUpInside)
+            return button
         }()
 
         public convenience init(builder: BannerBuilder = nil) {
@@ -191,6 +196,8 @@ extension Ocean {
             self.add(view: mainStack)
             roundedView.addSubviews(horizontalStack, containerButtonView)
             containerButtonView.addSubview(button)
+            self.addSubview(mainButton)
+
             setupConstraints()
         }
 
@@ -214,6 +221,8 @@ extension Ocean {
                                     .centerHorizontally], toView: containerButtonView))
 
             imageView.setConstraints((.width(Constants.iconWidth), toView: nil))
+
+            mainButton.setConstraints((.fillSuperView, toView: self))
         }
 
         private func updateUI() {
@@ -235,6 +244,11 @@ extension Ocean {
             self.horizontalStack.isSkeletonable = true
             self.infoVerticalStack.isSkeletonable = true
             self.titleLabel.isSkeletonable = true
+        }
+
+        @objc
+        func handleOnTouch() {
+            self.onTouchButton?()
         }
     }
 }
