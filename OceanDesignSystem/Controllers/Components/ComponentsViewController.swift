@@ -52,7 +52,18 @@ class ComponentsViewController: UITableViewController {
         case .RadioButton:
             self.present(RadioButtonViewController(), animated: true, completion: nil)
         case .DatePicker:
-            self.present(DatePickerViewController(), animated: true, completion: nil)
+            let datePicker = Ocean.DatePicker()
+            datePicker.navigationTitle = "Agendar para"
+            datePicker.minimumDate = Calendar.current.date(byAdding: .day, value: -10, to: Date())!
+            datePicker.maximumDate = Calendar.current.date(byAdding: .day, value: 10, to: Date())!
+            datePicker.datesToHide = [Calendar.current.date(byAdding: .day, value: 2, to: Date())!]
+            datePicker.onCancel = {
+                print("DatePicker cancel")
+            }
+            datePicker.onReleaseCalendar = { date in
+                print("DatePicker \(date)")
+            }
+            datePicker.show(rootViewController: self)
         case .AlertBox:
             self.present(AlertBoxViewController(), animated: true, completion: nil)
         case .Divider:

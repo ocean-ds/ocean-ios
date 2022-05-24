@@ -15,6 +15,7 @@ struct DSComponents {
         "AlertBox",
         "Badge",
         "Balance",
+        "Banner",
         "BottomNavigationBar",
         "BottomSheet",
         "Button",
@@ -42,8 +43,7 @@ struct DSComponents {
         "TransactionList",
         "FloatVerticalMenuList",
         "Tab",
-        "Typography",
-        "Banner"
+        "Typography"
     ]
 }
 
