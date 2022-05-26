@@ -387,15 +387,17 @@ extension Ocean {
             button.titleLabel?.minimumScaleFactor = 0.6
         }
 
-        public func setSkeleton() {
+        public func setSkeleton(inTitle: Bool = true) {
             self.isSkeletonable = true
             self.mainStack.isSkeletonable = true
             self.contentStack.isSkeletonable = true
             self.infoStack.isSkeletonable = true
-            self.infoStackTitle.isSkeletonable = true
-            self.titleLabel.isSkeletonable = true
+            if inTitle {
+                self.infoStackTitle.isSkeletonable = true
+                self.titleLabel.isSkeletonable = true
+            }
         }
-
+        
         @objc func viewTapped() {
             self.onTouch?()
         }
