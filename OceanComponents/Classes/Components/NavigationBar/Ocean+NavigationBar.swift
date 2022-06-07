@@ -75,8 +75,8 @@ public extension OceanNavigationBar {
 
         if navigationShadow {
             navigationController?.navigationBar.ocean.shadow.applyLevel1()
+            navigationController?.navigationBar.layer.shadowOpacity = 0
         }
-        navigationController?.navigationBar.layer.shadowOpacity = 0
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.compactAppearance = navBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
@@ -103,7 +103,7 @@ public extension OceanNavigationBar {
     }
 
     func showNavigationShadow() {
-        navigationController?.navigationBar.layer.shadowOpacity = 1
+        navigationController?.navigationBar.layer.shadowOpacity = navigationShadow ? 1 : 0
     }
 
     func hideNavigationShadow() {
