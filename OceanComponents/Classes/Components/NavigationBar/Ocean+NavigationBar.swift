@@ -41,7 +41,7 @@ public extension OceanNavigationBar {
     }
     
     var navigationShadow: Bool {
-        return false
+        return true
     }
     
     var navigationLargeTitle: Bool {
@@ -69,10 +69,14 @@ public extension OceanNavigationBar {
         navBarAppearance.titleTextAttributes = titleAttr
         navBarAppearance.largeTitleTextAttributes = largeTitleAttr
         navBarAppearance.backgroundColor = navigationBackgroundColor
-        navBarAppearance.shadowImage = navigationShadow ? Ocean.color.colorInterfaceLightDeep.as1ptImage() : UIImage()
+        navBarAppearance.shadowImage = UIImage()
         navBarAppearance.shadowColor = nil
         navBarAppearance.setBackIndicatorImage(navigationBackImage, transitionMaskImage: navigationBackImage)
 
+        if navigationShadow {
+            navigationController?.navigationBar.ocean.shadow.applyLevel1()
+        }
+        navigationController?.navigationBar.layer.shadowOpacity = 0
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.compactAppearance = navBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
@@ -96,6 +100,14 @@ public extension OceanNavigationBar {
     
     func hideNavigation(animated: Bool = true) {
         navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
+    func showNavigationShadow() {
+        navigationController?.navigationBar.layer.shadowOpacity = 1
+    }
+
+    func hideNavigationShadow() {
+        navigationController?.navigationBar.layer.shadowOpacity = 0
     }
     
     func showBackButton(animated: Bool = true) {
