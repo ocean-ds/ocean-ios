@@ -62,6 +62,12 @@ extension Ocean {
                 updateUI()
             }
         }
+
+        public var scheduleNotBluHidden: Bool = true {
+            didSet {
+                updateUI()
+            }
+        }
         
         private lazy var titleHighlightLabel: UILabel = {
             UILabel { label in
@@ -93,7 +99,7 @@ extension Ocean {
             UILabel { label in
                 label.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
                 label.textColor = Ocean.color.colorInterfaceDarkDeep
-                label.text = "Saldo disponível"
+                label.text = "Saldo total"
                 label.translatesAutoresizingMaskIntoConstraints = false
             }
         }()
@@ -167,7 +173,7 @@ extension Ocean {
             UILabel { label in
                 label.font = .baseBold(size: Ocean.font.fontSizeXs)
                 label.textColor = Ocean.color.colorInterfaceDarkDeep
-                label.text = "Saldo disponível"
+                label.text = "Saldo total"
                 label.translatesAutoresizingMaskIntoConstraints = false
             }
         }()
@@ -243,7 +249,7 @@ extension Ocean {
             UILabel { label in
                 label.font = .baseRegular(size: Ocean.font.fontSizeXs)
                 label.textColor = Ocean.color.colorInterfaceDarkDeep
-                label.text = "Agenda Blu"
+                label.text = "Agenda"
                 label.translatesAutoresizingMaskIntoConstraints = false
             }
         }()
@@ -301,6 +307,7 @@ extension Ocean {
             stack.axis = .horizontal
             stack.distribution = .fill
             stack.spacing = 0
+            stack.isHidden = scheduleNotBluHidden
             
             stack.add([
                 listScheduleNotBluTextLabel,
@@ -315,6 +322,12 @@ extension Ocean {
             
             return stack
         }()
+
+        private lazy var listScheduleNotBluDivider: UIView = {
+            let view = Ocean.Divider(widthConstraint: self.widthAnchor)
+            view.isHidden = scheduleNotBluHidden
+            return view
+        }()
         
         private lazy var listStack: Ocean.StackView = {
             let stack = Ocean.StackView()
@@ -327,11 +340,11 @@ extension Ocean {
             
             stack.add([
                 listBalanceAvailableStack,
-                Ocean.Divider(),
+                Ocean.Divider(widthConstraint: self.widthAnchor),
                 listCurrentBalanceStack,
-                Ocean.Divider(),
+                Ocean.Divider(widthConstraint: self.widthAnchor),
                 listScheduleBluStack,
-                Ocean.Divider(),
+                listScheduleNotBluDivider,
                 listScheduleNotBluStack
             ])
             
@@ -374,6 +387,8 @@ extension Ocean {
             listScheduleNotBluLabel.text = scheduleNotBlu.toCurrency()
             listScheduleNotBluLabel.textColor = scheduleNotBluActive ? Ocean.color.colorInterfaceDarkDeep :
                 Ocean.color.colorInterfaceDarkUp
+            listScheduleNotBluStack.isHidden = scheduleNotBluHidden
+            listScheduleNotBluDivider.isHidden = scheduleNotBluHidden
         }
         
         private func updateVisibleUI() {
