@@ -17,13 +17,14 @@ extension Ocean {
         
         public typealias BalanceBuilder = (Balance) -> Void
         
-        private enum State {
+        public enum State {
             case expanded, collapsed
         }
         
         private var state: State = .collapsed {
             didSet {
                 animateUI()
+                self.onStateChanged?(state)
             }
         }
         
@@ -68,6 +69,8 @@ extension Ocean {
                 updateUI()
             }
         }
+
+        public var onStateChanged: ((State) -> Void)?
         
         private lazy var titleHighlightLabel: UILabel = {
             UILabel { label in

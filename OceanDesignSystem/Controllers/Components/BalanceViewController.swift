@@ -18,6 +18,9 @@ final public class BalanceViewController : UIViewController {
         view.scheduleBlu = 1000.00
         view.scheduleNotBlu = 0
         view.scheduleNotBluHidden = false
+        view.onStateChanged = { state in
+            print(state)
+        }
     }
     
     public override func viewDidLoad() {
