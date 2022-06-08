@@ -17,6 +17,7 @@ final public class BalanceViewController : UIViewController {
         view.currentBalance = 68762.60
         view.scheduleBlu = 1000.00
         view.scheduleNotBlu = 0
+        view.scheduleNotBluHidden = false
     }
     
     public override func viewDidLoad() {
