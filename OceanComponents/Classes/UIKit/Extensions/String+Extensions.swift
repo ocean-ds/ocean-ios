@@ -39,4 +39,8 @@ extension String {
 
         return regex?.stringByReplacingMatches(in: self, options: [], range: NSRange(0..<self.count), withTemplate: unicode) ?? self
     }
+
+    public func replaceBrTag() -> String {
+        return self.replacingOccurrences(of: "</br>", with: "\n")
+    }
 }
