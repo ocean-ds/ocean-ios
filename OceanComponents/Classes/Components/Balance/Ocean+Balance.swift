@@ -88,6 +88,7 @@ extension Ocean {
                 imageView.tintColor = Ocean.color.colorInterfaceDarkUp
                 imageView.contentMode = .scaleAspectFit
                 imageView.translatesAutoresizingMaskIntoConstraints = false
+                imageView.isSkeletonable = true
                 
                 NSLayoutConstraint.activate([
                     imageView.widthAnchor.constraint(equalToConstant: Constants.eyeImageSize),
@@ -104,6 +105,7 @@ extension Ocean {
                 label.textColor = Ocean.color.colorInterfaceDarkDeep
                 label.text = "Saldo total"
                 label.translatesAutoresizingMaskIntoConstraints = false
+                label.isSkeletonable = true
             }
         }()
         
@@ -113,6 +115,7 @@ extension Ocean {
                 label.textColor = Ocean.color.colorInterfaceDarkDeep
                 label.text = balanceAvailable.toCurrency()
                 label.translatesAutoresizingMaskIntoConstraints = false
+                label.isSkeletonable = true
             }
         }()
         
@@ -121,6 +124,7 @@ extension Ocean {
             stack.axis = .vertical
             stack.distribution = .fill
             stack.spacing = 0
+            stack.isSkeletonable = true
             
             stack.add([
                 titleLabel,
@@ -151,6 +155,7 @@ extension Ocean {
             stack.alignment = .center
             stack.spacing = 0
             stack.translatesAutoresizingMaskIntoConstraints = false
+            stack.isSkeletonable = true
             
             stack.add([
                 titleHighlightLabel,
@@ -359,6 +364,7 @@ extension Ocean {
             stack.axis = .vertical
             stack.distribution = .fill
             stack.spacing = 0
+            stack.isSkeletonable = true
             
             stack.add([
                 headerStack,
@@ -379,6 +385,7 @@ extension Ocean {
         }
         
         private func setupUI() {
+            self.isSkeletonable = true
             add(view: mainStack)
         }
         
