@@ -41,6 +41,6 @@ extension String {
     }
 
     public func replaceBrTag() -> String {
-        return self.replacingOccurrences(of: "</br>", with: "\n")
+        return self.replacingOccurrences(of: "</br>", with: "\n").replacingOccurrences(of: "<br>", with: "\n")
     }
 }
