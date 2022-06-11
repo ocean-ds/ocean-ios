@@ -113,8 +113,8 @@ class ComponentsViewController: UITableViewController {
             self.present(ChipsViewController(), animated: true, completion: nil)
         case .ParentChildTextList:
             self.present(ParentChildTextListViewController(), animated: true, completion: nil)
-        case .Banner:
-            self.present(BannerViewController(), animated: true, completion: nil)
+        case .CrossSellCard:
+            self.present(CrossSellCardViewController(), animated: true, completion: nil)
         default:
             performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }

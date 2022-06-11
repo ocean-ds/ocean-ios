@@ -1,5 +1,5 @@
 //
-//  Ocean+Banner.swift
+//  Ocean+CrossSellCard.swift
 //  FSCalendar
 //
 //  Created by Leticia Fernandes on 16/05/22.
@@ -11,14 +11,14 @@ import UIKit
 import SkeletonView
 
 extension Ocean {
-    public class Banner: UIView {
+    public class CrossSellCard: UIView {
 
         struct Constants {
             static let buttonHeight: CGFloat = 44
-            static let iconWidth: CGFloat = 79
+            static let iconWidth: CGFloat = 80
         }
 
-        public typealias BannerBuilder = ((Banner) -> Void)?
+        public typealias CrossSellCardBuilder = ((CrossSellCard) -> Void)?
 
         public var title: String = "" {
             didSet {
@@ -32,7 +32,7 @@ extension Ocean {
             }
         }
 
-        public var icon: UIImage? {
+        public var image: UIImage? {
             didSet {
                 updateUI()
             }
@@ -44,7 +44,13 @@ extension Ocean {
             }
         }
 
-        public var onTouchButton: (() -> Void)?
+        public var buttonIcon: UIImage? = Ocean.icon.chevronRightSolid {
+            didSet {
+                updateUI()
+            }
+        }
+
+        public var onTouchCard: (() -> Void)?
 
         private lazy var mainStack: Ocean.StackView = {
             Ocean.StackView { stack in
@@ -79,21 +85,12 @@ extension Ocean {
 
         private lazy var roundedView: UIView = { 
             let view = UIView()
+            view.backgroundColor = Ocean.color.colorBrandPrimaryPure
             view.clipsToBounds = true
             view.layer.cornerRadius = 8
             view.layer.borderWidth = 1
             view.layer.borderColor = Ocean.color.colorInterfaceLightDown.cgColor
             return view
-        }()
-
-
-        lazy var gradient: CAGradientLayer = {
-            let gradient = CAGradientLayer()
-            gradient.colors = [Ocean.color.colorBrandPrimaryPure.cgColor,
-                               Ocean.color.colorComplementaryDown.cgColor]
-            gradient.startPoint = CGPoint(x: 0, y: 0.2)
-            gradient.endPoint = CGPoint(x: 1, y: 0)
-            return gradient
         }()
 
         private lazy var horizontalStack: Ocean.StackView = {
@@ -153,13 +150,6 @@ extension Ocean {
             return view
         }()
 
-        private lazy var button: Ocean.ButtonText = {
-            Ocean.Button.textSM { buttonText in
-                buttonText.leftIcon = Ocean.icon.plusOutline
-                buttonText.isUserInteractionEnabled = false
-            }
-        }()
-
         private lazy var mainButton: UIButton = {
             let button = UIButton()
             button.setTitle("", for: .normal)
@@ -167,7 +157,7 @@ extension Ocean {
             return button
         }()
 
-        public convenience init(builder: BannerBuilder = nil) {
+        public convenience init(builder: CrossSellCardBuilder = nil) {
             self.init()
             builder?(self)
         }
@@ -181,30 +171,12 @@ extension Ocean {
             fatalError("init(coder:) has not been implemented")
         }
 
-        public override func layoutSubviews() {
-            super.layoutSubviews()
-
-            if (roundedView.layer.sublayers?.contains(gradient) ?? false) {
-                roundedView.layer.sublayers?.remove(at: 0)
-                addGradient()
-            } else {
-                addGradient()
-            }
-        }
-
         private func setupUI() {
             self.add(view: mainStack)
             roundedView.addSubviews(horizontalStack, containerButtonView)
-            containerButtonView.addSubview(button)
             self.addSubview(mainButton)
 
             setupConstraints()
-        }
-
-        public func addGradient() {
-            layoutIfNeeded()
-            gradient.frame = roundedView.bounds
-            roundedView.layer.insertSublayer(gradient, at: 0)
         }
 
         private func setupConstraints() {
@@ -216,13 +188,9 @@ extension Ocean {
                                    .horizontalMargin(.zero),
                                    .bottomToBottom(.zero)], toView: roundedView))
 
-            button.setConstraints(([.height(Constants.buttonHeight),
-                                    .verticalMargin(.zero),
-                                    .centerHorizontally], toView: containerButtonView))
-
             imageView.setConstraints((.width(Constants.iconWidth), toView: nil))
 
-            mainButton.setConstraints((.fillSuperView, toView: self))
+            mainButton.setConstraints((.fillSuperView, toView: horizontalStack))
         }
 
         private func updateUI() {
@@ -230,10 +198,23 @@ extension Ocean {
             subtitleLabel.text = subtitle
             subtitleLabel.isHidden = subtitle.isEmpty
             subtitleLabel.isSkeletonable = !subtitle.isEmpty
-            imageView.image = icon
-            imageView.isHidden = icon == nil
-            imageView.isSkeletonable = icon != nil
-            button.text = buttonTitle
+            imageView.image = image
+            imageView.isHidden = image == nil
+            imageView.isSkeletonable = image != nil
+
+            if !buttonTitle.isEmpty, let btnIcon = buttonIcon {
+                let buttonText = Ocean.Button.textSM { button in
+                    button.text = buttonTitle
+                    button.rightIcon = btnIcon
+                    button.onTouch = {
+                        self.onTouchCard?()
+                    }
+                }
+                containerButtonView.removeSubviews()
+                containerButtonView.addSubview(buttonText)
+                buttonText.setConstraints((.fillSuperView, toView: containerButtonView))
+            }
+
         }
 
         public func setSkeleton() {
@@ -244,11 +225,12 @@ extension Ocean {
             self.horizontalStack.isSkeletonable = true
             self.infoVerticalStack.isSkeletonable = true
             self.titleLabel.isSkeletonable = true
+            self.containerButtonView.isSkeletonable = true
         }
 
         @objc
         func handleOnTouch() {
-            self.onTouchButton?()
+            self.onTouchCard?()
         }
     }
 }
