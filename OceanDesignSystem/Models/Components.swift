@@ -15,7 +15,7 @@ struct DSComponents {
         "AlertBox",
         "Badge",
         "Balance",
-        "Banner",
+        "CrossSellCard",
         "BottomNavigationBar",
         "BottomSheet",
         "Button",
