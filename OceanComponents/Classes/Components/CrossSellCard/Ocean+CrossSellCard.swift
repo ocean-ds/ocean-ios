@@ -50,6 +50,12 @@ extension Ocean {
             }
         }
 
+        public var cardBackgroundColor: UIColor? = Ocean.color.colorBrandPrimaryPure {
+            didSet {
+                updateUI()
+            }
+        }
+
         public var onTouchCard: (() -> Void)?
 
         private lazy var mainStack: Ocean.StackView = {
@@ -85,7 +91,6 @@ extension Ocean {
 
         private lazy var roundedView: UIView = { 
             let view = UIView()
-            view.backgroundColor = Ocean.color.colorBrandPrimaryPure
             view.clipsToBounds = true
             view.layer.cornerRadius = 8
             view.layer.borderWidth = 1
@@ -194,6 +199,7 @@ extension Ocean {
         }
 
         private func updateUI() {
+            roundedView.backgroundColor = cardBackgroundColor
             titleLabel.text = title
             subtitleLabel.text = subtitle
             subtitleLabel.isHidden = subtitle.isEmpty
