@@ -15,7 +15,7 @@ extension Ocean {
 
         struct Constants {
             static let buttonHeight: CGFloat = 44
-            static let iconWidth: CGFloat = 80
+            static let iconSize: CGFloat = 80
         }
 
         public typealias CrossSellCardBuilder = ((CrossSellCard) -> Void)?
@@ -98,19 +98,6 @@ extension Ocean {
             return view
         }()
 
-        private lazy var horizontalStack: Ocean.StackView = {
-            Ocean.StackView { stack in
-                stack.axis = .horizontal
-                stack.distribution = .fill
-                stack.alignment = .fill
-
-                stack.add([
-                    infoVerticalStack,
-                    imageView
-                ])
-            }
-        }()
-
         private lazy var infoVerticalStack: Ocean.StackView = {
             Ocean.StackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
@@ -150,7 +137,6 @@ extension Ocean {
 
         private lazy var containerButtonView: UIView = {
             let view = UIView()
-            view.clipsToBounds = true
             view.backgroundColor = Ocean.color.colorInterfaceLightPure
             return view
         }()
@@ -178,24 +164,29 @@ extension Ocean {
 
         private func setupUI() {
             self.add(view: mainStack)
-            roundedView.addSubviews(horizontalStack, containerButtonView)
+            roundedView.addSubviews(infoVerticalStack, imageView, containerButtonView)
             self.addSubview(mainButton)
 
             setupConstraints()
         }
 
         private func setupConstraints() {
-            horizontalStack.setConstraints(([.topToTop(Ocean.size.spacingStackXs),
-                                             .horizontalMargin(Ocean.size.spacingStackXs)], toView: roundedView))
+            infoVerticalStack.setConstraints(([.topToTop(Ocean.size.spacingStackXs),
+                                               .leadingToLeading(Ocean.size.spacingStackXs)], toView: roundedView),
+                                             ([.trailingToLeading(Ocean.size.spacingStackXs)], toView: imageView))
 
-            containerButtonView.setConstraints(([.topToBottom(Ocean.size.spacingStackXs)], toView: horizontalStack),
-                                  ([.height(Constants.buttonHeight),
-                                   .horizontalMargin(.zero),
-                                   .bottomToBottom(.zero)], toView: roundedView))
+            imageView.setConstraints(([.squareSize(Constants.iconSize),
+                                       .trailingToTrailing(Ocean.size.spacingStackXs)], toView: roundedView),
+                                     ([.centerVertically], toView: infoVerticalStack))
 
-            imageView.setConstraints((.width(Constants.iconWidth), toView: nil))
+            containerButtonView.setConstraints(([.topToBottom(Ocean.size.spacingStackXs)], toView: infoVerticalStack),
+                                               ([.height(Constants.buttonHeight),
+                                                 .horizontalMargin(.zero),
+                                                 .bottomToBottom(.zero)], toView: roundedView))
 
-            mainButton.setConstraints((.fillSuperView, toView: horizontalStack))
+            mainButton.setConstraints(([.verticalMargin(.zero),
+                                        .bondToLeading], toView: infoVerticalStack),
+                                      ([.bondToTrailing], toView: imageView))
         }
 
         private func updateUI() {
@@ -212,6 +203,7 @@ extension Ocean {
                 let buttonText = Ocean.Button.textSM { button in
                     button.text = buttonTitle
                     button.rightIcon = btnIcon
+                    button.isRounded = false
                     button.onTouch = {
                         self.onTouchCard?()
                     }
@@ -228,7 +220,6 @@ extension Ocean {
             self.mainStack.isSkeletonable = true
             self.contentStack.isSkeletonable = true
             self.roundedView.isSkeletonable = true
-            self.horizontalStack.isSkeletonable = true
             self.infoVerticalStack.isSkeletonable = true
             self.titleLabel.isSkeletonable = true
             self.containerButtonView.isSkeletonable = true
