@@ -15,7 +15,7 @@ class CrossSellCardViewController: UIViewController {
         Ocean.CrossSellCard { card in
             card.title = "Mais saldo para seus pagamentos"
             card.subtitle = "Aproveite os recebíveis de outras maquininhas para pagar os boletos deste fornecedor."
-            card.image = UIImage(named: "icon-money")
+            card.image = UIImage(named: "calendar-coin")
             card.buttonTitle = "Incluir no contrato"
             card.buttonIcon = Ocean.icon.plusOutline
             card.cardBackgroundColor = Ocean.color.colorBrandPrimaryDown

@@ -24,7 +24,7 @@ extension Ocean {
             configType()
             makeView()
         }
-
+        public var isRounded: Bool = true
         public var padding: CGFloat = Ocean.size.spacingInlineSm
         public var size: ButtonText.Size = .medium {
             didSet {
@@ -181,7 +181,7 @@ extension Ocean {
             self.addSubview(contentStack)
 
             self.backgroundColor = activeBackgroundColor
-            self.layer.cornerRadius = Ocean.size.borderRadiusCircular * height
+            self.layer.cornerRadius = isRounded ? Ocean.size.borderRadiusCircular * height : 0
             self.translatesAutoresizingMaskIntoConstraints = false
             self.heightAnchor.constraint(equalToConstant: height).isActive = true
             //self.widthAnchor.constraint(greaterThanOrEqualToConstant: minWidth).isActive = true
