@@ -12,7 +12,7 @@ import OceanTokens
 extension Ocean {
     public class InputSelectField: InputTextField {
         public var rootViewController: UIViewController?
-        public var titleBottomSheet: String = ""
+        public var titleModal: String = ""
         public var values: [String] = []
         public var maxValues: Int? = nil
         public var placeholderFilter: String?
@@ -51,7 +51,7 @@ extension Ocean {
                 }
                 
                 let modalList = ModalList(rootViewController)
-                    .withTitle(self.titleBottomSheet)
+                    .withTitle(self.titleModal)
                     .withValues(model)
                     .build()
                 
@@ -60,7 +60,7 @@ extension Ocean {
                         let values = self.values.compactMap { value in
                             CellModel(title: value, isSelected: self.text == value)
                         }
-                        let filterViewController = FilterViewController(title: self.titleBottomSheet,
+                        let filterViewController = FilterViewController(title: self.titleModal,
                                                                         placeholder: self.placeholderFilter,
                                                                         values: values)
                         filterViewController.onValueSelected = { filterValue in
