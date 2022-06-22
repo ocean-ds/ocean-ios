@@ -1,5 +1,5 @@
 //
-//  BottomSheetViewController.swift
+//  ModalViewController.swift
 //  OceanDesignSystem
 //
 //  Created by Pedro Azevedo on 09/07/21.
@@ -9,7 +9,7 @@
 import UIKit
 import OceanTokens
 
-class BottomSheetViewController: UIViewController {
+class ModalViewController: UIViewController {
     enum ShowCases {
         case withActonsNormal
         case withActonsCritical
@@ -38,34 +38,35 @@ class BottomSheetViewController: UIViewController {
     
     private lazy var showSheetButton: Ocean.ButtonPrimary = {
         Ocean.Button.primaryBlockedMD { button in
-            button.text = "Show Sheet"
+            button.text = "Show Modal"
             button.onTouch = self.showBottomSheetActionButton
         }
     }()
 
-    private lazy var sheetComponent: Ocean.BottomSheetViewController = {
-        Ocean.BottomSheet(self)
+    private lazy var sheetComponent: Ocean.ModalViewController = {
+        Ocean.Modal(self)
             .withImage(Ocean.icon.calculatorSolid)
             .withTitle("Titulo")
             .withCode("123")
-            .withDescription("Lorem Ipsum is <b>simply dummy text</b> of the printing and typesetting industry. Galley of type and scrambled it to make a type specimen book.")
+            .withDescription("Lorem Ipsum is <b>simply dummy text</b> of the printing and typesetting industry. Galley of type and scrambled it to make a type specimen book. Galley of type and scrambled it to make a type specimen book. Galley of type and scrambled it to make a type specimen book.")
             .withAction(textNegative: "Cancelar", actionNegative: nil,
                         textPositive: "Ativar", actionPositive: nil)
             .withCode("123")
             .build()
     }()
     
-    private lazy var sheetCriticalComponent: Ocean.BottomSheetViewController = {
-        Ocean.BottomSheetCritical(self)
+    private lazy var sheetCriticalComponent: Ocean.ModalViewController = {
+        Ocean.ModalCritical(self)
             .withTitle("Titulo")
             .withDescription("<b>Lorem Ipsum</b> is simply dummy text of the printing and typesetting industry. Galley of type and scrambled it to make a type specimen book?")
+            .withDismiss(false)
             .withAction(textNegative: "Cancelar", actionNegative: nil,
                         textPositive: "Recusar", actionPositive: nil)
             .build()
     }()
     
-    private lazy var sheetListComponent: Ocean.BottomSheetViewController = {
-        Ocean.BottomSheetList(self)
+    private lazy var sheetListComponent: Ocean.ModalListViewController = {
+        Ocean.ModalList(self)
             .withTitle("Teste")
             .withValues([
                 Ocean.CellModel(title: "Teste 1"),
@@ -74,8 +75,8 @@ class BottomSheetViewController: UIViewController {
             .build()
     }()
     
-    private lazy var sheetListWithImageComponent: Ocean.BottomSheetViewController = {
-        Ocean.BottomSheetList(self)
+    private lazy var sheetListWithImageComponent: Ocean.ModalListViewController = {
+        Ocean.ModalList(self)
             .withTitle("Teste").withValues([
                 Ocean.CellModel(title: "Via PIX", subTitle: "Transferência", imageIcon: Ocean.icon.annotationSolid, hideChevron: false),
                 Ocean.CellModel(title: "Via TED", subTitle: "Recebimento", imageIcon: Ocean.icon.archiveSolid, hideChevron: false)
@@ -83,8 +84,8 @@ class BottomSheetViewController: UIViewController {
             .build()
     }()
     
-    private lazy var customBottomSheet: Ocean.BottomSheetViewController = {
-        Ocean.BottomSheet(self)
+    private lazy var customBottomSheet: Ocean.ModalViewController = {
+        Ocean.Modal(self)
             .withCustomView(view: UIView())
             .build()
     }()

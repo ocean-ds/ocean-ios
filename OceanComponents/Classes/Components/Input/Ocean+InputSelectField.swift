@@ -50,12 +50,12 @@ extension Ocean {
                     }
                 }
                 
-                let bottomSheetList = BottomSheetList(rootViewController)
+                let modalList = ModalList(rootViewController)
                     .withTitle(self.titleBottomSheet)
                     .withValues(model)
                     .build()
                 
-                bottomSheetList.onValueSelected = { _, value in
+                modalList.onValueSelected = { _, value in
                     if value.title == "Ver todos" {
                         let values = self.values.compactMap { value in
                             CellModel(title: value, isSelected: self.text == value)
@@ -77,7 +77,7 @@ extension Ocean {
                     }
                 }
                 
-                bottomSheetList.show()
+                modalList.show()
             }
         }
     }
