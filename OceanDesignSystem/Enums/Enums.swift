@@ -33,7 +33,7 @@ public enum DesignSystemComponentsType: String {
     case Input
     case Snackbar
     case Switch
-    case BottomSheet
+    case Modal
     case RadioButton
     case DatePicker
     case AlertBox

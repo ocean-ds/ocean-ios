@@ -122,7 +122,7 @@
                         <segue destination="CbQ-Zt-QpH" kind="modal" identifier="SegueComponentTypeView" id="tAz-Xv-g6K"/>
                         <segue destination="Peb-Ta-70A" kind="modal" identifier="SegueSnackbarComponents" id="iIG-9y-ZaT"/>
                         <segue destination="Cg8-qg-q16" kind="modal" identifier="SegueButtonsComponents" id="QJW-iD-V2F"/>
-                        <segue destination="aw7-S8-jW5" kind="modal" identifier="SegueBottomSheetComponents" id="mcp-yR-T7D"/>
+                        <segue destination="aw7-S8-jW5" kind="modal" identifier="SegueModalComponents" id="mcp-yR-T7D"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aGw-ly-AWm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -783,10 +783,10 @@
             </objects>
             <point key="canvasLocation" x="2596" y="1370"/>
         </scene>
-        <!--Bottom Sheet View Controller-->
+        <!--Modal View Controller-->
         <scene sceneID="7Tm-Co-eYL">
             <objects>
-                <viewController id="aw7-S8-jW5" customClass="BottomSheetViewController" customModule="OceanDesignSystem" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="aw7-S8-jW5" customClass="ModalViewController" customModule="OceanDesignSystem" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lzk-EF-YLg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

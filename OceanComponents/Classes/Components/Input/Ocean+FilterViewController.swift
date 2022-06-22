@@ -137,7 +137,7 @@ extension Ocean {
         }
 
         public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = Ocean.BottomSheetCell()
+            let cell = Ocean.ModalCell()
 
             cell.model = contentValues?[indexPath.row]
 

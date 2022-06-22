@@ -90,7 +90,7 @@ public class InputViewController : UIViewController {
         self.select = Ocean.Input.selectWithLabel { component in
             component.placeholder = "placeholder"
             component.helper = "helper text"
-            component.titleBottomSheet = "Title"
+            component.titleModal = "Title"
             component.rootViewController = self
             component.placeholderFilter = "Digite o texto para filtrar"
             component.values = ["Label 1", "Label 2", "Label 3", "Label 4", "Label 5", "Label 6", "Label 7", "Label 8", "Label 9", "Label 10", "Label 11", "Label 12", "Label 13", "Label 14", "Label 15", "Label 16", "Label 17", "Label 18", "Label 19", "Label 20", "Label 21", "Label 22", "Label 23", "Label 24", "Label 25"]

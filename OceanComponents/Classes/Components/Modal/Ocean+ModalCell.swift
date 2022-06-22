@@ -1,5 +1,5 @@
 //
-//  Ocean+BottomSheetCell.swift
+//  Ocean+ModalCell.swift
 //  OceanComponents
 //
 //  Created by Vini on 14/06/21.
@@ -9,8 +9,7 @@ import UIKit
 import OceanTokens
 
 extension Ocean {
-    class BottomSheetCell: UITableViewCell {
-        
+    class ModalCell: UITableViewCell {
         public var model: Ocean.CellModel? {
             didSet {
                 updateUI()

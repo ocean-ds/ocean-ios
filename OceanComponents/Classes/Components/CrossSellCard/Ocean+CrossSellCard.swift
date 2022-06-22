@@ -1,6 +1,6 @@
 //
 //  Ocean+CrossSellCard.swift
-//  FSCalendar
+//  OceanComponents
 //
 //  Created by Leticia Fernandes on 16/05/22.
 //

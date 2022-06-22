@@ -12,7 +12,7 @@ import OceanTokens
 extension Ocean {
     public class InputSelectField: InputTextField {
         public var rootViewController: UIViewController?
-        public var titleBottomSheet: String = ""
+        public var titleModal: String = ""
         public var values: [String] = []
         public var maxValues: Int? = nil
         public var placeholderFilter: String?
@@ -50,17 +50,17 @@ extension Ocean {
                     }
                 }
                 
-                let bottomSheetList = BottomSheetList(rootViewController)
-                    .withTitle(self.titleBottomSheet)
+                let modalList = ModalList(rootViewController)
+                    .withTitle(self.titleModal)
                     .withValues(model)
                     .build()
                 
-                bottomSheetList.onValueSelected = { _, value in
+                modalList.onValueSelected = { _, value in
                     if value.title == "Ver todos" {
                         let values = self.values.compactMap { value in
                             CellModel(title: value, isSelected: self.text == value)
                         }
-                        let filterViewController = FilterViewController(title: self.titleBottomSheet,
+                        let filterViewController = FilterViewController(title: self.titleModal,
                                                                         placeholder: self.placeholderFilter,
                                                                         values: values)
                         filterViewController.onValueSelected = { filterValue in
@@ -77,7 +77,7 @@ extension Ocean {
                     }
                 }
                 
-                bottomSheetList.show()
+                modalList.show()
             }
         }
     }

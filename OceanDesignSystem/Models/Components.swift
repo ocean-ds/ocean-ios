@@ -17,7 +17,6 @@ struct DSComponents {
         "Balance",
         "CrossSellCard",
         "BottomNavigationBar",
-        "BottomSheet",
         "Button",
         "Card",
         "CardContent",
@@ -26,7 +25,9 @@ struct DSComponents {
         "Chips",
         "DatePicker",
         "Divider",
+        "FloatVerticalMenuList",
         "Input",
+        "Modal",
         "NavigationBar",
         "OptionCard",
         "ParentChildTextList",
@@ -41,7 +42,6 @@ struct DSComponents {
         "TextList",
         "Tooltip",
         "TransactionList",
-        "FloatVerticalMenuList",
         "Tab",
         "Typography"
     ]

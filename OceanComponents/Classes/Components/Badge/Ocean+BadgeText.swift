@@ -66,10 +66,6 @@ extension Ocean {
             self.translatesAutoresizingMaskIntoConstraints = false
             self.layer.cornerRadius = Constants.height * Ocean.size.borderRadiusCircular
             self.backgroundColor = Ocean.color.colorHighlightPure
-            self.layer.shadowOffset = CGSize(width: 0, height: 4)
-            self.layer.shadowRadius = 8
-            self.layer.shadowColor = Ocean.color.colorHighlightPure.withAlphaComponent(0.24).cgColor
-            self.layer.shadowOpacity = 1
             self.add(view: mainStack)
             
             self.heightAnchor.constraint(equalToConstant: Constants.height).isActive = true

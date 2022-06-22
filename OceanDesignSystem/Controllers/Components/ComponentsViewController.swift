@@ -47,8 +47,8 @@ class ComponentsViewController: UITableViewController {
             performSegue(withIdentifier: "SegueButtonsComponents", sender: self)
         case .Switch:
             self.present(SwitchViewController(), animated: true, completion: nil)
-        case .BottomSheet:
-            performSegue(withIdentifier: "SegueBottomSheetComponents", sender: self)
+        case .Modal:
+            performSegue(withIdentifier: "SegueModalComponents", sender: self)
         case .RadioButton:
             self.present(RadioButtonViewController(), animated: true, completion: nil)
         case .DatePicker:
@@ -100,7 +100,7 @@ class ComponentsViewController: UITableViewController {
         case .TransactionList:
             self.present(TransactionListViewController(), animated: true, completion: nil)
         case .FloatVerticalMenuList:
-            self.navigationController?.pushViewController(FloatVerticalMenuListViewController(), animated: true)
+            self.present(FloatVerticalMenuListViewController(), animated: true, completion: nil)
         case .Tab:
             self.present(TabViewController(), animated: true, completion: nil)
         case .CardContent:
