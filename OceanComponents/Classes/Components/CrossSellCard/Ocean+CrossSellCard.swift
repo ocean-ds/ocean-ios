@@ -14,7 +14,7 @@ extension Ocean {
     public class CrossSellCard: UIView {
 
         struct Constants {
-            static let buttonHeight: CGFloat = 44
+            static let buttonHeight: CGFloat = 48
             static let iconSize: CGFloat = 80
         }
 
