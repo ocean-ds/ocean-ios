@@ -16,7 +16,7 @@ extension Ocean {
             }
         }
         
-        static let identifier = "bottomSheetCellIdentifier"
+        static let identifier = "modalCellIdentifier"
         
         private lazy var contentStack: Ocean.StackView = {
             let stack = Ocean.StackView()
@@ -116,8 +116,8 @@ extension Ocean {
             contentView.addSubview(contentStack)
             
             NSLayoutConstraint.activate([
-                contentStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Ocean.size.borderRadiusLg),
-                contentStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Ocean.size.borderRadiusLg),
+                contentStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Ocean.size.spacingStackSm),
+                contentStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Ocean.size.spacingStackSm),
                 contentStack.topAnchor.constraint(equalTo: contentView.topAnchor),
                 contentStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
             ])
