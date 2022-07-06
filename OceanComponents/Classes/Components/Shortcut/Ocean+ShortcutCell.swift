@@ -16,6 +16,20 @@ extension Ocean {
                 imageView.image = image?.withRenderingMode(.alwaysTemplate)
             }
         }
+
+        public var badgeStatus: BadgeNumber.Status = .alert {
+            didSet {
+                badgeView.status = badgeStatus
+            }
+        }
+
+        public var badgeNumber: Int? = nil {
+            didSet {
+                guard let number = badgeNumber else { return }
+                badgeView.isHidden = false
+                badgeView.number = number
+            }
+        }
         
         public var title: String = "" {
             didSet {
@@ -28,11 +42,17 @@ extension Ocean {
                 updateState()
             }
         }
-        
+
         private lazy var imageView: UIImageView = {
             UIImageView { imageView in
                 imageView.translatesAutoresizingMaskIntoConstraints = false
             }
+        }()
+
+        private lazy var badgeView: BadgeNumber = {
+            let badgeNumberView = Ocean.Badge.number()
+            badgeNumberView.isHidden = true
+            return badgeNumberView
         }()
         
         private lazy var titleLabel: VerticalAlignmentLabel = {
@@ -53,6 +73,12 @@ extension Ocean {
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
+
+        public override func prepareForReuse() {
+            super.prepareForReuse()
+            badgeView.isHidden = true
+            imageView.image = nil
+        }
         
         private func setupUI() {
             self.contentView.clipsToBounds = true
@@ -60,6 +86,7 @@ extension Ocean {
             self.contentView.ocean.borderWidth.applyHairline()
             
             contentView.addSubview(imageView)
+            contentView.addSubview(badgeView)
             contentView.addSubview(titleLabel)
         
             NSLayoutConstraint.activate([
@@ -72,6 +99,8 @@ extension Ocean {
                 titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Ocean.size.spacingStackXs),
                 titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -11)
             ])
+
+            badgeView.setConstraints((.sameCenter, toView: imageView))
         }
         
         private func updateState() {

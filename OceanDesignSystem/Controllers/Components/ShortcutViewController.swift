@@ -38,8 +38,9 @@ final public class ShortcutViewController : UIViewController {
         shortcut1.addData(with: [
             Ocean.ShortcutModel(image: Ocean.icon.documentOutline!, title: "Label"),
             Ocean.ShortcutModel(image: Ocean.icon.documentOutline!, title: "Label"),
-            Ocean.ShortcutModel(image: Ocean.icon.documentOutline!, title: "Label", isHighlight: true),
-            Ocean.ShortcutModel(image: Ocean.icon.documentOutline!, title: "Label", isHighlight: true)
+            Ocean.ShortcutModel(badgeNumber: 3, title: "Label"),
+            Ocean.ShortcutModel(badgeNumber: 0, badgeStatus: .neutral, title: "Label"),
+            Ocean.ShortcutModel(badgeNumber: 9, badgeStatus: .highlight, title: "Label")
         ])
     }
     
