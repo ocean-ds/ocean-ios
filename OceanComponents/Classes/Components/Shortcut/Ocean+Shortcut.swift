@@ -94,9 +94,12 @@ extension Ocean {
         public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ShortcutCell.cellId, for: indexPath) as? ShortcutCell else { return UICollectionViewCell() }
 
-            cell.image = self.data[indexPath.row].image
-            cell.title = self.data[indexPath.row].title
-            cell.isHighlight = self.data[indexPath.row].isHighlight
+            let shortcutData = self.data[indexPath.row]
+            cell.image = shortcutData.image
+            cell.badgeStatus = shortcutData.badgeStatus
+            cell.badgeNumber = shortcutData.badgeNumber
+            cell.title = shortcutData.title
+            cell.isHighlight = shortcutData.isHighlight
 
             return cell
         }
