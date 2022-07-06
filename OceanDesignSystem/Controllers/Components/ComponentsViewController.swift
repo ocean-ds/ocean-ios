@@ -103,8 +103,8 @@ class ComponentsViewController: UITableViewController {
             self.present(FloatVerticalMenuListViewController(), animated: true, completion: nil)
         case .Tab:
             self.present(TabViewController(), animated: true, completion: nil)
-        case .CardContent:
-            self.present(CardContentViewController(), animated: true, completion: nil)
+        case .CardGroup:
+            self.present(CardGroupViewController(), animated: true, completion: nil)
         case .Subheader:
             self.present(SubheaderViewController(), animated: true, completion: nil)
         case .Step:

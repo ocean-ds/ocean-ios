@@ -19,7 +19,7 @@ struct DSComponents {
         "BottomNavigationBar",
         "Button",
         "Card",
-        "CardContent",
+        "CardGroup",
         "Carousel",
         "CheckBox",
         "Chips",

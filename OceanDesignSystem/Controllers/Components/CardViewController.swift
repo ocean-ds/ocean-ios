@@ -23,10 +23,10 @@ final public class CardViewController : UIViewController {
         stack.translatesAutoresizingMaskIntoConstraints = false
         
         stack.addArrangedSubview(Ocean.Card { view in
-            view.view = Ocean.Spacer(space: Ocean.size.spacingStackXxxl)
+            view.cardContentView = Ocean.Spacer(space: Ocean.size.spacingStackXxxl)
         })
         stack.addArrangedSubview(Ocean.Card { view in
-            view.view = Ocean.Spacer(space: Ocean.size.spacingStackXxxl)
+            view.cardContentView = Ocean.Spacer(space: Ocean.size.spacingStackXxxl)
             view.withShadow = true
         })
         
