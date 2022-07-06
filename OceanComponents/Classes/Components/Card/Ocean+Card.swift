@@ -15,9 +15,9 @@ extension Ocean {
         
         public var withShadow: Bool = false
         
-        public var view: UIView = UIView() {
+        public var cardContentView: UIView? {
             didSet {
-                updateView()
+                updateCardContentView()
             }
         }
         
@@ -38,7 +38,9 @@ extension Ocean {
             }
         }
         
-        internal func updateView() {
+        internal func updateCardContentView() {
+            guard let view = self.cardContentView else { return }
+
             self.subviews.forEach { subview in
                 subview.removeFromSuperview()
             }

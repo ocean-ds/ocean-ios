@@ -1,5 +1,5 @@
 //
-//  Ocean+CardContent.swift
+//  Ocean+CardGroup.swift
 //  OceanComponents
 //
 //  Created by Vini on 08/09/21.
@@ -10,8 +10,8 @@ import UIKit
 import OceanTokens
 
 extension Ocean {
-    public class CardContent: Card {
-        public typealias CardContentBuilder = (CardContent) -> Void
+    public class CardGroup: Card {
+        public typealias CardGroupBuilder = (CardGroup) -> Void
         
         public var onTouch: (() -> Void)?
         
@@ -31,6 +31,12 @@ extension Ocean {
                 updateUI()
             }
         }
+
+        public var subtitle: String = "" {
+            didSet {
+                updateUI()
+            }
+        }
         
         public var badgeStatus: BadgeNumber.Status = .alert {
             didSet {
@@ -38,7 +44,7 @@ extension Ocean {
             }
         }
         
-        public var badgeNumber: Int = 0 {
+        public var badgeNumber: Int? = nil {
             didSet {
                 updateUI()
             }
@@ -57,8 +63,7 @@ extension Ocean {
                 view.translatesAutoresizingMaskIntoConstraints = false
                 
                 NSLayoutConstraint.activate([
-                    view.widthAnchor.constraint(equalToConstant: Constants.imageSize),
-                    view.heightAnchor.constraint(equalToConstant: Constants.imageSize)
+                    view.widthAnchor.constraint(equalToConstant: Constants.imageSize)
                 ])
             }
         }()
@@ -67,23 +72,59 @@ extension Ocean {
             Ocean.Typography.heading4 { label in
                 label.text = ""
                 label.textColor = Ocean.color.colorInterfaceDarkDeep
-                label.translatesAutoresizingMaskIntoConstraints = false
+                label.textAlignment = .left
+                label.numberOfLines = 0
             }
         }()
-        
+
+        private lazy var subtitleLabel: UILabel = {
+            Ocean.Typography.caption { label in
+                label.text = ""
+                label.textColor = Ocean.color.colorInterfaceDarkDown
+                label.textAlignment = .left
+                label.numberOfLines = 0
+            }
+        }()
+
+        private lazy var topLabelsStack: Ocean.StackView = {
+            let stack = Ocean.StackView()
+            stack.axis = .vertical
+            stack.distribution = .fill
+            stack.alignment = .leading
+            stack.spacing = Ocean.size.spacingStackXxxs
+
+            stack.add([
+                titleLabel,
+                subtitleLabel
+            ])
+            return stack
+        }()
+
         private lazy var badgeView = Ocean.Badge.number()
+
+        private lazy var containerBadgeView: UIView = {
+            let view = UIView()
+            view.backgroundColor = .clear
+            view.addSubview(badgeView)
+            view.setConstraints((.width(badgeView.frame.width), toView: nil))
+            badgeView.setConstraints(([.topToTop(.zero),
+                                       .trailingToTrailing(.zero)], toView: view))
+
+            return view
+        }()
         
         private lazy var topStack: Ocean.StackView = {
             let stack = Ocean.StackView()
             stack.axis = .horizontal
             stack.distribution = .fill
+            stack.alignment = .fill
             stack.spacing = Ocean.size.spacingStackXs
             stack.translatesAutoresizingMaskIntoConstraints = false
             
             stack.add([
                 imageView,
-                titleLabel,
-                badgeView
+                topLabelsStack,
+                containerBadgeView
             ])
             
             stack.isLayoutMarginsRelativeArrangement = true
@@ -95,8 +136,8 @@ extension Ocean {
             return stack
         }()
         
-        private lazy var topDivider = Ocean.Divider(widthConstraint: self.widthAnchor)
-        
+        private lazy var topDivider = Ocean.Divider()
+
         private lazy var actionTitleLabel: UILabel = {
             UILabel { label in
                 label.font = .baseBold(size: Ocean.font.fontSizeXxs)
@@ -154,19 +195,18 @@ extension Ocean {
             return view
         }()
         
-        private lazy var bottomDivider = Ocean.Divider(widthConstraint: self.widthAnchor)
+        private lazy var bottomDivider = Ocean.Divider()
         
         private lazy var mainStack: Ocean.StackView = {
             let stack = Ocean.StackView()
             stack.axis = .vertical
             stack.distribution = .fill
+            stack.alignment = .fill
             stack.spacing = 0
             stack.translatesAutoresizingMaskIntoConstraints = false
             
             stack.add([
                 topStack,
-                topDivider,
-                self.view,
                 bottomDivider,
                 bottomView
             ])
@@ -174,7 +214,7 @@ extension Ocean {
             return stack
         }()
         
-        public convenience init(builder: CardContentBuilder) {
+        public convenience init(builder: CardGroupBuilder) {
             self.init()
             builder(self)
             setupUI()
@@ -186,17 +226,23 @@ extension Ocean {
             self.add(view: mainStack)
         }
         
-        override func updateView() {
-            
+        override func updateCardContentView() {
+            guard let cardContentView = self.cardContentView else { return }
+            mainStack.insertArrangedSubview(topDivider, at: 1)
+            mainStack.insertArrangedSubview(cardContentView, at: 2)
         }
         
         private func updateUI() {
             imageView.image = image?.withRenderingMode(.alwaysTemplate)
             imageView.isHidden = image == nil
             titleLabel.text = title
+            subtitleLabel.text = subtitle
+            subtitleLabel.isHidden = subtitle.isEmpty
             badgeView.status = badgeStatus
-            badgeView.number = badgeNumber
-            badgeView.isHidden = badgeNumber == 0
+            if let badgeNumber = self.badgeNumber {
+                badgeView.number = badgeNumber
+            }
+            containerBadgeView.isHidden = badgeNumber == nil
             actionTitleLabel.text = actionTitle
             bottomView.isHidden = actionTitle.isEmpty
             bottomDivider.isHidden = actionTitle.isEmpty
