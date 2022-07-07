@@ -16,4 +16,18 @@ extension UIColor {
         UIGraphicsEndImageContext()
         return image
     }
+
+    var toHexString: String? {
+        if let components = self.cgColor.components {
+            let colorRed = components[0]
+            let colorGreen = components[1]
+            let colorBlue = components[2]
+            return String(format: "#%02x%02x%02x",
+                          (Int)(colorRed * 255),
+                          (Int)(colorGreen * 255),
+                          (Int)(colorBlue * 255))
+        }
+
+        return nil
+    }
 }
