@@ -8,7 +8,7 @@
 import Foundation
 import OceanTokens
 
-extension String {
+public extension String {
 
     func htmlToAttributedText(font: UIFont = UIFont(name: Ocean.font.fontFamilyBaseWeightRegular, size: Ocean.font.fontSizeXs)!,
                               size: CGFloat,
@@ -56,7 +56,7 @@ extension String {
         }
     }
 
-    public func extractSupposedBoldWords(completion: @escaping ([String]) -> Void) {
+    func extractSupposedBoldWords(completion: @escaping ([String]) -> Void) {
         let query = self
         let regex = try! NSRegularExpression(pattern:"<b>(.*?)</b>", options: [])
         var results = [String]()
@@ -80,7 +80,7 @@ extension String {
         5.0000
      */
 
-    public func replaceSpaceWithUnicode() -> String {
+    func replaceSpaceWithUnicode() -> String {
         let pat = "\\bR(\\$) \\b"
         let unicode = "R$\u{00A0}"
         let regex = try? NSRegularExpression(pattern: pat)
@@ -88,7 +88,7 @@ extension String {
         return regex?.stringByReplacingMatches(in: self, options: [], range: NSRange(0..<self.count), withTemplate: unicode) ?? self
     }
 
-    public func replaceBrTag() -> String {
+    func replaceBrTag() -> String {
         return self.replacingOccurrences(of: "</br>", with: "\n").replacingOccurrences(of: "<br>", with: "\n")
     }
 }

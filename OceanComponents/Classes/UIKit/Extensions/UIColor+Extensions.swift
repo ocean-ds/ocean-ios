@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UIColor {
+public extension UIColor {
     func as1ptImage() -> UIImage {
         UIGraphicsBeginImageContext(CGSize(width: UIScreen.main.bounds.width, height: 1))
         setFill()
