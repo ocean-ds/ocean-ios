@@ -181,8 +181,15 @@ extension Ocean {
             iconImageView.image = image
             titleLabel.text = title
             titleLabel.isHidden = title.isEmpty
-            messageLabel.text = text
-            messageLongLabel.text = text
+
+
+            messageLabel.attributedText = text.htmlToAttributedText(font: messageLabel.font,
+                                                                    size: messageLabel.font.pointSize,
+                                                                    color: Ocean.color.colorInterfaceDarkDown)
+            messageLongLabel.attributedText = text.htmlToAttributedText(font: messageLongLabel.font,
+                                                                        size: messageLongLabel.font.pointSize,
+                                                                        color: Ocean.color.colorInterfaceDarkDown)
+
             if let textAttributedString = self.textAttributedString {
                 messageLabel.attributedText = textAttributedString
                 messageLongLabel.attributedText = textAttributedString
