@@ -26,17 +26,17 @@ extension Ocean {
             return self
         }
         
-        public func withTitle(_ title: String) -> Modal {
+        public func withTitle(_ title: String?) -> Modal {
             modalViewController.contentTitle = title
             return self
         }
         
-        public func withDescription(_ description: String) -> Modal {
+        public func withDescription(_ description: String?) -> Modal {
             modalViewController.contentDescription = description
             return self
         }
         
-        public func withDescription(_ description: NSAttributedString) -> Modal {
+        public func withDescription(_ description: NSAttributedString?) -> Modal {
             modalViewController.contentDescriptionAttributeText = description
             return self
         }
@@ -91,12 +91,14 @@ extension Ocean {
             return self
         }
         
-        public func withCode(_ code: Int) -> Modal {
-            modalViewController.contentAdditionalInformation = "Código \(code)"
+        public func withCode(_ code: Int?) -> Modal {
+            if let code = code {
+                modalViewController.contentAdditionalInformation = "Código \(code)"
+            }
             return self
         }
 
-        public func withAdditionalInformation(_ additionalInformation: String) -> Modal {
+        public func withAdditionalInformation(_ additionalInformation: String?) -> Modal {
             modalViewController.contentAdditionalInformation = additionalInformation
             return self
         }
