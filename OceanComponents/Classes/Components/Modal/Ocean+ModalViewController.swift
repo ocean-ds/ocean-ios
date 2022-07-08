@@ -16,7 +16,7 @@ extension Ocean {
         var contentTitle: String?
         var contentDescription: String?
         var contentDescriptionAttributeText: NSAttributedString?
-        var contentCode: String?
+        var contentAdditionalInformation: String?
         var actionsAxis: NSLayoutConstraint.Axis = .vertical
         var actions: [UIControl] = []
         var customContent: UIView?
@@ -44,7 +44,7 @@ extension Ocean {
             totalSpacing += addDescriptionIfExist()
             totalSpacing += addCustomViewIfExist()
             totalSpacing += addActionsIfExist()
-            totalSpacing += addErrorCodeIfExist()
+            totalSpacing += addAdditionalInformationIfExist()
 
             spTransitionDelegate.customHeight = totalSpacing
         }
@@ -160,13 +160,13 @@ extension Ocean {
             return totalLines * label.frame.height
         }
 
-        fileprivate func addErrorCodeIfExist() -> CGFloat {
-            guard let code = contentCode else {
+        fileprivate func addAdditionalInformationIfExist() -> CGFloat {
+            guard let additionalInformation = contentAdditionalInformation else {
                 return 0
             }
 
             let label = Ocean.Typography.description { label in
-                label.text = "Código \(code)"
+                label.text = additionalInformation
                 label.numberOfLines = 1
                 label.textAlignment = .center
                 label.textColor = Ocean.color.colorInterfaceDarkUp

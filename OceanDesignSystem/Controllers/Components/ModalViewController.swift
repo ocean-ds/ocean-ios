@@ -47,11 +47,11 @@ class ModalViewController: UIViewController {
         Ocean.Modal(self)
             .withImage(Ocean.icon.calculatorSolid)
             .withTitle("Titulo")
-            .withCode("123")
+            .withCode(123)
             .withDescription("Lorem Ipsum is <b>simply dummy text</b> of the printing and typesetting industry. Galley of type and scrambled it to make a type specimen book. Galley of type and scrambled it to make a type specimen book. Galley of type and scrambled it to make a type specimen book.")
             .withAction(textNegative: "Cancelar", actionNegative: nil,
                         textPositive: "Ativar", actionPositive: nil)
-            .withCode("123")
+            .withCode(123)
             .build()
     }()
     
