@@ -367,8 +367,6 @@ extension Ocean {
             hStack.addArrangedSubview(textField)
 
             if let rightButton = self.rightButton {
-                rightButton.translatesAutoresizingMaskIntoConstraints = false
-                rightButton.widthAnchor.constraint(equalToConstant: 20).isActive = true
                 hStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
                 hStack.addArrangedSubview(rightButton)
             }

@@ -85,8 +85,6 @@ extension Ocean {
         public var onKeyEnterTouched: (() -> Void)?
         public var onBeginEditing: (() -> Void)?
 
-        public var rightButton: UIButton?
-
         public override init(frame: CGRect) {
             super.init(frame: frame)
             self.makeView()
