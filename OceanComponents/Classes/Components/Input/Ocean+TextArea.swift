@@ -56,12 +56,10 @@ extension Ocean {
                 textArea?.keyboardType = keyboardType
             }
         }
-        
-        public var errorMessage: String? {
-            get { labelError.text ?? "" }
-            
-            set {
-                labelError.text = newValue == nil || newValue?.isEmpty == true ? errorEmpty : newValue
+
+        public var errorMessage: String = "" {
+            didSet {
+                labelError?.text = errorMessage.isEmpty == true ? errorEmpty : errorMessage
                 self.updateState()
             }
         }
@@ -234,7 +232,7 @@ extension Ocean {
                 size: Ocean.font.fontSizeXxxs)
             labelHelper.textColor = Ocean.color.colorInterfaceDarkUp
             labelHelper.text = helper
-            labelHelper.isHidden = false
+            labelHelper.isHidden = true
         }
         
         func makePlaceholder() {
@@ -262,11 +260,10 @@ extension Ocean {
         func updateState() {
             textArea.isEditable = isEnabled
             labelError?.isHidden = true
-            labelHelper?.isHidden = false
+            labelHelper?.isHidden = true
             
             if errorMessage != errorEmpty {
                 labelError?.isHidden = false
-                labelHelper?.isHidden = true
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
                             border: Ocean.color.colorStatusNegativePure,
                             labelTitle: Ocean.color.colorInterfaceDarkDown)
@@ -306,6 +303,12 @@ extension Ocean {
             
             if let limitValue = self.charactersLimitNumber {
                 labelHelper?.text = "\(textArea.text?.count ?? 0)/\(limitValue)"
+            }
+
+            if labelError?.isHidden ?? true,
+               let helperText = labelHelper?.text,
+               !helperText.isEmpty {
+                labelHelper.isHidden = false
             }
         }
         
@@ -357,6 +360,7 @@ extension Ocean {
             
             mainStack.addArrangedSubview(labelError)
             mainStack.addArrangedSubview(labelHelper)
+            mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
             
             self.addSubview(mainStack)
             

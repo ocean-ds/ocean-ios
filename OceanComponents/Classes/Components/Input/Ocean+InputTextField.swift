@@ -252,7 +252,7 @@ extension Ocean {
                 size: Ocean.font.fontSizeXxxs)
             labelHelper.textColor = Ocean.color.colorInterfaceDarkUp
             labelHelper.text = helper
-            labelHelper.isHidden = false
+            labelHelper.isHidden = true
         }
 
         func makeImageView() {
@@ -282,11 +282,10 @@ extension Ocean {
         func updateState() {
             textField?.isEnabled = isEnabled
             labelError?.isHidden = true
-            labelHelper?.isHidden = false
+            labelHelper?.isHidden = true
 
             if labelError?.text != nil && labelError?.text != errorEmpty {
                 labelError?.isHidden = false
-                labelHelper?.isHidden = true
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
                             border: Ocean.color.colorStatusNegativePure,
                             labelTitle: Ocean.color.colorInterfaceDarkDown)
@@ -321,6 +320,12 @@ extension Ocean {
 
             if let limitValue = self.charactersLimitNumber {
                 labelHelper?.text = "\(textField.text?.count ?? 0)/\(limitValue)"
+            }
+
+            if labelError?.isHidden ?? true,
+               let helperText = labelHelper?.text,
+               !helperText.isEmpty {
+                labelHelper.isHidden = false
             }
         }
 
@@ -374,6 +379,7 @@ extension Ocean {
             mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxxs))
             mainStack.addArrangedSubview(labelError)
             mainStack.addArrangedSubview(labelHelper)
+            mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
 
             self.addSubview(mainStack)
 
