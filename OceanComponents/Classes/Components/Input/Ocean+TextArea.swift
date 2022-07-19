@@ -90,7 +90,7 @@ extension Ocean {
             }
         }
         
-        public var helper: String = " " {
+        public var helper: String = "" {
             didSet {
                 labelHelper?.text = helper
                 self.updateState()
@@ -262,7 +262,7 @@ extension Ocean {
             labelError?.isHidden = true
             labelHelper?.isHidden = true
             
-            if errorMessage != errorEmpty {
+            if labelError?.text != nil && labelError?.text != errorEmpty {
                 labelError?.isHidden = false
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
                             border: Ocean.color.colorStatusNegativePure,
