@@ -63,7 +63,7 @@ extension Ocean {
             }
         }
 
-        public var helper: String = " " {
+        public var helper: String = "" {
             didSet {
                 labelHelper?.text = helper
                 self.updateState()
