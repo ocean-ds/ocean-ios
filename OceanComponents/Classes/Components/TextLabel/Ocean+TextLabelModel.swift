@@ -18,11 +18,11 @@ extension Ocean {
         let colorString: String?
 
         public init(value: String,
-                    newValue: String? = "",
+                    newValue: String? = nil,
                     imageIcon: UIImage? = nil,
                     bold: Bool = false,
                     color: UIColor? = nil,
-                    colorString: String? = "") {
+                    colorString: String? = nil) {
             self.value = value
             self.newValue = newValue
             self.imageIcon = imageIcon
@@ -30,9 +30,5 @@ extension Ocean {
             self.color = color
             self.colorString = colorString
         }
-
-//        private func setColor() {
-//            if let color = NSAttributedString.init(Ocean.color, string: self.colorString) {}
-//        }
     }
 }

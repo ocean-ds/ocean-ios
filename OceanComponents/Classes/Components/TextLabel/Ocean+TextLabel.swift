@@ -102,6 +102,14 @@ extension Ocean {
             if let model = model {
                 self.valueLabel.text = model.value
 
+                if model.bold {
+                    self.valueLabel.font = .baseBold(size: Ocean.font.fontSizeSm)
+                    self.valueLabel.textColor = Ocean.color.colorInterfaceDarkPure
+                } else {
+                    self.valueLabel.font = self.font
+                    self.valueLabel.textColor = self.textColor
+                }
+
                 if let newValue = model.newValue, !newValue.isEmpty {
                     self.valueLabel.attributedText = model.value.toStrike()
                     self.newValueLabel.text = newValue
@@ -110,26 +118,26 @@ extension Ocean {
                     self.newValueLabel.isHidden = false
                     if let setColor = model.colorString, !setColor.isEmpty {
                         self.newValueLabel.textColor = setColor.toOceanColor()
+                    } else {
+                        self.newValueLabel.textColor = self.textColor
                     }
                 } else {
                     if let setColor = model.colorString, !setColor.isEmpty {
                         self.valueLabel.textColor = setColor.toOceanColor()
+                    } else {
+                        self.newValueLabel.textColor = self.textColor
                     }
                     self.newValueLabel.isHidden = true
-                }
-
-                if model.bold {
-                    self.valueLabel.font = .baseBold(size: Ocean.font.fontSizeSm)
-                    self.valueLabel.textColor = Ocean.color.colorInterfaceDarkPure
                 }
 
                 if let icon = model.imageIcon {
                     self.iconImageView.image = icon.withRenderingMode(.alwaysTemplate)
                     self.iconImageView.tintColor = Ocean.color.colorStatusPositiveDeep
                     self.iconImageView.isHidden = false
-
+                } else {
+                    self.iconImageView.isHidden = true
                 }
-            }
+            } else { return }
         }
     }
 }
