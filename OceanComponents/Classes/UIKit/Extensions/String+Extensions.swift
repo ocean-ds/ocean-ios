@@ -72,7 +72,7 @@ public extension String {
     }
 
     /**
-        Uni duas strings que representa uma moeda e um valor financeiro com intuito de não quebrar linha.
+        Unifica duas strings que representa uma moeda e um valor financeiro com intuito de não quebrar linha.
      Exemplo:
         R$ 5.000
      Evita acontecer isto:
@@ -90,5 +90,82 @@ public extension String {
 
     func replaceBrTag() -> String {
         return self.replacingOccurrences(of: "</br>", with: "\n").replacingOccurrences(of: "<br>", with: "\n")
+    }
+
+    func toStrike() -> NSMutableAttributedString {
+        let attributeString =  NSMutableAttributedString(string: self)
+        attributeString.addAttribute(.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
+        return attributeString
+    }
+
+    func toOceanColor() -> UIColor {
+        switch self {
+        case "colorBrandPrimaryDeep":
+            return Ocean.color.colorBrandPrimaryDeep
+        case "colorBrandPrimaryDown":
+            return Ocean.color.colorBrandPrimaryDown
+        case "colorBrandPrimaryPure":
+            return Ocean.color.colorBrandPrimaryPure
+        case "colorBrandPrimaryUp":
+            return Ocean.color.colorBrandPrimaryUp
+        case "colorComplementaryDeep":
+            return Ocean.color.colorComplementaryDeep
+        case "colorComplementaryDown":
+            return Ocean.color.colorComplementaryDown
+        case "colorComplementaryPure":
+            return Ocean.color.colorComplementaryPure
+        case "colorComplementaryUp":
+            return Ocean.color.colorComplementaryUp
+        case "colorHighlightDeep":
+            return Ocean.color.colorHighlightDeep
+        case "colorHighlightDown":
+            return Ocean.color.colorHighlightDown
+        case "colorHighlightPure":
+            return Ocean.color.colorHighlightPure
+        case "colorHighlightUp":
+            return Ocean.color.colorHighlightUp
+        case "colorInterfaceDarkDeep":
+            return Ocean.color.colorInterfaceDarkDeep
+        case "colorInterfaceDarkDown":
+            return Ocean.color.colorInterfaceDarkDown
+        case "colorInterfaceDarkPure":
+            return Ocean.color.colorInterfaceDarkPure
+        case "colorInterfaceDarkUp":
+            return Ocean.color.colorInterfaceDarkUp
+        case "colorInterfaceLightDeep":
+            return Ocean.color.colorInterfaceLightDeep
+        case "colorInterfaceLightDown":
+            return Ocean.color.colorInterfaceLightDown
+        case "colorInterfaceLightPure":
+            return Ocean.color.colorInterfaceLightPure
+        case "colorInterfaceLightUp":
+            return Ocean.color.colorInterfaceLightUp
+        case "colorStatusNegativeDeep":
+            return Ocean.color.colorStatusNegativeDeep
+        case "colorStatusNegativeDown":
+            return Ocean.color.colorStatusNegativeDown
+        case "colorStatusNegativePure":
+            return Ocean.color.colorStatusNegativePure
+        case "colorStatusNegativeUp":
+            return Ocean.color.colorStatusNegativeUp
+        case "colorStatusNeutralDeep":
+            return Ocean.color.colorStatusNeutralDeep
+        case "colorStatusNeutralDown":
+            return Ocean.color.colorStatusNeutralDown
+        case "colorStatusNeutralPure":
+            return Ocean.color.colorStatusNeutralPure
+        case "colorStatusNeutralUp":
+            return Ocean.color.colorStatusNeutralUp
+        case "colorStatusPositiveDeep":
+            return Ocean.color.colorStatusPositiveDeep
+        case "colorStatusPositiveDown":
+            return Ocean.color.colorStatusPositiveDown
+        case "colorStatusPositivePure":
+            return Ocean.color.colorStatusPositivePure
+        case "colorStatusPositiveUp":
+            return Ocean.color.colorStatusPositiveUp
+        default:
+            return Ocean.color.colorInterfaceDarkDown
+        }
     }
 }

@@ -21,7 +21,7 @@ extension Ocean {
             }
         }
 
-        public var font: UIFont? = .baseRegular(size: Ocean.font.fontSizeXxs) {
+        public var font: UIFont? = .baseRegular(size: Ocean.font.fontSizeXs) {
             didSet {
                 updateUI()
             }
@@ -56,7 +56,7 @@ extension Ocean {
         }()
 
         lazy var newValueLabel: UILabel = {
-            Ocean.Typography.paragraph { label in
+           UILabel { label in
                 label.font = self.font
                 label.textColor = self.textColor
                 label.text = ""
@@ -99,7 +99,38 @@ extension Ocean {
             self.valueLabel.textColor = self.textColor
             self.valueLabel.numberOfLines = self.numberOfLines
 
-            
+            if let model = model {
+                self.valueLabel.text = model.value
+
+                if let newValue = model.newValue, !newValue.isEmpty {
+                    self.valueLabel.attributedText = model.value.toStrike()
+                    self.newValueLabel.text = newValue
+                    self.newValueLabel.font = self.font
+                    self.newValueLabel.numberOfLines = self.numberOfLines
+                    self.newValueLabel.isHidden = false
+                    if let setColor = model.colorString, !setColor.isEmpty {
+                        self.newValueLabel.textColor = setColor.toOceanColor()
+                    }
+                } else {
+                    if let setColor = model.colorString, !setColor.isEmpty {
+                        self.valueLabel.textColor = setColor.toOceanColor()
+                    }
+                    self.newValueLabel.isHidden = true
+                }
+
+                if model.bold {
+                    self.valueLabel.font = .baseBold(size: Ocean.font.fontSizeSm)
+                    self.valueLabel.textColor = Ocean.color.colorInterfaceDarkPure
+                }
+
+                if let icon = model.imageIcon {
+                    self.iconImageView.image = icon.withRenderingMode(.alwaysTemplate)
+                    self.iconImageView.tintColor = Ocean.color.colorStatusPositiveDeep
+                    self.iconImageView.isHidden = false
+
+                }
+            }
         }
     }
 }
+

@@ -332,6 +332,7 @@ extension Ocean {
             if let subtitleTextLabel = subtitleTextLabel {
                 subtitleLabel.model = subtitleTextLabel
                 subtitleLabel.isSkeletonable = true
+                subtitleLabel.isHidden = false
             }
             textLabel.isHidden = text.isEmpty
             textLabel.text = text
