@@ -28,7 +28,6 @@ final public class TextListViewController : UIViewController {
         
         let textList1 = Ocean.TextList.cell { textList in
             textList.title = "Title"
-            textList.subtitle = "Subtitle"
             textList.text = "text"
             textList.image = Ocean.icon.documentOutline?.withRenderingMode(.alwaysTemplate)
             textList.arrow = true
@@ -104,6 +103,44 @@ final public class TextListViewController : UIViewController {
             textList.arrowTintColor = Ocean.color.colorInterfaceDarkUp
         }
 
+        let textList12 = Ocean.TextList.cell { textList in
+            textList.title = "Title"
+            textList.subtitleTextLabel = .init(value: "R$ 40,00",
+                                               newValue: "Zero",
+                                               colorString: "colorStatusPositiveDeep")
+        }
+
+        let textList13 = Ocean.TextList.cell { textList in
+            textList.title = "Title"
+            textList.subtitleTextLabel = .init(value: "R$ 1.000,00",
+                                               bold: true)
+        }
+
+        let textList14 = Ocean.TextList.cell { textList in
+            textList.title = "Title"
+            textList.subtitleTextLabel = .init(value: "R$ 1.000,00")
+        }
+
+        let textList15 = Ocean.TextList.cell { textList in
+            textList.title = "Title"
+            textList.subtitleTextLabel = .init(value: "R$ 4,00",
+                                               imageIcon: Ocean.icon.giftSolid,
+                                               colorString: "colorStatusPositiveDeep")
+        }
+
+        let textList16 = Ocean.TextList.cell { textList in
+            textList.title = "Title"
+            textList.subtitleTextLabel = .init(value: "Calculada no dia",
+                                               colorString: "colorStatusNeutralDeep")
+        }
+
+        let textList17 = Ocean.TextList.cell { textList in
+            textList.title = "Title"
+            textList.subtitleTextLabel = .init(value: "Calculada no dia",
+                                               imageIcon: Ocean.icon.exclamationCircleSolid,
+                                               colorString: "colorStatusNeutralDeep")
+        }
+
         scrollableContentView.addSubview(stack)
         stack.setConstraints((.fillSuperView, toView: scrollableContentView))
 
@@ -117,7 +154,13 @@ final public class TextListViewController : UIViewController {
          textList8,
          textList9,
          textList10,
-         textList11].forEach { textListCell in
+         textList11,
+         textList12,
+         textList13,
+         textList14,
+         textList15,
+         textList16,
+         textList17].forEach { textListCell in
             stack.addArrangedSubview(textListCell)
             textListCell.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
         }

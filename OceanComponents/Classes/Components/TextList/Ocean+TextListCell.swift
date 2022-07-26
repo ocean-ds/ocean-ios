@@ -36,6 +36,12 @@ extension Ocean {
             }
         }
 
+        public var subtitleTextLabel: TextLabelModel? {
+            didSet {
+                updateUI()
+            }
+        }
+
         public var text: String = "" {
             didSet {
                 updateUI()
@@ -249,10 +255,13 @@ extension Ocean {
             }
         }()
 
-        private lazy var subtitleLabel: UILabel = {
-            Ocean.Typography.description { label in
-                label.numberOfLines = 1
-            }
+        private lazy var subtitleLabel: TextLabel = {
+            let label = TextLabel()
+            label.font = .baseRegular(size: Ocean.font.fontSizeXxs)
+            label.textColor = Ocean.color.colorInterfaceDarkDown
+            label.numberOfLines = 1
+
+            return label
         }()
 
         private lazy var textLabel: UILabel = {
@@ -303,7 +312,6 @@ extension Ocean {
             self.titleLabel.textColor = Ocean.color.colorInterfaceDarkDown
             self.subtitleLabel.font = .baseBold(size: Ocean.font.fontSizeSm)
             self.subtitleLabel.textColor = Ocean.color.colorInterfaceDarkDeep
-            self.subtitleLabel.setLineHeight(lineHeight: Ocean.font.lineHeightComfy)
             self.subtitleLabel.numberOfLines = 0
         }
 
@@ -317,10 +325,11 @@ extension Ocean {
             let imageNotExist = image == nil
 
             titleLabel.text = title
-            subtitleLabel.isHidden = subtitle.isEmpty
+            subtitleLabel.isHidden = subtitle.isEmpty && subtitleTextLabel == nil
             subtitleSpacer.isHidden = subtitleLabel.isHidden
+            subtitleLabel.isSkeletonable = !subtitle.isEmpty || subtitleTextLabel != nil
             subtitleLabel.text = subtitle
-            subtitleLabel.isSkeletonable = !subtitle.isEmpty
+            subtitleLabel.model = subtitleTextLabel
             textLabel.isHidden = text.isEmpty
             textLabel.text = text
             textLabel.isSkeletonable = !text.isEmpty
