@@ -114,8 +114,6 @@ final public class TextListViewController : UIViewController {
             textList.title = "Title"
             textList.subtitleTextLabel = .init(value: "R$ 1.000,00",
                                                bold: true)
-            textList.subtitle = "Subtitle"
-            textList.subtitleTextLabel = nil
         }
 
         let textList14 = Ocean.TextList.cell { textList in
