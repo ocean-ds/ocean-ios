@@ -41,7 +41,7 @@ extension Ocean {
 
         lazy var iconImageView: UIImageView = {
             UIImageView { imageView in
-                imageView.tintColor = Ocean.color.colorStatusPositiveDeep
+                imageView.tintColor = self.textColor
                 imageView.contentMode = .scaleAspectFit
                 imageView.isHidden = true
             }
@@ -94,10 +94,8 @@ extension Ocean {
         }
 
         private func updateUI() {
+            reset()
             self.valueLabel.text = self.text
-            self.valueLabel.font = self.font
-            self.valueLabel.textColor = self.textColor
-            self.valueLabel.numberOfLines = self.numberOfLines
 
             if let model = model {
                 self.valueLabel.text = model.value
@@ -105,9 +103,6 @@ extension Ocean {
                 if model.bold {
                     self.valueLabel.font = .baseBold(size: Ocean.font.fontSizeSm)
                     self.valueLabel.textColor = Ocean.color.colorInterfaceDarkPure
-                } else {
-                    self.valueLabel.font = self.font
-                    self.valueLabel.textColor = self.textColor
                 }
 
                 if let newValue = model.newValue, !newValue.isEmpty {
@@ -116,28 +111,50 @@ extension Ocean {
                     self.newValueLabel.font = self.font
                     self.newValueLabel.numberOfLines = self.numberOfLines
                     self.newValueLabel.isHidden = false
-                    if let setColor = model.colorString, !setColor.isEmpty {
-                        self.newValueLabel.textColor = setColor.toOceanColor()
-                    } else {
-                        self.newValueLabel.textColor = self.textColor
-                    }
+                    setTextColor(model, self.newValueLabel)
                 } else {
-                    if let setColor = model.colorString, !setColor.isEmpty {
-                        self.valueLabel.textColor = setColor.toOceanColor()
-                    } else {
-                        self.newValueLabel.textColor = self.textColor
-                    }
-                    self.newValueLabel.isHidden = true
+                    setTextColor(model, self.valueLabel)
                 }
+                setImage(model)
+            }
+        }
 
-                if let icon = model.imageIcon {
-                    self.iconImageView.image = icon.withRenderingMode(.alwaysTemplate)
-                    self.iconImageView.tintColor = Ocean.color.colorStatusPositiveDeep
-                    self.iconImageView.isHidden = false
-                } else {
-                    self.iconImageView.isHidden = true
-                }
-            } else { return }
+        fileprivate func setImage(_ model: Ocean.TextLabelModel) {
+            if let icon = model.imageIcon {
+                self.iconImageView.image = icon.withRenderingMode(.alwaysTemplate)
+                setImageColor(model)
+                self.iconImageView.isHidden = false
+            }
+        }
+
+        fileprivate func setTextColor(_ model: Ocean.TextLabelModel, _ label: UILabel) {
+            if let setColor = model.colorString, !setColor.isEmpty {
+                label.textColor = setColor.toOceanColor()
+            }
+        }
+
+        fileprivate func setImageColor(_ model: Ocean.TextLabelModel) {
+            if let setColor = model.colorString, !setColor.isEmpty {
+                self.iconImageView.tintColor = setColor.toOceanColor()
+            }
+        }
+
+        private func reset() {
+            self.valueLabel.font = self.font
+            self.valueLabel.textColor = self.textColor
+            self.valueLabel.numberOfLines = self.numberOfLines
+            self.valueLabel.attributedText = nil
+            self.valueLabel.text = ""
+
+            self.iconImageView.tintColor = self.textColor
+            self.iconImageView.contentMode = .scaleAspectFit
+            self.iconImageView.isHidden = true
+
+            self.newValueLabel.font = self.font
+            self.newValueLabel.textColor = self.textColor
+            self.newValueLabel.text = ""
+            self.newValueLabel.isHidden = true
+
         }
     }
 }

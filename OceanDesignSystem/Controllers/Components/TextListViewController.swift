@@ -114,6 +114,8 @@ final public class TextListViewController : UIViewController {
             textList.title = "Title"
             textList.subtitleTextLabel = .init(value: "R$ 1.000,00",
                                                bold: true)
+            textList.subtitle = "Subtitle"
+            textList.subtitleTextLabel = nil
         }
 
         let textList14 = Ocean.TextList.cell { textList in
@@ -134,6 +136,12 @@ final public class TextListViewController : UIViewController {
                                                colorString: "colorStatusNeutralDeep")
         }
 
+        let textList17 = Ocean.TextList.cell { textList in
+            textList.title = "Title"
+            textList.subtitleTextLabel = .init(value: "Calculada no dia",
+                                               imageIcon: Ocean.icon.exclamationCircleSolid,
+                                               colorString: "colorStatusNeutralDeep")
+        }
 
         scrollableContentView.addSubview(stack)
         stack.setConstraints((.fillSuperView, toView: scrollableContentView))
@@ -153,7 +161,8 @@ final public class TextListViewController : UIViewController {
          textList13,
          textList14,
          textList15,
-         textList16].forEach { textListCell in
+         textList16,
+         textList17].forEach { textListCell in
             stack.addArrangedSubview(textListCell)
             textListCell.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
         }

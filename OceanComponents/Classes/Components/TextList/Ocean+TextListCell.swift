@@ -325,15 +325,11 @@ extension Ocean {
             let imageNotExist = image == nil
 
             titleLabel.text = title
-            subtitleLabel.isHidden = subtitle.isEmpty
+            subtitleLabel.isHidden = subtitle.isEmpty && subtitleTextLabel == nil
             subtitleSpacer.isHidden = subtitleLabel.isHidden
+            subtitleLabel.isSkeletonable = !subtitle.isEmpty || subtitleTextLabel != nil
             subtitleLabel.text = subtitle
-            subtitleLabel.isSkeletonable = !subtitle.isEmpty
-            if let subtitleTextLabel = subtitleTextLabel {
-                subtitleLabel.model = subtitleTextLabel
-                subtitleLabel.isSkeletonable = true
-                subtitleLabel.isHidden = false
-            }
+            subtitleLabel.model = subtitleTextLabel
             textLabel.isHidden = text.isEmpty
             textLabel.text = text
             textLabel.isSkeletonable = !text.isEmpty
