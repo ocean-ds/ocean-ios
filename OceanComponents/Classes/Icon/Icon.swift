@@ -17,6 +17,8 @@ extension Ocean {
         public static let spinner = UIImage(named: "OceanComponents.bundle/spinner", in: .bundleOceanComponents, compatibleWith: .none)
         public static let spinnerPrimary = UIImage(named: "OceanComponents.bundle/spinner-primary", in: .bundleOceanComponents, compatibleWith: .none)
         public static let swipe = UIImage(named: "OceanComponents.bundle/swipe-icon", in: .bundleOceanComponents, compatibleWith: .none)
+        public static let pagBluOutline = UIImage(named: "OceanComponents.bundle/pagblu-outline", in: .bundleOceanComponents, compatibleWith: .none)
+
         
         public static let academicCapOutline = UIImage(named: "OceanComponents.bundle/academic-cap-outline", in: .bundleOceanComponents, compatibleWith: .none)
         public static let academicCapSolid = UIImage(named: "OceanComponents.bundle/academic-cap-solid", in: .bundleOceanComponents, compatibleWith: .none)
