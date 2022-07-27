@@ -128,18 +128,18 @@ extension Ocean {
         }
 
         fileprivate func setTextColor(_ model: Ocean.TextLabelModel, _ label: UILabel) {
-            if let setColor = model.colorString, !setColor.isEmpty {
-                label.textColor = setColor.toOceanColor()
+            if let color = model.color {
+                label.textColor = color
             }
         }
 
         fileprivate func setImageColor(_ model: Ocean.TextLabelModel) {
-            if let setColor = model.colorString, !setColor.isEmpty {
-                self.iconImageView.tintColor = setColor.toOceanColor()
+            if let color = model.color {
+                self.iconImageView.tintColor = color
             }
         }
 
-        private func reset() {
+        fileprivate func reset() {
             self.valueLabel.font = self.font
             self.valueLabel.textColor = self.textColor
             self.valueLabel.numberOfLines = self.numberOfLines
@@ -154,7 +154,6 @@ extension Ocean {
             self.newValueLabel.textColor = self.textColor
             self.newValueLabel.text = ""
             self.newValueLabel.isHidden = true
-
         }
     }
 }
