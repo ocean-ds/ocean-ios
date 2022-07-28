@@ -41,6 +41,7 @@ struct DSComponents {
         "Tag",
         "TextList",
         "Tooltip",
+        "TransactionFooter",
         "TransactionList",
         "Tab",
         "Typography"

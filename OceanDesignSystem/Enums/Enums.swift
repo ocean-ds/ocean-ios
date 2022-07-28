@@ -51,6 +51,7 @@ public enum DesignSystemComponentsType: String {
     case Tag
     case Badge
     case Card
+    case TransactionFooter
     case TransactionList
     case FloatVerticalMenuList
     case Tab
