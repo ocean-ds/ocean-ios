@@ -107,7 +107,7 @@ final public class TextListViewController : UIViewController {
             textList.title = "Title"
             textList.subtitleTextLabel = .init(value: "R$ 40,00",
                                                newValue: "Zero",
-                                               colorString: "colorStatusPositiveDeep")
+                                               color: Ocean.color.colorStatusPositiveDeep)
         }
 
         let textList13 = Ocean.TextList.cell { textList in
@@ -125,20 +125,20 @@ final public class TextListViewController : UIViewController {
             textList.title = "Title"
             textList.subtitleTextLabel = .init(value: "R$ 4,00",
                                                imageIcon: Ocean.icon.giftSolid,
-                                               colorString: "colorStatusPositiveDeep")
+                                               color: Ocean.color.colorStatusPositiveDeep)
         }
 
         let textList16 = Ocean.TextList.cell { textList in
             textList.title = "Title"
             textList.subtitleTextLabel = .init(value: "Calculada no dia",
-                                               colorString: "colorStatusNeutralDeep")
+                                               color: Ocean.color.colorStatusNeutralDeep)
         }
 
         let textList17 = Ocean.TextList.cell { textList in
             textList.title = "Title"
             textList.subtitleTextLabel = .init(value: "Calculada no dia",
                                                imageIcon: Ocean.icon.exclamationCircleSolid,
-                                               colorString: "colorStatusNeutralDeep")
+                                               color: Ocean.color.colorStatusNeutralDeep)
         }
 
         scrollableContentView.addSubview(stack)

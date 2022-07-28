@@ -1,5 +1,5 @@
 //
-//  OptionCardViewController.swift
+//  CardOptionViewController.swift
 //  OceanDesignSystem
 //
 //  Created by Vini on 23/07/21.
@@ -11,18 +11,18 @@ import UIKit
 import OceanTokens
 import OceanComponents
 
-final public class OptionCardViewController : UIViewController {
-    var oc1: Ocean.OptionCard!
-    var oc2: Ocean.OptionCard!
-    var oc3: Ocean.OptionCard!
-    var oc4: Ocean.OptionCard!
-    var oc5: Ocean.OptionCard!
-    var oc6: Ocean.OptionCard!
+final public class CardOptionViewController : UIViewController {
+    var oc1: Ocean.CardOption!
+    var oc2: Ocean.CardOption!
+    var oc3: Ocean.CardOption!
+    var oc4: Ocean.CardOption!
+    var oc5: Ocean.CardOption!
+    var oc6: Ocean.CardOption!
     
     public override func viewDidLoad() {
         self.view.backgroundColor = .white
         
-        oc1 = Ocean.OptionCard { option in
+        oc1 = Ocean.CardOption { option in
             option.title = "Title"
             option.subtitle = "Subtitle"
             option.image = Ocean.icon.documentOutline
@@ -39,7 +39,7 @@ final public class OptionCardViewController : UIViewController {
                 print(1)
             }
         }
-        oc2 = Ocean.OptionCard { option in
+        oc2 = Ocean.CardOption { option in
             option.title = "Title"
             option.subtitle = "Subtitle"
             option.image = Ocean.icon.documentOutline
@@ -53,7 +53,7 @@ final public class OptionCardViewController : UIViewController {
                 print(2)
             }
         }
-        oc3 = Ocean.OptionCard { option in
+        oc3 = Ocean.CardOption { option in
             option.title = "Title"
             option.subtitle = "Subtitle"
             option.image = Ocean.icon.documentOutline
@@ -67,7 +67,7 @@ final public class OptionCardViewController : UIViewController {
                 print(3)
             }
         }
-        oc4 = Ocean.OptionCard { option in
+        oc4 = Ocean.CardOption { option in
             option.title = "Title"
             option.image = Ocean.icon.documentOutline
             option.isEnabled = false
@@ -83,7 +83,7 @@ final public class OptionCardViewController : UIViewController {
                 print(4)
             }
         }
-        oc5 = Ocean.OptionCard { option in
+        oc5 = Ocean.CardOption { option in
             option.title = "Title"
             option.image = Ocean.icon.documentOutline
             option.onTouch = {
@@ -95,7 +95,7 @@ final public class OptionCardViewController : UIViewController {
                 print(5)
             }
         }
-        oc6 = Ocean.OptionCard { option in
+        oc6 = Ocean.CardOption { option in
             option.title = "Title"
             option.subtitle = "Subtitle"
             option.image = Ocean.icon.documentOutline

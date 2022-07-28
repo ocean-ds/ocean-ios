@@ -14,18 +14,18 @@ extension Ocean {
         let newValue: String?
         let imageIcon: UIImage?
         let bold: Bool
-        let colorString: String?
+        let color: UIColor?
 
         public init(value: String,
                     newValue: String? = nil,
                     imageIcon: UIImage? = nil,
                     bold: Bool = false,
-                    colorString: String? = nil) {
+                    color: UIColor? = nil) {
             self.value = value
             self.newValue = newValue
             self.imageIcon = imageIcon
             self.bold = bold
-            self.colorString = colorString
+            self.color = color
         }
     }
 }
