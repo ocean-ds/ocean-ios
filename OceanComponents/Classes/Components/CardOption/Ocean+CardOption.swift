@@ -111,21 +111,8 @@ extension Ocean {
                 stack.isUserInteractionEnabled = true
 
                 stack.add([
-                    headStack,
+                    contentStack,
                     lockView
-                ])
-            }
-        }()
-
-        private lazy var headStack: Ocean.StackView = {
-            Ocean.StackView { stack in
-                stack.axis = .vertical
-                stack.distribution = .fill
-                stack.spacing = 0
-                stack.translatesAutoresizingMaskIntoConstraints = false
-
-                stack.add([
-                    contentStack
                 ])
             }
         }()
@@ -133,7 +120,7 @@ extension Ocean {
         private lazy var recommendLabel: UILabel = {
             UILabel { label in
                 label.clipsToBounds = true
-                label.font = .baseBold(size: 12)
+                label.font = .baseExtraBold(size: 10)
                 label.textAlignment = .center
             }
         }()
@@ -156,20 +143,14 @@ extension Ocean {
             Ocean.StackView { stack in
                 stack.axis = .horizontal
                 stack.distribution = .fill
-                stack.spacing = 0
                 stack.alignment = .center
-                stack.translatesAutoresizingMaskIntoConstraints = false
+                stack.spacing = 0
 
                 stack.add([
                     roundedIconView,
                     Ocean.Spacer(space: Ocean.size.spacingStackXs),
                     textStack
                 ])
-
-                stack.setMargins(top: isRecommend ? Ocean.size.spacingStackSm : 0,
-                                 left: Ocean.size.spacingStackSm,
-                                 bottom: isRecommend ? Ocean.size.spacingStackSm : 0,
-                                 right: Ocean.size.spacingStackSm)
             }
         }()
 
@@ -224,11 +205,11 @@ extension Ocean {
             Ocean.StackView { stack in
                 stack.axis = .vertical
                 stack.distribution = .fill
-                stack.spacing = Ocean.size.spacingStackXxxs
-                stack.translatesAutoresizingMaskIntoConstraints = false
+                stack.spacing = 0
 
                 stack.add([
                     titleLabel,
+                    Ocean.Spacer(space: Ocean.size.spacingStackXxxs),
                     subtitleLabel
                 ])
             }
@@ -238,13 +219,16 @@ extension Ocean {
             Ocean.Typography.heading4 { label in
                 label.textColor = Ocean.color.colorBrandPrimaryDown
                 label.numberOfLines = 1
+                label.translatesAutoresizingMaskIntoConstraints = false
             }
         }()
 
 
         private lazy var subtitleLabel: UILabel = {
             Ocean.Typography.description { label in
-                label.numberOfLines = 3
+                label.numberOfLines = 2
+                label.translatesAutoresizingMaskIntoConstraints = false
+                label.setContentCompressionResistancePriority(.required, for: .vertical)
             }
         }()
 
@@ -311,9 +295,9 @@ extension Ocean {
             iconWidthConstraint?.constant = subtitle.isEmpty ? Constants.iconHeightWidthSm : Constants.iconHeightWidthLg
 
             let margin = subtitle.isEmpty ? Ocean.size.spacingStackXs : Ocean.size.spacingStackSm
-            contentStack.setMargins(top: isRecommend ? Ocean.size.spacingStackSm : 0,
+            contentStack.setMargins(top: isRecommend ? 20 : Ocean.size.spacingStackXs,
                                     left: margin,
-                                    bottom: isRecommend ? Ocean.size.spacingStackSm : 0,
+                                    bottom: isRecommend ? Ocean.size.spacingStackXs : Ocean.size.spacingStackXs,
                                     right: margin)
         }
 
