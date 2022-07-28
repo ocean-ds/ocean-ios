@@ -41,7 +41,7 @@ public enum DesignSystemComponentsType: String {
     case Tooltip
     case TextList
     case NavigationBar
-    case OptionCard
+    case CardOption
     case CheckBox
     case ProgressIndicator
     case BottomNavigationBar
