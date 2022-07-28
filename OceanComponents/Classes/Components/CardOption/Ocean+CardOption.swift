@@ -297,7 +297,7 @@ extension Ocean {
             let margin = subtitle.isEmpty ? Ocean.size.spacingStackXs : Ocean.size.spacingStackSm
             contentStack.setMargins(top: isRecommend ? 20 : Ocean.size.spacingStackXs,
                                     left: margin,
-                                    bottom: isRecommend ? Ocean.size.spacingStackXs : Ocean.size.spacingStackXs,
+                                    bottom: Ocean.size.spacingStackXs,
                                     right: margin)
         }
 
