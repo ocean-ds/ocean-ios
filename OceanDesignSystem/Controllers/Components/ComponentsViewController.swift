@@ -77,8 +77,8 @@ class ComponentsViewController: UITableViewController {
             navigationController.modalTransitionStyle = .coverVertical
             navigationController.modalPresentationStyle = .overFullScreen
             self.present(navigationController, animated: true, completion: nil)
-        case .OptionCard:
-            self.present(OptionCardViewController(), animated: true, completion: nil)
+        case .CardOption:
+            self.present(CardOptionViewController(), animated: true, completion: nil)
         case .CheckBox:
             self.present(CheckBoxViewController(), animated: true, completion: nil)
         case .ProgressIndicator:
