@@ -27,6 +27,12 @@ extension Ocean {
             }
         }
 
+        public var boldSize: CGFloat = Ocean.font.fontSizeSm {
+            didSet {
+                updateUI()
+            }
+        }
+
         public var textColor: UIColor = Ocean.color.colorInterfaceDarkDown {
             didSet {
                 updateUI()
@@ -101,7 +107,7 @@ extension Ocean {
                 self.valueLabel.text = model.value
 
                 if model.bold {
-                    self.valueLabel.font = .baseBold(size: Ocean.font.fontSizeSm)
+                    self.valueLabel.font = .baseBold(size: self.boldSize)
                     self.valueLabel.textColor = Ocean.color.colorInterfaceDarkPure
                 }
 
@@ -157,4 +163,3 @@ extension Ocean {
         }
     }
 }
-

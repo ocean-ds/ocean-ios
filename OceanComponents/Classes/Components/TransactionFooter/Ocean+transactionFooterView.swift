@@ -5,12 +5,14 @@
 //  Created by Acassio Vilas Boas on 26/07/22.
 //
 
-import Foundation
-import UIKit
 import OceanTokens
 
 extension Ocean {
     public class TransactionFooterView: UIView {
+        struct Constaint {
+            static let height: CGFloat = 90
+            static let heightItem: CGFloat = 30
+        }
 
         public var buttonTitle: String = "" {
             didSet {
@@ -18,46 +20,44 @@ extension Ocean {
             }
         }
 
-        public var transactionsItens: [TransactionFooterItemView] = [] {
+        public var transactionsItems: [TransactionItemModel] = [] {
             didSet {
                 updateUI()
             }
         }
 
-        lazy var button: Ocean.ButtonPrimary = {
-            Ocean.Button.primaryBlockedMD { button in
+        public lazy var heightConstraint: NSLayoutConstraint = {
+            self.heightAnchor.constraint(equalToConstant: Constaint.height)
+        }()
+
+        private lazy var nextButton: Ocean.ButtonPrimary = {
+            Ocean.Button.primaryMD { button in
                 button.text = ""
             }
         }()
 
-        lazy var buttonView: UIView = {
-            let view = UIView()
-            view.add(view: button)
-            return view
-        }()
-
-        private func stackTransactionItems() -> Ocean.StackView {
+        private lazy var transactionItemsStack: Ocean.StackView = {
             let stack = Ocean.StackView()
-
-            transactionsItens.forEach { item in
-                stack.add([item,
-                           Ocean.Spacer(space: Ocean.size.spacingStackXxxs)])
-            }
-
-            return stack
-        }
-
-        lazy var contentStack: Ocean.StackView = {
-            let stack = Ocean.StackView()
-            stack.spacing = 0
+            stack.spacing = Ocean.size.spacingStackXxxs
+            stack.alignment = .fill
             stack.axis = .vertical
             stack.distribution = .fill
             stack.translatesAutoresizingMaskIntoConstraints = false
 
+            return stack
+        }()
+
+        private lazy var contentStack: Ocean.StackView = {
+            let stack = Ocean.StackView()
+            stack.spacing = Ocean.size.spacingStackXs
+            stack.axis = .vertical
+            stack.alignment = .fill
+            stack.distribution = .fill
+            stack.translatesAutoresizingMaskIntoConstraints = false
+
             stack.add([
-                stackTransactionItems(),
-                Ocean.Spacer(space: Ocean.size.spacingStackXs),
-                buttonView
+                transactionItemsStack,
+                nextButton
             ])
 
             stack.setMargins(top: Ocean.size.spacingStackXs,
@@ -80,11 +80,33 @@ extension Ocean {
         private func setupUI() {
             self.translatesAutoresizingMaskIntoConstraints = false
             self.backgroundColor = Ocean.color.colorInterfaceLightPure
-            add(view: contentStack)
+            self.addSubview(contentStack)
+            contentStack.setConstraints((.fillSuperView, toView: self))
+            heightConstraint.isActive = true
         }
 
         private func updateUI() {
-            self.button.text = buttonTitle
+            self.nextButton.text = buttonTitle
+            transactionItemsStack.removeAllArrangedSubviews()
+            setupTransactionItems()
+            heightConstraint.constant = Constaint.height + (CGFloat(transactionsItems.count) * Constaint.heightItem)
+        }
+
+        fileprivate func setupTransactionItems() {
+            transactionsItems.forEach { item in
+                let transactionItem = TransactionFooterItemView()
+                if let title = item.title {
+                    transactionItem.title = title
+                }
+                if let subtitle = item.subtitleTextLabel {
+                    transactionItem.subtitleTextLabel = subtitle
+                }
+                if let tooltipMessage = item.tooltipMessage {
+                    transactionItem.tooltipMessage = tooltipMessage
+                }
+
+                transactionItemsStack.addArrangedSubview(transactionItem)
+            }
         }
     }
 }

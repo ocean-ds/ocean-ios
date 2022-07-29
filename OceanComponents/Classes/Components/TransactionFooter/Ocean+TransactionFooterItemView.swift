@@ -5,12 +5,10 @@
 //  Created by Acassio Vilas Boas on 26/07/22.
 //
 
-import UIKit
 import OceanTokens
 
 extension Ocean {
     public class TransactionFooterItemView: UIView {
-
         public var title: String = ""{
             didSet {
                 updateUI()
@@ -18,12 +16,6 @@ extension Ocean {
         }
 
         public var tooltipMessage: String = ""{
-            didSet {
-                updateUI()
-            }
-        }
-
-        public var tooltipIcon: UIImage? = nil {
             didSet {
                 updateUI()
             }
@@ -37,14 +29,7 @@ extension Ocean {
 
         private lazy var titleLabel: UILabel = {
             Ocean.Typography.paragraph { label in
-                label.font = .baseSemiBold(size: Ocean.font.fontSizeXs)
-                label.textColor = Ocean.color.colorInterfaceDarkDeep
-                label.numberOfLines = 1
-            }
-        }()
-
-        private lazy var textLabel: UILabel = {
-            Ocean.Typography.caption { label in
+                label.textColor = Ocean.color.colorInterfaceDarkDown
                 label.numberOfLines = 1
             }
         }()
@@ -52,16 +37,17 @@ extension Ocean {
         private lazy var subtitleLabel: TextLabel = {
             let label = TextLabel()
             label.font = .baseRegular(size: Ocean.font.fontSizeXxs)
+            label.boldSize = Ocean.font.fontSizeXs
             label.textColor = Ocean.color.colorInterfaceDarkDown
             label.numberOfLines = 1
 
             return label
         }()
 
-        var tooltipImageView: UIImageView = {
+        private lazy var tooltipImageView: UIImageView = {
             UIImageView { imageView in
                 imageView.tintColor = Ocean.color.colorInterfaceDarkUp
-                imageView.image = Ocean.icon.informationCircleSolid
+                imageView.image = Ocean.icon.infoSolid?.withRenderingMode(.alwaysTemplate)
                 imageView.contentMode = .scaleAspectFit
                 imageView.translatesAutoresizingMaskIntoConstraints = false
                 imageView.isHidden = true
@@ -69,16 +55,14 @@ extension Ocean {
             }
         }()
 
-        var tooltip: Ocean.Tooltip = {
+        private lazy var tooltip: Ocean.Tooltip = {
             Ocean.Tooltip { component in
                 component.message = ""
             }
         }()
 
-        lazy var titleView: UIView = {
+        private lazy var titleView: UIView = {
             let view = UIView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-
             view.addSubviews(titleLabel, tooltipImageView)
 
             tooltipImageView.setConstraints(([.leadingToTrailing(Ocean.size.spacingStackXxxs),
@@ -88,31 +72,16 @@ extension Ocean {
             return view
         }()
 
-        lazy var valueStack: Ocean.StackView = {
-            let stack = Ocean.StackView()
-            stack.spacing = Ocean.size.spacingStackXxxs
-            stack.axis = .horizontal
-            stack.distribution = .fill
-            stack.alignment = .center
-            stack.translatesAutoresizingMaskIntoConstraints = false
-
-            stack.add([
-                subtitleLabel
-            ])
-
-            return stack
-        }()
-
-        lazy var itemStack: Ocean.StackView = {
+        private lazy var itemStack: Ocean.StackView = {
             let stack = Ocean.StackView()
             stack.spacing = 0
             stack.axis = .horizontal
+            stack.alignment = .fill
             stack.distribution = .fill
-            stack.translatesAutoresizingMaskIntoConstraints = false
 
             stack.add([
                 titleView,
-                valueStack
+                subtitleLabel
             ])
 
             return stack
@@ -129,24 +98,18 @@ extension Ocean {
 
         private func setupUI() {
             add(view: itemStack)
+            itemStack.heightAnchor.constraint(equalTo: titleLabel.heightAnchor, constant: 0).isActive = true
         }
 
         @objc private func tooltipClick() {
-            tooltip.show(target: tooltipImageView, position: .top, presenter: self.superview?.superview ?? self)
+            tooltip.show(target: tooltipImageView, position: .top, presenter: self)
         }
 
-        func updateUI() {
+        private func updateUI() {
             titleLabel.text = title
             subtitleLabel.model = subtitleTextLabel
-            if let tooltipIcon = tooltipIcon {
-                tooltipImageView.image = tooltipIcon
-                tooltipImageView.isHidden = false
-            } else {
-                tooltipImageView.isHidden = true
-            }
-
+            tooltipImageView.isHidden = tooltipMessage.isEmpty
+            tooltip.message = tooltipMessage
         }
     }
-
-
 }
