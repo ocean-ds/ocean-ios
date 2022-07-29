@@ -9,13 +9,13 @@ import OceanTokens
 
 extension Ocean {
     public class TransactionFooterItemView: UIView {
-        public var title: String = ""{
+        public var title: String = "" {
             didSet {
                 updateUI()
             }
         }
 
-        public var tooltipMessage: String = ""{
+        public var tooltipMessage: String = "" {
             didSet {
                 updateUI()
             }

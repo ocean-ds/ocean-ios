@@ -87,24 +87,18 @@ extension Ocean {
 
         private func updateUI() {
             self.nextButton.text = buttonTitle
-            transactionItemsStack.removeAllArrangedSubviews()
             setupTransactionItems()
             heightConstraint.constant = Constaint.height + (CGFloat(transactionsItems.count) * Constaint.heightItem)
         }
 
         fileprivate func setupTransactionItems() {
+            transactionItemsStack.removeAllArrangedSubviews()
+
             transactionsItems.forEach { item in
                 let transactionItem = TransactionFooterItemView()
-                if let title = item.title {
-                    transactionItem.title = title
-                }
-                if let subtitle = item.subtitleTextLabel {
-                    transactionItem.subtitleTextLabel = subtitle
-                }
-                if let tooltipMessage = item.tooltipMessage {
-                    transactionItem.tooltipMessage = tooltipMessage
-                }
-
+                transactionItem.title = item.title
+                transactionItem.subtitleTextLabel = item.subtitleTextLabel
+                transactionItem.tooltipMessage = item.tooltipMessage
                 transactionItemsStack.addArrangedSubview(transactionItem)
             }
         }
