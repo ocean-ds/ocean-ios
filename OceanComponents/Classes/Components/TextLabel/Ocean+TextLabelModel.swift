@@ -6,7 +6,6 @@
 //
 
 import OceanTokens
-import UIKit
 
 extension Ocean {
     public struct TextLabelModel {

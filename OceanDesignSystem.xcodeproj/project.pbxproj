@@ -36,6 +36,7 @@
 		8EB41BED27E42D1800F18CC7 /* FloatVerticalMenuListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB41BEC27E42D1800F18CC7 /* FloatVerticalMenuListViewController.swift */; };
 		8ECB029F283319340037DC25 /* CrossSellCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB029E283319340037DC25 /* CrossSellCardViewController.swift */; };
 		8ED08AE727EE075500ACDCB4 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED08AE627EE075500ACDCB4 /* TabViewController.swift */; };
+		AF833AAE2890764F0012AE58 /* TransactionFooterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF833AAD2890764F0012AE58 /* TransactionFooterViewController.swift */; };
 		B71D65C824C8F28100C3938C /* TokensByCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65C724C8F28100C3938C /* TokensByCategoryViewController.swift */; };
 		B71D65DC24CA038B00C3938C /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65DB24CA038B00C3938C /* Models.swift */; };
 		B71D65E224CA053500C3938C /* TokensBySubCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65E124CA053500C3938C /* TokensBySubCategories.swift */; };
@@ -119,6 +120,7 @@
 		8ED08AE627EE075500ACDCB4 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		A7964E389FBEAFC86B3DC30B /* Pods-OceanDesignSystem.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OceanDesignSystem.release.xcconfig"; path = "Target Support Files/Pods-OceanDesignSystem/Pods-OceanDesignSystem.release.xcconfig"; sourceTree = "<group>"; };
 		AC2FB672AAC2DF64A6545D88 /* Pods_OceanDesignSystemTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OceanDesignSystemTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF833AAD2890764F0012AE58 /* TransactionFooterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionFooterViewController.swift; sourceTree = "<group>"; };
 		B71D65C724C8F28100C3938C /* TokensByCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensByCategoryViewController.swift; sourceTree = "<group>"; };
 		B71D65DB24CA038B00C3938C /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		B71D65E124CA053500C3938C /* TokensBySubCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensBySubCategories.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				246535FB26E28B760079354A /* BadgeViewController.swift */,
 				24B70BB126E79CDA00C9CE1E /* CardViewController.swift */,
 				24B70BB726E7D0B400C9CE1E /* TransactionListViewController.swift */,
+				AF833AAD2890764F0012AE58 /* TransactionFooterViewController.swift */,
 				24B70BBC26E91F0F00C9CE1E /* CardGroupViewController.swift */,
 				24E301B426EF911400D2296C /* SubheaderViewController.swift */,
 				24FEEBC02744282E00211FEC /* StepViewController.swift */,
@@ -549,6 +552,7 @@
 				B71D65FD24CA530000C3938C /* Components.swift in Sources */,
 				2491356C26C5BB10005EE76E /* CheckBoxViewController.swift in Sources */,
 				246535FC26E28B760079354A /* BadgeViewController.swift in Sources */,
+				AF833AAE2890764F0012AE58 /* TransactionFooterViewController.swift in Sources */,
 				138EF63E268502E1000E65EA /* AlertBoxViewController.swift in Sources */,
 				8ECB029F283319340037DC25 /* CrossSellCardViewController.swift in Sources */,
 				246535F726E259C20079354A /* TagViewController.swift in Sources */,
