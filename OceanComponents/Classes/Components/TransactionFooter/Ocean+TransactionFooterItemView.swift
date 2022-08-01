@@ -97,8 +97,8 @@ extension Ocean {
         }
 
         private func setupUI() {
-            add(view: itemStack)
-            itemStack.heightAnchor.constraint(equalTo: titleLabel.heightAnchor, constant: 0).isActive = true
+            addSubview(itemStack)
+            itemStack.setConstraints((.fillSuperView, toView: self), (.heightToHeight(0), toView: titleLabel))
         }
 
         @objc private func tooltipClick() {
