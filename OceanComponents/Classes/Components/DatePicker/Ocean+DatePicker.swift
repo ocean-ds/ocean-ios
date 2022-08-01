@@ -11,16 +11,15 @@ import FSCalendar
 
 extension Ocean {
     public class DatePicker: UIViewController,
-        FSCalendarDataSource,
-        FSCalendarDelegate,
-        FSCalendarDelegateAppearance,
-        OceanNavigationBar {
+    FSCalendarDataSource,
+    FSCalendarDelegate,
+    FSCalendarDelegateAppearance,
+    OceanNavigationBar {
         public var navigationTitle: String = ""
         public var navigationBackgroundColor: UIColor? = Ocean.color.colorInterfaceLightPure
         public var navigationTintColor: UIColor = Ocean.color.colorBrandPrimaryPure
 
         private var dates: [Date] = []
-        private var firstDateToSchedule = Date()
 
         private lazy var backView: UIImageView = {
             let view = UIImageView(image: Ocean.icon.chevronLeftSolid)
@@ -63,7 +62,6 @@ extension Ocean {
             calendar.dataSource = self
             calendar.delegate = self
             calendar.appearance.caseOptions = [.headerUsesUpperCase, .weekdayUsesSingleUpperCase]
-            calendar.select(firstDateToSchedule)
             calendar.placeholderType = .none
             calendar.calendarWeekdayView.backgroundColor = .white
             calendar.daysContainer.backgroundColor = Ocean.color.colorInterfaceLightPure
@@ -144,10 +142,21 @@ extension Ocean {
         }
 
         public func show(rootViewController: UIViewController) {
-            let navigationController = UINavigationController(rootViewController: self)
-            navigationController.modalTransitionStyle = .coverVertical
-            navigationController.modalPresentationStyle = .overFullScreen
-            rootViewController.present(navigationController, animated: true, completion: nil)
+            DispatchQueue.main.async {
+                if let presentedViewController = rootViewController.presentedViewController {
+                    presentedViewController.dismiss(animated: true) {
+                        let navigationController = UINavigationController(rootViewController: self)
+                        navigationController.modalTransitionStyle = .coverVertical
+                        navigationController.modalPresentationStyle = .overFullScreen
+                        rootViewController.present(navigationController, animated: true, completion: nil)
+                    }
+                } else {
+                    let navigationController = UINavigationController(rootViewController: self)
+                    navigationController.modalTransitionStyle = .coverVertical
+                    navigationController.modalPresentationStyle = .overFullScreen
+                    rootViewController.present(navigationController, animated: true, completion: nil)
+                }
+            }
         }
 
         public func minimumDate(for calendar: FSCalendar) -> Date {
@@ -230,17 +239,8 @@ extension Ocean {
 
         private func loadDates() {
             dates = datesRange(fromDate: minimumDate, toDate: maximumDate)
-            getFirstDateToSchedule()
             calendar.reloadData()
-        }
-
-        private func getFirstDateToSchedule() {
-            for date in dates {
-                if isDateEnabled(date: date) {
-                    firstDateToSchedule = date
-                    break
-                }
-            }
+            calendar.select(minimumDate)
         }
 
         private func datesRange(fromDate: Date, toDate: Date) -> [Date] {
