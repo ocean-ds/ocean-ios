@@ -10,8 +10,9 @@ import OceanTokens
 extension Ocean {
     public class TransactionFooterView: UIView {
         struct Constaint {
-            static let height: CGFloat = 90
-            static let heightItem: CGFloat = 30
+            static let heightSm: CGFloat = 90
+            static let heightLg: CGFloat = 120
+            static let heightItem: CGFloat = 24
         }
 
         public var buttonTitle: String = "" {
@@ -27,7 +28,7 @@ extension Ocean {
         }
 
         public lazy var heightConstraint: NSLayoutConstraint = {
-            self.heightAnchor.constraint(equalToConstant: Constaint.height)
+            self.heightAnchor.constraint(equalToConstant: Constaint.heightSm)
         }()
 
         private lazy var nextButton: Ocean.ButtonPrimary = {
@@ -88,7 +89,8 @@ extension Ocean {
         private func updateUI() {
             self.nextButton.text = buttonTitle
             setupTransactionItems()
-            heightConstraint.constant = Constaint.height + (CGFloat(transactionsItems.count) * Constaint.heightItem)
+            let height = self.hasTopNotch ? Constaint.heightLg : Constaint.heightSm
+            heightConstraint.constant = height + (CGFloat(transactionsItems.count) * Constaint.heightItem)
         }
 
         fileprivate func setupTransactionItems() {

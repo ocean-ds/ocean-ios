@@ -33,6 +33,8 @@ public enum BondType {
     case bondToTrailing
     case bondHorizontally
 
+    case heightToHeight(CGFloat)
+
     case topToTop(CGFloat)
     case topToBottom(CGFloat)
 
@@ -149,6 +151,9 @@ extension UIView {
         case .bondHorizontally:
             self.leadingAnchor.constraint(equalTo: toView.leadingAnchor).isActive = true
             self.trailingAnchor.constraint(equalTo: toView.trailingAnchor).isActive = true
+
+        case .heightToHeight(let margin):
+            self.heightAnchor.constraint(equalTo: toView.heightAnchor, constant: margin).isActive = true
 
         case .topToTop(let margin):
             self.topAnchor.constraint(equalTo: toView.topAnchor, constant: margin).isActive = true
