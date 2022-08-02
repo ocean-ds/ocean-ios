@@ -182,13 +182,8 @@ extension Ocean {
             titleLabel.text = title
             titleLabel.isHidden = title.isEmpty
 
-
-            messageLabel.attributedText = text.htmlToAttributedText(font: messageLabel.font,
-                                                                    size: messageLabel.font.pointSize,
-                                                                    color: Ocean.color.colorInterfaceDarkDown)
-            messageLongLabel.attributedText = text.htmlToAttributedText(font: messageLongLabel.font,
-                                                                        size: messageLongLabel.font.pointSize,
-                                                                        color: Ocean.color.colorInterfaceDarkDown)
+            messageLabel.text = text
+            messageLongLabel.text = text
 
             if let textAttributedString = self.textAttributedString {
                 messageLabel.attributedText = textAttributedString
