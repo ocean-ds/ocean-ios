@@ -12,7 +12,7 @@ import OceanTokens
 class AlertBoxViewController: UIViewController {
     lazy var alert1 = Ocean.Alert.info { alert in
         alert.title = "Informational title"
-        alert.text = "Lorem <b>ipsum dolor</b> sit amet, consectetur adipiscing elit."
+        alert.textAttributedString = "Lorem <b>ipsum dolor</b> sit amet, consectetur adipiscing elit.".htmlToAttributedText(font: .baseRegular(size: Ocean.font.fontSizeXxxs)!, size: Ocean.font.fontSizeXxxs, color: Ocean.color.colorInterfaceDarkDown)
     }
     
     lazy var alert2 = Ocean.Alert.warning { alert in
@@ -22,13 +22,13 @@ class AlertBoxViewController: UIViewController {
     
     lazy var alert3 = Ocean.Alert.error { alert in
         alert.title = "Error title"
-        alert.text = "Lorem ipsum dolor <u>sit amet</u>, consectetur adipiscing elit."
+        alert.textAttributedString = "<ul><li>Lorem ipsum dolorit amet</li><li>consectetur adipiscing elit</li></ul>".htmlToAttributedText(font: .baseRegular(size: Ocean.font.fontSizeXxxs)!, size: Ocean.font.fontSizeXxxs, color: Ocean.color.colorInterfaceDarkDown)
         alert.textType = .longText
     }
     
     lazy var alert4 = Ocean.Alert.success { alert in
         alert.title = "Sucess title!"
-        alert.text = "Lorem ipsum dolor sit amet, <b>consectetur</b> adipiscing elit."
+        alert.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
         alert.textType = .longText
     }
     

@@ -17,7 +17,13 @@ extension Ocean {
 
         public var buttonTitle: String = "" {
             didSet {
-                updateUI()
+                self.nextButton.text = buttonTitle
+            }
+        }
+
+        public var onTouch: (() -> Void)? {
+            didSet {
+                self.nextButton.onTouch = onTouch
             }
         }
 
@@ -87,7 +93,6 @@ extension Ocean {
         }
 
         private func updateUI() {
-            self.nextButton.text = buttonTitle
             setupTransactionItems()
             let height = self.hasTopNotch ? Constaint.heightLg : Constaint.heightSm
             heightConstraint.constant = height + (CGFloat(transactionsItems.count) * Constaint.heightItem)
