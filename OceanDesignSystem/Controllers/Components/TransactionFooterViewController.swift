@@ -103,7 +103,8 @@ final public class TransactionFooterViewController : UIViewController {
                                         transactionItem6,
                                         transactionItem7,
                                         transactionItem8,
-                                        transactionItem9]
+                                        transactionItem9
+            ]
             footer.buttonTitle = "Avançar"
             return footer
         }()
@@ -117,7 +118,7 @@ final public class TransactionFooterViewController : UIViewController {
 
         NSLayoutConstraint.activate([
             view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            view.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
             view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ])
     }

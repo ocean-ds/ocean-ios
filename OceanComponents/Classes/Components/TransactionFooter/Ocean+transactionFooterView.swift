@@ -6,12 +6,13 @@
 //
 
 import OceanTokens
+import CoreGraphics
 
 extension Ocean {
     public class TransactionFooterView: UIView {
         struct Constaint {
-            static let heightSm: CGFloat = 90
-            static let heightLg: CGFloat = 120
+            static let height: CGFloat = 80
+            static let spacingHeightItem: CGFloat = 4
             static let heightItem: CGFloat = 24
         }
 
@@ -34,7 +35,7 @@ extension Ocean {
         }
 
         public lazy var heightConstraint: NSLayoutConstraint = {
-            self.heightAnchor.constraint(equalToConstant: Constaint.heightSm)
+            self.heightAnchor.constraint(equalToConstant: Constaint.height)
         }()
 
         private lazy var nextButton: Ocean.ButtonPrimary = {
@@ -48,7 +49,7 @@ extension Ocean {
             stack.spacing = Ocean.size.spacingStackXxxs
             stack.alignment = .fill
             stack.axis = .vertical
-            stack.distribution = .fill
+            stack.distribution = .fillEqually
             stack.translatesAutoresizingMaskIntoConstraints = false
 
             return stack
@@ -94,8 +95,8 @@ extension Ocean {
 
         private func updateUI() {
             setupTransactionItems()
-            let height = self.hasTopNotch ? Constaint.heightLg : Constaint.heightSm
-            heightConstraint.constant = height + (CGFloat(transactionsItems.count) * Constaint.heightItem)
+            heightConstraint.constant = Constaint.height + (CGFloat(transactionsItems.count) * Constaint.heightItem) +
+                                                           (CGFloat((transactionsItems.count - 1)) * Constaint.spacingHeightItem)
         }
 
         fileprivate func setupTransactionItems() {
