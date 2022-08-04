@@ -97,13 +97,13 @@ final public class TransactionFooterViewController : UIViewController {
             let footer = Ocean.TransactionFooterView()
             footer.transactionsItems = [transactionItem1,
                                         transactionItem2,
-//                                        transactionItem3,
-//                                        transactionItem4,
-//                                        transactionItem5,
-//                                        transactionItem6,
-//                                        transactionItem7,
-//                                        transactionItem8,
-//                                        transactionItem9
+                                        transactionItem3,
+                                        transactionItem4,
+                                        transactionItem5,
+                                        transactionItem6,
+                                        transactionItem7,
+                                        transactionItem8,
+                                        transactionItem9
             ]
             footer.buttonTitle = "Avançar"
             return footer
