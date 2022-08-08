@@ -1,5 +1,5 @@
 //
-//  Ocean+CrossSellCard.swift
+//  Ocean+CardCrossSell.swift
 //  OceanComponents
 //
 //  Created by Leticia Fernandes on 16/05/22.
@@ -11,13 +11,13 @@ import UIKit
 import SkeletonView
 
 extension Ocean {
-    public class CrossSellCard: UIView {
+    public class CardCrossSell: UIView {
         struct Constants {
             static let buttonHeight: CGFloat = 48
             static let iconSize: CGFloat = 80
         }
 
-        public typealias CrossSellCardBuilder = ((CrossSellCard) -> Void)?
+        public typealias CardCrossSellBuilder = ((CardCrossSell) -> Void)?
 
         public var title: String = "" {
             didSet {
@@ -133,7 +133,7 @@ extension Ocean {
             return button
         }()
 
-        public convenience init(builder: CrossSellCardBuilder = nil) {
+        public convenience init(builder: CardCrossSellBuilder = nil) {
             self.init()
             builder?(self)
         }

@@ -1,5 +1,5 @@
 //
-//  CrossSellCardViewController.swift
+//  CardCrossSellViewController.swift
 //  OceanDesignSystem
 //
 //  Created by Leticia Fernandes on 16/05/22.
@@ -9,9 +9,9 @@
 import UIKit
 import OceanTokens
 
-class CrossSellCardViewController: UIViewController {
-    private lazy var crossSellCardView1: Ocean.CrossSellCard = {
-        Ocean.CrossSellCard { card in
+class CardCrossSellViewController: UIViewController {
+    private lazy var cardView1: Ocean.CardCrossSell = {
+        Ocean.CardCrossSell { card in
             card.title = "Mais saldo para seus pagamentos"
             card.subtitle = "Aproveite os recebíveis de outras maquininhas para pagar os boletos deste fornecedor."
             card.image = UIImage(named: "calendar-coin")
@@ -25,8 +25,8 @@ class CrossSellCardViewController: UIViewController {
         }
     }()
 
-    private lazy var crossSellCardView2: Ocean.CrossSellCard = {
-        Ocean.CrossSellCard { card in
+    private lazy var cardView2: Ocean.CardCrossSell = {
+        Ocean.CardCrossSell { card in
             card.title = "Mais saldo para seus pagamentos"
             card.subtitle = "Aproveite os recebíveis de outras maquininhas para pagar os boletos deste fornecedor."
             card.image = UIImage(named: "calendar-coin")
@@ -41,10 +41,10 @@ class CrossSellCardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        self.view.addSubviews(crossSellCardView1, crossSellCardView2)
-        crossSellCardView1.setConstraints(([.topToTop(16), .horizontalMargin(16)], toView: self.view))
-        crossSellCardView2.setConstraints(([.horizontalMargin(16)], toView: self.view),
-                                          ([.topToBottom(16)], toView: crossSellCardView1))
-        crossSellCardView2.cardBackgroundColors = [Ocean.color.colorBrandPrimaryDown, Ocean.color.colorInterfaceDarkDown]
+        self.view.addSubviews(cardView1, cardView2)
+        cardView1.setConstraints(([.topToTop(16), .horizontalMargin(16)], toView: self.view))
+        cardView2.setConstraints(([.horizontalMargin(16)], toView: self.view),
+                                 ([.topToBottom(16)], toView: cardView1))
+        cardView2.cardBackgroundColors = [Ocean.color.colorBrandPrimaryDown, Ocean.color.colorInterfaceDarkDown]
     }
 }
