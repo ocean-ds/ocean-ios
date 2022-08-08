@@ -1,5 +1,5 @@
 //
-//  Ocean+CrossSellCard.swift
+//  Ocean+CardCrossSell.swift
 //  OceanComponents
 //
 //  Created by Leticia Fernandes on 16/05/22.
@@ -11,14 +11,13 @@ import UIKit
 import SkeletonView
 
 extension Ocean {
-    public class CrossSellCard: UIView {
-
+    public class CardCrossSell: UIView {
         struct Constants {
             static let buttonHeight: CGFloat = 48
             static let iconSize: CGFloat = 80
         }
 
-        public typealias CrossSellCardBuilder = ((CrossSellCard) -> Void)?
+        public typealias CardCrossSellBuilder = ((CardCrossSell) -> Void)?
 
         public var title: String = "" {
             didSet {
@@ -52,55 +51,41 @@ extension Ocean {
 
         public var cardBackgroundColor: UIColor? = Ocean.color.colorBrandPrimaryPure {
             didSet {
-                updateUI()
+                backgroundView.layoutIfNeeded()
+                backgroundView.backgroundColor = cardBackgroundColor
+            }
+        }
+
+        public var cardBackgroundColors: [UIColor] = [] {
+            didSet {
+                backgroundView.layoutIfNeeded()
+                gradientLayer.removeFromSuperlayer()
+                gradientLayer.frame = backgroundView.bounds
+                backgroundView.layer.insertSublayer(gradientLayer, at: 0)
             }
         }
 
         public var onTouchCard: (() -> Void)?
 
-        private lazy var mainStack: Ocean.StackView = {
-            Ocean.StackView { stack in
-                stack.axis = .vertical
-                stack.distribution = .fill
-                stack.translatesAutoresizingMaskIntoConstraints = false
-
-                stack.add([
-                    contentStack
-                ])
-
-                stack.isLayoutMarginsRelativeArrangement = true
-                stack.layoutMargins = .init(top: 0,
-                                            left: 0,
-                                            bottom: 0,
-                                            right: 0)
-            }
+        private lazy var gradientLayer: CAGradientLayer = {
+            let layer = CAGradientLayer()
+            layer.colors = cardBackgroundColors.map({ $0.cgColor })
+            layer.locations = [0, 1]
+            layer.startPoint = CGPoint(x: 0.25, y: 0.5)
+            layer.endPoint = CGPoint(x: 0.75, y: 0.5)
+            layer.cornerRadius = Ocean.size.borderRadiusMd
+            return layer
         }()
 
-        private lazy var contentStack: Ocean.StackView = {
-            Ocean.StackView { stack in
-                stack.axis = .horizontal
-                stack.distribution = .fill
-                stack.alignment = .center
-                stack.translatesAutoresizingMaskIntoConstraints = false
-
-                stack.add([
-                    roundedView
-                ])
-            }
-        }()
-
-        private lazy var roundedView: UIView = { 
+        private lazy var backgroundView: UIView = {
             let view = UIView()
-            view.clipsToBounds = true
-            view.layer.cornerRadius = 8
-            view.layer.borderWidth = 1
-            view.layer.borderColor = Ocean.color.colorInterfaceLightDown.cgColor
+            view.ocean.radius.applyMd()
+            view.ocean.borderWidth.applyHairline(color: Ocean.color.colorInterfaceLightDown)
             return view
         }()
 
         private lazy var infoVerticalStack: Ocean.StackView = {
             Ocean.StackView { stack in
-                stack.translatesAutoresizingMaskIntoConstraints = false
                 stack.axis = .vertical
                 stack.distribution = .fill
                 stack.alignment = .leading
@@ -148,7 +133,7 @@ extension Ocean {
             return button
         }()
 
-        public convenience init(builder: CrossSellCardBuilder = nil) {
+        public convenience init(builder: CardCrossSellBuilder = nil) {
             self.init()
             builder?(self)
         }
@@ -163,8 +148,8 @@ extension Ocean {
         }
 
         private func setupUI() {
-            self.add(view: mainStack)
-            roundedView.addSubviews(infoVerticalStack, imageView, containerButtonView)
+            self.add(view: backgroundView)
+            backgroundView.addSubviews(infoVerticalStack, imageView, containerButtonView)
             self.addSubview(mainButton)
 
             setupConstraints()
@@ -172,17 +157,17 @@ extension Ocean {
 
         private func setupConstraints() {
             infoVerticalStack.setConstraints(([.topToTop(Ocean.size.spacingStackXs),
-                                               .leadingToLeading(Ocean.size.spacingStackXs)], toView: roundedView),
+                                               .leadingToLeading(Ocean.size.spacingStackXs)], toView: backgroundView),
                                              ([.trailingToLeading(Ocean.size.spacingStackXs)], toView: imageView))
 
             imageView.setConstraints(([.squareSize(Constants.iconSize),
-                                       .trailingToTrailing(Ocean.size.spacingStackXs)], toView: roundedView),
+                                       .trailingToTrailing(Ocean.size.spacingStackXs)], toView: backgroundView),
                                      ([.centerVertically], toView: infoVerticalStack))
 
             containerButtonView.setConstraints(([.topToBottom(Ocean.size.spacingStackXs)], toView: infoVerticalStack),
                                                ([.height(Constants.buttonHeight),
                                                  .horizontalMargin(.zero),
-                                                 .bottomToBottom(.zero)], toView: roundedView))
+                                                 .bottomToBottom(.zero)], toView: backgroundView))
 
             mainButton.setConstraints(([.verticalMargin(.zero),
                                         .bondToLeading], toView: infoVerticalStack),
@@ -190,7 +175,6 @@ extension Ocean {
         }
 
         private func updateUI() {
-            roundedView.backgroundColor = cardBackgroundColor
             titleLabel.text = title
             subtitleLabel.text = subtitle
             subtitleLabel.isHidden = subtitle.isEmpty
@@ -212,21 +196,17 @@ extension Ocean {
                 containerButtonView.addSubview(buttonText)
                 buttonText.setConstraints((.fillSuperView, toView: containerButtonView))
             }
-
         }
 
         public func setSkeleton() {
             self.isSkeletonable = true
-            self.mainStack.isSkeletonable = true
-            self.contentStack.isSkeletonable = true
-            self.roundedView.isSkeletonable = true
+            self.backgroundView.isSkeletonable = true
             self.infoVerticalStack.isSkeletonable = true
             self.titleLabel.isSkeletonable = true
             self.containerButtonView.isSkeletonable = true
         }
 
-        @objc
-        func handleOnTouch() {
+        @objc func handleOnTouch() {
             self.onTouchCard?()
         }
     }

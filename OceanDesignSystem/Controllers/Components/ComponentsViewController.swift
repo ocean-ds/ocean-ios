@@ -13,24 +13,25 @@ import OceanComponents
 class ComponentsViewController: UITableViewController {
     var designSystemComponentsTypeSelected : DesignSystemComponentsType!
 
+    let componentList = DSComponents.list.sorted()
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ComponentsCell", for: indexPath) as! StandardCell
-        let components = DSComponents.list
-        cell.title.text = components[indexPath.row]
+        cell.title.text = componentList[indexPath.row]
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return DSComponents.list.count
+        return componentList.count
     }
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        let selected = DSComponents.list[indexPath.row]
+        let selected = componentList[indexPath.row]
         self.designSystemComponentsTypeSelected = DesignSystemComponentsType(rawValue: selected)
         return indexPath
     }
@@ -115,8 +116,8 @@ class ComponentsViewController: UITableViewController {
             self.present(ChipsViewController(), animated: true, completion: nil)
         case .ParentChildTextList:
             self.present(ParentChildTextListViewController(), animated: true, completion: nil)
-        case .CrossSellCard:
-            self.present(CrossSellCardViewController(), animated: true, completion: nil)
+        case .CardCrossSell:
+            self.present(CardCrossSellViewController(), animated: true, completion: nil)
         default:
             performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }
