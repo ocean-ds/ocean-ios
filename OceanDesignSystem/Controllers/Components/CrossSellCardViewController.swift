@@ -10,8 +10,7 @@ import UIKit
 import OceanTokens
 
 class CrossSellCardViewController: UIViewController {
-
-    private lazy var crossSellCardView: Ocean.CrossSellCard = {
+    private lazy var crossSellCardView1: Ocean.CrossSellCard = {
         Ocean.CrossSellCard { card in
             card.title = "Mais saldo para seus pagamentos"
             card.subtitle = "Aproveite os recebíveis de outras maquininhas para pagar os boletos deste fornecedor."
@@ -26,10 +25,26 @@ class CrossSellCardViewController: UIViewController {
         }
     }()
 
+    private lazy var crossSellCardView2: Ocean.CrossSellCard = {
+        Ocean.CrossSellCard { card in
+            card.title = "Mais saldo para seus pagamentos"
+            card.subtitle = "Aproveite os recebíveis de outras maquininhas para pagar os boletos deste fornecedor."
+            card.image = UIImage(named: "calendar-coin")
+            card.buttonTitle = "Incluir no contrato"
+            card.onTouchCard = {
+                print("button tapped")
+            }
+            card.setSkeleton()
+        }
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        self.view.addSubview(crossSellCardView)
-        crossSellCardView.setConstraints(([.topToTop(16), .horizontalMargin(16)], toView: self.view))
+        self.view.addSubviews(crossSellCardView1, crossSellCardView2)
+        crossSellCardView1.setConstraints(([.topToTop(16), .horizontalMargin(16)], toView: self.view))
+        crossSellCardView2.setConstraints(([.horizontalMargin(16)], toView: self.view),
+                                          ([.topToBottom(16)], toView: crossSellCardView1))
+        crossSellCardView2.cardBackgroundColors = [Ocean.color.colorBrandPrimaryDown, Ocean.color.colorInterfaceDarkDown]
     }
 }
