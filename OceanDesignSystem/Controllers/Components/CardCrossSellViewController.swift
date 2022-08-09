@@ -17,7 +17,6 @@ class CardCrossSellViewController: UIViewController {
             card.image = UIImage(named: "calendar-coin")
             card.buttonTitle = "Incluir no contrato"
             card.buttonIcon = Ocean.icon.plusOutline
-            card.cardBackgroundColor = Ocean.color.colorBrandPrimaryDown
             card.onTouchCard = {
                 print("button tapped")
             }
