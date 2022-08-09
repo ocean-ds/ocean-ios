@@ -58,6 +58,7 @@ extension Ocean {
 
         public var cardBackgroundColors: [UIColor] = [] {
             didSet {
+                backgroundView.backgroundColor = .clear
                 backgroundView.layoutIfNeeded()
                 gradientLayer.removeFromSuperlayer()
                 gradientLayer.frame = backgroundView.bounds
@@ -79,6 +80,7 @@ extension Ocean {
 
         private lazy var backgroundView: UIView = {
             let view = UIView()
+            view.backgroundColor = cardBackgroundColor
             view.ocean.radius.applyMd()
             view.ocean.borderWidth.applyHairline()
             view.layer.borderColor = Ocean.color.colorInterfaceLightDown.cgColor
