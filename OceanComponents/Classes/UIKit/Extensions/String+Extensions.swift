@@ -138,7 +138,75 @@ public extension String {
 
     func toOceanIcon() -> UIImage? {
         switch self.lowercased() {
-        case "pagbluoutline": return Ocean.icon.pagBluOutline
+        // BluIcons
+        case "appareloutline": return Ocean.icon.apparelOutline
+        case "appliancesoutline": return Ocean.icon.appliancesOutline
+        case "arrowrightupoutline": return Ocean.icon.arrowRightUpOutline
+        case "backgroundoutline": return Ocean.icon.backgroundOutline
+        case "barcodebubbleoutline": return Ocean.icon.barcodeBubbleOutline
+        case "barcodeoutline": return Ocean.icon.barcodeOutline
+        case "bikeoutline": return Ocean.icon.bikeOutline
+        case "blulogooutline": return Ocean.icon.BluLogoOutline
+        case "btokenoutline": return Ocean.icon.btokenOutline
+        case "cardmachineoutline": return Ocean.icon.cardMachineOutline
+        case "cashbackoutline": return Ocean.icon.cashbackOutline
+        case "constructionmaterialoutline": return Ocean.icon.constructionMaterialOutline
+        case "contactbookoutline": return Ocean.icon.contactBookOutline
+        case "drugstoreoutline": return Ocean.icon.drugstoreOutline
+        case "equaloutline": return Ocean.icon.equalOutline
+        case "eventsoutline": return Ocean.icon.eventsOutline
+        case "eyeglassstoreoutline": return Ocean.icon.eyeglassStoreOutline
+        case "flashoffoutline": return Ocean.icon.flashOffOutline
+        case "flashonoutline": return Ocean.icon.flashOnOutline
+        case "foodandbeverageoutline": return Ocean.icon.foodAndBeverageOutline
+        case "footwareoutline": return Ocean.icon.footwareOutline
+        case "furnitureoutline": return Ocean.icon.furnitureOutline
+        case "gasstationoutline": return Ocean.icon.gasStationOutline
+        case "glassesoutline": return Ocean.icon.glassesOutline
+        case "helpoutline": return Ocean.icon.helpOutline
+        case "infooutline": return Ocean.icon.infoOutline
+        case "instagramoutline": return Ocean.icon.instagramOutline
+        case "mattressoutline": return Ocean.icon.mattressOutline
+        case "orderoutline": return Ocean.icon.orderOutline
+        case "otheroutline": return Ocean.icon.otherOutline
+        case "pagbluoutline": return Ocean.icon.pagbluOutline
+        case "paperplaneoutline": return Ocean.icon.paperPlaneOutline
+        case "paymentoutline": return Ocean.icon.paymentOutline
+        case "petshopoutline": return Ocean.icon.petshopOutline
+        case "pixoutline": return Ocean.icon.pixOutline
+        case "placeholderoutline": return Ocean.icon.placeholderOutline
+        case "pointupoutline": return Ocean.icon.pointUpOutline
+        case "qrcodedisplayoutline": return Ocean.icon.qrcodeDisplayOutline
+        case "rawmaterialoutline": return Ocean.icon.rawMaterialOutline
+        case "retaileroutline": return Ocean.icon.retailerOutline
+        case "scanoutline": return Ocean.icon.scanOutline
+        case "sortoutline": return Ocean.icon.sortOutline
+        case "supplieroutline": return Ocean.icon.supplierOutline
+        case "taxoutline": return Ocean.icon.taxOutline
+        case "warlikeoutline": return Ocean.icon.warlikeOutline
+        case "whatsappoutline": return Ocean.icon.whatsappOutline
+        case "youtubeoutline": return Ocean.icon.youtubeOutline
+        case "zerooutline": return Ocean.icon.zeroOutline
+        case "arrowrightupsolid": return Ocean.icon.arrowRightUpSolid
+        case "barcodebubblesolid": return Ocean.icon.barcodeBubbleSolid
+        case "barcodesolid": return Ocean.icon.barcodeSolid
+        case "blulogosolid": return Ocean.icon.BluLogoSolid
+        case "equalsolid": return Ocean.icon.equalSolid
+        case "flashonsolid": return Ocean.icon.flashOnSolid
+        case "glassessolid": return Ocean.icon.glassesSolid
+        case "helpsolid": return Ocean.icon.helpSolid
+        case "infosolid": return Ocean.icon.infoSolid
+        case "instagramsolid": return Ocean.icon.instagramSolid
+        case "ordersolid": return Ocean.icon.orderSolid
+        case "othersolid": return Ocean.icon.otherSolid
+        case "paperplanesolid": return Ocean.icon.paperPlaneSolid
+        case "paymentsolid": return Ocean.icon.paymentSolid
+        case "pixsolid": return Ocean.icon.pixSolid
+        case "placeholdersolid": return Ocean.icon.placeholderSolid
+        case "sortsolid": return Ocean.icon.sortSolid
+        case "whatsappsolid": return Ocean.icon.whatsappSolid
+        case "youtubesolid": return Ocean.icon.youtubeSolid
+        // HeroIcons
         case "academiccapoutline": return Ocean.icon.academicCapOutline
         case "academiccapsolid": return Ocean.icon.academicCapSolid
         case "adjustmentsoutline": return Ocean.icon.adjustmentsOutline
