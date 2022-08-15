@@ -11,7 +11,7 @@ import CoreGraphics
 extension Ocean {
     public class TransactionFooterView: UIView {
         struct Constaint {
-            static let height: CGFloat = 80
+            static let height: CGFloat = 96
             static let spacingHeightItem: CGFloat = 4
             static let heightItem: CGFloat = 24
         }
