@@ -81,7 +81,7 @@ extension Ocean {
 
         private func updateUI() {
             textButton.text = text
-            textButton.rightIcon = icon?.withRenderingMode(.alwaysTemplate)
+            textButton.rightIcon = icon
         }
 
         private func stopActivityIndicator() {

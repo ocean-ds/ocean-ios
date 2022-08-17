@@ -13,7 +13,6 @@ import SkeletonView
 extension Ocean {
     public class CardCrossSell: UIView {
         struct Constants {
-            static let buttonHeight: CGFloat = 48
             static let iconSize: CGFloat = 80
         }
 
@@ -26,6 +25,18 @@ extension Ocean {
         }
 
         public var subtitle: String = "" {
+            didSet {
+                updateUI()
+            }
+        }
+
+        public var titleColor: UIColor? = Ocean.color.colorInterfaceLightPure {
+            didSet {
+                updateUI()
+            }
+        }
+
+        public var subtitleColor: UIColor? = Ocean.color.colorInterfaceLightUp {
             didSet {
                 updateUI()
             }
@@ -46,6 +57,12 @@ extension Ocean {
         public var buttonIcon: UIImage? = Ocean.icon.chevronRightSolid {
             didSet {
                 updateUI()
+            }
+        }
+
+        public var isLoading: Bool = false {
+            didSet {
+                groupCTA.isLoading = isLoading
             }
         }
 
@@ -82,9 +99,44 @@ extension Ocean {
             let view = UIView()
             view.backgroundColor = cardBackgroundColor
             view.ocean.radius.applyMd()
-            view.ocean.borderWidth.applyHairline()
-            view.layer.borderColor = Ocean.color.colorInterfaceLightDown.cgColor
             return view
+        }()
+
+        private lazy var mainStack: Ocean.StackView = {
+            Ocean.StackView { stack in
+                stack.axis = .vertical
+                stack.spacing = 0
+                stack.distribution = .fill
+                stack.alignment = .fill
+                stack.ocean.radius.applyMd()
+                stack.ocean.borderWidth.applyHairline()
+                stack.layer.borderColor = Ocean.color.colorInterfaceLightDown.cgColor
+
+                stack.add([
+                    contentStack,
+                    groupCTA
+                ])
+            }
+        }()
+
+        private lazy var contentStack: Ocean.StackView = {
+            Ocean.StackView { stack in
+                stack.axis = .horizontal
+                stack.distribution = .fill
+                stack.alignment = .center
+                stack.spacing = Ocean.size.spacingStackXs
+                stack.addTapGesture(target: self, selector: #selector(handleOnTouch))
+
+                stack.add([
+                    infoVerticalStack,
+                    imageView,
+                ])
+
+                stack.setMargins(top: Ocean.size.spacingStackXs,
+                                 left: Ocean.size.spacingStackXs,
+                                 bottom: Ocean.size.spacingStackXs,
+                                 right: Ocean.size.spacingStackXs)
+            }
         }()
 
         private lazy var infoVerticalStack: Ocean.StackView = {
@@ -92,48 +144,48 @@ extension Ocean {
                 stack.axis = .vertical
                 stack.distribution = .fill
                 stack.alignment = .leading
+                stack.spacing = Ocean.size.spacingStackXxxs
 
                 stack.add([
                     titleLabel,
-                    Ocean.Spacer(space: Ocean.size.spacingInsetXxs),
                     subtitleLabel,
                 ])
+
+                stack.heightAnchor.constraint(greaterThanOrEqualToConstant: Constants.iconSize).isActive = true
             }
         }()
 
         private lazy var titleLabel: UILabel = {
             Ocean.Typography.heading3 { label in
-                label.textColor = Ocean.color.colorInterfaceLightPure
+                label.textColor = self.titleColor
                 label.numberOfLines = 0
-                label.textAlignment = .left
             }
         }()
 
         private lazy var subtitleLabel: UILabel = {
             Ocean.Typography.description { label in
-                label.textColor = Ocean.color.colorInterfaceLightUp
+                label.textColor = self.subtitleColor
                 label.numberOfLines = 0
-                label.textAlignment = .left
             }
         }()
 
         private lazy var imageView: UIImageView = {
             let view = UIImageView()
             view.contentMode = .scaleAspectFit
+
+            view.setConstraints((.squareSize(Constants.iconSize), toView: nil))
+
             return view
         }()
 
-        private lazy var containerButtonView: UIView = {
-            let view = UIView()
-            view.backgroundColor = Ocean.color.colorInterfaceLightPure
+        private lazy var groupCTA: Ocean.GroupCTA = {
+            let view = Ocean.GroupCTA()
+            view.text = buttonTitle
+            view.icon = buttonIcon
+            view.onTouch = {
+                self.onTouchCard?()
+            }
             return view
-        }()
-
-        private lazy var mainButton: UIButton = {
-            let button = UIButton()
-            button.setTitle("", for: .normal)
-            button.addTarget(self, action: #selector(self.handleOnTouch), for: .touchUpInside)
-            return button
         }()
 
         public convenience init(builder: CardCrossSellBuilder = nil) {
@@ -152,61 +204,30 @@ extension Ocean {
 
         private func setupUI() {
             self.add(view: backgroundView)
-            backgroundView.addSubviews(infoVerticalStack, imageView, containerButtonView)
-            self.addSubview(mainButton)
-
-            setupConstraints()
-        }
-
-        private func setupConstraints() {
-            infoVerticalStack.setConstraints(([.topToTop(Ocean.size.spacingStackXs),
-                                               .leadingToLeading(Ocean.size.spacingStackXs)], toView: backgroundView),
-                                             ([.trailingToLeading(Ocean.size.spacingStackXs)], toView: imageView))
-
-            imageView.setConstraints(([.squareSize(Constants.iconSize),
-                                       .trailingToTrailing(Ocean.size.spacingStackXs)], toView: backgroundView),
-                                     ([.centerVertically], toView: infoVerticalStack))
-
-            containerButtonView.setConstraints(([.topToBottom(Ocean.size.spacingStackXs)], toView: infoVerticalStack),
-                                               ([.height(Constants.buttonHeight),
-                                                 .horizontalMargin(.zero),
-                                                 .bottomToBottom(.zero)], toView: backgroundView))
-
-            mainButton.setConstraints(([.verticalMargin(.zero),
-                                        .bondToLeading], toView: infoVerticalStack),
-                                      ([.bondToTrailing], toView: imageView))
+            self.add(view: mainStack)
         }
 
         private func updateUI() {
             titleLabel.text = title
+            titleLabel.textColor = titleColor
             subtitleLabel.text = subtitle
+            subtitleLabel.textColor = subtitleColor
             subtitleLabel.isHidden = subtitle.isEmpty
             subtitleLabel.isSkeletonable = !subtitle.isEmpty
             imageView.image = image
             imageView.isHidden = image == nil
             imageView.isSkeletonable = image != nil
-
-            if !buttonTitle.isEmpty, let btnIcon = buttonIcon {
-                let buttonText = Ocean.Button.textSM { button in
-                    button.text = buttonTitle
-                    button.rightIcon = btnIcon
-                    button.isRounded = false
-                    button.onTouch = {
-                        self.onTouchCard?()
-                    }
-                }
-                containerButtonView.removeSubviews()
-                containerButtonView.addSubview(buttonText)
-                buttonText.setConstraints((.fillSuperView, toView: containerButtonView))
-            }
+            groupCTA.text = buttonTitle
+            groupCTA.icon = buttonIcon
         }
 
         public func setSkeleton() {
             self.isSkeletonable = true
-            self.backgroundView.isSkeletonable = true
+            self.mainStack.isSkeletonable = true
+            self.contentStack.isSkeletonable = true
             self.infoVerticalStack.isSkeletonable = true
             self.titleLabel.isSkeletonable = true
-            self.containerButtonView.isSkeletonable = true
+            self.groupCTA.isSkeletonable = true
         }
 
         @objc func handleOnTouch() {
