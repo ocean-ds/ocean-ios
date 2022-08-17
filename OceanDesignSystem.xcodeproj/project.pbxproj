@@ -25,7 +25,6 @@
 		249999B626A9CDA5004DAB05 /* NavigationBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249999B526A9CDA5004DAB05 /* NavigationBarViewController.swift */; };
 		249999BC26AAFB2D004DAB05 /* CardOptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249999BB26AAFB2D004DAB05 /* CardOptionViewController.swift */; };
 		249DC9402672AD2600012411 /* SwitchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249DC93F2672AD2600012411 /* SwitchViewController.swift */; };
-		24B70BB226E79CDA00C9CE1E /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B70BB126E79CDA00C9CE1E /* CardViewController.swift */; };
 		24B70BB826E7D0B400C9CE1E /* TransactionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B70BB726E7D0B400C9CE1E /* TransactionListViewController.swift */; };
 		24B70BBD26E91F0F00C9CE1E /* CardGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B70BBC26E91F0F00C9CE1E /* CardGroupViewController.swift */; };
 		24C801522682585600744F30 /* OceanDesignSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C801512682585600744F30 /* OceanDesignSystemTests.swift */; };
@@ -104,7 +103,6 @@
 		249999B526A9CDA5004DAB05 /* NavigationBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarViewController.swift; sourceTree = "<group>"; };
 		249999BB26AAFB2D004DAB05 /* CardOptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardOptionViewController.swift; sourceTree = "<group>"; };
 		249DC93F2672AD2600012411 /* SwitchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchViewController.swift; sourceTree = "<group>"; };
-		24B70BB126E79CDA00C9CE1E /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 		24B70BB726E7D0B400C9CE1E /* TransactionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListViewController.swift; sourceTree = "<group>"; };
 		24B70BBC26E91F0F00C9CE1E /* CardGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGroupViewController.swift; sourceTree = "<group>"; };
 		24C8014F2682585600744F30 /* OceanDesignSystemTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OceanDesignSystemTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -197,7 +195,6 @@
 				24E39BA226DE5BCE006B6A02 /* BalanceViewController.swift */,
 				246535F626E259C20079354A /* TagViewController.swift */,
 				246535FB26E28B760079354A /* BadgeViewController.swift */,
-				24B70BB126E79CDA00C9CE1E /* CardViewController.swift */,
 				24B70BB726E7D0B400C9CE1E /* TransactionListViewController.swift */,
 				AF833AAD2890764F0012AE58 /* TransactionFooterViewController.swift */,
 				24B70BBC26E91F0F00C9CE1E /* CardGroupViewController.swift */,
@@ -541,7 +538,6 @@
 				B71D65DC24CA038B00C3938C /* Models.swift in Sources */,
 				249DC9402672AD2600012411 /* SwitchViewController.swift in Sources */,
 				B768C52624DDFA740086BF9C /* LineHeightsViewController.swift in Sources */,
-				24B70BB226E79CDA00C9CE1E /* CardViewController.swift in Sources */,
 				B71D65E224CA053500C3938C /* TokensBySubCategories.swift in Sources */,
 				B75C81FB24F6F5BD001A500B /* ButtonViewController.swift in Sources */,
 				B7A4FF7924BF8484006712AA /* ComponentsViewController.swift in Sources */,
