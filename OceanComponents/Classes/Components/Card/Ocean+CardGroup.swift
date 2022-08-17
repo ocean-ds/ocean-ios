@@ -10,7 +10,7 @@ import UIKit
 import OceanTokens
 
 extension Ocean {
-    public class CardGroup: Card {
+    public class CardGroup: UIView {
         public typealias CardGroupBuilder = (CardGroup) -> Void
         
         public var onTouch: (() -> Void)?
@@ -49,6 +49,12 @@ extension Ocean {
                 updateUI()
             }
         }
+
+        public var cardContentView: UIView? {
+            didSet {
+                updateCardContentView()
+            }
+        }
         
         public var actionTitle: String = "" {
             didSet {
@@ -78,7 +84,7 @@ extension Ocean {
         }()
 
         private lazy var subtitleLabel: UILabel = {
-            Ocean.Typography.caption { label in
+            Ocean.Typography.description { label in
                 label.text = ""
                 label.textColor = Ocean.color.colorInterfaceDarkDown
                 label.textAlignment = .left
@@ -136,66 +142,18 @@ extension Ocean {
             return stack
         }()
         
-        private lazy var topDivider = Ocean.Divider()
-
-        private lazy var actionTitleLabel: UILabel = {
-            UILabel { label in
-                label.font = .baseBold(size: Ocean.font.fontSizeXxs)
-                label.text = ""
-                label.textColor = Ocean.color.colorBrandPrimaryPure
-                label.translatesAutoresizingMaskIntoConstraints = false
+        private lazy var topDivider = Ocean.Divider(widthConstraint: self.widthAnchor)
+        
+        private lazy var groupCTA: Ocean.GroupCTA = {
+            let view = Ocean.GroupCTA()
+            view.text = actionTitle
+            view.onTouch = {
+                self.onTouch?()
             }
-        }()
-        
-        private lazy var arrowView: UIImageView = {
-            UIImageView { view in
-                view.contentMode = .scaleAspectFit
-                view.image = Ocean.icon.chevronRightSolid?.withRenderingMode(.alwaysTemplate)
-                view.tintColor = Ocean.color.colorBrandPrimaryPure
-                view.translatesAutoresizingMaskIntoConstraints = false
-                
-                NSLayoutConstraint.activate([
-                    view.widthAnchor.constraint(equalToConstant: Constants.arrowSize),
-                    view.heightAnchor.constraint(equalToConstant: Constants.arrowSize)
-                ])
-            }
-        }()
-        
-        private lazy var bottomStack: Ocean.StackView = {
-            let stack = Ocean.StackView()
-            stack.axis = .horizontal
-            stack.distribution = .fill
-            stack.spacing = Ocean.size.spacingStackXs
-            stack.translatesAutoresizingMaskIntoConstraints = false
-            
-            stack.add([
-                actionTitleLabel,
-                arrowView
-            ])
-            
-            stack.isLayoutMarginsRelativeArrangement = true
-            stack.layoutMargins = .init(top: Ocean.size.spacingStackXs,
-                                        left: Ocean.size.spacingStackXs,
-                                        bottom: Ocean.size.spacingStackXs,
-                                        right: Ocean.size.spacingStackXs)
-            
-            return stack
-        }()
-        
-        private lazy var bottomView: UIView = {
-            let view = UIView()
-            view.ocean.radius.applyMd()
-            view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-            view.add(view: bottomStack)
-            
-            view.isUserInteractionEnabled = true
-            view.addTapGesture(target: self, selector: #selector(tapped(sender:)))
-            view.addLongPressGesture(target: self, selector: #selector(longPressed(sender:)))
-            
             return view
         }()
         
-        private lazy var bottomDivider = Ocean.Divider()
+        private lazy var bottomDivider = Ocean.Divider(widthConstraint: self.widthAnchor)
         
         private lazy var mainStack: Ocean.StackView = {
             let stack = Ocean.StackView()
@@ -203,12 +161,11 @@ extension Ocean {
             stack.distribution = .fill
             stack.alignment = .fill
             stack.spacing = 0
-            stack.translatesAutoresizingMaskIntoConstraints = false
             
             stack.add([
                 topStack,
                 bottomDivider,
-                bottomView
+                groupCTA
             ])
             
             return stack
@@ -220,13 +177,15 @@ extension Ocean {
             setupUI()
         }
         
-        override func setupUI() {
-            withShadow = true
-            super.setupUI()
+        private func setupUI() {
+            self.backgroundColor = Ocean.color.colorInterfaceLightPure
+            self.ocean.radius.applyMd()
+            self.ocean.borderWidth.applyHairline()
+            self.layer.borderColor = Ocean.color.colorInterfaceLightDown.cgColor
             self.add(view: mainStack)
         }
         
-        override func updateCardContentView() {
+        private func updateCardContentView() {
             guard let cardContentView = self.cardContentView else { return }
             mainStack.insertArrangedSubview(topDivider, at: 1)
             mainStack.insertArrangedSubview(cardContentView, at: 2)
@@ -243,23 +202,9 @@ extension Ocean {
                 badgeView.number = badgeNumber
             }
             containerBadgeView.isHidden = badgeNumber == nil
-            actionTitleLabel.text = actionTitle
-            bottomView.isHidden = actionTitle.isEmpty
+            groupCTA.text = actionTitle
+            groupCTA.isHidden = actionTitle.isEmpty
             bottomDivider.isHidden = actionTitle.isEmpty
-        }
-        
-        @objc func tapped(sender: UITapGestureRecognizer){
-            bottomView.backgroundColor = .clear
-            onTouch?()
-        }
-
-        @objc func longPressed(sender: UILongPressGestureRecognizer) {
-            if sender.state == .began {
-                bottomView.backgroundColor = Ocean.color.colorInterfaceLightDeep
-            } else if sender.state == .ended {
-                bottomView.backgroundColor = .clear
-                onTouch?()
-            }
         }
     }
 }

@@ -96,8 +96,6 @@ class ComponentsViewController: UITableViewController {
             self.present(TagViewController(), animated: true, completion: nil)
         case .Badge:
             self.present(BadgeViewController(), animated: true, completion: nil)
-        case .Card:
-            self.present(CardViewController(), animated: true, completion: nil)
         case .TransactionFooter:
             self.present(TransactionFooterViewController(), animated: true, completion: nil)
         case .TransactionList:
@@ -118,6 +116,8 @@ class ComponentsViewController: UITableViewController {
             self.present(ParentChildTextListViewController(), animated: true, completion: nil)
         case .CardCrossSell:
             self.present(CardCrossSellViewController(), animated: true, completion: nil)
+        case .GroupCTA:
+            self.present(GroupCTAViewController(), animated: true, completion: nil)
         default:
             performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }

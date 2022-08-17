@@ -50,7 +50,6 @@ public enum DesignSystemComponentsType: String {
     case Balance
     case Tag
     case Badge
-    case Card
     case TransactionFooter
     case TransactionList
     case FloatVerticalMenuList
@@ -61,6 +60,7 @@ public enum DesignSystemComponentsType: String {
     case Chips
     case ParentChildTextList
     case CardCrossSell
+    case GroupCTA
 }
 
 public enum DesignSystemTypographyType: Int {

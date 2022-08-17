@@ -13,7 +13,7 @@ import OceanComponents
 
 final public class CardGroupViewController : UIViewController {
     public override func viewDidLoad() {
-        self.view.backgroundColor = Ocean.color.colorInterfaceLightUp
+        self.view.backgroundColor = Ocean.color.colorInterfaceLightPure
         
         let containerView = UIView()
         containerView.setConstraints(([.width(250),

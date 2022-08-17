@@ -17,7 +17,6 @@ struct DSComponents {
         "Balance",
         "BottomNavigationBar",
         "Button",
-        "Card",
         "CardCrossSell",
         "CardGroup",
         "CardOption",
@@ -27,6 +26,7 @@ struct DSComponents {
         "DatePicker",
         "Divider",
         "FloatVerticalMenuList",
+        "GroupCTA",
         "Input",
         "Modal",
         "NavigationBar",
@@ -70,7 +70,6 @@ struct DSButtons {
 let defaultText = "Soluções de negócios inovadoras e que beneficiam toda a cadeia, do varejo à indústria."
 
 public class Headings {
-    
     static let heading1WithBold = Ocean.Typography.heading1 { label in
         label.text = defaultText
         
@@ -79,6 +78,7 @@ public class Headings {
     static let heading1 = Ocean.Typography.heading1 { label in
         label.text = defaultText
     }
+
     static let heading2 = Ocean.Typography.heading2 { label in
         label.text = defaultText
     }
@@ -90,11 +90,16 @@ public class Headings {
     static let heading4 = Ocean.Typography.heading4 { label in
         label.text = defaultText
     }
+
+    static let heading5 = Ocean.Typography.heading5 { label in
+        label.text = defaultText
+    }
     
     static let heading1Inverse = Ocean.Typography.heading1Inverse { label in
         label.text = defaultText
         label.backgroundColor = UIColor.blue
     }
+
     static let heading2Inverse = Ocean.Typography.heading2Inverse { label in
         label.text = defaultText
         label.backgroundColor = UIColor.blue
@@ -109,16 +114,23 @@ public class Headings {
         label.text = defaultText
         label.backgroundColor = UIColor.blue
     }
+
+    static let heading5Inverse = Ocean.Typography.heading5Inverse { label in
+        label.text = defaultText
+        label.backgroundColor = UIColor.blue
+    }
     
     static let list = [
         heading1,
         heading2,
         heading3,
         heading4,
+        heading5,
         heading1Inverse,
         heading2Inverse,
         heading3Inverse,
-        heading4Inverse
+        heading4Inverse,
+        heading5Inverse
     ]
 }
 
