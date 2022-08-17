@@ -96,8 +96,6 @@ class ComponentsViewController: UITableViewController {
             self.present(TagViewController(), animated: true, completion: nil)
         case .Badge:
             self.present(BadgeViewController(), animated: true, completion: nil)
-        case .Card:
-            self.present(CardViewController(), animated: true, completion: nil)
         case .TransactionFooter:
             self.present(TransactionFooterViewController(), animated: true, completion: nil)
         case .TransactionList:

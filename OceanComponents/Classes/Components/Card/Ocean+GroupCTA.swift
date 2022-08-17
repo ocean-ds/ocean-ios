@@ -46,7 +46,7 @@ extension Ocean {
                 button.paddingLeft = Ocean.size.spacingStackXs
                 button.paddingRight = Ocean.size.spacingStackXxs
                 button.text = text
-                button.rightIcon = icon?.withRenderingMode(.alwaysTemplate)
+                button.rightIcon = icon
                 button.isRounded = false
                 button.onTouch = {
                     self.onTouch?()

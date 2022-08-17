@@ -13,7 +13,8 @@ import SkeletonView
 extension Ocean {
     public class CardCrossSell: UIView {
         struct Constants {
-            static let iconSize: CGFloat = 80
+            static let minHeight: CGFloat = 96
+            static let iconSize: CGFloat = 72
         }
 
         public typealias CardCrossSellBuilder = ((CardCrossSell) -> Void)?
@@ -114,6 +115,7 @@ extension Ocean {
 
                 stack.add([
                     contentStack,
+                    Ocean.Divider(widthConstraint: self.widthAnchor),
                     groupCTA
                 ])
             }
@@ -132,9 +134,9 @@ extension Ocean {
                     imageView,
                 ])
 
-                stack.setMargins(top: Ocean.size.spacingStackXs,
+                stack.setMargins(top: Ocean.size.spacingStackXxs,
                                  left: Ocean.size.spacingStackXs,
-                                 bottom: Ocean.size.spacingStackXs,
+                                 bottom: Ocean.size.spacingStackXxs,
                                  right: Ocean.size.spacingStackXs)
             }
         }()
@@ -151,12 +153,12 @@ extension Ocean {
                     subtitleLabel,
                 ])
 
-                stack.heightAnchor.constraint(greaterThanOrEqualToConstant: Constants.iconSize).isActive = true
+                stack.heightAnchor.constraint(greaterThanOrEqualToConstant: Constants.minHeight).isActive = true
             }
         }()
 
         private lazy var titleLabel: UILabel = {
-            Ocean.Typography.heading3 { label in
+            Ocean.Typography.heading4 { label in
                 label.textColor = self.titleColor
                 label.numberOfLines = 0
             }
