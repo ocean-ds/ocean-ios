@@ -118,6 +118,8 @@ class ComponentsViewController: UITableViewController {
             self.present(ParentChildTextListViewController(), animated: true, completion: nil)
         case .CardCrossSell:
             self.present(CardCrossSellViewController(), animated: true, completion: nil)
+        case .GroupCTA:
+            self.present(GroupCTAViewController(), animated: true, completion: nil)
         default:
             performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }

@@ -61,6 +61,7 @@ public enum DesignSystemComponentsType: String {
     case Chips
     case ParentChildTextList
     case CardCrossSell
+    case GroupCTA
 }
 
 public enum DesignSystemTypographyType: Int {

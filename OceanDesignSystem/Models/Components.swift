@@ -27,6 +27,7 @@ struct DSComponents {
         "DatePicker",
         "Divider",
         "FloatVerticalMenuList",
+        "GroupCTA",
         "Input",
         "Modal",
         "NavigationBar",

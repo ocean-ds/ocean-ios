@@ -25,7 +25,8 @@ extension Ocean {
             makeView()
         }
         public var isRounded: Bool = true
-        public var padding: CGFloat = Ocean.size.spacingInlineSm
+        public var paddingLeft: CGFloat = Ocean.size.spacingInlineSm
+        public var paddingRight: CGFloat = Ocean.size.spacingInlineSm
         public var size: ButtonText.Size = .medium {
             didSet {
                 switch size {
@@ -112,11 +113,12 @@ extension Ocean {
         }
 
         private func configMD() {
-            iconSize = .init(width: 24, height: 24)
+            iconSize = .init(width: 20, height: 20)
             minWidth = 108
             height = 48
             fontSize = Ocean.font.fontSizeXs
-            padding = Ocean.size.spacingInlineSm
+            paddingLeft = Ocean.size.spacingInlineSm
+            paddingRight = Ocean.size.spacingInlineSm
         }
 
         private func configSM() {
@@ -124,7 +126,8 @@ extension Ocean {
             minWidth = 96
             height = 32
             fontSize = Ocean.font.fontSizeXxs
-            padding = Ocean.size.spacingInlineXs
+            paddingLeft = Ocean.size.spacingInlineXs
+            paddingRight = Ocean.size.spacingInlineXs
         }
 
         private func configLG() {
@@ -132,7 +135,8 @@ extension Ocean {
             minWidth = 148
             height = 56
             fontSize = Ocean.font.fontSizeSm
-            padding = Ocean.size.spacingInlineMd
+            paddingLeft = Ocean.size.spacingInlineMd
+            paddingRight = Ocean.size.spacingInlineMd
         }
 
         private func makeView() {
@@ -147,8 +151,9 @@ extension Ocean {
             if let leftIcon = self.leftIcon?.withRenderingMode(.alwaysTemplate) {
                 self.imageView = UIImageView(image: leftIcon)
                 self.imageView.tintColor = activeLabelColor
+                contentStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxs))
                 contentStack.addArrangedSubview(imageView)
-                contentStack.addArrangedSubview(Spacer(space: Ocean.size.spacingInlineXxs))
+                contentStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
                 self.imageView.isUserInteractionEnabled = false
                 self.imageView.setConstraints(([.width(self.iconSize.width),
                                                 .height(self.iconSize.height)], toView:nil))
@@ -169,8 +174,9 @@ extension Ocean {
             if let rightIcon = self.rightIcon?.withRenderingMode(.alwaysTemplate) {
                 self.imageView = UIImageView(image: rightIcon)
                 self.imageView.tintColor = activeLabelColor
-                contentStack.addArrangedSubview(Spacer(space: Ocean.size.spacingInlineXxs))
+                contentStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
                 contentStack.addArrangedSubview(imageView)
+                contentStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxs))
                 self.imageView.isUserInteractionEnabled = false
                 self.imageView.setConstraints(([.width(self.iconSize.width),
                                                 .height(self.iconSize.height)], toView:nil))
@@ -200,8 +206,8 @@ extension Ocean {
 
             contentStack.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 0).isActive = true
             contentStack.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).isActive = true
-            paddingLeftConstraints = contentStack.leftAnchor.constraint(equalTo: self.leftAnchor, constant: padding)
-            paddingRightConstraints = contentStack.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -padding)
+            paddingLeftConstraints = contentStack.leftAnchor.constraint(equalTo: self.leftAnchor, constant: paddingLeft)
+            paddingRightConstraints = contentStack.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -paddingRight)
 
             self.backgroundColor = UIColor.clear
 

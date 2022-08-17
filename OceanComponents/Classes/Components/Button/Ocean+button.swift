@@ -220,7 +220,8 @@ extension Ocean {
         public static func textModifiedSM(builder: ButtonTextBuilder) -> ButtonText {
             return ButtonText { button in
                 button.size = .small
-                button.padding = 0
+                button.paddingLeft = 0
+                button.paddingRight = 0
                 builder( button )
             }
         }
@@ -228,7 +229,8 @@ extension Ocean {
         public static func textModifiedMD(builder: ButtonTextBuilder) -> ButtonText {
             return ButtonText { button in
                 button.size = .medium
-                button.padding = 0
+                button.paddingLeft = 0
+                button.paddingRight = 0
                 builder( button )
             }
         }
@@ -236,7 +238,8 @@ extension Ocean {
         public static func textModifiedLG(builder: ButtonTextBuilder) -> ButtonText {
             return ButtonText { button in
                 button.size = .large
-                button.padding = 0
+                button.paddingLeft = 0
+                button.paddingRight = 0
                 builder( button )
             }
         }
