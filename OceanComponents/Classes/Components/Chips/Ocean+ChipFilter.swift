@@ -38,7 +38,6 @@ extension Ocean {
             let img = Ocean.icon.xSolid?.withRenderingMode(.alwaysTemplate)
             view.image = img
             view.contentMode = .scaleAspectFit
-//            view.frame = CGRect(x: 0, y: 0, width: 12, height: 12)
             view.layer.cornerRadius = view.frame.height / 2.0
             view.layer.masksToBounds = true
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -88,7 +87,10 @@ extension Ocean {
             self.translatesAutoresizingMaskIntoConstraints = false
             self.layer.cornerRadius = Constants.height * Ocean.size.borderRadiusCircular
             self.backgroundColor = Ocean.color.colorInterfaceLightUp
-            
+
+            self.isSkeletonable = true
+            self.contentView.isSkeletonable = true
+            self.skeletonCornerRadius = Float(self.layer.cornerRadius)
             contentView.add(view: mainStack)
             
             self.heightAnchor.constraint(equalToConstant: Constants.height).isActive = true

@@ -12,20 +12,20 @@ import OceanTokens
 extension Ocean {
     public class CardGroup: UIView {
         public typealias CardGroupBuilder = (CardGroup) -> Void
-        
+
         public var onTouch: (() -> Void)?
-        
+
         struct Constants {
             static let imageSize: CGFloat = 24
             static let arrowSize: CGFloat = 20
         }
-        
+
         public var image: UIImage? {
             didSet {
                 updateUI()
             }
         }
-        
+
         public var title: String = "" {
             didSet {
                 updateUI()
@@ -37,13 +37,13 @@ extension Ocean {
                 updateUI()
             }
         }
-        
+
         public var badgeStatus: BadgeNumber.Status = .alert {
             didSet {
                 updateUI()
             }
         }
-        
+
         public var badgeNumber: Int? = nil {
             didSet {
                 updateUI()
@@ -55,25 +55,25 @@ extension Ocean {
                 updateCardContentView()
             }
         }
-        
+
         public var actionTitle: String = "" {
             didSet {
                 updateUI()
             }
         }
-        
+
         private lazy var imageView: UIImageView = {
             UIImageView { view in
                 view.contentMode = .scaleAspectFit
                 view.tintColor = Ocean.color.colorInterfaceDarkDeep
                 view.translatesAutoresizingMaskIntoConstraints = false
-                
+
                 NSLayoutConstraint.activate([
                     view.widthAnchor.constraint(equalToConstant: Constants.imageSize)
                 ])
             }
         }()
-        
+
         private lazy var titleLabel: UILabel = {
             Ocean.Typography.heading4 { label in
                 label.text = ""
@@ -118,7 +118,7 @@ extension Ocean {
 
             return view
         }()
-        
+
         private lazy var topStack: Ocean.StackView = {
             let stack = Ocean.StackView()
             stack.axis = .horizontal
@@ -126,24 +126,24 @@ extension Ocean {
             stack.alignment = .fill
             stack.spacing = Ocean.size.spacingStackXs
             stack.translatesAutoresizingMaskIntoConstraints = false
-            
+
             stack.add([
                 imageView,
                 topLabelsStack,
                 containerBadgeView
             ])
-            
+
             stack.isLayoutMarginsRelativeArrangement = true
             stack.layoutMargins = .init(top: Ocean.size.spacingStackXs,
                                         left: Ocean.size.spacingStackXs,
                                         bottom: Ocean.size.spacingStackXs,
                                         right: Ocean.size.spacingStackXs)
-            
+
             return stack
         }()
-        
+
         private lazy var topDivider = Ocean.Divider(widthConstraint: self.widthAnchor)
-        
+
         private lazy var groupCTA: Ocean.GroupCTA = {
             let view = Ocean.GroupCTA()
             view.text = actionTitle
@@ -152,31 +152,44 @@ extension Ocean {
             }
             return view
         }()
-        
+
         private lazy var bottomDivider = Ocean.Divider(widthConstraint: self.widthAnchor)
-        
+
         private lazy var mainStack: Ocean.StackView = {
             let stack = Ocean.StackView()
             stack.axis = .vertical
             stack.distribution = .fill
             stack.alignment = .fill
             stack.spacing = 0
-            
+
             stack.add([
                 topStack,
                 bottomDivider,
                 groupCTA
             ])
-            
+
             return stack
         }()
-        
+
         public convenience init(builder: CardGroupBuilder) {
             self.init()
             builder(self)
             setupUI()
         }
-        
+
+        public func setSkeleton() {
+            self.isSkeletonable = true
+            self.mainStack.isSkeletonable = true
+            self.topStack.isSkeletonable = true
+            self.imageView.isSkeletonable = true
+            self.topLabelsStack.isSkeletonable = true
+            self.titleLabel.isSkeletonable = true
+            self.subtitleLabel.isSkeletonable = true
+            self.containerBadgeView.isSkeletonable = true
+            self.badgeView.isSkeletonable = true
+            self.groupCTA.isSkeletonable = true
+        }
+
         private func setupUI() {
             self.backgroundColor = Ocean.color.colorInterfaceLightPure
             self.ocean.radius.applyMd()
@@ -184,13 +197,13 @@ extension Ocean {
             self.layer.borderColor = Ocean.color.colorInterfaceLightDown.cgColor
             self.add(view: mainStack)
         }
-        
+
         private func updateCardContentView() {
             guard let cardContentView = self.cardContentView else { return }
             mainStack.insertArrangedSubview(topDivider, at: 1)
             mainStack.insertArrangedSubview(cardContentView, at: 2)
         }
-        
+
         private func updateUI() {
             imageView.image = image?.withRenderingMode(.alwaysTemplate)
             imageView.isHidden = image == nil
