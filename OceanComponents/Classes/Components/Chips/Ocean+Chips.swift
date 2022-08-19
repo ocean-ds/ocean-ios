@@ -162,11 +162,11 @@ extension Ocean {
         // MARK: - Private methods
 
         private func setupUI() {
+            self.isSkeletonable = true
             backgroundColor = .clear
         }
 
         private func setupCollectionView() {
-
             addSubview(chipsCollectionView)
 
             NSLayoutConstraint.activate([

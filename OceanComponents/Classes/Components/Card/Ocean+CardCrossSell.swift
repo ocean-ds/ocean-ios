@@ -67,7 +67,7 @@ extension Ocean {
             }
         }
 
-        public var cardBackgroundColor: UIColor? = Ocean.color.colorBrandPrimaryPure {
+        public var cardBackgroundColor: UIColor? = Ocean.color.colorInterfaceLightPure {
             didSet {
                 backgroundView.layoutIfNeeded()
                 backgroundView.backgroundColor = cardBackgroundColor
@@ -138,6 +138,8 @@ extension Ocean {
                                  left: Ocean.size.spacingStackXs,
                                  bottom: Ocean.size.spacingStackXxs,
                                  right: Ocean.size.spacingStackXs)
+
+                stack.heightAnchor.constraint(greaterThanOrEqualToConstant: Constants.minHeight).isActive = true
             }
         }()
 
@@ -152,8 +154,6 @@ extension Ocean {
                     titleLabel,
                     subtitleLabel,
                 ])
-
-                stack.heightAnchor.constraint(greaterThanOrEqualToConstant: Constants.minHeight).isActive = true
             }
         }()
 

@@ -10,7 +10,7 @@ import OceanTokens
 extension Ocean {
     public class ShortcutCell: UICollectionViewCell {
         static let cellId = "ShortcutCell"
-        
+
         public var image: UIImage? {
             didSet {
                 imageView.image = image?.withRenderingMode(.alwaysTemplate)
@@ -30,13 +30,13 @@ extension Ocean {
                 badgeView.number = number
             }
         }
-        
+
         public var title: String = "" {
             didSet {
                 titleLabel.text = title
             }
         }
-        
+
         public var isHighlight: Bool = false {
             didSet {
                 updateState()
@@ -54,7 +54,7 @@ extension Ocean {
             badgeNumberView.isHidden = true
             return badgeNumberView
         }()
-        
+
         private lazy var titleLabel: VerticalAlignmentLabel = {
             let label = VerticalAlignmentLabel()
             label.font = .baseBold(size: Ocean.font.fontSizeXxs)
@@ -63,13 +63,13 @@ extension Ocean {
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
         }()
-        
+
         override init(frame: CGRect) {
             super.init(frame: frame)
             setupUI()
             updateState()
         }
-        
+
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
@@ -79,16 +79,19 @@ extension Ocean {
             badgeView.isHidden = true
             imageView.image = nil
         }
-        
+
         private func setupUI() {
-            self.contentView.clipsToBounds = true
-            self.contentView.ocean.radius.applyMd()
-            self.contentView.ocean.borderWidth.applyHairline()
-            
+            self.clipsToBounds = true
+            self.ocean.radius.applyMd()
+            self.ocean.borderWidth.applyHairline()
+
+            self.isSkeletonable = true
+            self.contentView.isSkeletonable = true
+            self.skeletonCornerRadius = Float(self.layer.cornerRadius)
             contentView.addSubview(imageView)
             contentView.addSubview(badgeView)
             contentView.addSubview(titleLabel)
-        
+
             NSLayoutConstraint.activate([
                 imageView.topAnchor.constraint(equalTo: topAnchor, constant: 11),
                 imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Ocean.size.spacingStackXs),
@@ -102,14 +105,14 @@ extension Ocean {
 
             badgeView.setConstraints((.sameCenter, toView: imageView))
         }
-        
+
         private func updateState() {
             contentView.backgroundColor = isHighlight ? Ocean.color.colorBrandPrimaryDown : Ocean.color.colorInterfaceLightPure
             contentView.layer.borderColor = isHighlight ? Ocean.color.colorBrandPrimaryDown.cgColor : Ocean.color.colorInterfaceLightDown.cgColor
             imageView.tintColor = isHighlight ? Ocean.color.colorInterfaceLightPure : Ocean.color.colorBrandPrimaryPure
             titleLabel.textColor = isHighlight ? Ocean.color.colorInterfaceLightPure : Ocean.color.colorInterfaceDarkDown
         }
-        
+
         public func pressState(isPressed: Bool) {
             if isPressed {
                 contentView.backgroundColor = isHighlight ? Ocean.color.colorBrandPrimaryPure : Ocean.color.colorInterfaceLightDown

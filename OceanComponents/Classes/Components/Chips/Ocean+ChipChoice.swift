@@ -80,6 +80,9 @@ extension Ocean {
             self.layer.masksToBounds = true
             self.layer.borderColor = Ocean.color.colorStatusNegativePure.cgColor
 
+            self.isSkeletonable = true
+            self.contentView.isSkeletonable = true
+            self.skeletonCornerRadius = Float(self.layer.cornerRadius)
             contentView.add(view: mainStack)
             
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.touchUpInSide))
