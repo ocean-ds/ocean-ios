@@ -81,9 +81,9 @@ extension Ocean {
         }
 
         private func setupUI() {
-            self.clipsToBounds = true
-            self.ocean.radius.applyMd()
-            self.ocean.borderWidth.applyHairline()
+            self.contentView.clipsToBounds = true
+            self.contentView.ocean.radius.applyMd()
+            self.contentView.ocean.borderWidth.applyHairline()
 
             self.isSkeletonable = true
             self.contentView.isSkeletonable = true
