@@ -26,6 +26,23 @@ extension UIStackView {
         return self
     }
 
+    public func setMargins(allMargins: CGFloat) {
+        self.setMargins(top: allMargins,
+                        left: allMargins,
+                        bottom: allMargins,
+                        right: allMargins)
+    }
+
+    public func setMargins(horizontal: CGFloat) {
+        self.setMargins(left: horizontal,
+                        right: horizontal)
+    }
+    
+    public func setMargins(vertical: CGFloat) {
+        self.setMargins(top: vertical,
+                        bottom: vertical)
+    }
+
     public func setMargins(top: CGFloat = 0,
                            left: CGFloat = 0,
                            bottom: CGFloat = 0,
