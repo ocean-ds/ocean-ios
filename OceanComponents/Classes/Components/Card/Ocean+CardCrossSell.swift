@@ -204,6 +204,11 @@ extension Ocean {
             fatalError("init(coder:) has not been implemented")
         }
 
+        public override func layoutSubviews() {
+            super.layoutSubviews()
+            self.gradientLayer.frame = self.backgroundView.bounds
+        }
+
         private func setupUI() {
             self.add(view: backgroundView)
             self.add(view: mainStack)
