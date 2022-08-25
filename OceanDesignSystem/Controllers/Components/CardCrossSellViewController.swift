@@ -27,6 +27,8 @@ class CardCrossSellViewController: UIViewController {
 
     private lazy var cardView2: Ocean.CardCrossSell = {
         Ocean.CardCrossSell { card in
+            card.cardBackgroundColors = [Ocean.color.colorBrandPrimaryDown,
+                                         Ocean.color.colorInterfaceDarkDown]
             card.title = "Mais saldo para seus pagamentos"
             card.subtitle = "Aproveite os recebíveis de outras maquininhas para pagar os boletos deste fornecedor."
             card.image = UIImage(named: "calendar-coin")
@@ -45,7 +47,5 @@ class CardCrossSellViewController: UIViewController {
         cardView1.setConstraints(([.topToTop(16), .horizontalMargin(16)], toView: self.view))
         cardView2.setConstraints(([.horizontalMargin(16)], toView: self.view),
                                  ([.topToBottom(16)], toView: cardView1))
-        cardView2.cardBackgroundColors = [Ocean.color.colorBrandPrimaryDown,
-                                          Ocean.color.colorInterfaceDarkDown]
     }
 }
