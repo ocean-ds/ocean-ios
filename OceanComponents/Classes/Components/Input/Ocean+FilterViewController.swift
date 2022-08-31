@@ -13,18 +13,18 @@ extension Ocean {
         private var placeholder: String?
         private var values: [CellModel]?
         private var contentValues: [CellModel]?
-        
+
         public var navigationTitle: String = ""
         public var navigationBackgroundColor: UIColor? = Ocean.color.colorInterfaceLightPure
         public var navigationTintColor: UIColor = Ocean.color.colorBrandPrimaryPure
-        
+
         private lazy var mainStack: Ocean.StackView = {
             Ocean.StackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
                 stack.alignment = .fill
                 stack.distribution = .fill
                 stack.axis = .vertical
-                
+
                 stack.addArrangedSubview(Ocean.Input.search { input in
                     input.placeholder = self.placeholder ?? ""
                     input.onValueChanged = { value in
@@ -37,7 +37,7 @@ extension Ocean {
                                 return titleProcessed.contains(valueProcessed)
                             })
                         }
-                        
+
                         self.emptyLabel.attributedText = !(self.contentValues?.isEmpty ?? true) ? NSAttributedString() : self.getEmptyMessage(value: value)
                         self.tableView.reloadData()
                     }
@@ -45,7 +45,7 @@ extension Ocean {
                 stack.addArrangedSubview(Ocean.Spacer(space: Ocean.size.spacingStackXs))
             }
         }()
-        
+
         private lazy var emptyLabel: UILabel = {
             let label = UILabel()
             label.font = .baseRegular(size: Ocean.font.fontSizeXxs)
@@ -56,20 +56,20 @@ extension Ocean {
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
         }()
-        
+
         private lazy var emptyView: UIView = {
             let view = UIView()
             view.addSubview(emptyLabel)
-            
+
             NSLayoutConstraint.activate([
                 emptyLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: Ocean.size.spacingStackXs),
                 emptyLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Ocean.size.spacingStackXs),
                 emptyLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Ocean.size.spacingStackXs)
             ])
-            
+
             return view
         }()
-        
+
         private lazy var tableView: UITableView = {
             let tableView = UITableView()
             tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -81,29 +81,29 @@ extension Ocean {
             tableView.separatorStyle =  .none
             return tableView
         }()
-        
+
         private var heightCell: CGFloat {
             get {
                 return 48
             }
         }
 
-        var onValueSelected: ((CellModel) -> Void)?
-        
-        init(title: String,
-             placeholder: String?,
-             values: [CellModel]) {
+        public var onValueSelected: ((CellModel) -> Void)?
+
+        public init(title: String,
+                    placeholder: String?,
+                    values: [CellModel]) {
             self.navigationTitle = title
             self.placeholder = placeholder
             self.values = values
             self.contentValues = values
             super.init(nibName: nil, bundle: nil)
         }
-        
+
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
-        
+
         public override func viewDidLoad() {
             super.viewDidLoad()
             setupNavigation()
@@ -127,11 +127,11 @@ extension Ocean {
                 tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
             ])
         }
-        
+
         @objc func closeClick() {
             self.dismiss(animated: true, completion: nil)
         }
-        
+
         public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             return contentValues?.count ?? 0
         }
@@ -154,7 +154,7 @@ extension Ocean {
                 self.onValueSelected?(value)
             }
         }
-        
+
         private func getEmptyMessage(value: String) -> NSAttributedString {
             let message = "Não foram econtrados resultados para\n"
             let messageBold = "＂\(value)＂"
