@@ -24,7 +24,8 @@ extension Ocean {
             return carouselCollectionView.heightAnchor.constraint(equalToConstant: Constants.heightContentDefault)
         }()
 
-        private var images: [UIImage] = []
+        private var data: [CarouselModel] = []
+
         private var currentPage = 0 {
             didSet {
                 pageControl.currentPage = currentPage
@@ -60,9 +61,9 @@ extension Ocean {
         }()
 
         public func addImages(with images: [UIImage]) {
-            if images.count == 0 { return }
+            guard !images.isEmpty,
+                  let firstImage = images.first else { return }
 
-            let firstImage = images.first!
             var itemWidth = frame.width - (Ocean.size.spacingStackXs * 2)
             var itemHeight = firstImage.size.height
             let ratio = firstImage.size.width / firstImage.size.height
@@ -88,7 +89,35 @@ extension Ocean {
             carouselCollectionView.collectionViewLayout = carouselLayout
             pageControl.numberOfPages = images.count
 
-            self.images = images
+            self.data = images.map { CarouselModel(image: $0) }
+            self.currentPage = 0
+
+            carouselCollectionView.reloadData()
+        }
+
+        public func addImagesUrl(with imagesUrl: [String]) {
+            guard !imagesUrl.isEmpty else { return }
+
+            let itemWidth = frame.width - (Ocean.size.spacingStackXs * 2)
+            let itemHeight: CGFloat = 160
+
+            heightContentConstraint.constant = itemHeight
+            heightConstraint.constant = itemHeight + Constants.space + Constants.heightPage
+
+            let carouselLayout = UICollectionViewFlowLayout()
+            carouselLayout.scrollDirection = .horizontal
+            carouselLayout.minimumLineSpacing = Ocean.size.spacingStackXxs
+            carouselLayout.itemSize = .init(width: itemWidth,
+                                            height: itemHeight)
+            carouselLayout.sectionInset = .init(top: 0,
+                                                left: Ocean.size.spacingStackXs,
+                                                bottom: 0,
+                                                right: Ocean.size.spacingStackXs)
+
+            carouselCollectionView.collectionViewLayout = carouselLayout
+            pageControl.numberOfPages = imagesUrl.count
+
+            self.data = imagesUrl.map { CarouselModel(imageUrl: $0) }
             self.currentPage = 0
 
             carouselCollectionView.reloadData()
@@ -143,7 +172,7 @@ extension Ocean {
         }
 
         public func collectionSkeletonView(_ skeletonView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return self.images.count
+            return self.data.count
         }
 
         public func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
@@ -157,13 +186,15 @@ extension Ocean {
         }
 
         public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return self.images.count
+            return self.data.count
         }
 
         public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCell.cellId, for: indexPath) as? CarouselCell else { return UICollectionViewCell() }
 
-            cell.image = self.images[indexPath.row]
+            let data = self.data[indexPath.row]
+            cell.image = data.image
+            cell.imageUrl = data.imageUrl
 
             return cell
         }

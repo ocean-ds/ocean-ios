@@ -9,6 +9,18 @@ import UIKit
 import OceanTokens
 
 extension UIStackView {
+    public var stackBackground: UIView {
+        if let bkg = subviews.first, bkg.restorationIdentifier == "stackBkg" {
+            return bkg
+        }
+
+        let subView = UIView(frame: bounds)
+        subView.restorationIdentifier = "stackBkg"
+        subView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        insertSubview(subView, at: 0)
+        return subView
+    }
+
     @discardableResult
     public func removeAllArrangedSubviews() -> [UIView] {
         let removedSubviews = arrangedSubviews.reduce([]) { (removedSubviews, subview) -> [UIView] in

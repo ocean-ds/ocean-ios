@@ -38,6 +38,7 @@ Project created with the objective use components created by OceanTokens.
   s.dependency 'SPStorkController'
   s.dependency 'FSCalendar'
   s.dependency 'SkeletonView'
+  s.dependency 'SDWebImage'
 
   s.source_files = 'OceanComponents/Classes/**/*'
   s.info_plist = { 'CFBundleIdentifier' => 'br.com.blu.OceanComponents' }
