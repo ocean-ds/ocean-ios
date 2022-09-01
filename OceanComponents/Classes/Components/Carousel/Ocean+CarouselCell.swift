@@ -21,6 +21,12 @@ extension Ocean {
             }
         }
 
+        public var imageUrl: String = "" {
+            didSet {
+                imageView.downloadImage(url: imageUrl)
+            }
+        }
+
         private lazy var imageView: UIImageView = {
             UIImageView { imageView in
                 imageView.translatesAutoresizingMaskIntoConstraints = false

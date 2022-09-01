@@ -10,6 +10,8 @@ import SDWebImage
 
 extension UIImageView {
     func downloadImage(url: String, placeHolder: UIImage? = nil) {
+        guard !url.isEmpty else { return }
+        
         if let url = URL(string: url) {
             self.sd_imageIndicator?.startAnimatingIndicator()
             self.sd_setImage(with: url, placeholderImage: placeHolder) { _, error, _, _ in

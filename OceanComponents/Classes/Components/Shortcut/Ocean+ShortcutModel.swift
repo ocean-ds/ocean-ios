@@ -9,11 +9,11 @@ import OceanTokens
 
 extension Ocean {
     public struct ShortcutModel {
-        let image: UIImage?
-        let badgeNumber: Int?
-        let badgeStatus: BadgeNumber.Status
-        let title: String
-        let isHighlight: Bool
+        public let image: UIImage?
+        public let badgeNumber: Int?
+        public let badgeStatus: BadgeNumber.Status
+        public let title: String
+        public let isHighlight: Bool
 
         public init(image: UIImage? = nil,
                     badgeNumber: Int? = nil,
