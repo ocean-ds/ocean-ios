@@ -3,9 +3,13 @@ PODS:
   - OceanComponents (3.3.0-187):
     - FSCalendar
     - OceanTokens
+    - SDWebImage
     - SkeletonView
     - SPStorkController
   - OceanTokens (3.3.0)
+  - SDWebImage (5.13.2):
+    - SDWebImage/Core (= 5.13.2)
+  - SDWebImage/Core (5.13.2)
   - SkeletonView (1.21.2)
   - Sourcery (1.0.3)
   - SPStorkController (1.8.5)
@@ -20,6 +24,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - FSCalendar
+    - SDWebImage
     - SkeletonView
     - Sourcery
     - SPStorkController
@@ -33,8 +38,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FSCalendar: e6a2eb9c571bf0719ed797ef807e08426753c241
-  OceanComponents: 31f9d456feb11d0478a223e9bc5ffdcb266a9ca3
+  OceanComponents: 51a2ddb18287c00a80a68780ca5ff4358f54e2de
   OceanTokens: e166096c1dbf444664733f66887cd9cc80450b19
+  SDWebImage: 72f86271a6f3139cc7e4a89220946489d4b9a866
   SkeletonView: a085533443fed0198309f1979780afb6e80eaedd
   Sourcery: 70a6048014bd4f37ea80e6bd4354d47bf3b760e1
   SPStorkController: 68966ed3134de2be2a8bbd1475c7e81f3f7d01ee
