@@ -11,7 +11,7 @@ import OceanTokens
 extension Ocean.StackView {
     public typealias BuilderStackView = (Ocean.StackView) -> Void
     
-    convenience init(builder: BuilderStackView) {
+    public convenience init(builder: BuilderStackView) {
         self.init()
         builder(self)
     }

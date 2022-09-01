@@ -9,7 +9,7 @@
 import Foundation
 
 extension UIView {
-    func leadingSuperview(constant: CGFloat = 0) {
+    public func leadingSuperview(constant: CGFloat = 0) {
         guard let superview = superview else {
             return
         }
@@ -20,7 +20,7 @@ extension UIView {
             .isActive = true
     }
 
-    func trailingSuperview(constant: CGFloat = 0) {
+    public func trailingSuperview(constant: CGFloat = 0) {
         guard let superview = superview else {
             return
         }
@@ -31,7 +31,7 @@ extension UIView {
             .isActive = true
     }
 
-    func topSuperview(constant: CGFloat = 0) {
+    public func topSuperview(constant: CGFloat = 0) {
         guard let superview = superview else {
             return
         }
@@ -42,7 +42,7 @@ extension UIView {
             .isActive = true
     }
 
-    func bottomSuperview(constant: CGFloat = 0) {
+    public func bottomSuperview(constant: CGFloat = 0) {
         guard let superview = superview else {
             return
         }
@@ -53,7 +53,7 @@ extension UIView {
             .isActive = true
     }
 
-    func centerYSuperview(constant: CGFloat = 0) {
+    public func centerYSuperview(constant: CGFloat = 0) {
         guard let superview = superview else {
             return
         }

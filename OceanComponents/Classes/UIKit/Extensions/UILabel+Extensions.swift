@@ -11,7 +11,6 @@ import UIKit
 import OceanTokens
 
 extension UILabel {
-    
     public func setLineHeight(lineHeight: CGFloat) {
         let text = self.text
         if let text = text {
@@ -23,23 +22,6 @@ extension UILabel {
             attributeString.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: NSMakeRange(0, text.count))
             self.attributedText = attributeString
         }
-    }
-
-    private func createMutableAttributedString(string: String? = nil) -> NSMutableAttributedString? {
-        let text = string ?? self.text
-
-        guard let labelText = text else {
-            return nil
-        }
-
-        let attributedString: NSMutableAttributedString
-        if let labelattributedText = self.attributedText, labelattributedText.string == labelText {
-            attributedString = NSMutableAttributedString(attributedString: labelattributedText)
-        } else {
-            attributedString = NSMutableAttributedString(string: labelText)
-        }
-
-        return attributedString
     }
 
     /**
@@ -70,8 +52,8 @@ extension UILabel {
 
 
     /**
-    Sublinha o texto.
-    */
+     Sublinha o texto.
+     */
     public func underlineText(fullText: String? = nil, underlinedText: String, underlinedTextColor: UIColor, lineColor: UIColor? = nil, lineStyle: Int = NSUnderlineStyle.single.rawValue) {
 
         let text: NSString = (fullText ?? self.text ?? "") as NSString
@@ -107,5 +89,22 @@ extension UILabel {
                 self.setPartOfTextInBold(textoPuro, boldText: word, boldFont: boldFont, boldColor: boldColor)
             }
         }
+    }
+
+    private func createMutableAttributedString(string: String? = nil) -> NSMutableAttributedString? {
+        let text = string ?? self.text
+
+        guard let labelText = text else {
+            return nil
+        }
+
+        let attributedString: NSMutableAttributedString
+        if let labelattributedText = self.attributedText, labelattributedText.string == labelText {
+            attributedString = NSMutableAttributedString(attributedString: labelattributedText)
+        } else {
+            attributedString = NSMutableAttributedString(string: labelText)
+        }
+
+        return attributedString
     }
 }

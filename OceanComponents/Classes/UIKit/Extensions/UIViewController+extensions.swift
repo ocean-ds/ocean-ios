@@ -7,14 +7,14 @@
 
 import Foundation
 extension UIViewController {
-    var isModal: Bool {
+    public var isModal: Bool {
         let presentingIsModal = presentingViewController != nil
         let presentingIsNavigation = navigationController?.presentingViewController?.presentedViewController == navigationController
         let presentingIsTabBar = tabBarController?.presentingViewController is UITabBarController
         return presentingIsModal || presentingIsNavigation || presentingIsTabBar
     }
     
-    var hasTopNotch: Bool {
+    public var hasTopNotch: Bool {
         return UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.safeAreaInsets.top ?? 0 > 20
     }
 }
