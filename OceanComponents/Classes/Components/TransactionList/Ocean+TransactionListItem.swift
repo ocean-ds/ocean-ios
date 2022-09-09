@@ -30,6 +30,7 @@ extension Ocean {
             public var tagTitle: String = ""
             public var tagImage: UIImage? = nil
             public var tagStatus: Tag.Status = .warning
+            public var tagImageStatus: Bool = false
             public var withDivider: Bool = true
 
             public init(level1: String = "",
@@ -42,6 +43,7 @@ extension Ocean {
                         tagTitle: String = "",
                         tagImage: UIImage? = nil,
                         tagStatus: Tag.Status = .warning,
+                        tagImageStatus: Bool = false,
                         withDivider: Bool = true) {
                 self.level1 = level1
                 self.level2 = level2
@@ -53,6 +55,7 @@ extension Ocean {
                 self.tagTitle = tagTitle
                 self.tagImage = tagImage
                 self.tagStatus = tagStatus
+                self.tagImageStatus = tagImageStatus
                 self.withDivider = withDivider
             }
         }
@@ -114,6 +117,8 @@ extension Ocean {
             }
         }()
 
+        private lazy var level1Container = level1Label.addMargins()
+
         private lazy var level1Spacer = Ocean.Spacer(space: Ocean.size.spacingStackXxxs)
 
         private lazy var level2Label: UILabel = {
@@ -161,7 +166,7 @@ extension Ocean {
                 stack.add([
                     level4Label,
                     level4Spacer,
-                    level1Label,
+                    level1Container,
                     level1Spacer,
                     level2Label,
                     level2Spacer,
@@ -175,12 +180,11 @@ extension Ocean {
                 stack.axis = .vertical
                 stack.distribution = .fill
                 stack.alignment = .trailing
+                stack.spacing = Ocean.size.spacingStackXxxs
 
                 stack.add([
-                    valueLabel,
-                    valueSpacer,
+                    valueContainer,
                     tagView,
-                    tagSpacer,
                     dateLabel
                 ])
             }
@@ -197,15 +201,13 @@ extension Ocean {
             }
         }()
 
-        private lazy var valueSpacer = Ocean.Spacer(space: Ocean.size.spacingStackXxxs)
+        private lazy var valueContainer = valueLabel.addMargins()
 
         private lazy var tagView: Ocean.Tag = {
             Ocean.Tag { view in
                 view.translatesAutoresizingMaskIntoConstraints = false
             }
         }()
-
-        private lazy var tagSpacer = Ocean.Spacer(space: Ocean.size.spacingStackXxxs)
 
         private lazy var dateLabel: UILabel = {
             UILabel { label in
@@ -225,7 +227,7 @@ extension Ocean {
             Ocean.StackView { stack in
                 stack.axis = .horizontal
                 stack.distribution = .fill
-                stack.alignment = .fill
+                stack.alignment = .center
                 stack.spacing = Ocean.size.spacingStackXxxs
 
                 stack.add([
@@ -235,11 +237,7 @@ extension Ocean {
                     rightContentStack
                 ])
 
-                stack.isLayoutMarginsRelativeArrangement = true
-                stack.layoutMargins = .init(top: Ocean.size.spacingStackXs,
-                                            left: Ocean.size.spacingStackXs,
-                                            bottom: Ocean.size.spacingStackXs,
-                                            right: Ocean.size.spacingStackXs)
+                stack.setMargins(allMargins: Ocean.size.spacingStackXs)
             }
         }()
 
@@ -301,8 +299,8 @@ extension Ocean {
             tagView.status = model.tagStatus
             tagView.image = model.tagImage
             tagView.title = model.tagTitle
+            tagView.imageStatus = model.tagImageStatus
             tagView.isHidden = model.tagTitle.isEmpty
-            tagSpacer.isHidden = model.date.isEmpty
             dateLabel.text = model.date
             dateLabel.isHidden = model.date.isEmpty
             divider.isHidden = !model.withDivider
@@ -310,21 +308,19 @@ extension Ocean {
 
         public func setSkeleton() {
             self.isSkeletonable = true
-            level1Label.isSkeletonable = true
+            self.leftContentStack.isSkeletonable = true
+            self.rightContentStack.isSkeletonable = true
+            self.contentStack.isSkeletonable = true
+            self.mainStack.isSkeletonable = true
+
+            level1Container.isSkeletonable = true
             level2Label.isSkeletonable = true
             level3Label.isSkeletonable = true
-            level3Label.isHiddenWhenSkeletonIsActive = true
             level4Label.isSkeletonable = true
-            level4Label.isHiddenWhenSkeletonIsActive = true
-            valueLabel.isSkeletonable = true
-            valueLabel.isHiddenWhenSkeletonIsActive = true
-            tagView.setSkeleton()
+            valueContainer.isSkeletonable = true
             dateLabel.isSkeletonable = true
             dateLabel.isHiddenWhenSkeletonIsActive = true
-            leftContentStack.isSkeletonable = true
-            rightContentStack.isSkeletonable = true
-            contentStack.isSkeletonable = true
-            mainStack.isSkeletonable = true
+            tagView.setSkeleton()
         }
 
         @objc private func tapped(sender: UITapGestureRecognizer) {
