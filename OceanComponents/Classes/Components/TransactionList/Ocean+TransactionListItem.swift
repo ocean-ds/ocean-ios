@@ -297,9 +297,9 @@ extension Ocean {
                 valueLabel.textColor = Ocean.color.colorInterfaceDarkDeep
             }
             tagView.status = model.tagStatus
-            tagView.imageStatus = model.tagImageStatus
             tagView.image = model.tagImage
             tagView.title = model.tagTitle
+            tagView.imageStatus = model.tagImageStatus
             tagView.isHidden = model.tagTitle.isEmpty
             dateLabel.text = model.date
             dateLabel.isHidden = model.date.isEmpty

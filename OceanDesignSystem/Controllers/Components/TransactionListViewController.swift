@@ -20,6 +20,7 @@ final public class TransactionListViewController : UIViewController {
         stack.distribution = .fill
         stack.axis = .vertical
         stack.spacing = 0
+        stack.isSkeletonable = true
         
         let transactionListItem1 = Ocean.TransactionListItem { view in
             view.model = Ocean.TransactionListItem.Model(level1: "Transferência recebida",
@@ -29,14 +30,15 @@ final public class TransactionListViewController : UIViewController {
                                                          value: 250000,
                                                          valueStatus: .positive,
                                                          date: "09:00",
-                                                         tagTitle: "Pendente",
-                                                         tagImage: Ocean.icon.exclamationCircleSolid,
-                                                         tagStatus: .warning,
+                                                         tagTitle: "Pago",
+                                                         tagStatus: .positive,
+                                                         tagImageStatus: true,
                                                          withDivider: true)
             view.onTouch = {
                 print("1")
                 view.hasCheckbox = !view.hasCheckbox
             }
+            view.setSkeleton()
         }
         
         let transactionListItem2 = Ocean.TransactionListItem { view in
@@ -47,13 +49,14 @@ final public class TransactionListViewController : UIViewController {
                                                          valueStatus: .negative,
                                                          date: "19:00",
                                                          tagTitle: "Pendente",
-                                                         tagImage: Ocean.icon.exclamationCircleSolid,
                                                          tagStatus: .warning,
+                                                         tagImageStatus: true,
                                                          withDivider: true)
             view.onTouch = {
                 print("2")
                 view.hasCheckbox = !view.hasCheckbox
             }
+            view.setSkeleton()
         }
         
         let transactionListItem3 = Ocean.TransactionListItem { view in
@@ -62,14 +65,15 @@ final public class TransactionListViewController : UIViewController {
                                                          value: 500,
                                                          valueStatus: .positive,
                                                          date: "12:00",
-                                                         tagTitle: "Pendente",
-                                                         tagImage: Ocean.icon.exclamationCircleSolid,
-                                                         tagStatus: .warning,
+                                                         tagTitle: "Cancelado",
+                                                         tagStatus: .negative,
+                                                         tagImageStatus: true,
                                                          withDivider: true)
             view.onTouch = {
                 print("3")
                 view.hasCheckbox = !view.hasCheckbox
             }
+            view.setSkeleton()
         }
         
         let transactionListItem4 = Ocean.TransactionListItem { view in
@@ -78,13 +82,14 @@ final public class TransactionListViewController : UIViewController {
                                                          value: 200,
                                                          valueStatus: .negative,
                                                          tagTitle: "Pendente",
-                                                         tagImage: Ocean.icon.exclamationCircleSolid,
+                                                         tagImage: Ocean.icon.documentAddSolid,
                                                          tagStatus: .warning,
                                                          withDivider: true)
             view.onTouch = {
                 print("4")
                 view.hasCheckbox = !view.hasCheckbox
             }
+            view.setSkeleton()
         }
         
         let transactionListItem5 = Ocean.TransactionListItem { view in
@@ -97,6 +102,7 @@ final public class TransactionListViewController : UIViewController {
                 print("5")
                 view.hasCheckbox = !view.hasCheckbox
             }
+            view.setSkeleton()
         }
 
         let transactionListItem6 = Ocean.TransactionListItem { view in
@@ -109,6 +115,7 @@ final public class TransactionListViewController : UIViewController {
                 print("5")
                 view.hasCheckbox = !view.hasCheckbox
             }
+            view.setSkeleton()
         }
         
         stack.addArrangedSubview(transactionListItem1)

@@ -38,7 +38,16 @@ extension Ocean {
 
         public var imageStatus: Bool = false {
             didSet {
-                updateStatus()
+                guard imageStatus else { return }
+                switch self.status {
+                case .positive:
+                    self.image = Ocean.icon.checkCircleSolid
+                case .warning:
+                    self.image = Ocean.icon.exclamationCircleSolid
+                case .negative:
+                    self.image = Ocean.icon.xCircleSolid
+                default: break
+                }
             }
         }
 
@@ -121,27 +130,22 @@ extension Ocean {
                 self.backgroundColor = Ocean.color.colorStatusPositiveUp
                 self.imageView.tintColor = Ocean.color.colorStatusPositiveDeep
                 self.titleLabel.textColor = Ocean.color.colorStatusPositiveDeep
-                self.imageView.image = imageStatus ? Ocean.icon.checkCircleSolid?.withRenderingMode(.alwaysTemplate) : nil
             case .warning:
                 self.backgroundColor = Ocean.color.colorStatusNeutralUp
                 self.imageView.tintColor = Ocean.color.colorStatusNeutralDeep
                 self.titleLabel.textColor = Ocean.color.colorStatusNeutralDeep
-                self.imageView.image = imageStatus ? Ocean.icon.exclamationCircleSolid?.withRenderingMode(.alwaysTemplate) : nil
             case .negative:
                 self.backgroundColor = Ocean.color.colorStatusNegativeUp
                 self.imageView.tintColor = Ocean.color.colorStatusNegativePure
                 self.titleLabel.textColor = Ocean.color.colorStatusNegativePure
-                self.imageView.image = imageStatus ? Ocean.icon.xCircleSolid?.withRenderingMode(.alwaysTemplate) : nil
             case .neutral2:
                 self.backgroundColor = Ocean.color.colorInterfaceLightUp
                 self.imageView.tintColor = Ocean.color.colorBrandPrimaryDown
                 self.titleLabel.textColor = Ocean.color.colorBrandPrimaryDown
-                self.imageView.image = nil
             default:
                 self.backgroundColor = Ocean.color.colorInterfaceLightUp
                 self.imageView.tintColor = Ocean.color.colorInterfaceDarkUp
                 self.titleLabel.textColor = Ocean.color.colorInterfaceDarkUp
-                self.imageView.image = nil
             }
         }
 
