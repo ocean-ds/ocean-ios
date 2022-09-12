@@ -178,7 +178,7 @@ extension Ocean {
         }
         
         private func updateUI() {
-            iconImageView.image = image
+            iconImageView.image = image?.withRenderingMode(.alwaysTemplate)
             titleLabel.text = title
             titleLabel.isHidden = title.isEmpty
 
