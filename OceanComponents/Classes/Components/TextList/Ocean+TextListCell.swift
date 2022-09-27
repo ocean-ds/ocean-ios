@@ -60,6 +60,12 @@ extension Ocean {
             }
         }
 
+        public var tagImageStatus: Bool = false {
+            didSet {
+                updateUI()
+            }
+        }
+
         public var tagStatus: Tag.Status = .warning {
             didSet {
                 updateUI()
@@ -336,6 +342,7 @@ extension Ocean {
             tagView.title = tagTitle
             tagView.image = tagImage
             tagView.status = tagStatus
+            tagView.imageStatus = tagImageStatus
             tagView.isHidden = tagTitle.isEmpty
             tagSpacer.isHidden = tagView.isHidden
             if !tagView.isHidden {

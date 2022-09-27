@@ -99,6 +99,7 @@ final public class TextListViewController : UIViewController {
             textList.subtitle = "Subitle"
             textList.tagTitle = "Tag sample"
             textList.tagStatus = .positive
+            textList.tagImageStatus = true
             textList.arrow = true
             textList.arrowTintColor = Ocean.color.colorInterfaceDarkUp
         }
