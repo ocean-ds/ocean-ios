@@ -9,7 +9,7 @@ import OceanTokens
 
 extension Ocean {
     final public class AlertBox: UIView {
-        public enum IconType {
+        public enum Status {
             case info
             case error
             case warning
@@ -30,28 +30,29 @@ extension Ocean {
             }
         }
         
-        public var iconType: IconType? {
+        public var status: Status = .info {
             didSet {
-                if (self.iconType == .info) {
+                switch status {
+                case .info:
                     backgroundColor = Ocean.color.colorInterfaceLightUp
                     iconImageView.tintColor = Ocean.color.colorBrandPrimaryDown
                     titleLabel.textColor = Ocean.color.colorBrandPrimaryDown
-                    image = Ocean.icon.informationCircleOutline?.withRenderingMode(.alwaysTemplate)
-                } else if (self.iconType == .warning) {
+                    image = Ocean.icon.informationCircleOutline
+                case .warning:
                     backgroundColor = Ocean.color.colorStatusNeutralUp
                     iconImageView.tintColor = Ocean.color.colorStatusNeutralDeep
                     titleLabel.textColor = Ocean.color.colorStatusNeutralDeep
-                    image = Ocean.icon.exclamationCircleOutline?.withRenderingMode(.alwaysTemplate)
-                } else if (self.iconType == .error) {
+                    image = Ocean.icon.exclamationCircleOutline
+                case .error:
                     backgroundColor = Ocean.color.colorStatusNegativeUp
                     iconImageView.tintColor = Ocean.color.colorStatusNegativePure
                     titleLabel.textColor = Ocean.color.colorStatusNegativePure
-                    image = Ocean.icon.banOutline?.withRenderingMode(.alwaysTemplate)
-                } else if (self.iconType == .success) {
+                    image = Ocean.icon.banOutline
+                case .success:
                     backgroundColor = Ocean.color.colorStatusPositiveUp
                     iconImageView.tintColor = Ocean.color.colorStatusPositiveDeep
                     titleLabel.textColor = Ocean.color.colorStatusPositiveDeep
-                    image = Ocean.icon.checkCircleOutline?.withRenderingMode(.alwaysTemplate)
+                    image = Ocean.icon.checkCircleOutline
                 }
             }
         }

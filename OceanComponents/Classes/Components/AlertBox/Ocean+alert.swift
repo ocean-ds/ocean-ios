@@ -14,28 +14,28 @@ extension Ocean {
     public struct Alert {
         public static func info(builder: AlertBoxBuilder) -> AlertBox {
             return AlertBox { view in
-                view.iconType = .info
+                view.status = .info
                 builder(view)
             }
         }
         
         public static func error(builder: AlertBoxBuilder) -> AlertBox {
             return AlertBox { view in
-                view.iconType = .error
+                view.status = .error
                 builder(view)
             }
         }
         
         public static func warning(builder: AlertBoxBuilder) -> AlertBox {
             return AlertBox { view in
-                view.iconType = .warning
+                view.status = .warning
                 builder(view)
             }
         }
         
         public static func success(builder: AlertBoxBuilder) -> AlertBox {
             return AlertBox { view in
-                view.iconType = .success
+                view.status = .success
                 builder(view)
             }
         }
