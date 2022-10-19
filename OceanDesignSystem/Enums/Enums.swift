@@ -61,6 +61,7 @@ public enum DesignSystemComponentsType: String {
     case ParentChildTextList
     case CardCrossSell
     case GroupCTA
+    case CardListItem
 }
 
 public enum DesignSystemTypographyType: Int {
