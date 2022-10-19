@@ -51,6 +51,7 @@ extension Ocean {
             carouselCollectionView.collectionViewLayout = shortcutLayout
             self.data = data
             carouselCollectionView.reloadData()
+            carouselCollectionView.setContentOffset(.zero, animated: true)
         }
 
         public override var intrinsicContentSize: CGSize {
