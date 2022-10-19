@@ -93,6 +93,7 @@ extension Ocean {
             self.currentPage = 0
 
             carouselCollectionView.reloadData()
+            carouselCollectionView.setContentOffset(.zero, animated: true)
         }
 
         public func addImagesUrl(with imagesUrl: [String]) {
@@ -121,6 +122,7 @@ extension Ocean {
             self.currentPage = 0
 
             carouselCollectionView.reloadData()
+            carouselCollectionView.setContentOffset(.zero, animated: true)
         }
 
         override init(frame: CGRect) {
