@@ -14,8 +14,9 @@ extension Ocean {
     public class CardListItem: UIView {
         struct Constants {
             static let minHeight: CGFloat = 96
-            static let width: CGFloat = 204
             static let roundedViewHeightWidthLg: CGFloat = 40
+            static let squareSizeLeadingIcon: CGFloat = 16
+            static let squareSizeTrailingIcon: CGFloat = 14
         }
         
         public typealias CardListItemBuilder = ((CardListItem) -> Void)?
@@ -107,7 +108,7 @@ extension Ocean {
                 
             ])
             
-            view.setConstraints((.squareSize(40), toView: nil))
+            view.setConstraints((.squareSize(Constants.roundedViewHeightWidthLg), toView: nil))
 
             return view
         }()
@@ -134,7 +135,7 @@ extension Ocean {
             let view = UIImageView()
             view.tintColor = Ocean.color.colorBrandPrimaryDown
             
-            view.setConstraints((.squareSize(16), toView: nil))
+            view.setConstraints((.squareSize(Constants.squareSizeLeadingIcon), toView: nil))
             return view
         }()
 
@@ -142,7 +143,7 @@ extension Ocean {
             let view = UIImageView()
             view.tintColor = Ocean.color.colorInterfaceDarkDown
             
-            view.setConstraints((.squareSize(14), toView: nil))
+            view.setConstraints((.squareSize(Constants.squareSizeTrailingIcon), toView: nil))
             return view
         }()
         
