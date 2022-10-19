@@ -19,6 +19,7 @@ struct DSComponents {
         "Button",
         "CardCrossSell",
         "CardGroup",
+        "CardListItem",
         "CardOption",
         "Carousel",
         "CheckBox",

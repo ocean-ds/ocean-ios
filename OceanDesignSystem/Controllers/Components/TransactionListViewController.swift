@@ -32,7 +32,7 @@ final public class TransactionListViewController : UIViewController {
                                                          date: "09:00",
                                                          tagTitle: "Pago",
                                                          tagStatus: .positive,
-                                                         tagImageStatus: true,
+//                                                         tagImageStatus: true,
                                                          withDivider: true)
             view.onTouch = {
                 print("1")
@@ -50,7 +50,7 @@ final public class TransactionListViewController : UIViewController {
                                                          date: "19:00",
                                                          tagTitle: "Pendente",
                                                          tagStatus: .warning,
-                                                         tagImageStatus: true,
+//                                                         tagImageStatus: true,
                                                          withDivider: true)
             view.onTouch = {
                 print("2")
@@ -67,7 +67,7 @@ final public class TransactionListViewController : UIViewController {
                                                          date: "12:00",
                                                          tagTitle: "Cancelado",
                                                          tagStatus: .negative,
-                                                         tagImageStatus: true,
+//                                                         tagImageStatus: true,
                                                          withDivider: true)
             view.onTouch = {
                 print("3")

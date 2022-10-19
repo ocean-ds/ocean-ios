@@ -59,6 +59,7 @@
 		B833D03C24A6796100587FDE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B833D03A24A6796100587FDE /* Main.storyboard */; };
 		B833D03E24A6796300587FDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B833D03D24A6796300587FDE /* Assets.xcassets */; };
 		B833D04124A6796300587FDE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B833D03F24A6796300587FDE /* LaunchScreen.storyboard */; };
+		E1DB7A2428FF243900A0459A /* CardListItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DB7A2328FF243900A0459A /* CardListItemViewController.swift */; };
 		E985454E275EA0EF0010B9EC /* ChipsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985454D275EA0EF0010B9EC /* ChipsViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -146,6 +147,7 @@
 		B833D04024A6796300587FDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B833D04224A6796300587FDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEF0897C97A977F0864993D7 /* Pods-OceanDesignSystemTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OceanDesignSystemTests.release.xcconfig"; path = "Target Support Files/Pods-OceanDesignSystemTests/Pods-OceanDesignSystemTests.release.xcconfig"; sourceTree = "<group>"; };
+		E1DB7A2328FF243900A0459A /* CardListItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListItemViewController.swift; sourceTree = "<group>"; };
 		E985454D275EA0EF0010B9EC /* ChipsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -206,6 +208,7 @@
 				8ED08AE627EE075500ACDCB4 /* TabViewController.swift */,
 				8ECB029E283319340037DC25 /* CardCrossSellViewController.swift */,
 				4274CD6128AD422100F35540 /* GroupCTAViewController.swift */,
+				E1DB7A2328FF243900A0459A /* CardListItemViewController.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -552,6 +555,7 @@
 				B71D65FD24CA530000C3938C /* Components.swift in Sources */,
 				2491356C26C5BB10005EE76E /* CheckBoxViewController.swift in Sources */,
 				246535FC26E28B760079354A /* BadgeViewController.swift in Sources */,
+				E1DB7A2428FF243900A0459A /* CardListItemViewController.swift in Sources */,
 				AF833AAE2890764F0012AE58 /* TransactionFooterViewController.swift in Sources */,
 				138EF63E268502E1000E65EA /* AlertBoxViewController.swift in Sources */,
 				8ECB029F283319340037DC25 /* CardCrossSellViewController.swift in Sources */,

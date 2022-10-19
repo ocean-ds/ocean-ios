@@ -80,6 +80,8 @@ class ComponentsViewController: UITableViewController {
             self.present(navigationController, animated: true, completion: nil)
         case .CardOption:
             self.present(CardOptionViewController(), animated: true, completion: nil)
+        case .CardListItem:
+            return self.present(CardListItemViewController(), animated: true, completion: nil)
         case .CheckBox:
             self.present(CheckBoxViewController(), animated: true, completion: nil)
         case .ProgressIndicator:
