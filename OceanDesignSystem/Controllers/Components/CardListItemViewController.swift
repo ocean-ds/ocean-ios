@@ -76,7 +76,7 @@ final public class CardListItemViewController: UIViewController {
         self.view.backgroundColor = .white
         self.add(view: mainStack)
         [card1, card2, card3, card4, card5, card6].forEach{ card in
-            card.setConstraints((.horizontalMargin(16), toView: self.view))
+            card.setConstraints((.horizontalMargin(Ocean.size.spacingInsetSm), toView: self.view))
         }
     }
     
