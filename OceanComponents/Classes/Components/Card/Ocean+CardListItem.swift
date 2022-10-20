@@ -13,7 +13,6 @@ import SkeletonView
 extension Ocean {
     public class CardListItem: UIView {
         struct Constants {
-            static let minHeight: CGFloat = 96
             static let roundedViewHeightWidthLg: CGFloat = 40
             static let squareSizeLeadingIcon: CGFloat = 16
             static let squareSizeTrailingIcon: CGFloat = 14
@@ -71,13 +70,14 @@ extension Ocean {
                     trailingIconView
                 ])
                 
-                stack.setConstraints((.height(Constants.minHeight), toView: nil))
                 stack.setMargins(allMargins: Ocean.size.spacingStackXs)
             }
         }()
         
         private lazy var leadingIconSpacer = Ocean.Spacer(space: Ocean.size.spacingInsetSm)
         private lazy var trailingIconSpacer = Ocean.Spacer(space: Ocean.size.spacingInsetXs)
+        private lazy var captionSpacer = Ocean.Spacer(space: Ocean.size.spacingInsetXxs)
+
         
         private lazy var infoVerticalStack: Ocean.StackView = {
             Ocean.StackView { stack in
@@ -88,7 +88,7 @@ extension Ocean {
                 stack.add([
                     titleLabel,
                     subtitleLabel,
-                    Ocean.Spacer(space: Ocean.size.spacingInsetXxs),
+                    captionSpacer,
                     captionLabel
                 ])
             }
@@ -174,6 +174,7 @@ extension Ocean {
             captionLabel.text = caption
             captionLabel.isHidden = caption.isEmpty
             captionLabel.isSkeletonable = !caption.isEmpty
+            captionSpacer.isHidden = caption.isEmpty
             leadingIconView.image = leadingIcon?.withRenderingMode(.alwaysTemplate)
             trailingIconView.image = trailingIcon?.withRenderingMode(.alwaysTemplate)
             leadingIconSpacer.isHidden = leadingIcon == nil
