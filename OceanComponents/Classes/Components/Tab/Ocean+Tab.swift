@@ -158,6 +158,7 @@ extension Ocean {
                     view.status = self.selectedIndex == index ? .primary : .neutral
                     view.size = .small
                     view.number = badgeNumberValue
+                    view.status = item.status
                 }
                 itemStack.addArrangedSubview(badgeNumberView)
             }
