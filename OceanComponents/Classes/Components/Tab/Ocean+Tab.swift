@@ -193,5 +193,16 @@ extension Ocean {
             }
         }
 
+        public func getTabItemView(at index: Int) -> UIView? {
+            if let mainStack = subviews.first,
+               let containerView = mainStack.subviews.first,
+               let tabStack = containerView.subviews.first,
+               index < tabStack.subviews.count {
+                
+                return tabStack.subviews[index]
+            }
+            
+            return nil
+        }
     }
 }
