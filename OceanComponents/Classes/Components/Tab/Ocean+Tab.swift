@@ -46,10 +46,24 @@ extension Ocean {
                 updateUI()
             }
         }
+        
+        private lazy var mainStack: Ocean.StackView = {
+            Ocean.StackView { stack in
+                stack.axis = .vertical
+                stack.distribution = .fill
+                stack.alignment = .fill
+                stack.spacing = 0
+                
+                stack.translatesAutoresizingMaskIntoConstraints = false
+            }
+        }()
 
         private lazy var containerView: UIView = {
             let view = UIView()
             view.backgroundColor = .clear
+            
+            view.translatesAutoresizingMaskIntoConstraints = false
+            
             return view
         }()
 
@@ -58,6 +72,8 @@ extension Ocean {
                 stack.axis = .horizontal
                 stack.distribution = .fill
                 stack.alignment = .fill
+                
+                stack.translatesAutoresizingMaskIntoConstraints = false
             }
         }()
 
@@ -65,22 +81,12 @@ extension Ocean {
             let view = UIView()
             return view
         }()
+        
+        private lazy var selectionLineViewLeadingConstraint: NSLayoutConstraint = {
+            return selectionLineView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor)
+        }()
 
         private lazy var divider = Ocean.Divider()
-
-        private lazy var mainStack: Ocean.StackView = {
-            Ocean.StackView { stack in
-                stack.axis = .vertical
-                stack.distribution = .fill
-                stack.alignment = .fill
-                stack.spacing = 0
-                stack.translatesAutoresizingMaskIntoConstraints = false
-
-                stack.add([
-                    containerView
-                ])
-            }
-        }()
 
         public convenience init(builder: TabViewBuilder = nil) {
             self.init()
@@ -106,21 +112,26 @@ extension Ocean {
 
         private func setupConstraints() {
             mainStack.setConstraints((.fillSuperView, toView: self))
-
-            containerView.addSubviews(tabStack,
-                                      divider,
-                                      selectionLineView)
+            
+            mainStack.add([containerView])
+            containerView.addSubviews(tabStack, selectionLineView, divider)
 
             tabStack.setConstraints(([.topToTop(.zero),
-                                      .horizontalMargin(.zero),
-                                      .height(Constants.tabHeight)], toView: containerView))
-
-            divider.setConstraints(([.bottomToBottom(.zero),
-                                     .horizontalMargin(.zero)], toView: containerView))
-
-            selectionLineView.setConstraints(([.topToBottom(.zero)], toView: tabStack),
-                                             ([.bottomToTop(.zero),
-                                               .height(Constants.lineHeight)], toView: divider))
+                                      .leadingToLeading(.zero),
+                                      .trailingToTrailing(.zero),
+                                      .height(Constants.tabHeight)], toView: containerView)
+            )
+            
+            selectionLineView.setConstraints(([.topToBottom(.zero),
+                                               .width(Constants.lineWidth),
+                                               .height(Constants.lineHeight)], toView: tabStack))
+            
+            divider.setConstraints(([.leadingToLeading(.zero),
+                                     .trailingToTrailing(.zero),
+                                     .bottomToBottom(.zero)], toView: containerView),
+                                   ([.topToBottom(.zero)], toView: selectionLineView))
+            
+            selectionLineViewLeadingConstraint.isActive = true
         }
 
         private func updateUI() {
@@ -131,7 +142,7 @@ extension Ocean {
             }
 
             let xPointLine = Constants.lineWidth * CGFloat(self.selectedIndex)
-            selectionLineView.frame.origin.x = xPointLine
+            selectionLineViewLeadingConstraint.constant = xPointLine
         }
 
         private func setupItemView(index: Int) -> UIView {
