@@ -23,8 +23,6 @@ extension Ocean {
         public var items: [OceanTabItem] = [] {
             didSet {
                 Constants.lineWidth = UIScreen.main.bounds.width / CGFloat(self.items.count)
-                selectionLineView.setConstraints((.width(Constants.lineWidth), toView: containerView))
-
                 updateUI()
             }
         }
@@ -82,6 +80,10 @@ extension Ocean {
             return view
         }()
         
+        private lazy var selectionLineViewWidthConstraint: NSLayoutConstraint = {
+            return selectionLineView.widthAnchor.constraint(equalToConstant: Constants.lineWidth)
+        }()
+        
         private lazy var selectionLineViewLeadingConstraint: NSLayoutConstraint = {
             return selectionLineView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor)
         }()
@@ -123,7 +125,6 @@ extension Ocean {
             )
             
             selectionLineView.setConstraints(([.topToBottom(.zero),
-                                               .width(Constants.lineWidth),
                                                .height(Constants.lineHeight)], toView: tabStack))
             
             divider.setConstraints(([.leadingToLeading(.zero),
@@ -131,6 +132,7 @@ extension Ocean {
                                      .bottomToBottom(.zero)], toView: containerView),
                                    ([.topToBottom(.zero)], toView: selectionLineView))
             
+            selectionLineViewWidthConstraint.isActive = true
             selectionLineViewLeadingConstraint.isActive = true
         }
 
@@ -141,6 +143,7 @@ extension Ocean {
                 self.tabStack.addArrangedSubview(itemView)
             }
 
+            selectionLineViewWidthConstraint.constant = Constants.lineWidth
             let xPointLine = Constants.lineWidth * CGFloat(self.selectedIndex)
             selectionLineViewLeadingConstraint.constant = xPointLine
         }
