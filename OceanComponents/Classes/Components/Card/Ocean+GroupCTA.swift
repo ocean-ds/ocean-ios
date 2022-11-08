@@ -48,6 +48,7 @@ extension Ocean {
                 button.text = text
                 button.rightIcon = icon
                 button.isRounded = false
+                button.isRoundedBottom = true
                 button.onTouch = {
                     self.onTouch?()
                 }
