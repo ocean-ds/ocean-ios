@@ -43,13 +43,12 @@ extension Ocean {
 
         private lazy var label: UILabel = {
             UILabel { label in
-                label.font = .baseRegular(size: 14)
+                label.font = .baseSemiBold(size: Ocean.font.fontSizeXxs)
                 label.text = self.text
                 label.textColor = Ocean.color.colorBrandPrimaryDown
                 label.textAlignment = .center
                 label.translatesAutoresizingMaskIntoConstraints = false
-                label.adjustsFontSizeToFitWidth = true
-                label.minimumScaleFactor = 0.8
+                label.sizeToFit()
             }
         }()
 
