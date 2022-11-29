@@ -109,13 +109,11 @@ extension Ocean {
         }
         
         private func updateUI() {
-            label.text = self.size == .medium ?
-                number > 99 ? "99+" : number.description :
-                number > 9 ? "9+" : number.description
+            label.text = number > 99 ? "99+" : number.description
         }
         
         private func updateSize() {
-            label.font = .baseExtraBold(size: self.size == .medium ? 12 : 10)
+            label.font = .baseExtraBold(size: self.size == .medium ? Ocean.font.fontSizeXxxs : 10)
             let height = self.size == .medium ? Constants.height : Constants.heightSmall
             self.layer.cornerRadius = height * Ocean.size.borderRadiusCircular
             widthConstraint.constant = height

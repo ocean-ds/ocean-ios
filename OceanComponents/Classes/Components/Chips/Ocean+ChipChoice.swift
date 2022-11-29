@@ -35,7 +35,7 @@ extension Ocean {
         
         public lazy var label: UILabel = {
             UILabel { label in
-                label.font = .baseRegular(size: 14)
+                label.font = .baseSemiBold(size: Ocean.font.fontSizeXxs)
                 label.text = self.text
                 label.textColor = Ocean.color.colorBrandPrimaryDown
                 label.textAlignment = .center

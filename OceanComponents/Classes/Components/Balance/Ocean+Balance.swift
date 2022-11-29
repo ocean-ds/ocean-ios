@@ -112,7 +112,7 @@ extension Ocean {
         private lazy var balanceAvailableLabel: UILabel = {
             UILabel { label in
                 label.font = .baseBold(size: Ocean.font.fontSizeXxs)
-                label.textColor = Ocean.color.colorInterfaceDarkDeep
+                label.textColor = getColorValue(value: balanceAvailable)
                 label.text = balanceAvailable.toCurrency()
                 label.translatesAutoresizingMaskIntoConstraints = false
                 label.isSkeletonable = true
@@ -167,12 +167,11 @@ extension Ocean {
             ])
             
             stack.addTapGesture(target: self, selector: #selector(tap))
-            
-            stack.isLayoutMarginsRelativeArrangement = true
-            stack.layoutMargins = .init(top: Ocean.size.spacingStackXxs,
-                                        left: Ocean.size.spacingStackXs,
-                                        bottom: Ocean.size.spacingStackXxs,
-                                        right: Ocean.size.spacingStackXs)
+
+            stack.setMargins(top: Ocean.size.spacingStackXxs,
+                             left: Ocean.size.spacingStackXs,
+                             bottom: Ocean.size.spacingStackXxs,
+                             right: Ocean.size.spacingStackXs)
             
             return stack
         }()
@@ -189,7 +188,7 @@ extension Ocean {
         private lazy var listBalanceAvailableLabel: UILabel = {
             UILabel { label in
                 label.font = .baseBold(size: Ocean.font.fontSizeXxs)
-                label.textColor = Ocean.color.colorInterfaceDarkDeep
+                label.textColor = getColorValue(value: balanceAvailable)
                 label.text = balanceAvailable.toCurrency()
                 label.translatesAutoresizingMaskIntoConstraints = false
             }
@@ -205,12 +204,11 @@ extension Ocean {
                 listBalanceAvailableTextLabel,
                 listBalanceAvailableLabel
             ])
-            
-            stack.isLayoutMarginsRelativeArrangement = true
-            stack.layoutMargins = .init(top: Ocean.size.spacingStackXxs,
-                                        left: Ocean.size.spacingStackXs,
-                                        bottom: Ocean.size.spacingStackXxs,
-                                        right: Ocean.size.spacingStackXs)
+
+            stack.setMargins(top: Ocean.size.spacingStackXxs,
+                             left: Ocean.size.spacingStackXs,
+                             bottom: Ocean.size.spacingStackXxs,
+                             right: Ocean.size.spacingStackXs)
             
             return stack
         }()
@@ -227,7 +225,7 @@ extension Ocean {
         private lazy var listCurrentBalanceLabel: UILabel = {
             UILabel { label in
                 label.font = .baseRegular(size: Ocean.font.fontSizeXxs)
-                label.textColor = Ocean.color.colorInterfaceDarkDeep
+                label.textColor = getColorValue(value: currentBalance)
                 label.text = currentBalance.toCurrency()
                 label.translatesAutoresizingMaskIntoConstraints = false
             }
@@ -243,12 +241,11 @@ extension Ocean {
                 listCurrentBalanceTextLabel,
                 listCurrentBalanceLabel
             ])
-            
-            stack.isLayoutMarginsRelativeArrangement = true
-            stack.layoutMargins = .init(top: Ocean.size.spacingStackXxs,
-                                        left: Ocean.size.spacingStackXs,
-                                        bottom: Ocean.size.spacingStackXxs,
-                                        right: Ocean.size.spacingStackXs)
+
+            stack.setMargins(top: Ocean.size.spacingStackXxs,
+                             left: Ocean.size.spacingStackXs,
+                             bottom: Ocean.size.spacingStackXxs,
+                             right: Ocean.size.spacingStackXs)
             
             return stack
         }()
@@ -265,7 +262,7 @@ extension Ocean {
         private lazy var listScheduleBluLabel: UILabel = {
             UILabel { label in
                 label.font = .baseRegular(size: Ocean.font.fontSizeXxs)
-                label.textColor = Ocean.color.colorInterfaceDarkDeep
+                label.textColor = getColorValue(value: scheduleBlu)
                 label.text = scheduleBlu.toCurrency()
                 label.translatesAutoresizingMaskIntoConstraints = false
             }
@@ -281,12 +278,11 @@ extension Ocean {
                 listScheduleBluTextLabel,
                 listScheduleBluLabel
             ])
-            
-            stack.isLayoutMarginsRelativeArrangement = true
-            stack.layoutMargins = .init(top: Ocean.size.spacingStackXxs,
-                                        left: Ocean.size.spacingStackXs,
-                                        bottom: Ocean.size.spacingStackXxs,
-                                        right: Ocean.size.spacingStackXs)
+
+            stack.setMargins(top: Ocean.size.spacingStackXxs,
+                             left: Ocean.size.spacingStackXs,
+                             bottom: Ocean.size.spacingStackXxs,
+                             right: Ocean.size.spacingStackXs)
             
             return stack
         }()
@@ -303,7 +299,7 @@ extension Ocean {
         private lazy var listScheduleNotBluLabel: UILabel = {
             UILabel { label in
                 label.font = .baseRegular(size: Ocean.font.fontSizeXxs)
-                label.textColor = scheduleNotBluActive ? Ocean.color.colorInterfaceDarkDeep :
+                label.textColor = scheduleNotBluActive ? getColorValue(value: scheduleNotBlu) :
                     Ocean.color.colorInterfaceDarkUp
                 label.text = scheduleNotBlu.toCurrency()
                 label.translatesAutoresizingMaskIntoConstraints = false
@@ -321,12 +317,11 @@ extension Ocean {
                 listScheduleNotBluTextLabel,
                 listScheduleNotBluLabel
             ])
-            
-            stack.isLayoutMarginsRelativeArrangement = true
-            stack.layoutMargins = .init(top: Ocean.size.spacingStackXxs,
-                                        left: Ocean.size.spacingStackXs,
-                                        bottom: Ocean.size.spacingStackXxs,
-                                        right: Ocean.size.spacingStackXs)
+
+            stack.setMargins(top: Ocean.size.spacingStackXxs,
+                             left: Ocean.size.spacingStackXs,
+                             bottom: Ocean.size.spacingStackXxs,
+                             right: Ocean.size.spacingStackXs)
             
             return stack
         }()
@@ -391,11 +386,15 @@ extension Ocean {
         
         private func updateUI() {
             balanceAvailableLabel.text = balanceAvailable.toCurrency()
+            balanceAvailableLabel.textColor = getColorValue(value: balanceAvailable)
             listBalanceAvailableLabel.text = balanceAvailable.toCurrency()
+            listBalanceAvailableLabel.textColor = getColorValue(value: balanceAvailable)
             listCurrentBalanceLabel.text = currentBalance.toCurrency()
+            listCurrentBalanceLabel.textColor = getColorValue(value: currentBalance)
             listScheduleBluLabel.text = scheduleBlu.toCurrency()
+            listScheduleBluLabel.textColor = getColorValue(value: scheduleBlu)
             listScheduleNotBluLabel.text = scheduleNotBlu.toCurrency()
-            listScheduleNotBluLabel.textColor = scheduleNotBluActive ? Ocean.color.colorInterfaceDarkDeep :
+            listScheduleNotBluLabel.textColor = scheduleNotBluActive ? getColorValue(value: scheduleNotBlu) :
                 Ocean.color.colorInterfaceDarkUp
             listScheduleNotBluStack.isHidden = scheduleNotBluHidden
             listScheduleNotBluDivider.isHidden = scheduleNotBluHidden
@@ -406,6 +405,10 @@ extension Ocean {
                 "R$ ••••••"
             eyeImageView.image = isVisible ? Ocean.icon.eyeOutline?.withRenderingMode(.alwaysTemplate) :
                 Ocean.icon.eyeOffOutline?.withRenderingMode(.alwaysTemplate)
+        }
+
+        private func getColorValue(value: Double) -> UIColor {
+            return value < 0 ? Ocean.color.colorStatusNegativePure : Ocean.color.colorInterfaceDarkDeep
         }
         
         private func animateUI() {

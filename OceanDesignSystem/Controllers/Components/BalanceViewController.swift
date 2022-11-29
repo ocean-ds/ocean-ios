@@ -13,11 +13,12 @@ import OceanComponents
 
 final public class BalanceViewController : UIViewController {
     let balance = Ocean.Balance { view in
-        view.balanceAvailable = 69762.60
+        view.balanceAvailable = 67762.60
         view.currentBalance = 68762.60
-        view.scheduleBlu = 1000.00
+        view.scheduleBlu = -1000.00
         view.scheduleNotBlu = 0
         view.scheduleNotBluHidden = false
+        view.scheduleNotBluActive = true
         view.onStateChanged = { state in
             print(state)
         }
