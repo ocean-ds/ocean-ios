@@ -62,6 +62,7 @@ public enum DesignSystemComponentsType: String {
     case CardCrossSell
     case GroupCTA
     case CardListItem
+    case OrderedListItem
 }
 
 public enum DesignSystemTypographyType: Int {
@@ -77,5 +78,4 @@ public enum DesignSystemButtonType: Int {
     case ButtonSecondary
     case ButtonText
     case ButtonInverse
-    //case ButtonBlocked
 }
