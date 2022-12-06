@@ -120,6 +120,8 @@ class ComponentsViewController: UITableViewController {
             self.present(CardCrossSellViewController(), animated: true, completion: nil)
         case .GroupCTA:
             self.present(GroupCTAViewController(), animated: true, completion: nil)
+        case .OrderedListItem:
+            self.present(OrderedListItemViewController(), animated: true, completion: nil)
         default:
             performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }

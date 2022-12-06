@@ -31,6 +31,7 @@
 		24E301B526EF911400D2296C /* SubheaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E301B426EF911400D2296C /* SubheaderViewController.swift */; };
 		24E39BA326DE5BCE006B6A02 /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E39BA226DE5BCE006B6A02 /* BalanceViewController.swift */; };
 		24FEEBC12744282E00211FEC /* StepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FEEBC02744282E00211FEC /* StepViewController.swift */; };
+		4223DDA2293F894C00257DBC /* OrderedListItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4223DDA1293F894C00257DBC /* OrderedListItemViewController.swift */; };
 		4241FB5227E8AD4B003EF1F3 /* ParentChildTextListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4241FB5127E8AD4B003EF1F3 /* ParentChildTextListViewController.swift */; };
 		4274CD6228AD422100F35540 /* GroupCTAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4274CD6128AD422100F35540 /* GroupCTAViewController.swift */; };
 		8EB41BED27E42D1800F18CC7 /* FloatVerticalMenuListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB41BEC27E42D1800F18CC7 /* FloatVerticalMenuListViewController.swift */; };
@@ -113,6 +114,7 @@
 		24E39BA226DE5BCE006B6A02 /* BalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceViewController.swift; sourceTree = "<group>"; };
 		24FEEBC02744282E00211FEC /* StepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepViewController.swift; sourceTree = "<group>"; };
 		2FDF6A3790FFDCE821511C4F /* Pods-OceanDesignSystemTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OceanDesignSystemTests.debug.xcconfig"; path = "Target Support Files/Pods-OceanDesignSystemTests/Pods-OceanDesignSystemTests.debug.xcconfig"; sourceTree = "<group>"; };
+		4223DDA1293F894C00257DBC /* OrderedListItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedListItemViewController.swift; sourceTree = "<group>"; };
 		4241FB5127E8AD4B003EF1F3 /* ParentChildTextListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentChildTextListViewController.swift; sourceTree = "<group>"; };
 		4274CD6128AD422100F35540 /* GroupCTAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCTAViewController.swift; sourceTree = "<group>"; };
 		5D9D9A171B743DED8A2B2297 /* Pods_OceanDesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OceanDesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -209,6 +211,7 @@
 				8ECB029E283319340037DC25 /* CardCrossSellViewController.swift */,
 				4274CD6128AD422100F35540 /* GroupCTAViewController.swift */,
 				E1DB7A2328FF243900A0459A /* CardListItemViewController.swift */,
+				4223DDA1293F894C00257DBC /* OrderedListItemViewController.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -528,6 +531,7 @@
 				B71D65C824C8F28100C3938C /* TokensByCategoryViewController.swift in Sources */,
 				24B70BB826E7D0B400C9CE1E /* TransactionListViewController.swift in Sources */,
 				2491357826C6F634005EE76E /* ProgressIndicatorViewController.swift in Sources */,
+				4223DDA2293F894C00257DBC /* OrderedListItemViewController.swift in Sources */,
 				B833D03924A6796100587FDE /* TokensViewController.swift in Sources */,
 				8EB41BED27E42D1800F18CC7 /* FloatVerticalMenuListViewController.swift in Sources */,
 				B71D65EA24CA47C500C3938C /* Enums.swift in Sources */,

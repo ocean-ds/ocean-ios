@@ -31,6 +31,7 @@ struct DSComponents {
         "Input",
         "Modal",
         "NavigationBar",
+        "OrderedListItem",
         "ParentChildTextList",
         "ProgressIndicator",
         "RadioButton",
