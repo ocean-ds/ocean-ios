@@ -21,7 +21,7 @@ extension Ocean {
             case expanded, collapsed
         }
         
-        private var state: State = .collapsed {
+        public var state: State = .collapsed {
             didSet {
                 animateUI()
                 self.onStateChanged?(state)
