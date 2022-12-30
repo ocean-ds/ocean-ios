@@ -16,11 +16,6 @@ static public func installFonts() {
   UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyBaseWeightLight, bundle: bundle);
   UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyBaseWeightMedium, bundle: bundle);
   UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyBaseWeightRegular, bundle: bundle);
-  UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyHighlightWeightBold, bundle: bundle);
-  UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyHighlightWeightExtraBold, bundle: bundle);
-  UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyHighlightWeightLight, bundle: bundle);
-  UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyHighlightWeightMedium, bundle: bundle);
-  UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyHighlightWeightRegular, bundle: bundle);
 }
 }
 // swiftlint:enable identifier_name line_length number_separator type_body_length

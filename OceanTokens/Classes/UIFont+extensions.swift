@@ -38,6 +38,7 @@ public extension UIFont {
         var errorRef: Unmanaged<CFError>? = nil
         if (CTFontManagerRegisterGraphicsFont(font, &errorRef) == false) {
             print("UIFont+:  Failed to register font - register graphics font failed - this font may have already been registered in the main bundle.")
+            errorRef?.release()
         }
     }
     
