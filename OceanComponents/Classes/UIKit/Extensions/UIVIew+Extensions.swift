@@ -96,6 +96,8 @@ extension UIView {
 
         if let height = height {
             newView.heightAnchor.constraint(equalToConstant: height).isActive = true
+        } else {
+            newView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         }
 
         return newView
@@ -111,6 +113,8 @@ extension UIView {
 
         if let height = height {
             newView.heightAnchor.constraint(equalToConstant: height).isActive = true
+        } else {
+            newView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         }
 
         return newView
