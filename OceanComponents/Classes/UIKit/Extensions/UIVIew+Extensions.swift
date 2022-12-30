@@ -79,6 +79,8 @@ extension UIView {
                               .centerHorizontally], toView: newView))
         if let height = height {
             newView.heightAnchor.constraint(equalToConstant: height).isActive = true
+        } else {
+            newView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         }
 
         return newView
