@@ -99,12 +99,7 @@ extension Ocean {
         private func setupCollectionView() {
             addSubview(carouselCollectionView)
 
-            NSLayoutConstraint.activate([
-                carouselCollectionView.topAnchor.constraint(equalTo: topAnchor),
-                carouselCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-                carouselCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-                carouselCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
-            ])
+            carouselCollectionView.setConstraints((.fillSuperView, toView: self))
         }
 
         // MARK: - SkeletonCollectionViewDataSource
