@@ -20,7 +20,7 @@ extension Ocean {
         private lazy var imageView: UIImageView = {
             UIImageView { imageView in
                 imageView.translatesAutoresizingMaskIntoConstraints = false
-                imageView.tintColor = Ocean.color.colorBrandPrimaryPure
+                imageView.tintColor = Ocean.color.colorBrandPrimaryDown
             }
         }()
 
