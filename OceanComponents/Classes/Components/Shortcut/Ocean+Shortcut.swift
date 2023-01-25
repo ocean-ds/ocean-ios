@@ -11,11 +11,33 @@ import SkeletonView
 extension Ocean {
     public class Shortcut: UIView, SkeletonCollectionViewDataSource, UICollectionViewDelegate {
         struct Constants {
-            static let widht: CGFloat = 104
-            static let height: CGFloat = 104
+            static let heightTiny: CGFloat = 80
+            static let heightSmall: CGFloat = 104
+            static let heightMedium: CGFloat = 131
         }
 
         private var data: [ShortcutModel] = []
+
+        public enum Size {
+            case tiny
+            case small
+            case medium
+        }
+
+        public var size: Size = .small
+
+        public var direction: UICollectionView.ScrollDirection = .horizontal
+
+        public var height: CGFloat {
+            switch size {
+            case .tiny:
+                return Constants.heightTiny
+            case .small:
+                return Constants.heightSmall
+            case .medium:
+                return Constants.heightMedium
+            }
+        }
 
         public var onTouch: ((Int) -> Void)?
 
@@ -36,13 +58,18 @@ extension Ocean {
 
         public func addData(with data: [ShortcutModel], quantityPage: CGFloat = 3) {
             let shortcutLayout = UICollectionViewFlowLayout()
-            shortcutLayout.scrollDirection = .horizontal
-            shortcutLayout.minimumLineSpacing = Ocean.size.spacingStackXxs
-            let width = frame.width - (Ocean.size.spacingStackXs * 2) - (Ocean.size.spacingStackXxs * (quantityPage - 1))
-            let tryWidth = width / quantityPage
-            let widthItem = tryWidth > Constants.widht ? tryWidth : Constants.widht
+            shortcutLayout.scrollDirection = direction
+            shortcutLayout.minimumInteritemSpacing = Ocean.size.spacingStackXs
+            shortcutLayout.minimumLineSpacing = Ocean.size.spacingStackXs
+
+            let spacingSection = (Ocean.size.spacingStackXs * 2)
+            let spacing = (Ocean.size.spacingStackXs * (quantityPage - 1))
+            let spacingShowMore = direction == .horizontal ? Ocean.size.spacingStackXxs : 0
+            let width = frame.width - spacingSection - spacing - spacingShowMore
+            let widthItem = width / quantityPage
+
             shortcutLayout.itemSize = .init(width: widthItem,
-                                            height: Constants.height)
+                                            height: height)
             shortcutLayout.sectionInset = .init(top: 0,
                                                 left: Ocean.size.spacingStackXs,
                                                 bottom: 0,
@@ -52,12 +79,6 @@ extension Ocean {
             self.data = data
             carouselCollectionView.reloadData()
             carouselCollectionView.setContentOffset(.zero, animated: true)
-        }
-
-        public override var intrinsicContentSize: CGSize {
-            get {
-                return CGSize(width: frame.width, height: Constants.height)
-            }
         }
 
         override init(frame: CGRect) {
@@ -80,9 +101,9 @@ extension Ocean {
 
             NSLayoutConstraint.activate([
                 carouselCollectionView.topAnchor.constraint(equalTo: topAnchor),
-                carouselCollectionView.leftAnchor.constraint(equalTo: leftAnchor),
-                carouselCollectionView.rightAnchor.constraint(equalTo: rightAnchor),
-                carouselCollectionView.heightAnchor.constraint(equalToConstant: Constants.height)
+                carouselCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+                carouselCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+                carouselCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
             ])
         }
 
@@ -114,12 +135,7 @@ extension Ocean {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ShortcutCell.cellId, for: indexPath) as? ShortcutCell else { return UICollectionViewCell() }
 
             let shortcutData = self.data[indexPath.row]
-            cell.image = shortcutData.image
-            cell.badgeStatus = shortcutData.badgeStatus
-            cell.badgeNumber = shortcutData.badgeNumber
-            cell.title = shortcutData.title
-            cell.isHighlight = shortcutData.isHighlight
-
+            cell.model = shortcutData
             return cell
         }
 
