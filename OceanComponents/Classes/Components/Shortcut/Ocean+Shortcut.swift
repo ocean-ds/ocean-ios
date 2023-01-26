@@ -16,6 +16,10 @@ extension Ocean {
             static let heightMedium: CGFloat = 131
         }
 
+        private lazy var heightConstraint: NSLayoutConstraint = {
+            return self.heightAnchor.constraint(equalToConstant: height)
+        }()
+
         private var data: [ShortcutModel] = []
 
         public enum Size {
@@ -24,9 +28,18 @@ extension Ocean {
             case medium
         }
 
-        public var size: Size = .small
+        public var size: Size = .small {
+            didSet {
+                heightConstraint.constant = height
+                heightConstraint.isActive = direction == .horizontal
+            }
+        }
 
-        public var direction: UICollectionView.ScrollDirection = .horizontal
+        public var direction: UICollectionView.ScrollDirection = .horizontal {
+            didSet {
+                heightConstraint.isActive = direction == .horizontal
+            }
+        }
 
         public var height: CGFloat {
             switch size {
@@ -62,11 +75,11 @@ extension Ocean {
             shortcutLayout.minimumInteritemSpacing = Ocean.size.spacingStackXs
             shortcutLayout.minimumLineSpacing = Ocean.size.spacingStackXs
 
-            let spacingSection = (Ocean.size.spacingStackXs * 2)
-            let spacing = (Ocean.size.spacingStackXs * (quantityPage - 1))
+            let spacingSection = Ocean.size.spacingStackXs * 2
+            let spacing = Ocean.size.spacingStackXs * (quantityPage - 1)
             let spacingShowMore = direction == .horizontal ? Ocean.size.spacingStackXxs : 0
             let width = frame.width - spacingSection - spacing - spacingShowMore
-            let widthItem = width / quantityPage
+            let widthItem = width <= 0 ? height : width / quantityPage
 
             shortcutLayout.itemSize = .init(width: widthItem,
                                             height: height)
@@ -94,6 +107,7 @@ extension Ocean {
             isSkeletonable = true
             backgroundColor = .clear
             setupCollectionView()
+            heightConstraint.isActive = direction == .horizontal
         }
 
         private func setupCollectionView() {

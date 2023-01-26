@@ -33,7 +33,7 @@ final public class ShortcutViewController : UIViewController {
         stack.alignment = .fill
         stack.distribution = .fill
         stack.axis = .vertical
-        stack.spacing = 0
+        stack.spacing = Ocean.size.spacingStackXs
         stack.translatesAutoresizingMaskIntoConstraints = false
         
         stack.addArrangedSubview(shortcut1)
