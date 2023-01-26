@@ -13,18 +13,18 @@ extension Ocean {
         public let badgeNumber: Int?
         public let badgeStatus: BadgeNumber.Status
         public let title: String
-        public let isHighlight: Bool
+        public let subtitle: String
 
         public init(image: UIImage? = nil,
                     badgeNumber: Int? = nil,
                     badgeStatus: BadgeNumber.Status = .alert,
                     title: String,
-                    isHighlight: Bool = false) {
+                    subtitle: String = "") {
             self.image = image
             self.badgeNumber = badgeNumber
             self.badgeStatus = badgeStatus
             self.title = title
-            self.isHighlight = isHighlight
+            self.subtitle = subtitle
         }
     }
 }
