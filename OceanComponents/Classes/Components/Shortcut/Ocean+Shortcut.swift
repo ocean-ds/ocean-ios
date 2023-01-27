@@ -28,18 +28,9 @@ extension Ocean {
             case medium
         }
 
-        public var size: Size = .small {
-            didSet {
-                heightConstraint.constant = height
-                heightConstraint.isActive = direction == .horizontal
-            }
-        }
+        public var size: Size = .small
 
-        public var direction: UICollectionView.ScrollDirection = .horizontal {
-            didSet {
-                heightConstraint.isActive = direction == .horizontal
-            }
-        }
+        public var direction: UICollectionView.ScrollDirection = .horizontal
 
         public var height: CGFloat {
             switch size {
@@ -92,6 +83,8 @@ extension Ocean {
             self.data = data
             carouselCollectionView.reloadData()
             carouselCollectionView.setContentOffset(.zero, animated: true)
+
+            updateHeightConstraints(quantityPage: quantityPage)
         }
 
         override init(frame: CGRect) {
@@ -107,13 +100,24 @@ extension Ocean {
             isSkeletonable = true
             backgroundColor = .clear
             setupCollectionView()
-            heightConstraint.isActive = direction == .horizontal
+            heightConstraint.isActive = true
         }
 
         private func setupCollectionView() {
             addSubview(carouselCollectionView)
 
             carouselCollectionView.setConstraints((.fillSuperView, toView: self))
+        }
+
+        private func updateHeightConstraints(quantityPage: CGFloat) {
+            if direction == .vertical {
+                let quantityRows = (CGFloat(self.data.count) / quantityPage).rounded()
+                let spacing = (quantityRows - 1) * Ocean.size.spacingStackXs
+                let heightTotal = (height * quantityRows) + spacing
+                heightConstraint.constant = heightTotal
+            } else {
+                heightConstraint.constant = height
+            }
         }
 
         // MARK: - SkeletonCollectionViewDataSource
