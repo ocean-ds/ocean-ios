@@ -33,6 +33,7 @@ extension Ocean {
         public static let btokenOutline = UIImage(named: "OceanComponents.bundle/btoken-outline", in: .bundleOceanComponents, compatibleWith: .none)
         public static let cardMachineOutline = UIImage(named: "OceanComponents.bundle/card-machine-outline", in: .bundleOceanComponents, compatibleWith: .none)
         public static let cashbackOutline = UIImage(named: "OceanComponents.bundle/cashback-outline", in: .bundleOceanComponents, compatibleWith: .none)
+        public static let consultOutline = UIImage(named: "OceanComponents.bundle/consult-outline", in: .bundleOceanComponents, compatibleWith: .none)
         public static let constructionMaterialOutline = UIImage(named: "OceanComponents.bundle/construction-material-outline", in: .bundleOceanComponents, compatibleWith: .none)
         public static let contactBookOutline = UIImage(named: "OceanComponents.bundle/contact-book-outline", in: .bundleOceanComponents, compatibleWith: .none)
         public static let drugstoreOutline = UIImage(named: "OceanComponents.bundle/drugstore-outline", in: .bundleOceanComponents, compatibleWith: .none)
