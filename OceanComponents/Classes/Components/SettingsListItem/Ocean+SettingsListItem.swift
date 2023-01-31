@@ -67,13 +67,13 @@ extension Ocean {
         
         lazy var buttonPrimary: Ocean.ButtonPrimary = {
             Ocean.Button.primarySM { button in
-                button.onTouch = onTouchButton
+                button.onTouch = { self.onTouchButton?() }
             }
         }()
         
         lazy var buttonSecundary: Ocean.ButtonSecondary = {
             Ocean.Button.secondarySM { button in
-                button.onTouch = onTouchButton
+                button.onTouch = { self.onTouchButton?() }
             }
         }()
         
