@@ -122,6 +122,8 @@ class ComponentsViewController: UITableViewController {
             self.present(GroupCTAViewController(), animated: true, completion: nil)
         case .OrderedListItem:
             self.present(OrderedListItemViewController(), animated: true, completion: nil)
+        case .SettingsListItem:
+            self.present(SettingsListItemViewController(), animated: true, completion: nil)
         default:
             performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }
