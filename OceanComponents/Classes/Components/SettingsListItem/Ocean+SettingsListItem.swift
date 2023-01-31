@@ -142,9 +142,7 @@ extension Ocean {
             captionLabel.isHidden = caption.isEmpty
             warningTag.title = actionText
             buttonPrimary.text = actionText
-            buttonPrimary.onTouch = onTouchButton
             buttonSecundary.text = actionText
-            buttonSecundary.onTouch = onTouchButton
             
             switch type {
             case .pending:
