@@ -51,23 +51,13 @@ extension Ocean {
             }
         }
         
-        public var onTouchButton: (() -> Void)? {
-            didSet {
-                updateUI()
-            }
-        }
+        public var onTouchButton: (() -> Void)?
         
-        lazy var titleLabel: UILabel = {
-            Ocean.Typography.description { _ in }
-        }()
+        lazy var titleLabel = Ocean.Typography.description()
         
-        lazy var subtitleLabel: UILabel = {
-            Ocean.Typography.paragraph { _ in }
-        }()
+        lazy var subtitleLabel = Ocean.Typography.paragraph()
         
-        lazy var captionLabel: UILabel = {
-            Ocean.Typography.caption { _ in }
-        }()
+        lazy var captionLabel = Ocean.Typography.caption()
         
         lazy var warningTag: Ocean.Tag = {
             Ocean.Tag { view in
@@ -76,11 +66,15 @@ extension Ocean {
         }()
         
         lazy var buttonPrimary: Ocean.ButtonPrimary = {
-            Ocean.Button.primarySM { _ in }
+            Ocean.Button.primarySM { button in
+                button.onTouch = onTouchButton
+            }
         }()
         
         lazy var buttonSecundary: Ocean.ButtonSecondary = {
-            Ocean.Button.secondarySM { _ in }
+            Ocean.Button.secondarySM { button in
+                button.onTouch = onTouchButton
+            }
         }()
         
         private lazy var imageView: UIImageView = {
