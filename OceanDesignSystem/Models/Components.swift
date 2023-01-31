@@ -35,6 +35,7 @@ struct DSComponents {
         "ParentChildTextList",
         "ProgressIndicator",
         "RadioButton",
+        "SettingsListItem",
         "Shortcut",
         "Snackbar",
         "Step",

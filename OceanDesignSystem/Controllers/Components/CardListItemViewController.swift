@@ -12,8 +12,6 @@ import OceanTokens
 import OceanComponents
 
 final public class CardListItemViewController: UIViewController {
-    
-    
     lazy var card1 = Ocean.CardListItem { card in
         card.title = "Title"
         card.subtitle = "Subtitle"

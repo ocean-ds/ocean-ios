@@ -63,6 +63,7 @@ public enum DesignSystemComponentsType: String {
     case GroupCTA
     case CardListItem
     case OrderedListItem
+    case SettingsListItem
 }
 
 public enum DesignSystemTypographyType: Int {
