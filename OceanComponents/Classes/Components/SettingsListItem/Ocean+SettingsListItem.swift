@@ -106,7 +106,8 @@ extension Ocean {
                     titleLabel,
                     subtitleLabel,
                     Ocean.Spacer(space: Ocean.size.spacingStackXxs),
-                    captionLabel
+                    captionLabel,
+                    Ocean.Spacer(space: Ocean.size.spacingStackXs)
                 ])
             }
         }()
@@ -139,7 +140,6 @@ extension Ocean {
 
                 stack.add([
                     contentStack,
-                    Ocean.Spacer(space: Ocean.size.spacingStackXs),
                     divider
                 ])
             }

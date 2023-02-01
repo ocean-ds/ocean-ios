@@ -16,7 +16,6 @@ final public class SettingsListItemViewController: UIViewController {
         let item = Ocean.SettingsListItem()
         item.title = "Title"
         item.subtitle = "Subtitle"
-        item.caption = "Caption"
         item.actionText = "Label"
         item.onTouchButton = { self.onClick() }
        
@@ -28,7 +27,6 @@ final public class SettingsListItemViewController: UIViewController {
         item.type = .pending
         item.title = "Title"
         item.subtitle = "Subtitle"
-        item.caption = "Caption"
         item.actionText = "Label"
         item.onTouchButton = { self.onClick() }
        
