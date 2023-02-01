@@ -76,6 +76,7 @@ final public class SettingsListItemViewController: UIViewController {
         item.type = .blocked
         item.title = "Title"
         item.subtitle = "Subtitle"
+        item.hasDivider = false
         item.onTouchButton = { self.onClick() }
        
         return item
@@ -109,7 +110,7 @@ final public class SettingsListItemViewController: UIViewController {
          settingListItem4,
          settingListItem5,
          settingListItem6].forEach{ card in
-            card.setConstraints((.horizontalMargin(Ocean.size.spacingInsetSm), toView: self.view))
+            card.setConstraints((.horizontalMargin(0), toView: self.view))
         }
     }
     
