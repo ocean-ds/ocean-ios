@@ -51,6 +51,12 @@ extension Ocean {
             }
         }
         
+        public var hasDivider: Bool = true {
+            didSet {
+                updateUI()
+            }
+        }
+        
         public var onTouchButton: (() -> Void)?
         
         lazy var titleLabel = Ocean.Typography.description()
@@ -86,6 +92,8 @@ extension Ocean {
             return view
         }()
         
+        private lazy var divider = Ocean.Divider()
+        
         private lazy var infoStack: Ocean.StackView = {
             Ocean.StackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
@@ -103,7 +111,7 @@ extension Ocean {
             }
         }()
         
-        private lazy var mainStack: Ocean.StackView = {
+        private lazy var contentStack: Ocean.StackView = {
             Ocean.StackView { stack in
                 stack.axis = .horizontal
                 stack.distribution = .fill
@@ -118,6 +126,21 @@ extension Ocean {
                     imageView,
                     warningTag,
                     Ocean.Spacer(space: Ocean.size.spacingStackXs)
+                ])
+            }
+        }()
+        
+        private lazy var mainStack: Ocean.StackView = {
+            Ocean.StackView { stack in
+                stack.translatesAutoresizingMaskIntoConstraints = false
+                stack.axis = .vertical
+                stack.distribution = .fill
+                stack.alignment = .fill
+
+                stack.add([
+                    contentStack,
+                    Ocean.Spacer(space: Ocean.size.spacingStackXs),
+                    divider
                 ])
             }
         }()
@@ -143,6 +166,7 @@ extension Ocean {
             warningTag.title = actionText
             buttonPrimary.text = actionText
             buttonSecundary.text = actionText
+            divider.isHidden = !hasDivider
             
             switch type {
             case .pending:
