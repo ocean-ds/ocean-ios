@@ -182,6 +182,20 @@ extension Ocean {
             }
         }
         
+        public func setSkeleton() {
+            self.isSkeletonable = true
+            self.infoStack.isSkeletonable = true
+            self.contentStack.isSkeletonable = true
+            self.mainStack.isSkeletonable = true
+            
+            titleLabel.isSkeletonable = true
+            subtitleLabel.isSkeletonable = true
+            captionLabel.isSkeletonable = true
+            buttonPrimary.isSkeletonable = true
+            buttonSecundary.isSkeletonable = true
+            warningTag.setSkeleton()
+        }
+        
         private func isDefault() {
             buttonPrimary.isHidden = false
             buttonSecundary.isHidden = true
