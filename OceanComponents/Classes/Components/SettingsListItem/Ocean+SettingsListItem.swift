@@ -61,9 +61,17 @@ extension Ocean {
         
         lazy var titleLabel = Ocean.Typography.description()
         
-        lazy var subtitleLabel = Ocean.Typography.paragraph()
+        lazy var subtitleLabel: UILabel = {
+            Ocean.Typography.paragraph { label in
+                label.numberOfLines = 0
+            }
+        }()
         
-        lazy var captionLabel = Ocean.Typography.caption()
+        lazy var captionLabel: UILabel = {
+            Ocean.Typography.caption { label in
+                label.numberOfLines = 0
+            }
+        }()
         
         lazy var warningTag: Ocean.Tag = {
             Ocean.Tag { view in
