@@ -89,7 +89,7 @@ extension Ocean {
         private var backgroundCircleLayer: CAShapeLayer!
         private var foregroundCircleLayer: CAShapeLayer!
 
-        internal var size: CGFloat = 24
+        internal var size: CGFloat = 20
 
         internal var withAnimation: Bool {
             get {
@@ -143,7 +143,7 @@ extension Ocean {
             errorLabel.translatesAutoresizingMaskIntoConstraints = false
             errorLabel.font = UIFont(
                 name: Ocean.font.fontFamilyBaseWeightRegular,
-                size: Ocean.font.fontSizeXxxs)
+                size: Ocean.font.fontSizeXxs)
             errorLabel.textColor = Ocean.color.colorStatusNegativePure
             errorLabel.text = errorEmpty
             errorLabel.isHidden = true
@@ -194,6 +194,7 @@ extension Ocean {
                 paragraph.translatesAutoresizingMaskIntoConstraints = false
                 paragraph.text = self.label
                 paragraph.isHidden = self.label.isEmpty
+                paragraph.font = .baseRegular(size: Ocean.font.fontSizeXxs)
             }
 
             radioStack.addArrangedSubview(radioBkgView)
