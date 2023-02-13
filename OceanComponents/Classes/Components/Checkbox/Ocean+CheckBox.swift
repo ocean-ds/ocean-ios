@@ -10,9 +10,7 @@ import UIKit
 
 extension Ocean {
     public class CheckBox: RadioButton {
-        
-       
-        
+
         override var withAnimation: Bool {
             get {
                 return false
@@ -46,23 +44,27 @@ extension Ocean {
         }
         
         private func setupCheckIcon() -> CGPath {
-            let bezierPath = UIBezierPath()
-            bezierPath.move(to: CGPoint(x: 5, y: 10.18))
-            bezierPath.addLine(to: CGPoint(x: 8.85, y: 14))
-            bezierPath.addLine(to: CGPoint(x: 15, y: 7.64))
-            bezierPath.addLine(to: CGPoint(x: 14.23, y: 7))
-            bezierPath.addLine(to: CGPoint(x: 8.85, y: 12.73))
-            bezierPath.addLine(to: CGPoint(x: 5.77, y: 9.55))
-            bezierPath.addLine(to: CGPoint(x: 5, y: 10.18))
-            bezierPath.close()
+            let bezier2Path = UIBezierPath()
+            bezier2Path.move(to: CGPoint(x: 4.75, y: 9.75))
+            bezier2Path.addCurve(to: CGPoint(x: 5.75, y: 11.75), controlPoint1: CGPoint(x: 4.25, y: 10.75), controlPoint2: CGPoint(x: 5.75, y: 11.75))
+            bezier2Path.addCurve(to: CGPoint(x: 7.75, y: 13.75), controlPoint1: CGPoint(x: 5.75, y: 11.75), controlPoint2: CGPoint(x: 7.25, y: 13.25))
+            bezier2Path.addCurve(to: CGPoint(x: 8.75, y: 14.25), controlPoint1: CGPoint(x: 7.94, y: 13.94), controlPoint2: CGPoint(x: 8.75, y: 14.25))
+            bezier2Path.addCurve(to: CGPoint(x: 9.75, y: 13.75), controlPoint1: CGPoint(x: 8.75, y: 14.25), controlPoint2: CGPoint(x: 9.44, y: 14.06))
+            bezier2Path.addCurve(to: CGPoint(x: 15.65, y: 7.25), controlPoint1: CGPoint(x: 10.25, y: 13.25), controlPoint2: CGPoint(x: 15.65, y: 7.25))
+            bezier2Path.addCurve(to: CGPoint(x: 15.75, y: 5.75), controlPoint1: CGPoint(x: 15.65, y: 7.25), controlPoint2: CGPoint(x: 16.75, y: 6.25))
+            bezier2Path.addCurve(to: CGPoint(x: 13.75, y: 6.75), controlPoint1: CGPoint(x: 14.75, y: 5.25), controlPoint2: CGPoint(x: 13.75, y: 6.75))
+            bezier2Path.addLine(to: CGPoint(x: 8.75, y: 12.25))
+            bezier2Path.addLine(to: CGPoint(x: 6.25, y: 9.75))
+            bezier2Path.addCurve(to: CGPoint(x: 4.75, y: 9.75), controlPoint1: CGPoint(x: 6.25, y: 9.75), controlPoint2: CGPoint(x: 5.25, y: 8.75))
+            bezier2Path.close()
             UIColor.gray.setFill()
-            bezierPath.fill()
+            bezier2Path.fill()
             UIColor.black.setStroke()
-            bezierPath.lineWidth = 3
-            bezierPath.lineCapStyle = .round
-            bezierPath.lineJoinStyle = .round
-            bezierPath.stroke()
-            return bezierPath.cgPath
+            bezier2Path.lineWidth = 0.5
+            bezier2Path.lineCapStyle = .round
+            bezier2Path.lineJoinStyle = .round
+            bezier2Path.stroke()
+            return bezier2Path.cgPath
         }
     }
 }
