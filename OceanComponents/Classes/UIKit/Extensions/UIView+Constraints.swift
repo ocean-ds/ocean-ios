@@ -31,61 +31,6 @@ class OceanConstraintsDSL {
     func make() {
         NSLayoutConstraint.activate(constraints)
     }
-
-    private func createConstraintTo(type: OceanConstraintsAnchorType,
-                                  anchorFrom: NSLayoutDimension,
-                                  anchorTo: NSLayoutDimension,
-                                  constant: CGFloat = 0) -> NSLayoutConstraint {
-        switch type {
-        case .equalTo:
-            return anchorFrom.constraint(equalTo: anchorTo, constant: constant)
-        case .greaterThanOrEqualTo:
-            return anchorFrom.constraint(greaterThanOrEqualTo: anchorTo, constant: constant)
-        case .lessThanOrEqualTo:
-            return anchorFrom.constraint(lessThanOrEqualTo: anchorTo, constant: constant)
-        }
-    }
-
-    private func createConstraintTo(type: OceanConstraintsAnchorType,
-                                    anchorFrom: NSLayoutYAxisAnchor,
-                                    anchorTo: NSLayoutYAxisAnchor,
-                                    constant: CGFloat = 0) -> NSLayoutConstraint {
-        switch type {
-        case .equalTo:
-            return anchorFrom.constraint(equalTo: anchorTo, constant: constant)
-        case .greaterThanOrEqualTo:
-            return anchorFrom.constraint(greaterThanOrEqualTo: anchorTo, constant: constant)
-        case .lessThanOrEqualTo:
-            return anchorFrom.constraint(lessThanOrEqualTo: anchorTo, constant: constant)
-        }
-    }
-
-    private func createConstraintTo(type: OceanConstraintsAnchorType,
-                                    anchorFrom: NSLayoutXAxisAnchor,
-                                    anchorTo: NSLayoutXAxisAnchor,
-                                    constant: CGFloat = 0) -> NSLayoutConstraint {
-        switch type {
-        case .equalTo:
-            return anchorFrom.constraint(equalTo: anchorTo, constant: constant)
-        case .greaterThanOrEqualTo:
-            return anchorFrom.constraint(greaterThanOrEqualTo: anchorTo, constant: constant)
-        case .lessThanOrEqualTo:
-            return anchorFrom.constraint(lessThanOrEqualTo: anchorTo, constant: constant)
-        }
-    }
-
-    private func createConstraintConstant(type: OceanConstraintsAnchorType,
-                                          anchorFrom: NSLayoutDimension,
-                                          constant: CGFloat = 0) -> NSLayoutConstraint {
-        switch type {
-        case .equalTo:
-            return anchorFrom.constraint(equalToConstant: constant)
-        case .greaterThanOrEqualTo:
-            return anchorFrom.constraint(greaterThanOrEqualToConstant: constant)
-        case .lessThanOrEqualTo:
-            return anchorFrom.constraint(lessThanOrEqualToConstant: constant)
-        }
-    }
 }
 
 extension OceanConstraintsDSL {
@@ -270,5 +215,62 @@ extension OceanConstraintsDSL {
             .leadingToLeading(to: view, constant: constant, priority: priority, safeArea: safeArea, type: type)
             .trailingToTrailing(to: view, constant: -constant, priority: priority, safeArea: safeArea, type: type)
             .bottomToBottom(to: view, constant: -constant, priority: priority, safeArea: safeArea, type: type)
+    }
+}
+
+extension OceanConstraintsDSL {
+    private func createConstraintTo(type: OceanConstraintsAnchorType,
+                                    anchorFrom: NSLayoutDimension,
+                                    anchorTo: NSLayoutDimension,
+                                    constant: CGFloat = 0) -> NSLayoutConstraint {
+        switch type {
+        case .equalTo:
+            return anchorFrom.constraint(equalTo: anchorTo, constant: constant)
+        case .greaterThanOrEqualTo:
+            return anchorFrom.constraint(greaterThanOrEqualTo: anchorTo, constant: constant)
+        case .lessThanOrEqualTo:
+            return anchorFrom.constraint(lessThanOrEqualTo: anchorTo, constant: constant)
+        }
+    }
+
+    private func createConstraintTo(type: OceanConstraintsAnchorType,
+                                    anchorFrom: NSLayoutYAxisAnchor,
+                                    anchorTo: NSLayoutYAxisAnchor,
+                                    constant: CGFloat = 0) -> NSLayoutConstraint {
+        switch type {
+        case .equalTo:
+            return anchorFrom.constraint(equalTo: anchorTo, constant: constant)
+        case .greaterThanOrEqualTo:
+            return anchorFrom.constraint(greaterThanOrEqualTo: anchorTo, constant: constant)
+        case .lessThanOrEqualTo:
+            return anchorFrom.constraint(lessThanOrEqualTo: anchorTo, constant: constant)
+        }
+    }
+
+    private func createConstraintTo(type: OceanConstraintsAnchorType,
+                                    anchorFrom: NSLayoutXAxisAnchor,
+                                    anchorTo: NSLayoutXAxisAnchor,
+                                    constant: CGFloat = 0) -> NSLayoutConstraint {
+        switch type {
+        case .equalTo:
+            return anchorFrom.constraint(equalTo: anchorTo, constant: constant)
+        case .greaterThanOrEqualTo:
+            return anchorFrom.constraint(greaterThanOrEqualTo: anchorTo, constant: constant)
+        case .lessThanOrEqualTo:
+            return anchorFrom.constraint(lessThanOrEqualTo: anchorTo, constant: constant)
+        }
+    }
+
+    private func createConstraintConstant(type: OceanConstraintsAnchorType,
+                                          anchorFrom: NSLayoutDimension,
+                                          constant: CGFloat = 0) -> NSLayoutConstraint {
+        switch type {
+        case .equalTo:
+            return anchorFrom.constraint(equalToConstant: constant)
+        case .greaterThanOrEqualTo:
+            return anchorFrom.constraint(greaterThanOrEqualToConstant: constant)
+        case .lessThanOrEqualTo:
+            return anchorFrom.constraint(lessThanOrEqualToConstant: constant)
+        }
     }
 }
