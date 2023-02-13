@@ -20,8 +20,8 @@ enum OceanConstraintsAnchorType {
 }
 
 class OceanConstraintsDSL {
-    let view: UIView
-    var constraints: [NSLayoutConstraint] = []
+    private let view: UIView
+    private var constraints: [NSLayoutConstraint] = []
 
     init(_ view: UIView) {
         self.view = view
