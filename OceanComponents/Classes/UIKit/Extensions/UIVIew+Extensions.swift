@@ -69,8 +69,8 @@ extension UIView {
         self.oceanConstraints
             .topToTop(to: newView, constant: top)
             .leadingToLeading(to: newView, constant: left)
-            .trailingToTrailing(to: newView, constant: right)
-            .bottomToBottom(to: newView, constant: bottom)
+            .trailingToTrailing(to: newView, constant: -right)
+            .bottomToBottom(to: newView, constant: -bottom)
             .make()
 
         return newView
