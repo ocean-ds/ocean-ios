@@ -8,31 +8,31 @@
 import Foundation
 
 extension UIView {
-    var oceanConstraints: OceanConstraintsDSL {
+    public var oceanConstraints: OceanConstraintsDSL {
         return OceanConstraintsDSL(self)
     }
 }
 
-enum OceanConstraintsAnchorType {
+public enum OceanConstraintsAnchorType {
     case equalTo
     case greaterThanOrEqualTo
     case lessThanOrEqualTo
 }
 
-class OceanConstraintsDSL {
+public class OceanConstraintsDSL {
     private let view: UIView
     private var constraints: [NSLayoutConstraint] = []
 
-    init(_ view: UIView) {
+    public init(_ view: UIView) {
         self.view = view
         self.view.translatesAutoresizingMaskIntoConstraints = false
     }
 
-    func make() {
+    public func make() {
         NSLayoutConstraint.activate(constraints)
     }
 
-    func getConstraint() -> NSLayoutConstraint {
+    public func getConstraint() -> NSLayoutConstraint {
         if constraints.count > 0 {
             return constraints[0]
         }
@@ -40,14 +40,14 @@ class OceanConstraintsDSL {
         fatalError("Constraint not exists")
     }
 
-    func getConstraints() -> [NSLayoutConstraint] {
+    public func getConstraints() -> [NSLayoutConstraint] {
         return constraints
     }
 }
 
 extension OceanConstraintsDSL {
-    func width(constant: CGFloat, priority: UILayoutPriority = .required,
-               type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
+    public func width(constant: CGFloat, priority: UILayoutPriority = .required,
+                      type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
         let constraint = createConstraintConstant(type: type,
                                                   anchorFrom: self.view.widthAnchor,
                                                   constant: constant)
@@ -56,8 +56,8 @@ extension OceanConstraintsDSL {
         return self
     }
 
-    func height(constant: CGFloat, priority: UILayoutPriority = .required,
-                type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
+    public func height(constant: CGFloat, priority: UILayoutPriority = .required,
+                       type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
         let constraint = createConstraintConstant(type: type,
                                                   anchorFrom: self.view.heightAnchor,
                                                   constant: constant)
@@ -66,8 +66,8 @@ extension OceanConstraintsDSL {
         return self
     }
 
-    func width(to view: UIView, constant: CGFloat = 0,
-               priority: UILayoutPriority = .required, type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
+    public func width(to view: UIView, constant: CGFloat = 0,
+                      priority: UILayoutPriority = .required, type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
         let constraint = createConstraintTo(type: type,
                                             anchorFrom: self.view.widthAnchor,
                                             anchorTo: view.widthAnchor,
@@ -77,8 +77,8 @@ extension OceanConstraintsDSL {
         return self
     }
 
-    func height(to view: UIView, constant: CGFloat = 0,
-                priority: UILayoutPriority = .required, type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
+    public func height(to view: UIView, constant: CGFloat = 0,
+                       priority: UILayoutPriority = .required, type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
         let constraint = createConstraintTo(type: type,
                                             anchorFrom: self.view.heightAnchor,
                                             anchorTo: view.heightAnchor,
@@ -90,8 +90,8 @@ extension OceanConstraintsDSL {
 }
 
 extension OceanConstraintsDSL {
-    func centerX(to view: UIView, constant: CGFloat = 0,
-                 priority: UILayoutPriority = .required, type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
+    public func centerX(to view: UIView, constant: CGFloat = 0,
+                        priority: UILayoutPriority = .required, type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
         let constraint = createConstraintTo(type: type,
                                             anchorFrom: self.view.centerXAnchor,
                                             anchorTo: view.centerXAnchor,
@@ -101,8 +101,8 @@ extension OceanConstraintsDSL {
         return self
     }
 
-    func centerY(to view: UIView, constant: CGFloat = 0,
-                 priority: UILayoutPriority = .required, type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
+    public func centerY(to view: UIView, constant: CGFloat = 0,
+                        priority: UILayoutPriority = .required, type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
         let constraint = createConstraintTo(type: type,
                                             anchorFrom: self.view.centerYAnchor,
                                             anchorTo: view.centerYAnchor,
@@ -112,17 +112,17 @@ extension OceanConstraintsDSL {
         return self
     }
 
-    func center(to view: UIView, constant: CGFloat = 0,
-                priority: UILayoutPriority = .required, type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
+    public func center(to view: UIView, constant: CGFloat = 0,
+                       priority: UILayoutPriority = .required, type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
         return self.centerX(to: view, constant: constant, priority: priority, type: type)
             .centerY(to: view, constant: constant, priority: priority, type: type)
     }
 }
 
 extension OceanConstraintsDSL {
-    func topToTop(to view: UIView, constant: CGFloat = 0,
-                  priority: UILayoutPriority = .required, safeArea: Bool = false,
-                  type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
+    public func topToTop(to view: UIView, constant: CGFloat = 0,
+                         priority: UILayoutPriority = .required, safeArea: Bool = false,
+                         type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
         let constraint = createConstraintTo(type: type,
                                             anchorFrom: self.view.topAnchor,
                                             anchorTo: safeArea ? view.safeAreaLayoutGuide.topAnchor : view.topAnchor,
@@ -132,72 +132,72 @@ extension OceanConstraintsDSL {
         return self
     }
 
-    func topToBottom(to view: UIView, constant: CGFloat = 0,
-                     priority: UILayoutPriority = .required, safeArea: Bool = false,
-                     type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
-        let constraint = createConstraintTo(type: type,
-                                            anchorFrom: self.view.topAnchor,
-                                            anchorTo: safeArea ? view.safeAreaLayoutGuide.bottomAnchor : view.bottomAnchor,
-                                            constant: constant)
-        constraint.priority = priority
-        constraints.append(constraint)
-        return self
-    }
-
-    func bottomToBottom(to view: UIView, constant: CGFloat = 0,
-                        priority: UILayoutPriority = .required, safeArea: Bool = false,
-                        type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
-        let constraint = createConstraintTo(type: type,
-                                            anchorFrom: self.view.bottomAnchor,
-                                            anchorTo: safeArea ? view.safeAreaLayoutGuide.bottomAnchor : view.bottomAnchor,
-                                            constant: constant)
-        constraint.priority = priority
-        constraints.append(constraint)
-        return self
-    }
-
-    func bottomToTop(to view: UIView, constant: CGFloat = 0,
-                     priority: UILayoutPriority = .required, safeArea: Bool = false,
-                     type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
-        let constraint = createConstraintTo(type: type,
-                                            anchorFrom: self.view.bottomAnchor,
-                                            anchorTo: safeArea ? view.safeAreaLayoutGuide.topAnchor : view.topAnchor,
-                                            constant: constant)
-        constraint.priority = priority
-        constraints.append(constraint)
-        return self
-    }
-}
-
-extension OceanConstraintsDSL {
-    func leadingToLeading(to view: UIView, constant: CGFloat = 0,
-                          priority: UILayoutPriority = .required, safeArea: Bool = false,
-                          type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
-        let constraint = createConstraintTo(type: type,
-                                            anchorFrom: self.view.leadingAnchor,
-                                            anchorTo: safeArea ? view.safeAreaLayoutGuide.leadingAnchor : view.leadingAnchor,
-                                            constant: constant)
-        constraint.priority = priority
-        constraints.append(constraint)
-        return self
-    }
-
-    func leadingToTrailing(to view: UIView, constant: CGFloat = 0,
-                           priority: UILayoutPriority = .required, safeArea: Bool = false,
-                           type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
-        let constraint = createConstraintTo(type: type,
-                                            anchorFrom: self.view.leadingAnchor,
-                                            anchorTo: safeArea ? view.safeAreaLayoutGuide.trailingAnchor : view.trailingAnchor,
-                                            constant: constant)
-        constraint.priority = priority
-        constraints.append(constraint)
-        return self
-    }
-
-    func trailingToTrailing(to view: UIView, constant: CGFloat = 0,
+    public func topToBottom(to view: UIView, constant: CGFloat = 0,
                             priority: UILayoutPriority = .required, safeArea: Bool = false,
                             type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
         let constraint = createConstraintTo(type: type,
+                                            anchorFrom: self.view.topAnchor,
+                                            anchorTo: safeArea ? view.safeAreaLayoutGuide.bottomAnchor : view.bottomAnchor,
+                                            constant: constant)
+        constraint.priority = priority
+        constraints.append(constraint)
+        return self
+    }
+
+    public func bottomToBottom(to view: UIView, constant: CGFloat = 0,
+                               priority: UILayoutPriority = .required, safeArea: Bool = false,
+                               type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
+        let constraint = createConstraintTo(type: type,
+                                            anchorFrom: self.view.bottomAnchor,
+                                            anchorTo: safeArea ? view.safeAreaLayoutGuide.bottomAnchor : view.bottomAnchor,
+                                            constant: constant)
+        constraint.priority = priority
+        constraints.append(constraint)
+        return self
+    }
+
+    public func bottomToTop(to view: UIView, constant: CGFloat = 0,
+                            priority: UILayoutPriority = .required, safeArea: Bool = false,
+                            type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
+        let constraint = createConstraintTo(type: type,
+                                            anchorFrom: self.view.bottomAnchor,
+                                            anchorTo: safeArea ? view.safeAreaLayoutGuide.topAnchor : view.topAnchor,
+                                            constant: constant)
+        constraint.priority = priority
+        constraints.append(constraint)
+        return self
+    }
+}
+
+extension OceanConstraintsDSL {
+    public func leadingToLeading(to view: UIView, constant: CGFloat = 0,
+                                 priority: UILayoutPriority = .required, safeArea: Bool = false,
+                                 type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
+        let constraint = createConstraintTo(type: type,
+                                            anchorFrom: self.view.leadingAnchor,
+                                            anchorTo: safeArea ? view.safeAreaLayoutGuide.leadingAnchor : view.leadingAnchor,
+                                            constant: constant)
+        constraint.priority = priority
+        constraints.append(constraint)
+        return self
+    }
+
+    public func leadingToTrailing(to view: UIView, constant: CGFloat = 0,
+                                  priority: UILayoutPriority = .required, safeArea: Bool = false,
+                                  type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
+        let constraint = createConstraintTo(type: type,
+                                            anchorFrom: self.view.leadingAnchor,
+                                            anchorTo: safeArea ? view.safeAreaLayoutGuide.trailingAnchor : view.trailingAnchor,
+                                            constant: constant)
+        constraint.priority = priority
+        constraints.append(constraint)
+        return self
+    }
+
+    public func trailingToTrailing(to view: UIView, constant: CGFloat = 0,
+                                   priority: UILayoutPriority = .required, safeArea: Bool = false,
+                                   type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
+        let constraint = createConstraintTo(type: type,
                                             anchorFrom: self.view.trailingAnchor,
                                             anchorTo: safeArea ? view.safeAreaLayoutGuide.trailingAnchor : view.trailingAnchor,
                                             constant: constant)
@@ -206,9 +206,9 @@ extension OceanConstraintsDSL {
         return self
     }
 
-    func trailingToLeading(to view: UIView, constant: CGFloat = 0,
-                           priority: UILayoutPriority = .required, safeArea: Bool = false,
-                           type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
+    public func trailingToLeading(to view: UIView, constant: CGFloat = 0,
+                                  priority: UILayoutPriority = .required, safeArea: Bool = false,
+                                  type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
         let constraint = createConstraintTo(type: type,
                                             anchorFrom: self.view.trailingAnchor,
                                             anchorTo: safeArea ? view.safeAreaLayoutGuide.leadingAnchor : view.leadingAnchor,
@@ -220,9 +220,9 @@ extension OceanConstraintsDSL {
 }
 
 extension OceanConstraintsDSL {
-    func fill(to view: UIView, constant: CGFloat = 0,
-              priority: UILayoutPriority = .required, safeArea: Bool = false,
-              type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
+    public func fill(to view: UIView, constant: CGFloat = 0,
+                     priority: UILayoutPriority = .required, safeArea: Bool = false,
+                     type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
         return self.topToTop(to: view, constant: constant, priority: priority, safeArea: safeArea, type: type)
             .leadingToLeading(to: view, constant: constant, priority: priority, safeArea: safeArea, type: type)
             .trailingToTrailing(to: view, constant: -constant, priority: priority, safeArea: safeArea, type: type)
