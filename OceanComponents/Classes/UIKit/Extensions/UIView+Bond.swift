@@ -9,7 +9,6 @@
 // swiftlint:disable all
 import UIKit
 
-@available(*, deprecated, message: "Utilizar o oceanConstraints")
 public enum BondType {
     case width(CGFloat)
     case height(CGFloat)
@@ -59,14 +58,12 @@ public enum BondType {
 }
 
 extension UIView {
-    @available(*, deprecated, message: "Utilizar o oceanConstraints")
     public func setConstraints(_ singleConstraintToView: (BondType, toView: UIView?)...) {
         singleConstraintToView.forEach { (type, toView) in
             self.setBond(type: type, toView: toView)
         }
     }
 
-    @available(*, deprecated, message: "Utilizar o oceanConstraints")
     public func setConstraints(_ constraintsToView: ([BondType], toView: UIView?)...) {
         constraintsToView.forEach { (types, toView) in
             types.forEach {
