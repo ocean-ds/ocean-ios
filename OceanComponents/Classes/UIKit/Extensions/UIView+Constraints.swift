@@ -31,6 +31,18 @@ class OceanConstraintsDSL {
     func make() {
         NSLayoutConstraint.activate(constraints)
     }
+
+    func getConstraint() -> NSLayoutConstraint {
+        if constraints.count > 0 {
+            return constraints[0]
+        }
+
+        fatalError("Constraint not exists")
+    }
+
+    func getConstraints() -> [NSLayoutConstraint] {
+        return constraints
+    }
 }
 
 extension OceanConstraintsDSL {
