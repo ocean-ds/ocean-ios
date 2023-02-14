@@ -9,6 +9,7 @@
 // swiftlint:disable all
 import UIKit
 
+@available(*, deprecated, message: "Utilizar o oceanConstraints")
 public enum BondType {
     case width(CGFloat)
     case height(CGFloat)
@@ -58,20 +59,14 @@ public enum BondType {
 }
 
 extension UIView {
-    public func addSubviews(_ viewsToAdd: UIView...) {
-        viewsToAdd.forEach { self.addSubview($0) }
-    }
-
-    public func removeSubviews() {
-        self.subviews.forEach{ $0.removeFromSuperview() }
-    }
-
+    @available(*, deprecated, message: "Utilizar o oceanConstraints")
     public func setConstraints(_ singleConstraintToView: (BondType, toView: UIView?)...) {
         singleConstraintToView.forEach { (type, toView) in
             self.setBond(type: type, toView: toView)
         }
     }
 
+    @available(*, deprecated, message: "Utilizar o oceanConstraints")
     public func setConstraints(_ constraintsToView: ([BondType], toView: UIView?)...) {
         constraintsToView.forEach { (types, toView) in
             types.forEach {
@@ -200,23 +195,5 @@ extension UIView {
             constraint.priority = .defaultHigh
             constraint.isActive = true
         }
-    }
-}
-
-extension UIView {
-    public var safeTopAnchor: NSLayoutYAxisAnchor {
-        return safeAreaLayoutGuide.topAnchor
-    }
-
-    public var safeBottomAnchor: NSLayoutYAxisAnchor {
-        return safeAreaLayoutGuide.bottomAnchor
-    }
-
-    public var safeLeftAnchor: NSLayoutXAxisAnchor {
-        return safeAreaLayoutGuide.leftAnchor
-    }
-
-    public var safeRightAnchor: NSLayoutXAxisAnchor {
-        return safeAreaLayoutGuide.rightAnchor
     }
 }
