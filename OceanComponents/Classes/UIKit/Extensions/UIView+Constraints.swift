@@ -281,7 +281,6 @@ extension OceanConstraintsDSL {
     private func createConstraintTo(type: OceanConstraintsAnchorType,
                                     anchorFrom: NSLayoutYAxisAnchor,
                                     anchorTo: NSLayoutYAxisAnchor,
-                                    multiplier: CGFloat = 1,
                                     constant: CGFloat = 0) -> NSLayoutConstraint {
         switch type {
         case .equalTo:
@@ -296,7 +295,6 @@ extension OceanConstraintsDSL {
     private func createConstraintTo(type: OceanConstraintsAnchorType,
                                     anchorFrom: NSLayoutXAxisAnchor,
                                     anchorTo: NSLayoutXAxisAnchor,
-                                    multiplier: CGFloat = 1,
                                     constant: CGFloat = 0) -> NSLayoutConstraint {
         switch type {
         case .equalTo:
@@ -310,7 +308,6 @@ extension OceanConstraintsDSL {
 
     private func createConstraintConstant(type: OceanConstraintsAnchorType,
                                           anchorFrom: NSLayoutDimension,
-                                          multiplier: CGFloat = 1,
                                           constant: CGFloat = 0) -> NSLayoutConstraint {
         switch type {
         case .equalTo:
