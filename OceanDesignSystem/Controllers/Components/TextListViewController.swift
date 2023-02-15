@@ -143,7 +143,9 @@ final public class TextListViewController : UIViewController {
         }
 
         scrollableContentView.addSubview(stack)
-        stack.setConstraints((.fillSuperView, toView: scrollableContentView))
+        stack.oceanConstraints
+            .fill(to: scrollableContentView)
+            .make()
 
         [textList1,
          textList2,
@@ -163,7 +165,9 @@ final public class TextListViewController : UIViewController {
          textList16,
          textList17].forEach { textListCell in
             stack.addArrangedSubview(textListCell)
-            textListCell.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
+            textListCell.oceanConstraints
+                .width(to: self.view)
+                .make()
         }
     }
 
@@ -175,10 +179,14 @@ final public class TextListViewController : UIViewController {
     }
 
     private func applyScrollViewDefaultContraints() {
-        scrollView.setConstraints((.fillSuperView, toView: view))
-        scrollableContentView.setConstraints(([.fillSuperView,
-                                               .centerHorizontally], toView: scrollView),
-                                             ([.fullWidth], toView: view))
+        scrollView.oceanConstraints
+            .fill(to: view)
+            .make()
+        
+        scrollableContentView.oceanConstraints
+            .fill(to: scrollView)
+            .width(to: view)
+            .make()
     }
 
     private func triggerButton() {

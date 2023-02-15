@@ -41,6 +41,12 @@ extension Ocean {
                 updateUI()
             }
         }
+        
+        public var textTextLabel: TextLabelModel? {
+            didSet {
+                updateUI()
+            }
+        }
 
         public var text: String = "" {
             didSet {
@@ -270,10 +276,13 @@ extension Ocean {
             return label
         }()
 
-        private lazy var textLabel: UILabel = {
-            Ocean.Typography.caption { label in
-                label.numberOfLines = 1
-            }
+        private lazy var textLabel: TextLabel = {
+            let label = TextLabel()
+            label.font = .baseRegular(size: Ocean.font.fontSizeXxxs)
+            label.textColor = Ocean.color.colorInterfaceDarkDown
+            label.numberOfLines = 1
+            
+            return label
         }()
 
         private lazy var tagSpacer = Ocean.Spacer(space: Ocean.size.spacingInsetXxs)
@@ -331,14 +340,18 @@ extension Ocean {
             let imageNotExist = image == nil
 
             titleLabel.text = title
-            subtitleLabel.isHidden = subtitle.isEmpty && subtitleTextLabel == nil
+            
             subtitleSpacer.isHidden = subtitleLabel.isHidden
+            subtitleLabel.isHidden = subtitle.isEmpty && subtitleTextLabel == nil
             subtitleLabel.isSkeletonable = !subtitle.isEmpty || subtitleTextLabel != nil
             subtitleLabel.text = subtitle
             subtitleLabel.model = subtitleTextLabel
+            
             textLabel.isHidden = text.isEmpty
-            textLabel.text = text
             textLabel.isSkeletonable = !text.isEmpty
+            textLabel.text = text
+            textLabel.model = textTextLabel
+
             tagView.title = tagTitle
             tagView.image = tagImage
             tagView.status = tagStatus
