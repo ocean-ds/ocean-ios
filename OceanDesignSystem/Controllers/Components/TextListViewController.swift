@@ -141,6 +141,14 @@ final public class TextListViewController : UIViewController {
                                                imageIcon: Ocean.icon.exclamationCircleSolid,
                                                color: Ocean.color.colorStatusNeutralDeep)
         }
+        
+        let textList18 = Ocean.TextList.cell { textList in
+            textList.title = "Title"
+            textList.textTextLabel = Ocean.TextLabelModel(value: "Text", bold: true, color: Ocean.color.colorStatusPositiveDeep)
+            textList.image = Ocean.icon.documentOutline?.withRenderingMode(.alwaysTemplate)
+            textList.arrow = true
+            textList.badge = true
+        }
 
         scrollableContentView.addSubview(stack)
         stack.oceanConstraints
@@ -163,7 +171,8 @@ final public class TextListViewController : UIViewController {
          textList14,
          textList15,
          textList16,
-         textList17].forEach { textListCell in
+         textList17,
+         textList18].forEach { textListCell in
             stack.addArrangedSubview(textListCell)
             textListCell.oceanConstraints
                 .width(to: self.view)
