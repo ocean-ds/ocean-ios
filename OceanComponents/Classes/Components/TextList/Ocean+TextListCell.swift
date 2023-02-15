@@ -347,12 +347,10 @@ extension Ocean {
             subtitleLabel.isSkeletonable = !subtitle.isEmpty || subtitleTextLabel != nil
             subtitleLabel.text = subtitle
             subtitleLabel.model = subtitleTextLabel
-            
             textLabel.isHidden = text.isEmpty && textTextLabel == nil
             textLabel.isSkeletonable = !text.isEmpty
             textLabel.text = text
             textLabel.model = textTextLabel
-
             tagView.title = tagTitle
             tagView.image = tagImage
             tagView.status = tagStatus
