@@ -20,11 +20,22 @@ extension Ocean {
             case positive
             case warning
             case negative
-            case neutral1
-            case neutral2
+            case complementary
+            case neutral
+        }
+        
+        public enum TagType {
+            case base
+            case highlight
         }
 
-        public var status: Status = .neutral1 {
+        public var status: Status = .neutral {
+            didSet {
+                updateStatus()
+            }
+        }
+        
+        public var tagType: TagType = .base {
             didSet {
                 updateStatus()
             }
@@ -138,14 +149,24 @@ extension Ocean {
                 self.backgroundColor = Ocean.color.colorStatusNegativeUp
                 self.imageView.tintColor = Ocean.color.colorStatusNegativePure
                 self.titleLabel.textColor = Ocean.color.colorStatusNegativePure
-            case .neutral2:
-                self.backgroundColor = Ocean.color.colorInterfaceLightUp
-                self.imageView.tintColor = Ocean.color.colorBrandPrimaryDown
-                self.titleLabel.textColor = Ocean.color.colorBrandPrimaryDown
+            case .complementary:
+                self.backgroundColor = Ocean.color.colorComplementaryPure.withAlphaComponent(Ocean.size.opacityLevelSemitransparent)
+                self.imageView.tintColor = Ocean.color.colorComplementaryPure
+                self.titleLabel.textColor = Ocean.color.colorComplementaryPure
             default:
                 self.backgroundColor = Ocean.color.colorInterfaceLightUp
                 self.imageView.tintColor = Ocean.color.colorInterfaceDarkUp
                 self.titleLabel.textColor = Ocean.color.colorInterfaceDarkUp
+            }
+        }
+        
+        private func updateType() {
+            switch self.tagType {
+            case .highlight:
+                self.backgroundColor = Ocean.color.colorHighlightPure
+                self.titleLabel.textColor = Ocean.color.colorInterfaceDarkUp
+            default:
+                self.status = .neutral
             }
         }
 

@@ -142,14 +142,13 @@ extension Ocean {
                 self.layer.cornerRadius = self.bounds.size.height * self.cornerRadius
                 self.backgroundColor = self.isOn ? self.onTintColor : self.offTintColor
                 
-                let thumbSize = self.thumbSize != CGSize.zero ? self.thumbSize : CGSize(width: self.bounds.size.height - 8, height: self.bounds.height - 8)
-                let yPostition = (self.bounds.size.height - thumbSize.height) / 2
+                let yPostition = (self.bounds.size.height - self.thumbSize.height) / 2
                 
-                self.onPoint = CGPoint(x: self.bounds.size.width - thumbSize.width - self.padding, y: yPostition)
+                self.onPoint = CGPoint(x: self.bounds.size.width - self.thumbSize.width - self.padding, y: yPostition)
                 self.offPoint = CGPoint(x: self.padding, y: yPostition)
                 
-                self.thumbView.frame = CGRect(origin: self.isOn ? self.onPoint : self.offPoint, size: thumbSize)
-                self.thumbView.layer.cornerRadius = thumbSize.height * self.thumbCornerRadius
+                self.thumbView.frame = CGRect(origin: self.isOn ? self.onPoint : self.offPoint, size: self.thumbSize)
+                self.thumbView.layer.cornerRadius = self.thumbSize.height * self.thumbCornerRadius
             }
         }
     }
