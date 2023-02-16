@@ -90,6 +90,38 @@ extension OceanConstraintsDSL {
 }
 
 extension OceanConstraintsDSL {
+    public func widthToHeight(to view: UIView,
+                              priority: UILayoutPriority = .required,
+                              type: OceanConstraintsAnchorType = .equalTo,
+                              multiplier: CGFloat = 1,
+                              constant: CGFloat = 0) -> OceanConstraintsDSL {
+        let constraint = createConstraintTo(type: type,
+                                            anchorFrom: self.view.widthAnchor,
+                                            anchorTo: self.view.heightAnchor,
+                                            multiplier: multiplier,
+                                            constant: constant)
+        constraint.priority = priority
+        constraints.append(constraint)
+        return self
+    }
+    
+    public func heightToWidth(to view: UIView,
+                              priority: UILayoutPriority = .required,
+                              type: OceanConstraintsAnchorType = .equalTo,
+                              multiplier: CGFloat = 1,
+                              constant: CGFloat = 0) -> OceanConstraintsDSL {
+        let constraint = createConstraintTo(type: type,
+                                            anchorFrom: self.view.heightAnchor,
+                                            anchorTo: self.view.widthAnchor,
+                                            multiplier: multiplier,
+                                            constant: constant)
+        constraint.priority = priority
+        constraints.append(constraint)
+        return self
+    }
+}
+
+extension OceanConstraintsDSL {
     public func centerX(to view: UIView, constant: CGFloat = 0,
                         priority: UILayoutPriority = .required, type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
         let constraint = createConstraintTo(type: type,
@@ -234,14 +266,15 @@ extension OceanConstraintsDSL {
     private func createConstraintTo(type: OceanConstraintsAnchorType,
                                     anchorFrom: NSLayoutDimension,
                                     anchorTo: NSLayoutDimension,
+                                    multiplier: CGFloat = 1,
                                     constant: CGFloat = 0) -> NSLayoutConstraint {
         switch type {
         case .equalTo:
-            return anchorFrom.constraint(equalTo: anchorTo, constant: constant)
+            return anchorFrom.constraint(equalTo: anchorTo, multiplier: multiplier, constant: constant)
         case .greaterThanOrEqualTo:
-            return anchorFrom.constraint(greaterThanOrEqualTo: anchorTo, constant: constant)
+            return anchorFrom.constraint(greaterThanOrEqualTo: anchorTo, multiplier: multiplier, constant: constant)
         case .lessThanOrEqualTo:
-            return anchorFrom.constraint(lessThanOrEqualTo: anchorTo, constant: constant)
+            return anchorFrom.constraint(lessThanOrEqualTo: anchorTo, multiplier: multiplier, constant: constant)
         }
     }
 

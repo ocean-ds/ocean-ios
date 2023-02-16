@@ -279,6 +279,7 @@ extension Ocean {
         private lazy var textLabel: TextLabel = {
             let label = TextLabel()
             label.font = .baseRegular(size: Ocean.font.fontSizeXxxs)
+            label.boldSize = Ocean.font.fontSizeXxxs
             label.textColor = Ocean.color.colorInterfaceDarkDown
             label.numberOfLines = 1
             
@@ -346,12 +347,10 @@ extension Ocean {
             subtitleLabel.isSkeletonable = !subtitle.isEmpty || subtitleTextLabel != nil
             subtitleLabel.text = subtitle
             subtitleLabel.model = subtitleTextLabel
-            
-            textLabel.isHidden = text.isEmpty
+            textLabel.isHidden = text.isEmpty && textTextLabel == nil
             textLabel.isSkeletonable = !text.isEmpty
             textLabel.text = text
             textLabel.model = textTextLabel
-
             tagView.title = tagTitle
             tagView.image = tagImage
             tagView.status = tagStatus
