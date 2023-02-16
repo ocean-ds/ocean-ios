@@ -12,26 +12,12 @@ extension UIView {
         return UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.safeAreaInsets.top ?? 0 > 20
     }
 
-    public func add(view: UIView, selfAutoresizingConstraints: Bool = false) {
-        translatesAutoresizingMaskIntoConstraints = selfAutoresizingConstraints
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        addSubview(view)
-        
-        NSLayoutConstraint.activate([
-            view.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            view.leadingAnchor.constraint(equalTo: leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: trailingAnchor),
-            view.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
-        ])
-    }
-    
     public func addTapGesture(target: Any? = nil, selector: Selector) {
         let tap = UITapGestureRecognizer(target: target == nil ? self : target, action: selector)
         self.addGestureRecognizer(tap)
         self.isUserInteractionEnabled = true
     }
-    
+
     public func addLongPressGesture(target: Any? = nil, selector: Selector) {
         let longPress = UILongPressGestureRecognizer(target: target == nil ? self : target, action: selector)
         longPress.minimumPressDuration = 0.2
@@ -39,8 +25,31 @@ extension UIView {
         self.isUserInteractionEnabled = true
     }
 
+    public func addSubviews(_ viewsToAdd: UIView...) {
+        viewsToAdd.forEach { self.addSubview($0) }
+    }
+
+    public func removeSubviews() {
+        self.subviews.forEach{ $0.removeFromSuperview() }
+    }
+
+    public func add(view: UIView, selfAutoresizingConstraints: Bool = false) {
+        translatesAutoresizingMaskIntoConstraints = selfAutoresizingConstraints
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(view)
+
+        view.oceanConstraints
+            .topToTop(to: self, safeArea: true)
+            .leadingToLeading(to: self)
+            .trailingToTrailing(to: self)
+            .bottomToBottom(to: self, safeArea: true)
+            .make()
+    }
+
     public func addMargins(allMargins: CGFloat) -> UIView {
-        return addMargins(top: allMargins, left: allMargins, bottom: allMargins, right: allMargins)
+        return addMargins(top: allMargins, left: allMargins,
+                          bottom: allMargins, right: allMargins)
     }
 
     public func addMargins(horizontal: CGFloat) -> UIView {
@@ -55,68 +64,76 @@ extension UIView {
                            left: CGFloat = 0,
                            bottom: CGFloat = 0,
                            right: CGFloat = 0) -> UIView {
-        let newView = UIView()
-        translatesAutoresizingMaskIntoConstraints = false
-        newView.translatesAutoresizingMaskIntoConstraints = false
-        newView.addSubview(self)
-        newView.isSkeletonable = true
+        let newView = createNewView()
 
-        NSLayoutConstraint.activate([
-            self.topAnchor.constraint(equalTo: newView.topAnchor, constant: top),
-            self.leadingAnchor.constraint(equalTo: newView.leadingAnchor, constant: left),
-            self.trailingAnchor.constraint(equalTo: newView.trailingAnchor, constant: -right),
-            self.bottomAnchor.constraint(equalTo: newView.bottomAnchor, constant: -bottom)
-        ])
+        self.oceanConstraints
+            .topToTop(to: newView, constant: top)
+            .leadingToLeading(to: newView, constant: left)
+            .trailingToTrailing(to: newView, constant: -right)
+            .bottomToBottom(to: newView, constant: -bottom)
+            .make()
 
         return newView
     }
 
     public func alignCenter(height: CGFloat? = nil) -> UIView {
-        let newView = UIView()
-        newView.addSubview(self)
+        let newView = createNewView()
 
-        self.setConstraints(([.centerVertically,
-                              .centerHorizontally], toView: newView))
-        if let height = height {
-            newView.heightAnchor.constraint(equalToConstant: height).isActive = true
-        } else {
-            newView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
-        }
+        self.oceanConstraints
+            .center(to: newView)
+            .make()
+
+        setHeightNewView(newView, height: height)
 
         return newView
     }
 
     public func alignLeft(height: CGFloat? = nil) -> UIView {
-        let newView = UIView()
-        newView.addSubview(self)
+        let newView = createNewView()
 
-        self.setConstraints(([.topToTop(0),
-                              .leadingToLeading(0),
-                              .bottomToBottom(0)], toView: newView))
+        self.oceanConstraints
+            .topToTop(to: newView)
+            .leadingToLeading(to: newView)
+            .bottomToBottom(to: newView)
+            .make()
 
-        if let height = height {
-            newView.heightAnchor.constraint(equalToConstant: height).isActive = true
-        } else {
-            newView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
-        }
+        setHeightNewView(newView, height: height)
 
         return newView
     }
 
     public func alignRight(height: CGFloat? = nil) -> UIView {
-        let newView = UIView()
-        newView.addSubview(self)
+        let newView = createNewView()
 
-        self.setConstraints(([.topToTop(0),
-                              .trailingToTrailing(0),
-                              .bottomToBottom(0)], toView: newView))
+        self.oceanConstraints
+            .topToTop(to: newView)
+            .trailingToTrailing(to: newView)
+            .bottomToBottom(to: newView)
+            .make()
 
-        if let height = height {
-            newView.heightAnchor.constraint(equalToConstant: height).isActive = true
-        } else {
-            newView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
-        }
+        setHeightNewView(newView, height: height)
 
         return newView
+    }
+
+    private func createNewView() -> UIView {
+        let newView = UIView()
+        translatesAutoresizingMaskIntoConstraints = false
+        newView.translatesAutoresizingMaskIntoConstraints = false
+        newView.addSubview(self)
+        newView.isSkeletonable = true
+        return newView
+    }
+
+    private func setHeightNewView(_ newView: UIView, height: CGFloat?) {
+        if let height = height {
+            newView.oceanConstraints
+                .height(constant: height)
+                .make()
+        } else {
+            newView.oceanConstraints
+                .height(to: self)
+                .make()
+        }
     }
 }

@@ -141,9 +141,19 @@ final public class TextListViewController : UIViewController {
                                                imageIcon: Ocean.icon.exclamationCircleSolid,
                                                color: Ocean.color.colorStatusNeutralDeep)
         }
+        
+        let textList18 = Ocean.TextList.cell { textList in
+            textList.title = "Title"
+            textList.textTextLabel = Ocean.TextLabelModel(value: "Text", bold: true, color: Ocean.color.colorStatusPositiveDeep)
+            textList.image = Ocean.icon.documentOutline?.withRenderingMode(.alwaysTemplate)
+            textList.arrow = true
+            textList.badge = true
+        }
 
         scrollableContentView.addSubview(stack)
-        stack.setConstraints((.fillSuperView, toView: scrollableContentView))
+        stack.oceanConstraints
+            .fill(to: scrollableContentView)
+            .make()
 
         [textList1,
          textList2,
@@ -161,9 +171,12 @@ final public class TextListViewController : UIViewController {
          textList14,
          textList15,
          textList16,
-         textList17].forEach { textListCell in
+         textList17,
+         textList18].forEach { textListCell in
             stack.addArrangedSubview(textListCell)
-            textListCell.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
+            textListCell.oceanConstraints
+                .width(to: self.view)
+                .make()
         }
     }
 
@@ -175,10 +188,14 @@ final public class TextListViewController : UIViewController {
     }
 
     private func applyScrollViewDefaultContraints() {
-        scrollView.setConstraints((.fillSuperView, toView: view))
-        scrollableContentView.setConstraints(([.fillSuperView,
-                                               .centerHorizontally], toView: scrollView),
-                                             ([.fullWidth], toView: view))
+        scrollView.oceanConstraints
+            .fill(to: view)
+            .make()
+        
+        scrollableContentView.oceanConstraints
+            .fill(to: scrollView)
+            .width(to: view)
+            .make()
     }
 
     private func triggerButton() {

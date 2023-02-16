@@ -58,14 +58,6 @@ public enum BondType {
 }
 
 extension UIView {
-    public func addSubviews(_ viewsToAdd: UIView...) {
-        viewsToAdd.forEach { self.addSubview($0) }
-    }
-
-    public func removeSubviews() {
-        self.subviews.forEach{ $0.removeFromSuperview() }
-    }
-
     public func setConstraints(_ singleConstraintToView: (BondType, toView: UIView?)...) {
         singleConstraintToView.forEach { (type, toView) in
             self.setBond(type: type, toView: toView)
@@ -200,23 +192,5 @@ extension UIView {
             constraint.priority = .defaultHigh
             constraint.isActive = true
         }
-    }
-}
-
-extension UIView {
-    public var safeTopAnchor: NSLayoutYAxisAnchor {
-        return safeAreaLayoutGuide.topAnchor
-    }
-
-    public var safeBottomAnchor: NSLayoutYAxisAnchor {
-        return safeAreaLayoutGuide.bottomAnchor
-    }
-
-    public var safeLeftAnchor: NSLayoutXAxisAnchor {
-        return safeAreaLayoutGuide.leftAnchor
-    }
-
-    public var safeRightAnchor: NSLayoutXAxisAnchor {
-        return safeAreaLayoutGuide.rightAnchor
     }
 }
