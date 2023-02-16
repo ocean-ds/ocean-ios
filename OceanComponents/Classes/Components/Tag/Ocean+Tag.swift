@@ -22,20 +22,10 @@ extension Ocean {
             case negative
             case complementary
             case neutral
-        }
-        
-        public enum TagType {
-            case base
             case highlight
         }
 
         public var status: Status = .neutral {
-            didSet {
-                updateStatus()
-            }
-        }
-        
-        public var tagType: TagType = .base {
             didSet {
                 updateStatus()
             }
@@ -73,12 +63,11 @@ extension Ocean {
                 view.contentMode = .scaleAspectFit
                 view.tintColor = Ocean.color.colorInterfaceDarkUp
                 view.isHidden = true
-                view.translatesAutoresizingMaskIntoConstraints = false
 
-                NSLayoutConstraint.activate([
-                    view.widthAnchor.constraint(equalToConstant: Constants.imageSize),
-                    view.heightAnchor.constraint(equalToConstant: Constants.imageSize)
-                ])
+                view.oceanConstraints
+                    .width(constant: Constants.imageSize)
+                    .height(constant: Constants.imageSize)
+                    .make()
             }
         }()
 
@@ -120,12 +109,11 @@ extension Ocean {
         }
 
         private func setupUI() {
-            self.translatesAutoresizingMaskIntoConstraints = false
             self.layer.cornerRadius = Constants.height * Ocean.size.borderRadiusCircular
             self.backgroundColor = Ocean.color.colorInterfaceLightUp
             self.add(view: mainStack)
 
-            self.heightAnchor.constraint(equalToConstant: Constants.height).isActive = true
+            self.oceanConstraints.height(constant: Constants.height).make()
         }
 
         private func updateUI() {
@@ -153,20 +141,15 @@ extension Ocean {
                 self.backgroundColor = Ocean.color.colorComplementaryPure.withAlphaComponent(Ocean.size.opacityLevelSemitransparent)
                 self.imageView.tintColor = Ocean.color.colorComplementaryPure
                 self.titleLabel.textColor = Ocean.color.colorComplementaryPure
+            case .highlight:
+                self.backgroundColor = Ocean.color.colorHighlightPure
+                self.titleLabel.textColor = Ocean.color.colorInterfaceLightPure
+                self.titleLabel.font = .baseBold(size: Ocean.font.fontSizeXxxs)
+                self.imageView.isHidden = true
             default:
                 self.backgroundColor = Ocean.color.colorInterfaceLightUp
                 self.imageView.tintColor = Ocean.color.colorInterfaceDarkUp
                 self.titleLabel.textColor = Ocean.color.colorInterfaceDarkUp
-            }
-        }
-        
-        private func updateType() {
-            switch self.tagType {
-            case .highlight:
-                self.backgroundColor = Ocean.color.colorHighlightPure
-                self.titleLabel.textColor = Ocean.color.colorInterfaceDarkUp
-            default:
-                self.status = .neutral
             }
         }
 

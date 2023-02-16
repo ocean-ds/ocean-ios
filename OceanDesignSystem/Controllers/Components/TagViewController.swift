@@ -101,6 +101,11 @@ final public class TagViewController : UIViewController {
         return stack
     }()
     
+    let highlightTag = Ocean.Tag { view in
+        view.title = "novo"
+        view.status = .highlight
+    }
+    
     private lazy var mainStack: Ocean.StackView = {
         let stack = Ocean.StackView()
         stack.distribution = .fill
@@ -111,7 +116,9 @@ final public class TagViewController : UIViewController {
         
         stack.add([tagSimpleStack,
                    Ocean.Divider(),
-                   tagWithIconStack])
+                   tagWithIconStack,
+                   Ocean.Divider(),
+                   highlightTag])
         
         return stack
     }()
@@ -119,7 +126,7 @@ final public class TagViewController : UIViewController {
     public override func viewDidLoad() {
         self.view.backgroundColor = .white
         setupUI()
-        setContraintsDSL()
+        setContraints()
     }
     
     private func setupUI() {
@@ -127,24 +134,9 @@ final public class TagViewController : UIViewController {
         self.view.addSubview(mainStack)
     }
     
-    private func setContraintsDSL() {
-        
-//        NSLayoutConstraint.activate([
-//            stack1.topAnchor.constraint(equalTo: self.view.topAnchor, constant: Ocean.size.spacingStackMd),
-//            stack1.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-//            stack2.topAnchor.constraint(equalTo: stack1.bottomAnchor, constant: Ocean.size.spacingStackXs),
-//            stack2.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
-//        ])
+    private func setContraints() {
+        self.mainStack.oceanConstraints
+            .center(to: self.view)
+            .make()
     }
-    
-//    private func applyScrollViewDefaultContraints() {
-//           scrollView.oceanConstraints
-//               .fill(to: view)
-//               .make()
-//
-//           scrollableContentView.oceanConstraints
-//               .fill(to: scrollView)
-//               .width(to: view)
-//               .make()
-//       }
 }

@@ -15,6 +15,7 @@ public extension String {
         case "warning": return Ocean.Tag.Status.warning
         case "negative": return Ocean.Tag.Status.negative
         case "complementary": return Ocean.Tag.Status.complementary
+        case "highlight": return Ocean.Tag.Status.highlight
         case "neutral": return Ocean.Tag.Status.neutral
         default: return nil
         }
