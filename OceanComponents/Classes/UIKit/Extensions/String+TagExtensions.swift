@@ -17,6 +17,8 @@ public extension String {
         case "complementary": return Ocean.Tag.Status.complementary
         case "highlight": return Ocean.Tag.Status.highlight
         case "neutral": return Ocean.Tag.Status.neutral
+        case "neutra1": return Ocean.Tag.Status.neutral
+        case "neutra2": return Ocean.Tag.Status.neutral
         default: return nil
         }
     }
