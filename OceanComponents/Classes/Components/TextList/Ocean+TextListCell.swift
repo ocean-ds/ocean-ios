@@ -217,7 +217,12 @@ extension Ocean {
 
         private lazy var swipeImageViewSpacer = Ocean.Spacer(space: Ocean.size.spacingStackXxs)
 
-        private lazy var badgeView = Ocean.Badge.text()
+        private lazy var tagHighlightView: Ocean.Tag = {
+            Ocean.Tag { tag in
+                tag.title = "Novo"
+                tag.status = .highlight
+            }
+        }()
 
         private lazy var infoStackTitle: Ocean.StackView = {
             Ocean.StackView { stack in
@@ -229,7 +234,7 @@ extension Ocean {
                 stack.add([
                     titleLabel,
                     Ocean.Spacer(space: Ocean.size.spacingStackXxs),
-                    badgeView
+                    tagHighlightView
                 ])
             }
         }()
@@ -380,7 +385,7 @@ extension Ocean {
             }
             swipeImageView.isHidden = !swipe
             swipeImageViewSpacer.isHidden = !swipe
-            badgeView.isHidden = !badge
+            tagHighlightView.isHidden = !badge
             button.isHidden = true
 
             if let title = buttonTitle {
