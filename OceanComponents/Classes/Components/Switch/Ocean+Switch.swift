@@ -32,7 +32,9 @@ extension Ocean {
                                                                 .beginFromCurrentState,
                                                                 .allowUserInteraction]
         private var animationDuration: Double = 0.5
-        private var padding: CGFloat = 4
+        private var padding: CGFloat = 2
+        private let width: CGFloat = 40
+        private let height: CGFloat = 20
         private var onTintColor: UIColor = Ocean.color.colorComplementaryPure
         private var offTintColor: UIColor = Ocean.color.colorInterfaceLightPure
         private var onThumbTintColor: UIColor = .white
@@ -41,7 +43,7 @@ extension Ocean {
         private var offBorderTintColor: UIColor = Ocean.color.colorInterfaceDarkUp
         private var cornerRadius: CGFloat = 0.5
         private var thumbCornerRadius: CGFloat = 0.5
-        private var thumbSize: CGSize = CGSize.zero
+        private var thumbSize: CGSize = CGSize(width: 14, height: 14)
         private var thumbView = UIView(frame: CGRect.zero)
         private var onPoint = CGPoint.zero
         private var offPoint = CGPoint.zero
@@ -55,7 +57,7 @@ extension Ocean {
         
         public override var intrinsicContentSize: CGSize {
             get {
-                return CGSize(width: 44, height: 24)
+                return CGSize(width: width, height: height)
             }
         }
         
@@ -74,8 +76,8 @@ extension Ocean {
             self.addSubview(self.thumbView)
             
             NSLayoutConstraint.activate([
-                self.widthAnchor.constraint(equalToConstant: 44),
-                self.heightAnchor.constraint(equalToConstant: 24)
+                self.widthAnchor.constraint(equalToConstant: width),
+                self.heightAnchor.constraint(equalToConstant: height)
             ])
         }
         
@@ -140,14 +142,13 @@ extension Ocean {
                 self.layer.cornerRadius = self.bounds.size.height * self.cornerRadius
                 self.backgroundColor = self.isOn ? self.onTintColor : self.offTintColor
                 
-                let thumbSize = self.thumbSize != CGSize.zero ? self.thumbSize : CGSize(width: self.bounds.size.height - 8, height: self.bounds.height - 8)
-                let yPostition = (self.bounds.size.height - thumbSize.height) / 2
+                let yPostition = (self.bounds.size.height - self.thumbSize.height) / 2
                 
-                self.onPoint = CGPoint(x: self.bounds.size.width - thumbSize.width - self.padding, y: yPostition)
+                self.onPoint = CGPoint(x: self.bounds.size.width - self.thumbSize.width - self.padding, y: yPostition)
                 self.offPoint = CGPoint(x: self.padding, y: yPostition)
                 
-                self.thumbView.frame = CGRect(origin: self.isOn ? self.onPoint : self.offPoint, size: thumbSize)
-                self.thumbView.layer.cornerRadius = thumbSize.height * self.thumbCornerRadius
+                self.thumbView.frame = CGRect(origin: self.isOn ? self.onPoint : self.offPoint, size: self.thumbSize)
+                self.thumbView.layer.cornerRadius = self.thumbSize.height * self.thumbCornerRadius
             }
         }
     }

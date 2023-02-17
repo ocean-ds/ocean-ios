@@ -20,11 +20,12 @@ extension Ocean {
             case positive
             case warning
             case negative
-            case neutral1
-            case neutral2
+            case complementary
+            case neutral
+            case highlight
         }
 
-        public var status: Status = .neutral1 {
+        public var status: Status = .neutral {
             didSet {
                 updateStatus()
             }
@@ -62,12 +63,11 @@ extension Ocean {
                 view.contentMode = .scaleAspectFit
                 view.tintColor = Ocean.color.colorInterfaceDarkUp
                 view.isHidden = true
-                view.translatesAutoresizingMaskIntoConstraints = false
 
-                NSLayoutConstraint.activate([
-                    view.widthAnchor.constraint(equalToConstant: Constants.imageSize),
-                    view.heightAnchor.constraint(equalToConstant: Constants.imageSize)
-                ])
+                view.oceanConstraints
+                    .width(constant: Constants.imageSize)
+                    .height(constant: Constants.imageSize)
+                    .make()
             }
         }()
 
@@ -109,12 +109,11 @@ extension Ocean {
         }
 
         private func setupUI() {
-            self.translatesAutoresizingMaskIntoConstraints = false
             self.layer.cornerRadius = Constants.height * Ocean.size.borderRadiusCircular
             self.backgroundColor = Ocean.color.colorInterfaceLightUp
             self.add(view: mainStack)
 
-            self.heightAnchor.constraint(equalToConstant: Constants.height).isActive = true
+            self.oceanConstraints.height(constant: Constants.height).make()
         }
 
         private func updateUI() {
@@ -138,10 +137,15 @@ extension Ocean {
                 self.backgroundColor = Ocean.color.colorStatusNegativeUp
                 self.imageView.tintColor = Ocean.color.colorStatusNegativePure
                 self.titleLabel.textColor = Ocean.color.colorStatusNegativePure
-            case .neutral2:
-                self.backgroundColor = Ocean.color.colorInterfaceLightUp
-                self.imageView.tintColor = Ocean.color.colorBrandPrimaryDown
-                self.titleLabel.textColor = Ocean.color.colorBrandPrimaryDown
+            case .complementary:
+                self.backgroundColor = Ocean.color.colorComplementaryPure.withAlphaComponent(Ocean.size.opacityLevelSemitransparent)
+                self.imageView.tintColor = Ocean.color.colorComplementaryPure
+                self.titleLabel.textColor = Ocean.color.colorComplementaryPure
+            case .highlight:
+                self.backgroundColor = Ocean.color.colorHighlightPure
+                self.titleLabel.textColor = Ocean.color.colorInterfaceLightPure
+                self.titleLabel.font = .baseBold(size: Ocean.font.fontSizeXxxs)
+                self.imageView.isHidden = true
             default:
                 self.backgroundColor = Ocean.color.colorInterfaceLightUp
                 self.imageView.tintColor = Ocean.color.colorInterfaceDarkUp
