@@ -9,7 +9,6 @@ import Foundation
 import OceanTokens
 
 extension Ocean {
-//    public typealias BadgeTextBuilder = (BadgeText) -> Void
     public typealias BadgeTinyBuilder = (BadgeTiny) -> Void
     public typealias BadgeNumberBuilder = (BadgeNumber) -> Void
     
