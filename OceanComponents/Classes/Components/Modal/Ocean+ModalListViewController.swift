@@ -11,10 +11,18 @@ import OceanTokens
 
 extension Ocean {
     public class ModalListViewController: BaseModalViewController, UITableViewDelegate, UITableViewDataSource {
+        
         struct Constants {
             static let heightCell: CGFloat = 48
             static let heightCellWithImages: CGFloat = 73
         }
+        
+        public var onValueSelected: ((Int, CellModel) -> Void)?
+        
+        var contentTitle: String?
+        var contentValues: [CellModel]?
+        var onPrimaryAction: (() -> Void)?
+        var onSecondaryAction: (() -> Void)?
 
         private lazy var tableView: UITableView = {
             let tableView = UITableView()
@@ -27,15 +35,66 @@ extension Ocean {
             tableView.separatorStyle =  .none
             return tableView
         }()
-
-        public var onValueSelected: ((Int, CellModel) -> Void)?
-
-        var contentTitle: String?
-        var contentValues: [CellModel]?
+        
+        private lazy var divider: Ocean.Divider = {
+            let divider = Ocean.Divider()
+            divider.translatesAutoresizingMaskIntoConstraints = true
+            divider.isHidden = true
+            return divider
+        }()
+        
+//        lazy var bottomPrimaryButton: Ocean.ButtonPrimary = {
+//            Ocean.Button.primaryMD { button in
+//                button.translatesAutoresizingMaskIntoConstraints = false
+//                button.text = "Primary"
+//                button.isHidden = true
+//                button.onTouch = { [weak self] in
+//                    guard let self = self else { return }
+//                    self.dismiss(animated: true) {
+//                        self.onPrimaryAction?()
+//                    }
+//                }
+//            }
+//        }()
+//
+//        lazy var bottomSecondaryButton: Ocean.ButtonSecondary = {
+//            Ocean.Button.secondaryMD { button in
+//                button.translatesAutoresizingMaskIntoConstraints = false
+//                button.text = "Secondary"
+//                button.isHidden = true
+//                button.onTouch = { [weak self] in
+//                    guard let self = self else { return }
+//                    self.dismiss(animated: true) {
+//                        self.onSecondaryAction?()
+//                    }
+//                }
+//            }
+//        }()
+        
+        private lazy var bottomStack: Ocean.StackView = {
+            Ocean.StackView { stackView in
+                stackView.translatesAutoresizingMaskIntoConstraints = false
+                stackView.axis = .vertical
+                stackView.distribution = .fill
+                stackView.alignment = .fill
+                stackView.spacing = Ocean.size.spacingStackXs
+                stackView.layoutMargins = UIEdgeInsets(top: Ocean.size.spacingInsetSm,
+                                                       left: Ocean.size.spacingInsetSm,
+                                                       bottom: 0,
+                                                       right: Ocean.size.spacingInsetSm)
+                stackView.isLayoutMarginsRelativeArrangement = true
+                
+//                stackView.add([
+//                    bottomPrimaryButton,
+//                    bottomSecondaryButton
+//                ])
+            }
+        }()
 
         override func makeView() {
             var totalSpacing = heightSpacing
             totalSpacing += Ocean.size.spacingStackXxs
+            
             mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxs))
 
             let topSpacing = Ocean.size.spacingStackMd
@@ -47,7 +106,8 @@ extension Ocean {
                 mainStack.addArrangedSubview(Spacer(space: topSpacing))
             }
 
-            totalSpacing += addTitleIfExist()
+            totalSpacing += addTitleIfExists()
+            totalSpacing += addBottomIfExists()
 
             if let contentValues = contentValues {
                 let pureHeight = contentValues.first?.imageIcon != nil ? Constants.heightCellWithImages : Constants.heightCell
@@ -58,7 +118,7 @@ extension Ocean {
             spTransitionDelegate.customHeight = totalSpacing
         }
 
-        fileprivate func addTitleIfExist() -> CGFloat {
+        fileprivate func addTitleIfExists() -> CGFloat {
             guard let title = contentTitle else {
                 return 0
             }
@@ -83,31 +143,113 @@ extension Ocean {
             let totalLines = (label.frame.width / widthWithoutSpacing).rounded()
             return (totalLines * label.frame.height) + bottomSpacing
         }
+        
+        fileprivate func addBottomIfExists() -> CGFloat {
+            var totalSpacing = 0.0
+            
+//            if !bottomPrimaryButton.isHidden {
+//                totalSpacing += bottomPrimaryButton.height
+//                totalSpacing += Ocean.size.spacingStackXs
+//            }
+//
+//            if !bottomSecondaryButton.isHidden {
+//                totalSpacing += bottomSecondaryButton.height
+//                totalSpacing += Ocean.size.spacingStackXs
+//            }
+            
+            bottomStack.subviews.forEach {
+                if let subview = $0 as? ButtonPrimary {
+                    totalSpacing += subview.height
+                } else if let subview = $0 as? ButtonSecondary {
+                    totalSpacing += subview.height
+                }
+            }
+            
+            if bottomStack.subviews.contains(where: { !$0.isHidden }) {
+                totalSpacing += bottomStack.spacing
+            }
+
+            if totalSpacing > 0 {
+                divider.isHidden = false
+            }
+            
+            return totalSpacing
+        }
 
         public override func viewDidLoad() {
             super.viewDidLoad()
-            self.view.addSubview(tableView)
+            view.addSubview(tableView)
+            view.addSubview(bottomStack)
+            view.addSubview(divider)
             addConstraintMainStack()
             addConstraintTableView()
+            addConstraintBottomStack()
+            addConstraintDivider()
+        }
+        
+        public func addPrimaryButton(text: String, icon: UIImage? = nil, action: (() -> Void)? = nil) {
+            let button = Ocean.Button.primaryMD { button in
+                button.translatesAutoresizingMaskIntoConstraints = false
+                button.text = text
+                button.icon = icon
+                button.onTouch = { [weak self] in
+                    guard let self = self else { return }
+                    self.dismiss(animated: true) {
+                        self.onPrimaryAction?()
+                    }
+                }
+            }
+            
+            bottomStack.add([button])
+        }
+        
+        public func addSecondaryButton(text: String, icon: UIImage? = nil, action: (() -> Void)? = nil) {
+            let button = Ocean.Button.secondaryMD { button in
+                button.translatesAutoresizingMaskIntoConstraints = false
+                button.text = text
+                button.icon = icon
+                button.onTouch = { [weak self] in
+                    guard let self = self else { return }
+                    self.dismiss(animated: true) {
+                        self.onSecondaryAction?()
+                    }
+                }
+            }
+            
+            bottomStack.add([button])
         }
 
         private func addConstraintMainStack() {
-            NSLayoutConstraint.activate([
-                mainStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                mainStack.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,
-                                                constant: Ocean.size.spacingStackSm),
-                mainStack.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor,
-                                                 constant: -Ocean.size.spacingStackSm)
-            ])
+            mainStack.oceanConstraints
+                .topToTop(to: view, safeArea: true)
+                .leadingToLeading(to: view, constant: Ocean.size.spacingStackSm, safeArea: true)
+                .trailingToTrailing(to: view, constant: -Ocean.size.spacingStackSm, safeArea: true)
+                .make()
         }
 
         private func addConstraintTableView() {
-            NSLayoutConstraint.activate([
-                tableView.topAnchor.constraint(equalTo: mainStack.bottomAnchor),
-                tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-                tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-                tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
-            ])
+            tableView.oceanConstraints
+                .topToBottom(to: mainStack)
+                .leadingToLeading(to: view, safeArea: true)
+                .trailingToTrailing(to: view, safeArea: true)
+                .make()
+        }
+        
+        private func addConstraintBottomStack() {
+            bottomStack.oceanConstraints
+                .topToBottom(to: tableView)
+                .bottomToBottom(to: view, safeArea: true)
+                .leadingToLeading(to: view, safeArea: true)
+                .trailingToTrailing(to: view, safeArea: true)
+                .make()
+        }
+        
+        private func addConstraintDivider() {
+            divider.oceanConstraints
+                .topToTop(to: bottomStack)
+                .leadingToLeading(to: view, safeArea: true)
+                .trailingToTrailing(to: view, safeArea: true)
+                .make()
         }
 
         public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
