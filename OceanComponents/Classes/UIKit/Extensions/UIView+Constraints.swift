@@ -66,22 +66,30 @@ extension OceanConstraintsDSL {
         return self
     }
 
-    public func width(to view: UIView, constant: CGFloat = 0,
-                      priority: UILayoutPriority = .required, type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
+    public func width(to view: UIView,
+                      constant: CGFloat = 0,
+                      priority: UILayoutPriority = .required,
+                      type: OceanConstraintsAnchorType = .equalTo,
+                      multiplier: CGFloat = 1) -> OceanConstraintsDSL {
         let constraint = createConstraintTo(type: type,
                                             anchorFrom: self.view.widthAnchor,
                                             anchorTo: view.widthAnchor,
+                                            multiplier: multiplier,
                                             constant: constant)
         constraint.priority = priority
         constraints.append(constraint)
         return self
     }
 
-    public func height(to view: UIView, constant: CGFloat = 0,
-                       priority: UILayoutPriority = .required, type: OceanConstraintsAnchorType = .equalTo) -> OceanConstraintsDSL {
+    public func height(to view: UIView,
+                       constant: CGFloat = 0,
+                       priority: UILayoutPriority = .required,
+                       type: OceanConstraintsAnchorType = .equalTo,
+                       multiplier: CGFloat = 1) -> OceanConstraintsDSL {
         let constraint = createConstraintTo(type: type,
                                             anchorFrom: self.view.heightAnchor,
                                             anchorTo: view.heightAnchor,
+                                            multiplier: multiplier,
                                             constant: constant)
         constraint.priority = priority
         constraints.append(constraint)
