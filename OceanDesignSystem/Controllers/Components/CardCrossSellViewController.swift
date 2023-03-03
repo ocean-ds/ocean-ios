@@ -52,7 +52,7 @@ class CardCrossSellViewController: UIViewController {
             .make()
 
         cardView2.oceanConstraints
-            .topToBottom(to: self.view, constant: 16)
+            .topToBottom(to: cardView1, constant: 16)
             .leadingToLeading(to: self.view, constant: 16)
             .trailingToTrailing(to: self.view, constant: -16)
             .make()

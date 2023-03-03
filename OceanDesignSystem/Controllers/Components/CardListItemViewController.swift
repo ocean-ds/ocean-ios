@@ -58,21 +58,31 @@ final public class CardListItemViewController: UIViewController {
     
     lazy var mainStack: Ocean.StackView = {
         let stack = Ocean.StackView()
-        stack.alignment = .center
+        stack.alignment = .fill
         stack.distribution = .fill
         stack.axis = .vertical
         stack.spacing = Ocean.size.spacingStackXxs
-        stack.setMargins(horizontal: Ocean.size.spacingInsetSm)
-        
-        [card1, card2, card3, card4, card5, card6].forEach{ card in
-            stack.addArrangedSubview(card)
-        }
+
+        stack.add([
+            card1,
+            card2,
+            card3,
+            card4,
+            card5,
+            card6
+        ])
         
         return stack
     }()
     
     public override func viewDidLoad() {
         self.view.backgroundColor = .white
-        self.add(view: mainStack)
+        self.view.addSubview(mainStack)
+
+        mainStack.oceanConstraints
+            .topToTop(to: view, constant: 16)
+            .leadingToLeading(to: view, constant: 16)
+            .trailingToTrailing(to: view, constant: -16)
+            .make()
     }
 }

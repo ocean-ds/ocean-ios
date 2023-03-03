@@ -67,6 +67,12 @@ final public class RadioButtonViewController : UIViewController {
         stack.addArrangedSubview(rb4)
         stack.addArrangedSubview(rb5)
         
-        self.add(view: stack)
+        self.view.addSubview(stack)
+
+        stack.oceanConstraints
+            .topToTop(to: view, constant: 16)
+            .leadingToLeading(to: view, constant: 16)
+            .trailingToTrailing(to: view, constant: -16)
+            .make()
     }
 }

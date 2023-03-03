@@ -27,7 +27,7 @@ class GroupCTAViewController: UIViewController {
         self.view.addSubviews(cta1)
         
         cta1.oceanConstraints
-            .topToTop(to: self.view)
+            .topToTop(to: self.view, constant: 16)
             .leadingToLeading(to: self.view, constant: 16)
             .trailingToTrailing(to: self.view, constant: -16)
             .make()

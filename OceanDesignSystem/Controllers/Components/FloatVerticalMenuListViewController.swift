@@ -40,6 +40,7 @@ final public class FloatVerticalMenuListViewController: UIViewController, OceanN
 
         self.navBarMenu.oceanConstraints
             .fill(to: self.view)
+            .make()
     }
     
     @objc func actionItemMenu1() {

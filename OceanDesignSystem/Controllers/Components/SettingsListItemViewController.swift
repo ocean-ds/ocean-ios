@@ -101,7 +101,13 @@ final public class SettingsListItemViewController: UIViewController {
     
     public override func viewDidLoad() {
         self.view.backgroundColor = .white
-        self.add(view: mainStack)
+        self.view.addSubview(mainStack)
+
+        mainStack.oceanConstraints
+            .topToTop(to: self.view, constant: 16)
+            .leadingToLeading(to: self.view)
+            .trailingToTrailing(to: self.view)
+            .make()
     }
     
     private func onClick() -> Void {

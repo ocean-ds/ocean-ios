@@ -46,7 +46,6 @@ final public class CheckBoxViewController : UIViewController {
         stack.distribution = .fill
         stack.axis = .vertical
         stack.spacing = Ocean.size.spacingStackXxs
-        stack.setMargins(horizontal: Ocean.size.spacingStackXs)
         
         stack.addArrangedSubview(ck1)
         stack.addArrangedSubview(ck2)
@@ -55,6 +54,12 @@ final public class CheckBoxViewController : UIViewController {
         stack.addArrangedSubview(ck4)
         stack.addArrangedSubview(ck5)
         
-        self.add(view: stack)
+        self.view.addSubview(stack)
+
+        stack.oceanConstraints
+            .topToTop(to: view, constant: 16)
+            .leadingToLeading(to: view, constant: 16)
+            .trailingToTrailing(to: view, constant: -16)
+            .make()
     }
 }

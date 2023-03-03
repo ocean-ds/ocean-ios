@@ -119,7 +119,7 @@ extension Ocean {
                 .topToTop(to: backgroundRounded, constant: Ocean.size.borderRadiusSm)
                 .leadingToLeading(to: backgroundRounded, constant: Ocean.size.spacingStackXxs)
                 .trailingToTrailing(to: backgroundRounded, constant: -Ocean.size.spacingStackXxs)
-                .bottomToBottom(to: backgroundRounded, constant: Ocean.size.spacingStackXxs)
+                .bottomToBottom(to: backgroundRounded, constant: -Ocean.size.spacingStackXxs)
                 .make()
 
             backgroundClearView.oceanConstraints
@@ -145,7 +145,7 @@ extension Ocean {
             switch position {
             case .top:
                 contentView.oceanConstraints
-                    .bottomToTop(to: target, constant: 20)
+                    .bottomToTop(to: target, constant: -20)
                     .make()
 
                 backgroundRounded.oceanConstraints
@@ -176,7 +176,7 @@ extension Ocean {
                     .height(constant: Constants.triangleHeight)
                     .topToTop(to: contentView)
                     .leadingToLeading(to: target)
-                    .bottomToTop(to: backgroundRounded, constant: -2)
+                    .bottomToTop(to: backgroundRounded, constant: 2)
                     .make()
             }
 
