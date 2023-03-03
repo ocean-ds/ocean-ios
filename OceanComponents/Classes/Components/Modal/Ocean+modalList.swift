@@ -31,43 +31,11 @@ extension Ocean {
             return self
         }
         
-//        public func withPrimaryButton(_ text: String,
-//                                      icon: UIImage? = nil,
-//                                      action: (() -> Void)? = nil) -> ModalList {
-//
-//            if icon == nil {
-//                print("SWPOCAS -> Icon is nil for primary")
-//            }
-//
-////            modalListViewController.bottomPrimaryButton.text = title
-////            modalListViewController.bottomPrimaryButton.icon = icon
-////            modalListViewController.bottomPrimaryButton.isHidden = false
-////            modalListViewController.onPrimaryAction = action
-//            modalListViewController.addPrimaryButton(text: text, icon: icon, action: action)
-//            return self
-//        }
-//
-//        public func withSecondaryButton(_ text: String,
-//                                        icon: UIImage? = nil,
-//                                        action: (() -> Void)? = nil) -> ModalList {
-//
-//            if icon == nil {
-//                print("SWPOCAS -> Icon is nil for secondary")
-//            }
-//
-////            modalListViewController.bottomSecondaryButton.text = title
-////            modalListViewController.bottomSecondaryButton.icon = icon
-////            modalListViewController.bottomSecondaryButton.isHidden = false
-////            modalListViewController.onSecondaryAction = action
-//
-//            modalListViewController.addSecondaryButton(text: text, icon: icon, action: action)
-//            return self
-//        }
-        
-        public func withActionPrimary(text: String, action: (() -> Void)?) -> ModalList {
+        public func withActionPrimary(text: String, icon: UIImage? = nil, action: (() -> Void)?) -> ModalList {
             modalListViewController.actionsAxis = .vertical
             modalListViewController.actions.append(Ocean.Button.primaryBlockedMD { button in
                 button.text = text
+                button.icon = icon
                 button.onTouch = {
                     self.modalListViewController.dismiss(animated: true) {
                         action?()
@@ -77,10 +45,11 @@ extension Ocean {
             return self
         }
         
-        public func withActionSecondary(text: String, action: (() -> Void)?) -> ModalList {
+        public func withActionSecondary(text: String, icon: UIImage? = nil, action: (() -> Void)?) -> ModalList {
             modalListViewController.actionsAxis = .vertical
             modalListViewController.actions.append(Ocean.Button.secondaryBlockedMD { button in
                 button.text = text
+                button.icon = icon
                 button.onTouch = {
                     self.modalListViewController.dismiss(animated: true) {
                         action?()

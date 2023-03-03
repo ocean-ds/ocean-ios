@@ -92,19 +92,8 @@ class ModalViewController: UIViewController {
                 Ocean.CellModel(title: "Title 1", isSelected: true),
                 Ocean.CellModel(title: "Title 2")
             ])
-//            .withPrimaryButton("Primary action",
-//                               icon: Ocean.icon.plusSolid,
-//                               action: {
-//                let alertController = UIAlertController(title: "Test",
-//                                                        message: "Toched on primary button",
-//                                                        preferredStyle: .alert)
-//                alertController.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-//                    alertController.dismiss(animated: true)
-//                })
-//                self.show(alertController, sender: self)
-//            })
             .withActionPrimary(text: "Primary action",
-//                               icon: Ocean.icon.plusSolid,
+                               icon: Ocean.icon.plusSolid,
                                action: {
                 let alertController = UIAlertController(title: "Test",
                                                         message: "Toched on primary button",
@@ -115,7 +104,7 @@ class ModalViewController: UIViewController {
                 self.show(alertController, sender: self)
             })
             .withActionSecondary(text: "Secondary action",
-//                                 icon: Ocean.icon.minusSolid,
+                                 icon: Ocean.icon.minusSolid,
                                  action: {
                 let alertController = UIAlertController(title: "Test",
                                                         message: "Toched on secondary button",
