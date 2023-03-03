@@ -90,11 +90,10 @@ extension Ocean {
                 return 0
             }
 
-            let label = Ocean.Typography.heading3 { label in
+            let label = Ocean.Typography.heading4 { label in
                 label.text = title
                 label.textAlignment = .left
                 label.numberOfLines = 0
-                label.textColor = Ocean.color.colorBrandPrimaryPure
                 label.translatesAutoresizingMaskIntoConstraints = false
                 label.adjustsFontSizeToFitWidth = true
                 label.minimumScaleFactor = 0.82
