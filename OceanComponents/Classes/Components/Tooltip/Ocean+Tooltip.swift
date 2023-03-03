@@ -110,12 +110,21 @@ extension Ocean {
             backgroundRounded.backgroundColor = Ocean.color.colorInterfaceDarkDeep
             backgroundRounded.layer.cornerRadius = 4
             backgroundRounded.clipsToBounds = false
-            backgroundRounded.setConstraints(([.horizontalMargin(.zero)], toView: contentView))
+            backgroundRounded.oceanConstraints
+                .leadingToLeading(to: contentView)
+                .trailingToTrailing(to: contentView)
+                .make()
 
-            contentStack.setConstraints(([.horizontalMargin(Ocean.size.spacingStackXxs),
-                                          .bottomToBottom(Ocean.size.spacingStackXxs),
-                                          .topToTop(Ocean.size.borderRadiusSm)], toView: backgroundRounded))
-            backgroundClearView.setConstraints((.fillSuperView, toView: self))
+            contentStack.oceanConstraints
+                .topToTop(to: backgroundRounded, constant: Ocean.size.borderRadiusSm)
+                .leadingToLeading(to: backgroundRounded, constant: Ocean.size.spacingStackXxs)
+                .trailingToTrailing(to: backgroundRounded, constant: -Ocean.size.spacingStackXxs)
+                .bottomToBottom(to: backgroundRounded, constant: Ocean.size.spacingStackXxs)
+                .make()
+
+            backgroundClearView.oceanConstraints
+                .fill(to: self)
+                .make()
 
             [backgroundClearView, contentView].forEach({ view in
                 view.isUserInteractionEnabled = true
@@ -135,33 +144,54 @@ extension Ocean {
 
             switch position {
             case .top:
-                contentView.setConstraints((.bottomToTop(20), toView: target))
-                backgroundRounded.setConstraints((.bondToTop, toView: contentView))
+                contentView.oceanConstraints
+                    .bottomToTop(to: target, constant: 20)
+                    .make()
+
+                backgroundRounded.oceanConstraints
+                    .topToTop(to: contentView)
+                    .make()
+
                 triangleView.transform = .identity
                 triangleView.rotate(angle: 180)
-                triangleView.setConstraints(([.topToBottom(-2),
-                                              .width(Constants.triangleWidth),
-                                              .height(Constants.triangleHeight)
-                                            ], toView: backgroundRounded),
-                                            ([.bondToBottom], toView: contentView),
-                                            ([.bondToLeading], toView: target))
+
+                triangleView.oceanConstraints
+                    .width(constant: Constants.triangleWidth)
+                    .height(constant: Constants.triangleHeight)
+                    .topToBottom(to: backgroundRounded, constant: -2)
+                    .leadingToLeading(to: target)
+                    .bottomToBottom(to: contentView)
+                    .make()
             case .bottom:
-                contentView.setConstraints((.topToBottom(20), toView: target))
-                backgroundRounded.setConstraints((.bondToBottom, toView: contentView))
-                triangleView.setConstraints(([.bottomToTop(-2),
-                                              .width(Constants.triangleWidth),
-                                              .height(Constants.triangleHeight)
-                                            ], toView: backgroundRounded),
-                                            ([.bondToTop], toView: contentView),
-                                            ([.bondToLeading], toView: target))
+                contentView.oceanConstraints
+                    .topToBottom(to: target, constant: 20)
+                    .make()
+
+                backgroundRounded.oceanConstraints
+                    .bottomToBottom(to: contentView)
+                    .make()
+
+                triangleView.oceanConstraints
+                    .width(constant: Constants.triangleWidth)
+                    .height(constant: Constants.triangleHeight)
+                    .topToTop(to: contentView)
+                    .leadingToLeading(to: target)
+                    .bottomToTop(to: backgroundRounded, constant: -2)
+                    .make()
             }
 
-            contentView.setConstraints(([.width(UIScreen.main.bounds.width - Ocean.size.spacingInlineLg),
-                                         .centerHorizontally], toView: self))
+            contentView.oceanConstraints
+                .width(constant: UIScreen.main.bounds.width - Ocean.size.spacingInlineLg)
+                .centerX(to: self)
+                .make()
 
-            self.setConstraints(([.width(UIScreen.main.bounds.width),
-                                  .height(UIScreen.main.bounds.height),
-                                  .sameCenter], toView: self.superview))
+            if let superview = self.superview {
+                self.oceanConstraints
+                    .width(constant: UIScreen.main.bounds.width)
+                    .height(constant: UIScreen.main.bounds.height)
+                    .center(to: superview)
+                    .make()
+            }
 
             self.setNeedsLayout()
             self.layoutIfNeeded()

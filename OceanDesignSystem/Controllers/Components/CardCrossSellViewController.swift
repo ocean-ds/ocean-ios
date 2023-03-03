@@ -44,8 +44,17 @@ class CardCrossSellViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.view.addSubviews(cardView1, cardView2)
-        cardView1.setConstraints(([.topToTop(16), .horizontalMargin(16)], toView: self.view))
-        cardView2.setConstraints(([.horizontalMargin(16)], toView: self.view),
-                                 ([.topToBottom(16)], toView: cardView1))
+
+        cardView1.oceanConstraints
+            .topToTop(to: self.view, constant: 16)
+            .leadingToLeading(to: self.view, constant: 16)
+            .trailingToTrailing(to: self.view, constant: -16)
+            .make()
+
+        cardView2.oceanConstraints
+            .topToBottom(to: self.view, constant: 16)
+            .leadingToLeading(to: self.view, constant: 16)
+            .trailingToTrailing(to: self.view, constant: -16)
+            .make()
     }
 }

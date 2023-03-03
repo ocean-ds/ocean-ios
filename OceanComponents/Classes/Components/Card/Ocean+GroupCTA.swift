@@ -74,10 +74,18 @@ extension Ocean {
         private func setupUI() {
             self.backgroundColor = Ocean.color.colorInterfaceLightPure
             self.addSubviews(textButton, spinner)
-            textButton.setConstraints((.fillSuperView, toView: self))
-            spinner.setConstraints(([.centerVertically,
-                                     .centerHorizontally], toView: self))
-            self.setConstraints((.height(Constants.height), toView: nil))
+
+            textButton.oceanConstraints
+                .fill(to: self)
+                .make()
+
+            spinner.oceanConstraints
+                .center(to: self)
+                .make()
+
+            self.oceanConstraints
+                .height(constant: Constants.height)
+                .make()
         }
 
         private func updateUI() {

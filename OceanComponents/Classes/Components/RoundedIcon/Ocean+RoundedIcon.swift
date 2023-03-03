@@ -83,7 +83,10 @@ extension Ocean {
         private func setupUI() {
             self.add(view: roundedIconView)
 
-            iconView.setConstraints((.squareSize(Ocean.size.spacingStackMd), toView: nil))
+            iconView.oceanConstraints
+                .width(constant: Ocean.size.spacingStackMd)
+                .height(constant: Ocean.size.spacingStackMd)
+                .make()
 
             self.isSkeletonable = true
         }

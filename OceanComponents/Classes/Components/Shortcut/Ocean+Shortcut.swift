@@ -106,7 +106,9 @@ extension Ocean {
         private func setupCollectionView() {
             addSubview(carouselCollectionView)
 
-            carouselCollectionView.setConstraints((.fillSuperView, toView: self))
+            carouselCollectionView.oceanConstraints
+                .fill(to: self)
+                .make()
         }
 
         private func updateHeightConstraints(quantityPage: CGFloat) {

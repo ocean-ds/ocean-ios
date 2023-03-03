@@ -113,25 +113,32 @@ extension Ocean {
         }
 
         private func setupConstraints() {
-            mainStack.setConstraints((.fillSuperView, toView: self))
+            mainStack.oceanConstraints
+                .fill(to: self)
+                .make()
             
             mainStack.add([containerView])
             containerView.addSubviews(tabStack, selectionLineView, divider)
 
-            tabStack.setConstraints(([.topToTop(.zero),
-                                      .leadingToLeading(.zero),
-                                      .trailingToTrailing(.zero),
-                                      .height(Constants.tabHeight)], toView: containerView)
-            )
+            tabStack.oceanConstraints
+                .topToTop(to: containerView)
+                .leadingToLeading(to: containerView)
+                .trailingToTrailing(to: containerView)
+                .height(constant: Constants.tabHeight)
+                .make()
             
-            selectionLineView.setConstraints(([.topToBottom(.zero),
-                                               .height(Constants.lineHeight)], toView: tabStack))
+            selectionLineView.oceanConstraints
+                .topToBottom(to: tabStack)
+                .height(constant: Constants.lineHeight)
+                .make()
             
-            divider.setConstraints(([.leadingToLeading(.zero),
-                                     .trailingToTrailing(.zero),
-                                     .bottomToBottom(.zero)], toView: containerView),
-                                   ([.topToBottom(.zero)], toView: selectionLineView))
-            
+            divider.oceanConstraints
+                .topToBottom(to: selectionLineView)
+                .leadingToLeading(to: containerView)
+                .trailingToTrailing(to: containerView)
+                .bottomToBottom(to: containerView)
+                .make()
+
             selectionLineViewWidthConstraint.isActive = true
             selectionLineViewLeadingConstraint.isActive = true
         }
@@ -190,13 +197,21 @@ extension Ocean {
             containerItemView.backgroundColor = .clear
             containerItemView.addSubviews(itemView, button)
 
-            containerItemView.setConstraints((.width(Constants.lineWidth), toView: nil))
+            containerItemView.oceanConstraints
+                .width(constant: Constants.lineWidth)
+                .make()
 
-            itemView.setConstraints(([.centerVertically, .centerHorizontally], toView: containerItemView))
+            itemView.oceanConstraints
+                .center(to: containerItemView)
+                .make()
 
-            itemStack.setConstraints(([.fillSuperView], toView: itemView))
+            itemStack.oceanConstraints
+                .fill(to: itemView)
+                .make()
 
-            button.setConstraints((.fillSuperView, toView: containerItemView))
+            button.oceanConstraints
+                .fill(to: containerItemView)
+                .make()
 
             return containerItemView
         }

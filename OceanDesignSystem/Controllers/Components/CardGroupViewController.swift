@@ -16,12 +16,20 @@ final public class CardGroupViewController : UIViewController {
         self.view.backgroundColor = Ocean.color.colorInterfaceLightPure
         
         let containerView = UIView()
-        containerView.setConstraints(([.width(250),
-                                       .height(60)], toView: nil))
+
+        containerView.oceanConstraints
+            .width(constant: 250)
+            .height(constant: 60)
+            .make()
+
         let label = UILabel()
         label.text = "Test card content"
         label.textColor = Ocean.color.colorInterfaceDarkDeep
         containerView.addSubview(label)
+
+        label.oceanConstraints
+            .center(to: containerView)
+            .make()
 
         let cardGroup1 = Ocean.CardGroup { view in
             view.image = Ocean.icon.cloudOutline
@@ -68,10 +76,10 @@ final public class CardGroupViewController : UIViewController {
 
         self.view.addSubview(stack)
 
-        label.setConstraints((.sameCenter, toView: containerView))
-        stack.setConstraints(([.width(250),
-                               .centerHorizontally,
-                               .topToTop(24)], toView: self.view))
-
+        stack.oceanConstraints
+            .width(constant: 250)
+            .centerX(to: self.view)
+            .topToTop(to: self.view, constant: 24)
+            .make()
     }
 }

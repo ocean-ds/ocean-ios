@@ -169,13 +169,20 @@ extension Ocean {
 
         private func setupUI() {
             self.addSubviews(parentTextList, tableView)
-            parentTextList.setConstraints(([.topToTop(0),
-                                            .leadingToLeading(0),
-                                            .trailingToTrailing(0)], toView: self))
-            tableView.setConstraints(([.topToBottom(0)], toView: parentTextList),
-                                     ([.leadingToLeading(0),
-                                       .trailingToTrailing(0),
-                                       .bottomToBottom(0)], toView: self))
+
+            parentTextList.oceanConstraints
+                .topToTop(to: self)
+                .leadingToLeading(to: self)
+                .trailingToTrailing(to: self)
+                .make()
+
+            tableView.oceanConstraints
+                .topToBottom(to: parentTextList)
+                .leadingToLeading(to: self)
+                .trailingToTrailing(to: self)
+                .bottomToBottom(to: self)
+                .make()
+                
             heightConstraint.isActive = true
         }
 

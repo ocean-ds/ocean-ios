@@ -112,9 +112,14 @@ extension Ocean {
             let view = UIView()
             view.backgroundColor = .clear
             view.addSubview(badgeView)
-            view.setConstraints((.width(badgeView.frame.width), toView: nil))
-            badgeView.setConstraints(([.topToTop(.zero),
-                                       .trailingToTrailing(.zero)], toView: view))
+            view.oceanConstraints
+                .width(constant: badgeView.frame.width)
+                .make()
+
+            badgeView.oceanConstraints
+                .topToTop(to: view)
+                .trailingToTrailing(to: view)
+                .make()
 
             return view
         }()

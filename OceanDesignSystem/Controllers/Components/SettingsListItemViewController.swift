@@ -82,7 +82,7 @@ final public class SettingsListItemViewController: UIViewController {
     
     lazy var mainStack: Ocean.StackView = {
         let stack = Ocean.StackView()
-        stack.alignment = .center
+        stack.alignment = .fill
         stack.distribution = .fill
         stack.axis = .vertical
         stack.spacing = Ocean.size.spacingStackXxs
@@ -102,20 +102,6 @@ final public class SettingsListItemViewController: UIViewController {
     public override func viewDidLoad() {
         self.view.backgroundColor = .white
         self.add(view: mainStack)
-        [settingListItem1,
-         settingListItem2,
-         settingListItem3,
-         settingListItem4,
-         settingListItem5,
-         settingListItem6].forEach{ card in
-            card.setConstraints((.horizontalMargin(0), toView: self.view))
-        }
-    }
-    
-    private func add(view: UIView) {
-        self.view.addSubview(view)
-        
-        view.setConstraints((.sameCenter, toView: self.view))
     }
     
     private func onClick() -> Void {

@@ -65,9 +65,15 @@ extension Ocean {
             let view = UIView()
             view.addSubviews(titleLabel, tooltipImageView)
 
-            tooltipImageView.setConstraints(([.leadingToTrailing(Ocean.size.spacingStackXxxs),
-                                              .centerVertically], toView: self.titleLabel))
-            titleLabel.setConstraints(([.topToTop(.zero), .leadingToLeading(.zero)], toView: view))
+            tooltipImageView.oceanConstraints
+                .leadingToTrailing(to: self.titleLabel, constant: Ocean.size.spacingStackXxxs)
+                .centerY(to: self.titleLabel)
+                .make()
+
+            titleLabel.oceanConstraints
+                .topToTop(to: view)
+                .leadingToLeading(to: view)
+                .make()
 
             return view
         }()
@@ -98,7 +104,11 @@ extension Ocean {
 
         private func setupUI() {
             addSubview(itemStack)
-            itemStack.setConstraints((.fillSuperView, toView: self), (.heightToHeight(0), toView: titleLabel))
+
+            itemStack.oceanConstraints
+                .fill(to: self)
+                .height(to: titleLabel)
+                .make()
         }
 
         @objc private func tooltipClick() {

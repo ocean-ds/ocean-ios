@@ -37,7 +37,9 @@ final public class FloatVerticalMenuListViewController: UIViewController, OceanN
 
     private func setupNavBar() {
         self.view.addSubview(navBarMenu)
-        self.navBarMenu.setConstraints((.fillSuperView, toView: self.view)) //self.mainStack
+
+        self.navBarMenu.oceanConstraints
+            .fill(to: self.view)
     }
     
     @objc func actionItemMenu1() {

@@ -58,6 +58,7 @@ final public class RadioButtonViewController : UIViewController {
         stack.distribution = .fill
         stack.axis = .vertical
         stack.spacing = Ocean.size.spacingStackXxs
+        stack.setMargins(horizontal: Ocean.size.spacingStackXs)
         
         stack.addArrangedSubview(rb1)
         stack.addArrangedSubview(rb2)
@@ -67,17 +68,5 @@ final public class RadioButtonViewController : UIViewController {
         stack.addArrangedSubview(rb5)
         
         self.add(view: stack)
-        stack.setConstraints(([.horizontalMargin(Ocean.size.spacingStackXs),
-                               .centerVertically], toView: self.view))
-    }
-    
-    private func add(view: UIView) {
-        self.view.addSubview(view)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            view.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            view.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
-        ])
     }
 }

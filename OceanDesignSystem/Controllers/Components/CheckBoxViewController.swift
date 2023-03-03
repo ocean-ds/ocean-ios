@@ -46,6 +46,7 @@ final public class CheckBoxViewController : UIViewController {
         stack.distribution = .fill
         stack.axis = .vertical
         stack.spacing = Ocean.size.spacingStackXxs
+        stack.setMargins(horizontal: Ocean.size.spacingStackXs)
         
         stack.addArrangedSubview(ck1)
         stack.addArrangedSubview(ck2)
@@ -55,12 +56,5 @@ final public class CheckBoxViewController : UIViewController {
         stack.addArrangedSubview(ck5)
         
         self.add(view: stack)
-        stack.setConstraints(([.horizontalMargin(Ocean.size.spacingStackXs),
-                               .centerVertically], toView: self.view))
-    }
-    
-    private func add(view: UIView) {
-        self.view.addSubview(view)
-        view.setConstraints((.sameCenter, toView: self.view))
     }
 }

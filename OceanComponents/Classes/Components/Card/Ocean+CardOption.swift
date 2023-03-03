@@ -133,8 +133,12 @@ extension Ocean {
             view.addSubview(recommendLabel)
             view.isHidden = true
 
-            self.recommendLabel.setConstraints(([.horizontalMargin(Ocean.size.spacingStackXxs),
-                                                 .verticalMargin(Ocean.size.spacingStackXxxs)], toView: view))
+            self.recommendLabel.oceanConstraints
+                .topToTop(to: view, constant: Ocean.size.spacingStackXxxs)
+                .leadingToLeading(to: view, constant: Ocean.size.spacingStackXxs)
+                .trailingToTrailing(to: view, constant: -Ocean.size.spacingStackXxs)
+                .bottomToBottom(to: view, constant: -Ocean.size.spacingStackXxxs)
+                .make()
 
             return view
         }()
@@ -257,9 +261,10 @@ extension Ocean {
             add(view: mainStack)
             addSubview(recommendView)
 
-            recommendView.setConstraints(([.topToTop(.zero),
-                                           .trailingToTrailing(.zero)],
-                                          toView: self))
+            recommendView.oceanConstraints
+                .topToTop(to: self)
+                .trailingToTrailing(to: self)
+                .make()
 
             heightConstraint = mainStack.heightAnchor.constraint(equalToConstant: Constants.heightLg)
             imageHeightConstraint = roundedIconView.heightAnchor.constraint(equalToConstant: Constants.roundedViewHeightWidthLg)

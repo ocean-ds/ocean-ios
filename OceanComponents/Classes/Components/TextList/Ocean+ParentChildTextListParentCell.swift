@@ -138,7 +138,10 @@ extension Ocean {
 
         private func setupUI() {
             self.add(view: mainStack)
-            self.setConstraints((.height(Constants.height), toView: nil))
+
+            self.oceanConstraints
+                .height(constant: Constants.height)
+                .make()
 
             self.addTapGesture(selector: #selector(viewTapped))
         }
