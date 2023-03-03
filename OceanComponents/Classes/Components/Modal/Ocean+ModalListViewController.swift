@@ -21,8 +21,8 @@ extension Ocean {
         
         var contentTitle: String?
         var contentValues: [CellModel]?
-        var onPrimaryAction: (() -> Void)?
-        var onSecondaryAction: (() -> Void)?
+        var actionsAxis: NSLayoutConstraint.Axis = .vertical
+        var actions: [UIControl] = []
 
         private lazy var tableView: UITableView = {
             let tableView = UITableView()
@@ -42,52 +42,19 @@ extension Ocean {
             divider.isHidden = true
             return divider
         }()
-        
-//        lazy var bottomPrimaryButton: Ocean.ButtonPrimary = {
-//            Ocean.Button.primaryMD { button in
-//                button.translatesAutoresizingMaskIntoConstraints = false
-//                button.text = "Primary"
-//                button.isHidden = true
-//                button.onTouch = { [weak self] in
-//                    guard let self = self else { return }
-//                    self.dismiss(animated: true) {
-//                        self.onPrimaryAction?()
-//                    }
-//                }
-//            }
-//        }()
-//
-//        lazy var bottomSecondaryButton: Ocean.ButtonSecondary = {
-//            Ocean.Button.secondaryMD { button in
-//                button.translatesAutoresizingMaskIntoConstraints = false
-//                button.text = "Secondary"
-//                button.isHidden = true
-//                button.onTouch = { [weak self] in
-//                    guard let self = self else { return }
-//                    self.dismiss(animated: true) {
-//                        self.onSecondaryAction?()
-//                    }
-//                }
-//            }
-//        }()
-        
+
         private lazy var bottomStack: Ocean.StackView = {
             Ocean.StackView { stackView in
                 stackView.translatesAutoresizingMaskIntoConstraints = false
-                stackView.axis = .vertical
+                stackView.axis = actionsAxis
                 stackView.distribution = .fill
                 stackView.alignment = .fill
                 stackView.spacing = Ocean.size.spacingStackXs
                 stackView.layoutMargins = UIEdgeInsets(top: Ocean.size.spacingInsetSm,
-                                                       left: Ocean.size.spacingInsetSm,
+                                                       left: 0,
                                                        bottom: 0,
-                                                       right: Ocean.size.spacingInsetSm)
+                                                       right: 0)
                 stackView.isLayoutMarginsRelativeArrangement = true
-                
-//                stackView.add([
-//                    bottomPrimaryButton,
-//                    bottomSecondaryButton
-//                ])
             }
         }()
 
@@ -107,7 +74,7 @@ extension Ocean {
             }
 
             totalSpacing += addTitleIfExists()
-            totalSpacing += addBottomIfExists()
+            totalSpacing += addActionsIfExist()
 
             if let contentValues = contentValues {
                 let pureHeight = contentValues.first?.imageIcon != nil ? Constants.heightCellWithImages : Constants.heightCell
@@ -144,36 +111,22 @@ extension Ocean {
             return (totalLines * label.frame.height) + bottomSpacing
         }
         
-        fileprivate func addBottomIfExists() -> CGFloat {
-            var totalSpacing = 0.0
-            
-//            if !bottomPrimaryButton.isHidden {
-//                totalSpacing += bottomPrimaryButton.height
-//                totalSpacing += Ocean.size.spacingStackXs
-//            }
-//
-//            if !bottomSecondaryButton.isHidden {
-//                totalSpacing += bottomSecondaryButton.height
-//                totalSpacing += Ocean.size.spacingStackXs
-//            }
-            
-            bottomStack.subviews.forEach {
-                if let subview = $0 as? ButtonPrimary {
-                    totalSpacing += subview.height
-                } else if let subview = $0 as? ButtonSecondary {
-                    totalSpacing += subview.height
-                }
-            }
-            
-            if bottomStack.subviews.contains(where: { !$0.isHidden }) {
-                totalSpacing += bottomStack.spacing
+        fileprivate func addActionsIfExist() -> CGFloat {
+            guard !actions.isEmpty else {
+                return 0
             }
 
-            if totalSpacing > 0 {
-                divider.isHidden = false
+            let topSpacing = bottomStack.layoutMargins.top
+            let bottomSpacing = bottomStack.layoutMargins.bottom
+
+            divider.isHidden = actions.isEmpty
+            actions.forEach { (control) in
+                bottomStack.addArrangedSubview(control)
             }
             
-            return totalSpacing
+            let actionsHeight: CGFloat = actionsAxis == .horizontal ? 48 : actions.count > 1 ? 112 : 48
+
+            return actionsHeight + topSpacing + bottomSpacing
         }
 
         public override func viewDidLoad() {
@@ -187,38 +140,6 @@ extension Ocean {
             addConstraintDivider()
         }
         
-        public func addPrimaryButton(text: String, icon: UIImage? = nil, action: (() -> Void)? = nil) {
-            let button = Ocean.Button.primaryMD { button in
-                button.translatesAutoresizingMaskIntoConstraints = false
-                button.text = text
-                button.icon = icon
-                button.onTouch = { [weak self] in
-                    guard let self = self else { return }
-                    self.dismiss(animated: true) {
-                        self.onPrimaryAction?()
-                    }
-                }
-            }
-            
-            bottomStack.add([button])
-        }
-        
-        public func addSecondaryButton(text: String, icon: UIImage? = nil, action: (() -> Void)? = nil) {
-            let button = Ocean.Button.secondaryMD { button in
-                button.translatesAutoresizingMaskIntoConstraints = false
-                button.text = text
-                button.icon = icon
-                button.onTouch = { [weak self] in
-                    guard let self = self else { return }
-                    self.dismiss(animated: true) {
-                        self.onSecondaryAction?()
-                    }
-                }
-            }
-            
-            bottomStack.add([button])
-        }
-
         private func addConstraintMainStack() {
             mainStack.oceanConstraints
                 .topToTop(to: view, safeArea: true)
@@ -239,8 +160,8 @@ extension Ocean {
             bottomStack.oceanConstraints
                 .topToBottom(to: tableView)
                 .bottomToBottom(to: view, safeArea: true)
-                .leadingToLeading(to: view, safeArea: true)
-                .trailingToTrailing(to: view, safeArea: true)
+                .leadingToLeading(to: view, constant: Ocean.size.spacingStackSm, safeArea: true)
+                .trailingToTrailing(to: view, constant: -Ocean.size.spacingStackSm, safeArea: true)
                 .make()
         }
         
