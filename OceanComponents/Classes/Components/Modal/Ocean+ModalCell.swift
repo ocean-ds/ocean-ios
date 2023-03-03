@@ -10,6 +10,7 @@ import OceanTokens
 
 extension Ocean {
     class ModalCell: UITableViewCell {
+        
         public var model: Ocean.CellModel? {
             didSet {
                 updateUI()
@@ -32,6 +33,14 @@ extension Ocean {
             return stack
         }()
         
+        private lazy var selectionBackgroundView: UIView = {
+            let view = UIView()
+            view.translatesAutoresizingMaskIntoConstraints = true
+            view.backgroundColor = Ocean.color.colorInterfaceLightUp
+            view.layer.cornerRadius = Ocean.size.borderRadiusMd
+            return view
+        }()
+        
         private lazy var iconImageView: UIImageView = {
             let imageView = UIImageView()
             imageView.contentMode = .scaleAspectFit
@@ -52,16 +61,13 @@ extension Ocean {
         }()
         
         private lazy var titleLabel: UILabel = {
-            Ocean.Typography.paragraph { label in
-                label.textColor = Ocean.color.colorInterfaceDarkDeep
+            Ocean.Typography.description { label in
                 label.translatesAutoresizingMaskIntoConstraints = false
             }
         }()
         
         private lazy var subtitleLabel: UILabel = {
-            Ocean.Typography.paragraph { label in
-                label.textColor = Ocean.color.colorInterfaceDarkDown
-                label.font = .baseRegular(size: Ocean.font.fontSizeXxs)
+            Ocean.Typography.caption { label in
                 label.translatesAutoresizingMaskIntoConstraints = false
             }
         }()
@@ -97,9 +103,12 @@ extension Ocean {
             
             isSelected = model.isSelected
             
+            selectionBackgroundView.isHidden = !isSelected
+            
             titleLabel.text = model.title
+            titleLabel.textColor = isSelected ? Ocean.color.colorBrandPrimaryPure : Ocean.color.colorInterfaceDarkDown
+            titleLabel.font = isSelected ? .baseBold(size: Ocean.font.fontSizeXxs) : .baseRegular(size: Ocean.font.fontSizeXxs)
             titleLabel.isHidden = model.title.isEmpty
-            titleLabel.textColor = model.isSelected ? Ocean.color.colorBrandPrimaryPure : Ocean.color.colorInterfaceDarkDeep
             
             subtitleLabel.text = model.subTitle
             subtitleLabel.isHidden = model.subTitle.isEmpty
@@ -112,15 +121,24 @@ extension Ocean {
         
         private func setupUI() {
             selectionStyle = .none
+            clipsToBounds = true
             contentView.backgroundColor = Ocean.color.colorInterfaceLightPure
+            contentView.addSubview(selectionBackgroundView)
             contentView.addSubview(contentStack)
             
-            NSLayoutConstraint.activate([
-                contentStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Ocean.size.spacingStackSm),
-                contentStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Ocean.size.spacingStackSm),
-                contentStack.topAnchor.constraint(equalTo: contentView.topAnchor),
-                contentStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-            ])
+            contentStack.oceanConstraints
+                .topToTop(to: contentView)
+                .bottomToBottom(to: contentView)
+                .leadingToLeading(to: contentView, constant: Ocean.size.spacingStackSm)
+                .trailingToTrailing(to: contentView, constant: -Ocean.size.spacingStackSm)
+                .make()
+            
+            selectionBackgroundView.oceanConstraints
+                .topToTop(to: contentView)
+                .bottomToBottom(to: contentView)
+                .leadingToLeading(to: contentView, constant: Ocean.size.spacingStackXxxs)
+                .trailingToTrailing(to: contentView, constant: -Ocean.size.spacingStackXxxs)
+                .make()
         }
     }
 }
