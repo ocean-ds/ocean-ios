@@ -31,6 +31,34 @@ extension Ocean {
             return self
         }
         
+        public func withActionPrimary(text: String, icon: UIImage? = nil, action: (() -> Void)?) -> ModalList {
+            modalListViewController.actionsAxis = .vertical
+            modalListViewController.actions.append(Ocean.Button.primaryBlockedMD { button in
+                button.text = text
+                button.icon = icon
+                button.onTouch = {
+                    self.modalListViewController.dismiss(animated: true) {
+                        action?()
+                    }
+                }
+            })
+            return self
+        }
+        
+        public func withActionSecondary(text: String, icon: UIImage? = nil, action: (() -> Void)?) -> ModalList {
+            modalListViewController.actionsAxis = .vertical
+            modalListViewController.actions.append(Ocean.Button.secondaryBlockedMD { button in
+                button.text = text
+                button.icon = icon
+                button.onTouch = {
+                    self.modalListViewController.dismiss(animated: true) {
+                        action?()
+                    }
+                }
+            })
+            return self
+        }
+        
         public func build() -> ModalListViewController {
             self.modalListViewController.makeView()
             return modalListViewController

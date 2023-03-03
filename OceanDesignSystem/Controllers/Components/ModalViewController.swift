@@ -14,6 +14,7 @@ class ModalViewController: UIViewController {
         case withActonsNormal
         case withActonsCritical
         case listWithImages
+        case listWithActions
         case simpleList
         case customView
     }
@@ -69,8 +70,8 @@ class ModalViewController: UIViewController {
         Ocean.ModalList(self)
             .withTitle("Teste")
             .withValues([
-                Ocean.CellModel(title: "Teste 1"),
-                Ocean.CellModel(title: "Teste 2"),
+                Ocean.CellModel(title: "Title 1", isSelected: true),
+                Ocean.CellModel(title: "Title 2")
             ])
             .build()
     }()
@@ -81,6 +82,38 @@ class ModalViewController: UIViewController {
                 Ocean.CellModel(title: "Via PIX", subTitle: "Transferência", imageIcon: Ocean.icon.annotationSolid, hideChevron: false),
                 Ocean.CellModel(title: "Via TED", subTitle: "Recebimento", imageIcon: Ocean.icon.archiveSolid, hideChevron: false)
             ])
+            .build()
+    }()
+    
+    private lazy var sheetListWithActionsComponent: Ocean.ModalListViewController = {
+        Ocean.ModalList(self)
+            .withTitle("Test")
+            .withValues([
+                Ocean.CellModel(title: "Title 1", isSelected: true),
+                Ocean.CellModel(title: "Title 2")
+            ])
+            .withActionPrimary(text: "Primary action",
+                               icon: Ocean.icon.plusSolid,
+                               action: {
+                let alertController = UIAlertController(title: "Test",
+                                                        message: "Toched on primary button",
+                                                        preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                    alertController.dismiss(animated: true)
+                })
+                self.show(alertController, sender: self)
+            })
+            .withActionSecondary(text: "Secondary action",
+                                 icon: Ocean.icon.minusSolid,
+                                 action: {
+                let alertController = UIAlertController(title: "Test",
+                                                        message: "Toched on secondary button",
+                                                        preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                    alertController.dismiss(animated: true)
+                })
+                self.show(alertController, sender: self)
+            })
             .build()
     }()
     
@@ -110,12 +143,18 @@ class ModalViewController: UIViewController {
             sheetListComponent.show()
         case .listWithImages:
             sheetListWithImageComponent.show()
+        case .listWithActions:
+            sheetListWithActionsComponent.show()
         case .customView:
             customBottomSheet.show()
         }
     }
     
     @IBAction func onMainSegmentedChanged(_ sender: Any) {
+        if subSegmentControl.numberOfSegments > 2 {
+            subSegmentControl.removeSegment(at: 2, animated: true)
+        }
+        
         switch mainSegmentControl.selectedSegmentIndex {
         case 0:
             subSegmentControl.selectedSegmentIndex = 0
@@ -126,6 +165,7 @@ class ModalViewController: UIViewController {
             subSegmentControl.selectedSegmentIndex = 0
             subSegmentControl.setTitle("Simple List", forSegmentAt: 0)
             subSegmentControl.setTitle("With Image", forSegmentAt: 1)
+            subSegmentControl.insertSegment(withTitle: "With actions", at: 2, animated: true)
             showCase = .simpleList
         case 2:
             showCase = .customView
@@ -140,6 +180,10 @@ class ModalViewController: UIViewController {
             showCase = mainSegmentControl.selectedSegmentIndex == 0 ? .withActonsNormal : .simpleList
         case 1:
             showCase = mainSegmentControl.selectedSegmentIndex == 0 ? .withActonsCritical : .listWithImages
+        case 2:
+            if mainSegmentControl.selectedSegmentIndex == 1 {
+                showCase = .listWithActions
+            }
         default:
             break
         }

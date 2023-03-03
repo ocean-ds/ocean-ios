@@ -12,7 +12,7 @@ extension Ocean {
     public class Divider: UIView {
         private var widhtConstraint: NSLayoutDimension?
         private var width: CGFloat = UIScreen.main.bounds.width
-        private var height: CGFloat = 1
+        private (set) var height: CGFloat = 1
         
         public convenience init() {
             self.init(frame: .zero)

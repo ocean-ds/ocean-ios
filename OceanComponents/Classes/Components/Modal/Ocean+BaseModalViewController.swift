@@ -34,7 +34,7 @@ extension Ocean {
             view.addSubview(closeImageView)
             closeImageView.setConstraints(([.centerVertically,
                                             .trailingToTrailing(0)], toView: view))
-            view.setConstraints((.height(40), toView: nil))
+            view.setConstraints((.height(closeViewHeightSpacing), toView: nil))
             return view
         }()
 
@@ -48,6 +48,12 @@ extension Ocean {
             return delegate
         }()
 
+        internal var closeViewHeightSpacing: CGFloat {
+            get {
+                return 40
+            }
+        }
+        
         internal var heightSpacing: CGFloat {
             get {
                 return hasTopNotch ? 65 : 45
