@@ -61,13 +61,13 @@ extension Ocean {
         }()
         
         private lazy var titleLabel: UILabel = {
-            Ocean.Typography.paragraph { label in
+            Ocean.Typography.description { label in
                 label.translatesAutoresizingMaskIntoConstraints = false
             }
         }()
         
         private lazy var subtitleLabel: UILabel = {
-            Ocean.Typography.description { label in
+            Ocean.Typography.caption { label in
                 label.translatesAutoresizingMaskIntoConstraints = false
             }
         }()
@@ -107,6 +107,7 @@ extension Ocean {
             
             titleLabel.text = model.title
             titleLabel.textColor = isSelected ? Ocean.color.colorBrandPrimaryPure : Ocean.color.colorInterfaceDarkDown
+            titleLabel.font = isSelected ? .baseBold(size: Ocean.font.fontSizeXxs) : .baseRegular(size: Ocean.font.fontSizeXxs)
             titleLabel.isHidden = model.title.isEmpty
             
             subtitleLabel.text = model.subTitle
