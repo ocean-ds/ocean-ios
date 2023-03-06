@@ -31,13 +31,20 @@ extension Ocean {
             return self
         }
         
-        public func withActionPrimary(text: String, icon: UIImage? = nil, action: (() -> Void)?) -> ModalList {
+        public func withActionPrimary(text: String,
+                                      icon: UIImage? = nil,
+                                      shouldDismiss: Bool = true,
+                                      action: (() -> Void)?) -> ModalList {
             modalListViewController.actionsAxis = .vertical
             modalListViewController.actions.append(Ocean.Button.primaryBlockedMD { button in
                 button.text = text
                 button.icon = icon
                 button.onTouch = {
-                    self.modalListViewController.dismiss(animated: true) {
+                    if shouldDismiss {
+                        self.modalListViewController.dismiss(animated: true) {
+                            action?()
+                        }
+                    } else {
                         action?()
                     }
                 }
@@ -45,13 +52,20 @@ extension Ocean {
             return self
         }
         
-        public func withActionSecondary(text: String, icon: UIImage? = nil, action: (() -> Void)?) -> ModalList {
+        public func withActionSecondary(text: String,
+                                        icon: UIImage? = nil,
+                                        shouldDismiss: Bool = true,
+                                        action: (() -> Void)?) -> ModalList {
             modalListViewController.actionsAxis = .vertical
             modalListViewController.actions.append(Ocean.Button.secondaryBlockedMD { button in
                 button.text = text
                 button.icon = icon
                 button.onTouch = {
-                    self.modalListViewController.dismiss(animated: true) {
+                    if shouldDismiss {
+                        self.modalListViewController.dismiss(animated: true) {
+                            action?()
+                        }
+                    } else {
                         action?()
                     }
                 }
