@@ -156,8 +156,11 @@ extension Ocean {
                 contentStack.addArrangedSubview(imageView)
                 contentStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
                 self.imageView.isUserInteractionEnabled = false
-                self.imageView.setConstraints(([.width(self.iconSize.width),
-                                                .height(self.iconSize.height)], toView:nil))
+                self.imageView.oceanConstraints
+                    .width(constant: self.iconSize.width)
+                    .height(constant: self.iconSize.height)
+                    .make()
+
                 labelAlignment = .left
             }
 
@@ -179,8 +182,11 @@ extension Ocean {
                 contentStack.addArrangedSubview(imageView)
                 contentStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxs))
                 self.imageView.isUserInteractionEnabled = false
-                self.imageView.setConstraints(([.width(self.iconSize.width),
-                                                .height(self.iconSize.height)], toView:nil))
+                self.imageView.oceanConstraints
+                    .width(constant: self.iconSize.width)
+                    .height(constant: self.iconSize.height)
+                    .make()
+                
                 labelAlignment = .left
             }
 

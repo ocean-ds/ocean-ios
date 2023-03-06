@@ -25,16 +25,27 @@ extension Ocean {
                 imageView.tintColor = Ocean.color.colorInterfaceDarkUp
                 imageView.contentMode = .scaleAspectFit
                 imageView.addTapGesture(target: self, selector: #selector(closeTap))
-                imageView.setConstraints((.squareSize(20), toView: nil))
+
+                imageView.oceanConstraints
+                    .width(constant: 20)
+                    .height(constant: 20)
+                    .make()
             }
         }()
 
         internal lazy var closeView: UIView = {
             let view = UIView()
             view.addSubview(closeImageView)
-            closeImageView.setConstraints(([.centerVertically,
-                                            .trailingToTrailing(0)], toView: view))
-            view.setConstraints((.height(closeViewHeightSpacing), toView: nil))
+
+            closeImageView.oceanConstraints
+                .centerY(to: view)
+                .trailingToTrailing(to: view)
+                .make()
+
+            view.oceanConstraints
+                .height(constant: closeViewHeightSpacing)
+                .make()
+
             return view
         }()
 

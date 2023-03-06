@@ -54,13 +54,12 @@ final public class CheckBoxViewController : UIViewController {
         stack.addArrangedSubview(ck4)
         stack.addArrangedSubview(ck5)
         
-        self.add(view: stack)
-        stack.setConstraints(([.horizontalMargin(Ocean.size.spacingStackXs),
-                               .centerVertically], toView: self.view))
-    }
-    
-    private func add(view: UIView) {
-        self.view.addSubview(view)
-        view.setConstraints((.sameCenter, toView: self.view))
+        self.view.addSubview(stack)
+
+        stack.oceanConstraints
+            .topToTop(to: view, constant: 16)
+            .leadingToLeading(to: view, constant: 16)
+            .trailingToTrailing(to: view, constant: -16)
+            .make()
     }
 }

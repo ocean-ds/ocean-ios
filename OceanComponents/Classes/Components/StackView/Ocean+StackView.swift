@@ -26,9 +26,13 @@ extension Ocean {
 
             switch self.axis {
             case .vertical:
-                spacerView.setConstraints((.height(spacerView.space), toView: nil))
+                spacerView.oceanConstraints
+                    .height(constant: spacerView.space)
+                    .make()
             case .horizontal:
-                spacerView.setConstraints((.width(spacerView.space), toView: nil))
+                spacerView.oceanConstraints
+                    .width(constant: spacerView.space)
+                    .make()
             default: break
             }
         }

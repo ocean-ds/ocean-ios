@@ -29,8 +29,11 @@ final public class TabViewController: UIViewController, OceanNavigationBar {
         self.view.backgroundColor = .white
 
         self.view.addSubview(self.tabView)
-        self.tabView.setConstraints(([.topToTop(0), .horizontalMargin(.zero)],
-                                     toView: self.view))
+
+        self.tabView.oceanConstraints
+            .topToTop(to: self.view)
+            .leadingToLeading(to: self.view)
+            .trailingToTrailing(to: self.view)
+            .make()
     }
-    
 }

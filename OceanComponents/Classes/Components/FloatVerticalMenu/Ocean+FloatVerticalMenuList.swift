@@ -122,10 +122,19 @@ extension Ocean {
         }
 
         private func setupConstraints() {
-            self.mainStack.setConstraints(([.topToTop(Ocean.size.spacingInsetXxs),
-                                            .trailingToTrailing(Ocean.size.spacingInsetXs)], toView: self))
-            self.menuOptionsContainerView.setConstraints((.fillSuperView, toView: menuOptionsShadowContainerView))
-            self.verticalStackView.setConstraints(([.marginEqual(0)], toView: menuOptionsContainerView))
+            self.mainStack.oceanConstraints
+                .topToTop(to: self, constant: Ocean.size.spacingInsetXxs)
+                .trailingToTrailing(to: self, constant: -Ocean.size.spacingInsetXs)
+                .make()
+
+            self.menuOptionsContainerView.oceanConstraints
+                .fill(to: menuOptionsShadowContainerView)
+                .make()
+
+            self.verticalStackView.oceanConstraints
+                .fill(to: menuOptionsContainerView)
+                .make()
+
             self.layoutIfNeeded()
         }
 
@@ -175,16 +184,22 @@ extension Ocean {
                 verticalStackView.addArrangedSubview(containerItemView)
 
 
-                iconImageView.setConstraints(([.height(Ocean.size.spacingStackXs),
-                                               .leadingToLeading(20),
-                                               .topToTop(itemMarginTop(index)),
-                                               .bottomToBottom(itemMarginBottom(index))], toView: containerItemView))
+                iconImageView.oceanConstraints
+                    .height(constant: Ocean.size.spacingStackXs)
+                    .topToTop(to: containerItemView, constant: itemMarginTop(index))
+                    .leadingToLeading(to: containerItemView, constant: 20)
+                    .bottomToBottom(to: containerItemView, constant: -itemMarginBottom(index))
+                    .make()
 
-                titleLabel.setConstraints(([.trailingToTrailing(20)], toView: containerItemView),
-                                          ([.leadingToTrailing(Ocean.size.spacingStackXs),
-                                            .centerVertically], toView: iconImageView))
+                titleLabel.oceanConstraints
+                    .leadingToTrailing(to: iconImageView, constant: Ocean.size.spacingStackXs)
+                    .trailingToTrailing(to: containerItemView, constant: -20)
+                    .centerY(to: iconImageView)
+                    .make()
 
-                button.setConstraints((.fillSuperView, toView: containerItemView))
+                button.oceanConstraints
+                    .fill(to: containerItemView)
+                    .make()
             }
         }
 

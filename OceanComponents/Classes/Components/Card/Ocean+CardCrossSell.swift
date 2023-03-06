@@ -175,7 +175,10 @@ extension Ocean {
             let view = UIImageView()
             view.contentMode = .scaleAspectFit
 
-            view.setConstraints((.squareSize(Constants.iconSize), toView: nil))
+            view.oceanConstraints
+                .width(constant: Constants.iconSize)
+                .height(constant: Constants.iconSize)
+                .make()
 
             return view
         }()

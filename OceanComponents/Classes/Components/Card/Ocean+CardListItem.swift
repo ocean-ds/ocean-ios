@@ -108,7 +108,10 @@ extension Ocean {
                 
             ])
             
-            view.setConstraints((.squareSize(Constants.roundedViewHeightWidthLg), toView: nil))
+            view.oceanConstraints
+                .width(constant: Constants.roundedViewHeightWidthLg)
+                .height(constant: Constants.roundedViewHeightWidthLg)
+                .make()
 
             return view
         }()
@@ -135,7 +138,11 @@ extension Ocean {
             let view = UIImageView()
             view.tintColor = Ocean.color.colorBrandPrimaryDown
             
-            view.setConstraints((.squareSize(Constants.squareSizeLeadingIcon), toView: nil))
+            view.oceanConstraints
+                .width(constant: Constants.squareSizeLeadingIcon)
+                .height(constant: Constants.squareSizeLeadingIcon)
+                .make()
+
             return view
         }()
 
@@ -143,7 +150,11 @@ extension Ocean {
             let view = UIImageView()
             view.tintColor = Ocean.color.colorInterfaceDarkDown
             
-            view.setConstraints((.squareSize(Constants.squareSizeTrailingIcon), toView: nil))
+            view.oceanConstraints
+                .width(constant: Constants.squareSizeTrailingIcon)
+                .height(constant: Constants.squareSizeTrailingIcon)
+                .make()
+
             return view
         }()
         
@@ -163,7 +174,12 @@ extension Ocean {
         
         private func setupUI() {
             self.add(view: mainStack)
-            mainStack.setConstraints((.marginEqual(0), toView: superview))
+
+            if let superview = self.superview {
+                mainStack.oceanConstraints
+                    .fill(to: superview)
+                    .make()
+            }
         }
 
         private func updateUI() {

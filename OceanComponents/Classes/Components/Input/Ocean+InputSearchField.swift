@@ -251,7 +251,9 @@ extension Ocean {
             imageView.heightAnchor.constraint(equalToConstant: 24).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: 24).isActive = true
 
-            imageCloseView.setConstraints((.width(Ocean.size.spacingStackMd), toView: nil))
+            imageCloseView.oceanConstraints
+                .width(constant: Ocean.size.spacingStackMd)
+                .make()
 
             textField.text = self.text
             textField.placeholder = self.placeholder

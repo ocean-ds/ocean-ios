@@ -89,7 +89,11 @@ extension Ocean {
             self.translatesAutoresizingMaskIntoConstraints = false
             self.backgroundColor = Ocean.color.colorInterfaceLightPure
             self.addSubview(contentStack)
-            contentStack.setConstraints((.fillSuperView, toView: self))
+
+            contentStack.oceanConstraints
+                .fill(to: self)
+                .make()
+
             heightConstraint.isActive = true
         }
 

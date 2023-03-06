@@ -206,7 +206,9 @@ extension Ocean {
             self.isUserInteractionEnabled = true
             self.addGestureRecognizer(tapIconGesture)
 
-            mainStack.setConstraints((.fillSuperView, toView: self))
+            mainStack.oceanConstraints
+                .fill(to: self)
+                .make()
 
             self.updateState()
         }

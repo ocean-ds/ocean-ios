@@ -131,8 +131,12 @@ extension Ocean {
 
         private func setupUI() {
             self.contentView.add(view: mainStack)
-            self.contentView.setConstraints(([.width(UIScreen.main.bounds.width),
-                                              .height(Constants.height)], toView: nil))
+
+            self.contentView.oceanConstraints
+                .width(constant: UIScreen.main.bounds.width)
+                .height(constant: Constants.height)
+                .make()
+                
             self.selectionStyle = .none
         }
 
