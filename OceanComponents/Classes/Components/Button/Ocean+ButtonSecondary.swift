@@ -176,6 +176,7 @@ extension Ocean {
             spinner = Ocean.CircularProgressIndicator()
             spinner.translatesAutoresizingMaskIntoConstraints = false
             spinner.isHidden = true
+            spinner.style = .primary
             self.addSubview(spinner)
             
             spinner.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true

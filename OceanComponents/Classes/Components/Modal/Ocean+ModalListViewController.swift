@@ -18,6 +18,15 @@ extension Ocean {
         }
         
         public var onValueSelected: ((Int, CellModel) -> Void)?
+        public var isLoading: Bool = false {
+            didSet {
+                actions.map { $0 as? ButtonPrimary }
+                    .forEach { $0?.isLoading = isLoading }
+                
+                actions.map { $0 as? ButtonSecondary }
+                    .forEach { $0?.isLoading = isLoading }
+            }
+        }
         
         var contentTitle: String?
         var contentValues: [CellModel]?

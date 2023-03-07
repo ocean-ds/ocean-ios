@@ -105,11 +105,14 @@ class ModalViewController: UIViewController {
             })
             .withActionSecondary(text: "Secondary action",
                                  icon: Ocean.icon.minusSolid,
+                                 shouldDismiss: false,
                                  action: {
                 let alertController = UIAlertController(title: "Test",
                                                         message: "Toched on secondary button",
                                                         preferredStyle: .alert)
+                self.sheetListWithActionsComponent.isLoading = true
                 alertController.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                    self.sheetListWithActionsComponent.isLoading = false
                     alertController.dismiss(animated: true)
                 })
                 self.show(alertController, sender: self)
