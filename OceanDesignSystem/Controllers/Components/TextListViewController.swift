@@ -32,6 +32,9 @@ final public class TextListViewController : UIViewController {
             textList.image = Ocean.icon.documentOutline?.withRenderingMode(.alwaysTemplate)
             textList.arrow = true
             textList.badge = true
+            textList.onTouch = {
+                textList.hasCheckbox = !textList.hasCheckbox
+            }
         }
         
         let textList2 = Ocean.TextList.cell { textList in
