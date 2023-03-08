@@ -151,6 +151,26 @@ extension Ocean {
         }
 
         public var onTouch: (() -> Void)?
+        public var onTouchCheckbox: (() -> Void)?
+        
+        public var hasCheckbox: Bool = false {
+            didSet {
+                UIView.animate(withDuration: 0.3) {
+                    self.selectCheckBox.isHidden = !self.hasCheckbox
+                    self.selectCheckBoxSpacer.isHidden = !self.hasCheckbox
+                    self.selectCheckBox.alpha = self.hasCheckbox ? 1 : 0
+                }
+            }
+        }
+
+        public var isSelected: Bool {
+            get {
+                return selectCheckBox.isSelected
+            }
+            set {
+                selectCheckBox.isSelected = newValue
+            }
+        }
 
         private lazy var mainStack: Ocean.StackView = {
             Ocean.StackView { stack in
@@ -179,6 +199,8 @@ extension Ocean {
 
                 stack.add([
                     Ocean.Spacer(space: Ocean.size.spacingStackXs),
+                    selectCheckBox,
+                    selectCheckBoxSpacer,
                     roundedIconView,
                     roundedIconViewSpacer,
                     infoStack,
@@ -190,6 +212,24 @@ extension Ocean {
                     swipeImageViewSpacer
                 ])
             }
+        }()
+        
+        private lazy var selectCheckBox: Ocean.CheckBox = {
+            Ocean.CheckBox { view in
+                view.label = ""
+                view.stackAlignment = .center
+                view.isHidden = true
+                view.alpha = 0
+                view.onTouch = {
+                    self.onTouchCheckbox?()
+                }
+            }
+        }()
+
+        private lazy var selectCheckBoxSpacer: UIView = {
+            let view = Ocean.Spacer(space: Ocean.size.spacingStackXs)
+            view.isHidden = true
+            return view
         }()
 
         private lazy var roundedIconViewSpacer = Ocean.Spacer(space: Ocean.size.spacingStackXs)
