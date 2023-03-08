@@ -18,16 +18,27 @@ extension Ocean {
         private var radioBkgView: UIControl!
         private var radioStack: Ocean.StackView!
         private var textLabel: UILabel!
+        private var textView: UITextView!
         private var errorLabel: UILabel!
 
-        public var label: String = "" {
+        public var text: String = "" {
             didSet {
-                textLabel?.text = label
-                textLabel?.isHidden = label.isEmpty
+                textLabel?.text = text
                 textLabel?.numberOfLines = 0
+                
+                textLabel?.isHidden = text.isEmpty
+                textView.isHidden = true
             }
         }
 
+        public var attributedText: NSAttributedString? = nil {
+            didSet {
+                textView?.attributedText = attributedText
+                
+                textView?.isHidden = attributedText?.length == .zero
+                textLabel?.isHidden = true
+            }
+        }
 
         public var stackAlignment: UIStackView.Alignment = .top {
             didSet {
@@ -192,14 +203,25 @@ extension Ocean {
 
             textLabel = Ocean.Typography.paragraph { paragraph in
                 paragraph.translatesAutoresizingMaskIntoConstraints = false
-                paragraph.text = self.label
-                paragraph.isHidden = self.label.isEmpty
+                paragraph.text = self.text
+                paragraph.isHidden = self.text.isEmpty
                 paragraph.font = .baseRegular(size: Ocean.font.fontSizeXxs)
             }
+            
+            textView = UITextView()
+            textView.translatesAutoresizingMaskIntoConstraints = false
+            textView.font = .baseRegular(size: Ocean.font.fontSizeXxs)
+            textView.textColor = Ocean.color.colorInterfaceDarkDown
+            textView.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            textView.isScrollEnabled = false
+            textView.isEditable = false
+            textView.text = self.text
+            textView.isHidden = self.attributedText?.length == .zero
 
             radioStack.addArrangedSubview(radioBkgView)
             radioStack.addArrangedSubview(Ocean.Spacer(space: Ocean.size.spacingInsetXs))
             radioStack.addArrangedSubview(textLabel)
+            radioStack.addArrangedSubview(textView)
 
             self.addSubview(mainStack)
             let tapIconGesture = UITapGestureRecognizer(target: self, action: #selector(toogleRadio))
@@ -290,6 +312,7 @@ extension Ocean {
             self.radioBkgView.isSkeletonable = true
             self.radioStack.isSkeletonable = true
             self.textLabel.isSkeletonable = true
+            self.textView.isSkeletonable = true
         }
     }
 }

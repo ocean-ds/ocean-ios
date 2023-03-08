@@ -22,21 +22,21 @@ final public class RadioButtonViewController : UIViewController {
         self.view.backgroundColor = .white
         
         rb1 = Ocean.RadioButton { rb in
-            rb.label = "Radio button 1"
+            rb.text = "Radio button 1"
             rb.onTouch = {
                 self.rb2.isSelected = false
                 self.rb3.isSelected = false
             }
         }
         rb2 = Ocean.RadioButton { rb in
-            rb.label = "Radio button 2 with large text and many words. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            rb.text = "Radio button 2 with large text and many words. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
             rb.onTouch = {
                 self.rb1.isSelected = false
                 self.rb3.isSelected = false
             }
         }
         rb3 = Ocean.RadioButton { rb in
-            rb.label = "Radio button 3 Error"
+            rb.text = "Radio button 3 Error"
             rb.errorMessage = "Mensagem de erro"
             rb.onTouch = {
                 self.rb1.isSelected = false
@@ -44,12 +44,12 @@ final public class RadioButtonViewController : UIViewController {
             }
         }
         rb4 = Ocean.RadioButton { rb in
-            rb.label = "Radio button 1 Disabled"
+            rb.text = "Radio button 1 Disabled"
             rb.isSelected = true
             rb.isEnabled = false
         }
         rb5 = Ocean.RadioButton { rb in
-            rb.label = "Radio button 2 Disabled"
+            rb.text = "Radio button 2 Disabled"
             rb.isEnabled = false
         }
         
