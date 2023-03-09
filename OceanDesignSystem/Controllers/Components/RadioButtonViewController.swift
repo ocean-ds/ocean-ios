@@ -17,6 +17,7 @@ final public class RadioButtonViewController : UIViewController {
     private var rb3: Ocean.RadioButton!
     private var rb4: Ocean.RadioButton!
     private var rb5: Ocean.RadioButton!
+    private var rb6: Ocean.RadioButton!
     
     public override func viewDidLoad() {
         self.view.backgroundColor = .white
@@ -52,6 +53,26 @@ final public class RadioButtonViewController : UIViewController {
             rb.text = "Radio button 2 Disabled"
             rb.isEnabled = false
         }
+        rb6 = Ocean.RadioButton { ck in
+            let link = "Blu"
+            let text = "Radio button with attributed text, so why not check \(link) out?"
+            
+            let attributes: [NSAttributedString.Key: Any] = [
+                .font: UIFont(name: Ocean.font.fontFamilyBaseWeightMedium,
+                              size: Ocean.font.fontSizeXxxs)!,
+                .foregroundColor: Ocean.color.colorInterfaceDarkDown
+            ]
+            
+            let attrString = NSMutableAttributedString(string: text)
+            attrString.addAttributes(attributes, range: (text as NSString).range(of: text))
+            
+            attrString.addAttribute(.link,
+                                    value: "https://blu.com.br/",
+                                    range: (text as NSString).range(of: link))
+            
+            ck.attributedText = attrString
+            ck.isEnabled = true
+        }
         
         let stack = Ocean.StackView()
         stack.alignment = .leading
@@ -66,6 +87,7 @@ final public class RadioButtonViewController : UIViewController {
         stack.addArrangedSubview(Ocean.Spacer(space: Ocean.size.spacingStackSm))
         stack.addArrangedSubview(rb4)
         stack.addArrangedSubview(rb5)
+        stack.addArrangedSubview(rb6)
         
         self.view.addSubview(stack)
 
