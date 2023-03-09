@@ -212,6 +212,7 @@ extension Ocean {
             textView.translatesAutoresizingMaskIntoConstraints = false
             textView.font = .baseRegular(size: Ocean.font.fontSizeXxs)
             textView.textColor = Ocean.color.colorInterfaceDarkDown
+            textView.tintColor = Ocean.color.colorBrandPrimaryPure
             textView.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
             textView.isScrollEnabled = false
             textView.isEditable = false
