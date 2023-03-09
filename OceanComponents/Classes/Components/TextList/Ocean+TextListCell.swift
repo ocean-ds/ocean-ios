@@ -216,7 +216,7 @@ extension Ocean {
         
         private lazy var selectCheckBox: Ocean.CheckBox = {
             Ocean.CheckBox { view in
-                view.label = ""
+                view.text = ""
                 view.stackAlignment = .center
                 view.isHidden = true
                 view.alpha = 0
