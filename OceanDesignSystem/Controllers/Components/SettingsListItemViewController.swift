@@ -16,7 +16,7 @@ final public class SettingsListItemViewController: UIViewController {
         let item = Ocean.SettingsListItem()
         item.title = "Title"
         item.subtitle = "Subtitle"
-        item.actionText = "Label"
+        item.actionText = "Button"
         item.onTouchButton = { self.onClick() }
        
         return item
@@ -28,6 +28,7 @@ final public class SettingsListItemViewController: UIViewController {
         item.title = "Title"
         item.subtitle = "Subtitle"
         item.actionText = "Label"
+        item.errorMessageText = "Defina um endereço antes de continuar"
         item.onTouchButton = { self.onClick() }
        
         return item
@@ -39,7 +40,8 @@ final public class SettingsListItemViewController: UIViewController {
         item.title = "Title"
         item.subtitle = "Subtitle"
         item.caption = "Caption"
-        item.actionText = "Label"
+        item.actionText = "Button"
+        item.errorMessageText = "Defina um endereço antes de continuar"
         item.onTouchButton = { self.onClick() }
        
         return item
@@ -80,6 +82,18 @@ final public class SettingsListItemViewController: UIViewController {
         return item
     }()
     
+    lazy var settingListItem7: Ocean.SettingsListItem = {
+        let item = Ocean.SettingsListItem()
+        item.type = .blocked
+        item.title = "Title"
+        item.subtitle = "Subtitle"
+        item.caption = "Caption"
+        item.hasDivider = false
+        item.onTouchButton = { self.onClick() }
+       
+        return item
+    }()
+    
     lazy var mainStack: Ocean.StackView = {
         let stack = Ocean.StackView()
         stack.alignment = .fill
@@ -92,7 +106,8 @@ final public class SettingsListItemViewController: UIViewController {
          settingListItem3,
          settingListItem4,
          settingListItem5,
-         settingListItem6].forEach{ card in
+         settingListItem6,
+         settingListItem7].forEach{ card in
             stack.addArrangedSubview(card)
         }
         
