@@ -45,6 +45,12 @@ extension Ocean {
             }
         }
         
+        public var errorMessageText: String = ""{
+            didSet {
+                updateUI()
+            }
+        }
+        
         public var actionText: String = "" {
             didSet {
                 updateUI()
@@ -70,6 +76,14 @@ extension Ocean {
         lazy var captionLabel: UILabel = {
             Ocean.Typography.caption { label in
                 label.numberOfLines = 0
+            }
+        }()
+        
+        lazy var errorMessageLabel: UILabel = {
+            Ocean.Typography.caption { label in
+                label.numberOfLines = 0
+                label.textColor = Ocean.color.colorStatusNegativePure
+                label.isHidden = true
             }
         }()
         
@@ -102,6 +116,10 @@ extension Ocean {
         
         private lazy var divider = Ocean.Divider()
         
+        private lazy var captionSpacer = Ocean.Spacer(space: Ocean.size.spacingStackXxs)
+        
+        private lazy var errorMessageSpacer = Ocean.Spacer(space: Ocean.size.spacingStackXxs)
+        
         private lazy var infoStack: Ocean.StackView = {
             Ocean.StackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
@@ -113,8 +131,10 @@ extension Ocean {
                     Ocean.Spacer(space: Ocean.size.spacingStackXs),
                     titleLabel,
                     subtitleLabel,
-                    Ocean.Spacer(space: Ocean.size.spacingStackXxs),
+                    captionSpacer,
                     captionLabel,
+                    errorMessageSpacer,
+                    errorMessageLabel,
                     Ocean.Spacer(space: Ocean.size.spacingStackXs)
                 ])
             }
@@ -171,6 +191,10 @@ extension Ocean {
             subtitleLabel.text = subtitle
             captionLabel.text = caption
             captionLabel.isHidden = caption.isEmpty
+            captionSpacer.isHidden = caption.isEmpty
+            errorMessageLabel.text = errorMessageText
+            errorMessageLabel.isHidden = errorMessageText.isEmpty
+            errorMessageSpacer.isHidden = errorMessageText.isEmpty
             warningTag.title = actionText
             buttonPrimary.text = actionText
             buttonSecundary.text = actionText
@@ -199,6 +223,7 @@ extension Ocean {
             titleLabel.isSkeletonable = true
             subtitleLabel.isSkeletonable = true
             captionLabel.isSkeletonable = true
+            errorMessageLabel.isSkeletonable = true
             buttonPrimary.isSkeletonable = true
             buttonSecundary.isSkeletonable = true
             warningTag.setSkeleton()

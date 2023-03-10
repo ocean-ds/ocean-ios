@@ -12,11 +12,15 @@ import OceanTokens
 import OceanComponents
 
 final public class SettingsListItemViewController: UIViewController {
+    
+    lazy var scrollView: UIScrollView = { return UIScrollView(frame: .zero) }()
+    lazy var scrollableContentView: UIView = { UIView(frame: .zero) }()
+    
     lazy var settingListItem1: Ocean.SettingsListItem = {
         let item = Ocean.SettingsListItem()
         item.title = "Title"
         item.subtitle = "Subtitle"
-        item.actionText = "Label"
+        item.actionText = "Button"
         item.onTouchButton = { self.onClick() }
        
         return item
@@ -28,6 +32,7 @@ final public class SettingsListItemViewController: UIViewController {
         item.title = "Title"
         item.subtitle = "Subtitle"
         item.actionText = "Label"
+        item.errorMessageText = "Defina um endereço antes de continuar"
         item.onTouchButton = { self.onClick() }
        
         return item
@@ -39,7 +44,8 @@ final public class SettingsListItemViewController: UIViewController {
         item.title = "Title"
         item.subtitle = "Subtitle"
         item.caption = "Caption"
-        item.actionText = "Label"
+        item.actionText = "Button"
+        item.errorMessageText = "Defina um endereço antes de continuar"
         item.onTouchButton = { self.onClick() }
        
         return item
@@ -80,6 +86,38 @@ final public class SettingsListItemViewController: UIViewController {
         return item
     }()
     
+    lazy var settingListItem7: Ocean.SettingsListItem = {
+        let item = Ocean.SettingsListItem()
+        item.type = .blocked
+        item.title = "Title"
+        item.subtitle = "Subtitle"
+        item.caption = "Caption"
+        item.hasDivider = false
+        item.onTouchButton = { self.onClick() }
+       
+        return item
+    }()
+    
+    lazy var settingListItem8: Ocean.SettingsListItem = {
+        let item = Ocean.SettingsListItem()
+        item.title = "Title"
+        item.actionText = "Button"
+        item.hasDivider = false
+        item.onTouchButton = { self.onClick() }
+       
+        return item
+    }()
+    
+    lazy var settingListItem9: Ocean.SettingsListItem = {
+        let item = Ocean.SettingsListItem()
+        item.subtitle = "Subtitle"
+        item.actionText = "Button"
+        item.hasDivider = false
+        item.onTouchButton = { self.onClick() }
+       
+        return item
+    }()
+    
     lazy var mainStack: Ocean.StackView = {
         let stack = Ocean.StackView()
         stack.alignment = .fill
@@ -92,7 +130,10 @@ final public class SettingsListItemViewController: UIViewController {
          settingListItem3,
          settingListItem4,
          settingListItem5,
-         settingListItem6].forEach{ card in
+         settingListItem6,
+         settingListItem7,
+         settingListItem8,
+         settingListItem9].forEach { card in
             stack.addArrangedSubview(card)
         }
         
@@ -100,13 +141,30 @@ final public class SettingsListItemViewController: UIViewController {
     }()
     
     public override func viewDidLoad() {
+        self.addScrollView()
         self.view.backgroundColor = .white
-        self.view.addSubview(mainStack)
 
+        scrollableContentView.addSubview(mainStack)
         mainStack.oceanConstraints
-            .topToTop(to: self.view, constant: 16)
-            .leadingToLeading(to: self.view)
-            .trailingToTrailing(to: self.view)
+            .fill(to: scrollableContentView)
+            .make()
+    }
+    
+    private func addScrollView() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(scrollableContentView)
+
+        applyScrollViewDefaultContraints()
+    }
+
+    private func applyScrollViewDefaultContraints() {
+        scrollView.oceanConstraints
+            .fill(to: view)
+            .make()
+        
+        scrollableContentView.oceanConstraints
+            .fill(to: scrollView)
+            .width(to: view)
             .make()
     }
     
