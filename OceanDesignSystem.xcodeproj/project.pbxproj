@@ -27,7 +27,6 @@
 		249DC9402672AD2600012411 /* SwitchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249DC93F2672AD2600012411 /* SwitchViewController.swift */; };
 		24B70BB826E7D0B400C9CE1E /* TransactionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B70BB726E7D0B400C9CE1E /* TransactionListViewController.swift */; };
 		24B70BBD26E91F0F00C9CE1E /* CardGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B70BBC26E91F0F00C9CE1E /* CardGroupViewController.swift */; };
-		24C801522682585600744F30 /* OceanDesignSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C801512682585600744F30 /* OceanDesignSystemTests.swift */; };
 		24E301B526EF911400D2296C /* SubheaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E301B426EF911400D2296C /* SubheaderViewController.swift */; };
 		24E39BA326DE5BCE006B6A02 /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E39BA226DE5BCE006B6A02 /* BalanceViewController.swift */; };
 		24FEEBC12744282E00211FEC /* StepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FEEBC02744282E00211FEC /* StepViewController.swift */; };
@@ -37,6 +36,11 @@
 		8EB41BED27E42D1800F18CC7 /* FloatVerticalMenuListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB41BEC27E42D1800F18CC7 /* FloatVerticalMenuListViewController.swift */; };
 		8ECB029F283319340037DC25 /* CardCrossSellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB029E283319340037DC25 /* CardCrossSellViewController.swift */; };
 		8ED08AE727EE075500ACDCB4 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED08AE627EE075500ACDCB4 /* TabViewController.swift */; };
+		A134134A29CFBA4D00B03D62 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = A134134929CFBA4D00B03D62 /* SnapshotTesting */; };
+		A134134C29CFBFEB00B03D62 /* SwitchViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A134134B29CFBFEB00B03D62 /* SwitchViewControllerTests.swift */; };
+		A134134E29CFC6C800B03D62 /* BadgeComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A134134D29CFC6C800B03D62 /* BadgeComponentTests.swift */; };
+		A134135129CFC8FB00B03D62 /* TimeInterval+minAfterTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = A134135029CFC8FB00B03D62 /* TimeInterval+minAfterTime.swift */; };
+		A134135329CFC92300B03D62 /* XCTestExpectation+expectAfter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A134135229CFC92300B03D62 /* XCTestExpectation+expectAfter.swift */; };
 		AF833AAE2890764F0012AE58 /* TransactionFooterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF833AAD2890764F0012AE58 /* TransactionFooterViewController.swift */; };
 		B71D65C824C8F28100C3938C /* TokensByCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65C724C8F28100C3938C /* TokensByCategoryViewController.swift */; };
 		B71D65DC24CA038B00C3938C /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71D65DB24CA038B00C3938C /* Models.swift */; };
@@ -109,7 +113,6 @@
 		24B70BB726E7D0B400C9CE1E /* TransactionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListViewController.swift; sourceTree = "<group>"; };
 		24B70BBC26E91F0F00C9CE1E /* CardGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGroupViewController.swift; sourceTree = "<group>"; };
 		24C8014F2682585600744F30 /* OceanDesignSystemTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OceanDesignSystemTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		24C801512682585600744F30 /* OceanDesignSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanDesignSystemTests.swift; sourceTree = "<group>"; };
 		24C801532682585600744F30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		24E301B426EF911400D2296C /* SubheaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubheaderViewController.swift; sourceTree = "<group>"; };
 		24E39BA226DE5BCE006B6A02 /* BalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceViewController.swift; sourceTree = "<group>"; };
@@ -122,6 +125,10 @@
 		8EB41BEC27E42D1800F18CC7 /* FloatVerticalMenuListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatVerticalMenuListViewController.swift; sourceTree = "<group>"; };
 		8ECB029E283319340037DC25 /* CardCrossSellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCrossSellViewController.swift; sourceTree = "<group>"; };
 		8ED08AE627EE075500ACDCB4 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
+		A134134B29CFBFEB00B03D62 /* SwitchViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchViewControllerTests.swift; sourceTree = "<group>"; };
+		A134134D29CFC6C800B03D62 /* BadgeComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeComponentTests.swift; sourceTree = "<group>"; };
+		A134135029CFC8FB00B03D62 /* TimeInterval+minAfterTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+minAfterTime.swift"; sourceTree = "<group>"; };
+		A134135229CFC92300B03D62 /* XCTestExpectation+expectAfter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestExpectation+expectAfter.swift"; sourceTree = "<group>"; };
 		A7964E389FBEAFC86B3DC30B /* Pods-OceanDesignSystem.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OceanDesignSystem.release.xcconfig"; path = "Target Support Files/Pods-OceanDesignSystem/Pods-OceanDesignSystem.release.xcconfig"; sourceTree = "<group>"; };
 		AC2FB672AAC2DF64A6545D88 /* Pods_OceanDesignSystemTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OceanDesignSystemTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF833AAD2890764F0012AE58 /* TransactionFooterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionFooterViewController.swift; sourceTree = "<group>"; };
@@ -161,6 +168,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B95B14353B2F1B583E717AA /* Pods_OceanDesignSystemTests.framework in Frameworks */,
+				A134134A29CFBA4D00B03D62 /* SnapshotTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,10 +230,21 @@
 		24C801502682585600744F30 /* OceanDesignSystemTests */ = {
 			isa = PBXGroup;
 			children = (
-				24C801512682585600744F30 /* OceanDesignSystemTests.swift */,
+				A134134F29CFC8E000B03D62 /* Extensions */,
 				24C801532682585600744F30 /* Info.plist */,
+				A134134B29CFBFEB00B03D62 /* SwitchViewControllerTests.swift */,
+				A134134D29CFC6C800B03D62 /* BadgeComponentTests.swift */,
 			);
 			path = OceanDesignSystemTests;
+			sourceTree = "<group>";
+		};
+		A134134F29CFC8E000B03D62 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A134135029CFC8FB00B03D62 /* TimeInterval+minAfterTime.swift */,
+				A134135229CFC92300B03D62 /* XCTestExpectation+expectAfter.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		B71D65DA24CA037500C3938C /* Models */ = {
@@ -352,6 +371,9 @@
 				24C801552682585600744F30 /* PBXTargetDependency */,
 			);
 			name = OceanDesignSystemTests;
+			packageProductDependencies = (
+				A134134929CFBA4D00B03D62 /* SnapshotTesting */,
+			);
 			productName = OceanDesignSystemTests;
 			productReference = 24C8014F2682585600744F30 /* OceanDesignSystemTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -404,6 +426,9 @@
 				Base,
 			);
 			mainGroup = B833D02824A6796100587FDE;
+			packageReferences = (
+				A134134829CFBA4D00B03D62 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
+			);
 			productRefGroup = B833D03224A6796100587FDE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -521,7 +546,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24C801522682585600744F30 /* OceanDesignSystemTests.swift in Sources */,
+				A134135129CFC8FB00B03D62 /* TimeInterval+minAfterTime.swift in Sources */,
+				A134134E29CFC6C800B03D62 /* BadgeComponentTests.swift in Sources */,
+				A134134C29CFBFEB00B03D62 /* SwitchViewControllerTests.swift in Sources */,
+				A134135329CFC92300B03D62 /* XCTestExpectation+expectAfter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -846,6 +874,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A134134829CFBA4D00B03D62 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A134134929CFBA4D00B03D62 /* SnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A134134829CFBA4D00B03D62 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTesting;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B833D02924A6796100587FDE /* Project object */;
 }
