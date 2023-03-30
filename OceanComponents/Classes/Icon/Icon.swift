@@ -495,6 +495,7 @@ extension Ocean {
         public static let thumbUpSolid = UIImage(named: "OceanComponents.bundle/thumb-up-solid", in: .bundleOceanComponents, compatibleWith: .none)
         public static let ticketOutline = UIImage(named: "OceanComponents.bundle/ticket-outline", in: .bundleOceanComponents, compatibleWith: .none)
         public static let ticketSolid = UIImage(named: "OceanComponents.bundle/ticket-solid", in: .bundleOceanComponents, compatibleWith: .none)
+        public static let transactionsOutline = UIImage(named: "OceanComponents.bundle/transactions-outline", in: .bundleOceanComponents, compatibleWith: .none)
         public static let translateOutline = UIImage(named: "OceanComponents.bundle/translate-outline", in: .bundleOceanComponents, compatibleWith: .none)
         public static let translateSolid = UIImage(named: "OceanComponents.bundle/translate-solid", in: .bundleOceanComponents, compatibleWith: .none)
         public static let trashOutline = UIImage(named: "OceanComponents.bundle/trash-outline", in: .bundleOceanComponents, compatibleWith: .none)
