@@ -483,6 +483,7 @@ public extension String {
         case "thumbupsolid": return Ocean.icon.thumbUpSolid
         case "ticketoutline": return Ocean.icon.ticketOutline
         case "ticketsolid": return Ocean.icon.ticketSolid
+        case "transactionsoutline": return Ocean.icon.transactionsOutline
         case "translateoutline": return Ocean.icon.translateOutline
         case "translatesolid": return Ocean.icon.translateSolid
         case "trashoutline": return Ocean.icon.trashOutline
