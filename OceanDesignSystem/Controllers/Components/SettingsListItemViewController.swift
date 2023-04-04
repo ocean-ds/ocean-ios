@@ -29,7 +29,7 @@ final public class SettingsListItemViewController: UIViewController {
     lazy var settingListItem2: Ocean.SettingsListItem = {
         let item = Ocean.SettingsListItem()
         item.type = .pending
-        item.title = "Title"
+        item.title = "Title - pending"
         item.subtitle = "Subtitle"
         item.actionText = "Label"
         item.errorMessageText = "Defina um endereço antes de continuar"
@@ -41,7 +41,7 @@ final public class SettingsListItemViewController: UIViewController {
     lazy var settingListItem3: Ocean.SettingsListItem = {
         let item = Ocean.SettingsListItem()
         item.type = .activated
-        item.title = "Title"
+        item.title = "Title - activated"
         item.subtitle = "Subtitle"
         item.caption = "Caption"
         item.actionText = "Button"
@@ -53,8 +53,8 @@ final public class SettingsListItemViewController: UIViewController {
     
     lazy var settingListItem4: Ocean.SettingsListItem = {
         let item = Ocean.SettingsListItem()
-        item.type = .blockedActivate
-        item.title = "Title"
+        item.type = .blockedInactive
+        item.title = "Title - blockedInactive"
         item.subtitle = "Subtitle"
         item.caption = "Caption"
         item.actionText = "Label"
@@ -66,7 +66,7 @@ final public class SettingsListItemViewController: UIViewController {
     lazy var settingListItem5: Ocean.SettingsListItem = {
         let item = Ocean.SettingsListItem()
         item.type = .blocked
-        item.title = "Title"
+        item.title = "Title - blocked"
         item.subtitle = "Subtitle"
         item.caption = "Caption"
         item.actionText = "Label"
@@ -118,6 +118,30 @@ final public class SettingsListItemViewController: UIViewController {
         return item
     }()
     
+    lazy var settingListItem10: Ocean.SettingsListItem = {
+        let item = Ocean.SettingsListItem()
+        item.type = .inactivePrimary
+        item.title = "Title = inactivePrimary"
+        item.subtitle = "Subtitle"
+        item.actionText = "Button"
+        item.hasDivider = false
+        item.onTouchButton = { self.onClick() }
+       
+        return item
+    }()
+    
+    lazy var settingListItem11: Ocean.SettingsListItem = {
+        let item = Ocean.SettingsListItem()
+        item.type = .inactiveSecondary
+        item.title = "Title = inactiveSecondary"
+        item.subtitle = "Subtitle"
+        item.actionText = "Button"
+        item.hasDivider = false
+        item.onTouchButton = { self.onClick() }
+       
+        return item
+    }()
+    
     lazy var mainStack: Ocean.StackView = {
         let stack = Ocean.StackView()
         stack.alignment = .fill
@@ -125,15 +149,19 @@ final public class SettingsListItemViewController: UIViewController {
         stack.axis = .vertical
         stack.spacing = Ocean.size.spacingStackXxs
         
-        [settingListItem1,
-         settingListItem2,
-         settingListItem3,
-         settingListItem4,
-         settingListItem5,
-         settingListItem6,
-         settingListItem7,
-         settingListItem8,
-         settingListItem9].forEach { card in
+        [
+            settingListItem1,
+            settingListItem2,
+            settingListItem3,
+            settingListItem4,
+            settingListItem5,
+            settingListItem6,
+            settingListItem7,
+            settingListItem8,
+            settingListItem9,
+            settingListItem10,
+            settingListItem11
+        ].forEach { card in
             stack.addArrangedSubview(card)
         }
         
