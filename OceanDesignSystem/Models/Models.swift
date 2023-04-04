@@ -161,7 +161,11 @@ struct Borders {
         "borderWidthHeavy": Ocean.size.borderWidthHeavy,
         "borderWidthNone": Ocean.size.borderWidthNone,
         "borderWidthThick": Ocean.size.borderWidthThick,
-        "borderWidthThin": Ocean.size.borderWidthThin
+        "borderWidthThin": Ocean.size.borderWidthThin,
+        "borderRadiusPartialTop": Ocean.size.borderRadiusMd,
+        "borderRadiusPartialBottom": Ocean.size.borderRadiusMd,
+        "borderRadiusPartialLeading": Ocean.size.borderRadiusMd,
+        "borderRadiusPartialTrailing": Ocean.size.borderRadiusMd
     ]
 }
 
