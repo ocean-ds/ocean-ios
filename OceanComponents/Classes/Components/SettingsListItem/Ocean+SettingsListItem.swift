@@ -13,15 +13,16 @@ import SkeletonView
 extension Ocean {
     
     public enum SettingListStatus: String {
-        case base
+        case inactivePrimary
+        case inactiveSecondary
         case pending
         case activated
-        case blockedActivate
         case blocked
+        case blockedInactive
     }
     
     public class SettingsListItem: UIView {
-        public var type: SettingListStatus = .base {
+        public var type: SettingListStatus = .inactivePrimary {
             didSet {
                 updateUI()
             }
@@ -99,7 +100,7 @@ extension Ocean {
             }
         }()
         
-        lazy var buttonSecundary: Ocean.ButtonSecondary = {
+        lazy var buttonSecondary: Ocean.ButtonSecondary = {
             Ocean.Button.secondarySM { button in
                 button.onTouch = { self.onTouchButton?() }
             }
@@ -126,7 +127,7 @@ extension Ocean {
                 stack.axis = .vertical
                 stack.distribution = .fill
                 stack.alignment = .leading
-
+                
                 stack.add([
                     Ocean.Spacer(space: Ocean.size.spacingStackXs),
                     titleLabel,
@@ -146,12 +147,12 @@ extension Ocean {
                 stack.distribution = .fill
                 stack.alignment = .center
                 stack.translatesAutoresizingMaskIntoConstraints = false
-
+                
                 stack.add([
                     Ocean.Spacer(space: Ocean.size.spacingStackXs),
                     infoStack,
                     buttonPrimary,
-                    buttonSecundary,
+                    buttonSecondary,
                     imageView,
                     warningTag,
                     Ocean.Spacer(space: Ocean.size.spacingStackXs)
@@ -165,7 +166,7 @@ extension Ocean {
                 stack.axis = .vertical
                 stack.distribution = .fill
                 stack.alignment = .fill
-
+                
                 stack.add([
                     contentStack,
                     divider
@@ -177,11 +178,11 @@ extension Ocean {
             super.init(frame: frame)
             setupUI()
         }
-
+        
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
-
+        
         private func setupUI() {
             add(view: mainStack)
         }
@@ -197,20 +198,22 @@ extension Ocean {
             errorMessageSpacer.isHidden = errorMessageText.isEmpty
             warningTag.title = actionText
             buttonPrimary.text = actionText
-            buttonSecundary.text = actionText
+            buttonSecondary.text = actionText
             divider.isHidden = !hasDivider
             
             switch type {
+            case .inactivePrimary:
+                isInactivePrimary()
+            case .inactiveSecondary:
+                isInactiveSecondary()
             case .pending:
                 isPending()
             case .activated:
                 isActivated()
-            case .blockedActivate:
-                isBlockedActivated()
             case .blocked:
                 isBlocked()
-            default:
-                isDefault()
+            case .blockedInactive:
+                isBlockedInactive()
             }
         }
         
@@ -225,13 +228,21 @@ extension Ocean {
             captionLabel.isSkeletonable = true
             errorMessageLabel.isSkeletonable = true
             buttonPrimary.isSkeletonable = true
-            buttonSecundary.isSkeletonable = true
+            buttonSecondary.isSkeletonable = true
             warningTag.setSkeleton()
         }
         
-        private func isDefault() {
+        private func isInactivePrimary() {
             buttonPrimary.isHidden = false
-            buttonSecundary.isHidden = true
+            buttonSecondary.isHidden = true
+            imageView.isHidden = true
+            warningTag.isHidden = true
+            subtitleLabel.textColor = Ocean.color.colorInterfaceDarkUp
+        }
+        
+        private func isInactiveSecondary() {
+            buttonPrimary.isHidden = true
+            buttonSecondary.isHidden = false
             imageView.isHidden = true
             warningTag.isHidden = true
             subtitleLabel.textColor = Ocean.color.colorInterfaceDarkUp
@@ -239,7 +250,7 @@ extension Ocean {
         
         private func isPending() {
             buttonPrimary.isHidden = true
-            buttonSecundary.isHidden = true
+            buttonSecondary.isHidden = true
             imageView.isHidden = true
             warningTag.isHidden = false
             subtitleLabel.textColor = Ocean.color.colorInterfaceDarkUp
@@ -247,26 +258,26 @@ extension Ocean {
         
         private func isActivated() {
             buttonPrimary.isHidden = true
-            buttonSecundary.isHidden = false
+            buttonSecondary.isHidden = false
             imageView.isHidden = true
             warningTag.isHidden = true
-            subtitleLabel.textColor = Ocean.color.colorInterfaceDarkDown
-        }
-        
-        private func isBlockedActivated() {
-            buttonPrimary.isHidden = true
-            buttonSecundary.isHidden = true
-            imageView.isHidden = false
-            warningTag.isHidden = true
-            subtitleLabel.textColor = Ocean.color.colorInterfaceDarkUp
+            subtitleLabel.textColor = Ocean.color.colorInterfaceDarkPure
         }
         
         private func isBlocked() {
             buttonPrimary.isHidden = true
-            buttonSecundary.isHidden = true
+            buttonSecondary.isHidden = true
             imageView.isHidden = false
             warningTag.isHidden = true
-            subtitleLabel.textColor = Ocean.color.colorInterfaceDarkDown
+            subtitleLabel.textColor = Ocean.color.colorInterfaceDarkPure
+        }
+        
+        private func isBlockedInactive() {
+            buttonPrimary.isHidden = true
+            buttonSecondary.isHidden = true
+            imageView.isHidden = false
+            warningTag.isHidden = true
+            subtitleLabel.textColor = Ocean.color.colorInterfaceDarkUp
         }
     }
 }

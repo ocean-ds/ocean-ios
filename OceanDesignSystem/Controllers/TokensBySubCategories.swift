@@ -127,29 +127,37 @@ class TokensBySubCategoryViewController: UITableViewController {
                 self.configBorderSize(cell, size: Borders.list[borderKey]!)
             }
             
-            switch indexPath.row {
-            case 0:
+            switch borderKey {
+            case "borderRadiusCircular":
                 cell.viewWithBorder.ocean.radius.applyCircular()
-            case 1:
+            case "borderRadiusLg":
                 cell.viewWithBorder.ocean.radius.applyLg()
-            case 2:
+            case "borderRadiusMd":
                 cell.viewWithBorder.ocean.radius.applyMd()
-            case 3:
+            case "borderRadiusNone":
                 cell.viewWithBorder.ocean.radius.applyNone()
-            case 4:
+            case "borderRadiusPill":
                 cell.viewWithBorder.ocean.radius.applyPill()
-            case 5:
+            case "borderRadiusSm":
                 cell.viewWithBorder.ocean.radius.applySm()
-            case 6:
+            case "borderWidthHairline":
                 cell.viewWithBorder.ocean.borderWidth.applyHairline()
-            case 7:
+            case "borderWidthHeavy":
                 cell.viewWithBorder.ocean.borderWidth.applyHeavy()
-            case 8:
+            case "borderWidthNone":
                 cell.viewWithBorder.ocean.borderWidth.applyNone()
-            case 9:
+            case "borderWidthThick":
                 cell.viewWithBorder.ocean.borderWidth.applyThick()
-            case 10:
+            case "borderWidthThin":
                 cell.viewWithBorder.ocean.borderWidth.applyThin()
+            case "borderRadiusPartialTop":
+                cell.viewWithBorder.ocean.radius.top().applyMd()
+            case "borderRadiusPartialBottom":
+                cell.viewWithBorder.ocean.radius.bottom().applyMd()
+            case "borderRadiusPartialLeading":
+                cell.viewWithBorder.ocean.radius.leading().applyMd()
+            case "borderRadiusPartialTrailing":
+                cell.viewWithBorder.ocean.radius.trailing().applyMd()
             default:
                 return UITableViewCell()
             }
