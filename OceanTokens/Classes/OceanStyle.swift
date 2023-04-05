@@ -15,12 +15,10 @@ public struct OceanStyle {
         
         init(view: UIView) {
             self.view = view
-            self.view.layer.maskedCorners = [
-                .layerMinXMinYCorner,
-                .layerMinXMaxYCorner,
-                .layerMaxXMinYCorner,
-                .layerMaxXMaxYCorner
-            ]
+            self.view.layer.maskedCorners = [.layerMinXMinYCorner,
+                                             .layerMinXMaxYCorner,
+                                             .layerMaxXMinYCorner,
+                                             .layerMaxXMaxYCorner]
         }
         
         public func top() -> OceanRadius {
