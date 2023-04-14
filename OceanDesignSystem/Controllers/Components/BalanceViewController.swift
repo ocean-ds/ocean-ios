@@ -16,11 +16,12 @@ final public class BalanceViewController : UIViewController {
         view.balanceAvailable = 67762.60
         view.currentBalance = 68762.60
         view.scheduleBlu = -1000.00
-        view.scheduleNotBlu = 0
-        view.scheduleNotBluHidden = false
-        view.scheduleNotBluActive = true
+        view.balanceNotBlu = 200.00
         view.onStateChanged = { state in
             print(state)
+        }
+        view.howToUseTouch = {
+            print("howToUse")
         }
     }
     
