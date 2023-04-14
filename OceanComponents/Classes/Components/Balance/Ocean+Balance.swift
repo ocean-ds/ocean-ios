@@ -10,8 +10,10 @@ import OceanTokens
 extension Ocean {
     final public class Balance: UIView {
         struct Constants {
-            static let height: CGFloat = 107
-            static let heightLg: CGFloat = 231
+            static let height: CGFloat = 117
+            static let heightLg: CGFloat = 281
+            static let headerHeight: CGFloat = 56
+            static let headerHeightSm: CGFloat = 40
             static let eyeImageSize: CGFloat = 24
             static let arrowSize: CGFloat = 16
         }
@@ -66,6 +68,14 @@ extension Ocean {
             self.heightAnchor.constraint(equalToConstant: Constants.height)
         }()
 
+        private lazy var heightHeaderConstraint: NSLayoutConstraint = {
+            self.headerStack.heightAnchor.constraint(equalToConstant: Constants.headerHeight)
+        }()
+
+        private lazy var heightHeaderNotBluConstraint: NSLayoutConstraint = {
+            self.headerNotBluStack.heightAnchor.constraint(equalToConstant: Constants.headerHeight)
+        }()
+
         private lazy var titleHighlightLabel: UILabel = {
             UILabel { label in
                 label.font = .highlightBold(size: Ocean.font.fontSizeXxs)
@@ -83,11 +93,6 @@ extension Ocean {
                 imageView.contentMode = .scaleAspectFit
                 imageView.translatesAutoresizingMaskIntoConstraints = false
                 imageView.isSkeletonable = true
-
-                NSLayoutConstraint.activate([
-                    imageView.widthAnchor.constraint(equalToConstant: Constants.eyeImageSize),
-                    imageView.heightAnchor.constraint(equalToConstant: Constants.eyeImageSize)
-                ])
 
                 imageView.addTapGesture(target: self, selector: #selector(tapEye))
             }
@@ -134,11 +139,6 @@ extension Ocean {
                 imageView.tintColor = Ocean.color.colorInterfaceDarkUp
                 imageView.contentMode = .scaleAspectFit
                 imageView.translatesAutoresizingMaskIntoConstraints = false
-
-                NSLayoutConstraint.activate([
-                    imageView.widthAnchor.constraint(equalToConstant: Constants.arrowSize),
-                    imageView.heightAnchor.constraint(equalToConstant: Constants.arrowSize)
-                ])
             }
         }()
 
@@ -375,9 +375,11 @@ extension Ocean {
 
             stack.add([
                 listBalanceAvailableStack,
-                Ocean.Divider(widthConstraint: self.widthAnchor),
+                Ocean.Divider(widthConstraint: self.widthAnchor)
+                    .addMargins(horizontal: Ocean.size.spacingStackXs),
                 listCurrentBalanceStack,
-                Ocean.Divider(widthConstraint: self.widthAnchor),
+                Ocean.Divider(widthConstraint: self.widthAnchor)
+                    .addMargins(horizontal: Ocean.size.spacingStackXs),
                 listScheduleBluStack
             ])
 
@@ -469,6 +471,34 @@ extension Ocean {
 
         private func setupConstraints() {
             self.heightConstraint.isActive = true
+            self.heightHeaderConstraint.isActive = true
+            self.heightHeaderNotBluConstraint.isActive = true
+
+            self.listBalanceAvailableStack.oceanConstraints
+                .height(constant: 48)
+                .make()
+
+            self.listCurrentBalanceStack.oceanConstraints
+                .height(constant: 48)
+                .make()
+
+            self.listScheduleBluStack.oceanConstraints
+                .height(constant: 48)
+                .make()
+
+            self.listBalanceNotBluStack.oceanConstraints
+                .height(constant: 48)
+                .make()
+
+            self.eyeImageView.oceanConstraints
+                .width(constant: Constants.eyeImageSize)
+                .height(constant: Constants.eyeImageSize)
+                .make()
+
+            self.arrowView.oceanConstraints
+                .width(constant: Constants.arrowSize)
+                .height(constant: Constants.arrowSize)
+                .make()
         }
 
         private func updateUI() {
@@ -501,6 +531,8 @@ extension Ocean {
             switch self.state {
             case .collapsed:
                 self.heightConstraint.constant = Constants.height
+                self.heightHeaderConstraint.constant = Constants.headerHeight
+                self.heightHeaderNotBluConstraint.constant = Constants.headerHeight
                 self.listStack.isHidden = true
                 self.titleHighlightLabel.isHidden = true
                 self.arrowView.transform = CGAffineTransform(rotationAngle: 0)
@@ -526,6 +558,8 @@ extension Ocean {
                         self.listStack.isHidden = false
                         self.listNotBluStack.isHidden = false
                         self.heightConstraint.constant = Constants.heightLg
+                        self.heightHeaderConstraint.constant = Constants.headerHeightSm
+                        self.heightHeaderNotBluConstraint.constant = Constants.headerHeightSm
                     } completion: { _ in
                         UIView.animate(withDuration: 0.3) {
                             self.titleHighlightLabel.isHidden = false
