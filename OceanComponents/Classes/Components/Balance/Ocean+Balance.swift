@@ -10,8 +10,8 @@ import OceanTokens
 extension Ocean {
     final public class Balance: UIView {
         struct Constants {
-            static let height: CGFloat = 105
-            static let heightLg: CGFloat = 230
+            static let height: CGFloat = 107
+            static let heightLg: CGFloat = 231
             static let eyeImageSize: CGFloat = 24
             static let arrowSize: CGFloat = 16
         }
@@ -386,7 +386,7 @@ extension Ocean {
 
         private lazy var listNotBluTextLabel: UILabel = {
             UILabel { label in
-                label.font = .baseRegular(size: Ocean.font.fontSizeXxs)
+                label.font = .baseBold(size: Ocean.font.fontSizeXxs)
                 label.textColor = Ocean.color.colorInterfaceDarkDeep
                 label.text = "Saldo total"
                 label.translatesAutoresizingMaskIntoConstraints = false
