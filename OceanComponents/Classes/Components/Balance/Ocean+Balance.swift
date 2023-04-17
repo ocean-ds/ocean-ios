@@ -11,9 +11,9 @@ extension Ocean {
     final public class Balance: UIView {
         struct Constants {
             static let height: CGFloat = 117
-            static let heightLg: CGFloat = 281
+            static let heightLg: CGFloat = 276
             static let headerHeight: CGFloat = 56
-            static let headerHeightSm: CGFloat = 40
+            static let headerHeightSm: CGFloat = 36
             static let eyeImageSize: CGFloat = 24
             static let arrowSize: CGFloat = 16
         }
@@ -105,6 +105,7 @@ extension Ocean {
                 label.text = "Saldo na Blu"
                 label.translatesAutoresizingMaskIntoConstraints = false
                 label.isSkeletonable = true
+                label.setLineHeight(lineHeight: Ocean.font.lineHeightComfy)
             }
         }()
 
@@ -180,7 +181,7 @@ extension Ocean {
             }
         }()
 
-        private lazy var notBluSpacer = Ocean.Spacer(space: Constants.eyeImageSize)
+        private lazy var notBluImageSpacer = Ocean.Spacer(space: Constants.eyeImageSize)
 
         private lazy var titleNotBluLabel: UILabel = {
             UILabel { label in
@@ -189,6 +190,7 @@ extension Ocean {
                 label.text = "Em outras maquininhas"
                 label.translatesAutoresizingMaskIntoConstraints = false
                 label.isSkeletonable = true
+                label.setLineHeight(lineHeight: Ocean.font.lineHeightComfy)
             }
         }()
 
@@ -236,7 +238,7 @@ extension Ocean {
 
             stack.add([
                 titleNotBluHighlightLabel,
-                notBluSpacer,
+                notBluImageSpacer,
                 Ocean.Spacer(space: Ocean.size.spacingStackXs),
                 titleNotBluStack,
                 UIView(),
@@ -252,6 +254,12 @@ extension Ocean {
         }()
 
         private lazy var notBluDivider = Ocean.Divider(widthConstraint: self.widthAnchor)
+
+        private lazy var notBluSpacer: Ocean.Spacer = {
+            let view = Ocean.Spacer(space: Ocean.size.spacingStackXxs)
+            view.isHidden = true
+            return view
+        }()
 
         private lazy var listBalanceAvailableTextLabel: UILabel = {
             UILabel { label in
@@ -450,9 +458,13 @@ extension Ocean {
                 headerStack,
                 listStack,
                 notBluDivider,
+                notBluSpacer,
                 headerNotBluStack,
                 listNotBluStack
             ])
+
+            stack.setMargins(top: Ocean.size.spacingStackXxs,
+                             bottom: Ocean.size.spacingStackXxxs)
 
             return stack
         }()
@@ -539,7 +551,8 @@ extension Ocean {
                 self.arrowView.tintColor = Ocean.color.colorInterfaceDarkUp
                 self.eyeImageView.alpha = 1
                 self.titleStack.alpha = 1
-                self.notBluDivider.alpha = 1
+                self.notBluDivider.isHidden = false
+                self.notBluSpacer.isHidden = true
                 self.listNotBluStack.isHidden = true
                 self.titleNotBluHighlightLabel.isHidden = true
                 self.titleNotBluStack.alpha = 1
@@ -550,7 +563,8 @@ extension Ocean {
                     self.titleStack.alpha = 0
                     self.arrowView.transform = CGAffineTransform(rotationAngle: (180.0 * .pi) / 180.0)
                     self.arrowView.tintColor = Ocean.color.colorBrandPrimaryPure
-                    self.notBluDivider.alpha = 0
+                    self.notBluDivider.isHidden = true
+                    self.notBluSpacer.isHidden = false
                     self.titleNotBluStack.alpha = 0
                     self.howToUseButton.alpha = 0
                 } completion: { _ in
