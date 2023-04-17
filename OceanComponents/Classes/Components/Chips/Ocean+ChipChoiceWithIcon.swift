@@ -122,6 +122,8 @@ extension Ocean {
                 self.setSelectedState()
             case .disabled:
                 self.setDisabledState()
+            default:
+                self.setNormalState()
             }
         }
         

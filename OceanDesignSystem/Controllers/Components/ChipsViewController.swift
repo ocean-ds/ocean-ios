@@ -14,6 +14,55 @@ import SkeletonView
 
 final public class ChipsViewController: UIViewController {
     
+    private let chipsBasicChipModel = [
+        Ocean.ChipModel(
+            icon: Ocean.icon.zoomOutOutline?.withRenderingMode(.alwaysTemplate),
+            title: "Label 1",
+            status: .inactive
+        ),
+        Ocean.ChipModel(
+            icon: Ocean.icon.calendarSolid?.withRenderingMode(.alwaysTemplate),
+            number: 999,
+            title: "Label 2",
+            status: .selected
+        ),
+        Ocean.ChipModel(
+            title: "Label 3",
+            status: .inactive
+        ),
+        Ocean.ChipModel(
+            icon: Ocean.icon.calendarSolid?.withRenderingMode(.alwaysTemplate),
+            number: 9,
+            title: "Label 4",
+            status: .normal
+        ),
+        Ocean.ChipModel(
+            title: "Label 5",
+            status: .normal
+        ),
+        Ocean.ChipModel(
+            number: 9,
+            title: "Label 6",
+            status: .normal
+        ),
+        Ocean.ChipModel(
+            number: 9,
+            title: "Label 7",
+            status: .disabled
+        ),
+        Ocean.ChipModel(
+            icon: Ocean.icon.calendarSolid?.withRenderingMode(.alwaysTemplate),
+            number: 9,
+            title: "Label 8",
+            status: .disabled
+        ),
+        Ocean.ChipModel(
+            icon: Ocean.icon.calendarSolid?.withRenderingMode(.alwaysTemplate),
+            title: "Label 9",
+            status: .disabled
+        )
+    ]
+    
     private let chipsChoiceModel = [
         Ocean.ChipModel(title: "Label 1"),
         Ocean.ChipModel(title: "Label 2"),
@@ -42,6 +91,16 @@ final public class ChipsViewController: UIViewController {
         Ocean.ChipModel(title: "Label 3"),
         Ocean.ChipModel(title: "Label 4")
     ]
+    
+    private lazy var chips0: Ocean.Chips =  {
+        let chips = Ocean.Chips()
+        chips.chipType = .basicChip
+        chips.onValueChange = { selected, item in
+            self.showSnackbar(text: "Item: \(item.title) - Selected: \(selected)")
+        }
+        chips.addData(with: chipsBasicChipModel)
+        return chips
+    }()
     
     private lazy var chips1: Ocean.Chips =  {
         let chips = Ocean.Chips()
@@ -94,6 +153,7 @@ final public class ChipsViewController: UIViewController {
         stack.spacing = Ocean.size.spacingStackXs
         stack.translatesAutoresizingMaskIntoConstraints = false
     
+        stack.addArrangedSubview(chips0)
         stack.addArrangedSubview(chips1)
         stack.addArrangedSubview(chips2)
         stack.addArrangedSubview(chips3)
@@ -104,6 +164,7 @@ final public class ChipsViewController: UIViewController {
         NSLayoutConstraint.activate([
             stack.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             stack.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            chips0.widthAnchor.constraint(equalTo: self.view.widthAnchor),
             chips1.widthAnchor.constraint(equalTo: self.view.widthAnchor),
             chips2.widthAnchor.constraint(equalTo: self.view.widthAnchor),
             chips3.widthAnchor.constraint(equalTo: self.view.widthAnchor),

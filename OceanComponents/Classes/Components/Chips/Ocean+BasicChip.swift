@@ -39,7 +39,7 @@ extension Ocean {
             }
         }
         
-        public var icon: UIImage? = nil {
+        public var icon: UIImage? = Ocean.icon.zoomOutOutline?.withRenderingMode(.alwaysTemplate) {
             didSet {
                 updateUI()
             }
@@ -49,11 +49,9 @@ extension Ocean {
         
         private lazy var imageView: UIImageView = {
             let view = UIImageView()
-            view.image = self.icon
             view.contentMode = .scaleAspectFit
-            view.frame = CGRect(x: 0, y: 0, width: 16, height: 16)
+            view.image = self.icon
             view.translatesAutoresizingMaskIntoConstraints = false
-            view.tintColor = Ocean.color.colorInterfaceLightPure
             return view
         }()
         
@@ -64,16 +62,14 @@ extension Ocean {
                 label.textColor = Ocean.color.colorInterfaceLightPure
                 label.textAlignment = .center
                 label.sizeToFit()
+                label.translatesAutoresizingMaskIntoConstraints = false
             }
         }()
 
         private lazy var badge: Ocean.BadgeNumber = {
             Ocean.Badge.number { view in
-                view.status = .alert
                 view.size = .small
-                if let value = self.number {
-                    view.number = value
-                }
+                view.translatesAutoresizingMaskIntoConstraints = false
             }
         }()
         
@@ -82,6 +78,7 @@ extension Ocean {
             stack.axis = .horizontal
             stack.distribution = .fill
             stack.spacing = Ocean.size.spacingStackXxxs
+            stack.translatesAutoresizingMaskIntoConstraints = false
             
             stack.add([
                 imageView,
@@ -108,26 +105,38 @@ extension Ocean {
         }
         
         private func setupUI() {
+            self.translatesAutoresizingMaskIntoConstraints = false
+            self.layer.cornerRadius = Constants.height * Ocean.size.borderRadiusCircular
+            self.layer.masksToBounds = true
             
+            self.backgroundColor = Ocean.color.colorInterfaceLightUp
+            self.layer.borderColor = Ocean.color.colorStatusNegativePure.cgColor
+            self.layer.borderWidth = 0
+            
+            self.isSkeletonable = true
+            self.contentView.isSkeletonable = true
+            self.skeletonCornerRadius = Float(self.layer.cornerRadius)
+            contentView.add(view: mainStack)
+            
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.didTapButton))
+            self.addGestureRecognizer(tapGesture)
+            
+            self.heightAnchor.constraint(equalToConstant: Constants.height).isActive = true
+            
+            setupContraints()
         }
         
         private func updateUI() {
             self.label.text = self.text
-            updateUIBadge()
-            updateUIStatus()
-        }
-        
-        private func updateUIBadge() {
-            if let numberValue = self.number {
-                self.badge.number = numberValue
-            }
             
-            self.badge.isHidden = !(self.number == nil)
+            updateUIWithStatus()
+            updateUIWithImageView()
+            updateUIWithBadge()
         }
         
-        private func updateUIStatus() {
+        private func updateUIWithStatus() {
             switch status {
-            case .normal:
+            case .normal, .inactive:
                 self.setNormalState()
             case .selected:
                 self.setSelectedState()
@@ -135,56 +144,67 @@ extension Ocean {
                 self.setDisabledState()
             }
         }
-
+        
+        private func updateUIWithImageView() {
+            if let icon = self.icon {
+                self.imageView.image = icon
+            }
+            
+            self.imageView.isHidden = self.icon == nil
+        }
+        
+        private func updateUIWithBadge() {
+            if let numberValue = self.number {
+                self.badge.number = numberValue
+            }
+            
+            self.badge.isHidden = self.number == nil
+        }
+        
         private func setNormalState() {
-            self.backgroundColor = Ocean.color.colorBrandPrimaryPure
+            self.backgroundColor = Ocean.color.colorInterfaceLightUp
 //            self.layer.borderWidth = 0
-            self.label.textColor = Ocean.color.colorInterfaceLightPure
-            
-            // setar cor do badge
+            self.label.textColor = Ocean.color.colorBrandPrimaryPure
             self.badge.status = .primary
-            
-            // setar cor do icone
-            self.imageView.tintColor = Ocean.color.colorInterfaceLightPure
+            self.imageView.tintColor = Ocean.color.colorBrandPrimaryPure
         }
 
         private func setSelectedState() {
-            self.backgroundColor = Ocean.color.colorBrandPrimaryDown
+            self.backgroundColor = Ocean.color.colorBrandPrimaryPure
 //            self.layer.borderWidth = 0
             self.label.textColor = Ocean.color.colorInterfaceLightPure
-            
-            // setar cor do badge
-            self.badge.status = .chipSelected
-            
-            // setar cor do icone
+            self.badge.status = .primaryInverted
             self.imageView.tintColor = Ocean.color.colorInterfaceLightPure
         }
 
         private func setDisabledState() {
             self.backgroundColor = Ocean.color.colorInterfaceLightDown
-//            self.layer.borderWidth = 0
+            self.layer.borderWidth = 0
             self.label.textColor = Ocean.color.colorInterfaceDarkUp
-            
-            // setar cor do badge
             self.badge.status = .disabled
-            
-            // setar cor do icone
             self.imageView.tintColor = Ocean.color.colorInterfaceDarkUp
         }
-        
+            
         @objc func didTapButton() {
             switch status {
-            case .normal:
+            case .inactive, .normal:
                 self.status = .selected
                 onValueChange?(true, self)
             case .selected:
                 if self.allowDeselect {
-                    self.status = .normal
+                    self.status = .inactive
                     onValueChange?(false, self)
                 }
             default:
                 break
             }
+        }
+        
+        private func setupContraints() {
+            imageView.oceanConstraints
+                .width(constant: 16)
+                .height(constant: 16)
+                .make()
         }
     }
 }

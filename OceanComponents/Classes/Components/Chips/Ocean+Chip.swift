@@ -10,6 +10,7 @@ import OceanTokens
 
 extension Ocean {
     public typealias ChipChoiceBuilder = (ChipChoice) -> Void
+    public typealias BasicChipBuilder = (BasicChip) -> Void
     public typealias ChipChoiceWithIconBuilder = (ChipChoiceWithIcon) -> Void
     public typealias ChipChoiceWithBadgeBuilder = (ChipChoiceWithBagde) ->  Void
     public typealias ChipFilterBuilder = (ChipFilter) -> Void
@@ -22,12 +23,11 @@ extension Ocean {
     }
     
     public enum ChipStatus {
-        case normal, selected, disabled
+        case normal, selected, disabled, inactive
     }
     
     public enum ChipType {
-        case choice, choiceWithIcon, choiceWithBadge, filter
-//        case active, inactive
+        case choice, choiceWithIcon, choiceWithBadge, filter, basicChip
     }
     
 }

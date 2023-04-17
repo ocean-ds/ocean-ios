@@ -47,6 +47,8 @@ extension Ocean {
                 collection.register(Ocean.ChipChoiceWithBagde.self, forCellWithReuseIdentifier: Ocean.ChipChoiceWithBagde.cellId)
             case .filter:
                 collection.register(Ocean.ChipFilter.self, forCellWithReuseIdentifier: Ocean.ChipFilter.cellId)
+            case .basicChip:
+                collection.register(Ocean.BasicChip.self, forCellWithReuseIdentifier: Ocean.BasicChip.cellId)
             }
             return collection
         }()
@@ -111,6 +113,8 @@ extension Ocean {
                 return Ocean.ChipChoiceWithBagde.cellId
             case .filter:
                 return Ocean.ChipFilter.cellId
+            case .basicChip:
+                return Ocean.BasicChip.cellId
             }
         }
 
@@ -134,6 +138,8 @@ extension Ocean {
                 return createChipChoiceWithBadgeCell(indexPath: indexPath, collectionView: collectionView)
             case .filter:
                 return createChipFilterCell(indexPath: indexPath, collectionView: collectionView)
+            case .basicChip:
+                return createBasicChipCell(indexPath: indexPath, collectionView: collectionView)
             }
         }
 
@@ -155,6 +161,22 @@ extension Ocean {
                 }
             case .filter:
                 widthItem += 56
+            case .basicChip:
+                widthItem += 38
+                if let _ = data[indexPath.row].icon {
+                    widthItem += 16
+                }
+
+                if let number = data[indexPath.row].number {
+                    switch number {
+                    case 0...9:
+                        widthItem += 16
+                    case 10...99:
+                        widthItem += 20
+                    default:
+                        widthItem += 24
+                    }
+                }
             }
             return CGSize(width: widthItem, height: Constants.height)
         }
@@ -230,6 +252,34 @@ extension Ocean {
                 self.chipsCollectionView.reloadItems(at: [indexPath])
                 self.onRemoved?(itemRemoved)
             }
+            return cell
+        }
+        
+        private func createBasicChipCell(
+            indexPath: IndexPath,
+            collectionView: UICollectionView
+        ) -> UICollectionViewCell {
+                
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: Ocean.BasicChip.cellId,
+                for: indexPath
+            ) as? Ocean.BasicChip else {
+                return UICollectionViewCell()
+            }
+                
+            cell.index = indexPath.row
+            cell.allowDeselect = self.allowDeselect
+            cell.icon = data[cell.index].icon
+            cell.text = data[cell.index].title
+            cell.number = data[cell.index].number
+            cell.status = data[cell.index].status
+                
+            cell.onValueChange = { selected, chip in
+                self.data[chip.index].status = chip.status
+                self.onValueChange?(selected, self.data[chip.index])
+                self.deselectOthers(current: chip.index)
+            }
+                
             return cell
         }
 
