@@ -18,10 +18,16 @@ extension Ocean {
         
         public enum Status {
             case primary
-            case complementary
+            case primaryInverted
+            case warning
             case highlight
-            case alert
-            case neutral
+            case disabled
+            case chipSelected
+            
+            // deprected
+            // case complementary // excluido
+            case alert // -> warning
+            case neutral // -> disabled
         }
         
         public var status: Status = .primary {
@@ -121,17 +127,25 @@ extension Ocean {
         }
         
         private func updateStatus() {
-            switch self.status {
-            case .complementary:
-                self.backgroundColor = Ocean.color.colorComplementaryPure
+            switch status {
+            case .primary:
+                self.backgroundColor = Ocean.color.colorBrandPrimaryPure
+                self.label.textColor = Ocean.color.colorInterfaceLightPure
+            case .primaryInverted:
+                self.backgroundColor = Ocean.color.colorInterfaceLightPure
+                self.label.textColor = Ocean.color.colorBrandPrimaryPure
+            case .warning, .alert:
+                self.backgroundColor = Ocean.color.colorStatusNeutralPure
+                self.label.textColor = Ocean.color.colorInterfaceLightPure
             case .highlight:
                 self.backgroundColor = Ocean.color.colorHighlightPure
-            case .alert:
-                self.backgroundColor = Ocean.color.colorStatusNeutralDeep
-            case .neutral:
+                self.label.textColor = Ocean.color.colorInterfaceLightPure
+            case .disabled, .neutral:
                 self.backgroundColor = Ocean.color.colorInterfaceDarkUp
-            default:
-                self.backgroundColor = Ocean.color.colorBrandPrimaryPure
+                self.label.textColor = Ocean.color.colorInterfaceLightPure
+            case .chipSelected:
+                self.backgroundColor = Ocean.color.colorInterfaceLightPure
+                self.label.textColor = Ocean.color.colorBrandPrimaryDown
             }
         }
     }

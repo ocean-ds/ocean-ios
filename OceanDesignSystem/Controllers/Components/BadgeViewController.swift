@@ -18,15 +18,15 @@ final public class BadgeViewController : UIViewController {
         view.number = 99
     }
     let badgeNumber2 = Ocean.Badge.number { view in
-        view.status = .complementary
+        view.status = .primaryInverted
         view.number = 100
     }
     let badgeNumber3 = Ocean.Badge.number { view in
-        view.status = .highlight
+        view.status = .warning
         view.number = 10
     }
     let badgeNumber4 = Ocean.Badge.number { view in
-        view.status = .alert
+        view.status = .highlight
         view.size = .small
         view.number = 5
     }
@@ -34,6 +34,11 @@ final public class BadgeViewController : UIViewController {
         view.status = .neutral
         view.size = .small
         view.number = 10
+    }
+    
+    let badgeNumber6 = Ocean.Badge.number { view in
+        view.status = .chipSelected
+        view.number = 9
     }
     
     public override func viewDidLoad() {
@@ -52,6 +57,7 @@ final public class BadgeViewController : UIViewController {
         stack.addArrangedSubview(badgeNumber3)
         stack.addArrangedSubview(badgeNumber4)
         stack.addArrangedSubview(badgeNumber5)
+        stack.addArrangedSubview(badgeNumber6)
         
         self.view.addSubview(stack)
         

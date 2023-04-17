@@ -21,21 +21,18 @@ final public class ChipsViewController: UIViewController {
         Ocean.ChipModel(title: "Label 4"),
         Ocean.ChipModel(title: "Label 5", status: .selected),
         Ocean.ChipModel(title: "Label 6", status: .disabled),
-        Ocean.ChipModel(title: "Label 7", status: .error),
     ]
     
     private let chipsChoiceWithIconModel = [
         Ocean.ChipModel(icon: Ocean.icon.calendarSolid?.withRenderingMode(.alwaysTemplate), title: "Label 1", status: .normal),
         Ocean.ChipModel(icon: Ocean.icon.calendarSolid?.withRenderingMode(.alwaysTemplate), title: "Label 2", status: .selected),
-        Ocean.ChipModel(icon: Ocean.icon.calendarSolid?.withRenderingMode(.alwaysTemplate), title: "Label 3", status: .disabled),
-        Ocean.ChipModel(icon: Ocean.icon.calendarSolid?.withRenderingMode(.alwaysTemplate), title: "Label 4", status: .error)
+        Ocean.ChipModel(icon: Ocean.icon.calendarSolid?.withRenderingMode(.alwaysTemplate), title: "Label 3", status: .disabled)
     ]
     
     private let chipsChoiceWithBadgeModel = [
         Ocean.ChipModel(number: 8, title: "Label 1", status: .normal),
         Ocean.ChipModel(number: 10, title: "Label 2", status: .selected),
         Ocean.ChipModel(number: 106, title: "Label 3", status: .disabled),
-        Ocean.ChipModel(number: 9, title: "Label 4", status: .error),
         Ocean.ChipModel(number: 0, title: "Label 5", status: .normal)
     ]
     

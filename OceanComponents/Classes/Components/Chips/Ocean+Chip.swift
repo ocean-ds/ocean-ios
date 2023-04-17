@@ -22,11 +22,12 @@ extension Ocean {
     }
     
     public enum ChipStatus {
-        case normal, selected, disabled, error
+        case normal, selected, disabled
     }
     
     public enum ChipType {
         case choice, choiceWithIcon, choiceWithBadge, filter
+//        case active, inactive
     }
     
 }
