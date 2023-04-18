@@ -86,11 +86,10 @@ extension Ocean {
                 badge
             ])
             
-            stack.isLayoutMarginsRelativeArrangement = true
-            stack.layoutMargins = .init(top: Ocean.size.spacingStackXxs,
-                                        left: Ocean.size.spacingStackXs,
-                                        bottom: Ocean.size.spacingStackXxs,
-                                        right: Ocean.size.spacingStackXs)
+            stack.setMargins(top: Ocean.size.spacingStackXxs + 1,
+                             left: Ocean.size.spacingStackXs,
+                             bottom: Ocean.size.spacingStackXxs + 1,
+                             right: Ocean.size.spacingStackXs)
             
             return stack
         }()
@@ -104,26 +103,59 @@ extension Ocean {
             fatalError("init(coder:) has not been implemented")
         }
         
-        private func setupUI() {
+        private func configureAparence() {
             self.translatesAutoresizingMaskIntoConstraints = false
             self.layer.cornerRadius = Constants.height * Ocean.size.borderRadiusCircular
             self.layer.masksToBounds = true
-            
             self.backgroundColor = Ocean.color.colorInterfaceLightUp
             self.layer.borderColor = Ocean.color.colorStatusNegativePure.cgColor
             self.layer.borderWidth = 0
-            
+        }
+        
+        private func addGestureRecognizer() {
+            let tapGesture = UITapGestureRecognizer(target: self,
+                                                    action: #selector(self.didTapButton))
+            self.addGestureRecognizer(tapGesture)
+        }
+        
+        @objc func didTapButton() {
+            switch status {
+            case .inactive, .normal:
+                self.status = .selected
+                onValueChange?(true, self)
+            case .selected:
+                if self.allowDeselect {
+                    self.status = .inactive
+                    onValueChange?(false, self)
+                }
+            default:
+                break
+            }
+        }
+        
+        private func addSubviews() {
+            contentView.addSubview(mainStack)
             self.isSkeletonable = true
             self.contentView.isSkeletonable = true
             self.skeletonCornerRadius = Float(self.layer.cornerRadius)
-            contentView.add(view: mainStack)
+        }
+        
+        private func setupConstraints() {
+            imageView.oceanConstraints
+                .width(constant: 16)
+                .height(constant: 16)
+                .make()
             
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.didTapButton))
-            self.addGestureRecognizer(tapGesture)
-            
-            self.heightAnchor.constraint(equalToConstant: Constants.height).isActive = true
-            
-            setupContraints()
+            mainStack.oceanConstraints
+                .fill(to: contentView)
+                .make()
+        }
+        
+        private func setupUI() {
+            configureAparence()
+            addGestureRecognizer()
+            addSubviews()
+            setupConstraints()
         }
         
         private func updateUI() {
@@ -149,7 +181,7 @@ extension Ocean {
             if let icon = self.icon {
                 self.imageView.image = icon
             }
-            
+
             self.imageView.isHidden = self.icon == nil
         }
         
@@ -157,13 +189,12 @@ extension Ocean {
             if let numberValue = self.number {
                 self.badge.number = numberValue
             }
-            
+
             self.badge.isHidden = self.number == nil
         }
         
         private func setNormalState() {
             self.backgroundColor = Ocean.color.colorInterfaceLightUp
-//            self.layer.borderWidth = 0
             self.label.textColor = Ocean.color.colorBrandPrimaryPure
             self.badge.status = .primary
             self.imageView.tintColor = Ocean.color.colorBrandPrimaryPure
@@ -171,7 +202,6 @@ extension Ocean {
 
         private func setSelectedState() {
             self.backgroundColor = Ocean.color.colorBrandPrimaryPure
-//            self.layer.borderWidth = 0
             self.label.textColor = Ocean.color.colorInterfaceLightPure
             self.badge.status = .primaryInverted
             self.imageView.tintColor = Ocean.color.colorInterfaceLightPure
@@ -179,32 +209,9 @@ extension Ocean {
 
         private func setDisabledState() {
             self.backgroundColor = Ocean.color.colorInterfaceLightDown
-            self.layer.borderWidth = 0
             self.label.textColor = Ocean.color.colorInterfaceDarkUp
             self.badge.status = .disabled
             self.imageView.tintColor = Ocean.color.colorInterfaceDarkUp
-        }
-            
-        @objc func didTapButton() {
-            switch status {
-            case .inactive, .normal:
-                self.status = .selected
-                onValueChange?(true, self)
-            case .selected:
-                if self.allowDeselect {
-                    self.status = .inactive
-                    onValueChange?(false, self)
-                }
-            default:
-                break
-            }
-        }
-        
-        private func setupContraints() {
-            imageView.oceanConstraints
-                .width(constant: 16)
-                .height(constant: 16)
-                .make()
         }
     }
 }

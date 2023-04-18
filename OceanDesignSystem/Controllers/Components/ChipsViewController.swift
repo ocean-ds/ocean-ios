@@ -17,48 +17,48 @@ final public class ChipsViewController: UIViewController {
     private let chipsBasicChipModel = [
         Ocean.ChipModel(
             icon: Ocean.icon.zoomOutOutline?.withRenderingMode(.alwaysTemplate),
-            title: "Label 1",
+            title: "inactive 1",
             status: .inactive
         ),
         Ocean.ChipModel(
             icon: Ocean.icon.calendarSolid?.withRenderingMode(.alwaysTemplate),
             number: 999,
-            title: "Label 2",
+            title: "selected 2",
             status: .selected
         ),
         Ocean.ChipModel(
-            title: "Label 3",
+            title: "pendente 3",
             status: .inactive
         ),
         Ocean.ChipModel(
             icon: Ocean.icon.calendarSolid?.withRenderingMode(.alwaysTemplate),
-            number: 9,
-            title: "Label 4",
+            number: 88,
+            title: "normal 4",
             status: .normal
         ),
         Ocean.ChipModel(
-            title: "Label 5",
-            status: .normal
-        ),
-        Ocean.ChipModel(
-            number: 9,
-            title: "Label 6",
+            title: "normal 5",
             status: .normal
         ),
         Ocean.ChipModel(
             number: 9,
-            title: "Label 7",
+            title: "normal 6",
+            status: .normal
+        ),
+        Ocean.ChipModel(
+            number: 9,
+            title: "disabled 7",
             status: .disabled
         ),
         Ocean.ChipModel(
             icon: Ocean.icon.calendarSolid?.withRenderingMode(.alwaysTemplate),
             number: 9,
-            title: "Label 8",
+            title: "disabled 8",
             status: .disabled
         ),
         Ocean.ChipModel(
             icon: Ocean.icon.calendarSolid?.withRenderingMode(.alwaysTemplate),
-            title: "Label 9",
+            title: "disabled 9",
             status: .disabled
         )
     ]

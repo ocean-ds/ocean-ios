@@ -154,28 +154,23 @@ extension Ocean {
                 widthItem += 64
             case .choiceWithBadge:
                 if let number = data[indexPath.row].number {
-                    let numberWidth = String(number).size(withAttributes: nil)
-                    widthItem += numberWidth.width + 54
+                    let numberWidth = String(number).size(withAttributes: nil).width
+                    widthItem += numberWidth + 54
                 } else {
                     widthItem += 38
                 }
-            case .filter:
+            case .filter:   
                 widthItem += 56
             case .basicChip:
-                widthItem += 38
+                widthItem += 44
+                
                 if let _ = data[indexPath.row].icon {
-                    widthItem += 16
+                    widthItem += 20
                 }
 
                 if let number = data[indexPath.row].number {
-                    switch number {
-                    case 0...9:
-                        widthItem += 16
-                    case 10...99:
-                        widthItem += 20
-                    default:
-                        widthItem += 24
-                    }
+                    let numberWidth = String(number).size(withAttributes: nil).width
+                    widthItem += numberWidth + 16
                 }
             }
             return CGSize(width: widthItem, height: Constants.height)
@@ -190,13 +185,10 @@ extension Ocean {
 
         private func setupCollectionView() {
             addSubview(chipsCollectionView)
-
-            NSLayoutConstraint.activate([
-                chipsCollectionView.topAnchor.constraint(equalTo: topAnchor),
-                chipsCollectionView.leftAnchor.constraint(equalTo: leftAnchor),
-                chipsCollectionView.rightAnchor.constraint(equalTo: rightAnchor),
-                chipsCollectionView.heightAnchor.constraint(equalTo: heightAnchor)
-            ])
+            
+            chipsCollectionView.oceanConstraints
+                .fill(to: self)
+                .make()
         }
 
         private func createChipChoiceCell(indexPath: IndexPath, collectionView: UICollectionView) -> UICollectionViewCell {
@@ -255,17 +247,11 @@ extension Ocean {
             return cell
         }
         
-        private func createBasicChipCell(
-            indexPath: IndexPath,
-            collectionView: UICollectionView
-        ) -> UICollectionViewCell {
+        private func createBasicChipCell(indexPath: IndexPath,
+                                         collectionView: UICollectionView) -> UICollectionViewCell {
                 
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: Ocean.BasicChip.cellId,
-                for: indexPath
-            ) as? Ocean.BasicChip else {
-                return UICollectionViewCell()
-            }
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Ocean.BasicChip.cellId,
+                                                                for: indexPath) as? Ocean.BasicChip else { return UICollectionViewCell() }
                 
             cell.index = indexPath.row
             cell.allowDeselect = self.allowDeselect
