@@ -83,6 +83,7 @@ extension Ocean {
                 label.text = "Saldo na Blu"
                 label.translatesAutoresizingMaskIntoConstraints = false
                 label.isHidden = true
+                label.setContentCompressionResistancePriority(.required, for: .horizontal)
             }
         }()
 
@@ -178,6 +179,7 @@ extension Ocean {
                 label.text = "Em outras maquininhas"
                 label.translatesAutoresizingMaskIntoConstraints = false
                 label.isHidden = true
+                label.setContentCompressionResistancePriority(.required, for: .horizontal)
             }
         }()
 
@@ -568,18 +570,13 @@ extension Ocean {
                     self.titleNotBluStack.alpha = 0
                     self.howToUseButton.alpha = 0
                 } completion: { _ in
-                    UIView.animate(withDuration: 0.3) {
-                        self.listStack.isHidden = false
-                        self.listNotBluStack.isHidden = false
-                        self.heightConstraint.constant = Constants.heightLg
-                        self.heightHeaderConstraint.constant = Constants.headerHeightSm
-                        self.heightHeaderNotBluConstraint.constant = Constants.headerHeightSm
-                    } completion: { _ in
-                        UIView.animate(withDuration: 0.3) {
-                            self.titleHighlightLabel.isHidden = false
-                            self.titleNotBluHighlightLabel.isHidden = false
-                        }
-                    }
+                    self.titleHighlightLabel.isHidden = false
+                    self.titleNotBluHighlightLabel.isHidden = false
+                    self.listStack.isHidden = false
+                    self.listNotBluStack.isHidden = false
+                    self.heightConstraint.constant = Constants.heightLg
+                    self.heightHeaderConstraint.constant = Constants.headerHeightSm
+                    self.heightHeaderNotBluConstraint.constant = Constants.headerHeightSm
                 }
             }
         }
