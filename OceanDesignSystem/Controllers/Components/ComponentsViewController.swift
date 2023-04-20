@@ -69,6 +69,8 @@ class ComponentsViewController: UITableViewController {
             self.present(AlertBoxViewController(), animated: true, completion: nil)
         case .Divider:
             self.present(DividerViewController(), animated: true, completion: nil)
+        case .ModalV2:
+            self.present(ModalViewControllerV2(), animated: true, completion: nil)
         case .Tooltip:
             self.present(TooltipViewController(), animated: true, completion: nil)
         case .TextList:

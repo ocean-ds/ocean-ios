@@ -159,7 +159,7 @@ extension Ocean {
                 } else {
                     widthItem += 38
                 }
-            case .filter:   
+            case .filter:
                 widthItem += 56
             case .basicChip:
                 widthItem += 44

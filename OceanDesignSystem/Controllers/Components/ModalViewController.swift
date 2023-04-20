@@ -17,6 +17,7 @@ class ModalViewController: UIViewController {
         case listWithActions
         case simpleList
         case customView
+        case multipleChoice
     }
     
     @IBOutlet weak var mainSegmentControl: UISegmentedControl!
@@ -73,6 +74,23 @@ class ModalViewController: UIViewController {
                 Ocean.CellModel(title: "Title 1", isSelected: true),
                 Ocean.CellModel(title: "Title 2")
             ])
+            .build()
+    }()
+    
+    private lazy var sheetMultipleChoiceComponent: Ocean.ModelMultipleChoiceViewController = {
+        Ocean.ModalMultiChoice(self)
+            .withTitle("Multiple Choice")
+            .withDismiss(true)
+            .withMultipleOptions([
+                Ocean.CellModel(title: "Em monitoramento", isSelected: true),
+                Ocean.CellModel(title: "Agendado"),
+                Ocean.CellModel(title: "Aguardando saldo"),
+                Ocean.CellModel(title: "Pago"),
+                Ocean.CellModel(title: "Recusado"),
+                Ocean.CellModel(title: "Cancelado")
+            ])
+            .withAction(textNegative: "Cancelar", actionNegative: nil,
+                        textPositive: "Filtrar", actionPositive: nil)
             .build()
     }()
     
@@ -150,6 +168,8 @@ class ModalViewController: UIViewController {
             sheetListWithActionsComponent.show()
         case .customView:
             customBottomSheet.show()
+        case .multipleChoice:
+            sheetMultipleChoiceComponent.show()
         }
     }
     
@@ -169,6 +189,7 @@ class ModalViewController: UIViewController {
             subSegmentControl.setTitle("Simple List", forSegmentAt: 0)
             subSegmentControl.setTitle("With Image", forSegmentAt: 1)
             subSegmentControl.insertSegment(withTitle: "With actions", at: 2, animated: true)
+            subSegmentControl.insertSegment(withTitle: "Multiple", at: 3, animated: true)
             showCase = .simpleList
         case 2:
             showCase = .customView
@@ -186,6 +207,10 @@ class ModalViewController: UIViewController {
         case 2:
             if mainSegmentControl.selectedSegmentIndex == 1 {
                 showCase = .listWithActions
+            }
+        case 3:
+            if mainSegmentControl.selectedSegmentIndex == 1 {
+                showCase = .multipleChoice
             }
         default:
             break

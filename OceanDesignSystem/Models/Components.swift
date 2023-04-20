@@ -30,6 +30,7 @@ struct DSComponents {
         "GroupCTA",
         "Input",
         "Modal",
+        "ModalV2",
         "NavigationBar",
         "OrderedListItem",
         "ParentChildTextList",

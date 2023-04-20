@@ -1,39 +1,28 @@
 //
-//  Ocean+ModalListViewController.swift
-//  OceanComponents
+//  Ocean+ModelMultipleChoiceViewController.swift
+//  FSCalendar
 //
-//  Created by Vinicius Romeiro on 22/06/22.
+//  Created by Acassio Mendonça on 18/04/23.
 //
 
-import UIKit
-import SPStorkController
+import Foundation
 import OceanTokens
 
+
 extension Ocean {
-    public class ModalListViewController: BaseModalViewController, UITableViewDelegate, UITableViewDataSource {
+
+    public class ModelMultipleChoiceViewController: BaseModalViewController, UITableViewDelegate, UITableViewDataSource {
         
         struct Constants {
             static let heightCell: CGFloat = 48
             static let heightCellWithImages: CGFloat = 73
         }
-        
-        public var onValueSelected: ((Int, CellModel) -> Void)?
-        public var isLoading: Bool = false {
-            didSet {
-                actions.map { $0 as? ButtonPrimary }
-                    .forEach { $0?.isLoading = isLoading }
-                
-                actions.map { $0 as? ButtonSecondary }
-                    .forEach { $0?.isLoading = isLoading }
-            }
-        }
-        
+    
         var contentTitle: String?
-        var contentValues: [CellModel]?
         var actionsAxis: NSLayoutConstraint.Axis = .vertical
-        var actions: [UIControl] = []
         var contenteMultipleOptions: [CellModel]?
-
+        var actions: [UIControl] = []
+        
         private lazy var tableView: UITableView = {
             let tableView = UITableView()
             tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -52,12 +41,12 @@ extension Ocean {
             divider.isHidden = true
             return divider
         }()
-
+        
         private lazy var bottomStack: Ocean.StackView = {
             Ocean.StackView { stackView in
                 stackView.translatesAutoresizingMaskIntoConstraints = false
                 stackView.axis = actionsAxis
-                stackView.distribution = .fill
+                stackView.distribution = .fillEqually
                 stackView.alignment = .fill
                 stackView.spacing = Ocean.size.spacingStackXs
                 stackView.layoutMargins = UIEdgeInsets(top: Ocean.size.spacingInsetSm,
@@ -67,13 +56,11 @@ extension Ocean {
                 stackView.isLayoutMarginsRelativeArrangement = true
             }
         }()
-
+        
         override func makeView() {
             var totalSpacing = heightSpacing
             totalSpacing += Ocean.size.spacingStackXxs
             
-            mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxs))
-
             let topSpacing = Ocean.size.spacingStackMd
             totalSpacing += topSpacing
 
@@ -82,19 +69,18 @@ extension Ocean {
             } else {
                 mainStack.addArrangedSubview(Spacer(space: topSpacing))
             }
-
+            
             totalSpacing += addTitleIfExists()
             totalSpacing += addActionsIfExist()
-
-            if let contentValues = contentValues {
-                let pureHeight = contentValues.first?.imageIcon != nil ? Constants.heightCellWithImages : Constants.heightCell
-                let tableHeight = pureHeight * (CGFloat(contentValues.count))
+            
+            if let contenteMultipleOptions = contenteMultipleOptions {
+                let tableHeight = Constants.heightCell * (CGFloat(contenteMultipleOptions.count))
                 totalSpacing += tableHeight
             }
-
+            
             spTransitionDelegate.customHeight = totalSpacing
         }
-
+        
         fileprivate func addTitleIfExists() -> CGFloat {
             guard let title = contentTitle else {
                 return 0
@@ -137,7 +123,52 @@ extension Ocean {
 
             return actionsHeight + topSpacing + bottomSpacing
         }
-
+        
+//        private lazy var optionsListCheckBox: [Ocean.CheckBox] = []
+        
+//        override lazy var mainStack: Ocean.StackView = {
+//            let stack = Ocean.StackView()
+//            stack.axis = .vertical
+//            stack.distribution = .fill
+//            stack.spacing = Ocean.size.spacingStackXs
+//
+//            stack.add(optionsListCheckBox)
+//
+//            stack.add([
+//                titleLabel,
+//                Divider.init(),
+//                buttonStack
+//            ])
+//
+//            return stack
+//        }()
+        
+//        private lazy var buttonSecudary: Ocean.ButtonSecondary = {
+//            Ocean.Button.secondaryMD { button in
+//
+//            }
+//        }()
+//
+//        private lazy var buttonPrimary: Ocean.ButtonPrimary = {
+//            Ocean.Button.primaryMD { button in
+//
+//            }
+//        }()
+//
+//        private lazy var buttonStack: Ocean.StackView = {
+//            let stack = Ocean.StackView()
+//            stack.axis = .horizontal
+//            stack.distribution = .fill
+//            stack.spacing = Ocean.size.spacingStackXxs
+//
+//            stack.add([
+//                buttonPrimary,
+//                buttonSecudary
+//            ])
+//
+//            return stack
+//        }()
+        
         public override func viewDidLoad() {
             super.viewDidLoad()
             view.addSubview(tableView)
@@ -181,49 +212,27 @@ extension Ocean {
                 .trailingToTrailing(to: view, safeArea: true)
                 .make()
         }
-
-        public func tableView(_ tableView: UITableView,
-                              numberOfRowsInSection section: Int) -> Int {
-            if let contentValues = contentValues {
-                return contentValues.count
-            }
-            
+        
+        private func configureView() {
+            mainStack.addArrangedSubview(closeView)
+        }
+        
+        public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             if let contenteMultipleOptions = contenteMultipleOptions {
                 return contenteMultipleOptions.count
             }
             
             return 0
         }
-
-        public func tableView(_ tableView: UITableView,
-                              cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = ModalCell()
+        
+        public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let cell = ModalMultipleChoiceCell()
             
-            if let contentValues = contentValues {
-                cell.model = contentValues[indexPath.row]
-            } else if let contenteMultipleOptions = contenteMultipleOptions {
+            if let contenteMultipleOptions = contenteMultipleOptions {
                 cell.model = contenteMultipleOptions[indexPath.row]
             }
-
-            return cell
-        }
-
-        public func tableView(_ tableView: UITableView,
-                              heightForRowAt indexPath: IndexPath) -> CGFloat {
-            let hasImageIcon = self.contentValues?[indexPath.row].imageIcon != nil
-            return hasImageIcon ? Constants.heightCellWithImages : Constants.heightCell
-        }
-
-        public func tableView(_ tableView: UITableView,
-                              didSelectRowAt indexPath: IndexPath) {
             
-            if let value = contentValues?[indexPath.row] {
-                self.dismiss(animated: true, completion: nil)
-                self.onValueSelected?(indexPath.row, value)
-            } else if let value = contenteMultipleOptions?[indexPath.row] {
-                self.dismiss(animated: true, completion: nil)
-                self.onValueSelected?(indexPath.row, value)
-            }
+            return cell
         }
     }
 }

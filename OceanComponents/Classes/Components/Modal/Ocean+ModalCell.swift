@@ -19,6 +19,12 @@ extension Ocean {
         
         static let identifier = "modalCellIdentifier"
         
+        private lazy var optionCheckBox: Ocean.CheckBox = {
+            let option = Ocean.CheckBox()
+            
+            return option
+        }()
+        
         private lazy var contentStack: Ocean.StackView = {
             let stack = Ocean.StackView()
             stack.axis = .horizontal
