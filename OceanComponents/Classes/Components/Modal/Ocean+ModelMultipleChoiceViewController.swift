@@ -11,29 +11,19 @@ import OceanTokens
 
 extension Ocean {
 
-    public class ModelMultipleChoiceViewController: BaseModalViewController, UITableViewDelegate, UITableViewDataSource {
+    public class ModelMultipleChoiceViewController: BaseModalViewController {
         
         struct Constants {
-            static let heightCell: CGFloat = 48
-            static let heightCellWithImages: CGFloat = 73
+            static let heightCell: CGFloat = 36
         }
     
         var contentTitle: String?
-        var actionsAxis: NSLayoutConstraint.Axis = .vertical
-        var contenteMultipleOptions: [CellModel]?
+        var contenteMultipleOptions: [CellModel] = []
         var actions: [UIControl] = []
         
-        private lazy var tableView: UITableView = {
-            let tableView = UITableView()
-            tableView.translatesAutoresizingMaskIntoConstraints = false
-            tableView.tableHeaderView = UIView()
-            tableView.tableFooterView = UIView()
-            tableView.delegate = self
-            tableView.dataSource = self
-            tableView.bounces = false
-            tableView.separatorStyle =  .none
-            return tableView
-        }()
+        public func getMultipleOptions() -> [CellModel] {
+                return contenteMultipleOptions
+            }
         
         private lazy var divider: Ocean.Divider = {
             let divider = Ocean.Divider()
@@ -45,7 +35,7 @@ extension Ocean {
         private lazy var bottomStack: Ocean.StackView = {
             Ocean.StackView { stackView in
                 stackView.translatesAutoresizingMaskIntoConstraints = false
-                stackView.axis = actionsAxis
+                stackView.axis = .horizontal
                 stackView.distribution = .fillEqually
                 stackView.alignment = .fill
                 stackView.spacing = Ocean.size.spacingStackXs
@@ -59,7 +49,6 @@ extension Ocean {
         
         override func makeView() {
             var totalSpacing = heightSpacing
-            totalSpacing += Ocean.size.spacingStackXxs
             
             let topSpacing = Ocean.size.spacingStackMd
             totalSpacing += topSpacing
@@ -73,10 +62,10 @@ extension Ocean {
             totalSpacing += addTitleIfExists()
             totalSpacing += addActionsIfExist()
             
-            if let contenteMultipleOptions = contenteMultipleOptions {
-                let tableHeight = Constants.heightCell * (CGFloat(contenteMultipleOptions.count))
-                totalSpacing += tableHeight
-            }
+        
+            let tableHeight = Constants.heightCell * (CGFloat(contenteMultipleOptions.count))
+            totalSpacing += tableHeight - 8
+            
             
             spTransitionDelegate.customHeight = totalSpacing
         }
@@ -115,43 +104,39 @@ extension Ocean {
             let bottomSpacing = bottomStack.layoutMargins.bottom
 
             divider.isHidden = actions.isEmpty
-            actions.forEach { (control) in
+            actions.forEach { control in
                 bottomStack.addArrangedSubview(control)
             }
             
-            let actionsHeight: CGFloat = actionsAxis == .horizontal ? 48 : actions.count > 1 ? 112 : 48
+            let actionsHeight: CGFloat =  48
 
             return actionsHeight + topSpacing + bottomSpacing
         }
         
-//        private lazy var optionsListCheckBox: [Ocean.CheckBox] = []
+        private lazy var optionsListCheckBox: [Ocean.CheckBox] = []
         
-//        override lazy var mainStack: Ocean.StackView = {
-//            let stack = Ocean.StackView()
-//            stack.axis = .vertical
-//            stack.distribution = .fill
-//            stack.spacing = Ocean.size.spacingStackXs
-//
-//            stack.add(optionsListCheckBox)
-//
-//            stack.add([
-//                titleLabel,
-//                Divider.init(),
-//                buttonStack
-//            ])
-//
-//            return stack
-//        }()
+        lazy var contentStack: Ocean.StackView = {
+            let stack = Ocean.StackView()
+            stack.axis = .vertical
+            stack.distribution = .fill
+            stack.spacing = Ocean.size.spacingStackXxs
+
+            stack.add(optionsListCheckBox)
+
+            return stack
+        }()
         
 //        private lazy var buttonSecudary: Ocean.ButtonSecondary = {
 //            Ocean.Button.secondaryMD { button in
-//
+//                button.text = "Cancelar"
+//                button.onTouch = optionSelected
 //            }
 //        }()
 //
 //        private lazy var buttonPrimary: Ocean.ButtonPrimary = {
 //            Ocean.Button.primaryMD { button in
-//
+//                button.text = "Filtrar"
+//                button.onTouch = optionSelected
 //            }
 //        }()
 //
@@ -171,11 +156,12 @@ extension Ocean {
         
         public override func viewDidLoad() {
             super.viewDidLoad()
-            view.addSubview(tableView)
+            setupUI()
+            view.addSubview(contentStack)
             view.addSubview(bottomStack)
             view.addSubview(divider)
             addConstraintMainStack()
-            addConstraintTableView()
+            addConstraintContentStack()
             addConstraintBottomStack()
             addConstraintDivider()
         }
@@ -188,17 +174,18 @@ extension Ocean {
                 .make()
         }
 
-        private func addConstraintTableView() {
-            tableView.oceanConstraints
+        private func addConstraintContentStack() {
+            contentStack.oceanConstraints
                 .topToBottom(to: mainStack)
-                .leadingToLeading(to: view, safeArea: true)
-                .trailingToTrailing(to: view, safeArea: true)
+                .bottomToTop(to: bottomStack, constant: -8)
+                .leadingToLeading(to: mainStack)
+                .trailingToTrailing(to: mainStack)
                 .make()
         }
         
         private func addConstraintBottomStack() {
             bottomStack.oceanConstraints
-                .topToBottom(to: tableView)
+                .topToBottom(to: contentStack)
                 .bottomToBottom(to: view, safeArea: true)
                 .leadingToLeading(to: view, constant: Ocean.size.spacingStackSm, safeArea: true)
                 .trailingToTrailing(to: view, constant: -Ocean.size.spacingStackSm, safeArea: true)
@@ -217,22 +204,20 @@ extension Ocean {
             mainStack.addArrangedSubview(closeView)
         }
         
-        public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            if let contenteMultipleOptions = contenteMultipleOptions {
-                return contenteMultipleOptions.count
-            }
-            
-            return 0
+        public func optionSelected() -> [CellModel] {
+            return contenteMultipleOptions
         }
         
-        public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = ModalMultipleChoiceCell()
-            
-            if let contenteMultipleOptions = contenteMultipleOptions {
-                cell.model = contenteMultipleOptions[indexPath.row]
+        private func setupUI() {
+            contenteMultipleOptions.enumerated().forEach { index, item in
+                let itemCheckBox = Ocean.CheckBox()
+                itemCheckBox.text = item.title
+                itemCheckBox.isSelected = item.isSelected
+                itemCheckBox.onTouch = {
+                    self.contenteMultipleOptions[index].isSelected = !self.contenteMultipleOptions[index].isSelected
+                }
+                optionsListCheckBox.append(itemCheckBox)
             }
-            
-            return cell
         }
     }
 }

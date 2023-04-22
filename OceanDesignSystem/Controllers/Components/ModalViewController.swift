@@ -89,10 +89,42 @@ class ModalViewController: UIViewController {
                 Ocean.CellModel(title: "Recusado"),
                 Ocean.CellModel(title: "Cancelado")
             ])
-            .withAction(textNegative: "Cancelar", actionNegative: nil,
-                        textPositive: "Filtrar", actionPositive: nil)
+            .withAction(textNegative: "Cancelar", actionNegative: {
+                            
+                        }, textPositive: "Filtrar", actionPositive: { selectedOption in
+                            self.getResult(completion: selectedOption)
+                        })
             .build()
     }()
+    
+    private func getResult(completion: [Ocean.CellModel]?) {
+        print(">>>>>>> COMPLETION >>>>>>>")
+        completion?.enumerated().forEach { index, item in
+            let content = """
+                        index: \t\t\t\(index)
+                        filtro: \t\t\(item.title)
+                        selecionado: \t\(item.isSelected)
+                        """
+            print(content)
+        }
+    }
+    
+//    private lazy var sheetMultipleChoiceComponent: Ocean.ModalListViewController = {
+//        Ocean.ModalList(self)
+//            .withTitle("Multiple Choice")
+//            .withDismiss(true)
+//            .withMultipleOptions([
+//                Ocean.CellModel(title: "Em monitoramento", isSelected: true),
+//                Ocean.CellModel(title: "Agendado"),
+//                Ocean.CellModel(title: "Aguardando saldo"),
+//                Ocean.CellModel(title: "Pago"),
+//                Ocean.CellModel(title: "Recusado"),
+//                Ocean.CellModel(title: "Cancelado")
+//            ])
+//            .withAction(textNegative: "Cancelar", actionNegative: nil,
+//                        textPositive: "Filtrar", actionPositive: nil)
+//            .build()
+//    }()
     
     private lazy var sheetListWithImageComponent: Ocean.ModalListViewController = {
         Ocean.ModalList(self)

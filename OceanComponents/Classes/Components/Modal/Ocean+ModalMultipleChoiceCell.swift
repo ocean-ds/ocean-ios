@@ -1,5 +1,5 @@
 //
-//  Ocean.ModalMultipleChoiceCell.swift
+//  Ocean+ModalMultipleChoiceCell.swift
 //  FSCalendar
 //
 //  Created by Acassio Mendonça on 19/04/23.
@@ -10,7 +10,7 @@ import OceanTokens
 
 extension Ocean {
     
-    class ModalMultipleChoiceCell: UITableViewCell {
+    class ModalMultipleChoiceCell: UITableViewCell, ModalCellProtocol {
         
         public var model: Ocean.CellModel? {
             didSet {
@@ -57,6 +57,7 @@ extension Ocean {
         
         private func setupUI() {
             contentView.addSubview(contentStack)
+            self.selectionStyle = .none
             
             contentStack.oceanConstraints
                 .topToTop(to: contentView)

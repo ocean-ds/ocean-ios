@@ -26,11 +26,6 @@ extension Ocean {
             return self
         }
         
-        public func withValues(_ values: [CellModel]) -> ModalMultiChoice {
-            modalListViewController.contenteMultipleOptions = values
-            return self
-        }
-        
         public func withMultipleOptions(_ values: [CellModel]) -> ModalMultiChoice {
             modalListViewController.contenteMultipleOptions = values
             return self
@@ -39,13 +34,12 @@ extension Ocean {
         public func withAction(textNegative: String,
                         actionNegative: (() -> Void)?,
                         textPositive: String,
-                        actionPositive: (() -> Void)?) -> ModalMultiChoice {
-            modalListViewController.actionsAxis = .horizontal
+                        actionPositive: (([CellModel]?) -> Void)?) -> ModalMultiChoice {
             modalListViewController.actions.append(Ocean.Button.secondaryMD { button in
                 button.text = textNegative
                 button.onTouch = {
                     self.modalListViewController.dismiss(animated: true) {
-                        actionNegative?()
+                        actionPositive
                     }
                 }
             })
@@ -53,7 +47,8 @@ extension Ocean {
                 button.text = textPositive
                 button.onTouch = {
                     self.modalListViewController.dismiss(animated: true) {
-                        actionPositive?()
+                        let selectedOption = self.modalListViewController.optionSelected()
+                                                actionPositive?(selectedOption)
                     }
                 }
             })

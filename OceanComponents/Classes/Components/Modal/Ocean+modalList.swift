@@ -78,6 +78,31 @@ extension Ocean {
             return self
         }
         
+        public func withAction(textNegative: String,
+                        actionNegative: (() -> Void)?,
+                        textPositive: String,
+                        actionPositive: (() -> Void)?) -> ModalList {
+            modalListViewController.actionsAxis = .horizontal
+            modalListViewController.buttonStackDistribution = .fillEqually
+            modalListViewController.actions.append(Ocean.Button.secondaryMD { button in
+                button.text = textNegative
+                button.onTouch = {
+                    self.modalListViewController.dismiss(animated: true) {
+                        actionNegative?()
+                    }
+                }
+            })
+            modalListViewController.actions.append(Ocean.Button.primaryMD { button in
+                button.text = textPositive
+                button.onTouch = {
+                    self.modalListViewController.dismiss(animated: true) {
+                        actionPositive?()
+                    }
+                }
+            })
+            return self
+        }
+        
         public func build() -> ModalListViewController {
             self.modalListViewController.makeView()
             return modalListViewController

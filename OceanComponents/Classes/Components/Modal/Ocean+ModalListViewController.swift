@@ -33,6 +33,7 @@ extension Ocean {
         var actionsAxis: NSLayoutConstraint.Axis = .vertical
         var actions: [UIControl] = []
         var contenteMultipleOptions: [CellModel]?
+        var buttonStackDistribution: UIStackView.Distribution = .fill
 
         private lazy var tableView: UITableView = {
             let tableView = UITableView()
@@ -43,6 +44,10 @@ extension Ocean {
             tableView.dataSource = self
             tableView.bounces = false
             tableView.separatorStyle =  .none
+            
+            tableView.register(ModalSingleChoiceCell.self, forCellReuseIdentifier: ModalSingleChoiceCell.identifier)
+            tableView.register(ModalMultipleChoiceCell.self, forCellReuseIdentifier: ModalMultipleChoiceCell.identifier)
+            
             return tableView
         }()
         
@@ -57,7 +62,7 @@ extension Ocean {
             Ocean.StackView { stackView in
                 stackView.translatesAutoresizingMaskIntoConstraints = false
                 stackView.axis = actionsAxis
-                stackView.distribution = .fill
+                stackView.distribution = buttonStackDistribution
                 stackView.alignment = .fill
                 stackView.spacing = Ocean.size.spacingStackXs
                 stackView.layoutMargins = UIEdgeInsets(top: Ocean.size.spacingInsetSm,
@@ -87,6 +92,12 @@ extension Ocean {
             totalSpacing += addActionsIfExist()
 
             if let contentValues = contentValues {
+                let pureHeight = contentValues.first?.imageIcon != nil ? Constants.heightCellWithImages : Constants.heightCell
+                let tableHeight = pureHeight * (CGFloat(contentValues.count))
+                totalSpacing += tableHeight
+            }
+
+            if let contentValues = contenteMultipleOptions {
                 let pureHeight = contentValues.first?.imageIcon != nil ? Constants.heightCellWithImages : Constants.heightCell
                 let tableHeight = pureHeight * (CGFloat(contentValues.count))
                 totalSpacing += tableHeight
@@ -197,14 +208,19 @@ extension Ocean {
 
         public func tableView(_ tableView: UITableView,
                               cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = ModalCell()
+            var cell: ModalCellProtocol
+            
+            cell = ModalSingleChoiceCell()
             
             if let contentValues = contentValues {
+                cell = tableView.dequeueReusableCell(withIdentifier: ModalSingleChoiceCell.identifier, for: indexPath) as! ModalSingleChoiceCell
                 cell.model = contentValues[indexPath.row]
+                
             } else if let contenteMultipleOptions = contenteMultipleOptions {
+                cell = tableView.dequeueReusableCell(withIdentifier: ModalMultipleChoiceCell.identifier, for: indexPath) as! ModalMultipleChoiceCell
                 cell.model = contenteMultipleOptions[indexPath.row]
             }
-
+            
             return cell
         }
 
@@ -218,9 +234,6 @@ extension Ocean {
                               didSelectRowAt indexPath: IndexPath) {
             
             if let value = contentValues?[indexPath.row] {
-                self.dismiss(animated: true, completion: nil)
-                self.onValueSelected?(indexPath.row, value)
-            } else if let value = contenteMultipleOptions?[indexPath.row] {
                 self.dismiss(animated: true, completion: nil)
                 self.onValueSelected?(indexPath.row, value)
             }
