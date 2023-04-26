@@ -61,6 +61,12 @@ extension Ocean {
             }
         }
 
+        public var howToUseButtonText: String = "Como usar" {
+            didSet {
+                howToUseButton.text = howToUseButtonText
+            }
+        }
+
         public var onStateChanged: ((State) -> Void)?
         public var howToUseTouch: (() -> Void)?
 
