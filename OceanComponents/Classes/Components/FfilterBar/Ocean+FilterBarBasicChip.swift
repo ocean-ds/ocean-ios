@@ -1,5 +1,5 @@
 //
-//  Ocean+SingleChipFilter.swift
+//  Ocean+FilterBarBasicChip.swift
 //  OceanComponents
 //
 //  Created by Acassio Mendonça on 26/04/23.
@@ -9,7 +9,7 @@ import Foundation
 import OceanTokens
 
 extension Ocean {
-    public class SingleChipFilter: BaseChip {
+    public class FilterBarBasicChip: BaseFilterBarChip {
         
         public var onValueChange: ((Bool, String) -> Void)?
         

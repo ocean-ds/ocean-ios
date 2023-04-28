@@ -50,6 +50,7 @@ extension Ocean {
         override func makeView() {
             
             if swipeDismiss {
+                mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxs))
                 mainStack.addArrangedSubview(closeView)
             } else {
                 mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackMd))
@@ -60,6 +61,7 @@ extension Ocean {
         
         private func configureHeightView() {
             var totalSpacing = heightSpacing
+            totalSpacing += Ocean.size.spacingStackXxs
             
             let topSpacing = Ocean.size.spacingStackMd
             totalSpacing += topSpacing
@@ -68,7 +70,7 @@ extension Ocean {
             totalSpacing += addActionsIfExist()
             
             let tableHeight = Constants.heightCell * (CGFloat(contenteMultipleOptions.count))
-            totalSpacing += tableHeight - 8
+            totalSpacing += tableHeight - 4
             
             spTransitionDelegate.customHeight = totalSpacing
         }
@@ -173,10 +175,6 @@ extension Ocean {
                 .leadingToLeading(to: view, safeArea: true)
                 .trailingToTrailing(to: view, safeArea: true)
                 .make()
-        }
-        
-        private func configureView() {
-            mainStack.addArrangedSubview(closeView)
         }
         
         public func optionSelected() -> [CellModel] {

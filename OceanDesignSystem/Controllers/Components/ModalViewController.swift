@@ -44,7 +44,7 @@ class ModalViewController: UIViewController {
             button.onTouch = self.showBottomSheetActionButton
         }
     }()
-
+    
     private lazy var sheetComponent: Ocean.ModalViewController = {
         Ocean.Modal(self)
             .withImage(Ocean.icon.calculatorSolid)
@@ -82,7 +82,7 @@ class ModalViewController: UIViewController {
             .withTitle("Multiple Choice")
             .withDismiss(true)
             .withMultipleOptions([
-                Ocean.CellModel(title: "Em monitoramento", isSelected: true),
+                Ocean.CellModel(title: "Em monitoramento"),
                 Ocean.CellModel(title: "Agendado"),
                 Ocean.CellModel(title: "Aguardando saldo"),
                 Ocean.CellModel(title: "Pago"),
@@ -90,23 +90,22 @@ class ModalViewController: UIViewController {
                 Ocean.CellModel(title: "Cancelado")
             ])
             .withAction(textNegative: "Cancelar", actionNegative: {
-                            
-                        }, textPositive: "Filtrar", actionPositive: { selectedOption in
-                            self.getResult(completion: selectedOption)
-                        })
+                
+            }, textPositive: "Filtrar", actionPositive: { options in
+                let optionsSelected = options.filter { $0.isSelected }
+                let selectedTitles = optionsSelected.map { $0.title }
+                let message = "Items: \(selectedTitles.joined(separator: ", "))"
+                self.showSnackBar(message: message)
+            })
             .build()
     }()
     
-    private func getResult(completion: [Ocean.CellModel]?) {
-        print(">>>>>>> COMPLETION >>>>>>>")
-        completion?.enumerated().forEach { index, item in
-            let content = """
-                        index: \t\t\t\(index)
-                        filtro: \t\t\(item.title)
-                        selecionado: \t\(item.isSelected)
-                        """
-            print(content)
-        }
+    private func showSnackBar(message: String) {
+        let snack = Ocean.Snackbar()
+        snack.state = .created
+        snack.snackbarText = message
+        
+        snack.show(in: view)
     }
     
     private lazy var sheetListWithImageComponent: Ocean.ModalListViewController = {

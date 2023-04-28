@@ -10,24 +10,24 @@ import OceanTokens
 
 extension Ocean {
     public class ModalMultiChoice {
-        private var modalListViewController: ModelMultipleChoiceViewController
+        private var modalMultipleChoiceViewController: ModelMultipleChoiceViewController
         
         public init(_ rootViewController: UIViewController) {
-            modalListViewController = ModelMultipleChoiceViewController(rootViewController)
+            modalMultipleChoiceViewController = ModelMultipleChoiceViewController(rootViewController)
         }
         
         public func withDismiss(_ value: Bool) -> ModalMultiChoice {
-            modalListViewController.swipeDismiss = value
+            modalMultipleChoiceViewController.swipeDismiss = value
             return self
         }
         
         public func withTitle(_ title: String?) -> ModalMultiChoice {
-            modalListViewController.contentTitle = title
+            modalMultipleChoiceViewController.contentTitle = title
             return self
         }
         
         public func withMultipleOptions(_ values: [CellModel]) -> ModalMultiChoice {
-            modalListViewController.contenteMultipleOptions = values
+            modalMultipleChoiceViewController.contenteMultipleOptions = values
             return self
         }
         
@@ -35,19 +35,19 @@ extension Ocean {
                                actionNegative: (() -> Void)?,
                                textPositive: String,
                                actionPositive: (([CellModel]) -> Void)?) -> ModalMultiChoice {
-            modalListViewController.actions.append(Ocean.Button.secondaryMD { button in
+            modalMultipleChoiceViewController.actions.append(Ocean.Button.secondaryMD { button in
                 button.text = textNegative
                 button.onTouch = {
-                    self.modalListViewController.dismiss(animated: true) {
+                    self.modalMultipleChoiceViewController.dismiss(animated: true) {
                         actionNegative?()
                     }
                 }
             })
-            modalListViewController.actions.append(Ocean.Button.primaryMD { button in
+            modalMultipleChoiceViewController.actions.append(Ocean.Button.primaryMD { button in
                 button.text = textPositive
                 button.onTouch = {
-                    self.modalListViewController.dismiss(animated: true) {
-                        let selectedOption = self.modalListViewController.optionSelected()
+                    self.modalMultipleChoiceViewController.dismiss(animated: true) {
+                        let selectedOption = self.modalMultipleChoiceViewController.optionSelected()
                                                 actionPositive?(selectedOption)
                     }
                 }
@@ -56,8 +56,8 @@ extension Ocean {
         }
         
         public func build() -> ModelMultipleChoiceViewController {
-            self.modalListViewController.makeView()
-            return modalListViewController
+            self.modalMultipleChoiceViewController.makeView()
+            return modalMultipleChoiceViewController
         }
     }
 }

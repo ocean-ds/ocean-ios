@@ -23,11 +23,8 @@ extension Ocean {
             case highlight
             case disabled
             case chipSelected
-            
-            // deprected
-            // case complementary // excluido
-            case alert // -> warning
-            case neutral // -> disabled
+            case alert
+            case neutral
         }
         
         public var status: Status = .primary {

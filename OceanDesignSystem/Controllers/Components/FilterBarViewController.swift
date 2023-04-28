@@ -29,8 +29,8 @@ class FilterBarViewController: UIViewController {
             secondaryButtonTitle: "Cancelar")
     }()
     
-    lazy var filterChip: Ocean.ChipWithFilter = {
-        let chip = Ocean.ChipWithFilter()
+    lazy var filterChip: Ocean.FilterChipWithModal = {
+        let chip = Ocean.FilterChipWithModal()
         chip.text = "Filtro"
         chip.filterOptionsModel = filterOptionsModel
         chip.rootViewController = self
@@ -44,8 +44,8 @@ class FilterBarViewController: UIViewController {
         return chip
     }()
     
-    lazy var filterChip2: Ocean.ChipWithFilter = {
-        let chip = Ocean.ChipWithFilter()
+    lazy var filterChip2: Ocean.FilterChipWithModal = {
+        let chip = Ocean.FilterChipWithModal()
         chip.text = "Filtro"
         chip.filterOptionsModel = filterOptionsModel
         chip.rootViewController = self
@@ -59,8 +59,8 @@ class FilterBarViewController: UIViewController {
         return chip
     }()
     
-    lazy var basicChip1: Ocean.SingleChipFilter = {
-        let chip = Ocean.SingleChipFilter()
+    lazy var basicChip1: Ocean.FilterBarBasicChip = {
+        let chip = Ocean.FilterBarBasicChip()
         chip.number = 999
         chip.icon = Ocean.icon.calendarOutline?.withRenderingMode(.alwaysTemplate)
         chip.text = "Todos os Filtros"
@@ -71,8 +71,8 @@ class FilterBarViewController: UIViewController {
         return chip
     }()
     
-    lazy var basicChip2: Ocean.SingleChipFilter = {
-        let chip = Ocean.SingleChipFilter()
+    lazy var basicChip2: Ocean.FilterBarBasicChip = {
+        let chip = Ocean.FilterBarBasicChip()
         chip.number = 9
         chip.text = "Filtros"
         chip.onValueChange = { selected, item in
@@ -82,8 +82,8 @@ class FilterBarViewController: UIViewController {
         return chip
     }()
     
-    lazy var basicChip3: Ocean.SingleChipFilter = {
-        let chip = Ocean.SingleChipFilter()
+    lazy var basicChip3: Ocean.FilterBarBasicChip = {
+        let chip = Ocean.FilterBarBasicChip()
         chip.text = "Filtrados"
         chip.onValueChange = { selected, item in
             self.showSnackbar(text: "Item: \(item) - Selected: \(selected)")
@@ -120,18 +120,6 @@ class FilterBarViewController: UIViewController {
         
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
                 view.addGestureRecognizer(panGesture)
-    }
-    
-    private func getResult(completion: [Ocean.CellModel]?) {
-        print(">>>>>>> COMPLETION >>>>>>>")
-        completion?.enumerated().forEach { index, item in
-            let content = """
-                        index: \t\t\t\(index)
-                        filtro: \t\t\(item.title)
-                        selecionado: \t\(item.isSelected)
-                        """
-            print(content)
-        }
     }
     
     private func showSnackbar(text: String) {

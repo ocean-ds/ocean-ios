@@ -9,7 +9,7 @@ import Foundation
 import OceanTokens
 
 
-public class BaseChip: UIView {
+public class BaseFilterBarChip: UIView {
     
     public enum ChipType {
         case filterChip
@@ -98,9 +98,7 @@ public class BaseChip: UIView {
         self.addGestureRecognizer(tapGesture)
     }
     
-    @objc func didTapButton() {
-        
-    }
+    @objc func didTapButton() {}
 
     internal func updateUI() {
         label.text = text
