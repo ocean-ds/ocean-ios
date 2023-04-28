@@ -16,8 +16,9 @@ extension Ocean {
             modalViewController = ModalViewController(rootViewController)
         }
         
-        public func withDismiss(_ value: Bool) -> Modal {
+        public func withDismiss(_ value: Bool, completion: ((Bool) -> Void)? = nil) -> Modal {
             modalViewController.swipeDismiss = value
+            modalViewController.onDismiss = completion
             return self
         }
         

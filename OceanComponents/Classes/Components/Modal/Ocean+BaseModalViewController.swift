@@ -11,6 +11,10 @@ import OceanTokens
 
 extension Ocean {
     public class BaseModalViewController: UIViewController {
+        
+        var onDismiss: ((Bool) -> Void)?
+        var wasClosed: Bool = false
+        
         internal lazy var mainStack: Ocean.StackView = {
             Ocean.StackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
@@ -109,8 +113,15 @@ extension Ocean {
             self.view.backgroundColor = Ocean.color.colorInterfaceLightPure
             self.view.addSubview(mainStack)
         }
-
+        
+        public override func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
+            
+            onDismiss?(wasClosed)
+        }
+        
         @objc func closeTap() {
+            self.wasClosed = true
             self.dismiss(animated: true)
         }
     }
