@@ -32,14 +32,14 @@ extension Ocean {
         }
         
         public func withAction(textNegative: String,
-                        actionNegative: (() -> Void)?,
-                        textPositive: String,
-                        actionPositive: (([CellModel]?) -> Void)?) -> ModalMultiChoice {
+                               actionNegative: (() -> Void)?,
+                               textPositive: String,
+                               actionPositive: (([CellModel]) -> Void)?) -> ModalMultiChoice {
             modalListViewController.actions.append(Ocean.Button.secondaryMD { button in
                 button.text = textNegative
                 button.onTouch = {
                     self.modalListViewController.dismiss(animated: true) {
-                        actionPositive
+                        actionNegative?()
                     }
                 }
             })

@@ -109,23 +109,6 @@ class ModalViewController: UIViewController {
         }
     }
     
-//    private lazy var sheetMultipleChoiceComponent: Ocean.ModalListViewController = {
-//        Ocean.ModalList(self)
-//            .withTitle("Multiple Choice")
-//            .withDismiss(true)
-//            .withMultipleOptions([
-//                Ocean.CellModel(title: "Em monitoramento", isSelected: true),
-//                Ocean.CellModel(title: "Agendado"),
-//                Ocean.CellModel(title: "Aguardando saldo"),
-//                Ocean.CellModel(title: "Pago"),
-//                Ocean.CellModel(title: "Recusado"),
-//                Ocean.CellModel(title: "Cancelado")
-//            ])
-//            .withAction(textNegative: "Cancelar", actionNegative: nil,
-//                        textPositive: "Filtrar", actionPositive: nil)
-//            .build()
-//    }()
-    
     private lazy var sheetListWithImageComponent: Ocean.ModalListViewController = {
         Ocean.ModalList(self)
             .withTitle("Teste").withValues([

@@ -92,7 +92,7 @@ final public class ChipsViewController: UIViewController {
         Ocean.ChipModel(title: "Label 4")
     ]
     
-    private lazy var chips0: Ocean.Chips =  {
+    private lazy var chips0: Ocean.Chips = {
         let chips = Ocean.Chips()
         chips.chipType = .basicChip
         chips.onValueChange = { selected, item in
@@ -102,7 +102,7 @@ final public class ChipsViewController: UIViewController {
         return chips
     }()
     
-    private lazy var chips1: Ocean.Chips =  {
+    private lazy var chips1: Ocean.Chips = {
         let chips = Ocean.Chips()
         chips.chipType = .choice
         chips.onValueChange = { selected, item in
@@ -112,7 +112,7 @@ final public class ChipsViewController: UIViewController {
         return chips
     }()
     
-    private lazy var chips2: Ocean.Chips =  {
+    private lazy var chips2: Ocean.Chips = {
         let chips = Ocean.Chips()
         chips.chipType = .choiceWithIcon
         chips.onValueChange = { selected, item in
@@ -122,7 +122,7 @@ final public class ChipsViewController: UIViewController {
         return chips
     }()
     
-    private lazy var chips3: Ocean.Chips =  {
+    private lazy var chips3: Ocean.Chips = {
         let chips = Ocean.Chips()
         chips.chipType = .choiceWithBadge
         chips.onValueChange = { selected, item in
@@ -133,7 +133,7 @@ final public class ChipsViewController: UIViewController {
         return chips
     }()
     
-    private lazy var chips4: Ocean.Chips =  {
+    private lazy var chips4: Ocean.Chips = {
         let chips = Ocean.Chips()
         chips.chipType = .filter
         chips.onRemoved = { item in

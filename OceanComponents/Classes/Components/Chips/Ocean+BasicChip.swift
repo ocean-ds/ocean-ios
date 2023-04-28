@@ -47,7 +47,7 @@ extension Ocean {
         
         public var onValueChange: ((Bool, BasicChip) -> Void)? = nil
         
-        private lazy var imageView: UIImageView = {
+        internal lazy var imageView: UIImageView = {
             let view = UIImageView()
             view.contentMode = .scaleAspectFit
             view.image = self.icon
@@ -55,7 +55,7 @@ extension Ocean {
             return view
         }()
         
-        private lazy var label: UILabel = {
+        internal lazy var label: UILabel = {
             UILabel { label in
                 label.font = .baseSemiBold(size: Ocean.font.fontSizeXxs)
                 label.text = self.text
@@ -66,14 +66,14 @@ extension Ocean {
             }
         }()
 
-        private lazy var badge: Ocean.BadgeNumber = {
+        internal lazy var badge: Ocean.BadgeNumber = {
             Ocean.Badge.number { view in
                 view.size = .small
                 view.translatesAutoresizingMaskIntoConstraints = false
             }
         }()
         
-        private lazy var mainStack: Ocean.StackView = {
+        internal lazy var mainStack: Ocean.StackView = {
             let stack = Ocean.StackView()
             stack.axis = .horizontal
             stack.distribution = .fill

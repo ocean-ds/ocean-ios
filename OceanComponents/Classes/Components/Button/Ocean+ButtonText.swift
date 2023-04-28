@@ -152,7 +152,7 @@ extension Ocean {
             if let leftIcon = self.leftIcon?.withRenderingMode(.alwaysTemplate) {
                 self.imageView = UIImageView(image: leftIcon)
                 self.imageView.tintColor = activeLabelColor
-                contentStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxs))
+                contentStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxxs))
                 contentStack.addArrangedSubview(imageView)
                 contentStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
                 self.imageView.isUserInteractionEnabled = false
@@ -180,7 +180,7 @@ extension Ocean {
                 self.imageView.tintColor = activeLabelColor
                 contentStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
                 contentStack.addArrangedSubview(imageView)
-                contentStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxs))
+                contentStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxxs))
                 self.imageView.isUserInteractionEnabled = false
                 self.imageView.oceanConstraints
                     .width(constant: self.iconSize.width)

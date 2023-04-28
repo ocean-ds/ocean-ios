@@ -48,24 +48,27 @@ extension Ocean {
         }()
         
         override func makeView() {
+            
+            if swipeDismiss {
+                mainStack.addArrangedSubview(closeView)
+            } else {
+                mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackMd))
+            }
+            
+            configureHeightView()
+        }
+        
+        private func configureHeightView() {
             var totalSpacing = heightSpacing
             
             let topSpacing = Ocean.size.spacingStackMd
             totalSpacing += topSpacing
-
-            if swipeDismiss {
-                mainStack.addArrangedSubview(closeView)
-            } else {
-                mainStack.addArrangedSubview(Spacer(space: topSpacing))
-            }
             
             totalSpacing += addTitleIfExists()
             totalSpacing += addActionsIfExist()
             
-        
             let tableHeight = Constants.heightCell * (CGFloat(contenteMultipleOptions.count))
             totalSpacing += tableHeight - 8
-            
             
             spTransitionDelegate.customHeight = totalSpacing
         }
@@ -125,34 +128,6 @@ extension Ocean {
 
             return stack
         }()
-        
-//        private lazy var buttonSecudary: Ocean.ButtonSecondary = {
-//            Ocean.Button.secondaryMD { button in
-//                button.text = "Cancelar"
-//                button.onTouch = optionSelected
-//            }
-//        }()
-//
-//        private lazy var buttonPrimary: Ocean.ButtonPrimary = {
-//            Ocean.Button.primaryMD { button in
-//                button.text = "Filtrar"
-//                button.onTouch = optionSelected
-//            }
-//        }()
-//
-//        private lazy var buttonStack: Ocean.StackView = {
-//            let stack = Ocean.StackView()
-//            stack.axis = .horizontal
-//            stack.distribution = .fill
-//            stack.spacing = Ocean.size.spacingStackXxs
-//
-//            stack.add([
-//                buttonPrimary,
-//                buttonSecudary
-//            ])
-//
-//            return stack
-//        }()
         
         public override func viewDidLoad() {
             super.viewDidLoad()
