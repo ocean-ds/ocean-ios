@@ -52,11 +52,8 @@ extension Ocean {
                 stackView.distribution = .fillEqually
                 stackView.alignment = .fill
                 stackView.spacing = Ocean.size.spacingStackXs
-                stackView.layoutMargins = UIEdgeInsets(top: Ocean.size.spacingInsetSm,
-                                                       left: 0,
-                                                       bottom: 0,
-                                                       right: 0)
-                stackView.isLayoutMarginsRelativeArrangement = true
+                
+                stackView.setMargins(top: Ocean.size.spacingInsetSm)
             }
         }()
         
@@ -65,7 +62,6 @@ extension Ocean {
         }
         
         override func makeView() {
-            
             if swipeDismiss {
                 mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxs))
                 mainStack.addArrangedSubview(closeView)
