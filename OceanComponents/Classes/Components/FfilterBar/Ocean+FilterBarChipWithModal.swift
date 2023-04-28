@@ -9,17 +9,15 @@ import Foundation
 import OceanTokens
 
 extension Ocean {
-    
     public class FilterBarChipWithModal: BaseFilterBarChip {
-        
-        public var filterOptionsModel: FilterOptionsModel? = nil {
+        public var filterOptionsModel: FilterBarOptionsModel? = nil {
             didSet {
                 updateUI()
             }
         }
         
         public weak var rootViewController: UIViewController?
-        
+
         public var onValuesChange: ((FilterBarChipWithModal, [Ocean.CellModel]) -> Void)? = nil
         
         public var onCancel: (() -> Void)? = nil

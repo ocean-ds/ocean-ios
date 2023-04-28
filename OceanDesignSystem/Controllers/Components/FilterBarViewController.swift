@@ -11,9 +11,7 @@ import OceanTokens
 import OceanComponents
 
 class FilterBarViewController: UIViewController {
-    
-    lazy var filterBar = Ocean.FilterBar(
-    )
+    lazy var filterBar = Ocean.FilterBar()
     
     lazy var optionsCellModel: [Ocean.CellModel] = [
         Ocean.CellModel(title: "Pago"),
@@ -21,8 +19,8 @@ class FilterBarViewController: UIViewController {
         Ocean.CellModel(title: "Recusado")
     ]
     
-    lazy var filterOptionsModel: Ocean.FilterOptionsModel = {
-        Ocean.FilterOptionsModel(
+    lazy var filterOptionsModel: Ocean.FilterBarOptionsModel = {
+        Ocean.FilterBarOptionsModel(
             modalTitle: "Opções de Filtro",
             multipleChoiceOptions: optionsCellModel,
             primaryButtonTitle: "Filtrar",

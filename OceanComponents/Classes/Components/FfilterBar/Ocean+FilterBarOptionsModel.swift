@@ -1,5 +1,5 @@
 //
-//  Ocean+FilterOptionsModel.swift
+//  Ocean+FilterBarOptionsModel.swift
 //  OceanComponents
 //
 //  Created by Acassio Mendonça on 25/04/23.
@@ -9,7 +9,7 @@ import Foundation
 import OceanTokens
 
 extension Ocean {
-    public struct FilterOptionsModel {
+    public struct FilterBarOptionsModel {
         public var modalTitle: String = ""
         public var multipleChoiceOptions: [Ocean.CellModel] = []
         public var primaryButtonTitle: String = "Filtrar"

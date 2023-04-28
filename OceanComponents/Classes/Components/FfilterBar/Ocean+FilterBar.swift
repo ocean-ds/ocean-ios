@@ -10,7 +10,6 @@ import OceanTokens
 
 extension Ocean {
     public class FilterBar: UIView {
-        
         private let scrollView: UIScrollView = {
             let scrollView = UIScrollView()
             scrollView.showsHorizontalScrollIndicator = false

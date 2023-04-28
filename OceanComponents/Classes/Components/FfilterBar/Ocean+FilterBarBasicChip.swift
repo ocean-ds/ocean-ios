@@ -10,7 +10,6 @@ import OceanTokens
 
 extension Ocean {
     public class FilterBarBasicChip: BaseFilterBarChip {
-        
         public var onValueChange: ((Bool, String) -> Void)?
         
         private var isSelected: Bool = false
