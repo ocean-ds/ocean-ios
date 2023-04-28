@@ -9,7 +9,7 @@ import UIKit
 import OceanTokens
 
 extension Ocean {
-    class ModalCell: UITableViewCell {
+    class ModalSingleChoiceCell: UITableViewCell, ModalCellProtocol {
         
         public var model: Ocean.CellModel? {
             didSet {

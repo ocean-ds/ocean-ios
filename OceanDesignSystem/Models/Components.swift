@@ -26,6 +26,7 @@ struct DSComponents {
         "Chips",
         "DatePicker",
         "Divider",
+        "FilterBar",
         "FloatVerticalMenuList",
         "GroupCTA",
         "Input",

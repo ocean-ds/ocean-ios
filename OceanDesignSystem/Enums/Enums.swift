@@ -64,6 +64,7 @@ public enum DesignSystemComponentsType: String {
     case CardListItem
     case OrderedListItem
     case SettingsListItem
+    case FilterBar
 }
 
 public enum DesignSystemTypographyType: Int {

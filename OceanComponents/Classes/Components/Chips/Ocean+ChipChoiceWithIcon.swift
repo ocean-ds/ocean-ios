@@ -122,8 +122,8 @@ extension Ocean {
                 self.setSelectedState()
             case .disabled:
                 self.setDisabledState()
-            case .error:
-                self.setErrorState()
+            default:
+                self.setNormalState()
             }
         }
         
@@ -146,13 +146,6 @@ extension Ocean {
             self.layer.borderWidth = 0
             self.label.textColor = Ocean.color.colorInterfaceDarkUp
             self.imageView.tintColor = Ocean.color.colorInterfaceDarkUp
-        }
-        
-        private func setErrorState() {
-            self.backgroundColor = Ocean.color.colorInterfaceLightUp
-            self.layer.borderWidth = 1
-            self.label.textColor = Ocean.color.colorBrandPrimaryDown
-            self.imageView.tintColor = Ocean.color.colorBrandPrimaryDown
         }
         
         @objc func touchUpInSide() {

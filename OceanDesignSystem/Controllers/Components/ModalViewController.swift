@@ -17,6 +17,7 @@ class ModalViewController: UIViewController {
         case listWithActions
         case simpleList
         case customView
+        case multipleChoice
     }
     
     @IBOutlet weak var mainSegmentControl: UISegmentedControl!
@@ -43,7 +44,7 @@ class ModalViewController: UIViewController {
             button.onTouch = self.showBottomSheetActionButton
         }
     }()
-
+    
     private lazy var sheetComponent: Ocean.ModalViewController = {
         Ocean.Modal(self)
             .withImage(Ocean.icon.calculatorSolid)
@@ -75,6 +76,37 @@ class ModalViewController: UIViewController {
             ])
             .build()
     }()
+    
+    private lazy var sheetMultipleChoiceComponent: Ocean.ModelMultipleChoiceViewController = {
+        Ocean.ModalMultiChoice(self)
+            .withTitle("Multiple Choice")
+            .withDismiss(true)
+            .withMultipleOptions([
+                Ocean.CellModel(title: "Em monitoramento"),
+                Ocean.CellModel(title: "Agendado"),
+                Ocean.CellModel(title: "Aguardando saldo"),
+                Ocean.CellModel(title: "Pago"),
+                Ocean.CellModel(title: "Recusado"),
+                Ocean.CellModel(title: "Cancelado")
+            ])
+            .withAction(textNegative: "Cancelar", actionNegative: {
+                self.showSnackBar(message: "CancelButton")
+            }, textPositive: "Filtrar", actionPositive: { options in
+                let optionsSelected = options.filter { $0.isSelected }
+                let selectedTitles = optionsSelected.map { $0.title }
+                let message = "Items: \(selectedTitles.joined(separator: ", "))"
+                self.showSnackBar(message: message)
+            })
+            .build()
+    }()
+    
+    private func showSnackBar(message: String) {
+        let snack = Ocean.Snackbar()
+        snack.state = .created
+        snack.snackbarText = message
+        
+        snack.show(in: view)
+    }
     
     private lazy var sheetListWithImageComponent: Ocean.ModalListViewController = {
         Ocean.ModalList(self)
@@ -150,6 +182,8 @@ class ModalViewController: UIViewController {
             sheetListWithActionsComponent.show()
         case .customView:
             customBottomSheet.show()
+        case .multipleChoice:
+            sheetMultipleChoiceComponent.show()
         }
     }
     
@@ -169,6 +203,7 @@ class ModalViewController: UIViewController {
             subSegmentControl.setTitle("Simple List", forSegmentAt: 0)
             subSegmentControl.setTitle("With Image", forSegmentAt: 1)
             subSegmentControl.insertSegment(withTitle: "With actions", at: 2, animated: true)
+            subSegmentControl.insertSegment(withTitle: "Multiple", at: 3, animated: true)
             showCase = .simpleList
         case 2:
             showCase = .customView
@@ -186,6 +221,10 @@ class ModalViewController: UIViewController {
         case 2:
             if mainSegmentControl.selectedSegmentIndex == 1 {
                 showCase = .listWithActions
+            }
+        case 3:
+            if mainSegmentControl.selectedSegmentIndex == 1 {
+                showCase = .multipleChoice
             }
         default:
             break

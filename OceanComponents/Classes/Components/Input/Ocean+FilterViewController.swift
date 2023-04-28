@@ -137,7 +137,7 @@ extension Ocean {
         }
 
         public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = Ocean.ModalCell()
+            let cell = Ocean.ModalSingleChoiceCell()
 
             cell.model = contentValues?[indexPath.row]
 
