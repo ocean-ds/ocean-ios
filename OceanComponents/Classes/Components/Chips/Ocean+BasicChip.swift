@@ -194,24 +194,24 @@ extension Ocean {
         }
         
         private func setNormalState() {
-            self.backgroundColor = Ocean.color.colorInterfaceLightUp
             self.label.textColor = Ocean.color.colorBrandPrimaryPure
-            self.badge.status = .primary
+            self.backgroundColor = Ocean.color.colorInterfaceLightUp
             self.imageView.tintColor = Ocean.color.colorBrandPrimaryPure
+            self.badge.status = .primary
+        }
+        
+        private func setDisabledState() {
+            self.backgroundColor = Ocean.color.colorInterfaceLightDown
+            self.badge.status = .disabled
+            self.imageView.tintColor = Ocean.color.colorInterfaceDarkUp
+            self.label.textColor = Ocean.color.colorInterfaceDarkUp
         }
 
         private func setSelectedState() {
-            self.backgroundColor = Ocean.color.colorBrandPrimaryPure
             self.label.textColor = Ocean.color.colorInterfaceLightPure
-            self.badge.status = .primaryInverted
             self.imageView.tintColor = Ocean.color.colorInterfaceLightPure
-        }
-
-        private func setDisabledState() {
-            self.backgroundColor = Ocean.color.colorInterfaceLightDown
-            self.label.textColor = Ocean.color.colorInterfaceDarkUp
-            self.badge.status = .disabled
-            self.imageView.tintColor = Ocean.color.colorInterfaceDarkUp
+            self.badge.status = .primaryInverted
+            self.backgroundColor = Ocean.color.colorBrandPrimaryPure
         }
     }
 }
