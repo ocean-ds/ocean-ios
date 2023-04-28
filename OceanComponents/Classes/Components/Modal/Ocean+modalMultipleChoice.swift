@@ -47,7 +47,7 @@ extension Ocean {
                 button.text = textPositive
                 button.onTouch = {
                     self.modalMultipleChoiceViewController.dismiss(animated: true) {
-                        let selectedOption = self.modalMultipleChoiceViewController.optionSelected()
+                        let selectedOption = self.modalMultipleChoiceViewController.getOptionSelected()
                                                 actionPositive?(selectedOption)
                     }
                 }

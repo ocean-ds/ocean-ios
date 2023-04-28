@@ -22,6 +22,8 @@ extension Ocean {
         
         public var onValuesChange: ((FilterChipWithModal, [Ocean.CellModel]) -> Void)? = nil
         
+        public var onCancel: (() -> Void)? = nil
+        
         private lazy var mainStack: Ocean.StackView = {
             let stack = Ocean.StackView()
             stack.axis = .horizontal
@@ -76,7 +78,7 @@ extension Ocean {
                     .withDismiss(true)
                     .withMultipleOptions(setupOptionsCheckBox())
                     .withAction(textNegative: filterOptionsModel.secondaryButtonTitle, actionNegative: {
-                                    
+                        self.onCancel?()
                     }, textPositive: filterOptionsModel.primaryButtonTitle, actionPositive: { selectedOption in
                         self.configureBadge(options: selectedOption)
                         self.updateCellModel(options: selectedOption)

@@ -90,7 +90,7 @@ class ModalViewController: UIViewController {
                 Ocean.CellModel(title: "Cancelado")
             ])
             .withAction(textNegative: "Cancelar", actionNegative: {
-                
+                self.showSnackBar(message: "CancelButton")
             }, textPositive: "Filtrar", actionPositive: { options in
                 let optionsSelected = options.filter { $0.isSelected }
                 let selectedTitles = optionsSelected.map { $0.title }

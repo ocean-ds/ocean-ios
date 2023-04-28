@@ -32,6 +32,19 @@ extension Ocean {
             return divider
         }()
         
+        private lazy var optionsListCheckBox: [Ocean.CheckBox] = []
+        
+        lazy var contentStack: Ocean.StackView = {
+            let stack = Ocean.StackView()
+            stack.axis = .vertical
+            stack.distribution = .fill
+            stack.spacing = Ocean.size.spacingStackXxs
+
+            stack.add(optionsListCheckBox)
+
+            return stack
+        }()
+        
         private lazy var bottomStack: Ocean.StackView = {
             Ocean.StackView { stackView in
                 stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -46,6 +59,10 @@ extension Ocean {
                 stackView.isLayoutMarginsRelativeArrangement = true
             }
         }()
+        
+        public func getOptionSelected() -> [CellModel] {
+            return contenteMultipleOptions
+        }
         
         override func makeView() {
             
@@ -118,19 +135,6 @@ extension Ocean {
             return actionsHeight + topSpacing + bottomSpacing
         }
         
-        private lazy var optionsListCheckBox: [Ocean.CheckBox] = []
-        
-        lazy var contentStack: Ocean.StackView = {
-            let stack = Ocean.StackView()
-            stack.axis = .vertical
-            stack.distribution = .fill
-            stack.spacing = Ocean.size.spacingStackXxs
-
-            stack.add(optionsListCheckBox)
-
-            return stack
-        }()
-        
         public override func viewDidLoad() {
             super.viewDidLoad()
             setupUI()
@@ -175,10 +179,6 @@ extension Ocean {
                 .leadingToLeading(to: view, safeArea: true)
                 .trailingToTrailing(to: view, safeArea: true)
                 .make()
-        }
-        
-        public func optionSelected() -> [CellModel] {
-            return contenteMultipleOptions
         }
         
         private func setupUI() {

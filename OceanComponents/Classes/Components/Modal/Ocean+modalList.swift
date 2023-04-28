@@ -31,11 +31,6 @@ extension Ocean {
             return self
         }
         
-        public func withMultipleOptions(_ values: [CellModel]) -> ModalList {
-            modalListViewController.contenteMultipleOptions = values
-            return self
-        }
-        
         public func withActionPrimary(text: String,
                                       icon: UIImage? = nil,
                                       shouldDismiss: Bool = true,
