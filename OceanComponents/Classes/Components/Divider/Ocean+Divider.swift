@@ -16,10 +16,10 @@ extension Ocean {
             case vertical
         }
         
-        private var widhtConstraint: NSLayoutDimension?
+        private var widthConstraint: NSLayoutDimension?
         private var heightConstraint: NSLayoutDimension?
-        private var width: CGFloat = UIScreen.main.bounds.width
-        private (set) var height: CGFloat = 1
+        private var width: CGFloat?
+        private (set) var height: CGFloat?
         private var axisDivider: AxisDivider = .horizontal
         
         public convenience init() {
@@ -57,7 +57,7 @@ extension Ocean {
         public convenience init(widthConstraint: NSLayoutDimension,
                                 axis: AxisDivider = .horizontal) {
             self.init(frame: .zero)
-            self.widhtConstraint = widhtConstraint
+            self.widthConstraint = widthConstraint
             self.axisDivider = axis
             setupUI()
         }
@@ -72,28 +72,33 @@ extension Ocean {
         
         private func setupUI() {
             backgroundColor = Ocean.color.colorInterfaceLightDown
+            setDimensions()
+        }
+        
+        private func setDimensions() {
             translatesAutoresizingMaskIntoConstraints = false
-            
-            if axisDivider == .vertical {
-                adjustDimensions()
-            }
 
-            if let widthConstraint = widhtConstraint {
+            if let widthConstraint = widthConstraint {
                 widthAnchor.constraint(equalTo: widthConstraint).isActive = true
             } else {
-                widthAnchor.constraint(equalToConstant: self.width).isActive = true
+                adjustWidthDimension()
             }
             
             if let heightConstraint = heightConstraint {
                 heightConstraint.constraint(equalTo: heightConstraint).isActive = true
             } else {
-                heightAnchor.constraint(equalToConstant: self.height).isActive = true
+                adjustHeightDimension()
             }
         }
         
-        private func adjustDimensions() {
-            width = width == UIScreen.main.bounds.width ? 1 : width
-            height = height == 1 ? UIScreen.main.bounds.height : height
+        private func adjustWidthDimension() {
+            let width = self.width ?? (axisDivider == .vertical ? 1 : UIScreen.main.bounds.width)
+            widthAnchor.constraint(equalToConstant: width).isActive = true
+        }
+        
+        private func adjustHeightDimension() {
+            let height = self.height ?? (axisDivider == .vertical ? UIScreen.main.bounds.height : 1)
+            heightAnchor.constraint(equalToConstant: height).isActive = true
         }
     }
 }

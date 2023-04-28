@@ -59,10 +59,10 @@ extension Ocean {
         
         public func addFilterChips(_ view: [FilterBarChipWithModal]) {
             stackView.add(view)
-            stackView.add([Divider(heightConstraint: scrollView.widthAnchor, axis: .vertical)])
         }
         
         public func addBasicChips(_ view: [FilterBarBasicChip]) {
+            stackView.add([Divider(heightConstraint: scrollView.widthAnchor, axis: .vertical)])
             stackView.add(view)
         }
     }
