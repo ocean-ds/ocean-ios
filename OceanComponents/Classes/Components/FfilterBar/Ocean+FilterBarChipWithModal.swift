@@ -1,5 +1,5 @@
 //
-//  Ocean+FilterChipWithModal.swift
+//  Ocean+FilterBarChipWithModal.swift
 //  OceanComponents
 //
 //  Created by Acassio Mendonça on 27/04/23.
@@ -10,7 +10,7 @@ import OceanTokens
 
 extension Ocean {
     
-    public class FilterChipWithModal: BaseFilterBarChip {
+    public class FilterBarChipWithModal: BaseFilterBarChip {
         
         public var filterOptionsModel: FilterOptionsModel? = nil {
             didSet {
@@ -20,7 +20,7 @@ extension Ocean {
         
         public weak var rootViewController: UIViewController?
         
-        public var onValuesChange: ((FilterChipWithModal, [Ocean.CellModel]) -> Void)? = nil
+        public var onValuesChange: ((FilterBarChipWithModal, [Ocean.CellModel]) -> Void)? = nil
         
         public var onCancel: (() -> Void)? = nil
         

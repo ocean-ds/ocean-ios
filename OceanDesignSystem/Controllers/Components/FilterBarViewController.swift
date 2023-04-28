@@ -29,8 +29,8 @@ class FilterBarViewController: UIViewController {
             secondaryButtonTitle: "Cancelar")
     }()
     
-    lazy var filterChip: Ocean.FilterChipWithModal = {
-        let chip = Ocean.FilterChipWithModal()
+    lazy var filterChip: Ocean.FilterBarChipWithModal = {
+        let chip = Ocean.FilterBarChipWithModal()
         chip.text = "Filtro"
         chip.filterOptionsModel = filterOptionsModel
         chip.rootViewController = self
@@ -44,8 +44,8 @@ class FilterBarViewController: UIViewController {
         return chip
     }()
     
-    lazy var filterChip2: Ocean.FilterChipWithModal = {
-        let chip = Ocean.FilterChipWithModal()
+    lazy var filterChip2: Ocean.FilterBarChipWithModal = {
+        let chip = Ocean.FilterBarChipWithModal()
         chip.text = "Filtro"
         chip.filterOptionsModel = filterOptionsModel
         chip.rootViewController = self

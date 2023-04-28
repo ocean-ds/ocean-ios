@@ -58,7 +58,7 @@ extension Ocean {
             ])
         }
         
-        public func addFilterChips(_ view: [FilterChipWithModal]) {
+        public func addFilterChips(_ view: [FilterBarChipWithModal]) {
             stackView.add(view)
             stackView.add([Divider(heightConstraint: scrollView.widthAnchor, axis: .vertical)])
         }
