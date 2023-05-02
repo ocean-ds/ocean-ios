@@ -70,22 +70,31 @@ extension Ocean {
             setupUI()
         }
         
-        private func setupUI() {
-            backgroundColor = Ocean.color.colorInterfaceLightDown
-            setDimensions()
+        override public func layoutSubviews() {
+            super.layoutSubviews()
+            setDimensions(activate: true)
         }
         
-        private func setDimensions() {
+        private func setupUI() {
             translatesAutoresizingMaskIntoConstraints = false
-
+            backgroundColor = Ocean.color.colorInterfaceLightDown
+            setDimensions(activate: false)
+        }
+        
+        private func setDimensions(activate: Bool) {
+            if activate {
+                constraints.forEach { $0.isActive = activate }
+                return 
+            }
+            
             if let widthConstraint = widthConstraint {
-                widthAnchor.constraint(equalTo: widthConstraint).isActive = true
+                _ = widthAnchor.constraint(equalTo: widthConstraint)
             } else {
                 adjustWidthDimension()
             }
             
             if let heightConstraint = heightConstraint {
-                heightConstraint.constraint(equalTo: heightConstraint).isActive = true
+                _ = heightAnchor.constraint(equalTo: heightConstraint)
             } else {
                 adjustHeightDimension()
             }
