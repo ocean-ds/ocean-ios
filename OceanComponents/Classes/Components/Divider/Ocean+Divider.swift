@@ -15,7 +15,7 @@ extension Ocean {
             case horizontal
             case vertical
         }
-       
+        
         private var widthConstraint: NSLayoutDimension?
         private var heightConstraint: NSLayoutDimension?
         private var width: CGFloat?
