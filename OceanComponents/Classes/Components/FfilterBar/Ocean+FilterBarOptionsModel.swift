@@ -10,25 +10,19 @@ import OceanTokens
 
 extension Ocean {
     public struct FilterBarOptionsModel {
-        public var modalTitle: String = ""
-        public var multipleChoiceOptions: [Ocean.CellModel] = []
-        public var primaryButtonTitle: String = "Filtrar"
-        public var secondaryButtonTitle: String = "Cancelar"
-        public var onPrimaryButtonPress: (([Ocean.CellModel]) -> Void)?
-        public var onSecondaryButtonPress: (() -> Void)?
+        public var modalTitle: String
+        public var multipleChoiceOptions: [Ocean.ChipModel] = []
+        public var primaryButtonTitle: String
+        public var secondaryButtonTitle: String
         
         public init(modalTitle: String,
-                    multipleChoiceOptions: [Ocean.CellModel],
-                    primaryButtonTitle: String,
-                    secondaryButtonTitle: String,
-                    onPrimaryButtonPress: (([Ocean.CellModel]) -> Void)? = nil,
-                    onSecondaryButtonPress: (() -> Void)? = nil) {
+                    multipleChoiceOptions: [Ocean.ChipModel],
+                    primaryButtonTitle: String = "Filtrar",
+                    secondaryButtonTitle: String = "Cancelar") {
             self.modalTitle = modalTitle
             self.multipleChoiceOptions = multipleChoiceOptions
             self.primaryButtonTitle = primaryButtonTitle
             self.secondaryButtonTitle = secondaryButtonTitle
-            self.onPrimaryButtonPress = onPrimaryButtonPress
-            self.onSecondaryButtonPress = onSecondaryButtonPress
         }
     }
 }
