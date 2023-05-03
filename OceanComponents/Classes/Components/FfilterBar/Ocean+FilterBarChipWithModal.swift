@@ -10,6 +10,12 @@ import OceanTokens
 
 extension Ocean {
     public class FilterBarChipWithModal: BaseFilterBarChip {
+        
+        public enum ModalTypeChoice {
+            case multipleChoice
+            case singleChoice
+        }
+        
         public var filterOptionsModel: FilterBarOptionsModel? = nil {
             didSet {
                 updateUI()
@@ -17,10 +23,16 @@ extension Ocean {
         }
         
         public weak var rootViewController: UIViewController?
-
-        public var onValuesChange: ((FilterBarChipWithModal, [Ocean.CellModel]) -> Void)? = nil
+  
+        public var onValuesChange: ((FilterBarChipWithModal, [Ocean.ChipModel]) -> Void)? = nil
         
         public var onCancel: (() -> Void)? = nil
+        
+        public var modalType: ModalTypeChoice = .singleChoice {
+            didSet {
+                updateUI()
+            }
+        }
         
         private lazy var mainStack: Ocean.StackView = {
             let stack = Ocean.StackView()
@@ -63,40 +75,68 @@ extension Ocean {
             super.init(frame: frame)
             setupUI()
         }
-
+        
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
+        
+        private func setupSingleChoiceModal() {
+            if let rootViewController = rootViewController,
+               let filterOptionsModel = filterOptionsModel {
+                let modal = Ocean.ModalList(rootViewController)
+                    .withTitle(filterOptionsModel.modalTitle)
+                    .withValues(getMultipleOptions())
+                    .build()
 
-        private func setupFilterOptions() {
+                modal.onValueSelected = { [weak self] _, value in
+                    guard let self = self else { return }
+                    
+                    var chipModel = self.translate(to: value)
+                    chipModel.isSelected = true
+                    
+                    self.onValuesChange?(self, [chipModel])
+                    self.text = value.title
+                    self.updateFilterChipSingleChoice()
+                }
+                modal.show()
+            }
+        }
+        
+        private func setupMultipleChoiceModal() {
             if let rootViewController = rootViewController,
                let filterOptionsModel = filterOptionsModel {
                 Ocean.ModalMultiChoice(rootViewController)
                     .withTitle(filterOptionsModel.modalTitle)
                     .withDismiss(true)
-                    .withMultipleOptions(setupOptionsCheckBox())
+                    .withMultipleOptions(getMultipleOptions())
                     .withAction(textNegative: filterOptionsModel.secondaryButtonTitle, actionNegative: {
                         self.onCancel?()
-                    }, textPositive: filterOptionsModel.primaryButtonTitle, actionPositive: { selectedOption in
-                        self.configureBadge(options: selectedOption)
-                        self.updateCellModel(options: selectedOption)
-                        self.onValuesChange?(self, selectedOption)
+                    }, textPositive: filterOptionsModel.primaryButtonTitle, actionPositive: { [weak self] selectedOptions in
+                        guard let self = self else { return }
+                        
+                        let chipModels = selectedOptions.map {
+                            self.translate(to: $0)
+                        }
+                        
+                        self.updateCellModel(options: chipModels)
+                        self.configureBadge(options: chipModels)
+                        self.onValuesChange?(self, chipModels)
                     })
                     .build()
                     .show()
             }
         }
         
-        private func configureBadge(options: [Ocean.CellModel]) {
-            let selectedCount = options.filter { $0.isSelected }.count
+        private func configureBadge(options: [Ocean.ChipModel]) {
+            let selectedCount = options.filter { $0.isSelected ?? false }.count
             status = selectedCount > 0 ? .selected : .inactive
             number = selectedCount > 0 ? selectedCount : nil
         }
         
-        private func setupOptionsCheckBox() -> [Ocean.CellModel] {
+        private func getMultipleOptions() -> [Ocean.CellModel] {
             if let filterOptionsModel = filterOptionsModel {
-                return filterOptionsModel.multipleChoiceOptions.map { option in
-                    Ocean.CellModel(title: option.title, isSelected: option.isSelected)
+                return filterOptionsModel.options.map { option in
+                    translate(to: option)
                 }
             }
             return []
@@ -108,20 +148,39 @@ extension Ocean {
         }
         
         private func updateFilterChip() {
+            switch modalType {
+            case .multipleChoice:
+                setupMultipleChoiceModal()
+            case .singleChoice:
+                setupSingleChoiceModal()
+            }
+        }
+        
+        private func updateFilterChipSingleChoice() {
             switch status {
-            case .inactive, .normal, .selected:
-                setupFilterOptions()
+            case .inactive, .normal:
+                status = .selected
             default:
                 break
             }
         }
         
-        private func updateCellModel(options: [Ocean.CellModel]) {
-            filterOptionsModel?.multipleChoiceOptions = options
+        private func updateCellModel(options: [Ocean.ChipModel]) {
+            filterOptionsModel?.options = options
         }
         
         override func updateUI() {
             super.updateUI()
+        }
+        
+        private func translate(to cellModel: CellModel) -> ChipModel {
+            return ChipModel(title: cellModel.title,
+                             isSelected: cellModel.isSelected)
+        }
+        
+        private func translate(to chipModel: ChipModel) -> CellModel {
+            return CellModel(title: chipModel.title,
+                             isSelected: chipModel.isSelected ?? false)
         }
     }
 }
