@@ -11,16 +11,16 @@ import OceanTokens
 extension Ocean {
     public struct FilterBarOptionsModel {
         public var modalTitle: String
-        public var multipleChoiceOptions: [Ocean.ChipModel] = []
+        public var options: [Ocean.ChipModel] = []
         public var primaryButtonTitle: String
         public var secondaryButtonTitle: String
         
         public init(modalTitle: String,
-                    multipleChoiceOptions: [Ocean.ChipModel],
+                    options: [Ocean.ChipModel],
                     primaryButtonTitle: String = "Filtrar",
                     secondaryButtonTitle: String = "Cancelar") {
             self.modalTitle = modalTitle
-            self.multipleChoiceOptions = multipleChoiceOptions
+            self.options = options
             self.primaryButtonTitle = primaryButtonTitle
             self.secondaryButtonTitle = secondaryButtonTitle
         }

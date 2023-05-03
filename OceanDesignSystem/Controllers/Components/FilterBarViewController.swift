@@ -22,7 +22,7 @@ class FilterBarViewController: UIViewController {
     lazy var filterOptionsModel: Ocean.FilterBarOptionsModel = {
         Ocean.FilterBarOptionsModel(
             modalTitle: "Opções de Filtro",
-            multipleChoiceOptions: optionsChipModel)
+            options: optionsChipModel)
     }()
 
     lazy var filterChip: Ocean.FilterBarChipWithModal = {
@@ -49,7 +49,7 @@ class FilterBarViewController: UIViewController {
     lazy var filterOptionsModel2: Ocean.FilterBarOptionsModel = {
         Ocean.FilterBarOptionsModel(
             modalTitle: "Opções de Filtro",
-            multipleChoiceOptions: optionsChipModel)
+            options: optionsChipModel)
     }()
     
     lazy var filterChip2: Ocean.FilterBarChipWithModal = {
@@ -164,6 +164,3 @@ class FilterBarViewController: UIViewController {
         }
     }
 }
-
-
-

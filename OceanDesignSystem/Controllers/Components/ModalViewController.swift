@@ -69,7 +69,7 @@ class ModalViewController: UIViewController {
     
     private lazy var sheetListComponent: Ocean.ModalListViewController = {
         Ocean.ModalList(self)
-            .withTitle("Sinlge Choice")
+            .withTitle("Single Choice")
             .withValues([
                 Ocean.CellModel(title: "Title 1", isSelected: true),
                 Ocean.CellModel(title: "Title 2")

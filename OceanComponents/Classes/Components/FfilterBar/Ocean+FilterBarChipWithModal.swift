@@ -28,7 +28,7 @@ extension Ocean {
         
         public var onCancel: (() -> Void)? = nil
         
-        public var modalType: ModalTypeChoice = .multipleChoice {
+        public var modalType: ModalTypeChoice = .singleChoice {
             didSet {
                 updateUI()
             }
@@ -135,7 +135,7 @@ extension Ocean {
         
         private func getMultipleOptions() -> [Ocean.CellModel] {
             if let filterOptionsModel = filterOptionsModel {
-                return filterOptionsModel.multipleChoiceOptions.map { option in
+                return filterOptionsModel.options.map { option in
                     translate(to: option)
                 }
             }
@@ -166,7 +166,7 @@ extension Ocean {
         }
         
         private func updateCellModel(options: [Ocean.ChipModel]) {
-            filterOptionsModel?.multipleChoiceOptions = options
+            filterOptionsModel?.options = options
         }
         
         override func updateUI() {
