@@ -59,7 +59,7 @@ extension Ocean {
             type = .filterChip
             icon = Ocean.icon.chevronDownSolid?.withRenderingMode(.alwaysTemplate)
             addSubview(mainStack)
-            configureAparence()
+            configureApearence()
             addGestureRecognizer()
             setupConstraints()
         }
@@ -85,18 +85,16 @@ extension Ocean {
                let filterOptionsModel = filterOptionsModel {
                 let modal = Ocean.ModalList(rootViewController)
                     .withTitle(filterOptionsModel.modalTitle)
-                    .withValues(getMultipleOptions())
+                    .withValues(getOptions(filterOptionsModel: filterOptionsModel))
                     .build()
 
-                modal.onValueSelected = { [weak self] _, value in
+                modal.onValueSelected = { [weak self] _, option in
                     guard let self = self else { return }
                     
-                    var chipModel = self.translate(to: value)
-                    chipModel.isSelected = true
-                    
-                    self.onValuesChange?(self, [chipModel])
-                    self.text = value.title
+                    self.updateFilterOptionsModel(selectedItem: option)
+                    self.text = option.title
                     self.updateFilterChipSingleChoice()
+                    self.onValuesChange?(self, self.filterOptionsModel?.options ?? [])
                 }
                 modal.show()
             }
@@ -105,41 +103,28 @@ extension Ocean {
         private func setupMultipleChoiceModal() {
             if let rootViewController = rootViewController,
                let filterOptionsModel = filterOptionsModel {
-                Ocean.ModalMultiChoice(rootViewController)
+                Ocean.ModalMultipleChoice(rootViewController)
                     .withTitle(filterOptionsModel.modalTitle)
                     .withDismiss(true)
-                    .withMultipleOptions(getMultipleOptions())
+                    .withMultipleOptions(getOptions(filterOptionsModel: filterOptionsModel))
                     .withAction(textNegative: filterOptionsModel.secondaryButtonTitle, actionNegative: {
                         self.onCancel?()
-                    }, textPositive: filterOptionsModel.primaryButtonTitle, actionPositive: { [weak self] selectedOptions in
+                    }, textPositive: filterOptionsModel.primaryButtonTitle, actionPositive: { [weak self] options in
                         guard let self = self else { return }
                         
-                        let chipModels = selectedOptions.map {
-                            self.translate(to: $0)
-                        }
-                        
-                        self.updateCellModel(options: chipModels)
-                        self.configureBadge(options: chipModels)
-                        self.onValuesChange?(self, chipModels)
+                        self.updateFilterOptionsModel(selectedItems: options)
+                        self.configureBadge()
+                        self.onValuesChange?(self, self.filterOptionsModel?.options ?? [])
                     })
                     .build()
                     .show()
             }
         }
         
-        private func configureBadge(options: [Ocean.ChipModel]) {
-            let selectedCount = options.filter { $0.isSelected ?? false }.count
+        private func configureBadge() {
+            let selectedCount = filterOptionsModel?.options.filter { $0.isSelected ?? false }.count ?? 0
             status = selectedCount > 0 ? .selected : .inactive
             number = selectedCount > 0 ? selectedCount : nil
-        }
-        
-        private func getMultipleOptions() -> [Ocean.CellModel] {
-            if let filterOptionsModel = filterOptionsModel {
-                return filterOptionsModel.options.map { option in
-                    translate(to: option)
-                }
-            }
-            return []
         }
         
         @objc override func didTapButton() {
@@ -165,22 +150,38 @@ extension Ocean {
             }
         }
         
-        private func updateCellModel(options: [Ocean.ChipModel]) {
-            filterOptionsModel?.options = options
+        private func updateFilterOptionsModel(selectedItems: [CellModel]) {
+            guard let originalModel = filterOptionsModel else { return }
+            
+            filterOptionsModel?.options = originalModel.options.compactMap {
+                var item = $0
+                item.isSelected = selectedItems.contains(where: { item.title == $0.title && $0.isSelected })
+                return item
+            }
+        }
+        
+        private func updateFilterOptionsModel(selectedItem: CellModel) {
+            guard let originalModel = filterOptionsModel else { return }
+            
+            filterOptionsModel?.options = originalModel.options.compactMap {
+                var item = $0
+                item.isSelected = item.title == selectedItem.title
+                return item
+            }
         }
         
         override func updateUI() {
             super.updateUI()
         }
-        
-        private func translate(to cellModel: CellModel) -> ChipModel {
-            return ChipModel(title: cellModel.title,
-                             isSelected: cellModel.isSelected)
-        }
-        
-        private func translate(to chipModel: ChipModel) -> CellModel {
-            return CellModel(title: chipModel.title,
-                             isSelected: chipModel.isSelected ?? false)
+
+        private func getOptions(filterOptionsModel: FilterBarOptionsModel) -> [Ocean.CellModel] {
+            var cellModels: [Ocean.CellModel] = []
+                filterOptionsModel.options.forEach { item in
+                    cellModels.append(CellModel(title: item.title,
+                                                isSelected: item.isSelected ?? false))
+                }
+            
+            return cellModels
         }
     }
 }

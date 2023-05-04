@@ -38,7 +38,7 @@ extension Ocean {
         private func setupUI() {
             type = .basicChip
             addSubview(mainStack)
-            configureAparence()
+            configureApearence()
             addGestureRecognizer()
             setupConstraints()
         }

@@ -10,14 +10,38 @@ import OceanTokens
 
 extension Ocean {
     public class FilterBar: UIView {
-        private let scrollView: UIScrollView = {
+        private lazy var scrollView: UIScrollView = {
             let scrollView = UIScrollView()
             scrollView.showsHorizontalScrollIndicator = false
             scrollView.translatesAutoresizingMaskIntoConstraints = false
             return scrollView
         }()
         
-        private let stackView: Ocean.StackView = {
+        private lazy var divider: UIView = {
+            let divider = Divider(heightConstraint: self.heightAnchor, axis: .vertical)
+            divider.isHidden = true
+            return divider
+        }()
+        
+        private lazy var mainStack: Ocean.StackView = {
+            let stack = Ocean.StackView()
+            stack.axis = .horizontal
+            stack.alignment = .fill
+            stack.distribution = .fill
+            stack.spacing = Ocean.size.spacingStackXs
+            stack.translatesAutoresizingMaskIntoConstraints = false
+            
+            stack.add([
+                stackFilterChipView,
+                divider,
+                stackBasicChipView
+            ])
+            
+            stack.setMargins(horizontal: Ocean.size.spacingStackXs)
+            return stack
+        }()
+        
+        private lazy var stackFilterChipView: Ocean.StackView = {
             let stack = Ocean.StackView()
             stack.axis = .horizontal
             stack.alignment = .fill
@@ -25,7 +49,16 @@ extension Ocean {
             stack.spacing = Ocean.size.spacingStackXs
             stack.translatesAutoresizingMaskIntoConstraints = false
             
-            stack.setMargins(horizontal: Ocean.size.spacingStackXs)
+            return stack
+        }()
+        
+        private lazy var stackBasicChipView: Ocean.StackView = {
+            let stack = Ocean.StackView()
+            stack.axis = .horizontal
+            stack.alignment = .fill
+            stack.distribution = .equalSpacing
+            stack.spacing = Ocean.size.spacingStackXs
+            stack.translatesAutoresizingMaskIntoConstraints = false
             
             return stack
         }()
@@ -41,29 +74,29 @@ extension Ocean {
         
         private func setupScrollView() {
             addSubview(scrollView)
-            scrollView.addSubview(stackView)
+            scrollView.addSubview(mainStack)
+            
+            scrollView.oceanConstraints
+                .fill(to: self)
+                .height(constant: 64)
+                .make()
             
             NSLayoutConstraint.activate([
-                scrollView.topAnchor.constraint(equalTo: topAnchor),
-                scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
-                scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
-                scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            ])
-            
-            NSLayoutConstraint.activate([
-                    stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-                    stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-                    stackView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor)
+                mainStack.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+                mainStack.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+                mainStack.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor)
             ])
         }
         
         public func addFilterChips(_ view: [FilterBarChipWithModal]) {
-            stackView.add(view)
+            stackFilterChipView.removeAllArrangedSubviews()
+            stackFilterChipView.add(view)
         }
         
         public func addBasicChips(_ view: [FilterBarBasicChip]) {
-            stackView.add([Divider(heightConstraint: scrollView.widthAnchor, axis: .vertical)])
-            stackView.add(view)
+            stackBasicChipView.removeAllArrangedSubviews()
+            stackBasicChipView.add(view)
+            divider.isHidden = false
         }
     }
 }

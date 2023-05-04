@@ -14,9 +14,9 @@ class FilterBarViewController: UIViewController {
     lazy var filterBar = Ocean.FilterBar()
  
     lazy var optionsChipModel: [Ocean.ChipModel] = [
-        Ocean.ChipModel(title: "Pago"),
-        Ocean.ChipModel(title: "Pendente"),
-        Ocean.ChipModel(title: "Recusado")
+        Ocean.ChipModel(id: "pad", title: "Pago"),
+        Ocean.ChipModel(id: "pending", title: "Pendente"),
+        Ocean.ChipModel(id: "refused", title: "Recusado")
     ]
     
     lazy var filterOptionsModel: Ocean.FilterBarOptionsModel = {
@@ -49,7 +49,8 @@ class FilterBarViewController: UIViewController {
     lazy var filterOptionsModel2: Ocean.FilterBarOptionsModel = {
         Ocean.FilterBarOptionsModel(
             modalTitle: "Opções de Filtro",
-            options: optionsChipModel)
+            options: optionsChipModel
+        )
     }()
     
     lazy var filterChip2: Ocean.FilterBarChipWithModal = {
@@ -60,8 +61,8 @@ class FilterBarViewController: UIViewController {
         chip.rootViewController = self
         chip.onValuesChange = { [weak self] _, value in
             guard let self = self else { return }
-            if let item = value.first {
-                let message = "Title: \(item.title), \(item.isSelected ?? false)"
+            if let item = value.first (where: { $0.isSelected == true }) {
+                let message = "Id: \(item.id), Title: \(item.title), \(item.isSelected ?? false)"
                 self.showSnackbar(text: message)
             }
         }
@@ -72,7 +73,7 @@ class FilterBarViewController: UIViewController {
     lazy var basicChip1: Ocean.FilterBarBasicChip = {
         let chip = Ocean.FilterBarBasicChip()
         chip.number = 999
-        chip.icon = Ocean.icon.calendarOutline?.withRenderingMode(.alwaysTemplate)
+        chip.icon = Ocean.icon.calendarOutline
         chip.text = "Todos os Filtros"
         chip.onValueChange = { [weak self] selected, item in
             guard let self = self else { return }
@@ -115,10 +116,8 @@ class FilterBarViewController: UIViewController {
         NSLayoutConstraint.activate([
             filterBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             filterBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            filterBar.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
-            filterBar.heightAnchor.constraint(equalToConstant: 100.0)
+            filterBar.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
         ])
-        
         
         filterBar.addFilterChips([
             filterChip,

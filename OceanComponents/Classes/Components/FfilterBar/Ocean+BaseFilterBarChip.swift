@@ -75,7 +75,7 @@ extension Ocean {
             return view
         }()
         
-        internal func configureAparence() {
+        internal func configureApearence() {
             self.translatesAutoresizingMaskIntoConstraints = false
             self.layer.cornerRadius = Constants.height * Ocean.size.borderRadiusCircular
             self.layer.masksToBounds = true
@@ -131,7 +131,7 @@ extension Ocean {
         
         private func updateUIWithImage() {
             if let icon = self.icon {
-                self.imageView.image = icon
+                self.imageView.image = icon.withRenderingMode(.alwaysTemplate)
             }
             
             self.imageView.isHidden = self.icon == nil
