@@ -78,7 +78,7 @@ class ModalViewController: UIViewController {
     }()
     
     private lazy var sheetMultipleChoiceComponent: Ocean.ModelMultipleChoiceViewController = {
-        Ocean.ModalMultiChoice(self)
+        Ocean.ModalMultipleChoice(self)
             .withTitle("Multiple Choice")
             .withDismiss(true)
             .withMultipleOptions([

@@ -9,24 +9,24 @@ import Foundation
 import OceanTokens
 
 extension Ocean {
-    public class ModalMultiChoice {
+    public class ModalMultipleChoice {
         private var modalMultipleChoiceViewController: ModelMultipleChoiceViewController
         
         public init(_ rootViewController: UIViewController) {
             modalMultipleChoiceViewController = ModelMultipleChoiceViewController(rootViewController)
         }
         
-        public func withDismiss(_ value: Bool) -> ModalMultiChoice {
+        public func withDismiss(_ value: Bool) -> ModalMultipleChoice {
             modalMultipleChoiceViewController.swipeDismiss = value
             return self
         }
         
-        public func withTitle(_ title: String?) -> ModalMultiChoice {
+        public func withTitle(_ title: String?) -> ModalMultipleChoice {
             modalMultipleChoiceViewController.contentTitle = title
             return self
         }
         
-        public func withMultipleOptions(_ values: [CellModel]) -> ModalMultiChoice {
+        public func withMultipleOptions(_ values: [CellModel]) -> ModalMultipleChoice {
             modalMultipleChoiceViewController.contenteMultipleOptions = values
             return self
         }
@@ -34,7 +34,7 @@ extension Ocean {
         public func withAction(textNegative: String,
                                actionNegative: (() -> Void)?,
                                textPositive: String,
-                               actionPositive: (([CellModel]) -> Void)?) -> ModalMultiChoice {
+                               actionPositive: (([CellModel]) -> Void)?) -> ModalMultipleChoice {
             modalMultipleChoiceViewController.actions.append(Ocean.Button.secondaryMD { button in
                 button.text = textNegative
                 button.onTouch = {
