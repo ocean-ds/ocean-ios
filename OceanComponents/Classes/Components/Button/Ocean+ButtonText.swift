@@ -76,16 +76,17 @@ extension Ocean {
         private var imageView: UIImageView!
         private var spinner: Ocean.CircularProgressIndicator!
 
-        private var activeBackgroundColor: UIColor!
-        private var activeLabelColor: UIColor!
-        private var hoverBackgroundColor: UIColor!
-        private var hoverLabelColor: UIColor!
-        private var pressedBackgroundColor: UIColor!
-        private var pressedLabelColor: UIColor!
-        private var focusedBackgroundColor: UIColor!
-        private var focusedLabelColor: UIColor!
-        private var disabledBackgroundColor: UIColor!
-        private var disabledLabelColor: UIColor!
+        internal var activeBackgroundColor: UIColor!
+        internal var activeLabelColor: UIColor!
+        internal var hoverBackgroundColor: UIColor!
+        internal var hoverLabelColor: UIColor!
+        internal var pressedBackgroundColor: UIColor!
+        internal var pressedLabelColor: UIColor!
+        internal var focusedBackgroundColor: UIColor!
+        internal var focusedLabelColor: UIColor!
+        internal var disabledBackgroundColor: UIColor!
+        internal var disabledLabelColor: UIColor!
+        internal var progressIndicatorStyle: CircularProgressIndicator.Style!
 
         public override var isEnabled: Bool {
             didSet {
@@ -111,6 +112,7 @@ extension Ocean {
             focusedLabelColor = Ocean.color.colorBrandPrimaryPure
             disabledBackgroundColor = UIColor.clear
             disabledLabelColor = Ocean.color.colorInterfaceDarkUp
+            progressIndicatorStyle = .primary
         }
 
         private func configMD() {
@@ -210,6 +212,7 @@ extension Ocean {
             spinner = Ocean.CircularProgressIndicator()
             spinner.translatesAutoresizingMaskIntoConstraints = false
             spinner.isHidden = true
+            spinner.style = progressIndicatorStyle
             self.addSubview(spinner)
 
             spinner.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
