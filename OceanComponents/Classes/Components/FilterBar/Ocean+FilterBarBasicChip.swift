@@ -10,6 +10,8 @@ import OceanTokens
 
 extension Ocean {
     public class FilterBarBasicChip: BaseFilterBarChip {
+        public var needChangeStatus: Bool = true
+
         public var onValueChange: ((Bool, String) -> Void)?
         
         private var isSelected: Bool = false
@@ -61,7 +63,9 @@ extension Ocean {
         
         @objc override func didTapButton() {
             super.didTapButton()
-            updateBasicChip()
+            if needChangeStatus {
+                updateBasicChip()
+            }
             onValueChange?(isSelected, text)
         }
         
