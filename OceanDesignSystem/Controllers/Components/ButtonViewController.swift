@@ -23,6 +23,7 @@ final public class ButtonViewController : UIViewController {
     var buttonSecondary : Ocean.ButtonSecondary!
     var buttonInverse : Ocean.ButtonPrimaryInverse!
     var buttonText : Ocean.ButtonText!
+    var buttonTextCritical : Ocean.ButtonTextCritical!
     var buttonPrimaryCritical: Ocean.ButtonPrimaryCritical!
     var buttonSecondaryCritical : Ocean.ButtonSecondaryCritical!
     
@@ -93,6 +94,22 @@ final public class ButtonViewController : UIViewController {
         }
     }
     
+    fileprivate func configButton(_ button: Ocean.ButtonTextCritical) {
+        button.isHighlighted = false
+        button.isEnabled = true
+        button.isLoading = false
+        button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
+        if (self.states.selectedSegmentIndex == 1) {
+            button.isPressed = true
+        } else if (self.states.selectedSegmentIndex == 2) {
+            button.isEnabled = false
+        }
+        else if (self.states.selectedSegmentIndex == 3) {
+            button.isLoading = true
+            button.leftIcon = nil
+        }
+    }
+    
     fileprivate func configButton(_ button: Ocean.ButtonPrimaryInverse) {
         button.isHighlighted = false
         button.isEnabled = true
@@ -130,6 +147,8 @@ final public class ButtonViewController : UIViewController {
         self.buttonSecondary = nil
         self.buttonText?.isHidden = true
         self.buttonText = nil
+        self.buttonTextCritical?.isHidden = true
+        self.buttonTextCritical = nil
         self.buttonInverse?.isHidden = true
         self.buttonInverse = nil
         self.buttonPrimaryCritical?.isHidden = true
@@ -290,7 +309,70 @@ final public class ButtonViewController : UIViewController {
             configButton(self.buttonText)
             self.addButton(view: self.buttonText)
             break
-        case 4: //primaryCritical
+        case 4: //textCritical
+            if (self.sizes.selectedSegmentIndex == 0) {
+                switch self.normalOrIconOrModified.selectedSegmentIndex {
+                case 0,  1: // Normal, Icon
+                    self.buttonTextCritical = Ocean.Button.textCriticalSM { button in
+                        button.text = "Small"
+                        button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
+                        
+                        if self.normalOrIconOrModified.selectedSegmentIndex == 1 {
+                            button.leftIcon = Ocean.icon.plusOutline
+                            button.rightIcon = Ocean.icon.plusOutline
+                        }
+                    }
+                case 2: // Modified
+                    self.buttonTextCritical = Ocean.Button.textCriticalModifiedSM { button in
+                        button.text = "Small"
+                        button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
+                    }
+                default: break
+                }
+                
+            } else if (self.sizes.selectedSegmentIndex == 1) {
+                switch self.normalOrIconOrModified.selectedSegmentIndex {
+                case 0,  1:
+                    self.buttonTextCritical = Ocean.Button.textCriticalMD { button in
+                        button.text = "Medium"
+                        button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
+                        
+                        if self.normalOrIconOrModified.selectedSegmentIndex == 1 {
+                            button.leftIcon = Ocean.icon.plusOutline
+                            button.rightIcon = Ocean.icon.plusOutline
+                        }
+                    }
+                case 2:
+                    self.buttonTextCritical = Ocean.Button.textCriticalModifiedMD { button in
+                        button.text = "Medium"
+                        button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
+                    }
+                default: break
+                }
+            } else if (self.sizes.selectedSegmentIndex == 2) {
+                switch self.normalOrIconOrModified.selectedSegmentIndex {
+                case 0,  1:
+                    self.buttonTextCritical = Ocean.Button.textCriticalLG { button in
+                        button.text = "Large"
+                        button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
+                        
+                        if self.normalOrIconOrModified.selectedSegmentIndex == 1 {
+                            button.leftIcon = Ocean.icon.plusOutline
+                            button.rightIcon = Ocean.icon.plusOutline
+                        }
+                    }
+                case 2:
+                    self.buttonTextCritical = Ocean.Button.textCriticalModifiedLG { button in
+                        button.text = "Large"
+                        button.isBlocked = self.unblockedOrBlocked.selectedSegmentIndex == 1
+                    }
+                default: break
+                }
+            }
+            configButton(self.buttonTextCritical)
+            self.addButton(view: self.buttonTextCritical)
+            break
+        case 5: //primaryCritical
             if (self.sizes.selectedSegmentIndex == 0) {
                 self.buttonPrimaryCritical = Ocean.Button.primaryCriticalSM { button in
                     button.text = "Small"
@@ -318,7 +400,7 @@ final public class ButtonViewController : UIViewController {
             configButton(self.buttonPrimaryCritical)
             self.addButton(view: self.buttonPrimaryCritical)
             break
-        case 5: //secondaryCritical
+        case 6: //secondaryCritical
             if (self.sizes.selectedSegmentIndex == 0) {
                 self.buttonSecondaryCritical = Ocean.Button.secondaryCriticalSM { button in
                     button.text = "Small"
