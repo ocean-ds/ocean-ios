@@ -53,6 +53,7 @@ public extension String {
         case "qrcodedisplayoutline": return Ocean.icon.qrcodeDisplayOutline
         case "rawmaterialoutline": return Ocean.icon.rawMaterialOutline
         case "retaileroutline": return Ocean.icon.retailerOutline
+        case "Retailersolid": return Ocean.icon.retailerSolid
         case "scanoutline": return Ocean.icon.scanOutline
         case "sortoutline": return Ocean.icon.sortOutline
         case "supplieroutline": return Ocean.icon.supplierOutline
@@ -360,6 +361,8 @@ public extension String {
         case "minussmsolid": return Ocean.icon.minusSmSolid
         case "minussolid": return Ocean.icon.minusSolid
         case "moonoutline": return Ocean.icon.moonOutline
+        case "moneyoutflowoutline": return Ocean.icon.moneyOutflowOutline
+        case "moneyinflowoutline": return Ocean.icon.moneyInflowOutline
         case "moonsolid": return Ocean.icon.moonSolid
         case "musicnoteoutline": return Ocean.icon.musicNoteOutline
         case "musicnotesolid": return Ocean.icon.musicNoteSolid
