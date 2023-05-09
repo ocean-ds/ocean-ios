@@ -53,7 +53,7 @@ public extension String {
         case "qrcodedisplayoutline": return Ocean.icon.qrcodeDisplayOutline
         case "rawmaterialoutline": return Ocean.icon.rawMaterialOutline
         case "retaileroutline": return Ocean.icon.retailerOutline
-        case "Retailersolid": return Ocean.icon.retailerSolid
+        case "retailersolid": return Ocean.icon.retailerSolid
         case "scanoutline": return Ocean.icon.scanOutline
         case "sortoutline": return Ocean.icon.sortOutline
         case "supplieroutline": return Ocean.icon.supplierOutline
