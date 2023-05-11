@@ -63,7 +63,7 @@ extension Ocean {
 
         public var howToUseButtonText: String = "Como usar" {
             didSet {
-                howToUseButton.text = howToUseButtonText
+                updateUI()
             }
         }
 
@@ -229,8 +229,8 @@ extension Ocean {
 
         private lazy var howToUseButton: Ocean.ButtonSecondary = {
             Ocean.Button.secondarySM { button in
-                button.text = "Como usar"
-                button.onTouch = self.howToUseTouch
+                button.text = self.howToUseButtonText
+                button.onTouch = { self.howToUseTouch?() }
                 button.isSkeletonable = true
             }
         }()
@@ -295,6 +295,7 @@ extension Ocean {
 
             stack.add([
                 listBalanceAvailableTextLabel,
+                UIView(),
                 listBalanceAvailableLabel
             ])
 
@@ -332,6 +333,7 @@ extension Ocean {
 
             stack.add([
                 listCurrentBalanceTextLabel,
+                UIView(),
                 listCurrentBalanceLabel
             ])
 
@@ -369,6 +371,7 @@ extension Ocean {
 
             stack.add([
                 listScheduleBluTextLabel,
+                UIView(),
                 listScheduleBluLabel
             ])
 
@@ -428,6 +431,7 @@ extension Ocean {
 
             stack.add([
                 listNotBluTextLabel,
+                UIView(),
                 listNotBluLabel
             ])
 
@@ -534,6 +538,8 @@ extension Ocean {
             balanceNotBluLabel.textColor = getColorValue(value: balanceNotBlu)
             listNotBluLabel.text = balanceNotBlu.toCurrency()
             listNotBluLabel.textColor = getColorValue(value: balanceNotBlu)
+
+            howToUseButton.text = howToUseButtonText
         }
 
         private func updateVisibleUI() {
