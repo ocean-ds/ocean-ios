@@ -73,7 +73,7 @@ extension Ocean {
             }
         }()
 
-        override func makeView() {
+        public override func makeView() {
             var totalSpacing = heightSpacing
             totalSpacing += Ocean.size.spacingStackXxs
             

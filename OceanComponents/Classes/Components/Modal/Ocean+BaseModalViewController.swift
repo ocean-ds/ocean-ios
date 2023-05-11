@@ -10,12 +10,12 @@ import SPStorkController
 import OceanTokens
 
 extension Ocean {
-    public class BaseModalViewController: UIViewController {
-        
+    open class BaseModalViewController: UIViewController {
+
         var onDismiss: ((Bool) -> Void)?
         var wasClosed: Bool = false
-        
-        internal lazy var mainStack: Ocean.StackView = {
+
+        public lazy var mainStack: Ocean.StackView = {
             Ocean.StackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
                 stack.distribution = .fill
@@ -23,7 +23,7 @@ extension Ocean {
             }
         }()
 
-        internal lazy var closeImageView: UIImageView = {
+        private lazy var closeImageView: UIImageView = {
             UIImageView { imageView in
                 imageView.image = Ocean.icon.xSolid?.withRenderingMode(.alwaysTemplate)
                 imageView.tintColor = Ocean.color.colorInterfaceDarkUp
@@ -37,7 +37,7 @@ extension Ocean {
             }
         }()
 
-        internal lazy var closeView: UIView = {
+        public lazy var closeView: UIView = {
             let view = UIView()
             view.addSubview(closeImageView)
 
@@ -53,7 +53,7 @@ extension Ocean {
             return view
         }()
 
-        internal lazy var spTransitionDelegate: SPStorkTransitioningDelegate = {
+        public lazy var spTransitionDelegate: SPStorkTransitioningDelegate = {
             let delegate = SPStorkTransitioningDelegate()
             delegate.showIndicator = false
             delegate.cornerRadius = 24
@@ -63,13 +63,13 @@ extension Ocean {
             return delegate
         }()
 
-        internal var closeViewHeightSpacing: CGFloat {
+        public var closeViewHeightSpacing: CGFloat {
             get {
                 return 40
             }
         }
-        
-        internal var heightSpacing: CGFloat {
+
+        public var heightSpacing: CGFloat {
             get {
                 return hasTopNotch ? 65 : 45
             }
@@ -77,28 +77,30 @@ extension Ocean {
 
         private var rootViewController: UIViewController
 
-        var swipeDismiss: Bool = true {
+        public var swipeDismiss: Bool = true {
             didSet {
                 spTransitionDelegate.swipeToDismissEnabled = swipeDismiss
                 spTransitionDelegate.tapAroundToDismissEnabled = swipeDismiss
             }
         }
 
-        init(_ rootViewController: UIViewController) {
+        public init(_ rootViewController: UIViewController) {
             self.rootViewController = rootViewController
             super.init(nibName: nil, bundle: nil)
         }
 
-        required init?(coder: NSCoder) {
+        required public init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
 
-        func makeView() {
+        open func makeView() {
             fatalError()
         }
 
         public func show() {
-            DispatchQueue.main.async {
+            DispatchQueue.main.async {[weak self] in
+                guard let self = self else { return }
+
                 if let presentedViewController = self.rootViewController.presentedViewController {
                     presentedViewController.dismiss(animated: true) {
                         self.rootViewController.present(self, animated: true, completion: nil)
@@ -109,17 +111,17 @@ extension Ocean {
             }
         }
 
-        public override func viewDidLoad() {
+        open override func viewDidLoad() {
             self.view.backgroundColor = Ocean.color.colorInterfaceLightPure
             self.view.addSubview(mainStack)
         }
-        
-        public override func viewWillDisappear(_ animated: Bool) {
+
+        open override func viewWillDisappear(_ animated: Bool) {
             super.viewWillDisappear(animated)
-            
+
             onDismiss?(wasClosed)
         }
-        
+
         @objc func closeTap() {
             self.wasClosed = true
             self.dismiss(animated: true)

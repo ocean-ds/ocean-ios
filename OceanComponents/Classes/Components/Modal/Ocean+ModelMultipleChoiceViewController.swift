@@ -61,7 +61,7 @@ extension Ocean {
             return contenteMultipleOptions
         }
         
-        override func makeView() {
+        public override func makeView() {
             if swipeDismiss {
                 mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxs))
                 mainStack.addArrangedSubview(closeView)
