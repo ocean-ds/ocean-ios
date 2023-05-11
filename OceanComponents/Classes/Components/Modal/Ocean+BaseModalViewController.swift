@@ -98,15 +98,15 @@ extension Ocean {
         }
 
         public func show() {
-            DispatchQueue.main.async {[weak self] in
-                guard let self = self else { return }
+            DispatchQueue.main.async { [weak rootViewController] in
+                guard let rootViewController = rootViewController else { return }
 
-                if let presentedViewController = self.rootViewController.presentedViewController {
+                if let presentedViewController = rootViewController.presentedViewController {
                     presentedViewController.dismiss(animated: true) {
-                        self.rootViewController.present(self, animated: true, completion: nil)
+                        rootViewController.present(self, animated: true, completion: nil)
                     }
                 } else {
-                    self.rootViewController.present(self, animated: true, completion: nil)
+                    rootViewController.present(self, animated: true, completion: nil)
                 }
             }
         }
