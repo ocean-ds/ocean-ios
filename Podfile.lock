@@ -1,6 +1,6 @@
 PODS:
   - FSCalendar (2.8.2)
-  - OceanComponents (3.3.0-253):
+  - OceanComponents (3.3.0-254):
     - FSCalendar
     - OceanTokens
     - SDWebImage
@@ -38,7 +38,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FSCalendar: e6a2eb9c571bf0719ed797ef807e08426753c241
-  OceanComponents: cedb256821e4c34728d88789d7f7ed99deecaf63
+  OceanComponents: 5a3a2072ae65cc1ef20c8ca409e3f3a9c4c29978
   OceanTokens: e166096c1dbf444664733f66887cd9cc80450b19
   SDWebImage: 72f86271a6f3139cc7e4a89220946489d4b9a866
   SkeletonView: a085533443fed0198309f1979780afb6e80eaedd
