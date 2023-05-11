@@ -230,7 +230,7 @@ extension Ocean {
         private lazy var howToUseButton: Ocean.ButtonSecondary = {
             Ocean.Button.secondarySM { button in
                 button.text = self.howToUseButtonText
-                button.onTouch = self.howToUseTouch
+                button.onTouch = { self.howToUseTouch?() }
                 button.isSkeletonable = true
             }
         }()
