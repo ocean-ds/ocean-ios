@@ -21,11 +21,11 @@ extension Ocean {
         var actions: [UIControl] = []
         var customContent: UIView?
 
-        override var heightSpacing: CGFloat {
+        public override var heightSpacing: CGFloat {
             return hasTopNotch ? 85 : 55
         }
 
-        override func makeView() {
+        public override func makeView() {
             var totalSpacing = heightSpacing
             totalSpacing += Ocean.size.spacingStackXxs
             mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxs))
