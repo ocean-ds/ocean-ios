@@ -10,11 +10,12 @@ import UIKit
 import FSCalendar
 
 extension Ocean {
-    public class DatePicker: UIViewController,
-    FSCalendarDataSource,
-    FSCalendarDelegate,
-    FSCalendarDelegateAppearance,
-    OceanNavigationBar {
+    public class DatePicker:
+        UIViewController,
+        FSCalendarDataSource,
+        FSCalendarDelegate,
+        FSCalendarDelegateAppearance,
+        OceanNavigationBar {
         public var navigationTitle: String = ""
         public var navigationBackgroundColor: UIColor? = Ocean.color.colorInterfaceLightPure
         public var navigationTintColor: UIColor = Ocean.color.colorBrandPrimaryPure
@@ -115,6 +116,7 @@ extension Ocean {
         public var minimumDate = Date()
         public var maximumDate = Date()
         public var datesToHide: [Date] = []
+        public var disableWeekend: Bool = true
 
         public override func viewDidLoad() {
             super.viewDidLoad()
@@ -142,7 +144,9 @@ extension Ocean {
         }
 
         public func show(rootViewController: UIViewController) {
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak rootViewController] in
+                guard let rootViewController = rootViewController else { return }
+
                 if let presentedViewController = rootViewController.presentedViewController {
                     presentedViewController.dismiss(animated: true) {
                         let navigationController = UINavigationController(rootViewController: self)
@@ -266,7 +270,7 @@ extension Ocean {
                 return false
             }
 
-            if Calendar.current.isDateInWeekend(date) {
+            if disableWeekend && Calendar.current.isDateInWeekend(date) {
                 return false
             }
 
