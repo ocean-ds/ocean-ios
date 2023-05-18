@@ -15,25 +15,86 @@ class InformativeCardViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        let informativeCard = InformativeCardView()
-        informativeCard.titleText = "Title"
-        informativeCard.valueText = "R$ 0,00"
-        informativeCard.descriptionText = "Description"
-//        informativeCard.setTooltipMessage(message: "Tooltip 1", presenter: view)
-        informativeCard.setTooltipMessage(message: "Tooltip 1")
-//        informativeCard.addSubItem(labelText: "Label 1", valueText: "R$ 1,00", tooltipMessage: "Tooltip 2", tooltipPresenter: view)
-        informativeCard.addSubItem(labelText: "Label 1", valueText: "R$ 1,00", tooltipMessage: "Tooltip 2")
-        informativeCard.addSubItem(labelText: "Label 2", valueText: "R$ 2,00")
-//        informativeCard.addSubItem(labelText: "Label 3", valueText: "R$ 3,00", tooltipMessage: "Tooltip 3", tooltipPresenter: view)
-        informativeCard.addSubItem(labelText: "Label 3", valueText: "R$ 3,00", tooltipMessage: "Tooltip 3")
-        
-        view.addSubview(informativeCard)
-        
-        informativeCard.oceanConstraints
-            .leadingToLeading(to: view, constant: 16, safeArea: true)
-            .trailingToTrailing(to: view, constant: -16, safeArea: true)
-            .topToTop(to: view, constant: 16, safeArea: true)
+        let scrollView = UIScrollView()
+        view.addSubview(scrollView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.oceanConstraints
+            .fill(to: view, safeArea: true)
             .make()
+        
+        let contentStack = Ocean.StackView { stackView in
+            stackView.translatesAutoresizingMaskIntoConstraints = false
+            stackView.axis = .vertical
+            stackView.alignment = .fill
+            stackView.distribution = .fill
+            stackView.spacing = Ocean.size.spacingStackXxs
+            stackView.layoutMargins = UIEdgeInsets(top: Ocean.size.spacingStackXs,
+                                                   left: Ocean.size.spacingStackXs,
+                                                   bottom: Ocean.size.spacingStackXs,
+                                                   right: Ocean.size.spacingStackXs)
+            stackView.isLayoutMarginsRelativeArrangement = true
+        }
+        scrollView.addSubview(contentStack)
+        contentStack.oceanConstraints
+            .fill(to: scrollView)
+            .width(to: self.view)
+            .make()
+        
+        addExample(stackView: contentStack, state: .defaultState)
+        addExample(stackView: contentStack,
+                   state: .defaultState,
+                   descriptionText: nil,
+                   additionalInformationText: nil,
+                   tooltipMessage: nil,
+                   subItems: [["Label 1", "R$ 1,00", "Tooltip 2"]])
+        addExample(stackView: contentStack,
+                   state: .defaultState,
+                   descriptionText: nil,
+                   additionalInformationText: nil,
+                   tooltipMessage: nil,
+                   subItems: nil,
+                   ctaText: nil)
+    }
+    
+    private func addExample(stackView: Ocean.StackView,
+                            state: InformativeCardViewState,
+                            iconImage: UIImage? = Ocean.icon.placeholderOutline,
+                            titleText: String = "Title",
+                            valueText: String = "R$ 0,00",
+                            descriptionText: String? = "Description",
+                            additionalInformationText: String? = "Additional information",
+                            tooltipMessage: String? = "Tooltip 1",
+                            subItems: [[String]]? = [["Label 1", "R$ 1,00", "Tooltip 2"], ["Label 2", "R$ 2,00"]],
+                            ctaText: String? = "Call To Action",
+                            ctaOnTouchMessage: String = "CTA touched!") {
+        
+        let informativeCard = InformativeCardView()
+        informativeCard.iconImage = Ocean.icon.placeholderOutline
+        informativeCard.titleText = titleText
+        informativeCard.valueText = valueText
+        informativeCard.descriptionText = descriptionText
+        informativeCard.additionalInformationText = additionalInformationText
+        informativeCard.tooltipMessage = tooltipMessage
+        subItems?.forEach { item in
+            if item.count == 3 {
+                informativeCard.addSubItem(labelText: item[0], valueText: item[1], tooltipMessage: item[2])
+            } else if item.count == 2 {
+                informativeCard.addSubItem(labelText: item[0], valueText: item[1])
+            }
+        }
+        informativeCard.ctaText = ctaText
+        informativeCard.ctaOnTouch = { [weak self] in
+            guard let self = self else { return }
+            
+            let snackbar = Ocean.View.snackbarInfo(builder: { snackbar in
+                snackbar.line = .one
+                snackbar.snackbarText = ctaOnTouchMessage
+            })
+            
+            snackbar.show(in: self.view)
+        }
+        
+        stackView.addArrangedSubview(informativeCard)
     }
 }
 
@@ -47,6 +108,18 @@ public enum InformativeCardViewState: String {
 public class InformativeCardView: UIView {
     
     // MARK: Properties
+    
+    var iconImage: UIImage? = Ocean.icon.placeholderOutline {
+        didSet {
+            defaultView.iconImage = iconImage ?? Ocean.icon.placeholderOutline!
+        }
+    }
+    
+    var tooltipMessage: String? {
+        didSet {
+            defaultView.tooltipMessage = tooltipMessage
+        }
+    }
     
     var titleText: String = "" {
         didSet {
@@ -66,9 +139,25 @@ public class InformativeCardView: UIView {
         }
     }
     
-    // MARK: Private properties
+    var additionalInformationText: String? {
+        didSet {
+            defaultView.additionalInformationText = additionalInformationText
+        }
+    }
     
-//    private weak var tooltipPresenter: UIView?
+    var ctaText: String? {
+        didSet {
+            cta.text = ctaText ?? ""
+            cta.isHidden = ctaText == nil || ctaText?.isEmpty == true
+            divider.isHidden = cta.isHidden
+        }
+    }
+    
+    var ctaOnTouch: (() -> Void)? {
+        didSet {
+            cta.onTouch = ctaOnTouch
+        }
+    }
     
     // MARK: Views
     
@@ -81,6 +170,24 @@ public class InformativeCardView: UIView {
     
     // MARK: Common
     
+    private lazy var divider: Ocean.Divider = {
+        let divider = Ocean.Divider()
+        divider.isHidden = cta.isHidden
+        divider.translatesAutoresizingMaskIntoConstraints = false
+        
+        return divider
+    }()
+    
+    private lazy var cta: Ocean.GroupCTA = {
+        let cta = Ocean.GroupCTA()
+        cta.isHidden = ctaText == nil || ctaText?.isEmpty == true
+        cta.onTouch = ctaOnTouch
+        cta.text = ctaText ?? ""
+        cta.translatesAutoresizingMaskIntoConstraints = false
+        
+        return cta
+    }()
+    
     private lazy var contentStack: Ocean.StackView = {
         Ocean.StackView { stack in
             
@@ -91,7 +198,9 @@ public class InformativeCardView: UIView {
             stack.translatesAutoresizingMaskIntoConstraints = false
             
             stack.add([
-                defaultView
+                defaultView,
+                divider,
+                cta
             ])
         }
     }()
@@ -119,19 +228,10 @@ public class InformativeCardView: UIView {
             .make()
     }
     
-//    func setTooltipMessage(message: String, presenter: UIView) {
-    func setTooltipMessage(message: String) {
-//        defaultView.setTooltipMessage(message: message, presenter: tooltipPresenter ?? self)
-        defaultView.setTooltipMessage(message: message, presenter: getRootSuperview())
-    }
-    
-//    func addSubItem(labelText: String, valueText: String, tooltipMessage: String? = nil, tooltipPresenter: UIView? = nil) {
-    func addSubItem(labelText: String, valueText: String, tooltipMessage: String? = nil) {
+    func addSubItem(labelText: String, valueText: String, tooltipMessage: String = "") {
         defaultView.addSubItem(labelText: labelText,
                                valueText: valueText,
                                tooltipMessage: tooltipMessage)
-//                               tooltipMessage: tooltipMessage,
-//                               tooltipPresenter: tooltipPresenter)
     }
     
     func removeSubItem(at index: Int) {
@@ -147,9 +247,16 @@ fileprivate class InformativeCardDefaultView: UIView {
     
     // MARK: Properties
     
-    var iconImage: UIImage = Ocean.icon.placeholderOutline! {
+    var iconImage: UIImage? = Ocean.icon.placeholderOutline {
         didSet {
-            leftIconImageView.image = iconImage.withRenderingMode(.alwaysTemplate)
+            leftIconImageView.image = (iconImage ?? Ocean.icon.placeholderOutline!).withRenderingMode(.alwaysTemplate)
+        }
+    }
+    
+    var tooltipMessage: String? {
+        didSet {
+            tooltip.message = tooltipMessage ?? ""
+            rightIconImageView.isHidden = tooltipMessage == nil || tooltipMessage?.isEmpty == true
         }
     }
     
@@ -172,16 +279,20 @@ fileprivate class InformativeCardDefaultView: UIView {
         }
     }
     
-    // MARK: Private properties
-    
-//    private weak var tooltipPresenter: UIView?
+    var additionalInformationText: String? {
+        didSet {
+            additionalInformationLabel.text = additionalInformationText
+            additionalInformationLabel.isHidden = additionalInformationText == nil || additionalInformationText?.isEmpty == true
+            additionalInformationSpacer.isHidden = additionalInformationLabel.isHidden
+        }
+    }
     
     // MARK: Views
     
     private lazy var leftIconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = iconImage.withRenderingMode(.alwaysTemplate)
+        imageView.image = iconImage?.withRenderingMode(.alwaysTemplate)
         imageView.tintColor = Ocean.color.colorInterfaceLightDeep
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -249,6 +360,27 @@ fileprivate class InformativeCardDefaultView: UIView {
         }
     }()
     
+    private lazy var additionalInformationSpacer: Ocean.Spacer = {
+        let spacer = Ocean.Spacer(space: Ocean.size.spacingStackXs)
+        spacer.isHidden = additionalInformationText == nil || additionalInformationText?.isEmpty == true
+        spacer.isHidden = additionalInformationLabel.isHidden
+        
+        return spacer
+    }()
+    
+    private lazy var additionalInformationLabel: UILabel = {
+        Ocean.Typography.caption { [weak self] label in
+            guard let self = self else { return }
+            
+            label.numberOfLines = 0
+            label.isHidden = additionalInformationText == nil || additionalInformationText?.isEmpty == true
+            label.text = additionalInformationText
+            label.textAlignment = .left
+            label.textColor = Ocean.color.colorInterfaceDarkDown
+            label.translatesAutoresizingMaskIntoConstraints = false
+        }
+    }()
+    
     private lazy var contentStack: Ocean.StackView = {
         Ocean.StackView { [weak self] stack in
             guard let self = self else { return }
@@ -263,7 +395,9 @@ fileprivate class InformativeCardDefaultView: UIView {
                 titleLabel,
                 valueLabel,
                 descriptionLabel,
-                subItemsStack
+                subItemsStack,
+                additionalInformationSpacer,
+                additionalInformationLabel
             ])
         }
     }()
@@ -271,6 +405,7 @@ fileprivate class InformativeCardDefaultView: UIView {
     private lazy var tooltip: Ocean.Tooltip = {
         Ocean.Tooltip { tooltip in
             tooltip.indicatorMargin = Ocean.size.spacingStackXxxs
+            tooltip.message = tooltipMessage ?? ""
         }
     }()
     
@@ -317,26 +452,14 @@ fileprivate class InformativeCardDefaultView: UIView {
     
     @objc
     public func showTooltip() {
-//        tooltip.show(target: rightIconImageView, position: .bottom, presenter: tooltipPresenter ?? self)
         tooltip.show(target: rightIconImageView, position: .bottom, presenter: getRootSuperview())
     }
     
-    func setTooltipMessage(message: String, presenter: UIView) {
-        tooltip.message = message
-//        tooltipPresenter = presenter
-        rightIconImageView.isHidden = message.isEmpty
-    }
-    
-//    func addSubItem(labelText: String, valueText: String, tooltipMessage: String? = nil, tooltipPresenter: UIView? = nil) {
-    func addSubItem(labelText: String, valueText: String, tooltipMessage: String? = nil) {
+    func addSubItem(labelText: String, valueText: String, tooltipMessage: String = "") {
         let itemView = InfoListItemView()
         itemView.labelText = labelText
         itemView.valueText = valueText
-//        if let message = tooltipMessage, let presenter = tooltipPresenter {
-        if let message = tooltipMessage {
-//            itemView.setTooltipMessage(message: message, presenter: presenter)
-            itemView.setTooltipMessage(message: message)
-        }
+        itemView.tooltipMessage = tooltipMessage
         
         subItemsStack.addArrangedSubview(itemView)
     }
@@ -373,9 +496,12 @@ fileprivate class InfoListItemView: UIView {
         }
     }
     
-    // MARK: Private properties
-    
-//    private weak var tooltipPresenter: UIView?
+    var tooltipMessage: String = "" {
+        didSet {
+            tooltip.message = tooltipMessage
+            iconImageView.isHidden = tooltipMessage.isEmpty
+        }
+    }
     
     // MARK: Views
     
@@ -407,6 +533,7 @@ fileprivate class InfoListItemView: UIView {
     private lazy var tooltip: Ocean.Tooltip = {
         Ocean.Tooltip { tooltip in
             tooltip.indicatorMargin = Ocean.size.spacingStackXxxs
+            tooltip.message = tooltipMessage
         }
     }()
     
@@ -468,27 +595,9 @@ fileprivate class InfoListItemView: UIView {
     
     @objc
     public func showTooltip() {
-//        tooltip.show(target: iconImageView, position: .bottom, presenter: tooltipPresenter ?? self)
         tooltip.show(target: iconImageView, position: .bottom, presenter: getRootSuperview())
-    }
-    
-//    func setTooltipMessage(message: String, presenter: UIView) {
-    func setTooltipMessage(message: String) {
-        tooltip.message = message
-//        tooltipPresenter = presenter
-        iconImageView.isHidden = message.isEmpty
     }
     
     // MARK: Private methods
     
 }
-
-//extension UIView {
-//    func getRootSuperview() -> UIView {
-//        if let superview = superview {
-//            return superview.getRootSuperview()
-//        } else {
-//            return self
-//        }
-//    }
-//}
