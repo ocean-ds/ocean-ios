@@ -9,6 +9,7 @@
 import UIKit
 import OceanComponents
 import OceanTokens
+import SkeletonView
 
 class InformativeCardViewController: UIViewController {
     
@@ -40,6 +41,11 @@ class InformativeCardViewController: UIViewController {
             .width(to: self.view)
             .make()
         
+//        let loadingView = LoadingView()
+//        contentStack.addArrangedSubview(loadingView)
+//        loadingView.showAnimatedSkeleton()
+        
+        addExample(stackView: contentStack, state: .loadingState)
         addExample(stackView: contentStack, state: .defaultState)
         addExample(stackView: contentStack,
                    state: .defaultState,
@@ -53,11 +59,11 @@ class InformativeCardViewController: UIViewController {
                    additionalInformationText: nil,
                    tooltipMessage: nil,
                    subItems: nil,
-                   ctaText: nil)
+                   actionText: nil)
     }
     
     private func addExample(stackView: Ocean.StackView,
-                            state: InformativeCardViewState,
+                            state: InformativeCardViewState = .defaultState,
                             iconImage: UIImage? = Ocean.icon.placeholderOutline,
                             titleText: String = "Title",
                             valueText: String = "R$ 0,00",
@@ -65,8 +71,8 @@ class InformativeCardViewController: UIViewController {
                             additionalInformationText: String? = "Additional information",
                             tooltipMessage: String? = "Tooltip 1",
                             subItems: [[String]]? = [["Label 1", "R$ 1,00", "Tooltip 2"], ["Label 2", "R$ 2,00"]],
-                            ctaText: String? = "Call To Action",
-                            ctaOnTouchMessage: String = "CTA touched!") {
+                            actionText: String? = "Call To Action",
+                            actionMessage: String = "CTA touched!") {
         
         let informativeCard = InformativeCardView()
         informativeCard.iconImage = Ocean.icon.placeholderOutline
@@ -82,19 +88,28 @@ class InformativeCardViewController: UIViewController {
                 informativeCard.addSubItem(labelText: item[0], valueText: item[1])
             }
         }
-        informativeCard.ctaText = ctaText
-        informativeCard.ctaOnTouch = { [weak self] in
+        informativeCard.actionText = actionText
+        informativeCard.onTouchAction = { [weak self] in
             guard let self = self else { return }
             
             let snackbar = Ocean.View.snackbarInfo(builder: { snackbar in
                 snackbar.line = .one
-                snackbar.snackbarText = ctaOnTouchMessage
+                snackbar.snackbarText = actionMessage
             })
             
             snackbar.show(in: self.view)
         }
+        informativeCard.state = state
         
         stackView.addArrangedSubview(informativeCard)
+        
+//        if state == .loadingState {
+//            Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
+//                DispatchQueue.main.async {
+//                    informativeCard.state = .defaultState
+//                }
+//            }
+//        }
     }
 }
 
@@ -108,6 +123,12 @@ public enum InformativeCardViewState: String {
 public class InformativeCardView: UIView {
     
     // MARK: Properties
+    
+    var state: InformativeCardViewState = .defaultState {
+        didSet {
+            updateUI()
+        }
+    }
     
     var iconImage: UIImage? = Ocean.icon.placeholderOutline {
         didSet {
@@ -145,17 +166,17 @@ public class InformativeCardView: UIView {
         }
     }
     
-    var ctaText: String? {
+    var actionText: String? {
         didSet {
-            cta.text = ctaText ?? ""
-            cta.isHidden = ctaText == nil || ctaText?.isEmpty == true
+            cta.text = actionText ?? ""
+            cta.isHidden = actionText == nil || actionText?.isEmpty == true
             divider.isHidden = cta.isHidden
         }
     }
     
-    var ctaOnTouch: (() -> Void)? {
+    var onTouchAction: (() -> Void)? {
         didSet {
-            cta.onTouch = ctaOnTouch
+            cta.onTouch = onTouchAction
         }
     }
     
@@ -168,7 +189,13 @@ public class InformativeCardView: UIView {
         return view
     }()
     
-    // MARK: Common
+    private lazy var loadingView: LoadingView = {
+        let view = LoadingView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isHidden = true
+        
+        return view
+    }()
     
     private lazy var divider: Ocean.Divider = {
         let divider = Ocean.Divider()
@@ -180,9 +207,9 @@ public class InformativeCardView: UIView {
     
     private lazy var cta: Ocean.GroupCTA = {
         let cta = Ocean.GroupCTA()
-        cta.isHidden = ctaText == nil || ctaText?.isEmpty == true
-        cta.onTouch = ctaOnTouch
-        cta.text = ctaText ?? ""
+        cta.isHidden = actionText == nil || actionText?.isEmpty == true
+        cta.onTouch = onTouchAction
+        cta.text = actionText ?? ""
         cta.translatesAutoresizingMaskIntoConstraints = false
         
         return cta
@@ -199,13 +226,14 @@ public class InformativeCardView: UIView {
             
             stack.add([
                 defaultView,
+                loadingView,
                 divider,
                 cta
             ])
         }
     }()
     
-    // MARK: Methods
+    // MARK: Constructors
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -217,6 +245,8 @@ public class InformativeCardView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: Setup
+    
     private func setupUI() {
         addSubview(contentStack)
         
@@ -227,6 +257,8 @@ public class InformativeCardView: UIView {
             .fill(to: self)
             .make()
     }
+    
+    // MARK: Public methods
     
     func addSubItem(labelText: String, valueText: String, tooltipMessage: String = "") {
         defaultView.addSubItem(labelText: labelText,
@@ -240,6 +272,21 @@ public class InformativeCardView: UIView {
     
     func removeSubItems() {
         defaultView.removeSubItems()
+    }
+    
+    // MARK: Private methods
+    
+    private func updateUI() {
+        defaultView.isHidden = state != .defaultState
+        loadingView.isHidden = state != .loadingState
+        divider.isHidden = state == .loadingState
+        cta.isHidden = state == .loadingState
+        
+        if state == .loadingState {
+            loadingView.showAnimatedSkeleton()
+        } else {
+            loadingView.hideSkeleton()
+        }
     }
 }
 
@@ -475,9 +522,6 @@ fileprivate class InformativeCardDefaultView: UIView {
     func removeSubItems() {
         subItemsStack.removeAllArrangedSubviews()
     }
-    
-    // MARK: Private methods
-    
 }
 
 fileprivate class InfoListItemView: UIView {
@@ -598,6 +642,60 @@ fileprivate class InfoListItemView: UIView {
         tooltip.show(target: iconImageView, position: .bottom, presenter: getRootSuperview())
     }
     
-    // MARK: Private methods
+}
+
+fileprivate class LoadingView: UIView {
     
+    lazy var contentStack: Ocean.StackView = {
+        Ocean.StackView { [weak self] stack in
+            guard let self = self else { return }
+            
+            stack.translatesAutoresizingMaskIntoConstraints = false
+            stack.axis = .vertical
+            stack.alignment = .leading
+            stack.distribution = .fill
+            stack.spacing = Ocean.size.spacingStackXxs
+            stack.isSkeletonable = true
+        }
+    }()
+    
+    // MARK: Constructors
+    
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        setupUI()
+    }
+    
+    public required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Setup
+    
+    private func setupUI() {
+        isSkeletonable = true
+        addSubview(contentStack)
+        
+        contentStack.oceanConstraints
+            .fill(to: self, constant: Ocean.size.spacingInsetSm)
+            .make()
+        
+        addView(0.3, 1, 0.75, 0.3, 1, 0.3, 1, 1)
+    }
+    
+    private func addView(_ multipliers: CGFloat...) {
+        multipliers.forEach {
+            let view = UIView()
+            contentStack.addArrangedSubview(view)
+            
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.isSkeletonable = true
+            
+            view.oceanConstraints
+                .width(to: contentStack, multiplier: $0)
+                .height(constant: Ocean.size.spacingStackXs)
+                .make()
+        }
+    }
 }
