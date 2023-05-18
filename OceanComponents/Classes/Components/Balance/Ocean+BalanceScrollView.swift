@@ -23,34 +23,33 @@ extension Ocean {
             }
         }
 
-        private lazy var arrowView: UIImageView = {
+        private lazy var eyeImageView: UIImageView = {
             UIImageView { imageView in
-                imageView.image = Ocean.icon.chevronDownSolid?.withRenderingMode(.alwaysTemplate)
-                imageView.tintColor = Ocean.color.colorInterfaceLightPure
+                imageView.image = Ocean.icon.eyeOutline?.withRenderingMode(.alwaysTemplate)
+                imageView.tintColor = Ocean.color.colorBrandPrimaryUp
                 imageView.contentMode = .scaleAspectFit
+                imageView.isSkeletonable = true
             }
         }()
 
-        private lazy var footerButton: Ocean.ButtonSecondary = {
-            Ocean.Button.secondarySM { button in
-                button.onTouch = { self.model.action?() }
-                button.isHidden = true
+        private lazy var eyeContainerView: UIView = {
+            let view = eyeImageView.addMargins(right: Ocean.size.spacingStackXs)
+            view.isSkeletonable = true
+            view.addTapGesture(target: self, selector: #selector(tapEye))
+            return view
+        }()
+
+        private lazy var titleLabel: UILabel = {
+            UILabel { label in
+                label.font = .baseBold(size: Ocean.font.fontSizeXxxs)
+                label.textColor = Ocean.color.colorBrandPrimaryUp
             }
         }()
 
-        private lazy var titleStack: Ocean.StackView = {
-            Ocean.StackView { stack in
-                stack.axis = .vertical
-                stack.alignment = .fill
-                stack.distribution = .fill
-                stack.spacing = 0
-                stack.isSkeletonable = true
-
-                stack.add([
-                    titleLabel,
-                    valueLabel,
-                    placeholderValueContainer
-                ])
+        private lazy var valueLabel: UILabel = {
+            UILabel { label in
+                label.font = .baseBold(size: Ocean.font.fontSizeXs)
+                label.textColor = Ocean.color.colorInterfaceLightPure
             }
         }()
 
@@ -69,34 +68,35 @@ extension Ocean {
             return view
         }()
 
-        private lazy var titleLabel: UILabel = {
-            UILabel { label in
-                label.font = .baseBold(size: Ocean.font.fontSizeXxxs)
-                label.textColor = Ocean.color.colorBrandPrimaryUp
+        private lazy var titleStack: Ocean.StackView = {
+            Ocean.StackView { stack in
+                stack.axis = .vertical
+                stack.alignment = .fill
+                stack.distribution = .fill
+                stack.spacing = 0
+                stack.isSkeletonable = true
+
+                stack.add([
+                    titleLabel,
+                    valueLabel,
+                    placeholderValueContainer
+                ])
             }
         }()
 
-        private lazy var valueLabel: UILabel = {
-            UILabel { label in
-                label.font = .baseBold(size: Ocean.font.fontSizeXs)
-                label.textColor = Ocean.color.colorInterfaceLightPure
-            }
-        }()
-
-        private lazy var eyeImageView: UIImageView = {
+        private lazy var arrowView: UIImageView = {
             UIImageView { imageView in
-                imageView.image = Ocean.icon.eyeOutline?.withRenderingMode(.alwaysTemplate)
-                imageView.tintColor = Ocean.color.colorBrandPrimaryUp
+                imageView.image = Ocean.icon.chevronDownSolid?.withRenderingMode(.alwaysTemplate)
+                imageView.tintColor = Ocean.color.colorInterfaceLightPure
                 imageView.contentMode = .scaleAspectFit
-                imageView.isSkeletonable = true
             }
         }()
 
-        private lazy var eyeContainerView: UIView = {
-            let view = eyeImageView.addMargins(right: Ocean.size.spacingStackXs)
-            view.isSkeletonable = true
-            view.addTapGesture(target: self, selector: #selector(tapEye))
-            return view
+        private lazy var footerButton: Ocean.ButtonSecondary = {
+            Ocean.Button.secondarySM { button in
+                button.onTouch = { self.model.action?() }
+                button.isHidden = true
+            }
         }()
 
         private lazy var headerStack: Ocean.StackView = {
