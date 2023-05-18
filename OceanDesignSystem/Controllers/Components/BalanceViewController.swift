@@ -2,8 +2,8 @@
 //  BalanceViewController.swift
 //  OceanDesignSystem
 //
-//  Created by Vini on 31/08/21.
-//  Copyright © 2021 Blu Pagamentos. All rights reserved.
+//  Created by Vinicius Romeiro on 17/05/23.
+//  Copyright © 2023 Blu Pagamentos. All rights reserved.
 //
 
 import Foundation
@@ -12,42 +12,59 @@ import OceanTokens
 import OceanComponents
 
 final public class BalanceViewController : UIViewController {
-    let balance = Ocean.Balance { view in
-        view.balanceAvailable = 67762.60
-        view.currentBalance = 68762.60
-        view.scheduleBlu = -1000.00
-        view.balanceNotBlu = 200.00
-        view.howToUseButtonText = "Saiba mais"
-        view.onStateChanged = { state in
-            print(state)
+    lazy var balance = Ocean.Balance()
+
+    private lazy var scrollButton: Ocean.ButtonSecondary = {
+        Ocean.Button.secondarySM { button in
+            button.text = "Toggle Scroll"
+            button.onTouch = {
+                self.balance.state = self.balance.state == .scroll ? .collapsed : .scroll
+            }
         }
-        view.howToUseTouch = {
-            print("howToUse")
-        }
-    }
-    
+    }()
+
     public override func viewDidLoad() {
         self.view.backgroundColor = .white
-        
+
         let stack = Ocean.StackView()
+        stack.alignment = .fill
         stack.distribution = .fill
         stack.axis = .vertical
-        stack.spacing = 0
-        
+        stack.spacing = Ocean.size.spacingStackSm
+
         stack.addArrangedSubview(balance)
-        
-        self.add(view: stack)
+        stack.addArrangedSubview(scrollButton.alignCenter())
+        self.view.backgroundColor = Ocean.color.colorBrandPrimaryPure
+        self.view.addSubview(stack)
+
+        stack.oceanConstraints
+            .leadingToLeading(to: self.view)
+            .trailingToTrailing(to: self.view)
+            .centerY(to: self.view)
+            .make()
     }
-    
-    private func add(view: UIView) {
-        self.view.addSubview(view)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            view.topAnchor.constraint(equalTo: self.view.topAnchor),
-            view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            balance.widthAnchor.constraint(equalTo: self.view.widthAnchor)
-        ])
+
+    public override func viewDidAppear(_ animated: Bool) {
+        let model = [
+            Ocean.BalanceModel(title: "Saldo total na Blu",
+                               value: 100,
+                               item1Title: "Saldo atual",
+                               item1Value: 50,
+                               item2Title: "Agenda",
+                               item2Value: 50,
+                               description: "Confira tudo o que entrou e saiu da sua Conta Digital Blu",
+                               actionCTA: "Extrato",
+                               action: {
+                                   print("Extrato")
+                               }),
+            Ocean.BalanceModel(title: "Saldo em Outras maquininhas",
+                               value: nil,
+                               description: "Consulte o seu saldo para descobrir oportunidades",
+                               actionCTA: "Consultar", action: {
+                                   print("Consultar")
+                               })
+        ]
+
+        balance.addBalances(with: model)
     }
 }
