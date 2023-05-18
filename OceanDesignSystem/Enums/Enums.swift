@@ -48,6 +48,7 @@ public enum DesignSystemComponentsType: String {
     case Carousel
     case Shortcut
     case Balance
+    case BalanceSimple
     case Tag
     case Badge
     case TransactionFooter

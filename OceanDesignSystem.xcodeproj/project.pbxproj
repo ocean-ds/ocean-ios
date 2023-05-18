@@ -29,11 +29,12 @@
 		24B70BBD26E91F0F00C9CE1E /* CardGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B70BBC26E91F0F00C9CE1E /* CardGroupViewController.swift */; };
 		24C801522682585600744F30 /* OceanDesignSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C801512682585600744F30 /* OceanDesignSystemTests.swift */; };
 		24E301B526EF911400D2296C /* SubheaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E301B426EF911400D2296C /* SubheaderViewController.swift */; };
-		24E39BA326DE5BCE006B6A02 /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E39BA226DE5BCE006B6A02 /* BalanceViewController.swift */; };
+		24E39BA326DE5BCE006B6A02 /* BalanceSimpleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E39BA226DE5BCE006B6A02 /* BalanceSimpleViewController.swift */; };
 		24FEEBC12744282E00211FEC /* StepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FEEBC02744282E00211FEC /* StepViewController.swift */; };
 		4223DDA2293F894C00257DBC /* OrderedListItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4223DDA1293F894C00257DBC /* OrderedListItemViewController.swift */; };
 		4241FB5227E8AD4B003EF1F3 /* ParentChildTextListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4241FB5127E8AD4B003EF1F3 /* ParentChildTextListViewController.swift */; };
 		4274CD6228AD422100F35540 /* GroupCTAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4274CD6128AD422100F35540 /* GroupCTAViewController.swift */; };
+		4291D9A32A153CF4006A0342 /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4291D9A22A153CF4006A0342 /* BalanceViewController.swift */; };
 		8EB41BED27E42D1800F18CC7 /* FloatVerticalMenuListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB41BEC27E42D1800F18CC7 /* FloatVerticalMenuListViewController.swift */; };
 		8ECB029F283319340037DC25 /* CardCrossSellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB029E283319340037DC25 /* CardCrossSellViewController.swift */; };
 		8ED08AE727EE075500ACDCB4 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED08AE627EE075500ACDCB4 /* TabViewController.swift */; };
@@ -113,12 +114,13 @@
 		24C801512682585600744F30 /* OceanDesignSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanDesignSystemTests.swift; sourceTree = "<group>"; };
 		24C801532682585600744F30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		24E301B426EF911400D2296C /* SubheaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubheaderViewController.swift; sourceTree = "<group>"; };
-		24E39BA226DE5BCE006B6A02 /* BalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceViewController.swift; sourceTree = "<group>"; };
+		24E39BA226DE5BCE006B6A02 /* BalanceSimpleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceSimpleViewController.swift; sourceTree = "<group>"; };
 		24FEEBC02744282E00211FEC /* StepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepViewController.swift; sourceTree = "<group>"; };
 		2FDF6A3790FFDCE821511C4F /* Pods-OceanDesignSystemTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OceanDesignSystemTests.debug.xcconfig"; path = "Target Support Files/Pods-OceanDesignSystemTests/Pods-OceanDesignSystemTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4223DDA1293F894C00257DBC /* OrderedListItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedListItemViewController.swift; sourceTree = "<group>"; };
 		4241FB5127E8AD4B003EF1F3 /* ParentChildTextListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentChildTextListViewController.swift; sourceTree = "<group>"; };
 		4274CD6128AD422100F35540 /* GroupCTAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCTAViewController.swift; sourceTree = "<group>"; };
+		4291D9A22A153CF4006A0342 /* BalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceViewController.swift; sourceTree = "<group>"; };
 		5D9D9A171B743DED8A2B2297 /* Pods_OceanDesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OceanDesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EB41BEC27E42D1800F18CC7 /* FloatVerticalMenuListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatVerticalMenuListViewController.swift; sourceTree = "<group>"; };
 		8ECB029E283319340037DC25 /* CardCrossSellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCrossSellViewController.swift; sourceTree = "<group>"; };
@@ -200,7 +202,8 @@
 				2479450626CAE9E6000F4DF0 /* BottomNavigationBarViewController.swift */,
 				2479453126CFEAD6000F4DF0 /* CarouselViewController.swift */,
 				2445B86A26D4147D0067B680 /* ShortcutViewController.swift */,
-				24E39BA226DE5BCE006B6A02 /* BalanceViewController.swift */,
+				4291D9A22A153CF4006A0342 /* BalanceViewController.swift */,
+				24E39BA226DE5BCE006B6A02 /* BalanceSimpleViewController.swift */,
 				246535F626E259C20079354A /* TagViewController.swift */,
 				246535FB26E28B760079354A /* BadgeViewController.swift */,
 				24B70BB726E7D0B400C9CE1E /* TransactionListViewController.swift */,
@@ -538,6 +541,7 @@
 				24B70BB826E7D0B400C9CE1E /* TransactionListViewController.swift in Sources */,
 				2491357826C6F634005EE76E /* ProgressIndicatorViewController.swift in Sources */,
 				4223DDA2293F894C00257DBC /* OrderedListItemViewController.swift in Sources */,
+				4291D9A32A153CF4006A0342 /* BalanceViewController.swift in Sources */,
 				B833D03924A6796100587FDE /* TokensViewController.swift in Sources */,
 				8EB41BED27E42D1800F18CC7 /* FloatVerticalMenuListViewController.swift in Sources */,
 				B71D65EA24CA47C500C3938C /* Enums.swift in Sources */,
@@ -563,7 +567,7 @@
 				E1DBF42929898E4100BCD65B /* SettingsListItemViewController.swift in Sources */,
 				8ED08AE727EE075500ACDCB4 /* TabViewController.swift in Sources */,
 				E13578B729F07252003A2B9D /* FilterBarViewController.swift in Sources */,
-				24E39BA326DE5BCE006B6A02 /* BalanceViewController.swift in Sources */,
+				24E39BA326DE5BCE006B6A02 /* BalanceSimpleViewController.swift in Sources */,
 				B71D65FD24CA530000C3938C /* Components.swift in Sources */,
 				2491356C26C5BB10005EE76E /* CheckBoxViewController.swift in Sources */,
 				246535FC26E28B760079354A /* BadgeViewController.swift in Sources */,
