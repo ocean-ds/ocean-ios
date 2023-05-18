@@ -18,7 +18,14 @@ class InformativeCardViewController: UIViewController {
         let informativeCard = InformativeCardView()
         informativeCard.titleText = "Title"
         informativeCard.valueText = "R$ 0,00"
-        informativeCard.descriptionText = nil
+        informativeCard.descriptionText = "Description"
+//        informativeCard.setTooltipMessage(message: "Tooltip 1", presenter: view)
+        informativeCard.setTooltipMessage(message: "Tooltip 1")
+//        informativeCard.addSubItem(labelText: "Label 1", valueText: "R$ 1,00", tooltipMessage: "Tooltip 2", tooltipPresenter: view)
+        informativeCard.addSubItem(labelText: "Label 1", valueText: "R$ 1,00", tooltipMessage: "Tooltip 2")
+        informativeCard.addSubItem(labelText: "Label 2", valueText: "R$ 2,00")
+//        informativeCard.addSubItem(labelText: "Label 3", valueText: "R$ 3,00", tooltipMessage: "Tooltip 3", tooltipPresenter: view)
+        informativeCard.addSubItem(labelText: "Label 3", valueText: "R$ 3,00", tooltipMessage: "Tooltip 3")
         
         view.addSubview(informativeCard)
         
@@ -39,27 +46,31 @@ public enum InformativeCardViewState: String {
 
 public class InformativeCardView: UIView {
     
-    var isDebug: Bool = false
+    // MARK: Properties
     
-    var titleText: String? {
+    var titleText: String = "" {
         didSet {
             defaultView.titleText = titleText
         }
     }
     
-    var valueText: String? {
+    var valueText: String = "" {
         didSet {
             defaultView.valueText = valueText
         }
     }
     
-    var descriptionText: String? {
+    var descriptionText: String? = nil {
         didSet {
             defaultView.descriptionText = descriptionText
         }
     }
     
-    // MARK: Default
+    // MARK: Private properties
+    
+//    private weak var tooltipPresenter: UIView?
+    
+    // MARK: Views
     
     private lazy var defaultView: InformativeCardDefaultView = {
         let view = InformativeCardDefaultView()
@@ -72,17 +83,12 @@ public class InformativeCardView: UIView {
     
     private lazy var contentStack: Ocean.StackView = {
         Ocean.StackView { stack in
-            stack.translatesAutoresizingMaskIntoConstraints = false
-            stack.axis = .vertical
+            
             stack.alignment = .fill
+            stack.axis = .vertical
+            stack.backgroundColor = Ocean.color.colorInterfaceLightPure
             stack.distribution = .fill
-            stack.spacing = 0
-//            stack.isLayoutMarginsRelativeArrangement = true
-//            stack.layoutMargins = .init(top: Ocean.size.spacingStackXs,
-//                                        left: Ocean.size.spacingStackXs,
-//                                        bottom: Ocean.size.spacingStackXs,
-//                                        right: Ocean.size.spacingStackXs)
-            stack.backgroundColor = isDebug ? .red : Ocean.color.colorInterfaceLightPure
+            stack.translatesAutoresizingMaskIntoConstraints = false
             
             stack.add([
                 defaultView
@@ -105,44 +111,55 @@ public class InformativeCardView: UIView {
     private func setupUI() {
         addSubview(contentStack)
         
-        self.ocean.radius.applyMd()
-        self.ocean.borderWidth.applyHairline(color: Ocean.color.colorInterfaceLightDown)
+        ocean.radius.applyMd()
+        ocean.borderWidth.applyHairline(color: Ocean.color.colorInterfaceLightDown)
         
         contentStack.oceanConstraints
             .fill(to: self)
             .make()
     }
+    
+//    func setTooltipMessage(message: String, presenter: UIView) {
+    func setTooltipMessage(message: String) {
+//        defaultView.setTooltipMessage(message: message, presenter: tooltipPresenter ?? self)
+        defaultView.setTooltipMessage(message: message, presenter: getRootSuperview())
+    }
+    
+//    func addSubItem(labelText: String, valueText: String, tooltipMessage: String? = nil, tooltipPresenter: UIView? = nil) {
+    func addSubItem(labelText: String, valueText: String, tooltipMessage: String? = nil) {
+        defaultView.addSubItem(labelText: labelText,
+                               valueText: valueText,
+                               tooltipMessage: tooltipMessage)
+//                               tooltipMessage: tooltipMessage,
+//                               tooltipPresenter: tooltipPresenter)
+    }
+    
+    func removeSubItem(at index: Int) {
+        defaultView.removeSubItem(at: index)
+    }
+    
+    func removeSubItems() {
+        defaultView.removeSubItems()
+    }
 }
 
 fileprivate class InformativeCardDefaultView: UIView {
     
-    var isDebug: Bool = true
+    // MARK: Properties
     
-    var leftIconImage: UIImage? = nil {
+    var iconImage: UIImage = Ocean.icon.placeholderOutline! {
         didSet {
-            leftIconImageView.image = leftIconImage?.withRenderingMode(.alwaysTemplate)
+            leftIconImageView.image = iconImage.withRenderingMode(.alwaysTemplate)
         }
     }
     
-    var rightIconImage: UIImage? = Ocean.icon.infoSolid {
-        didSet {
-            rightIconImageView.image = rightIconImage?.withRenderingMode(.alwaysTemplate)
-        }
-    }
-    
-    var tooltipMessage: String? {
-        didSet {
-            tooltip.message = tooltipMessage ?? ""
-        }
-    }
-    
-    var titleText: String? {
+    var titleText: String = "" {
         didSet {
             titleLabel.text = titleText
         }
     }
     
-    var valueText: String? {
+    var valueText: String = "" {
         didSet {
             valueLabel.text = valueText
         }
@@ -151,28 +168,34 @@ fileprivate class InformativeCardDefaultView: UIView {
     var descriptionText: String? {
         didSet {
             descriptionLabel.text = descriptionText
-            descriptionLabel.isHidden = descriptionText == nil
+            descriptionLabel.isHidden = descriptionText == nil || descriptionText?.isEmpty == true
         }
     }
     
+    // MARK: Private properties
+    
+//    private weak var tooltipPresenter: UIView?
+    
+    // MARK: Views
+    
     private lazy var leftIconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = leftIconImage?.withRenderingMode(.alwaysTemplate)
-        imageView.tintColor = Ocean.color.colorInterfaceLightDeep
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = isDebug ? .green : .clear
+        imageView.image = iconImage.withRenderingMode(.alwaysTemplate)
+        imageView.tintColor = Ocean.color.colorInterfaceLightDeep
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         
         return imageView
     }()
     
     private lazy var rightIconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = rightIconImage?.withRenderingMode(.alwaysTemplate)
-        imageView.tintColor = Ocean.color.colorInterfaceLightDeep
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = isDebug ? .green : .clear
+        imageView.image = Ocean.icon.infoSolid?.withRenderingMode(.alwaysTemplate)
+        imageView.isHidden = true
+        imageView.tintColor = Ocean.color.colorInterfaceLightDeep
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
         imageView.addTapGesture(target: self, selector: #selector(showTooltip))
         
         return imageView
@@ -182,11 +205,11 @@ fileprivate class InformativeCardDefaultView: UIView {
         Ocean.Typography.description { [weak self] label in
             guard let self = self else { return }
             
-            label.translatesAutoresizingMaskIntoConstraints = false
             label.numberOfLines = 0
-            label.textColor = Ocean.color.colorInterfaceDarkDown
+            label.text = titleText
             label.textAlignment = .left
-            label.text = self.titleText
+            label.textColor = Ocean.color.colorInterfaceDarkDown
+            label.translatesAutoresizingMaskIntoConstraints = false
         }
     }()
     
@@ -194,11 +217,11 @@ fileprivate class InformativeCardDefaultView: UIView {
         Ocean.Typography.lead { [weak self] label in
             guard let self = self else { return }
             
-            label.translatesAutoresizingMaskIntoConstraints = false
             label.numberOfLines = 0
-            label.textColor = Ocean.color.colorInterfaceDarkDeep
+            label.text = valueText
             label.textAlignment = .left
-            label.text = self.valueText
+            label.textColor = Ocean.color.colorInterfaceDarkDeep
+            label.translatesAutoresizingMaskIntoConstraints = false
         }
     }()
     
@@ -206,37 +229,52 @@ fileprivate class InformativeCardDefaultView: UIView {
         Ocean.Typography.description { [weak self] label in
             guard let self = self else { return }
             
-            label.translatesAutoresizingMaskIntoConstraints = false
             label.numberOfLines = 0
-            label.textColor = Ocean.color.colorInterfaceDarkUp
-            label.textAlignment = .left
+            label.isHidden = descriptionText == nil || descriptionText?.isEmpty == true
             label.text = descriptionText
-            label.isHidden = descriptionText == nil
+            label.textAlignment = .left
+            label.textColor = Ocean.color.colorInterfaceDarkUp
+            label.translatesAutoresizingMaskIntoConstraints = false
+        }
+    }()
+    
+    private lazy var subItemsStack: Ocean.StackView = {
+        Ocean.StackView { [weak self] stack in
+            guard let self = self else { return }
+            
+            stack.alignment = .fill
+            stack.axis = .vertical
+            stack.distribution = .fill
+            stack.translatesAutoresizingMaskIntoConstraints = false
         }
     }()
     
     private lazy var contentStack: Ocean.StackView = {
-        Ocean.StackView { stack in
-            stack.translatesAutoresizingMaskIntoConstraints = false
-            stack.axis = .vertical
+        Ocean.StackView { [weak self] stack in
+            guard let self = self else { return }
+            
             stack.alignment = .fill
+            stack.axis = .vertical
+            stack.backgroundColor = Ocean.color.colorInterfaceLightPure
             stack.distribution = .fill
-            stack.spacing = 0
-            stack.backgroundColor = isDebug ? .yellow : Ocean.color.colorInterfaceLightPure
+            stack.translatesAutoresizingMaskIntoConstraints = false
             
             stack.add([
                 titleLabel,
                 valueLabel,
-                descriptionLabel
+                descriptionLabel,
+                subItemsStack
             ])
         }
     }()
     
     private lazy var tooltip: Ocean.Tooltip = {
-        Ocean.Tooltip { component in
-            component.message = tooltipMessage ?? ""
+        Ocean.Tooltip { tooltip in
+            tooltip.indicatorMargin = Ocean.size.spacingStackXxxs
         }
     }()
+    
+    // MARK: Constructors
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -248,10 +286,7 @@ fileprivate class InformativeCardDefaultView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc
-    public func showTooltip() {
-        tooltip.show(target: rightIconImageView, position: .bottom, presenter: self)
-    }
+    // MARK: Setup
     
     private func setupUI() {
         addSubviews(leftIconImageView, rightIconImageView, contentStack)
@@ -277,4 +312,183 @@ fileprivate class InformativeCardDefaultView: UIView {
             .bottomToBottom(to: self, constant: -Ocean.size.spacingInsetSm)
             .make()
     }
+    
+    // MARK: Public methods
+    
+    @objc
+    public func showTooltip() {
+//        tooltip.show(target: rightIconImageView, position: .bottom, presenter: tooltipPresenter ?? self)
+        tooltip.show(target: rightIconImageView, position: .bottom, presenter: getRootSuperview())
+    }
+    
+    func setTooltipMessage(message: String, presenter: UIView) {
+        tooltip.message = message
+//        tooltipPresenter = presenter
+        rightIconImageView.isHidden = message.isEmpty
+    }
+    
+//    func addSubItem(labelText: String, valueText: String, tooltipMessage: String? = nil, tooltipPresenter: UIView? = nil) {
+    func addSubItem(labelText: String, valueText: String, tooltipMessage: String? = nil) {
+        let itemView = InfoListItemView()
+        itemView.labelText = labelText
+        itemView.valueText = valueText
+//        if let message = tooltipMessage, let presenter = tooltipPresenter {
+        if let message = tooltipMessage {
+//            itemView.setTooltipMessage(message: message, presenter: presenter)
+            itemView.setTooltipMessage(message: message)
+        }
+        
+        subItemsStack.addArrangedSubview(itemView)
+    }
+    
+    func removeSubItem(at index: Int) {
+        guard subItemsStack.arrangedSubviews.indices.contains(index) else {
+            return
+        }
+        
+        subItemsStack.removeArrangedSubview(subItemsStack.arrangedSubviews[index])
+    }
+    
+    func removeSubItems() {
+        subItemsStack.removeAllArrangedSubviews()
+    }
+    
+    // MARK: Private methods
+    
 }
+
+fileprivate class InfoListItemView: UIView {
+    
+    // MARK: Properties
+    
+    var labelText: String = "" {
+        didSet {
+            label.text = labelText
+        }
+    }
+    
+    var valueText: String = "" {
+        didSet {
+            valueLabel.text = valueText
+        }
+    }
+    
+    // MARK: Private properties
+    
+//    private weak var tooltipPresenter: UIView?
+    
+    // MARK: Views
+    
+    private lazy var label: UILabel = {
+        Ocean.Typography.caption { [weak self] label in
+            guard let self = self else { return }
+            
+            label.text = labelText
+            label.textAlignment = .left
+            label.textColor = Ocean.color.colorInterfaceDarkDown
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.numberOfLines = 0
+        }
+    }()
+    
+    private lazy var iconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = Ocean.icon.infoSolid?.withRenderingMode(.alwaysTemplate)
+        imageView.isHidden = true
+        imageView.tintColor = Ocean.color.colorInterfaceLightDeep
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        imageView.addTapGesture(target: self, selector: #selector(showTooltip))
+
+        return imageView
+    }()
+    
+    private lazy var tooltip: Ocean.Tooltip = {
+        Ocean.Tooltip { tooltip in
+            tooltip.indicatorMargin = Ocean.size.spacingStackXxxs
+        }
+    }()
+    
+    private lazy var valueLabel: UILabel = {
+        Ocean.Typography.description { [weak self] label in
+            guard let self = self else { return }
+            
+            label.text = valueText
+            label.textAlignment = .left
+            label.textColor = Ocean.color.colorInterfaceDarkDeep
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.numberOfLines = 0
+        }
+    }()
+    
+    // MARK: Constructors
+    
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        setupUI()
+    }
+    
+    public required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Setup
+    
+    private func setupUI() {
+        addSubviews(
+            label,
+            iconImageView,
+            valueLabel
+        )
+        
+        label.oceanConstraints
+            .topToTop(to: self, constant: Ocean.size.spacingStackXxs)
+            .leadingToLeading(to: self)
+            .make()
+        
+        iconImageView.oceanConstraints
+            .topToTop(to: label)
+            .leadingToTrailing(to: label, constant: Ocean.size.spacingInlineXxxs)
+            .trailingToTrailing(to: self, type: .lessThanOrEqualTo)
+            .width(constant: 16)
+            .height(constant: 16)
+            .make()
+        
+        valueLabel.oceanConstraints
+            .topToBottom(to: label)
+            .leadingToLeading(to: self)
+            .trailingToTrailing(to: self)
+            .bottomToBottom(to: self)
+            .make()
+    }
+    
+    // MARK: Public methods
+    
+    @objc
+    public func showTooltip() {
+//        tooltip.show(target: iconImageView, position: .bottom, presenter: tooltipPresenter ?? self)
+        tooltip.show(target: iconImageView, position: .bottom, presenter: getRootSuperview())
+    }
+    
+//    func setTooltipMessage(message: String, presenter: UIView) {
+    func setTooltipMessage(message: String) {
+        tooltip.message = message
+//        tooltipPresenter = presenter
+        iconImageView.isHidden = message.isEmpty
+    }
+    
+    // MARK: Private methods
+    
+}
+
+//extension UIView {
+//    func getRootSuperview() -> UIView {
+//        if let superview = superview {
+//            return superview.getRootSuperview()
+//        } else {
+//            return self
+//        }
+//    }
+//}
