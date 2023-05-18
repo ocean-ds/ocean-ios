@@ -40,7 +40,7 @@ extension Ocean {
         
         private lazy var dotLegendView: UIView = {
             let view = UIView()
-            view.layer.cornerRadius = 5
+            view.layer.cornerRadius = 4
             view.translatesAutoresizingMaskIntoConstraints = false
             view.heightAnchor.constraint(equalToConstant: 8).isActive = true
             view.widthAnchor.constraint(equalToConstant: 8).isActive = true
@@ -56,7 +56,7 @@ extension Ocean {
         
         private lazy var iconLegendImage: UIImageView = {
             let image = UIImageView()
-            image.image = Ocean.icon.infoSolid?.withTintColor(Ocean.color.colorInterfaceDarkDeep)
+            image.image = Ocean.icon.infoSolid?.withTintColor(Ocean.color.colorInterfaceLightDeep)
             image.addTapGesture(target: self, selector: #selector(tooltipClick))
             
             image.oceanConstraints
@@ -75,13 +75,14 @@ extension Ocean {
         
         private lazy var subtitleLegendLabel: UILabel = {
             let label = Ocean.Typography.caption()
+            label.textColor = Ocean.color.colorInterfaceDarkUp
             
             return label
         }()
         
         private lazy var valueLegendLabel: UILabel = {
             let label = Ocean.Typography.description()
-            
+            label.textColor = Ocean.color.colorInterfaceDarkDeep
             return label
         }()
         
@@ -109,14 +110,14 @@ extension Ocean {
         
         private func setupConstraints() {
             
-            dotLegendView.oceanConstraints
+            titleLegendLabel.oceanConstraints
                 .topToTop(to: self, constant: 8)
-                .leadingToLeading(to: self)
+                .leadingToTrailing(to: dotLegendView, constant: 8)
                 .make()
             
-            titleLegendLabel.oceanConstraints
-                .topToTop(to: self)
-                .leadingToTrailing(to: dotLegendView, constant: 8)
+            dotLegendView.oceanConstraints
+                .centerY(to: titleLegendLabel)
+                .leadingToLeading(to: self)
                 .make()
             
             iconLegendImage.oceanConstraints
@@ -125,8 +126,8 @@ extension Ocean {
                 .make()
             
             subtitleLegendLabel.oceanConstraints
-                .topToBottom(to: titleLegendLabel)
-                .bottomToBottom(to: self, constant: 8)
+                .topToBottom(to: titleLegendLabel, constant: 4)
+                .bottomToBottom(to: self, constant: -8)
                 .leadingToLeading(to: titleLegendLabel)
                 .make()
             
@@ -139,12 +140,11 @@ extension Ocean {
         private func updateUI() {
             guard let chartCardItemModel = chartCardItemModel else { return }
             
-            dotLegendView.backgroundColor = .white //chartCardItemModel.color
+            dotLegendView.backgroundColor = chartCardItemModel.color
             titleLegendLabel.text = chartCardItemModel.title
             subtitleLegendLabel.text = chartCardItemModel.subtitle
             tooltip.message = chartCardItemModel.toltipMessage
             valueLegendLabel.text = chartCardItemModel.value.toCurrency()
-            self.backgroundColor = chartCardItemModel.color
         }
         
         @objc private func tooltipClick() {

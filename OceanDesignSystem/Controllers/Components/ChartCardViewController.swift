@@ -13,6 +13,9 @@ import OceanTokens
 
 class ChartCardViewController: UIViewController {
     
+    lazy var scrollView: UIScrollView = { return UIScrollView(frame: .zero) }()
+    lazy var scrollableContentView: UIView = { UIView(frame: .zero) }()
+    
     lazy var listOfOceanItems = [
         Ocean.ChartCardItemModel(
             title: "Title 1",
@@ -63,10 +66,57 @@ class ChartCardViewController: UIViewController {
     
     lazy var chartCardView: Ocean.ChartCard = {
         let chart = Ocean.ChartCard()
-        chart.backgroundColor = .red
         chart.title = "Title"
         chart.subtitle = "Subtitle"
         chart.chartCardModel = chartCardModel
         return chart
     }()
+    
+    private lazy var contentStack: Ocean.StackView = {
+        let stack = Ocean.StackView()
+        stack.axis = .vertical
+        stack.alignment = .fill
+        stack.distribution = .fill
+        
+        stack.add([
+            UIView(),
+            chartCardView,
+            UIView()
+        ])
+        
+        stack.setMargins(allMargins: 16)
+        
+        return stack
+    }()
+    
+    public override func viewDidLoad() {
+        self.addScrollView()
+        
+        self.scrollableContentView.backgroundColor = .white
+        self.scrollView.backgroundColor = .white
+        
+        scrollableContentView.addSubview(contentStack)
+        
+        contentStack.oceanConstraints
+            .fill(to: scrollableContentView)
+            .make()
+    }
+    
+    private func addScrollView() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(scrollableContentView)
+
+        applyScrollViewDefaultContraints()
+    }
+
+    private func applyScrollViewDefaultContraints() {
+        scrollView.oceanConstraints
+            .fill(to: view)
+            .make()
+        
+        scrollableContentView.oceanConstraints
+            .fill(to: scrollView)
+            .width(to: view)
+            .make()
+    }
 }
