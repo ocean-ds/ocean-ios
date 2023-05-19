@@ -44,9 +44,7 @@ extension Ocean {
         }()
         
         private lazy var titleLabel: UILabel = {
-            Ocean.Typography.description { [weak self] label in
-                guard let self = self else { return }
-                
+            Ocean.Typography.description { label in
                 label.numberOfLines = -1
                 label.textAlignment = .left
                 label.textColor = Ocean.color.colorInterfaceDarkDown
@@ -64,9 +62,7 @@ extension Ocean {
         }()
         
         private lazy var valueLabel: UILabel = {
-            Ocean.Typography.lead { [weak self] label in
-                guard let self = self else { return }
-                
+            Ocean.Typography.lead { label in
                 label.numberOfLines = -1
                 label.textAlignment = .left
                 label.textColor = Ocean.color.colorInterfaceDarkDeep
@@ -76,9 +72,7 @@ extension Ocean {
         }()
         
         private lazy var descriptionLabel: UILabel = {
-            Ocean.Typography.description { [weak self] label in
-                guard let self = self else { return }
-                
+            Ocean.Typography.description { label in
                 label.numberOfLines = -1
                 label.textAlignment = .left
                 label.textColor = Ocean.color.colorInterfaceDarkUp
@@ -88,9 +82,7 @@ extension Ocean {
         }()
         
         private lazy var subItemsStack: Ocean.StackView = {
-            Ocean.StackView { [weak self] stack in
-                guard let self = self else { return }
-                
+            Ocean.StackView { stack in
                 stack.alignment = .fill
                 stack.axis = .vertical
                 stack.distribution = .fill
@@ -108,9 +100,7 @@ extension Ocean {
         }()
         
         private lazy var additionalInformationLabel: UILabel = {
-            Ocean.Typography.caption { [weak self] label in
-                guard let self = self else { return }
-                
+            Ocean.Typography.caption { label in
                 label.numberOfLines = -1
                 label.textAlignment = .left
                 label.textColor = Ocean.color.colorInterfaceDarkDown
@@ -120,9 +110,7 @@ extension Ocean {
         }()
         
         private lazy var contentStack: Ocean.StackView = {
-            Ocean.StackView { [weak self] stack in
-                guard let self = self else { return }
-                
+            Ocean.StackView { stack in
                 stack.alignment = .fill
                 stack.axis = .vertical
                 stack.backgroundColor = Ocean.color.colorInterfaceLightPure

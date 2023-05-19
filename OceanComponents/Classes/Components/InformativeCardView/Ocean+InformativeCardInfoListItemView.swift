@@ -18,9 +18,7 @@ extension Ocean {
         // MARK: Views
         
         private lazy var label: UILabel = {
-            Ocean.Typography.caption { [weak self] label in
-                guard let self = self else { return }
-                
+            Ocean.Typography.caption { label in
                 label.textAlignment = .left
                 label.textColor = Ocean.color.colorInterfaceDarkDown
                 label.translatesAutoresizingMaskIntoConstraints = false
@@ -48,9 +46,7 @@ extension Ocean {
         }()
         
         private lazy var valueLabel: UILabel = {
-            Ocean.Typography.description { [weak self] label in
-                guard let self = self else { return }
-                
+            Ocean.Typography.description { label in
                 label.textAlignment = .left
                 label.textColor = Ocean.color.colorInterfaceDarkDeep
                 label.translatesAutoresizingMaskIntoConstraints = false

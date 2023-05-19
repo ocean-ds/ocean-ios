@@ -38,9 +38,7 @@ extension Ocean {
         }()
         
         private lazy var titleLabel: UILabel = {
-            Ocean.Typography.heading4 { [weak self] label in
-                guard let self = self else { return }
-                
+            Ocean.Typography.heading4 { label in
                 label.isSkeletonable = true
                 label.numberOfLines = -1
                 label.textAlignment = .left
@@ -50,9 +48,7 @@ extension Ocean {
         }()
         
         private lazy var descriptionLabel: UILabel = {
-            Ocean.Typography.description { [weak self] label in
-                guard let self = self else { return }
-                
+            Ocean.Typography.description { label in
                 label.isSkeletonable = true
                 label.numberOfLines = -1
                 label.textAlignment = .left
@@ -62,9 +58,7 @@ extension Ocean {
         }()
         
         private lazy var contentStack: Ocean.StackView = {
-            Ocean.StackView { [weak self] stack in
-                guard let self = self else { return }
-                
+            Ocean.StackView { stack in
                 stack.alignment = .fill
                 stack.axis = .vertical
                 stack.distribution = .fill
