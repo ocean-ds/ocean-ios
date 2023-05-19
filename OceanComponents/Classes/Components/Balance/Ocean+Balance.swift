@@ -14,7 +14,7 @@ extension Ocean {
             static let heightContent: CGFloat = 140
             static let heightContentLg: CGFloat = 230
             static let heightContentScroll: CGFloat = 58
-            static let space: CGFloat = Ocean.size.spacingStackXs
+            static let space: CGFloat = Ocean.size.spacingInsetLg
             static let heightPage: CGFloat = 4
         }
 
@@ -154,8 +154,11 @@ extension Ocean {
         }
 
         private func updateState() {
-            if state == .scroll {
+            if state == .collapsed || state == .scroll {
                 self.collapseAllCollectionView()
+            }
+
+            if state == .scroll {
                 let data = self.data[pageControl.currentPage]
                 self.balanceScrollView.model = data
                 self.heightConstraint.constant = Constants.heightContentScroll

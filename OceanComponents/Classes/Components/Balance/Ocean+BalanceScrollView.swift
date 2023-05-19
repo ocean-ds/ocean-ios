@@ -28,13 +28,12 @@ extension Ocean {
                 imageView.image = Ocean.icon.eyeOutline?.withRenderingMode(.alwaysTemplate)
                 imageView.tintColor = Ocean.color.colorBrandPrimaryUp
                 imageView.contentMode = .scaleAspectFit
-                imageView.isSkeletonable = true
             }
         }()
 
         private lazy var eyeContainerView: UIView = {
             let view = eyeImageView.addMargins(right: Ocean.size.spacingStackXs)
-            view.isSkeletonable = true
+            view.isSkeletonable = false
             view.addTapGesture(target: self, selector: #selector(tapEye))
             return view
         }()
@@ -50,6 +49,7 @@ extension Ocean {
             UILabel { label in
                 label.font = .baseBold(size: Ocean.font.fontSizeXs)
                 label.textColor = Ocean.color.colorInterfaceLightPure
+                label.isSkeletonable = true
             }
         }()
 
