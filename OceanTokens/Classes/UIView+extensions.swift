@@ -29,3 +29,13 @@ extension UIView {
 extension UIView {
     public var ocean: OceanStyle { OceanStyle(view: self) }
 }
+
+extension UIView {
+    public func getRootSuperview() -> UIView {
+        if let superview = superview {
+            return superview.getRootSuperview()
+        } else {
+            return self
+        }
+    }
+}

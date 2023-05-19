@@ -30,6 +30,7 @@ struct DSComponents {
         "FilterBar",
         "FloatVerticalMenuList",
         "GroupCTA",
+        "InformativeCardView",
         "Input",
         "Modal",
         "NavigationBar",
