@@ -18,9 +18,10 @@ extension Ocean {
         
         private var widthConstraint: NSLayoutDimension?
         private var heightConstraint: NSLayoutDimension?
-        private var width: CGFloat?
+        private (set) var width: CGFloat?
         private (set) var height: CGFloat?
         private var axisDivider: AxisDivider = .horizontal
+        private var color = Ocean.color.colorInterfaceLightDown
         
         public convenience init() {
             self.init(frame: .zero)
@@ -29,44 +30,54 @@ extension Ocean {
         }
         
         public convenience init(width: CGFloat,
-                                axis: AxisDivider = .horizontal) {
+                                axis: AxisDivider = .horizontal,
+                                color: UIColor = Ocean.color.colorInterfaceLightDown) {
             self.init(frame: .zero)
             self.width = width
             self.axisDivider = axis
+            self.color = color
             setupUI()
         }
         
         public convenience init(height: CGFloat,
-                                axis: AxisDivider = .horizontal) {
+                                axis: AxisDivider = .horizontal,
+                                color: UIColor = Ocean.color.colorInterfaceLightDown) {
             self.init(frame: .zero)
             self.height = height
             self.axisDivider = axis
+            self.color = color
             setupUI()
         }
         
         public convenience init(width: CGFloat,
                                 height: CGFloat,
-                                axis: AxisDivider = .horizontal) {
+                                axis: AxisDivider = .horizontal,
+                                color: UIColor = Ocean.color.colorInterfaceLightDown) {
             self.init(frame: .zero)
             self.width = width
             self.height = height
             self.axisDivider = axis
+            self.color = color
             setupUI()
         }
         
         public convenience init(widthConstraint: NSLayoutDimension,
-                                axis: AxisDivider = .horizontal) {
+                                axis: AxisDivider = .horizontal,
+                                color: UIColor = Ocean.color.colorInterfaceLightDown) {
             self.init(frame: .zero)
             self.widthConstraint = widthConstraint
             self.axisDivider = axis
+            self.color = color
             setupUI()
         }
         
         public convenience init(heightConstraint: NSLayoutDimension,
-                                axis: AxisDivider = .horizontal) {
+                                axis: AxisDivider = .horizontal,
+                                color: UIColor = Ocean.color.colorInterfaceLightDown) {
             self.init(frame: .zero)
             self.heightConstraint = heightConstraint
             self.axisDivider = axis
+            self.color = color
             setupUI()
         }
         
@@ -77,7 +88,7 @@ extension Ocean {
         
         private func setupUI() {
             translatesAutoresizingMaskIntoConstraints = false
-            backgroundColor = Ocean.color.colorInterfaceLightDown
+            backgroundColor = self.color
             setDimensions(activate: false)
         }
         
