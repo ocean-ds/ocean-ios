@@ -132,6 +132,8 @@ class ComponentsViewController: UITableViewController {
             self.present(SettingsListItemViewController(), animated: true, completion: nil)
         case .InformativeCardView:
             self.present(InformativeCardViewController(), animated: true, completion: nil)
+        case .ProgressBar:
+            self.present(ProgressBarViewController(), animated: true, completion: nil)
         default:
             performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }

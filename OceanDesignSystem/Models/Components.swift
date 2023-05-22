@@ -36,6 +36,7 @@ struct DSComponents {
         "NavigationBar",
         "OrderedListItem",
         "ParentChildTextList",
+        "ProgressBar",
         "ProgressIndicator",
         "RadioButton",
         "SettingsListItem",
