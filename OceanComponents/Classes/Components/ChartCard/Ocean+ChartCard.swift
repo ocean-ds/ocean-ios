@@ -11,6 +11,13 @@ import Charts
 
 extension Ocean {
     
+    struct ConstantsChartCard {
+        static let skeletonViewBorderRadius = 140.0
+        static let skeletonViewHeight = 280.0
+        static let skeletonViewWidth = 280.0
+        static let chartViewHeight = 300.0
+    }
+    
     public class ChartCard: UIView, ChartViewDelegate {
         
         // MARK: - Properties
@@ -41,7 +48,6 @@ extension Ocean {
         
         public var items: [ChartCardItem] = [] {
             didSet {
-                print("ASDF - updateUI")
                 updateUI()
             }
         }
@@ -119,9 +125,7 @@ extension Ocean {
             stack.distribution = .fill
             stack.isSkeletonable = true
             
-            stack.setMargins(left: 0.0,//Ocean.size.spacingStackSm,
-                             bottom: Ocean.size.spacingStackSm,
-                             right: 0.0) //Ocean.size.spacingStackSm)
+            stack.setMargins(bottom: Ocean.size.spacingStackSm)
             
             return stack
         }()
@@ -166,14 +170,14 @@ extension Ocean {
         private lazy var viewForSkeletonView: UIView = {
             let view = UIView()
             
-            view.applyRadius(radius: 140)
+            view.applyRadius(radius: ConstantsChartCard.skeletonViewBorderRadius)
             
             view.backgroundColor = .clear
             view.isUserInteractionEnabled = false
             view.layer.borderWidth = 0
             
             view.isSkeletonable = true
-            view.skeletonCornerRadius = 140
+            view.skeletonCornerRadius = Float(ConstantsChartCard.skeletonViewBorderRadius)
             
             return view
         }()
@@ -188,22 +192,6 @@ extension Ocean {
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
-        
-        // MARK: ChartViewDelegate
-        
-        public func chartValueSelected(_ chartView: ChartViewBase,
-                                       entry: ChartDataEntry,
-                                       highlight: Highlight) {
-            let chartItem = items[Int(highlight.x)]
-            
-            print("ASDF - DELEGATE")
-            self.legendTapped(chartItem)
-        }
-        
-       public func chartValueNothingSelected(_ chartView: ChartViewBase) {
-           self.selectedItem?.unhighlight()
-           self.selectedItem = nil
-       }
         
         // MARK: - Functions private
         
@@ -260,7 +248,7 @@ extension Ocean {
             let attributedString = NSMutableAttributedString(
                 string: "\(valueCenterDonut)\n",
                 attributes: [
-                    .font: UIFont(name: Ocean.font.fontFamilyBaseWeightRegular, size: 22) as Any,
+                    .font: UIFont(name: Ocean.font.fontFamilyBaseWeightRegular, size: Ocean.font.fontSizeSm) as Any,
                     .foregroundColor: Ocean.color.colorInterfaceDarkDeep,
                     .paragraphStyle: paragraphStyle
                 ])
@@ -269,7 +257,7 @@ extension Ocean {
                 NSAttributedString(
                     string: "\(title)",
                     attributes: [
-                        .font: UIFont(name: Ocean.font.fontFamilyBaseWeightRegular, size: 18) as Any,
+                        .font: UIFont(name: Ocean.font.fontFamilyBaseWeightRegular, size: Ocean.font.fontSizeXxxs) as Any,
                         .foregroundColor: Ocean.color.colorInterfaceDarkDown,
                         .paragraphStyle: paragraphStyle
                     ]))
@@ -292,8 +280,8 @@ extension Ocean {
         
         private func setupConstraints() {
             viewForSkeletonView.oceanConstraints
-                .height(constant: 280)
-                .width(constant: 280)
+                .height(constant: ConstantsChartCard.skeletonViewHeight)
+                .width(constant: ConstantsChartCard.skeletonViewWidth)
                 .centerY(to: chartView)
                 .centerX(to: chartView)
                 .make()
@@ -303,7 +291,7 @@ extension Ocean {
                 .make()
             
             chartView.oceanConstraints
-                .height(constant: 300)
+                .height(constant: ConstantsChartCard.chartViewHeight)
                 .make()
         }
         
@@ -335,14 +323,12 @@ extension Ocean {
         }
         
         private func handleItemSelected(_ item: ChartCardItem, at index: Int) {
-            print("ASDF - ON")
             onSelect?(item)
             legendTapped(item)
             chartView.highlightValue(x: Double(index), dataSetIndex: 0, callDelegate: false)
         }
         
         private func handleItemDeselected(_ item: ChartCardItem) {
-            print("ASDF - OFF")
             legendTapped(item)
             chartView.highlightValue(nil, callDelegate: false)
         }
@@ -355,16 +341,12 @@ extension Ocean {
         }
         
         private func legendTapped(_ tappedItem: ChartCardItem) {
-            print("ASDF - LEGENDA \(tappedItem.title)")
-            print("ASDF - STATUS ANTES \(tappedItem.isSelected)")
             toggleSelectionForItems(except: tappedItem)
-            print("ASDF - STATUS DEPOIS \(tappedItem.isSelected)")
             onSelect?(tappedItem)
+            changeOpacityOfUnselectedItems(except: tappedItem)
         }
         
         private func toggleSelectionForItems(except selectedItem: ChartCardItem) {
-            print("ASDF - <<< CHAMADA TOGGLE >>>")
-            
             self.selectedItem?.unhighlight()
             
             if selectedItem != self.selectedItem {
@@ -373,31 +355,45 @@ extension Ocean {
             } else {
                 self.selectedItem = nil
             }
-            
-            
-//            if selectedItem == self.selectedItem {
-//                selectedItem.unhighlight()
-//                self.selectedItem = nil
-//            } else {
-//                items.forEach { item in
-//                    if item == selectedItem {
-//                        item.highlight()
-//                        self.selectedItem = item
-//                    } else {
-//                        item.unhighlight()
-//                    }
-//                }
-//            }
         }
         
-//        @objc private func handleTapOutsideChart(_ sender: UITapGestureRecognizer) {
-//            let location = sender.location(in: self)
-//            if !chartView.frame.contains(location) {
-//                print("<<< FORA DO GRAFICO >>>")
-//                self.selectedItem?.unhighlight()
-//                self.selectedItem = nil
-//            }
-//        }
+        private func changeOpacityOfUnselectedItems(except selectedItem: ChartCardItem) {
+            items.enumerated().forEach { index, item in
+                let newColor: UIColor
+                if item !== selectedItem {
+                    item.setOpacity(opacity: Ocean.size.opacityLevelMedium)
+                    newColor = item.color.withAlphaComponent(Ocean.size.opacityLevelLight)
+                } else {
+                    item.setOpacity(opacity: 1.0)
+                    newColor = item.color.withAlphaComponent(1.0)
+                }
+                if let dataSet = chartView.data?.dataSets[0] as? PieChartDataSet {
+                    dataSet.colors[index] = newColor
+                }
+            }
+        }
+        
+        // MARK: ChartViewDelegate
+        
+        public func chartValueSelected(_ chartView: ChartViewBase,
+                                       entry: ChartDataEntry,
+                                       highlight: Highlight) {
+            let chartItem = items[Int(highlight.x)]
+            
+            self.legendTapped(chartItem)
+        }
+        
+        public func chartValueNothingSelected(_ chartView: ChartViewBase) {
+            self.selectedItem?.unhighlight()
+            self.selectedItem = nil
+            
+            items.enumerated().forEach { index, item in
+                item.setOpacity(opacity: 1.0)
+                if let dataSet = chartView.data?.dataSets[0] as? PieChartDataSet {
+                    dataSet.colors[index] = item.color.withAlphaComponent(1.0)
+                }
+            }
+        }
     }
 }
 
@@ -407,7 +403,7 @@ extension PieChartDataSet {
     func configureDataSetAppearance() {
         drawValuesEnabled = false
         drawIconsEnabled = false
-        selectionShift = 10.0
+        selectionShift = 0.0
     }
 }
 

@@ -9,6 +9,20 @@ import Foundation
 import OceanTokens
 
 extension Ocean {
+    
+    struct ConstantsChartCardItem {
+        static let chartCardItemHeight = 53.0
+        static let iconLegendImageSpaceLeading = 5.6
+        static let iconLegendImageWidth = 20.0
+        static let iconLegendImageHeight = 20.0
+    }
+    
+    public enum ValueRepresentationType {
+        case percent
+        case decimal
+        case monetary
+    }
+    
     public class ChartCardItem: UIView {
         
         // MARK: - Properties
@@ -43,7 +57,7 @@ extension Ocean {
             }
         }
         
-        public var valueRepresentationType: ValueType = .percent {
+        public var valueRepresentationType: ValueRepresentationType = .percent {
             didSet {
                 updateValueType()
             }
@@ -61,7 +75,7 @@ extension Ocean {
             let view = UIView()
             view.layer.cornerRadius = Ocean.size.borderRadiusSm
             view.isSkeletonable = true
-            view.skeletonCornerRadius = 4
+            view.skeletonCornerRadius = Float(Ocean.size.borderRadiusSm)
             
             return view
         }()
@@ -120,15 +134,19 @@ extension Ocean {
         // MARK: - Functions
         
         public func highlight() {
-            self.backgroundColor = Ocean.color.colorInterfaceLightDown
             isSelected = true
-            print("ASDF - highlight - \(title)")
         }
         
         public func unhighlight() {
-            self.backgroundColor = .white
             isSelected = false
-            print("ASDF - unhighlight - \(title)")
+        }
+        
+        public func setOpacity(opacity: CGFloat) {
+            dotLegendView.backgroundColor = color.withAlphaComponent(opacity)
+            titleLegendLabel.textColor = titleLegendLabel.textColor.withAlphaComponent(opacity)
+            subtitleLegendLabel.textColor = subtitleLegendLabel.textColor.withAlphaComponent(opacity)
+            iconLegendImage.tintColor = iconLegendImage.backgroundColor?.withAlphaComponent(opacity)
+            valueLegendLabel.textColor = valueLegendLabel.textColor.withAlphaComponent(opacity)
         }
         
         // MARK: - Functions private
@@ -151,13 +169,12 @@ extension Ocean {
         
         private func setupConstraints() {
             self.oceanConstraints
-                .height(constant: 53)
+                .height(constant: ConstantsChartCardItem.chartCardItemHeight)
                 .make()
             
             dotLegendView.oceanConstraints
                 .centerY(to: titleLegendLabel)
                 .leadingToLeading(to: self, constant: Ocean.size.spacingStackXs)
-//                .leadingToLeading(to: self)
                 .height(constant: Ocean.size.spacingStackXxs)
                 .width(constant: Ocean.size.spacingStackXxs)
                 .make()
@@ -168,10 +185,11 @@ extension Ocean {
                 .make()
             
             iconLegendImage.oceanConstraints
-                .leadingToTrailing(to: titleLegendLabel, constant: 5.6)
+                .leadingToTrailing(to: titleLegendLabel,
+                                   constant: ConstantsChartCardItem.iconLegendImageSpaceLeading)
                 .centerY(to: titleLegendLabel)
-                .width(constant: 20)
-                .height(constant: 20)
+                .width(constant: ConstantsChartCardItem.iconLegendImageWidth)
+                .height(constant: ConstantsChartCardItem.iconLegendImageHeight)
                 .make()
             
             subtitleLegendLabel.oceanConstraints
@@ -183,7 +201,6 @@ extension Ocean {
             valueLegendLabel.oceanConstraints
                 .centerY(to: self)
                 .trailingToTrailing(to: self, constant: -Ocean.size.spacingStackXs)
-//                .trailingToTrailing(to: self)
                 .make()
         }
         
@@ -232,15 +249,7 @@ extension Ocean {
             tooltip.show(target: iconLegendImage, position: .top, presenter: self.superview ?? self)
         }
         
-        private var isTouchLegend: Bool = false
-        
-        public func legendTouch() -> Bool {
-            return isTouchLegend
-        }
-        
         @objc private func handleTap() {
-            isTouchLegend = true
-            print("\n\nASDF - <<<<<<< TOQUE NA LEGENDA >>>>>>\n\n")
             if isSelected {
                 updateSelectionState()
                 onDeselect?(self)
