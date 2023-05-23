@@ -9,47 +9,66 @@ import Foundation
 import OceanTokens
 
 extension Ocean {
-
-    public struct ChartCardItemModel {
-        public var title: String
-        public var subtitle: String
-        public var toltipMessage: String
-        public var value: Double
-        public var color: UIColor
-        
-        public init(title: String,
-                    subtitle: String,
-                    toltipMessage: String,
-                    value: Double,
-                    color: UIColor) {
-            self.title = title
-            self.subtitle = subtitle
-            self.toltipMessage = toltipMessage
-            self.value = value
-            self.color = color
-        }
-    }
-    
     public class ChartCardItem: UIView {
         
-        public var chartCardItemModel: ChartCardItemModel? = nil {
+        // MARK: - Properties
+        
+        public var title: String = "" {
             didSet {
                 updateUI()
             }
         }
         
+        public var subtitle: String = "" {
+            didSet {
+                updateUI()
+            }
+        }
+        
+        public var tooltipMessage: String = "" {
+            didSet {
+                updateUI()
+            }
+        }
+        
+        public var value: Double = 0 {
+            didSet {
+                updateUI()
+            }
+        }
+        
+        public var color: UIColor = .white {
+            didSet {
+                updateUI()
+            }
+        }
+        
+        public var valueRepresentationType: ValueType = .percent {
+            didSet {
+                updateValueType()
+            }
+        }
+        
+        public var onSelect: ((ChartCardItem?) -> Void)?
+        
+        public var onDeselect: ((ChartCardItem?) -> Void)?
+        
+        // MARK: - Properties private
+        
+        private(set) var isSelected: Bool  = false
+        
         private lazy var dotLegendView: UIView = {
             let view = UIView()
-            view.layer.cornerRadius = 4
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.heightAnchor.constraint(equalToConstant: 8).isActive = true
-            view.widthAnchor.constraint(equalToConstant: 8).isActive = true
-           
+            view.layer.cornerRadius = Ocean.size.borderRadiusSm
+            view.isSkeletonable = true
+            view.skeletonCornerRadius = 4
+            
             return view
         }()
         
         private lazy var titleLegendLabel: UILabel = {
             let label = Ocean.Typography.description()
+            label.isSkeletonable = true
             
             return label
         }()
@@ -58,17 +77,15 @@ extension Ocean {
             let image = UIImageView()
             image.image = Ocean.icon.infoSolid?.withTintColor(Ocean.color.colorInterfaceLightDeep)
             image.addTapGesture(target: self, selector: #selector(tooltipClick))
-            
-            image.oceanConstraints
-                .width(constant: 20)
-                .height(constant: 20)
-                .make()
+            image.isSkeletonable = true
+            image.isHiddenWhenSkeletonIsActive = true
             
             return image
         }()
         
         private lazy var tooltip: Ocean.Tooltip = {
             Ocean.Tooltip { component in
+                component.indicatorMargin = Ocean.size.spacingStackXxxs
                 component.message = ""
             }
         }()
@@ -76,6 +93,7 @@ extension Ocean {
         private lazy var subtitleLegendLabel: UILabel = {
             let label = Ocean.Typography.caption()
             label.textColor = Ocean.color.colorInterfaceDarkUp
+            label.isSkeletonable = true
             
             return label
         }()
@@ -83,8 +101,12 @@ extension Ocean {
         private lazy var valueLegendLabel: UILabel = {
             let label = Ocean.Typography.description()
             label.textColor = Ocean.color.colorInterfaceDarkDeep
+            label.isSkeletonable = true
+            
             return label
         }()
+        
+        // MARK: - Constructors
         
         public override init(frame: CGRect) {
             super.init(frame: frame)
@@ -95,9 +117,25 @@ extension Ocean {
             fatalError("init(coder:) has not been implemented")
         }
         
+        // MARK: - Functions
+        
+        public func highlight() {
+            self.backgroundColor = Ocean.color.colorInterfaceLightDown
+            isSelected = true
+            print("ASDF - highlight - \(title)")
+        }
+        
+        public func unhighlight() {
+            self.backgroundColor = .white
+            isSelected = false
+            print("ASDF - unhighlight - \(title)")
+        }
+        
+        // MARK: - Functions private
+        
         private func setupUI() {
-            
             translatesAutoresizingMaskIntoConstraints = false
+            self.isSkeletonable = true
             
             addSubview(dotLegendView)
             addSubview(iconLegendImage)
@@ -106,28 +144,38 @@ extension Ocean {
             addSubview(valueLegendLabel)
             
             setupConstraints()
+            
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+            self.addGestureRecognizer(tapGesture)
         }
         
         private func setupConstraints() {
-            
-            titleLegendLabel.oceanConstraints
-                .topToTop(to: self, constant: 8)
-                .leadingToTrailing(to: dotLegendView, constant: 8)
+            self.oceanConstraints
+                .height(constant: 53)
                 .make()
             
             dotLegendView.oceanConstraints
                 .centerY(to: titleLegendLabel)
                 .leadingToLeading(to: self)
+                .height(constant: Ocean.size.spacingStackXxs)
+                .width(constant: Ocean.size.spacingStackXxs)
+                .make()
+            
+            titleLegendLabel.oceanConstraints
+                .topToTop(to: self, constant: Ocean.size.spacingStackXxs)
+                .leadingToTrailing(to: dotLegendView, constant: Ocean.size.spacingStackXxs)
                 .make()
             
             iconLegendImage.oceanConstraints
                 .leadingToTrailing(to: titleLegendLabel, constant: 5.6)
                 .centerY(to: titleLegendLabel)
+                .width(constant: 20)
+                .height(constant: 20)
                 .make()
             
             subtitleLegendLabel.oceanConstraints
-                .topToBottom(to: titleLegendLabel, constant: 4)
-                .bottomToBottom(to: self, constant: -8)
+                .topToBottom(to: titleLegendLabel, constant: Ocean.size.spacingStackXxxs)
+                .bottomToBottom(to: self, constant: -Ocean.size.spacingStackXxs)
                 .leadingToLeading(to: titleLegendLabel)
                 .make()
             
@@ -138,17 +186,67 @@ extension Ocean {
         }
         
         private func updateUI() {
-            guard let chartCardItemModel = chartCardItemModel else { return }
-            
-            dotLegendView.backgroundColor = chartCardItemModel.color
-            titleLegendLabel.text = chartCardItemModel.title
-            subtitleLegendLabel.text = chartCardItemModel.subtitle
-            tooltip.message = chartCardItemModel.toltipMessage
-            valueLegendLabel.text = chartCardItemModel.value.toCurrency()
+            updateDotView()
+            updateTitle()
+            updateSubtitle()
+            updateTooltip()
+            updateValueType()
+        }
+        
+        private func updateDotView() {
+            dotLegendView.backgroundColor = color
+        }
+        
+        private func updateTitle() {
+            titleLegendLabel.text = title
+        }
+        
+        private func updateSubtitle() {
+            subtitleLegendLabel.text = subtitle
+            subtitleLegendLabel.isHidden = subtitle.isEmpty
+        }
+        
+        private func updateTooltip() {
+            tooltip.message = tooltipMessage
+            iconLegendImage.isHidden = tooltipMessage.isEmpty
+        }
+        
+        private func updateValueType() {
+            switch valueRepresentationType {
+            case .decimal:
+                valueLegendLabel.text = value.toDecimal()
+            case .percent:
+                valueLegendLabel.text = "\(value.toPercent())%"
+            case .monetary:
+                valueLegendLabel.text = value.toCurrency(symbolSpace: true)
+            }
+        }
+        
+        private func updateSelectionState() {
+            isSelected ? highlight() : unhighlight()
         }
         
         @objc private func tooltipClick() {
             tooltip.show(target: iconLegendImage, position: .top, presenter: self.superview ?? self)
         }
+        
+        private var isTouchLegend: Bool = false
+        
+        public func legendTouch() -> Bool {
+            return isTouchLegend
+        }
+        
+        @objc private func handleTap() {
+            isTouchLegend = true
+            print("\n\nASDF - <<<<<<< TOQUE NA LEGENDA >>>>>>\n\n")
+            if isSelected {
+                updateSelectionState()
+                onDeselect?(self)
+            } else {
+                updateSelectionState()
+                onSelect?(self)
+            }
+        }
     }
 }
+

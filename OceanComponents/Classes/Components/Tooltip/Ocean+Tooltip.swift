@@ -39,6 +39,8 @@ extension Ocean {
                 titleLabel.isHidden = title.isEmpty
             }
         }
+        
+        public var indicatorMargin: CGFloat = 20
 
         private var backgroundRounded = UIView()
         private var triangleView = TriangleView()
@@ -145,7 +147,7 @@ extension Ocean {
             switch position {
             case .top:
                 contentView.oceanConstraints
-                    .bottomToTop(to: target, constant: -20)
+                    .bottomToTop(to: target, constant: -indicatorMargin)
                     .make()
 
                 backgroundRounded.oceanConstraints
@@ -159,12 +161,14 @@ extension Ocean {
                     .width(constant: Constants.triangleWidth)
                     .height(constant: Constants.triangleHeight)
                     .topToBottom(to: backgroundRounded, constant: -2)
-                    .leadingToLeading(to: target)
+                    .leadingToLeading(to: contentView, constant: 2, priority: .required, type: .greaterThanOrEqualTo)
+                    .trailingToTrailing(to: contentView, constant: -2, priority: .required, type: .lessThanOrEqualTo)
+                    .centerX(to: target, priority: .defaultHigh)
                     .bottomToBottom(to: contentView)
                     .make()
             case .bottom:
                 contentView.oceanConstraints
-                    .topToBottom(to: target, constant: 20)
+                    .topToBottom(to: target, constant: indicatorMargin)
                     .make()
 
                 backgroundRounded.oceanConstraints
@@ -175,7 +179,9 @@ extension Ocean {
                     .width(constant: Constants.triangleWidth)
                     .height(constant: Constants.triangleHeight)
                     .topToTop(to: contentView)
-                    .leadingToLeading(to: target)
+                    .leadingToLeading(to: contentView, constant: 2, priority: .required, type: .greaterThanOrEqualTo)
+                    .trailingToTrailing(to: contentView, constant: -2, priority: .required, type: .lessThanOrEqualTo)
+                    .centerX(to: target, priority: .defaultHigh)
                     .bottomToTop(to: backgroundRounded, constant: 2)
                     .make()
             }
@@ -217,7 +223,3 @@ fileprivate extension UIView {
         self.transform = rotation
     }
 }
-
-
-
-
