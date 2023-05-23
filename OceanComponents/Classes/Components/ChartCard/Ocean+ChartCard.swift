@@ -119,9 +119,9 @@ extension Ocean {
             stack.distribution = .fill
             stack.isSkeletonable = true
             
-            stack.setMargins(left: Ocean.size.spacingStackSm,
+            stack.setMargins(left: 0.0,//Ocean.size.spacingStackSm,
                              bottom: Ocean.size.spacingStackSm,
-                             right: Ocean.size.spacingStackSm)
+                             right: 0.0) //Ocean.size.spacingStackSm)
             
             return stack
         }()
@@ -350,7 +350,7 @@ extension Ocean {
         private func addLegendItemToStack(item: ChartCardItem, at index: Int) {
             legendItemsListStack.add([item])
             if index < items.count - 1 {
-                legendItemsListStack.add([Divider(widthConstraint: legendItemsListStack.widthAnchor)])
+                legendItemsListStack.add([Divider().addMargins(horizontal: Ocean.size.spacingStackXs)])
             }
         }
         

@@ -156,7 +156,8 @@ extension Ocean {
             
             dotLegendView.oceanConstraints
                 .centerY(to: titleLegendLabel)
-                .leadingToLeading(to: self)
+                .leadingToLeading(to: self, constant: Ocean.size.spacingStackXs)
+//                .leadingToLeading(to: self)
                 .height(constant: Ocean.size.spacingStackXxs)
                 .width(constant: Ocean.size.spacingStackXxs)
                 .make()
@@ -181,7 +182,8 @@ extension Ocean {
             
             valueLegendLabel.oceanConstraints
                 .centerY(to: self)
-                .trailingToTrailing(to: self)
+                .trailingToTrailing(to: self, constant: -Ocean.size.spacingStackXs)
+//                .trailingToTrailing(to: self)
                 .make()
         }
         
