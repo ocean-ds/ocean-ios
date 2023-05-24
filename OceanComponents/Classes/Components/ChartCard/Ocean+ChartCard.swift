@@ -11,14 +11,14 @@ import Charts
 
 extension Ocean {
     
-    struct ConstantsChartCard {
-        static let skeletonViewBorderRadius = 140.0
-        static let skeletonViewHeight = 280.0
-        static let skeletonViewWidth = 280.0
-        static let chartViewHeight = 300.0
-    }
-    
     public class ChartCard: UIView, ChartViewDelegate {
+        
+        struct ConstantsChartCard {
+            static let skeletonViewBorderRadius = 140.0
+            static let skeletonViewHeight = 300.0
+            static let skeletonViewWidth = 300.0
+            static let chartViewHeight = 300.0
+        }
         
         // MARK: - Properties
         
@@ -78,17 +78,45 @@ extension Ocean {
         
         // MARK: - Properties private
         
-        private var chartView: PieChartView = {
+        private var selectedItem: ChartCardItem? = nil
+        
+        private lazy var chartView: PieChartView = {
             let chartView = PieChartView()
+            chartView.isSkeletonable = true
+            chartView.isHiddenWhenSkeletonIsActive = true
             
             return chartView
         }()
         
-        private var selectedItem: ChartCardItem? = nil
+        private lazy var dummySkeletonChartView: UIView = {
+            let view = UIView()
+
+            view.applyRadius(radius: ConstantsChartCard.skeletonViewBorderRadius)
+
+            view.backgroundColor = .clear
+            view.isUserInteractionEnabled = false
+            view.layer.borderWidth = 0
+
+            view.isSkeletonable = true
+            view.isUserInteractionDisabledWhenSkeletonIsActive = true
+            view.skeletonCornerRadius = Float(ConstantsChartCard.skeletonViewBorderRadius)
+
+            return view
+        }()
+        
+        private lazy var chartContainerView: UIView = {
+            let view = UIView()
+            view.isSkeletonable = true
+            view.addSubview(self.chartView)
+            view.addSubview(self.dummySkeletonChartView)
+            
+            return view
+        }()
         
         private lazy var titleLabel: UILabel = {
             let label = Ocean.Typography.heading4()
             label.isSkeletonable = true
+            label.isUserInteractionDisabledWhenSkeletonIsActive = true
             
             return label
         }()
@@ -96,6 +124,7 @@ extension Ocean {
         private lazy var subtitleLabel: UILabel = {
             let label = Ocean.Typography.description()
             label.isSkeletonable = true
+            label.isUserInteractionDisabledWhenSkeletonIsActive = true
             
             return label
         }()
@@ -106,6 +135,7 @@ extension Ocean {
             stack.distribution = .fill
             stack.alignment = .leading
             stack.isSkeletonable = true
+            stack.isUserInteractionDisabledWhenSkeletonIsActive = true
             
             stack.add([
                 titleLabel,
@@ -115,7 +145,7 @@ extension Ocean {
             stack.setMargins(top: Ocean.size.spacingStackSm,
                              left: Ocean.size.spacingStackSm,
                              right: Ocean.size.spacingInsetSm)
-            
+
             return stack
         }()
         
@@ -124,6 +154,7 @@ extension Ocean {
             stack.axis = .vertical
             stack.distribution = .fill
             stack.isSkeletonable = true
+            stack.isUserInteractionDisabledWhenSkeletonIsActive = true
             
             stack.setMargins(bottom: Ocean.size.spacingStackSm)
             
@@ -132,6 +163,9 @@ extension Ocean {
         
         private lazy var bottomCallToAction: Ocean.GroupCTA = {
             let view = Ocean.GroupCTA()
+            view.isSkeletonable = true
+            view.isHiddenWhenSkeletonIsActive = true
+            
             return view
         }()
         
@@ -141,10 +175,11 @@ extension Ocean {
             stack.alignment = .fill
             stack.distribution = .fill
             stack.isSkeletonable = true
+            stack.isUserInteractionDisabledWhenSkeletonIsActive = true
             
             stack.add([
                 headerStack,
-                chartView,
+                chartContainerView,
                 legendItemsListStack
             ])
             
@@ -157,6 +192,7 @@ extension Ocean {
             stack.alignment = .fill
             stack.distribution = .fill
             stack.isSkeletonable = true
+            stack.isUserInteractionDisabledWhenSkeletonIsActive = true
             
             stack.add([
                 contentStack,
@@ -165,21 +201,6 @@ extension Ocean {
             ])
             
             return stack
-        }()
-        
-        private lazy var viewForSkeletonView: UIView = {
-            let view = UIView()
-            
-            view.applyRadius(radius: ConstantsChartCard.skeletonViewBorderRadius)
-            
-            view.backgroundColor = .clear
-            view.isUserInteractionEnabled = false
-            view.layer.borderWidth = 0
-            
-            view.isSkeletonable = true
-            view.skeletonCornerRadius = Float(ConstantsChartCard.skeletonViewBorderRadius)
-            
-            return view
         }()
         
         // MARK: - Constructors
@@ -197,17 +218,24 @@ extension Ocean {
         
         private func setupUI() {
             self.addSubviews(mainStack)
-            self.addSubviews(viewForSkeletonView)
             
             configureChartCardView()
             setupPieChart()
             setupConstraints()
             
             chartView.delegate = self
+            
+            let tapRecognizer = UITapGestureRecognizer(
+                target: self,
+                action: #selector(handleTapOnHeaderStack(_:))
+            )
+            
+            headerStack.addGestureRecognizer(tapRecognizer)
         }
         
         private func configureChartCardView() {
             self.isSkeletonable = true
+            self.isUserInteractionDisabledWhenSkeletonIsActive = true
             self.ocean.radius.applyMd()
             self.ocean.borderWidth.applyHairline()
             self.layer.borderColor = Ocean.color.colorInterfaceLightDown.cgColor
@@ -228,10 +256,25 @@ extension Ocean {
         }
         
         private func buildChartEntries() -> [PieChartDataEntry] {
-            return items.map { PieChartDataEntry(value: $0.value, data: $0.value.toCurrency(symbolSpace: true)) }
+            if items.allSatisfy({ $0.value == 0 }) {
+                isSelectable(false)
+                return [PieChartDataEntry(value: 1, data: 0)]
+            }
+            isSelectable(true)
+            return items.map { PieChartDataEntry(value: $0.value, data: $0.value) }
+        }
+        
+        private func isSelectable(_ isSelectable: Bool) {
+            chartView.isUserInteractionEnabled = isSelectable
+            legendItemsListStack.isUserInteractionEnabled = isSelectable
+            headerStack.isUserInteractionEnabled = isSelectable
         }
         
         private func buildChartColors() -> [UIColor] {
+            if items.allSatisfy({ $0.value == 0 }) {
+                return [Ocean.color.colorInterfaceLightDeep]
+            }
+            
             return items.map { $0.color }
         }
         
@@ -248,7 +291,8 @@ extension Ocean {
             let attributedString = NSMutableAttributedString(
                 string: "\(valueCenterDonut)\n",
                 attributes: [
-                    .font: UIFont(name: Ocean.font.fontFamilyBaseWeightRegular, size: Ocean.font.fontSizeSm) as Any,
+                    .font: UIFont(name: Ocean.font.fontFamilyBaseWeightRegular,
+                                  size: Ocean.font.fontSizeSm) as Any,
                     .foregroundColor: Ocean.color.colorInterfaceDarkDeep,
                     .paragraphStyle: paragraphStyle
                 ])
@@ -257,7 +301,8 @@ extension Ocean {
                 NSAttributedString(
                     string: "\(title)",
                     attributes: [
-                        .font: UIFont(name: Ocean.font.fontFamilyBaseWeightRegular, size: Ocean.font.fontSizeXxxs) as Any,
+                        .font: UIFont(name: Ocean.font.fontFamilyBaseWeightRegular,
+                                      size: Ocean.font.fontSizeXxxs) as Any,
                         .foregroundColor: Ocean.color.colorInterfaceDarkDown,
                         .paragraphStyle: paragraphStyle
                     ]))
@@ -275,24 +320,48 @@ extension Ocean {
         }
         
         private func animateChartView() {
-            chartView.animate(xAxisDuration: 1, yAxisDuration: 1.5, easingOption: .easeInOutSine)
+            chartView.animate(xAxisDuration: 1,
+                              yAxisDuration: 1.5,
+                              easingOption: .easeInOutSine)
         }
         
         private func setupConstraints() {
-            viewForSkeletonView.oceanConstraints
+            chartContainerView.oceanConstraints
+                .width(constant: ConstantsChartCard.skeletonViewHeight)
                 .height(constant: ConstantsChartCard.skeletonViewHeight)
-                .width(constant: ConstantsChartCard.skeletonViewWidth)
-                .centerY(to: chartView)
-                .centerX(to: chartView)
+                .make()
+            
+            chartView.oceanConstraints
+                .fill(to: chartContainerView)
+                .make()
+            
+            dummySkeletonChartView.oceanConstraints
+                .center(to: chartContainerView)
+                .width(constant: 280)
+                .height(constant: 280)
                 .make()
             
             mainStack.oceanConstraints
                 .fill(to: self)
                 .make()
-            
-            chartView.oceanConstraints
-                .height(constant: ConstantsChartCard.chartViewHeight)
-                .make()
+        }
+        
+        @objc func handleTapOnHeaderStack(_ gestureRecognizer: UITapGestureRecognizer) {
+            deselectAllItems()
+//            for (index, item) in items {
+//                item.deselected()
+//            }
+//            chartView.highlightValue(nil, callDelegate: true)
+        }
+        
+        private func deselectAllItems() {
+            for (index, item) in items {
+                item.inactivated()
+            }
+            chartView.highlightValue(nil, callDelegate: true)
+//            chartView.highlightValue(nil, callDelegate: true)
+//            selectedItem = nil
+//            toggleSelectionForItems(except: nil)
         }
         
         private func updateUI() {
@@ -305,7 +374,8 @@ extension Ocean {
             guard showLegend else { return }
             
             for (index, item) in items.enumerated() {
-                setupItem(item: item, index: index)
+//                setupItem(item: item, index: index)
+                addLegendItemToStack(item: item, at: index)
             }
         }
         
@@ -315,23 +385,23 @@ extension Ocean {
             bottomCallToAction.isHidden = bottomCTAText.isEmpty == true
         }
         
-        private func setupItem(item: ChartCardItem, index: Int) {
-            item.onSelect = { [weak self] _ in self?.handleItemSelected(item, at: index) }
-            item.onDeselect = { [weak self] _ in self?.handleItemDeselected(item) }
-            
-            addLegendItemToStack(item: item, at: index)
-        }
+//        private func setupItem(item: ChartCardItem, index: Int) {
+//            item.onSelect = { [weak self] _ in self?.handleItemSelected(item, at: index) }
+//           item.onDeselect = { [weak self] _ in self?.handleItemDeselected(item) }
+//
+//            addLegendItemToStack(item: item, at: index)
+//        }
         
-        private func handleItemSelected(_ item: ChartCardItem, at index: Int) {
-            onSelect?(item)
-            legendTapped(item)
-            chartView.highlightValue(x: Double(index), dataSetIndex: 0, callDelegate: false)
-        }
+//        private func handleItemSelected(_ item: ChartCardItem, at index: Int) {
+//            onSelect?(item)
+//            legendTapped(item)
+//           chartView.highlightValue(x: Double(index), dataSetIndex: 0, callDelegate: false)
+//        }
         
-        private func handleItemDeselected(_ item: ChartCardItem) {
-            legendTapped(item)
-            chartView.highlightValue(nil, callDelegate: false)
-        }
+//        private func handleItemDeselected(_ item: ChartCardItem) {
+//           legendTapped(item)
+//            deselectAllItems()
+//        }
         
         private func addLegendItemToStack(item: ChartCardItem, at index: Int) {
             legendItemsListStack.add([item])
@@ -340,31 +410,30 @@ extension Ocean {
             }
         }
         
-        private func legendTapped(_ tappedItem: ChartCardItem) {
-            toggleSelectionForItems(except: tappedItem)
-            onSelect?(tappedItem)
-            changeOpacityOfUnselectedItems(except: tappedItem)
-        }
+//        private func legendTapped(_ tappedItem: ChartCardItem) {
+//            toggleSelectionForItems(except: tappedItem)
+//            changeOpacityOfUnselectedItems(except: tappedItem)
+//        }
         
-        private func toggleSelectionForItems(except selectedItem: ChartCardItem) {
-            self.selectedItem?.unhighlight()
-            
-            if selectedItem != self.selectedItem {
-                selectedItem.highlight()
-                self.selectedItem = selectedItem
-            } else {
-                self.selectedItem = nil
-            }
-        }
+//        private func toggleSelectionForItems(except selectedItem: ChartCardItem?) {
+//
+//            if let item = selectedItem, item != self.selectedItem {
+//                item.selected()
+//                onSelect?(item)
+//                self.selectedItem = item
+//            } else {
+//                self.selectedItem?.deselected()
+//                chartView.highlightValue(nil, callDelegate: true)
+//                self.selectedItem = nil
+//            }
+//        }
         
-        private func changeOpacityOfUnselectedItems(except selectedItem: ChartCardItem) {
+        private func changeOpacityOfPieChart(except selectedItem: ChartCardItem?) {
             items.enumerated().forEach { index, item in
                 let newColor: UIColor
-                if item !== selectedItem {
-                    item.setOpacity(opacity: Ocean.size.opacityLevelMedium)
+                if let selectedItem = selectedItem, item !== selectedItem {
                     newColor = item.color.withAlphaComponent(Ocean.size.opacityLevelLight)
                 } else {
-                    item.setOpacity(opacity: 1.0)
                     newColor = item.color.withAlphaComponent(1.0)
                 }
                 if let dataSet = chartView.data?.dataSets[0] as? PieChartDataSet {
@@ -378,21 +447,33 @@ extension Ocean {
         public func chartValueSelected(_ chartView: ChartViewBase,
                                        entry: ChartDataEntry,
                                        highlight: Highlight) {
-            let chartItem = items[Int(highlight.x)]
             
-            self.legendTapped(chartItem)
+            let chartItem = items[Int(highlight.x)]
+            changeOpacityOfPieChart(except: chartItem)
+            for (index, item) in items {
+                if item == chartItem {
+                    item.selected()
+                } else {
+                    item.deselected()
+                }
+            }
+//            self.legendTapped(chartItem)
         }
         
         public func chartValueNothingSelected(_ chartView: ChartViewBase) {
-            self.selectedItem?.unhighlight()
-            self.selectedItem = nil
+//            self.selectedItem?.deselected()
+//            self.selectedItem = nil
             
-            items.enumerated().forEach { index, item in
-                item.setOpacity(opacity: 1.0)
-                if let dataSet = chartView.data?.dataSets[0] as? PieChartDataSet {
-                    dataSet.colors[index] = item.color.withAlphaComponent(1.0)
-                }
-            }
+            changeOpacityOfPieChart(except: nil)
+            
+//            changeOpacityOfUnselectedItems(except: nil)
+            
+//            items.enumerated().forEach { index, item in
+//                item.setOpacity(opacity: 1.0)
+//                if let dataSet = chartView.data?.dataSets[0] as? PieChartDataSet {
+//                    dataSet.colors[index] = item.color.withAlphaComponent(1.0)
+//                }
+//            }
         }
     }
 }

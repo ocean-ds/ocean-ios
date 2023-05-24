@@ -63,13 +63,9 @@ extension Ocean {
             }
         }
         
-        public var onSelect: ((ChartCardItem?) -> Void)?
-        
-        public var onDeselect: ((ChartCardItem?) -> Void)?
-        
         // MARK: - Properties private
         
-        private(set) var isSelected: Bool  = false
+        private(set) var isActive: Bool  = false
         
         private lazy var dotLegendView: UIView = {
             let view = UIView()
@@ -133,15 +129,21 @@ extension Ocean {
         
         // MARK: - Functions
         
-        public func highlight() {
-            isSelected = true
+        public func activated() {
+            print("ASDF - \(title) selected")
+            isActive = true
+            setOpacity(opacity: 1.0)
         }
         
-        public func unhighlight() {
-            isSelected = false
+        public func inactivated() {
+            print("ASDF - \(title) deselected")
+            isActive = false
+            setOpacity(opacity: Ocean.size.opacityLevelMedium)
         }
         
-        public func setOpacity(opacity: CGFloat) {
+        // MARK: - Functions private
+        
+        private func setOpacity(opacity: CGFloat) {
             dotLegendView.backgroundColor = color.withAlphaComponent(opacity)
             titleLegendLabel.textColor = titleLegendLabel.textColor.withAlphaComponent(opacity)
             subtitleLegendLabel.textColor = subtitleLegendLabel.textColor.withAlphaComponent(opacity)
@@ -149,11 +151,10 @@ extension Ocean {
             valueLegendLabel.textColor = valueLegendLabel.textColor.withAlphaComponent(opacity)
         }
         
-        // MARK: - Functions private
-        
         private func setupUI() {
             translatesAutoresizingMaskIntoConstraints = false
             self.isSkeletonable = true
+            self.isUserInteractionDisabledWhenSkeletonIsActive = true
             
             addSubview(dotLegendView)
             addSubview(iconLegendImage)
@@ -241,22 +242,23 @@ extension Ocean {
             }
         }
         
-        private func updateSelectionState() {
-            isSelected ? highlight() : unhighlight()
-        }
+//        private func updateSelectionState() {
+//            isSelected ? selected() : deselected()
+//        }
         
         @objc private func tooltipClick() {
-            tooltip.show(target: iconLegendImage, position: .top, presenter: self.superview ?? self)
+            tooltip.show(target: iconLegendImage,
+                         position: .top,
+                         presenter: self.superview ?? self)
         }
         
         @objc private func handleTap() {
-            if isSelected {
-                updateSelectionState()
-                onDeselect?(self)
+            if isActive {
+                inactivated()
             } else {
-                updateSelectionState()
-                onSelect?(self)
+                activated()
             }
+//            updateSelectionState()
         }
     }
 }
