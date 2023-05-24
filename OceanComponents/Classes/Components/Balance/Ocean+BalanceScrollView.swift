@@ -161,7 +161,7 @@ extension Ocean {
                 .make()
 
             placeholderValueView.oceanConstraints
-                .width(constant: 80)
+                .width(constant: 40)
                 .height(constant: 6)
                 .centerY(to: placeholderValueContainer)
                 .leadingToLeading(to: placeholderValueContainer)
