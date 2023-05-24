@@ -14,8 +14,8 @@ extension Ocean {
     public class CardListItem: UIView {
         struct Constants {
             static let roundedViewHeightWidthLg: CGFloat = 40
-            static let squareSizeLeadingIcon: CGFloat = 16
-            static let squareSizeTrailingIcon: CGFloat = 14
+            static let squareSizeLeadingIcon: CGFloat = 24
+            static let squareSizeTrailingIcon: CGFloat = 20
         }
         
         public typealias CardListItemBuilder = ((CardListItem) -> Void)?
