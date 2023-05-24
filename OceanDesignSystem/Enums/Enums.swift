@@ -48,6 +48,7 @@ public enum DesignSystemComponentsType: String {
     case Carousel
     case Shortcut
     case Balance
+    case BalanceSimple
     case Tag
     case Badge
     case TransactionFooter
@@ -66,6 +67,9 @@ public enum DesignSystemComponentsType: String {
     case SettingsListItem
     case FilterBar
     case ChartCard
+    case InformativeCardView
+    case ProgressBar
+    case DetailedCard
 }
 
 public enum DesignSystemTypographyType: Int {

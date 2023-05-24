@@ -29,11 +29,12 @@
 		24B70BBD26E91F0F00C9CE1E /* CardGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B70BBC26E91F0F00C9CE1E /* CardGroupViewController.swift */; };
 		24C801522682585600744F30 /* OceanDesignSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C801512682585600744F30 /* OceanDesignSystemTests.swift */; };
 		24E301B526EF911400D2296C /* SubheaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E301B426EF911400D2296C /* SubheaderViewController.swift */; };
-		24E39BA326DE5BCE006B6A02 /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E39BA226DE5BCE006B6A02 /* BalanceViewController.swift */; };
+		24E39BA326DE5BCE006B6A02 /* BalanceSimpleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E39BA226DE5BCE006B6A02 /* BalanceSimpleViewController.swift */; };
 		24FEEBC12744282E00211FEC /* StepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FEEBC02744282E00211FEC /* StepViewController.swift */; };
 		4223DDA2293F894C00257DBC /* OrderedListItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4223DDA1293F894C00257DBC /* OrderedListItemViewController.swift */; };
 		4241FB5227E8AD4B003EF1F3 /* ParentChildTextListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4241FB5127E8AD4B003EF1F3 /* ParentChildTextListViewController.swift */; };
 		4274CD6228AD422100F35540 /* GroupCTAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4274CD6128AD422100F35540 /* GroupCTAViewController.swift */; };
+		4291D9A32A153CF4006A0342 /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4291D9A22A153CF4006A0342 /* BalanceViewController.swift */; };
 		8EB41BED27E42D1800F18CC7 /* FloatVerticalMenuListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB41BEC27E42D1800F18CC7 /* FloatVerticalMenuListViewController.swift */; };
 		8ECB029F283319340037DC25 /* CardCrossSellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB029E283319340037DC25 /* CardCrossSellViewController.swift */; };
 		8ED08AE727EE075500ACDCB4 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED08AE627EE075500ACDCB4 /* TabViewController.swift */; };
@@ -60,6 +61,9 @@
 		B833D03C24A6796100587FDE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B833D03A24A6796100587FDE /* Main.storyboard */; };
 		B833D03E24A6796300587FDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B833D03D24A6796300587FDE /* Assets.xcassets */; };
 		B833D04124A6796300587FDE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B833D03F24A6796300587FDE /* LaunchScreen.storyboard */; };
+		D50896062A156A1E00ED3968 /* InformativeCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50896052A156A1E00ED3968 /* InformativeCardViewController.swift */; };
+		D5D28DE32A1C05DD0070B8CE /* DetailedCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D28DE22A1C05DD0070B8CE /* DetailedCardViewController.swift */; };
+		D5D28DDD2A1BA2550070B8CE /* ProgressBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D28DDC2A1BA2550070B8CE /* ProgressBarViewController.swift */; };
 		E13578B729F07252003A2B9D /* FilterBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13578B629F07252003A2B9D /* FilterBarViewController.swift */; };
 		E1DB7A2428FF243900A0459A /* CardListItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DB7A2328FF243900A0459A /* CardListItemViewController.swift */; };
 		E1DBF42929898E4100BCD65B /* SettingsListItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DBF42829898E4100BCD65B /* SettingsListItemViewController.swift */; };
@@ -114,12 +118,13 @@
 		24C801512682585600744F30 /* OceanDesignSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanDesignSystemTests.swift; sourceTree = "<group>"; };
 		24C801532682585600744F30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		24E301B426EF911400D2296C /* SubheaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubheaderViewController.swift; sourceTree = "<group>"; };
-		24E39BA226DE5BCE006B6A02 /* BalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceViewController.swift; sourceTree = "<group>"; };
+		24E39BA226DE5BCE006B6A02 /* BalanceSimpleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceSimpleViewController.swift; sourceTree = "<group>"; };
 		24FEEBC02744282E00211FEC /* StepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepViewController.swift; sourceTree = "<group>"; };
 		2FDF6A3790FFDCE821511C4F /* Pods-OceanDesignSystemTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OceanDesignSystemTests.debug.xcconfig"; path = "Target Support Files/Pods-OceanDesignSystemTests/Pods-OceanDesignSystemTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4223DDA1293F894C00257DBC /* OrderedListItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedListItemViewController.swift; sourceTree = "<group>"; };
 		4241FB5127E8AD4B003EF1F3 /* ParentChildTextListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentChildTextListViewController.swift; sourceTree = "<group>"; };
 		4274CD6128AD422100F35540 /* GroupCTAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCTAViewController.swift; sourceTree = "<group>"; };
+		4291D9A22A153CF4006A0342 /* BalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceViewController.swift; sourceTree = "<group>"; };
 		5D9D9A171B743DED8A2B2297 /* Pods_OceanDesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OceanDesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EB41BEC27E42D1800F18CC7 /* FloatVerticalMenuListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatVerticalMenuListViewController.swift; sourceTree = "<group>"; };
 		8ECB029E283319340037DC25 /* CardCrossSellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCrossSellViewController.swift; sourceTree = "<group>"; };
@@ -151,6 +156,9 @@
 		B833D03D24A6796300587FDE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B833D04024A6796300587FDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B833D04224A6796300587FDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D50896052A156A1E00ED3968 /* InformativeCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformativeCardViewController.swift; sourceTree = "<group>"; };
+		D5D28DE22A1C05DD0070B8CE /* DetailedCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedCardViewController.swift; sourceTree = "<group>"; };
+		D5D28DDC2A1BA2550070B8CE /* ProgressBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarViewController.swift; sourceTree = "<group>"; };
 		DEF0897C97A977F0864993D7 /* Pods-OceanDesignSystemTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OceanDesignSystemTests.release.xcconfig"; path = "Target Support Files/Pods-OceanDesignSystemTests/Pods-OceanDesignSystemTests.release.xcconfig"; sourceTree = "<group>"; };
 		E13578B629F07252003A2B9D /* FilterBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBarViewController.swift; sourceTree = "<group>"; };
 		E1DB7A2328FF243900A0459A /* CardListItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListItemViewController.swift; sourceTree = "<group>"; };
@@ -202,7 +210,8 @@
 				2479450626CAE9E6000F4DF0 /* BottomNavigationBarViewController.swift */,
 				2479453126CFEAD6000F4DF0 /* CarouselViewController.swift */,
 				2445B86A26D4147D0067B680 /* ShortcutViewController.swift */,
-				24E39BA226DE5BCE006B6A02 /* BalanceViewController.swift */,
+				4291D9A22A153CF4006A0342 /* BalanceViewController.swift */,
+				24E39BA226DE5BCE006B6A02 /* BalanceSimpleViewController.swift */,
 				246535F626E259C20079354A /* TagViewController.swift */,
 				246535FB26E28B760079354A /* BadgeViewController.swift */,
 				24B70BB726E7D0B400C9CE1E /* TransactionListViewController.swift */,
@@ -221,6 +230,9 @@
 				E1DBF42829898E4100BCD65B /* SettingsListItemViewController.swift */,
 				E13578B629F07252003A2B9D /* FilterBarViewController.swift */,
 				E1DE74F22A12C18500C9361F /* ChartCardViewController.swift */,
+				D50896052A156A1E00ED3968 /* InformativeCardViewController.swift */,
+				D5D28DE22A1C05DD0070B8CE /* DetailedCardViewController.swift */,
+				D5D28DDC2A1BA2550070B8CE /* ProgressBarViewController.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -536,11 +548,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7CA695024CB56B90051CA6A /* RenderComponentsViewController.swift in Sources */,
+				D50896062A156A1E00ED3968 /* InformativeCardViewController.swift in Sources */,
 				249999B626A9CDA5004DAB05 /* NavigationBarViewController.swift in Sources */,
 				B71D65C824C8F28100C3938C /* TokensByCategoryViewController.swift in Sources */,
 				24B70BB826E7D0B400C9CE1E /* TransactionListViewController.swift in Sources */,
 				2491357826C6F634005EE76E /* ProgressIndicatorViewController.swift in Sources */,
 				4223DDA2293F894C00257DBC /* OrderedListItemViewController.swift in Sources */,
+				4291D9A32A153CF4006A0342 /* BalanceViewController.swift in Sources */,
 				B833D03924A6796100587FDE /* TokensViewController.swift in Sources */,
 				8EB41BED27E42D1800F18CC7 /* FloatVerticalMenuListViewController.swift in Sources */,
 				B71D65EA24CA47C500C3938C /* Enums.swift in Sources */,
@@ -553,6 +567,7 @@
 				1385ADEF2694719B003F6D07 /* TooltipViewController.swift in Sources */,
 				B71D65DC24CA038B00C3938C /* Models.swift in Sources */,
 				249DC9402672AD2600012411 /* SwitchViewController.swift in Sources */,
+				D5D28DDD2A1BA2550070B8CE /* ProgressBarViewController.swift in Sources */,
 				B768C52624DDFA740086BF9C /* LineHeightsViewController.swift in Sources */,
 				B71D65E224CA053500C3938C /* TokensBySubCategories.swift in Sources */,
 				B75C81FB24F6F5BD001A500B /* ButtonViewController.swift in Sources */,
@@ -566,13 +581,14 @@
 				E1DBF42929898E4100BCD65B /* SettingsListItemViewController.swift in Sources */,
 				8ED08AE727EE075500ACDCB4 /* TabViewController.swift in Sources */,
 				E13578B729F07252003A2B9D /* FilterBarViewController.swift in Sources */,
-				24E39BA326DE5BCE006B6A02 /* BalanceViewController.swift in Sources */,
+				24E39BA326DE5BCE006B6A02 /* BalanceSimpleViewController.swift in Sources */,
 				B71D65FD24CA530000C3938C /* Components.swift in Sources */,
 				2491356C26C5BB10005EE76E /* CheckBoxViewController.swift in Sources */,
 				246535FC26E28B760079354A /* BadgeViewController.swift in Sources */,
 				E1DB7A2428FF243900A0459A /* CardListItemViewController.swift in Sources */,
 				AF833AAE2890764F0012AE58 /* TransactionFooterViewController.swift in Sources */,
 				138EF63E268502E1000E65EA /* AlertBoxViewController.swift in Sources */,
+				D5D28DE32A1C05DD0070B8CE /* DetailedCardViewController.swift in Sources */,
 				8ECB029F283319340037DC25 /* CardCrossSellViewController.swift in Sources */,
 				246535F726E259C20079354A /* TagViewController.swift in Sources */,
 				2482CDD4267D055100A50422 /* RadioButtonViewController.swift in Sources */,
@@ -784,7 +800,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 275;
+				CURRENT_PROJECT_VERSION = 276;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 57KSFR5UHN;
 				INFOPLIST_FILE = OceanDesignSystem/Info.plist;
@@ -807,7 +823,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 275;
+				CURRENT_PROJECT_VERSION = 276;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 57KSFR5UHN;
 				INFOPLIST_FILE = OceanDesignSystem/Info.plist;

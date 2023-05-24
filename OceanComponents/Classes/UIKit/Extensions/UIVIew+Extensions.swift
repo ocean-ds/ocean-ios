@@ -136,4 +136,12 @@ extension UIView {
                 .make()
         }
     }
+    
+    public func getRootSuperview() -> UIView {
+        if let superview = superview {
+            return superview.getRootSuperview()
+        } else {
+            return self
+        }
+    }
 }

@@ -2,603 +2,309 @@
 //  Ocean+Balance.swift
 //  OceanComponents
 //
-//  Created by Vini on 30/08/21.
+//  Created by Vinicius Romeiro on 17/05/23.
 //
 
 import OceanTokens
+import SkeletonView
 
 extension Ocean {
-    final public class Balance: UIView {
+    public class Balance: UIView, SkeletonCollectionViewDataSource, UICollectionViewDelegate {
         struct Constants {
-            static let height: CGFloat = 117
-            static let heightLg: CGFloat = 276
-            static let headerHeight: CGFloat = 56
-            static let headerHeightSm: CGFloat = 36
-            static let eyeImageSize: CGFloat = 24
-            static let arrowSize: CGFloat = 16
+            static let heightContent: CGFloat = 140
+            static let heightContentLg: CGFloat = 230
+            static let heightContentScroll: CGFloat = 58
+            static let space: CGFloat = Ocean.size.spacingInsetMd
+            static let heightPage: CGFloat = 4
         }
 
-        public typealias BalanceBuilder = (Balance) -> Void
-
-        public enum State {
-            case expanded, collapsed
-        }
-
-        public var state: State = .collapsed {
+        public var state: BalanceState = .collapsed {
             didSet {
-                animateUI()
-                self.onStateChanged?(state)
+                updateState()
             }
         }
-
-        public var isVisible: Bool = true {
-            didSet {
-                updateVisibleUI()
-            }
-        }
-
-        public var balanceAvailable: Double = 0 {
-            didSet {
-                updateUI()
-            }
-        }
-
-        public var currentBalance: Double = 0 {
-            didSet {
-                updateUI()
-            }
-        }
-
-        public var scheduleBlu: Double = 0 {
-            didSet {
-                updateUI()
-            }
-        }
-
-        public var balanceNotBlu: Double = 0 {
-            didSet {
-                updateUI()
-            }
-        }
-
-        public var howToUseButtonText: String = "Como usar" {
-            didSet {
-                updateUI()
-            }
-        }
-
-        public var onStateChanged: ((State) -> Void)?
-        public var howToUseTouch: (() -> Void)?
 
         private lazy var heightConstraint: NSLayoutConstraint = {
-            self.heightAnchor.constraint(equalToConstant: Constants.height)
+            return self.heightAnchor.constraint(equalToConstant: Constants.heightContent + Constants.space + Constants.heightPage)
         }()
 
-        private lazy var heightHeaderConstraint: NSLayoutConstraint = {
-            self.headerStack.heightAnchor.constraint(equalToConstant: Constants.headerHeight)
+        private lazy var heightCollectionViewConstraint: NSLayoutConstraint = {
+            return collectionView.heightAnchor.constraint(equalToConstant: Constants.heightContent)
         }()
 
-        private lazy var heightHeaderNotBluConstraint: NSLayoutConstraint = {
-            self.headerNotBluStack.heightAnchor.constraint(equalToConstant: Constants.headerHeight)
-        }()
+        private var data: [BalanceModel] = []
 
-        private lazy var titleHighlightLabel: UILabel = {
-            UILabel { label in
-                label.font = .highlightBold(size: Ocean.font.fontSizeXxs)
-                label.textColor = Ocean.color.colorBrandPrimaryPure
-                label.text = "Saldo na Blu"
-                label.translatesAutoresizingMaskIntoConstraints = false
-                label.isHidden = true
-                label.setContentCompressionResistancePriority(.required, for: .horizontal)
+        private var currentPage = 0 {
+            didSet {
+                pageControl.currentPage = currentPage
             }
-        }()
+        }
 
-        private lazy var eyeImageView: UIImageView = {
-            UIImageView { imageView in
-                imageView.image = Ocean.icon.eyeOutline?.withRenderingMode(.alwaysTemplate)
-                imageView.tintColor = Ocean.color.colorInterfaceDarkUp
-                imageView.contentMode = .scaleAspectFit
-                imageView.translatesAutoresizingMaskIntoConstraints = false
-                imageView.isSkeletonable = true
-
-                imageView.addTapGesture(target: self, selector: #selector(tapEye))
-            }
-        }()
-
-        private lazy var titleLabel: UILabel = {
-            UILabel { label in
-                label.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
-                label.textColor = Ocean.color.colorInterfaceDarkDown
-                label.text = "Saldo na Blu"
-                label.translatesAutoresizingMaskIntoConstraints = false
-                label.isSkeletonable = true
-                label.setLineHeight(lineHeight: Ocean.font.lineHeightComfy)
-            }
-        }()
-
-        private lazy var balanceAvailableLabel: UILabel = {
-            UILabel { label in
-                label.font = .baseBold(size: Ocean.font.fontSizeXxs)
-                label.textColor = getColorValue(value: balanceAvailable)
-                label.text = balanceAvailable.toCurrency()
-                label.translatesAutoresizingMaskIntoConstraints = false
-                label.isSkeletonable = true
-            }
-        }()
-
-        private lazy var titleStack: Ocean.StackView = {
-            let stack = Ocean.StackView()
-            stack.axis = .vertical
-            stack.distribution = .fill
-            stack.spacing = 0
-            stack.isSkeletonable = true
-
-            stack.add([
-                titleLabel,
-                balanceAvailableLabel
-            ])
-
-            return stack
-        }()
-
-        private lazy var arrowView: UIImageView = {
-            UIImageView { imageView in
-                imageView.image = Ocean.icon.chevronDownSolid?.withRenderingMode(.alwaysTemplate)
-                imageView.tintColor = Ocean.color.colorInterfaceDarkUp
-                imageView.contentMode = .scaleAspectFit
-                imageView.translatesAutoresizingMaskIntoConstraints = false
-            }
-        }()
-
-        private lazy var headerStack: Ocean.StackView = {
-            let stack = Ocean.StackView()
-            stack.axis = .horizontal
-            stack.distribution = .fill
-            stack.alignment = .center
-            stack.spacing = 0
-            stack.translatesAutoresizingMaskIntoConstraints = false
-            stack.isSkeletonable = true
-
-            stack.add([
-                titleHighlightLabel,
-                eyeImageView,
-                Ocean.Spacer(space: Ocean.size.spacingStackXs),
-                titleStack,
-                Ocean.Spacer(space: Ocean.size.spacingStackXs),
-                arrowView
-            ])
-
-            stack.addTapGesture(target: self, selector: #selector(tap))
-
-            stack.setMargins(top: Ocean.size.spacingStackXxs,
-                             left: Ocean.size.spacingStackXs,
-                             bottom: Ocean.size.spacingStackXxs,
-                             right: Ocean.size.spacingStackXs)
-
-            return stack
-        }()
-
-        private lazy var titleNotBluHighlightLabel: UILabel = {
-            UILabel { label in
-                label.font = .highlightBold(size: Ocean.font.fontSizeXxs)
-                label.textColor = Ocean.color.colorBrandPrimaryPure
-                label.text = "Em outras maquininhas"
-                label.translatesAutoresizingMaskIntoConstraints = false
-                label.isHidden = true
-                label.setContentCompressionResistancePriority(.required, for: .horizontal)
-            }
-        }()
-
-        private lazy var notBluImageSpacer = Ocean.Spacer(space: Constants.eyeImageSize)
-
-        private lazy var titleNotBluLabel: UILabel = {
-            UILabel { label in
-                label.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
-                label.textColor = Ocean.color.colorInterfaceDarkDown
-                label.text = "Em outras maquininhas"
-                label.translatesAutoresizingMaskIntoConstraints = false
-                label.isSkeletonable = true
-                label.setLineHeight(lineHeight: Ocean.font.lineHeightComfy)
-            }
-        }()
-
-        private lazy var balanceNotBluLabel: UILabel = {
-            UILabel { label in
-                label.font = .baseBold(size: Ocean.font.fontSizeXxs)
-                label.textColor = getColorValue(value: balanceNotBlu)
-                label.text = balanceAvailable.toCurrency()
-                label.translatesAutoresizingMaskIntoConstraints = false
-                label.isSkeletonable = true
-            }
-        }()
-
-        private lazy var titleNotBluStack: Ocean.StackView = {
-            let stack = Ocean.StackView()
-            stack.axis = .vertical
-            stack.distribution = .fill
-            stack.spacing = 0
-            stack.isSkeletonable = true
-
-            stack.add([
-                titleNotBluLabel,
-                balanceNotBluLabel
-            ])
-
-            return stack
-        }()
-
-        private lazy var howToUseButton: Ocean.ButtonSecondary = {
-            Ocean.Button.secondarySM { button in
-                button.text = self.howToUseButtonText
-                button.onTouch = { self.howToUseTouch?() }
-                button.isSkeletonable = true
-            }
-        }()
-
-        private lazy var headerNotBluStack: Ocean.StackView = {
-            let stack = Ocean.StackView()
-            stack.axis = .horizontal
-            stack.distribution = .fill
-            stack.alignment = .center
-            stack.spacing = 0
-            stack.translatesAutoresizingMaskIntoConstraints = false
-            stack.isSkeletonable = true
-
-            stack.add([
-                titleNotBluHighlightLabel,
-                notBluImageSpacer,
-                Ocean.Spacer(space: Ocean.size.spacingStackXs),
-                titleNotBluStack,
-                UIView(),
-                howToUseButton
-            ])
-
-            stack.setMargins(top: Ocean.size.spacingStackXxs,
-                             left: Ocean.size.spacingStackXs,
-                             bottom: Ocean.size.spacingStackXxs,
-                             right: Ocean.size.spacingStackXs)
-
-            return stack
-        }()
-
-        private lazy var notBluDivider = Ocean.Divider(widthConstraint: self.widthAnchor)
-
-        private lazy var notBluSpacer: Ocean.Spacer = {
-            let view = Ocean.Spacer(space: Ocean.size.spacingStackXxs)
+        private lazy var balanceScrollView: BalanceScrollView = {
+            let view = BalanceScrollView()
             view.isHidden = true
+            view.onOpen = {
+                self.updateStateCollectionViewCellSelected(state: .expanded)
+                self.changeStateCollectionView()
+            }
             return view
         }()
 
-        private lazy var listBalanceAvailableTextLabel: UILabel = {
-            UILabel { label in
-                label.font = .baseBold(size: Ocean.font.fontSizeXxs)
-                label.textColor = Ocean.color.colorInterfaceDarkDeep
-                label.text = "Saldo total"
-                label.translatesAutoresizingMaskIntoConstraints = false
-            }
+        private lazy var collectionView: UICollectionView = {
+            let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+            collection.dataSource = self
+            collection.delegate = self
+            collection.isPrefetchingEnabled = false
+            collection.showsHorizontalScrollIndicator = false
+            collection.showsVerticalScrollIndicator = false
+            collection.isPagingEnabled = true
+            collection.register(BalanceCell.self, forCellWithReuseIdentifier: BalanceCell.identifier)
+            collection.backgroundColor = .clear
+            collection.translatesAutoresizingMaskIntoConstraints = false
+            collection.isSkeletonable = true
+            return collection
         }()
 
-        private lazy var listBalanceAvailableLabel: UILabel = {
-            UILabel { label in
-                label.font = .baseBold(size: Ocean.font.fontSizeXxs)
-                label.textColor = getColorValue(value: balanceAvailable)
-                label.text = balanceAvailable.toCurrency()
-                label.translatesAutoresizingMaskIntoConstraints = false
-            }
+        private lazy var pageControl: UIPageControl = {
+            let pageControl = UIPageControl()
+            pageControl.pageIndicatorTintColor = Ocean.color.colorBrandPrimaryDown
+            pageControl.currentPageIndicatorTintColor = Ocean.color.colorInterfaceLightPure
+            pageControl.hidesForSinglePage = true
+            pageControl.isUserInteractionEnabled = false
+            pageControl.isSelected = false
+            pageControl.translatesAutoresizingMaskIntoConstraints = false
+            pageControl.transform = CGAffineTransformMakeScale(0.4, 0.4)
+            return pageControl
         }()
 
-        private lazy var listBalanceAvailableStack: Ocean.StackView = {
-            let stack = Ocean.StackView()
-            stack.axis = .horizontal
-            stack.distribution = .fill
-            stack.spacing = 0
+        public func addBalances(with balances: [BalanceModel]) {
+            guard !balances.isEmpty else { return }
 
-            stack.add([
-                listBalanceAvailableTextLabel,
-                UIView(),
-                listBalanceAvailableLabel
-            ])
+            collectionView.collectionViewLayout = getBalanceLayout()
+            pageControl.numberOfPages = balances.count
 
-            stack.setMargins(top: Ocean.size.spacingStackXxs,
-                             left: Ocean.size.spacingStackXs,
-                             bottom: Ocean.size.spacingStackXxs,
-                             right: Ocean.size.spacingStackXs)
+            self.data = balances
+            self.currentPage = 0
 
-            return stack
-        }()
+            let data = self.data[pageControl.currentPage]
+            balanceScrollView.model = data
+            collectionView.reloadData()
+            collectionView.setContentOffset(.zero, animated: true)
+        }
 
-        private lazy var listCurrentBalanceTextLabel: UILabel = {
-            UILabel { label in
-                label.font = .baseRegular(size: Ocean.font.fontSizeXxs)
-                label.textColor = Ocean.color.colorInterfaceDarkDeep
-                label.text = "Saldo atual"
-                label.translatesAutoresizingMaskIntoConstraints = false
-            }
-        }()
-
-        private lazy var listCurrentBalanceLabel: UILabel = {
-            UILabel { label in
-                label.font = .baseRegular(size: Ocean.font.fontSizeXxs)
-                label.textColor = getColorValue(value: currentBalance)
-                label.text = currentBalance.toCurrency()
-                label.translatesAutoresizingMaskIntoConstraints = false
-            }
-        }()
-
-        private lazy var listCurrentBalanceStack: Ocean.StackView = {
-            let stack = Ocean.StackView()
-            stack.axis = .horizontal
-            stack.distribution = .fill
-            stack.spacing = 0
-
-            stack.add([
-                listCurrentBalanceTextLabel,
-                UIView(),
-                listCurrentBalanceLabel
-            ])
-
-            stack.setMargins(top: Ocean.size.spacingStackXxs,
-                             left: Ocean.size.spacingStackXs,
-                             bottom: Ocean.size.spacingStackXxs,
-                             right: Ocean.size.spacingStackXs)
-
-            return stack
-        }()
-
-        private lazy var listScheduleBluTextLabel: UILabel = {
-            UILabel { label in
-                label.font = .baseRegular(size: Ocean.font.fontSizeXxs)
-                label.textColor = Ocean.color.colorInterfaceDarkDeep
-                label.text = "Agenda"
-                label.translatesAutoresizingMaskIntoConstraints = false
-            }
-        }()
-
-        private lazy var listScheduleBluLabel: UILabel = {
-            UILabel { label in
-                label.font = .baseRegular(size: Ocean.font.fontSizeXxs)
-                label.textColor = getColorValue(value: scheduleBlu)
-                label.text = scheduleBlu.toCurrency()
-                label.translatesAutoresizingMaskIntoConstraints = false
-            }
-        }()
-
-        private lazy var listScheduleBluStack: Ocean.StackView = {
-            let stack = Ocean.StackView()
-            stack.axis = .horizontal
-            stack.distribution = .fill
-            stack.spacing = 0
-
-            stack.add([
-                listScheduleBluTextLabel,
-                UIView(),
-                listScheduleBluLabel
-            ])
-
-            stack.setMargins(top: Ocean.size.spacingStackXxs,
-                             left: Ocean.size.spacingStackXs,
-                             bottom: Ocean.size.spacingStackXxs,
-                             right: Ocean.size.spacingStackXs)
-
-            return stack
-        }()
-
-        private lazy var listStack: Ocean.StackView = {
-            let stack = Ocean.StackView()
-            stack.axis = .vertical
-            stack.distribution = .fill
-            stack.alignment = .fill
-            stack.spacing = 0
-            stack.translatesAutoresizingMaskIntoConstraints = false
-            stack.isHidden = true
-
-            stack.add([
-                listBalanceAvailableStack,
-                Ocean.Divider(widthConstraint: self.widthAnchor)
-                    .addMargins(horizontal: Ocean.size.spacingStackXs),
-                listCurrentBalanceStack,
-                Ocean.Divider(widthConstraint: self.widthAnchor)
-                    .addMargins(horizontal: Ocean.size.spacingStackXs),
-                listScheduleBluStack
-            ])
-
-            return stack
-        }()
-
-        private lazy var listNotBluTextLabel: UILabel = {
-            UILabel { label in
-                label.font = .baseBold(size: Ocean.font.fontSizeXxs)
-                label.textColor = Ocean.color.colorInterfaceDarkDeep
-                label.text = "Saldo total"
-                label.translatesAutoresizingMaskIntoConstraints = false
-            }
-        }()
-
-        private lazy var listNotBluLabel: UILabel = {
-            UILabel { label in
-                label.font = .baseRegular(size: Ocean.font.fontSizeXxs)
-                label.textColor = getColorValue(value: balanceNotBlu)
-                label.text = balanceNotBlu.toCurrency()
-                label.translatesAutoresizingMaskIntoConstraints = false
-            }
-        }()
-
-        private lazy var listBalanceNotBluStack: Ocean.StackView = {
-            let stack = Ocean.StackView()
-            stack.axis = .horizontal
-            stack.distribution = .fill
-            stack.spacing = 0
-
-            stack.add([
-                listNotBluTextLabel,
-                UIView(),
-                listNotBluLabel
-            ])
-
-            stack.setMargins(top: Ocean.size.spacingStackXxs,
-                             left: Ocean.size.spacingStackXs,
-                             bottom: Ocean.size.spacingStackXxs,
-                             right: Ocean.size.spacingStackXs)
-
-            return stack
-        }()
-
-        private lazy var listNotBluStack: Ocean.StackView = {
-            let stack = Ocean.StackView()
-            stack.axis = .vertical
-            stack.distribution = .fill
-            stack.alignment = .fill
-            stack.spacing = 0
-            stack.translatesAutoresizingMaskIntoConstraints = false
-            stack.isHidden = true
-
-            stack.add([
-                listBalanceNotBluStack
-            ])
-
-            return stack
-        }()
-
-        private lazy var mainStack: Ocean.StackView = {
-            let stack = Ocean.StackView()
-            stack.axis = .vertical
-            stack.distribution = .fill
-            stack.spacing = 0
-            stack.isSkeletonable = true
-
-            stack.add([
-                headerStack,
-                listStack,
-                notBluDivider,
-                notBluSpacer,
-                headerNotBluStack,
-                listNotBluStack
-            ])
-
-            stack.setMargins(top: Ocean.size.spacingStackXxs,
-                             bottom: Ocean.size.spacingStackXxxs)
-
-            return stack
-        }()
-
-        public convenience init(builder: BalanceBuilder) {
-            self.init()
-            builder(self)
+        override init(frame: CGRect) {
+            super.init(frame: frame)
             setupUI()
-            setupConstraints()
+        }
+
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
         }
 
         private func setupUI() {
-            self.isSkeletonable = true
-            add(view: mainStack)
+            isSkeletonable = true
+            backgroundColor = .clear
+            setupBalanceScrollView()
+            setupCollectionView()
+            setupPageControl()
+
+            heightConstraint.isActive = true
         }
 
-        private func setupConstraints() {
-            self.heightConstraint.isActive = true
-            self.heightHeaderConstraint.isActive = true
-            self.heightHeaderNotBluConstraint.isActive = true
+        private func setupBalanceScrollView() {
+            addSubview(balanceScrollView)
 
-            self.listBalanceAvailableStack.oceanConstraints
-                .height(constant: 48)
-                .make()
-
-            self.listCurrentBalanceStack.oceanConstraints
-                .height(constant: 48)
-                .make()
-
-            self.listScheduleBluStack.oceanConstraints
-                .height(constant: 48)
-                .make()
-
-            self.listBalanceNotBluStack.oceanConstraints
-                .height(constant: 48)
-                .make()
-
-            self.eyeImageView.oceanConstraints
-                .width(constant: Constants.eyeImageSize)
-                .height(constant: Constants.eyeImageSize)
-                .make()
-
-            self.arrowView.oceanConstraints
-                .width(constant: Constants.arrowSize)
-                .height(constant: Constants.arrowSize)
+            balanceScrollView.oceanConstraints
+                .fill(to: self)
                 .make()
         }
 
-        private func updateUI() {
-            balanceAvailableLabel.text = balanceAvailable.toCurrency()
-            balanceAvailableLabel.textColor = getColorValue(value: balanceAvailable)
-            listBalanceAvailableLabel.text = balanceAvailable.toCurrency()
-            listBalanceAvailableLabel.textColor = getColorValue(value: balanceAvailable)
-            listCurrentBalanceLabel.text = currentBalance.toCurrency()
-            listCurrentBalanceLabel.textColor = getColorValue(value: currentBalance)
-            listScheduleBluLabel.text = scheduleBlu.toCurrency()
-            listScheduleBluLabel.textColor = getColorValue(value: scheduleBlu)
-            balanceNotBluLabel.text = balanceNotBlu.toCurrency()
-            balanceNotBluLabel.textColor = getColorValue(value: balanceNotBlu)
-            listNotBluLabel.text = balanceNotBlu.toCurrency()
-            listNotBluLabel.textColor = getColorValue(value: balanceNotBlu)
+        private func setupCollectionView() {
+            addSubview(collectionView)
 
-            howToUseButton.text = howToUseButtonText
+            collectionView.oceanConstraints
+                .topToTop(to: self)
+                .leadingToLeading(to: self)
+                .trailingToTrailing(to: self)
+                .make()
+
+            heightCollectionViewConstraint.isActive = true
         }
 
-        private func updateVisibleUI() {
-            balanceAvailableLabel.text = isVisible ? balanceAvailable.toCurrency() : "R$ ••••••"
-            balanceNotBluLabel.text = isVisible ? balanceNotBlu.toCurrency() : "R$ ••••••"
-            eyeImageView.image = isVisible ? Ocean.icon.eyeOutline?.withRenderingMode(.alwaysTemplate) :
-            Ocean.icon.eyeOffOutline?.withRenderingMode(.alwaysTemplate)
+        private func setupPageControl() {
+            addSubview(pageControl)
+
+            pageControl.oceanConstraints
+                .topToBottom(to: collectionView, constant: Ocean.size.spacingStackXxs)
+                .centerX(to: self)
+                .height(constant: Constants.heightPage)
+                .make()
         }
 
-        private func getColorValue(value: Double) -> UIColor {
-            return value < 0 ? Ocean.color.colorStatusNegativePure : Ocean.color.colorInterfaceDarkDeep
+        private func getBalanceLayout(state: BalanceState = .collapsed) -> UICollectionViewFlowLayout {
+            let itemWidth = frame.width - (Ocean.size.spacingStackXs * 2) - 20
+
+            let balanceLayout = UICollectionViewFlowLayout()
+            balanceLayout.scrollDirection = .horizontal
+            balanceLayout.minimumLineSpacing = Ocean.size.spacingStackXxs
+            balanceLayout.itemSize = .init(width: itemWidth,
+                                           height: state == .collapsed ? Constants.heightContent : Constants.heightContentLg)
+            balanceLayout.sectionInset = .init(top: 0,
+                                               left: Ocean.size.spacingStackXs,
+                                               bottom: 0,
+                                               right: Ocean.size.spacingStackXs)
+            return balanceLayout
         }
 
-        private func animateUI() {
-            switch self.state {
-            case .collapsed:
-                self.heightConstraint.constant = Constants.height
-                self.heightHeaderConstraint.constant = Constants.headerHeight
-                self.heightHeaderNotBluConstraint.constant = Constants.headerHeight
-                self.listStack.isHidden = true
-                self.titleHighlightLabel.isHidden = true
-                self.arrowView.transform = CGAffineTransform(rotationAngle: 0)
-                self.arrowView.tintColor = Ocean.color.colorInterfaceDarkUp
-                self.eyeImageView.alpha = 1
-                self.titleStack.alpha = 1
-                self.notBluDivider.isHidden = false
-                self.notBluSpacer.isHidden = true
-                self.listNotBluStack.isHidden = true
-                self.titleNotBluHighlightLabel.isHidden = true
-                self.titleNotBluStack.alpha = 1
-                self.howToUseButton.alpha = 1
-            case .expanded:
+        private func updateState() {
+            if state == .collapsed || state == .scroll {
+                self.collapseAllCollectionView()
+            }
+
+            if state == .scroll {
+                let data = self.data[pageControl.currentPage]
+                self.balanceScrollView.model = data
+
+                self.balanceScrollView.isHidden = false
+                self.collectionView.isHidden = true
+                self.pageControl.isHidden = true
+
+                self.heightConstraint.constant = Constants.heightContentScroll
                 UIView.animate(withDuration: 0.3) {
-                    self.eyeImageView.alpha = 0
-                    self.titleStack.alpha = 0
-                    self.arrowView.transform = CGAffineTransform(rotationAngle: (180.0 * .pi) / 180.0)
-                    self.arrowView.tintColor = Ocean.color.colorBrandPrimaryPure
-                    self.notBluDivider.isHidden = true
-                    self.notBluSpacer.isHidden = false
-                    self.titleNotBluStack.alpha = 0
-                    self.howToUseButton.alpha = 0
-                } completion: { _ in
-                    self.titleHighlightLabel.isHidden = false
-                    self.titleNotBluHighlightLabel.isHidden = false
-                    self.listStack.isHidden = false
-                    self.listNotBluStack.isHidden = false
-                    self.heightConstraint.constant = Constants.heightLg
-                    self.heightHeaderConstraint.constant = Constants.headerHeightSm
-                    self.heightHeaderNotBluConstraint.constant = Constants.headerHeightSm
+                    self.layoutIfNeeded()
+                }
+
+                return
+            }
+
+            self.collectionView.isHidden = false
+            self.pageControl.isHidden = false
+            self.balanceScrollView.isHidden = true
+
+            self.updateCollectionViewHeight(state: self.state)
+        }
+
+        private func updateCollectionViewHeight(state: BalanceState) {
+            let collectionViewHeight = state == .collapsed ? Constants.heightContent : Constants.heightContentLg
+            self.heightConstraint.constant = collectionViewHeight + Constants.space + Constants.heightPage
+            self.heightCollectionViewConstraint.constant = collectionViewHeight
+            self.collectionView.collectionViewLayout = self.getBalanceLayout(state: self.state)
+        }
+
+        private func updateStateCollectionViewCellSelected(state: BalanceState) {
+            let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
+            let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
+            if let visibleIndexPath = collectionView.indexPathForItem(at: visiblePoint) {
+                if let cell = self.collectionView.cellForItem(at: visibleIndexPath) as? BalanceCell {
+                    cell.state = state
                 }
             }
         }
 
-        @objc private func tap() {
-            state = state == .collapsed ? .expanded : .collapsed
+        private func changeStateCollectionView() {
+            var hasItemsExpanded = false
+            let allIndexPaths = self.getAllIndexPaths()
+            allIndexPaths.forEach { indexPath in
+                if let cell = self.collectionView.cellForItem(at: indexPath) as? BalanceCell {
+                    if cell.state == .expanded {
+                        hasItemsExpanded = true
+                    }
+                }
+            }
+
+            self.state = hasItemsExpanded ? .expanded : .collapsed
         }
 
-        @objc private func tapEye() {
-            isVisible = !isVisible
+        private func collapseAllCollectionView() {
+            let allIndexPaths = self.getAllIndexPaths()
+            allIndexPaths.forEach { indexPath in
+                if let cell = self.collectionView.cellForItem(at: indexPath) as? BalanceCell {
+                    cell.state = .collapsed
+                }
+            }
+        }
+
+        private func getAllIndexPaths() -> [IndexPath] {
+            let count = self.collectionView.numberOfSections
+            return (0..<count).flatMap { self.getAllIndexPathsInSection(section: $0) }
+        }
+
+        private func getAllIndexPathsInSection(section: Int) -> [IndexPath] {
+            let count = self.collectionView.numberOfItems(inSection: section)
+            return (0..<count).map { IndexPath(row: $0, section: section) }
+        }
+
+        // MARK: - SkeletonCollectionViewDataSource
+
+        public func numSections(in collectionSkeletonView: UICollectionView) -> Int {
+            1
+        }
+
+        public func collectionSkeletonView(_ skeletonView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+            return self.data.count
+        }
+
+        public func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
+            BalanceCell.identifier
+        }
+
+        // MARK: - UICollectionViewDataSource
+
+        public func numberOfSections(in collectionView: UICollectionView) -> Int {
+            return 1
+        }
+
+        public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+            return self.data.count
+        }
+
+        public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BalanceCell.identifier, for: indexPath) as? BalanceCell else { return UICollectionViewCell() }
+
+            let data = self.data[indexPath.row]
+            cell.model = data
+            cell.onStateChanged = { _ in
+                self.changeStateCollectionView()
+            }
+
+            return cell
+        }
+
+        public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+            currentPage = getCurrentPage()
+            self.updateStateCollectionViewCellSelected()
+        }
+
+        public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+            currentPage = getCurrentPage()
+        }
+
+        public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+            currentPage = getCurrentPage()
+        }
+
+        private func getCurrentPage() -> Int {
+            let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
+            let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
+            if let visibleIndexPath = collectionView.indexPathForItem(at: visiblePoint) {
+                return visibleIndexPath.row
+            }
+
+            return currentPage
+        }
+
+        private func updateStateCollectionViewCellSelected() {
+            let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
+            let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
+            if let visibleIndexPath = collectionView.indexPathForItem(at: visiblePoint) {
+                if let cell = self.collectionView.cellForItem(at: visibleIndexPath) as? BalanceCell {
+                    if cell.state == .collapsed {
+                        self.state = .collapsed
+                    } else {
+                        self.state = .expanded
+                    }
+                }
+            }
         }
     }
 }

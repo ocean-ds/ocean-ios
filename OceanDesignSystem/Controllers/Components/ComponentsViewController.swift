@@ -98,6 +98,8 @@ class ComponentsViewController: UITableViewController {
             self.present(ShortcutViewController(), animated: true, completion: nil)
         case .Balance:
             self.present(BalanceViewController(), animated: true, completion: nil)
+        case .BalanceSimple:
+            self.present(BalanceSimpleViewController(), animated: true, completion: nil)
         case .Tag:
             self.present(TagViewController(), animated: true, completion: nil)
         case .Badge:
@@ -130,6 +132,12 @@ class ComponentsViewController: UITableViewController {
             self.present(SettingsListItemViewController(), animated: true, completion: nil)
         case .ChartCard:
             self.present(ChartCardViewController(), animated: true, completion: nil)
+        case .InformativeCardView:
+            self.present(InformativeCardViewController(), animated: true, completion: nil)
+        case .ProgressBar:
+            self.present(ProgressBarViewController(), animated: true, completion: nil)
+        case .DetailedCard:
+            self.present(DetailedCardViewController(), animated: true, completion: nil)
         default:
             performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }
