@@ -41,7 +41,7 @@ extension Ocean {
             collection.isPrefetchingEnabled = false
             collection.showsHorizontalScrollIndicator = false
             collection.showsVerticalScrollIndicator = false
-            collection.isPagingEnabled = false
+            collection.isPagingEnabled = true
             collection.register(CarouselCell.self, forCellWithReuseIdentifier: CarouselCell.cellId)
             collection.backgroundColor = .clear
             collection.translatesAutoresizingMaskIntoConstraints = false

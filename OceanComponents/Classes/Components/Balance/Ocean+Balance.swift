@@ -14,7 +14,7 @@ extension Ocean {
             static let heightContent: CGFloat = 140
             static let heightContentLg: CGFloat = 230
             static let heightContentScroll: CGFloat = 58
-            static let space: CGFloat = Ocean.size.spacingInsetLg
+            static let space: CGFloat = Ocean.size.spacingInsetMd
             static let heightPage: CGFloat = 4
         }
 
@@ -44,7 +44,8 @@ extension Ocean {
             let view = BalanceScrollView()
             view.isHidden = true
             view.onOpen = {
-                self.state = .collapsed
+                self.updateStateCollectionViewCellSelected(state: .expanded)
+                self.changeStateCollectionView()
             }
             return view
         }()
@@ -56,7 +57,7 @@ extension Ocean {
             collection.isPrefetchingEnabled = false
             collection.showsHorizontalScrollIndicator = false
             collection.showsVerticalScrollIndicator = false
-            collection.isPagingEnabled = false
+            collection.isPagingEnabled = true
             collection.register(BalanceCell.self, forCellWithReuseIdentifier: BalanceCell.identifier)
             collection.backgroundColor = .clear
             collection.translatesAutoresizingMaskIntoConstraints = false
@@ -72,6 +73,7 @@ extension Ocean {
             pageControl.isUserInteractionEnabled = false
             pageControl.isSelected = false
             pageControl.translatesAutoresizingMaskIntoConstraints = false
+            pageControl.transform = CGAffineTransformMakeScale(0.4, 0.4)
             return pageControl
         }()
 
@@ -84,6 +86,8 @@ extension Ocean {
             self.data = balances
             self.currentPage = 0
 
+            let data = self.data[pageControl.currentPage]
+            balanceScrollView.model = data
             collectionView.reloadData()
             collectionView.setContentOffset(.zero, animated: true)
         }
@@ -131,9 +135,8 @@ extension Ocean {
             addSubview(pageControl)
 
             pageControl.oceanConstraints
-                .topToBottom(to: collectionView, constant: Ocean.size.spacingStackXs)
+                .topToBottom(to: collectionView, constant: Ocean.size.spacingStackXxs)
                 .centerX(to: self)
-                .width(to: self)
                 .height(constant: Constants.heightPage)
                 .make()
         }
@@ -161,26 +164,40 @@ extension Ocean {
             if state == .scroll {
                 let data = self.data[pageControl.currentPage]
                 self.balanceScrollView.model = data
+
+                self.balanceScrollView.isHidden = false
+                self.collectionView.isHidden = true
+                self.pageControl.isHidden = true
+
                 self.heightConstraint.constant = Constants.heightContentScroll
                 UIView.animate(withDuration: 0.3) {
                     self.layoutIfNeeded()
-                    self.balanceScrollView.isHidden = false
-                    self.collectionView.isHidden = true
-                    self.pageControl.isHidden = true
                 }
 
                 return
             }
 
+            self.collectionView.isHidden = false
+            self.pageControl.isHidden = false
+            self.balanceScrollView.isHidden = true
+
+            self.updateCollectionViewHeight(state: self.state)
+        }
+
+        private func updateCollectionViewHeight(state: BalanceState) {
             let collectionViewHeight = state == .collapsed ? Constants.heightContent : Constants.heightContentLg
             self.heightConstraint.constant = collectionViewHeight + Constants.space + Constants.heightPage
             self.heightCollectionViewConstraint.constant = collectionViewHeight
-            UIView.animate(withDuration: 0.3) {
-                self.layoutIfNeeded()
-                self.balanceScrollView.isHidden = true
-                self.collectionView.isHidden = false
-                self.pageControl.isHidden = false
-                self.collectionView.collectionViewLayout = self.getBalanceLayout(state: self.state)
+            self.collectionView.collectionViewLayout = self.getBalanceLayout(state: self.state)
+        }
+
+        private func updateStateCollectionViewCellSelected(state: BalanceState) {
+            let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
+            let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
+            if let visibleIndexPath = collectionView.indexPathForItem(at: visiblePoint) {
+                if let cell = self.collectionView.cellForItem(at: visibleIndexPath) as? BalanceCell {
+                    cell.state = state
+                }
             }
         }
 
@@ -253,6 +270,19 @@ extension Ocean {
             return cell
         }
 
+        public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+            currentPage = getCurrentPage()
+            self.updateStateCollectionViewCellSelected()
+        }
+
+        public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+            currentPage = getCurrentPage()
+        }
+
+        public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+            currentPage = getCurrentPage()
+        }
+
         private func getCurrentPage() -> Int {
             let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
             let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
@@ -263,16 +293,18 @@ extension Ocean {
             return currentPage
         }
 
-        public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-            currentPage = getCurrentPage()
-        }
-
-        public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-            currentPage = getCurrentPage()
-        }
-
-        public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-            currentPage = getCurrentPage()
+        private func updateStateCollectionViewCellSelected() {
+            let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
+            let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
+            if let visibleIndexPath = collectionView.indexPathForItem(at: visiblePoint) {
+                if let cell = self.collectionView.cellForItem(at: visibleIndexPath) as? BalanceCell {
+                    if cell.state == .collapsed {
+                        self.state = .collapsed
+                    } else {
+                        self.state = .expanded
+                    }
+                }
+            }
         }
     }
 }
