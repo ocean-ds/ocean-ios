@@ -10,18 +10,21 @@ import OceanTokens
 extension Ocean {
     public class BalanceCell: UICollectionViewCell {
         static let identifier = "BalanceCellIdentifier"
-
+        
         public var onStateChanged: ((BalanceState) -> Void)?
-
+        
         public var model: BalanceModel = .empty() {
             didSet {
                 updateUI()
             }
         }
 
-        public var state: BalanceState = .collapsed {
-            didSet {
-                animateUI()
+        private var _state: BalanceState = .collapsed
+        public var state: BalanceState {
+            get { _state }
+            set {
+                _state = newValue
+                updateState()
             }
         }
 
@@ -189,11 +192,12 @@ extension Ocean {
                 stack.spacing = Ocean.size.spacingStackXs
                 stack.isSkeletonable = true
                 stack.isHidden = true
+                stack.alpha = 0
 
                 stack.add([
                     item1Stack,
                     Ocean.Divider(widthConstraint: stack.widthAnchor,
-                                  color: Ocean.color.colorBrandPrimaryUp),
+                                  color: Ocean.color.colorBrandPrimaryUp.withAlphaComponent(0.4)),
                     item2Stack
                 ])
 
@@ -204,7 +208,7 @@ extension Ocean {
         private lazy var descriptionLabel: UILabel = {
             Ocean.Typography.description { label in
                 label.textColor = Ocean.color.colorInterfaceLightDown
-                label.numberOfLines = 3
+                label.numberOfLines = 2
                 label.setContentCompressionResistancePriority(.required, for: .horizontal)
             }
         }()
@@ -220,7 +224,7 @@ extension Ocean {
                 stack.axis = .horizontal
                 stack.alignment = .center
                 stack.distribution = .fill
-                stack.spacing = Ocean.size.spacingStackXs
+                stack.spacing = Ocean.size.spacingStackXxs
 
                 stack.add([
                     descriptionLabel,
@@ -241,7 +245,7 @@ extension Ocean {
                     headerStack,
                     headerDetailsStack,
                     Ocean.Divider(widthConstraint: stack.widthAnchor,
-                                  color: Ocean.color.colorBrandPrimaryUp),
+                                  color: Ocean.color.colorBrandPrimaryUp.withAlphaComponent(0.4)),
                     footerStack
                 ])
 
@@ -297,12 +301,8 @@ extension Ocean {
                 .fill(to: contentView)
                 .make()
 
-            descriptionLabel.oceanConstraints
-                .height(constant: 42)
-                .make()
-
             placeholderValueView.oceanConstraints
-                .width(constant: 80)
+                .width(constant: 40)
                 .height(constant: 6)
                 .centerY(to: placeholderValueContainer)
                 .leadingToLeading(to: placeholderValueContainer)
@@ -310,6 +310,10 @@ extension Ocean {
 
             placeholderValueContainer.oceanConstraints
                 .height(constant: 27)
+                .make()
+
+            descriptionLabel.oceanConstraints
+                .height(constant: 42)
                 .make()
         }
 
@@ -338,20 +342,36 @@ extension Ocean {
             Ocean.icon.eyeOffOutline?.withRenderingMode(.alwaysTemplate)
         }
 
-        private func animateUI() {
-            switch self.state {
+        private func updateState() {
+            switch self._state {
             case .collapsed:
+                self.arrowView.transform = CGAffineTransform(rotationAngle: 0)
+                self.headerDetailsStack.alpha = 0
+                self.headerDetailsStack.isHidden = true
+            case .expanded:
+                self.arrowView.transform = CGAffineTransform(rotationAngle: (180.0 * .pi) / 180.0)
+                self.headerDetailsStack.alpha = 1
+                self.headerDetailsStack.isHidden = false
+            default:
+                break
+            }
+        }
+
+        private func animateState() {
+            switch self._state {
+            case .collapsed:
+                self.headerDetailsStack.alpha = 1
+                self.headerDetailsStack.isHidden = false
                 UIView.animate(withDuration: 0.3) {
                     self.arrowView.transform = CGAffineTransform(rotationAngle: 0)
                     self.headerDetailsStack.alpha = 0
-                } completion: { _ in
                     self.headerDetailsStack.isHidden = true
                 }
             case .expanded:
+                self.headerDetailsStack.isHidden = false
+                self.headerDetailsStack.alpha = 0
                 UIView.animate(withDuration: 0.3) {
                     self.arrowView.transform = CGAffineTransform(rotationAngle: (180.0 * .pi) / 180.0)
-                    self.headerDetailsStack.isHidden = false
-                } completion: { _ in
                     self.headerDetailsStack.alpha = 1
                 }
             default:
@@ -361,7 +381,8 @@ extension Ocean {
 
         @objc private func tap() {
             if !model.item1Title.isEmpty && !model.item2Title.isEmpty {
-                state = state == .collapsed ? .expanded : .collapsed
+                _state = _state == .collapsed ? .expanded : .collapsed
+                animateState()
                 onStateChanged?(state)
             }
         }
