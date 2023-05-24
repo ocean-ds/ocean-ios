@@ -211,7 +211,8 @@ extension Ocean {
                 .make()
             
             ocean.radius.applyMd()
-            ocean.borderWidth.applyHairline(color: Ocean.color.colorInterfaceLightDown)
+            ocean.borderWidth.applyHairline()
+            layer.borderColor = Ocean.color.colorInterfaceLightDown.cgColor
         }
         
         private func updateUI() {

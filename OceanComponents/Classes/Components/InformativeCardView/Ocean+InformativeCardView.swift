@@ -160,7 +160,8 @@ extension Ocean {
             addSubview(contentStack)
             
             ocean.radius.applyMd()
-            ocean.borderWidth.applyHairline(color: Ocean.color.colorInterfaceLightDown)
+            ocean.borderWidth.applyHairline()
+            layer.borderColor = Ocean.color.colorInterfaceLightDown.cgColor
             
             contentStack.oceanConstraints
                 .fill(to: self)
