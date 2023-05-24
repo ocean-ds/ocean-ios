@@ -28,7 +28,7 @@ extension Ocean {
                 $0.layer.cornerRadius = progressViewHeight / 2
                 $0.clipsToBounds = true
             }
-            
+
             return progressView
         }()
         
@@ -70,13 +70,18 @@ extension Ocean {
                 .topToTop(to: self, constant: Ocean.size.spacingStackXxs)
                 .bottomToBottom(to: self, constant: -Ocean.size.spacingStackXxs)
                 .trailingToTrailing(to: self)
+                .width(constant: 36, type: .greaterThanOrEqualTo)
                 .make()
         }
         
         // MARK: Public methods
         
         public func setProgress(_ progress: Float) {
-            progressView.setProgress(progress, animated: true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) { [weak self] in
+                guard let self = self else { return }
+
+                self.progressView.setProgress(progress, animated: true)
+            }
             
             let formattedValue = String(format: "%.0f", progress * 100)
             progressLabel.text = "\(formattedValue)%"
