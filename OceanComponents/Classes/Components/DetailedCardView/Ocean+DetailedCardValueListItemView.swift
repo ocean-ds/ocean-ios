@@ -43,9 +43,15 @@ extension Ocean {
     
     public class DetailedCardValueListItemView: UIView {
         
+        struct Constants {
+            static let minWidth: CGFloat = 232
+            static let iconSize: CGFloat = 24
+            static let infoSize: CGFloat = 20
+        }
+        
         // MARK: Private properties
         
-        private var model: DetailedCardItemModel
+        private var model: DetailedCardItemModel?
         
         // MARK: Views
         
@@ -66,6 +72,7 @@ extension Ocean {
                 label.numberOfLines = -1
                 label.textAlignment = .left
                 label.isSkeletonable = true
+                label.text = "                              "
             }
         }()
         
@@ -116,6 +123,7 @@ extension Ocean {
                 label.numberOfLines = -1
                 label.textAlignment = .left
                 label.isSkeletonable = true
+                label.text = "            "
             }
         }()
         
@@ -155,6 +163,12 @@ extension Ocean {
             updateUI()
         }
         
+        public override init(frame: CGRect) {
+            super.init(frame: frame)
+            
+            setupUI()
+        }
+        
         public required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
@@ -166,8 +180,8 @@ extension Ocean {
             addSubview(contentStack)
             
             iconImageView.oceanConstraints
-                .width(constant: 24)
-                .height(constant: 24)
+                .width(constant: Constants.iconSize)
+                .height(constant: Constants.iconSize)
                 .make()
             
             titleLabel.oceanConstraints
@@ -180,8 +194,8 @@ extension Ocean {
             infoIconImageView.oceanConstraints
                 .centerY(to: titleLabel)
                 .trailingToTrailing(to: titleContainerView, type: .lessThanOrEqualTo)
-                .width(constant: 20)
-                .height(constant: 20)
+                .width(constant: Constants.infoSize)
+                .height(constant: Constants.infoSize)
                 .make()
             
             progressBar.oceanConstraints
@@ -193,7 +207,7 @@ extension Ocean {
                 .make()
             
             oceanConstraints
-                .width(constant: 232, type: .greaterThanOrEqualTo)
+                .width(constant: Constants.minWidth, type: .greaterThanOrEqualTo)
                 .make()
             
             ocean.radius.applyMd()
@@ -201,18 +215,18 @@ extension Ocean {
         }
         
         private func updateUI() {
-            iconImageView.image = model.iconImage?.withRenderingMode(.alwaysTemplate)
-            titleLabel.text = model.titleText
-            tooltip.message = model.tooltipMessage ?? ""
-            valueLabel.text = model.valueText
-            if let progress = model.progress {
+            iconImageView.image = model?.iconImage?.withRenderingMode(.alwaysTemplate)
+            titleLabel.text = model?.titleText ?? ""
+            tooltip.message = model?.tooltipMessage ?? ""
+            valueLabel.text = model?.valueText ?? ""
+            if let progress = model?.progress {
                 progressBar.setProgress(progress)
             }
-            descriptionLabel.text = model.descriptionText
+            descriptionLabel.text = model?.descriptionText ?? ""
             
             iconImageView.isHidden = iconImageView.image == nil
-            infoIconImageView.isHidden = model.tooltipMessage == nil || model.tooltipMessage?.isEmpty == true
-            progressBar.isHidden = model.progress == nil
+            infoIconImageView.isHidden = model?.tooltipMessage == nil || model?.tooltipMessage?.isEmpty == true
+            progressBar.isHidden = model?.progress == nil
         }
         
         // MARK: Public methods

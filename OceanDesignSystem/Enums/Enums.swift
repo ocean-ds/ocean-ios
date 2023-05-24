@@ -68,6 +68,7 @@ public enum DesignSystemComponentsType: String {
     case FilterBar
     case InformativeCardView
     case ProgressBar
+    case DetailedCard
 }
 
 public enum DesignSystemTypographyType: Int {

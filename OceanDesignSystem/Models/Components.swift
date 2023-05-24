@@ -26,6 +26,7 @@ struct DSComponents {
         "CheckBox",
         "Chips",
         "DatePicker",
+        "DetailedCard",
         "Divider",
         "FilterBar",
         "FloatVerticalMenuList",

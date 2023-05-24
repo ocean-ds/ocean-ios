@@ -30,7 +30,6 @@ class DetailedCardViewController: UIViewController {
             stackView.alignment = .fill
             stackView.distribution = .fill
             stackView.spacing = Ocean.size.spacingStackXxs
-//            stackView.setMargins(allMargins: Ocean.size.spacingStackXs)
             stackView.isSkeletonable = true
         }
         scrollView.addSubview(contentStack)
@@ -39,76 +38,83 @@ class DetailedCardViewController: UIViewController {
             .width(to: self.view)
             .make()
         
-        let icon = Ocean.icon.placeholderSolid!
-        let model = Ocean.DetailedCardItemModel(iconImage: icon,
-                                          titleText: "Title",
-                                          tooltipMessage: "Tooltip",
-                                          valueText: "R$ 0,00",
-                                          progress: 0.3,
-                                          descriptionText: "Description")
+        addSection(stackView: contentStack, text: "Detailed Card", includeSpacer: true)
+        addDetailedCardExample(stackView: contentStack, progress: 0.5, isLoading: false)
+        addDetailedCardExample(stackView: contentStack, progress: nil, isLoading: false)
+        addDetailedCardExample(stackView: contentStack, progress: nil, isLoading: true)
         
-        let itemView = Ocean.DetailedCardValueListItemView(frame: .zero, model: model).addMargins(allMargins: 16)
-        contentStack.addArrangedSubview(itemView)
+        addSection(stackView: contentStack, text: "Value List Item", includeSpacer: false)
+        addValueListItemViewExample(stackView: contentStack, progress: 0.5)
+        addValueListItemViewExample(stackView: contentStack, progress: nil)
+        addValueListItemViewExample(stackView: contentStack, progress: nil, isLoading: true)
+    }
+    
+    private func addValueListItemViewExample(stackView: Ocean.StackView,
+                                             progress: Float?,
+                                             isLoading: Bool = false) {
+        let itemView = Ocean.DetailedCardValueListItemView(frame: .zero)
+        stackView.addArrangedSubview(itemView.addMargins(horizontal: Ocean.size.spacingInsetSm))
         
-        contentStack.add([
-            Ocean.Spacer(space: Ocean.size.spacingStackXxs)
-        ])
+        if isLoading {
+            itemView.showAnimatedSkeleton()
+        } else {
+            itemView.update(Ocean.DetailedCardItemModel(iconImage: Ocean.icon.placeholderSolid,
+                                                        titleText: "Title",
+                                                        tooltipMessage: "Tooltip",
+                                                        valueText: "R$ 0,00",
+                                                        progress: progress,
+                                                        descriptionText: "Description"))
+        }
+    }
+    
+    private func addDetailedCardExample(stackView: Ocean.StackView,
+                                        progress: Float?,
+                                        isLoading: Bool = false) {
+        let detailedCard = Ocean.DetailedCardView(frame: .zero, items: [])
+        stackView.addArrangedSubview(detailedCard)
         
-        var progress: Float = 0.1
-        let detailedCard = Ocean.DetailedCardView(frame: .zero, items: [
-            .init(iconImage: Ocean.icon.placeholderSolid,
-                  titleText: "Title 1",
-                  tooltipMessage: "Tooltip 1",
-                  valueText: "R$ 1,00",
-                  progress: progress,
-                  descriptionText: "Description 1"),
-            .init(iconImage: Ocean.icon.placeholderSolid,
-                  titleText: "Title 2",
-                  tooltipMessage: nil,
-                  valueText: "R$ 1.000.000.000,00",
-                  progress: nil,
-                  descriptionText: "Description 2"),
-            .init(iconImage: Ocean.icon.placeholderSolid,
-                  titleText: "Title 3",
-                  tooltipMessage: nil,
-                  valueText: "R$ 1.000.000.000,00",
-                  progress: progress,
-                  descriptionText: "Description 2"),
-        ])
-        contentStack.addArrangedSubview(detailedCard)
+        if isLoading {
+            detailedCard.showAnimatedSkeleton()
+        } else {
+            detailedCard.update([
+                .init(iconImage: Ocean.icon.placeholderSolid,
+                      titleText: "Title 1",
+                      tooltipMessage: "Tooltip 1",
+                      valueText: "R$ 1,00",
+                      progress: progress,
+                      descriptionText: "Description 1"),
+                .init(iconImage: Ocean.icon.placeholderSolid,
+                      titleText: "Title 2",
+                      tooltipMessage: nil,
+                      valueText: "R$ 1.000.000.000,00",
+                      progress: nil,
+                      descriptionText: "Description 2"),
+                .init(iconImage: Ocean.icon.placeholderSolid,
+                      titleText: "Title 3",
+                      tooltipMessage: "Tooltip 2",
+                      valueText: "R$ 1.000.000.000,00",
+                      progress: nil,
+                      descriptionText: "Description 2"),
+            ])
+        }
+    }
+    
+    private func addSection(stackView: Ocean.StackView, text: String, includeSpacer: Bool = true) {
+        let label = Ocean.Typography.description { label in
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.text = text
+            label.numberOfLines = 0
+        }.addMargins(horizontal: Ocean.size.spacingInsetSm)
         
-//        contentStack.showAnimatedSkeleton()
-
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            DispatchQueue.main.async {
-                if progress < 1 {
-                    progress += 0.1
-                } else {
-                    timer.invalidate()
-                }
-                
-                detailedCard.update([
-                    .init(iconImage: Ocean.icon.placeholderSolid,
-                          titleText: "Title 1",
-                          tooltipMessage: "Tooltip 1",
-                          valueText: "R$ 1,00",
-                          progress: progress,
-                          descriptionText: "Description 1"),
-                    .init(iconImage: Ocean.icon.placeholderSolid,
-                          titleText: "Title 2",
-                          tooltipMessage: nil,
-                          valueText: "R$ 1.000.000.000,00",
-                          progress: nil,
-                          descriptionText: "Description 2"),
-                    .init(iconImage: Ocean.icon.placeholderSolid,
-                          titleText: "Title 3",
-                          tooltipMessage: nil,
-                          valueText: "R$ 1.000.000.000,00",
-                          progress: 0.1,
-                          descriptionText: "Description 2"),
-                ])
-            }
-//            contentStack.hideSkeleton()
+        if includeSpacer {
+            stackView.add([
+                Ocean.Spacer(space: Ocean.size.spacingStackXs),
+                label
+            ])
+        } else {
+            stackView.add([
+                label
+            ])
         }
     }
 }

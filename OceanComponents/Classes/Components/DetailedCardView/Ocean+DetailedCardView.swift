@@ -10,16 +10,17 @@ import OceanTokens
 import SkeletonView
 
 extension Ocean {
-    struct Constants {
-        static let minItemWidth: CGFloat = 264
-        static let minItemHeight: CGFloat = 136
-        static let maxItemHeight: CGFloat = 168
-        static let pageControlHeight: CGFloat = 16
-        static let minHeight: CGFloat = 136 + 16 + 16
-        static let maxHeight: CGFloat = 168 + 16 + 16
-    }
     
     public class DetailedCardView: UIView, SkeletonCollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+        
+        struct Constants {
+            static let minItemWidth: CGFloat = 264
+            static let minItemHeight: CGFloat = 136
+            static let maxItemHeight: CGFloat = 168
+            static let pageControlHeight: CGFloat = 16
+            static let minHeight: CGFloat = 168
+            static let maxHeight: CGFloat = 200
+        }
         
         // MARK: Public properties
         
@@ -39,6 +40,7 @@ extension Ocean {
                                                       left: Ocean.size.spacingStackXs,
                                                       bottom: 0,
                                                       right: Ocean.size.spacingStackXs)
+            collectionViewLayout.estimatedItemSize = CGSizeMake(Constants.minItemWidth, Constants.maxItemHeight)
             
             return collectionViewLayout
         }()
@@ -118,6 +120,7 @@ extension Ocean {
         }
         
         private func updateUI() {
+            heightConstraint.constant = hasProgress() ? Constants.maxHeight : Constants.minHeight
             collectionView.reloadData()
             pageControl.numberOfPages = items.count
         }

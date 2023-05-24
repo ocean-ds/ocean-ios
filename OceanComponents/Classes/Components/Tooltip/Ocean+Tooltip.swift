@@ -163,7 +163,7 @@ extension Ocean {
                     .topToBottom(to: backgroundRounded, constant: -2)
                     .leadingToLeading(to: contentView, constant: 2, priority: .required, type: .greaterThanOrEqualTo)
                     .trailingToTrailing(to: contentView, constant: -2, priority: .required, type: .lessThanOrEqualTo)
-                    .centerX(to: target, priority: .defaultHigh)
+                    .centerX(to: target, priority: .defaultLow)
                     .bottomToBottom(to: contentView)
                     .make()
             case .bottom:
@@ -181,7 +181,7 @@ extension Ocean {
                     .topToTop(to: contentView)
                     .leadingToLeading(to: contentView, constant: 2, priority: .required, type: .greaterThanOrEqualTo)
                     .trailingToTrailing(to: contentView, constant: -2, priority: .required, type: .lessThanOrEqualTo)
-                    .centerX(to: target, priority: .defaultHigh)
+                    .centerX(to: target, priority: .defaultLow)
                     .bottomToTop(to: backgroundRounded, constant: 2)
                     .make()
             }

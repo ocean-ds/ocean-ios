@@ -19,12 +19,10 @@ extension Ocean {
         
         // MARK: Private properties
         
-        var model: DetailedCardItemModel = .empty()
-        
         // MARK: Views
         
         private lazy var itemView: Ocean.DetailedCardValueListItemView = {
-            let view = Ocean.DetailedCardValueListItemView(frame: .zero, model: model)
+            let view = Ocean.DetailedCardValueListItemView(frame: .zero)
             view.translatesAutoresizingMaskIntoConstraints = false
             
             return view
@@ -60,7 +58,6 @@ extension Ocean {
         // MARK: Public methods
         
         public func update(_ model: DetailedCardItemModel) {
-            self.model = model
             itemView.update(model)
         }
         
