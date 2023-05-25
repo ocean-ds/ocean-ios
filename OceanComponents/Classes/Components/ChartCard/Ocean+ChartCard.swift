@@ -15,8 +15,10 @@ extension Ocean {
         
         struct ConstantsChartCard {
             static let skeletonViewBorderRadius = 140.0
-            static let skeletonViewHeight = 300.0
-            static let skeletonViewWidth = 300.0
+            static let chartContainerViewHeight = 300.0
+            static let chartContainerViewWidth = 300.0
+            static let dummySkeletonChartViewHeight = 280.0
+            static let dummySkeletonChartViewWidth = 280.0
             static let chartViewHeight = 300.0
         }
         
@@ -77,9 +79,7 @@ extension Ocean {
         }
         
         // MARK: - Properties private
-        
-        private var selectedItem: ChartCardItem? = nil
-        
+               
         private lazy var chartView: PieChartView = {
             let chartView = PieChartView()
             chartView.isSkeletonable = true
@@ -90,17 +90,17 @@ extension Ocean {
         
         private lazy var dummySkeletonChartView: UIView = {
             let view = UIView()
-
+            
             view.applyRadius(radius: ConstantsChartCard.skeletonViewBorderRadius)
-
+            
             view.backgroundColor = .clear
             view.isUserInteractionEnabled = false
             view.layer.borderWidth = 0
-
+            
             view.isSkeletonable = true
             view.isUserInteractionDisabledWhenSkeletonIsActive = true
             view.skeletonCornerRadius = Float(ConstantsChartCard.skeletonViewBorderRadius)
-
+            
             return view
         }()
         
@@ -145,7 +145,7 @@ extension Ocean {
             stack.setMargins(top: Ocean.size.spacingStackSm,
                              left: Ocean.size.spacingStackSm,
                              right: Ocean.size.spacingInsetSm)
-
+            
             return stack
         }()
         
@@ -327,8 +327,8 @@ extension Ocean {
         
         private func setupConstraints() {
             chartContainerView.oceanConstraints
-                .width(constant: ConstantsChartCard.skeletonViewHeight)
-                .height(constant: ConstantsChartCard.skeletonViewHeight)
+                .width(constant: ConstantsChartCard.chartContainerViewWidth)
+                .height(constant: ConstantsChartCard.chartContainerViewHeight)
                 .make()
             
             chartView.oceanConstraints
@@ -337,8 +337,8 @@ extension Ocean {
             
             dummySkeletonChartView.oceanConstraints
                 .center(to: chartContainerView)
-                .width(constant: 280)
-                .height(constant: 280)
+                .width(constant: ConstantsChartCard.dummySkeletonChartViewWidth)
+                .height(constant: ConstantsChartCard.dummySkeletonChartViewHeight)
                 .make()
             
             mainStack.oceanConstraints
@@ -347,21 +347,11 @@ extension Ocean {
         }
         
         @objc func handleTapOnHeaderStack(_ gestureRecognizer: UITapGestureRecognizer) {
-            deselectAllItems()
-//            for (index, item) in items {
-//                item.deselected()
-//            }
-//            chartView.highlightValue(nil, callDelegate: true)
+            activeAll()
         }
         
-        private func deselectAllItems() {
-            for (index, item) in items {
-                item.inactivated()
-            }
+        private func activeAll() {
             chartView.highlightValue(nil, callDelegate: true)
-//            chartView.highlightValue(nil, callDelegate: true)
-//            selectedItem = nil
-//            toggleSelectionForItems(except: nil)
         }
         
         private func updateUI() {
@@ -374,9 +364,13 @@ extension Ocean {
             guard showLegend else { return }
             
             for (index, item) in items.enumerated() {
-//                setupItem(item: item, index: index)
+                item.onLegendTapped = { [weak self] _ in self?.legendTaped(chartItem: item) }
                 addLegendItemToStack(item: item, at: index)
             }
+        }
+        
+        private func legendTaped(chartItem: ChartCardItem) {
+            changeOpacityOfPieChart(except: chartItem)
         }
         
         private func updateBottomCallToAction() {
@@ -385,24 +379,6 @@ extension Ocean {
             bottomCallToAction.isHidden = bottomCTAText.isEmpty == true
         }
         
-//        private func setupItem(item: ChartCardItem, index: Int) {
-//            item.onSelect = { [weak self] _ in self?.handleItemSelected(item, at: index) }
-//           item.onDeselect = { [weak self] _ in self?.handleItemDeselected(item) }
-//
-//            addLegendItemToStack(item: item, at: index)
-//        }
-        
-//        private func handleItemSelected(_ item: ChartCardItem, at index: Int) {
-//            onSelect?(item)
-//            legendTapped(item)
-//           chartView.highlightValue(x: Double(index), dataSetIndex: 0, callDelegate: false)
-//        }
-        
-//        private func handleItemDeselected(_ item: ChartCardItem) {
-//           legendTapped(item)
-//            deselectAllItems()
-//        }
-        
         private func addLegendItemToStack(item: ChartCardItem, at index: Int) {
             legendItemsListStack.add([item])
             if index < items.count - 1 {
@@ -410,35 +386,34 @@ extension Ocean {
             }
         }
         
-//        private func legendTapped(_ tappedItem: ChartCardItem) {
-//            toggleSelectionForItems(except: tappedItem)
-//            changeOpacityOfUnselectedItems(except: tappedItem)
-//        }
-        
-//        private func toggleSelectionForItems(except selectedItem: ChartCardItem?) {
-//
-//            if let item = selectedItem, item != self.selectedItem {
-//                item.selected()
-//                onSelect?(item)
-//                self.selectedItem = item
-//            } else {
-//                self.selectedItem?.deselected()
-//                chartView.highlightValue(nil, callDelegate: true)
-//                self.selectedItem = nil
-//            }
-//        }
-        
         private func changeOpacityOfPieChart(except selectedItem: ChartCardItem?) {
+            let isFirstTime = items.allSatisfy { $0.isActive }
+            var itemAlreadySelected = false
+            
+            if let selectedItem = selectedItem {
+                itemAlreadySelected = items.contains(where: { $0 === selectedItem && $0.isActive })
+            }
+            
             items.enumerated().forEach { index, item in
-                let newColor: UIColor
-                if let selectedItem = selectedItem, item !== selectedItem {
-                    newColor = item.color.withAlphaComponent(Ocean.size.opacityLevelLight)
-                } else {
+                var newColor: UIColor!
+                
+                if (!isFirstTime && itemAlreadySelected) ||
+                    item == selectedItem || selectedItem == nil {
+                    item.activated()
                     newColor = item.color.withAlphaComponent(1.0)
+                } else {
+                    item.inactivated()
+                    newColor = item.color.withAlphaComponent(Ocean.size.opacityLevelLight)
                 }
-                if let dataSet = chartView.data?.dataSets[0] as? PieChartDataSet {
-                    dataSet.colors[index] = newColor
-                }
+                updateItemAndColor(item: item, color: newColor, index: index)
+            }
+            chartView.notifyDataSetChanged()
+        }
+        
+        private func updateItemAndColor(item: ChartCardItem, color: UIColor, index: Int) {
+            item.setOpacity(opacity: color.cgColor.alpha)
+            if let dataSet = chartView.data?.dataSets[0] as? PieChartDataSet {
+                dataSet.colors[index] = color
             }
         }
         
@@ -449,31 +424,12 @@ extension Ocean {
                                        highlight: Highlight) {
             
             let chartItem = items[Int(highlight.x)]
+            
             changeOpacityOfPieChart(except: chartItem)
-            for (index, item) in items {
-                if item == chartItem {
-                    item.selected()
-                } else {
-                    item.deselected()
-                }
-            }
-//            self.legendTapped(chartItem)
         }
         
         public func chartValueNothingSelected(_ chartView: ChartViewBase) {
-//            self.selectedItem?.deselected()
-//            self.selectedItem = nil
-            
             changeOpacityOfPieChart(except: nil)
-            
-//            changeOpacityOfUnselectedItems(except: nil)
-            
-//            items.enumerated().forEach { index, item in
-//                item.setOpacity(opacity: 1.0)
-//                if let dataSet = chartView.data?.dataSets[0] as? PieChartDataSet {
-//                    dataSet.colors[index] = item.color.withAlphaComponent(1.0)
-//                }
-//            }
         }
     }
 }

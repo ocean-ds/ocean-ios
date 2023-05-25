@@ -10,13 +10,6 @@ import OceanTokens
 
 extension Ocean {
     
-    struct ConstantsChartCardItem {
-        static let chartCardItemHeight = 53.0
-        static let iconLegendImageSpaceLeading = 5.6
-        static let iconLegendImageWidth = 20.0
-        static let iconLegendImageHeight = 20.0
-    }
-    
     public enum ValueRepresentationType {
         case percent
         case decimal
@@ -24,6 +17,13 @@ extension Ocean {
     }
     
     public class ChartCardItem: UIView {
+        
+        struct Constants {
+            static let chartCardItemHeight = 53.0
+            static let iconLegendImageSpaceLeading = 5.6
+            static let iconLegendImageWidth = 20.0
+            static let iconLegendImageHeight = 20.0
+        }
         
         // MARK: - Properties
         
@@ -63,14 +63,18 @@ extension Ocean {
             }
         }
         
+        public var onLegendTapped: ((ChartCardItem) -> Void)? = nil
+        
         // MARK: - Properties private
         
-        private(set) var isActive: Bool  = false
+        private(set) var isActive: Bool  = true
         
         private lazy var dotLegendView: UIView = {
             let view = UIView()
             view.layer.cornerRadius = Ocean.size.borderRadiusSm
             view.isSkeletonable = true
+            view.isUserInteractionDisabledWhenSkeletonIsActive = true
+            
             view.skeletonCornerRadius = Float(Ocean.size.borderRadiusSm)
             
             return view
@@ -79,6 +83,7 @@ extension Ocean {
         private lazy var titleLegendLabel: UILabel = {
             let label = Ocean.Typography.description()
             label.isSkeletonable = true
+            label.isUserInteractionDisabledWhenSkeletonIsActive = true
             
             return label
         }()
@@ -88,6 +93,7 @@ extension Ocean {
             image.image = Ocean.icon.infoSolid?.withTintColor(Ocean.color.colorInterfaceLightDeep)
             image.addTapGesture(target: self, selector: #selector(tooltipClick))
             image.isSkeletonable = true
+            image.isUserInteractionDisabledWhenSkeletonIsActive = true
             image.isHiddenWhenSkeletonIsActive = true
             
             return image
@@ -104,6 +110,7 @@ extension Ocean {
             let label = Ocean.Typography.caption()
             label.textColor = Ocean.color.colorInterfaceDarkUp
             label.isSkeletonable = true
+            label.isUserInteractionDisabledWhenSkeletonIsActive = true
             
             return label
         }()
@@ -112,6 +119,7 @@ extension Ocean {
             let label = Ocean.Typography.description()
             label.textColor = Ocean.color.colorInterfaceDarkDeep
             label.isSkeletonable = true
+            label.isUserInteractionDisabledWhenSkeletonIsActive = true
             
             return label
         }()
@@ -130,26 +138,22 @@ extension Ocean {
         // MARK: - Functions
         
         public func activated() {
-            print("ASDF - \(title) selected")
             isActive = true
-            setOpacity(opacity: 1.0)
         }
         
         public func inactivated() {
-            print("ASDF - \(title) deselected")
             isActive = false
-            setOpacity(opacity: Ocean.size.opacityLevelMedium)
         }
         
-        // MARK: - Functions private
-        
-        private func setOpacity(opacity: CGFloat) {
+        public func setOpacity(opacity: CGFloat) {
             dotLegendView.backgroundColor = color.withAlphaComponent(opacity)
             titleLegendLabel.textColor = titleLegendLabel.textColor.withAlphaComponent(opacity)
             subtitleLegendLabel.textColor = subtitleLegendLabel.textColor.withAlphaComponent(opacity)
             iconLegendImage.tintColor = iconLegendImage.backgroundColor?.withAlphaComponent(opacity)
             valueLegendLabel.textColor = valueLegendLabel.textColor.withAlphaComponent(opacity)
         }
+        
+        // MARK: - Functions private
         
         private func setupUI() {
             translatesAutoresizingMaskIntoConstraints = false
@@ -170,7 +174,7 @@ extension Ocean {
         
         private func setupConstraints() {
             self.oceanConstraints
-                .height(constant: ConstantsChartCardItem.chartCardItemHeight)
+                .height(constant: Constants.chartCardItemHeight)
                 .make()
             
             dotLegendView.oceanConstraints
@@ -187,10 +191,10 @@ extension Ocean {
             
             iconLegendImage.oceanConstraints
                 .leadingToTrailing(to: titleLegendLabel,
-                                   constant: ConstantsChartCardItem.iconLegendImageSpaceLeading)
+                                   constant: Constants.iconLegendImageSpaceLeading)
                 .centerY(to: titleLegendLabel)
-                .width(constant: ConstantsChartCardItem.iconLegendImageWidth)
-                .height(constant: ConstantsChartCardItem.iconLegendImageHeight)
+                .width(constant: Constants.iconLegendImageWidth)
+                .height(constant: Constants.iconLegendImageHeight)
                 .make()
             
             subtitleLegendLabel.oceanConstraints
@@ -242,10 +246,6 @@ extension Ocean {
             }
         }
         
-//        private func updateSelectionState() {
-//            isSelected ? selected() : deselected()
-//        }
-        
         @objc private func tooltipClick() {
             tooltip.show(target: iconLegendImage,
                          position: .top,
@@ -253,13 +253,7 @@ extension Ocean {
         }
         
         @objc private func handleTap() {
-            if isActive {
-                inactivated()
-            } else {
-                activated()
-            }
-//            updateSelectionState()
+            onLegendTapped?(self)
         }
     }
 }
-
