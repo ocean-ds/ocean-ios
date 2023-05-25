@@ -370,7 +370,9 @@ extension Ocean {
         }
         
         private func legendTaped(chartItem: ChartCardItem) {
+            
             changeOpacityOfPieChart(except: chartItem)
+          
         }
         
         private func updateBottomCallToAction() {
@@ -392,6 +394,10 @@ extension Ocean {
             
             if let selectedItem = selectedItem {
                 itemAlreadySelected = items.contains(where: { $0 === selectedItem && $0.isActive })
+            }
+            
+            if isFirstTime || !itemAlreadySelected {
+                onSelect?(selectedItem)
             }
             
             items.enumerated().forEach { index, item in
