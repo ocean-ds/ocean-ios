@@ -13,7 +13,7 @@ extension Ocean {
     
     public class ChartCard: UIView, ChartViewDelegate {
         
-        struct ConstantsChartCard {
+        struct Constants {
             static let skeletonViewBorderRadius = 140.0
             static let chartContainerViewHeight = 300.0
             static let chartContainerViewWidth = 300.0
@@ -91,7 +91,7 @@ extension Ocean {
         private lazy var dummySkeletonChartView: UIView = {
             let view = UIView()
             
-            view.applyRadius(radius: ConstantsChartCard.skeletonViewBorderRadius)
+            view.applyRadius(radius: Constants.skeletonViewBorderRadius)
             
             view.backgroundColor = .clear
             view.isUserInteractionEnabled = false
@@ -99,7 +99,7 @@ extension Ocean {
             
             view.isSkeletonable = true
             view.isUserInteractionDisabledWhenSkeletonIsActive = true
-            view.skeletonCornerRadius = Float(ConstantsChartCard.skeletonViewBorderRadius)
+            view.skeletonCornerRadius = Float(Constants.skeletonViewBorderRadius)
             
             return view
         }()
@@ -327,8 +327,8 @@ extension Ocean {
         
         private func setupConstraints() {
             chartContainerView.oceanConstraints
-                .width(constant: ConstantsChartCard.chartContainerViewWidth)
-                .height(constant: ConstantsChartCard.chartContainerViewHeight)
+                .width(constant: Constants.chartContainerViewWidth)
+                .height(constant: Constants.chartContainerViewHeight)
                 .make()
             
             chartView.oceanConstraints
@@ -337,8 +337,8 @@ extension Ocean {
             
             dummySkeletonChartView.oceanConstraints
                 .center(to: chartContainerView)
-                .width(constant: ConstantsChartCard.dummySkeletonChartViewWidth)
-                .height(constant: ConstantsChartCard.dummySkeletonChartViewHeight)
+                .width(constant: Constants.dummySkeletonChartViewWidth)
+                .height(constant: Constants.dummySkeletonChartViewHeight)
                 .make()
             
             mainStack.oceanConstraints

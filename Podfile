@@ -8,7 +8,6 @@ target 'OceanDesignSystem' do
   #pod 'OceanComponents', '1.0.1'
   pod 'OceanComponents', :path => './'
   pod 'OceanTokens', :path => './'
-  pod 'Charts'
   
   target 'OceanDesignSystemTests' do
     inherit! :search_paths
