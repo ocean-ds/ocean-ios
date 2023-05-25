@@ -428,9 +428,7 @@ extension Ocean {
         public func chartValueSelected(_ chartView: ChartViewBase,
                                        entry: ChartDataEntry,
                                        highlight: Highlight) {
-            
             let chartItem = items[Int(highlight.x)]
-            
             changeOpacityOfPieChart(except: chartItem)
         }
         
