@@ -1,6 +1,11 @@
 PODS:
+  - Charts (4.1.0):
+    - Charts/Core (= 4.1.0)
+  - Charts/Core (4.1.0):
+    - SwiftAlgorithms (~> 1.0)
   - FSCalendar (2.8.2)
   - OceanComponents (3.3.0-262):
+    - Charts
     - FSCalendar
     - OceanTokens
     - SDWebImage
@@ -13,21 +18,25 @@ PODS:
   - SkeletonView (1.21.2)
   - Sourcery (1.0.3)
   - SPStorkController (1.8.5)
+  - SwiftAlgorithms (1.0.0)
   - SwiftyMocky (4.0.4):
     - Sourcery (~> 1.0.2)
 
 DEPENDENCIES:
+  - Charts
   - OceanComponents (from `./`)
   - OceanTokens (from `./`)
   - SwiftyMocky (= 4.0.4)
 
 SPEC REPOS:
   trunk:
+    - Charts
     - FSCalendar
     - SDWebImage
     - SkeletonView
     - Sourcery
     - SPStorkController
+    - SwiftAlgorithms
     - SwiftyMocky
 
 EXTERNAL SOURCES:
@@ -37,15 +46,17 @@ EXTERNAL SOURCES:
     :path: "./"
 
 SPEC CHECKSUMS:
+  Charts: 354f86803d11d9c35de280587fef50d1af063978
   FSCalendar: e6a2eb9c571bf0719ed797ef807e08426753c241
-  OceanComponents: 4f318624fa33a34cde04c7244914ef51e962a93a
+  OceanComponents: 8c8b0aa193d836ea99570cb4e1fc4f0cdd6fdee0
   OceanTokens: e166096c1dbf444664733f66887cd9cc80450b19
   SDWebImage: 72f86271a6f3139cc7e4a89220946489d4b9a866
   SkeletonView: a085533443fed0198309f1979780afb6e80eaedd
   Sourcery: 70a6048014bd4f37ea80e6bd4354d47bf3b760e1
   SPStorkController: 68966ed3134de2be2a8bbd1475c7e81f3f7d01ee
+  SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
   SwiftyMocky: 1fb3ceca9ded134dad4da58a0f20023d7f685ccf
 
-PODFILE CHECKSUM: b26a4eb2965c266727d1a4eb323d7b169c0f6df1
+PODFILE CHECKSUM: facabeb7188da3d788591c8fd8ff243c03d8aae4
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.11.3

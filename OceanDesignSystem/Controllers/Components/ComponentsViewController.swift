@@ -130,6 +130,8 @@ class ComponentsViewController: UITableViewController {
             self.present(OrderedListItemViewController(), animated: true, completion: nil)
         case .SettingsListItem:
             self.present(SettingsListItemViewController(), animated: true, completion: nil)
+        case .ChartCard:
+            self.present(ChartCardViewController(), animated: true, completion: nil)
         case .InformativeCardView:
             self.present(InformativeCardViewController(), animated: true, completion: nil)
         case .ProgressBar:

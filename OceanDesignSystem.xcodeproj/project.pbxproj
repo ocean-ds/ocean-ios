@@ -67,6 +67,7 @@
 		E13578B729F07252003A2B9D /* FilterBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13578B629F07252003A2B9D /* FilterBarViewController.swift */; };
 		E1DB7A2428FF243900A0459A /* CardListItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DB7A2328FF243900A0459A /* CardListItemViewController.swift */; };
 		E1DBF42929898E4100BCD65B /* SettingsListItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DBF42829898E4100BCD65B /* SettingsListItemViewController.swift */; };
+		E1DE74F32A12C18500C9361F /* ChartCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DE74F22A12C18500C9361F /* ChartCardViewController.swift */; };
 		E985454E275EA0EF0010B9EC /* ChipsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985454D275EA0EF0010B9EC /* ChipsViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -162,6 +163,7 @@
 		E13578B629F07252003A2B9D /* FilterBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBarViewController.swift; sourceTree = "<group>"; };
 		E1DB7A2328FF243900A0459A /* CardListItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListItemViewController.swift; sourceTree = "<group>"; };
 		E1DBF42829898E4100BCD65B /* SettingsListItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsListItemViewController.swift; sourceTree = "<group>"; };
+		E1DE74F22A12C18500C9361F /* ChartCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartCardViewController.swift; sourceTree = "<group>"; };
 		E985454D275EA0EF0010B9EC /* ChipsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -227,6 +229,7 @@
 				4223DDA1293F894C00257DBC /* OrderedListItemViewController.swift */,
 				E1DBF42829898E4100BCD65B /* SettingsListItemViewController.swift */,
 				E13578B629F07252003A2B9D /* FilterBarViewController.swift */,
+				E1DE74F22A12C18500C9361F /* ChartCardViewController.swift */,
 				D50896052A156A1E00ED3968 /* InformativeCardViewController.swift */,
 				D5D28DE22A1C05DD0070B8CE /* DetailedCardViewController.swift */,
 				D5D28DDC2A1BA2550070B8CE /* ProgressBarViewController.swift */,
@@ -595,6 +598,7 @@
 				24E301B526EF911400D2296C /* SubheaderViewController.swift in Sources */,
 				B833D03724A6796100587FDE /* SceneDelegate.swift in Sources */,
 				13F2534526986B9400883519 /* ModalViewController.swift in Sources */,
+				E1DE74F32A12C18500C9361F /* ChartCardViewController.swift in Sources */,
 				B71D65E724CA2A8200C3938C /* Cells.swift in Sources */,
 				249999BC26AAFB2D004DAB05 /* CardOptionViewController.swift in Sources */,
 				2479450726CAE9E6000F4DF0 /* BottomNavigationBarViewController.swift in Sources */,
