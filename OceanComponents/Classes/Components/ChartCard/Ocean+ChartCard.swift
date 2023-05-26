@@ -396,7 +396,7 @@ extension Ocean {
                 itemAlreadySelected = items.contains(where: { $0 === selectedItem && $0.isActive })
             }
             
-            if isFirstTime || !itemAlreadySelected {
+            if let selectedItem = selectedItem, (isFirstTime || !itemAlreadySelected) {
                 onSelect?(selectedItem)
             }
             
