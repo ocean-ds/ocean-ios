@@ -463,5 +463,6 @@ extension PieChartView {
         drawEntryLabelsEnabled = false
         drawCenterTextEnabled = true
         legend.enabled = false
+        rotationAngle = 270
     }
 }
