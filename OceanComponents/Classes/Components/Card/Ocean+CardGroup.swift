@@ -62,6 +62,12 @@ extension Ocean {
             }
         }
 
+        public var recommend: Bool = false {
+            didSet {
+                updateUI()
+            }
+        }
+
         private lazy var imageView: UIImageView = {
             UIImageView { view in
                 view.contentMode = .scaleAspectFit
@@ -135,14 +141,11 @@ extension Ocean {
             stack.add([
                 imageView,
                 topLabelsStack,
+                UIView(),
                 containerBadgeView
             ])
 
-            stack.isLayoutMarginsRelativeArrangement = true
-            stack.layoutMargins = .init(top: Ocean.size.spacingStackXs,
-                                        left: Ocean.size.spacingStackXs,
-                                        bottom: Ocean.size.spacingStackXs,
-                                        right: Ocean.size.spacingStackXs)
+            stack.setMargins(allMargins: Ocean.size.spacingStackXs)
 
             return stack
         }()
@@ -176,10 +179,56 @@ extension Ocean {
             return stack
         }()
 
+        private lazy var mainView: UIView = {
+            let view = UIView()
+            view.ocean.radius.applyMd()
+            view.ocean.borderWidth.applyHairline()
+            view.layer.borderColor = Ocean.color.colorInterfaceLightDown.cgColor
+            return view
+        }()
+
+        private lazy var recommendLabel: UILabel = {
+            UILabel { label in
+                label.font = .baseExtraBold(size: Ocean.font.fontSizeXxxs)
+                label.textColor = Ocean.color.colorInterfaceLightPure
+                label.text = "Recomendado"
+            }
+        }()
+
+        private lazy var recommendView: UIView = {
+            let view = recommendLabel.addMargins(horizontal: Ocean.size.spacingStackXxs)
+            view.backgroundColor = Ocean.color.colorBrandPrimaryDown
+            view.ocean.radius.applyMd()
+            view.isHidden = true
+            return view
+        }()
+
         public convenience init(builder: CardGroupBuilder) {
             self.init()
-            builder(self)
             setupUI()
+            builder(self)
+        }
+
+        private func setupUI() {
+            self.backgroundColor = Ocean.color.colorInterfaceLightPure
+
+            mainView.addSubview(mainStack)
+
+            mainStack.oceanConstraints
+                .fill(to: mainView)
+                .make()
+
+            self.addSubviews(mainView, recommendView)
+
+            mainView.oceanConstraints
+                .fill(to: self)
+                .make()
+
+            recommendView.oceanConstraints
+                .topToTop(to: self, constant: -Ocean.size.spacingStackXxs)
+                .leadingToLeading(to: self, constant: Ocean.size.spacingStackXs)
+                .height(constant: 18)
+                .make()
         }
 
         public func setSkeleton() {
@@ -195,14 +244,6 @@ extension Ocean {
             self.groupCTA.isSkeletonable = true
         }
 
-        private func setupUI() {
-            self.backgroundColor = Ocean.color.colorInterfaceLightPure
-            self.ocean.radius.applyMd()
-            self.ocean.borderWidth.applyHairline()
-            self.layer.borderColor = Ocean.color.colorInterfaceLightDown.cgColor
-            self.add(view: mainStack)
-        }
-
         private func updateCardContentView() {
             guard let cardContentView = self.cardContentView else { return }
             mainStack.insertArrangedSubview(topDivider, at: 1)
@@ -210,6 +251,9 @@ extension Ocean {
         }
 
         private func updateUI() {
+            mainView.layer.borderColor = recommend ? Ocean.color.colorBrandPrimaryUp.cgColor : Ocean.color.colorInterfaceLightDown.cgColor
+            recommendView.isHidden = !recommend
+
             imageView.image = image?.withRenderingMode(.alwaysTemplate)
             imageView.isHidden = image == nil
             titleLabel.text = title

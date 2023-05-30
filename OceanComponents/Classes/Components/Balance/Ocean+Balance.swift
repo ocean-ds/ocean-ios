@@ -73,7 +73,7 @@ extension Ocean {
             pageControl.isUserInteractionEnabled = false
             pageControl.isSelected = false
             pageControl.translatesAutoresizingMaskIntoConstraints = false
-            pageControl.transform = CGAffineTransformMakeScale(0.4, 0.4)
+            pageControl.transform = CGAffineTransformMakeScale(0.6, 0.6)
             return pageControl
         }()
 
