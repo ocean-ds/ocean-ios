@@ -48,6 +48,7 @@ final public class CardGroupViewController : UIViewController {
             view.badgeNumber = 8
             view.actionTitle = "Call to action"
             view.onTouch = { print("2") }
+            view.recommend = true
         }
 
         let cardGroup3 = Ocean.CardGroup { view in
@@ -70,16 +71,23 @@ final public class CardGroupViewController : UIViewController {
         let stack = Ocean.StackView()
         stack.axis = .vertical
         stack.distribution = .fill
-        stack.alignment = .center
-        stack.spacing = Ocean.size.spacingStackXs
-        stack.add([cardGroup1, cardGroup2, cardGroup3, cardGroup4, cardGroup5])
+        stack.alignment = .fill
+        stack.spacing = Ocean.size.spacingStackSm
+        stack.add([
+            cardGroup1,
+            cardGroup2,
+            cardGroup3,
+            cardGroup4,
+            cardGroup5
+        ])
 
         self.view.addSubview(stack)
 
         stack.oceanConstraints
-            .width(constant: 250)
-            .centerX(to: self.view)
             .topToTop(to: self.view, constant: 24)
+            .leadingToLeading(to: self.view, constant: Ocean.size.spacingStackXs)
+            .trailingToTrailing(to: self.view, constant: -Ocean.size.spacingStackXs)
+            .centerX(to: self.view)
             .make()
     }
 }
