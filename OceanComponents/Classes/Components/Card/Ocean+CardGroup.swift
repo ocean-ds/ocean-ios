@@ -233,6 +233,7 @@ extension Ocean {
 
         public func setSkeleton() {
             self.isSkeletonable = true
+            self.mainView.isSkeletonable = true
             self.mainStack.isSkeletonable = true
             self.topStack.isSkeletonable = true
             self.imageView.isSkeletonable = true
