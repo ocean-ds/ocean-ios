@@ -12,29 +12,33 @@ import OceanTokens
 import OceanComponents
 
 final public class OrderedListItemViewController : UIViewController {
-    let component1 = Ocean.OrderedListItem { view in
+    let component1 = Ocean.ListItem.ordered { view in
         view.title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Velit amet sem tempus volutpat nulla posuere consectetur ac in."
         view.number = 1
     }
 
-    let component2 = Ocean.OrderedListItem { view in
+    let component2 = Ocean.ListItem.ordered { view in
         view.title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Velit amet sem tempus volutpat nulla posuere consectetur ac in. Lorem ipsum dolor sit amet"
         view.number = 2
     }
 
-    let component3 = Ocean.OrderedListItem { view in
+    let component3 = Ocean.ListItem.ordered { view in
         view.title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Velit amet sem tempus volutpat nulla posuere consectetur ac in. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet"
         view.number = 3
     }
 
-    let component4 = Ocean.OrderedListItem { view in
+    let component4 = Ocean.ListItem.ordered { view in
         view.title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
         view.number = 4
     }
 
-    let component5 = Ocean.OrderedListItem { view in
+    let component5 = Ocean.ListItem.ordered { view in
         view.title = "Lorem ipsum dolor sit amet."
         view.number = 5
+    }
+
+    let component6 = Ocean.ListItem.unordered { view in
+        view.title = "Lorem ipsum dolor sit amet."
     }
 
     public override func viewDidLoad() {
@@ -51,6 +55,7 @@ final public class OrderedListItemViewController : UIViewController {
         stack1.addArrangedSubview(component3)
         stack1.addArrangedSubview(component4)
         stack1.addArrangedSubview(component5)
+        stack1.addArrangedSubview(component6)
 
         self.view.addSubview(stack1)
 
