@@ -12,31 +12,39 @@ extension Ocean {
     public class RadioButton: UIControl {
         public typealias RadioButtonBuilder = (RadioButton) -> Void
 
-        internal let generator = UISelectionFeedbackGenerator()
-
-        private var mainStack: Ocean.StackView!
-        private var radioBkgView: UIControl!
-        private var radioStack: Ocean.StackView!
-        private var textLabel: UILabel!
-        private var textView: UITextView!
-        private var errorLabel: UILabel!
-
         public var text: String = "" {
             didSet {
-                textLabel?.text = text
-                textLabel?.numberOfLines = 0
-                
-                textLabel?.isHidden = text.isEmpty
+                textLabel.text = text
+                textLabel.numberOfLines = 0
+                textLabel.isHidden = text.isEmpty
+
                 textView.isHidden = true
             }
         }
 
         public var attributedText: NSAttributedString? = nil {
             didSet {
-                textView?.attributedText = attributedText
-                
-                textView?.isHidden = attributedText?.length == .zero
-                textLabel?.isHidden = true
+                textView.attributedText = attributedText
+                textView.isHidden = attributedText?.length == .zero
+
+                textLabel.isHidden = true
+            }
+        }
+
+        public var descriptionText: String = "" {
+            didSet {
+                descriptionLabel.text = descriptionText
+                descriptionLabel.numberOfLines = 0
+                descriptionLabel.isHidden = descriptionText.isEmpty
+
+                stackAlignment = descriptionText.isEmpty ? .top : .center
+            }
+        }
+
+        public var buttonTitle: String? = nil {
+            didSet {
+                button.setTitle(buttonTitle, for: .normal)
+                buttonContainer.isHidden = buttonTitle?.isEmpty == true
             }
         }
 
@@ -46,37 +54,17 @@ extension Ocean {
             }
         }
 
-        private let errorEmpty = "..."
-
         public var errorMessage: String = "" {
             didSet {
-                errorLabel?.text = errorMessage.isEmpty ? errorEmpty : errorMessage
+                errorLabel.text = errorMessage.isEmpty ? errorEmpty : errorMessage
                 updateState()
             }
         }
-
 
         public var isInteractionEnabled: Bool = true {
             didSet {
                 updateState()
             }
-        }
-
-        public var onTouch: (() -> Void)?
-
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            makeView()
-        }
-
-        required init?(coder: NSCoder) {
-            super.init(coder: coder)
-            makeView()
-        }
-
-        public convenience init(builder: RadioButtonBuilder) {
-            self.init(frame: .zero)
-            builder(self)
         }
 
         public override var isSelected: Bool {
@@ -97,23 +85,23 @@ extension Ocean {
             }
         }
 
-        private var backgroundCircleLayer: CAShapeLayer!
-        private var foregroundCircleLayer: CAShapeLayer!
+        public var onTouch: (() -> Void)?
+        public var onTouchButton: (() -> Void)?
 
+        private let errorEmpty = "..."
+
+        internal let generator = UISelectionFeedbackGenerator()
         internal var size: CGFloat = 20
-
         internal var withAnimation: Bool {
             get {
                 return true
             }
         }
-
         internal var backgroundPath: CGPath {
             get {
                 return UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: size, height: size)).cgPath
             }
         }
-
         internal var foregroundShrinkPath: CGPath {
             get {
                 let circleSize = size * 0.3
@@ -121,7 +109,6 @@ extension Ocean {
                 return UIBezierPath(ovalIn: CGRect(x: center, y: center, width: circleSize, height: circleSize)).cgPath
             }
         }
-
         internal var foregroundExpandPath: CGPath {
             get {
                 let circleSize = size * 0.9
@@ -130,10 +117,176 @@ extension Ocean {
             }
         }
 
+        private lazy var backgroundCircleLayer: CAShapeLayer = {
+            let shape = CAShapeLayer()
+            shape.path = backgroundPath
+            shape.fillColor = Ocean.color.colorInterfaceLightPure.cgColor
+            return shape
+        }()
+
+        private lazy var foregroundCircleLayer: CAShapeLayer = {
+            let shape = CAShapeLayer()
+            shape.path = foregroundShrinkPath
+            shape.fillColor = Ocean.color.colorInterfaceLightPure.cgColor
+            return shape
+        }()
+
+        private lazy var radioBkgView: UIControl = {
+            let view = UIControl()
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.layer.addSublayer(backgroundCircleLayer)
+            view.layer.addSublayer(foregroundCircleLayer)
+            return view
+        }()
+
+        private lazy var textLabel: UILabel = {
+            Ocean.Typography.paragraph { label in
+                label.textColor = Ocean.color.colorInterfaceDarkPure
+                label.text = self.text
+                label.isHidden = self.text.isEmpty
+            }
+        }()
+
+        private lazy var textView: UITextView = {
+            let view = UITextView()
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.font = .baseRegular(size: Ocean.font.fontSizeXs)
+            view.textColor = Ocean.color.colorInterfaceDarkPure
+            view.tintColor = Ocean.color.colorBrandPrimaryPure
+            view.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            view.isScrollEnabled = false
+            view.isEditable = false
+            view.text = self.text
+            view.isHidden = self.attributedText?.length == .zero
+            return view
+        }()
+
+        private lazy var descriptionLabel: UILabel = {
+            Ocean.Typography.description { label in
+                label.textColor = Ocean.color.colorInterfaceDarkDown
+                label.text = self.descriptionText
+                label.isHidden = self.descriptionText.isEmpty
+            }
+        }()
+
+        private lazy var textStack: Ocean.StackView = {
+            Ocean.StackView { stack in
+                stack.translatesAutoresizingMaskIntoConstraints = false
+                stack.axis = .vertical
+                stack.alignment = .fill
+                stack.distribution = .fill
+                stack.spacing = 0
+
+                stack.add([
+                    textLabel,
+                    textView,
+                    descriptionLabel
+                ])
+            }
+        }()
+
+        private lazy var radioStack: Ocean.StackView = {
+            Ocean.StackView { stack in
+                stack.translatesAutoresizingMaskIntoConstraints = false
+                stack.axis = .horizontal
+                stack.alignment = self.stackAlignment
+                stack.distribution = .fill
+                stack.spacing = Ocean.size.spacingStackXs
+
+                stack.add([
+                    radioBkgView,
+                    textStack
+                ])
+            }
+        }()
+
+        private lazy var button: UIButton = {
+            let button = UIButton()
+            button.setTitle(buttonTitle, for: .normal)
+            button.setTitleColor(Ocean.color.colorBrandPrimaryPure, for: .normal)
+            button.titleLabel?.font = .baseSemiBold(size: Ocean.font.fontSizeXxs)
+            button.contentHorizontalAlignment = .left
+            button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+            return button
+        }()
+
+        private lazy var buttonContainer: UIView = {
+            let view = button.addMargins(left: size + Ocean.size.spacingStackXs)
+            view.isHidden = true
+            return view
+        }()
+
+        private lazy var errorLabel: UILabel = {
+            UILabel { label in
+                label.translatesAutoresizingMaskIntoConstraints = false
+                label.font = .baseRegular(size: Ocean.font.fontSizeXxs)
+                label.textColor = Ocean.color.colorStatusNegativePure
+                label.text = errorEmpty
+                label.isHidden = true
+            }
+        }()
+
+        private lazy var mainStack: Ocean.StackView = {
+            Ocean.StackView { stack in
+                stack.translatesAutoresizingMaskIntoConstraints = false
+                stack.axis = .vertical
+                stack.alignment = .fill
+                stack.distribution = .fill
+                stack.spacing = Ocean.size.spacingStackXxs
+
+                stack.add([
+                    radioStack,
+                    buttonContainer,
+                    errorLabel
+                ])
+            }
+        }()
+
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            setupUI()
+            setupConstraints()
+        }
+
+        required init?(coder: NSCoder) {
+            super.init(coder: coder)
+            setupUI()
+            setupConstraints()
+        }
+
+        public convenience init(builder: RadioButtonBuilder) {
+            self.init(frame: .zero)
+            builder(self)
+        }
+
+        private func setupUI() {
+            backgroundColor = Ocean.color.colorInterfaceLightPure
+
+            self.addSubview(mainStack)
+            self.addTapGesture(target: self, selector: #selector(toogleRadio))
+
+            self.updateState()
+        }
+
+        private func setupConstraints() {
+            radioBkgView.oceanConstraints
+                .width(constant: size)
+                .height(constant: size)
+                .make()
+
+            mainStack.oceanConstraints
+                .fill(to: self)
+                .make()
+        }
+
         @objc internal func toogleRadio() {
             isSelected = true
             onTouch?()
             generator.selectionChanged()
+        }
+
+        @objc private func buttonTapped() {
+            self.onTouchButton?()
         }
 
         private func updateState() {
@@ -141,7 +294,7 @@ extension Ocean {
                 changeToChecked()
             } else {
                 changeToUnchecked()
-                if let errorText = errorLabel?.text, errorText != errorEmpty {
+                if let errorText = errorLabel.text, errorText != errorEmpty {
                     changeToError()
                 }
             }
@@ -149,96 +302,9 @@ extension Ocean {
             textLabel.textColor = isEnabled ? Ocean.color.colorInterfaceDarkDown : Ocean.color.colorInterfaceLightDeep
         }
 
-        private func makeLabelError() {
-            errorLabel = UILabel()
-            errorLabel.translatesAutoresizingMaskIntoConstraints = false
-            errorLabel.font = UIFont(
-                name: Ocean.font.fontFamilyBaseWeightRegular,
-                size: Ocean.font.fontSizeXxs)
-            errorLabel.textColor = Ocean.color.colorStatusNegativePure
+        private func changeToChecked() {
             errorLabel.text = errorEmpty
             errorLabel.isHidden = true
-        }
-
-        func makeView() {
-            makeLabelError()
-
-            mainStack = Ocean.StackView()
-            mainStack.translatesAutoresizingMaskIntoConstraints = false
-            mainStack.axis = .vertical
-            mainStack.alignment = .fill
-            mainStack.distribution = .fill
-            mainStack.isUserInteractionEnabled = true
-
-            radioStack = Ocean.StackView()
-            radioStack.translatesAutoresizingMaskIntoConstraints = false
-            radioStack.axis = .horizontal
-            radioStack.alignment = self.stackAlignment
-            radioStack.distribution = .fill
-
-            mainStack.add([radioStack,
-                           Ocean.Spacer(space: Ocean.size.spacingInsetXs),
-                           errorLabel])
-
-            radioBkgView = UIControl()
-            radioBkgView.translatesAutoresizingMaskIntoConstraints = false
-
-            if backgroundColor == nil || backgroundColor == UIColor.clear {
-                backgroundColor = Ocean.color.colorInterfaceLightPure
-            }
-
-            radioBkgView.heightAnchor.constraint(equalToConstant: size).isActive = true
-            radioBkgView.widthAnchor.constraint(equalToConstant: size).isActive = true
-
-            backgroundCircleLayer = CAShapeLayer()
-            backgroundCircleLayer.path = backgroundPath
-            backgroundCircleLayer.fillColor = Ocean.color.colorInterfaceLightPure.cgColor
-
-            foregroundCircleLayer = CAShapeLayer()
-            foregroundCircleLayer.path = foregroundShrinkPath
-            foregroundCircleLayer.fillColor = Ocean.color.colorInterfaceLightPure.cgColor
-
-            radioBkgView.layer.addSublayer(backgroundCircleLayer)
-            radioBkgView.layer.addSublayer(foregroundCircleLayer)
-
-            textLabel = Ocean.Typography.paragraph { paragraph in
-                paragraph.translatesAutoresizingMaskIntoConstraints = false
-                paragraph.text = self.text
-                paragraph.isHidden = self.text.isEmpty
-                paragraph.font = .baseRegular(size: Ocean.font.fontSizeXxs)
-            }
-            
-            textView = UITextView()
-            textView.translatesAutoresizingMaskIntoConstraints = false
-            textView.font = .baseRegular(size: Ocean.font.fontSizeXxs)
-            textView.textColor = Ocean.color.colorInterfaceDarkDown
-            textView.tintColor = Ocean.color.colorBrandPrimaryPure
-            textView.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-            textView.isScrollEnabled = false
-            textView.isEditable = false
-            textView.text = self.text
-            textView.isHidden = self.attributedText?.length == .zero
-
-            radioStack.addArrangedSubview(radioBkgView)
-            radioStack.addArrangedSubview(Ocean.Spacer(space: Ocean.size.spacingInsetXs))
-            radioStack.addArrangedSubview(textLabel)
-            radioStack.addArrangedSubview(textView)
-
-            self.addSubview(mainStack)
-            let tapIconGesture = UITapGestureRecognizer(target: self, action: #selector(toogleRadio))
-            self.isUserInteractionEnabled = true
-            self.addGestureRecognizer(tapIconGesture)
-
-            mainStack.oceanConstraints
-                .fill(to: self)
-                .make()
-
-            self.updateState()
-        }
-
-        private func changeToChecked() {
-            errorLabel?.text = errorEmpty
-            errorLabel?.isHidden = true
 
             changeForegroundCircle(path: foregroundShrinkPath)
             let color = isEnabled ? Ocean.color.colorComplementaryPure : Ocean.color.colorInterfaceLightDown
@@ -247,7 +313,7 @@ extension Ocean {
         }
 
         private func changeToUnchecked() {
-            errorLabel?.isHidden = true
+            errorLabel.isHidden = true
 
             changeForegroundCircle(path: foregroundExpandPath)
             let backgroundCircleColor = isEnabled ? Ocean.color.colorInterfaceDarkUp : Ocean.color.colorInterfaceLightDown
@@ -261,7 +327,7 @@ extension Ocean {
         }
 
         private func changeToError() {
-            errorLabel?.isHidden = false
+            errorLabel.isHidden = false
 
             changeForegroundCircle(path: foregroundExpandPath)
             let backgroundCircleColor = Ocean.color.colorStatusNegativePure

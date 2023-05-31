@@ -24,6 +24,11 @@ final public class RadioButtonViewController : UIViewController {
         
         rb1 = Ocean.RadioButton { rb in
             rb.text = "Radio button 1"
+            rb.descriptionText = "description"
+            rb.buttonTitle = "botao"
+            rb.onTouchButton = {
+                print("botao")
+            }
             rb.onTouch = {
                 self.rb2.isSelected = false
                 self.rb3.isSelected = false
@@ -31,6 +36,7 @@ final public class RadioButtonViewController : UIViewController {
         }
         rb2 = Ocean.RadioButton { rb in
             rb.text = "Radio button 2 with large text and many words. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            rb.descriptionText = "description text"
             rb.onTouch = {
                 self.rb1.isSelected = false
                 self.rb3.isSelected = false
