@@ -24,9 +24,15 @@ final public class CheckBoxViewController : UIViewController {
         
         ck1 = Ocean.CheckBox { ck in
             ck.text = "Check Box 1"
+            ck.descriptionText = "description"
+            ck.buttonTitle = "botão"
+            ck.onTouchButton = {
+                print("botao")
+            }
         }
         ck2 = Ocean.CheckBox { ck in
             ck.text = "Check Box 2 with large text and many words. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            ck.descriptionText = "description text"
         }
         ck3 = Ocean.CheckBox { ck in
             ck.text = "Check Box 3 Error"

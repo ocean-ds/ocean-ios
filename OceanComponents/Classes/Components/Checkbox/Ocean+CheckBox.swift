@@ -10,7 +10,6 @@ import UIKit
 
 extension Ocean {
     public class CheckBox: RadioButton {
-
         override var withAnimation: Bool {
             get {
                 return false
