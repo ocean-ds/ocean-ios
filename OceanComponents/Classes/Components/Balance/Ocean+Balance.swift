@@ -18,9 +18,12 @@ extension Ocean {
             static let heightPage: CGFloat = 4
         }
 
+        public var onStateChanged: ((BalanceState) -> Void)?
+
         public var state: BalanceState = .collapsed {
             didSet {
                 updateState()
+                onStateChanged?(state)
             }
         }
 

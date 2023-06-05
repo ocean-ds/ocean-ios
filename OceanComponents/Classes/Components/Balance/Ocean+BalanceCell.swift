@@ -248,11 +248,11 @@ extension Ocean {
             headerDetailsStack.oceanConstraints
                 .leadingToLeading(to: view, constant: Ocean.size.spacingStackXs)
                 .trailingToTrailing(to: view, constant: -Ocean.size.spacingStackXs)
+                .height(constant: 87)
                 .make()
 
             divider.oceanConstraints
-                .topToBottom(to: headerStack, constant: Ocean.size.spacingStackXxs, type: .greaterThanOrEqualTo)
-                .topToBottom(to: headerDetailsStack, constant: Ocean.size.spacingStackXxs, type: .lessThanOrEqualTo)
+                .topToBottom(to: headerDetailsStack, constant: Ocean.size.spacingStackXxs)
                 .leadingToLeading(to: view, constant: Ocean.size.spacingStackXs)
                 .trailingToTrailing(to: view, constant: -Ocean.size.spacingStackXs)
                 .make()
@@ -261,18 +261,23 @@ extension Ocean {
                 .topToBottom(to: divider, constant: Ocean.size.spacingStackXxs)
                 .leadingToLeading(to: view, constant: Ocean.size.spacingStackXs)
                 .trailingToTrailing(to: view, constant: -Ocean.size.spacingStackXs)
-                .bottomToBottom(to: view, constant: -Ocean.size.spacingStackXs)
                 .make()
 
             return view
         }()
 
         private lazy var contentContainer: UIView = {
-            let view = contentContainerView.addMargins()
+            let view = UIView()
             view.backgroundColor = Ocean.color.colorBrandPrimaryDown.withAlphaComponent(0.4)
             view.clipsToBounds = true
             view.ocean.radius.applyMd()
             view.isSkeletonable = true
+            view.addSubview(contentContainerView)
+
+            contentContainerView.oceanConstraints
+                .fill(to: view)
+                .make()
+
             self.skeletonCornerRadius = Float(view.layer.cornerRadius)
             return view
         }()
@@ -286,19 +291,18 @@ extension Ocean {
                 .topToTop(to: view)
                 .leadingToLeading(to: view)
                 .trailingToTrailing(to: view)
-                .bottomToBottom(to: view, priority: .defaultHigh)
                 .make()
 
             return view
         }()
 
-        private lazy var headerDetailTopConstraint: NSLayoutConstraint = {
-            self.headerDetailsStack.topAnchor.constraint(equalTo: contentContainerView.topAnchor,
-                                                         constant: Ocean.size.spacingStackXxs)
+        private lazy var contentContainerHeightConstraint: NSLayoutConstraint = {
+            self.contentContainerView.heightAnchor.constraint(equalToConstant: 130)
         }()
 
-        private lazy var headerDetailHeightContraint: NSLayoutConstraint = {
-            self.headerDetailsStack.heightAnchor.constraint(equalToConstant: 0)
+        private lazy var headerDetailTopConstraint: NSLayoutConstraint = {
+            self.headerDetailsStack.topAnchor.constraint(equalTo: contentContainerView.topAnchor,
+                                                         constant: -30)
         }()
 
         override init(frame: CGRect) {
@@ -339,8 +343,8 @@ extension Ocean {
                 .height(constant: 42)
                 .make()
 
+            contentContainerHeightConstraint.isActive = true
             headerDetailTopConstraint.isActive = true
-            headerDetailHeightContraint.isActive = true
         }
 
         private func updateUI() {
@@ -372,13 +376,13 @@ extension Ocean {
             switch self._state {
             case .collapsed:
                 self.arrowView.transform = CGAffineTransform(rotationAngle: 0)
-                self.headerDetailTopConstraint.constant = Ocean.size.spacingStackXs
-                self.headerDetailHeightContraint.constant = 0
+                self.contentContainerHeightConstraint.constant = 130
+                self.headerDetailTopConstraint.constant = -30
                 self.headerDetailsStack.alpha = 0
             case .expanded:
                 self.arrowView.transform = CGAffineTransform(rotationAngle: (180.0 * .pi) / 180.0)
+                self.contentContainerHeightConstraint.constant = 230
                 self.headerDetailTopConstraint.constant = self.headerStack.frame.height + Ocean.size.spacingStackXs + Ocean.size.spacingStackXxs
-                self.headerDetailHeightContraint.constant = 87
                 self.headerDetailsStack.alpha = 1
             default:
                 break
@@ -388,26 +392,24 @@ extension Ocean {
         private func animateState(completion: @escaping () -> Void) {
             switch self._state {
             case .collapsed:
-                self.headerDetailTopConstraint.constant = Ocean.size.spacingStackXs
-                self.headerDetailHeightContraint.constant = 0
+                self.contentContainerHeightConstraint.constant = 130
+                self.headerDetailTopConstraint.constant = -30
                 self.headerDetailsStack.alpha = 1
                 UIView.animate(withDuration: 0.2) {
                     self.arrowView.transform = CGAffineTransform(rotationAngle: 0)
                     self.headerDetailsStack.alpha = 0
-                    self.headerDetailsStack.layoutIfNeeded()
-                    self.contentContainerView.layoutIfNeeded()
+                    self.layoutIfNeeded()
                 } completion: { _ in
                     completion()
                 }
             case .expanded:
+                self.contentContainerHeightConstraint.constant = 230
                 self.headerDetailTopConstraint.constant = self.headerStack.frame.height + Ocean.size.spacingStackXs + Ocean.size.spacingStackXxs
-                self.headerDetailHeightContraint.constant = 87
                 self.headerDetailsStack.alpha = 0
                 UIView.animate(withDuration: 0.2) {
                     self.arrowView.transform = CGAffineTransform(rotationAngle: (180.0 * .pi) / 180.0)
                     self.headerDetailsStack.alpha = 1
-                    self.headerDetailsStack.layoutIfNeeded()
-                    self.contentContainerView.layoutIfNeeded()
+                    self.layoutIfNeeded()
                 }
                 completion()
             default:
