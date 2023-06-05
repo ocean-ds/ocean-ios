@@ -24,7 +24,7 @@ final public class BalanceViewController : UIViewController {
     }()
 
     public override func viewDidLoad() {
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = Ocean.color.colorBrandPrimaryPure
 
         let stack = Ocean.StackView()
         stack.alignment = .fill
@@ -34,13 +34,12 @@ final public class BalanceViewController : UIViewController {
 
         stack.addArrangedSubview(balance)
         stack.addArrangedSubview(scrollButton.alignCenter())
-        self.view.backgroundColor = Ocean.color.colorBrandPrimaryPure
         self.view.addSubview(stack)
 
         stack.oceanConstraints
+            .topToTop(to: self.view, constant: Ocean.size.spacingStackXs)
             .leadingToLeading(to: self.view)
             .trailingToTrailing(to: self.view)
-            .centerY(to: self.view)
             .make()
     }
 

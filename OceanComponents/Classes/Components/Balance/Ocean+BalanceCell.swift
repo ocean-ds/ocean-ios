@@ -10,9 +10,9 @@ import OceanTokens
 extension Ocean {
     public class BalanceCell: UICollectionViewCell {
         static let identifier = "BalanceCellIdentifier"
-        
+
         public var onStateChanged: ((BalanceState) -> Void)?
-        
+
         public var model: BalanceModel = .empty() {
             didSet {
                 updateUI()
@@ -191,7 +191,6 @@ extension Ocean {
                 stack.distribution = .fill
                 stack.spacing = Ocean.size.spacingStackXs
                 stack.isSkeletonable = true
-                stack.isHidden = true
                 stack.alpha = 0
 
                 stack.add([
@@ -233,49 +232,77 @@ extension Ocean {
             }
         }()
 
-        private lazy var contentStack: Ocean.StackView = {
-            Ocean.StackView { stack in
-                stack.axis = .vertical
-                stack.alignment = .fill
-                stack.distribution = .fill
-                stack.spacing = Ocean.size.spacingStackXxs
-                stack.isSkeletonable = true
+        private lazy var contentContainerView: UIView = {
+            let view = UIView()
+            view.isSkeletonable = true
+            let divider = Ocean.Divider(widthConstraint: view.widthAnchor,
+                                        color: Ocean.color.colorBrandPrimaryUp.withAlphaComponent(0.4))
+            view.addSubviews(headerStack, headerDetailsStack, divider, footerStack)
 
-                stack.add([
-                    headerStack,
-                    headerDetailsStack,
-                    Ocean.Divider(widthConstraint: stack.widthAnchor,
-                                  color: Ocean.color.colorBrandPrimaryUp.withAlphaComponent(0.4)),
-                    footerStack
-                ])
+            headerStack.oceanConstraints
+                .topToTop(to: view, constant: Ocean.size.spacingStackXs)
+                .leadingToLeading(to: view, constant: Ocean.size.spacingStackXs)
+                .trailingToTrailing(to: view, constant: -Ocean.size.spacingStackXs)
+                .make()
 
-                stack.setMargins(allMargins: Ocean.size.spacingStackXs)
-            }
+            headerDetailsStack.oceanConstraints
+                .leadingToLeading(to: view, constant: Ocean.size.spacingStackXs)
+                .trailingToTrailing(to: view, constant: -Ocean.size.spacingStackXs)
+                .height(constant: 87)
+                .make()
+
+            divider.oceanConstraints
+                .topToBottom(to: headerDetailsStack, constant: Ocean.size.spacingStackXxs)
+                .leadingToLeading(to: view, constant: Ocean.size.spacingStackXs)
+                .trailingToTrailing(to: view, constant: -Ocean.size.spacingStackXs)
+                .make()
+
+            footerStack.oceanConstraints
+                .topToBottom(to: divider, constant: Ocean.size.spacingStackXxs)
+                .leadingToLeading(to: view, constant: Ocean.size.spacingStackXs)
+                .trailingToTrailing(to: view, constant: -Ocean.size.spacingStackXs)
+                .make()
+
+            return view
         }()
 
         private lazy var contentContainer: UIView = {
-            let view = contentStack.addMargins()
+            let view = UIView()
             view.backgroundColor = Ocean.color.colorBrandPrimaryDown.withAlphaComponent(0.4)
             view.clipsToBounds = true
             view.ocean.radius.applyMd()
             view.isSkeletonable = true
+            view.addSubview(contentContainerView)
+
+            contentContainerView.oceanConstraints
+                .fill(to: view)
+                .make()
+
             self.skeletonCornerRadius = Float(view.layer.cornerRadius)
             return view
         }()
 
-        private lazy var mainStack: Ocean.StackView = {
-            Ocean.StackView { stack in
-                stack.axis = .vertical
-                stack.alignment = .fill
-                stack.distribution = .fill
-                stack.spacing = 0
-                stack.isSkeletonable = true
+        private lazy var mainView: UIView = {
+            let view = UIView()
+            view.isSkeletonable = true
+            view.addSubview(contentContainer)
 
-                stack.add([
-                    contentContainer,
-                    UIView()
-                ])
-            }
+            contentContainer.oceanConstraints
+                .topToTop(to: view)
+                .leadingToLeading(to: view)
+                .trailingToTrailing(to: view)
+                .make()
+
+            return view
+        }()
+
+        private lazy var contentContainerHeightConstraint: NSLayoutConstraint = {
+            self.contentContainerView.heightAnchor.constraint(equalToConstant: 130)
+        }()
+
+        private lazy var headerDetailTopConstraint: NSLayoutConstraint = {
+            self.headerDetailsStack.topAnchor.constraint(equalTo: contentContainerView.topAnchor,
+                                                         constant: -30)
         }()
 
         override init(frame: CGRect) {
@@ -293,11 +320,11 @@ extension Ocean {
 
             self.isSkeletonable = true
             self.contentView.isSkeletonable = true
-            self.contentView.addSubview(mainStack)
+            self.contentView.addSubviews(mainView)
         }
 
         private func setupConstraints() {
-            mainStack.oceanConstraints
+            mainView.oceanConstraints
                 .fill(to: contentView)
                 .make()
 
@@ -315,6 +342,9 @@ extension Ocean {
             descriptionLabel.oceanConstraints
                 .height(constant: 42)
                 .make()
+
+            contentContainerHeightConstraint.isActive = true
+            headerDetailTopConstraint.isActive = true
         }
 
         private func updateUI() {
@@ -346,34 +376,42 @@ extension Ocean {
             switch self._state {
             case .collapsed:
                 self.arrowView.transform = CGAffineTransform(rotationAngle: 0)
+                self.contentContainerHeightConstraint.constant = 130
+                self.headerDetailTopConstraint.constant = -30
                 self.headerDetailsStack.alpha = 0
-                self.headerDetailsStack.isHidden = true
             case .expanded:
                 self.arrowView.transform = CGAffineTransform(rotationAngle: (180.0 * .pi) / 180.0)
+                self.contentContainerHeightConstraint.constant = 230
+                self.headerDetailTopConstraint.constant = self.headerStack.frame.height + Ocean.size.spacingStackXs + Ocean.size.spacingStackXxs
                 self.headerDetailsStack.alpha = 1
-                self.headerDetailsStack.isHidden = false
             default:
                 break
             }
         }
 
-        private func animateState() {
+        private func animateState(completion: @escaping () -> Void) {
             switch self._state {
             case .collapsed:
+                self.contentContainerHeightConstraint.constant = 130
+                self.headerDetailTopConstraint.constant = -30
                 self.headerDetailsStack.alpha = 1
-                self.headerDetailsStack.isHidden = false
-                UIView.animate(withDuration: 0.3) {
+                UIView.animate(withDuration: 0.2) {
                     self.arrowView.transform = CGAffineTransform(rotationAngle: 0)
                     self.headerDetailsStack.alpha = 0
-                    self.headerDetailsStack.isHidden = true
+                    self.layoutIfNeeded()
+                } completion: { _ in
+                    completion()
                 }
             case .expanded:
-                self.headerDetailsStack.isHidden = false
+                self.contentContainerHeightConstraint.constant = 230
+                self.headerDetailTopConstraint.constant = self.headerStack.frame.height + Ocean.size.spacingStackXs + Ocean.size.spacingStackXxs
                 self.headerDetailsStack.alpha = 0
-                UIView.animate(withDuration: 0.3) {
+                UIView.animate(withDuration: 0.2) {
                     self.arrowView.transform = CGAffineTransform(rotationAngle: (180.0 * .pi) / 180.0)
                     self.headerDetailsStack.alpha = 1
+                    self.layoutIfNeeded()
                 }
+                completion()
             default:
                 break
             }
@@ -382,8 +420,9 @@ extension Ocean {
         @objc private func tap() {
             if !model.item1Title.isEmpty && !model.item2Title.isEmpty {
                 _state = _state == .collapsed ? .expanded : .collapsed
-                animateState()
-                onStateChanged?(state)
+                animateState {
+                    self.onStateChanged?(self.state)
+                }
             }
         }
 
