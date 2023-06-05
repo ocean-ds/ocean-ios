@@ -80,7 +80,7 @@ extension Ocean {
         public func addBalances(with balances: [BalanceModel]) {
             guard !balances.isEmpty else { return }
 
-            collectionView.collectionViewLayout = getBalanceLayout()
+            collectionView.collectionViewLayout = getBalanceLayout(state: self.state)
             pageControl.numberOfPages = balances.count
 
             self.data = balances
@@ -141,7 +141,7 @@ extension Ocean {
                 .make()
         }
 
-        private func getBalanceLayout(state: BalanceState = .collapsed) -> UICollectionViewFlowLayout {
+        private func getBalanceLayout(state: BalanceState) -> UICollectionViewFlowLayout {
             let itemWidth = frame.width - (Ocean.size.spacingStackXs * 2) - 20
 
             let balanceLayout = UICollectionViewFlowLayout()
@@ -165,30 +165,33 @@ extension Ocean {
                 let data = self.data[pageControl.currentPage]
                 self.balanceScrollView.model = data
 
-                self.balanceScrollView.isHidden = false
-                self.collectionView.isHidden = true
-                self.pageControl.isHidden = true
-
                 self.heightConstraint.constant = Constants.heightContentScroll
                 UIView.animate(withDuration: 0.3) {
                     self.layoutIfNeeded()
+                    self.balanceScrollView.isHidden = false
+                    self.collectionView.isHidden = true
+                    self.pageControl.isHidden = true
                 }
 
                 return
             }
 
+            if self.balanceScrollView.isHidden {
+                self.updateCollectionViewHeight(state: self.state)
+                return
+            }
+            
             self.collectionView.isHidden = false
             self.pageControl.isHidden = false
             self.balanceScrollView.isHidden = true
-
             self.updateCollectionViewHeight(state: self.state)
         }
 
         private func updateCollectionViewHeight(state: BalanceState) {
+            self.collectionView.collectionViewLayout = self.getBalanceLayout(state: self.state)
             let collectionViewHeight = state == .collapsed ? Constants.heightContent : Constants.heightContentLg
             self.heightConstraint.constant = collectionViewHeight + Constants.space + Constants.heightPage
             self.heightCollectionViewConstraint.constant = collectionViewHeight
-            self.collectionView.collectionViewLayout = self.getBalanceLayout(state: self.state)
         }
 
         private func updateStateCollectionViewCellSelected(state: BalanceState) {
