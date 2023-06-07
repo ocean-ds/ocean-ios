@@ -299,7 +299,7 @@ extension Ocean {
             
             attributedString.append(
                 NSAttributedString(
-                    string: "\(title)",
+                    string: "\(labelCenterDonut)",
                     attributes: [
                         .font: UIFont(name: Ocean.font.fontFamilyBaseWeightRegular,
                                       size: Ocean.font.fontSizeXxxs) as Any,
