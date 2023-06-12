@@ -33,5 +33,7 @@ public class BottomNavigationBarViewController: OceanBottomNavigationBar {
         vc5.tabBarItem = UITabBarItem(title: "Label", image: Ocean.icon.documentOutline, selectedImage: nil)
         
         self.viewControllers = [vc1, vc2, vc3, vc4, vc5]
+
+        moveAnimationFirstItem()
     }
 }
