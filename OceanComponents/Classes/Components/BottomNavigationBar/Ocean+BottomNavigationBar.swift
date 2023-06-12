@@ -45,7 +45,6 @@ open class OceanBottomNavigationBar: UITabBarController {
             if index < controlViews.count {
                 let itemView = controlViews[controlViews.index(controlViews.startIndex, offsetBy: index)]
                 moveBackgroundView(to: itemView)
-                animateTabBarItem(itemView)
             }
         }
     }
@@ -103,15 +102,6 @@ open class OceanBottomNavigationBar: UITabBarController {
             NSAttributedString.Key.font: UIFont.highlightExtraBold(size: Ocean.font.fontSizeXxxs)!,
             NSAttributedString.Key.foregroundColor: bottomNavigationSelectedColor
         ]
-    }
-
-    private func animateTabBarItem(_ view: UIView) {
-        let animation = CAKeyframeAnimation()
-        animation.keyPath = "position.y"
-        animation.values = [view.layer.position.y, view.layer.position.y - 5, view.layer.position.y]
-        animation.keyTimes = [0, 0.5, 1]
-        animation.duration = 0.3
-        view.layer.add(animation, forKey: "bounce")
     }
 
     private func moveBackgroundView(to view: UIView) {
