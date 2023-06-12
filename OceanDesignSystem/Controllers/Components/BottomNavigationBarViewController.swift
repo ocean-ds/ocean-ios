@@ -11,7 +11,7 @@ import UIKit
 import OceanTokens
 import OceanComponents
 
-final public class BottomNavigationBarViewController : UITabBarController, OceanBottomNavigationBar {
+public class BottomNavigationBarViewController: OceanBottomNavigationBar {
     let vc1 = UIViewController()
     let vc2 = UIViewController()
     let vc3 = UIViewController()
@@ -20,8 +20,6 @@ final public class BottomNavigationBarViewController : UITabBarController, Ocean
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupBottomNavigation()
         self.view.backgroundColor = .white
     }
     
