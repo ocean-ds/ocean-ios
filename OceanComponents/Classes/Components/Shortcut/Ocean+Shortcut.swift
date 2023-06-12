@@ -18,6 +18,8 @@ extension Ocean {
 
             static let heightTinyHorizontal: CGFloat = 56
             static let heightMediumHorizontal: CGFloat = 100
+
+            static let spacing: CGFloat = Ocean.size.spacingStackXxs
         }
 
         public enum Size {
@@ -72,12 +74,12 @@ extension Ocean {
         public func addData(with data: [ShortcutModel], quantityPage: CGFloat = 3) {
             let shortcutLayout = UICollectionViewFlowLayout()
             shortcutLayout.scrollDirection = direction
-            shortcutLayout.minimumInteritemSpacing = Ocean.size.spacingStackXs
-            shortcutLayout.minimumLineSpacing = Ocean.size.spacingStackXs
+            shortcutLayout.minimumInteritemSpacing = Constants.spacing
+            shortcutLayout.minimumLineSpacing = Constants.spacing
 
             let spacingSection = Ocean.size.spacingStackXs * 2
-            let spacing = Ocean.size.spacingStackXs * (quantityPage - 1)
-            let spacingShowMore = direction == .horizontal ? Ocean.size.spacingStackXxs : 0
+            let spacing = Constants.spacing * (quantityPage - 1)
+            let spacingShowMore = direction == .horizontal ? Constants.spacing : 0
             let width = frame.width - spacingSection - spacing - spacingShowMore
             let widthItem = width <= 0 ? height : width / quantityPage
 

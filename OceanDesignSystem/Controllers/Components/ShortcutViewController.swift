@@ -59,6 +59,15 @@ final public class ShortcutViewController : UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+
+    lazy var shortcut7: Ocean.Shortcut = {
+        let view = Ocean.Shortcut()
+        view.direction = .horizontal
+        view.size = .medium
+        view.orientation = .vertical
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     public override func viewDidLoad() {
         self.view.backgroundColor = .white
@@ -81,6 +90,7 @@ final public class ShortcutViewController : UIViewController {
         contentStack.oceanConstraints
             .fill(to: scrollView)
             .width(to: self.view)
+
             .make()
 
         addSection(stackView: contentStack, text: "Tiny - Vertical")
@@ -93,6 +103,8 @@ final public class ShortcutViewController : UIViewController {
         contentStack.addArrangedSubview(shortcut5)
         addSection(stackView: contentStack, text: "Medium - Horizontal")
         contentStack.addArrangedSubview(shortcut6)
+        addSection(stackView: contentStack, text: "Carousel")
+        contentStack.addArrangedSubview(shortcut7)
         
         shortcut1.onTouch = { index in
             print(index)
@@ -143,6 +155,14 @@ final public class ShortcutViewController : UIViewController {
         shortcut6.addData(with: [
             Ocean.ShortcutModel(image: Ocean.icon.documentOutline!, badgeNumber: 0, badgeStatus: .neutral, title: "Label", subtitle: subtitleText),
             Ocean.ShortcutModel(image: Ocean.icon.documentOutline!, badgeNumber: 100, badgeStatus: .highlight, title: "Label", subtitle: subtitleText)
+        ], quantityPage: 2)
+
+        // Carousel
+        shortcut7.addData(with: [
+            Ocean.ShortcutModel(image: Ocean.icon.documentOutline!, badgeNumber: 0, badgeStatus: .neutral, title: "Label"),
+            Ocean.ShortcutModel(image: Ocean.icon.documentOutline!, badgeNumber: 100, badgeStatus: .highlight, title: "Label"),
+            Ocean.ShortcutModel(image: Ocean.icon.documentOutline!, badgeNumber: 0, badgeStatus: .neutral, title: "Label"),
+            Ocean.ShortcutModel(image: Ocean.icon.documentOutline!, badgeNumber: 100, badgeStatus: .highlight, title: "Label")
         ], quantityPage: 2)
     }
 
