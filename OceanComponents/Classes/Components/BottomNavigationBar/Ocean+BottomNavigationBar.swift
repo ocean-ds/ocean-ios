@@ -12,19 +12,13 @@ open class OceanBottomNavigationBar: UITabBarController {
     var bottomNavigationBackgroundColor: UIColor {
         return Ocean.color.colorBrandPrimaryPure
     }
-    
+
     var bottomNavigationSelectedColor: UIColor {
         return Ocean.color.colorInterfaceLightPure
     }
-    
+
     var bottomNavigationUnselectedColor: UIColor {
         return Ocean.color.colorBrandPrimaryUp
-    }
-
-    open override var viewControllers: [UIViewController]? {
-        didSet {
-            moveAnimationFirstItem()
-        }
     }
 
     private lazy var movingBackgroundView: UIView = {
@@ -53,7 +47,7 @@ open class OceanBottomNavigationBar: UITabBarController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             let controlViews = self.tabBar.subviews.compactMap { $0 as? UIControl }
             if let firstItemView = controlViews.first {
-                self.moveBackgroundView(to: firstItemView)
+                self.moveBackgroundView(to: firstItemView, animated: false)
             }
         }
     }
@@ -68,11 +62,11 @@ open class OceanBottomNavigationBar: UITabBarController {
         let appearance = UITabBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = bottomNavigationBackgroundColor
-        
+
         setTabBarItemColors(appearance.stackedLayoutAppearance)
         setTabBarItemColors(appearance.inlineLayoutAppearance)
         setTabBarItemColors(appearance.compactInlineLayoutAppearance)
-        
+
         tabBar.standardAppearance = appearance
         if #available(iOS 15.0, *) {
             tabBar.scrollEdgeAppearance = appearance
@@ -88,14 +82,14 @@ open class OceanBottomNavigationBar: UITabBarController {
             NSAttributedString.Key.font: UIFont.highlightExtraBold(size: Ocean.font.fontSizeXxxs)!,
             NSAttributedString.Key.foregroundColor: bottomNavigationUnselectedColor
         ]
-        
+
         itemAppearance.focused.titlePositionAdjustment = .init(horizontal: 0, vertical: -6)
         itemAppearance.focused.iconColor = bottomNavigationSelectedColor
         itemAppearance.focused.titleTextAttributes = [
             NSAttributedString.Key.font: UIFont.highlightExtraBold(size: Ocean.font.fontSizeXxxs)!,
             NSAttributedString.Key.foregroundColor: bottomNavigationSelectedColor
         ]
-        
+
         itemAppearance.selected.titlePositionAdjustment = .init(horizontal: 0, vertical: -6)
         itemAppearance.selected.iconColor = bottomNavigationSelectedColor
         itemAppearance.selected.titleTextAttributes = [
@@ -104,10 +98,19 @@ open class OceanBottomNavigationBar: UITabBarController {
         ]
     }
 
-    private func moveBackgroundView(to view: UIView) {
-        UIView.animate(withDuration: 0.3) {
-            self.movingBackgroundView.frame = view.frame.insetBy(dx: 4, dy: 4)
+    private func moveBackgroundView(to view: UIView, animated: Bool = true) {
+        if !animated {
+            self.moveBackgroundFrame(to: view)
+            return
         }
+
+        UIView.animate(withDuration: 0.3) {
+            self.moveBackgroundFrame(to: view)
+        }
+    }
+
+    private func moveBackgroundFrame(to view: UIView) {
+        self.movingBackgroundView.frame = view.frame.insetBy(dx: 4, dy: 4)
     }
 }
 
