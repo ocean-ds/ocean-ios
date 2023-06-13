@@ -8,23 +8,26 @@
 import OceanTokens
 
 extension Ocean {
-    public struct ShortcutModel {
+    public struct ShortcutModel: Equatable {
         public let image: UIImage?
         public let badgeNumber: Int?
         public let badgeStatus: BadgeNumber.Status
         public let title: String
         public let subtitle: String
+        public let blocked: Bool
 
         public init(image: UIImage? = nil,
                     badgeNumber: Int? = nil,
                     badgeStatus: BadgeNumber.Status = .alert,
                     title: String,
-                    subtitle: String = "") {
+                    subtitle: String = "",
+                    blocked: Bool = false) {
             self.image = image
             self.badgeNumber = badgeNumber
             self.badgeStatus = badgeStatus
             self.title = title
             self.subtitle = subtitle
+            self.blocked = blocked
         }
     }
 }
