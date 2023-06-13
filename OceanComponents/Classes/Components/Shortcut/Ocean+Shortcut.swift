@@ -10,17 +10,17 @@ import SkeletonView
 
 extension Ocean {
     public class Shortcut: UIView, SkeletonCollectionViewDataSource, UICollectionViewDelegate {
+
         struct Constants {
-            static let heightTiny: CGFloat = 80
+            static let heightTinyVertical: CGFloat = 80
             static let heightSmall: CGFloat = 104
-            static let heightMedium: CGFloat = 131
+            static let heightMediumVertical: CGFloat = 131
+
+            static let heightTinyHorizontal: CGFloat = 56
+            static let heightMediumHorizontal: CGFloat = 100
+
+            static let spacing: CGFloat = Ocean.size.spacingStackXxs
         }
-
-        private lazy var heightConstraint: NSLayoutConstraint = {
-            return self.heightAnchor.constraint(equalToConstant: height)
-        }()
-
-        private var data: [ShortcutModel] = []
 
         public enum Size {
             case tiny
@@ -28,22 +28,33 @@ extension Ocean {
             case medium
         }
 
-        public var size: Size = .small
+        public enum Orientation {
+            case horizontal
+            case vertical
+        }
 
+        public var size: Size = .small
+        public var orientation: Orientation = .vertical
         public var direction: UICollectionView.ScrollDirection = .horizontal
 
         public var height: CGFloat {
             switch size {
             case .tiny:
-                return Constants.heightTiny
+                return orientation == .vertical ? Constants.heightTinyVertical : Constants.heightTinyHorizontal
             case .small:
                 return Constants.heightSmall
             case .medium:
-                return Constants.heightMedium
+                return orientation == .vertical ? Constants.heightMediumVertical : Constants.heightMediumHorizontal
             }
         }
 
         public var onTouch: ((Int) -> Void)?
+
+        private lazy var heightConstraint: NSLayoutConstraint = {
+            return self.heightAnchor.constraint(equalToConstant: height)
+        }()
+
+        private var data: [ShortcutModel] = []
 
         private lazy var carouselCollectionView: UICollectionView = {
             let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -63,12 +74,12 @@ extension Ocean {
         public func addData(with data: [ShortcutModel], quantityPage: CGFloat = 3) {
             let shortcutLayout = UICollectionViewFlowLayout()
             shortcutLayout.scrollDirection = direction
-            shortcutLayout.minimumInteritemSpacing = Ocean.size.spacingStackXs
-            shortcutLayout.minimumLineSpacing = Ocean.size.spacingStackXs
+            shortcutLayout.minimumInteritemSpacing = Constants.spacing
+            shortcutLayout.minimumLineSpacing = Constants.spacing
 
             let spacingSection = Ocean.size.spacingStackXs * 2
-            let spacing = Ocean.size.spacingStackXs * (quantityPage - 1)
-            let spacingShowMore = direction == .horizontal ? Ocean.size.spacingStackXxs : 0
+            let spacing = Constants.spacing * (quantityPage - 1)
+            let spacingShowMore = direction == .horizontal ? Constants.spacing : 0
             let width = frame.width - spacingSection - spacing - spacingShowMore
             let widthItem = width <= 0 ? height : width / quantityPage
 
@@ -150,6 +161,7 @@ extension Ocean {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ShortcutCell.cellId, for: indexPath) as? ShortcutCell else { return UICollectionViewCell() }
 
             let shortcutData = self.data[indexPath.row]
+            cell.orientation = orientation
             cell.model = shortcutData
             return cell
         }
