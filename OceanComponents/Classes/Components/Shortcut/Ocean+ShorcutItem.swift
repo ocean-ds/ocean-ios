@@ -8,7 +8,7 @@
 import OceanTokens
 
 extension Ocean {
-    public class NewShorcutItem: UIView {
+    public class ShorcutItem: UIView {
 
         // MARK: Public properties
 
@@ -22,9 +22,9 @@ extension Ocean {
 
         // MARK: Private properties
 
-        private var size: NewShortcut.Size = .small
+        private var size: Shortcut.Size = .small
 
-        private var orientation: NewShortcut.Orientation = .horizontal
+        private var orientation: Shortcut.Orientation = .horizontal
 
         // MARK: Views
 
@@ -117,8 +117,8 @@ extension Ocean {
         // MARK: Constructors
 
         init(frame: CGRect = .zero,
-             orientation: NewShortcut.Orientation = .horizontal,
-             size: NewShortcut.Size = .tiny) {
+             orientation: Shortcut.Orientation = .horizontal,
+             size: Shortcut.Size = .tiny) {
             self.orientation = orientation
             self.size = size
             super.init(frame: frame)
