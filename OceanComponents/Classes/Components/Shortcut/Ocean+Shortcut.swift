@@ -54,6 +54,7 @@ extension Ocean {
                 stack.alignment = .fill
                 stack.distribution = .fill
                 stack.spacing = Shortcut.Constants.lineSpacing
+                stack.isSkeletonable = true
             }
         }()
 
@@ -69,6 +70,7 @@ extension Ocean {
                     stack.distribution = .fillEqually
                     stack.alignment = .fill
                     stack.spacing = Shortcut.Constants.interItemSpacing
+                    stack.isSkeletonable = true
                 }
 
                 items.forEach { model in
