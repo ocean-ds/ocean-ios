@@ -9,17 +9,17 @@ import OceanTokens
 import SkeletonView
 
 extension Ocean {
-    public class Shortcut: UIView, SkeletonCollectionViewDataSource, UICollectionViewDelegate {
+    public class Shortcut: UIView {
 
         struct Constants {
-            static let heightTinyVertical: CGFloat = 80
-            static let heightSmall: CGFloat = 104
-            static let heightMediumVertical: CGFloat = 131
+            static let minHeightTinyVertical: CGFloat = 80
+            static let minHeightTinyHorizontal: CGFloat = 56
+            static let minHeightSmall: CGFloat = 104
+            static let minHeightMediumVertical: CGFloat = 131
+            static let minHeightMediumHorizontal: CGFloat = 100
 
-            static let heightTinyHorizontal: CGFloat = 56
-            static let heightMediumHorizontal: CGFloat = 100
-
-            static let spacing: CGFloat = Ocean.size.spacingStackXxs
+            static let interItemSpacing: CGFloat = Ocean.size.spacingStackXxs
+            static let lineSpacing: CGFloat = Ocean.size.spacingStackXxs
         }
 
         public enum Size {
@@ -33,73 +33,67 @@ extension Ocean {
             case vertical
         }
 
-        public var size: Size = .small
-        public var orientation: Orientation = .vertical
-        public var direction: UICollectionView.ScrollDirection = .horizontal
+        // MARK: Public properties
 
-        public var height: CGFloat {
-            switch size {
-            case .tiny:
-                return orientation == .vertical ? Constants.heightTinyVertical : Constants.heightTinyHorizontal
-            case .small:
-                return Constants.heightSmall
-            case .medium:
-                return orientation == .vertical ? Constants.heightMediumVertical : Constants.heightMediumHorizontal
-            }
-        }
+        public var size: Size = .small
+
+        public var orientation: Orientation = .vertical
 
         public var onTouch: ((Int) -> Void)?
 
-        private lazy var heightConstraint: NSLayoutConstraint = {
-            return self.heightAnchor.constraint(equalToConstant: height)
-        }()
-
         private var data: [ShortcutModel] = []
 
-        private lazy var carouselCollectionView: UICollectionView = {
-            let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-            collection.dataSource = self
-            collection.delegate = self
-            collection.isPrefetchingEnabled = false
-            collection.showsHorizontalScrollIndicator = false
-            collection.showsVerticalScrollIndicator = false
-            collection.isPagingEnabled = false
-            collection.register(ShortcutCell.self, forCellWithReuseIdentifier: ShortcutCell.cellId)
-            collection.backgroundColor = .clear
-            collection.translatesAutoresizingMaskIntoConstraints = false
-            collection.isSkeletonable = true
-            return collection
+        // MARK: Private properties
+
+        // MARK: Views
+
+        private lazy var contentStack: Ocean.StackView = {
+            Ocean.StackView { stack in
+                stack.translatesAutoresizingMaskIntoConstraints = false
+                stack.axis = .vertical
+                stack.alignment = .fill
+                stack.distribution = .fill
+                stack.spacing = Shortcut.Constants.lineSpacing
+            }
         }()
 
-        public func addData(with data: [ShortcutModel], quantityPage: CGFloat = 3) {
-            let shortcutLayout = UICollectionViewFlowLayout()
-            shortcutLayout.scrollDirection = direction
-            shortcutLayout.minimumInteritemSpacing = Constants.spacing
-            shortcutLayout.minimumLineSpacing = Constants.spacing
-
-            let spacingSection = Ocean.size.spacingStackXs * 2
-            let spacing = Constants.spacing * (quantityPage - 1)
-            let spacingShowMore = direction == .horizontal ? Constants.spacing : 0
-            let width = frame.width - spacingSection - spacing - spacingShowMore
-            let widthItem = width <= 0 ? height : width / quantityPage
-
-            shortcutLayout.itemSize = .init(width: widthItem,
-                                            height: height)
-            shortcutLayout.sectionInset = .init(top: 0,
-                                                left: Ocean.size.spacingStackXs,
-                                                bottom: 0,
-                                                right: Ocean.size.spacingStackXs)
-
-            carouselCollectionView.collectionViewLayout = shortcutLayout
+        public func set(data: [ShortcutModel], cols: Int = 2) {
             self.data = data
-            carouselCollectionView.reloadData()
-            carouselCollectionView.setContentOffset(.zero, animated: true)
+            contentStack.removeAllArrangedSubviews()
 
-            updateHeightConstraints(quantityPage: quantityPage)
+            let chunks = data.chunks(ofCount: cols)
+            chunks.forEach { items in
+                let stack = Ocean.StackView { stack in
+                    stack.translatesAutoresizingMaskIntoConstraints = false
+                    stack.axis = .horizontal
+                    stack.distribution = .fillEqually
+                    stack.alignment = .fill
+                    stack.spacing = Shortcut.Constants.interItemSpacing
+                }
+
+                items.forEach { model in
+                    let view = Ocean.ShorcutItem(orientation: orientation, size: size)
+                    view.model = model
+                    view.onTouch = tapped(model:)
+
+                    stack.addArrangedSubview(view)
+                }
+
+                if items.count < cols {
+                    stack.addArrangedSubview(UIView())
+                }
+
+                stack.oceanConstraints
+                    .height(constant: getItemMinHeight(), type: .greaterThanOrEqualTo)
+                    .make()
+
+                contentStack.addArrangedSubview(stack)
+            }
         }
 
         override init(frame: CGRect) {
             super.init(frame: frame)
+
             setupUI()
         }
 
@@ -110,76 +104,35 @@ extension Ocean {
         private func setupUI() {
             isSkeletonable = true
             backgroundColor = .clear
-            setupCollectionView()
-            heightConstraint.isActive = true
-        }
 
-        private func setupCollectionView() {
-            addSubview(carouselCollectionView)
+            addSubview(contentStack)
 
-            carouselCollectionView.oceanConstraints
+            contentStack.oceanConstraints
                 .fill(to: self)
                 .make()
         }
 
-        private func updateHeightConstraints(quantityPage: CGFloat) {
-            if direction == .vertical {
-                let quantityRows = (CGFloat(self.data.count) / quantityPage).rounded()
-                let spacing = (quantityRows - 1) * Ocean.size.spacingStackXs
-                let heightTotal = (height * quantityRows) + spacing
-                heightConstraint.constant = heightTotal
-            } else {
-                heightConstraint.constant = height
+        public func getItemMinHeight() -> CGFloat {
+            switch size {
+            case .tiny:
+                return orientation == .horizontal
+                ? Shortcut.Constants.minHeightTinyHorizontal
+                : Shortcut.Constants.minHeightTinyVertical
+            case .small:
+                return Shortcut.Constants.minHeightSmall
+            case .medium:
+                return orientation == .horizontal
+                ? Shortcut.Constants.minHeightMediumHorizontal
+                : Shortcut.Constants.minHeightMediumVertical
             }
         }
 
-        // MARK: - SkeletonCollectionViewDataSource
-
-        public func numSections(in collectionSkeletonView: UICollectionView) -> Int {
-            1
-        }
-
-        public func collectionSkeletonView(_ skeletonView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return self.data.count
-        }
-
-        public func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
-            ShortcutCell.cellId
-        }
-
-        // MARK: - UICollectionViewDataSource
-
-        public func numberOfSections(in collectionView: UICollectionView) -> Int {
-            return 1
-        }
-
-        public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return self.data.count
-        }
-
-        public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ShortcutCell.cellId, for: indexPath) as? ShortcutCell else { return UICollectionViewCell() }
-
-            let shortcutData = self.data[indexPath.row]
-            cell.orientation = orientation
-            cell.model = shortcutData
-            return cell
-        }
-
-        public func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-            if let cell = collectionView.cellForItem(at: indexPath) as? ShortcutCell {
-                cell.pressState(isPressed: true)
+        private func tapped(model: ShortcutModel) {
+            guard let index = data.firstIndex(where: { $0 == model }) else {
+                return
             }
-        }
 
-        public func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-            if let cell = collectionView.cellForItem(at: indexPath) as? ShortcutCell {
-                cell.pressState(isPressed: false)
-            }
-        }
-
-        public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            onTouch?(indexPath.row)
+            onTouch?(index)
         }
     }
 }
