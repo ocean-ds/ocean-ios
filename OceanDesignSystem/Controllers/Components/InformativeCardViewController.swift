@@ -63,7 +63,7 @@ class InformativeCardViewController: UIViewController {
     }
     
     private func addExample(stackView: Ocean.StackView,
-                            state: Ocean.InformativeCardViewState = .defaultState,
+                            state: Ocean.InformativeCardState = .defaultState,
                             iconImage: UIImage = Ocean.icon.placeholderOutline!,
                             titleText: String = "Title",
                             valueText: String = "R$ 0,00",
@@ -104,7 +104,7 @@ class InformativeCardViewController: UIViewController {
             snackbar.show(in: self.view)
         }
         
-        let informativeCard = Ocean.InformativeCardView(frame: .zero, model: model)
+        let informativeCard = Ocean.InformativeCard(frame: .zero, model: model)
         
         stackView.addArrangedSubview(informativeCard)
     }

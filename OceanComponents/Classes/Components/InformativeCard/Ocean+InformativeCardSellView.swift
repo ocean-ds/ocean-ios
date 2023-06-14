@@ -1,5 +1,5 @@
 //
-//  Ocean+InformativeCardEmptyView.swift
+//  Ocean+InformativeCardSellView.swift
 //  FSCalendar
 //
 //  Created by Renan Massaroto on 19/05/23.
@@ -10,11 +10,15 @@ import OceanTokens
 import SkeletonView
 
 extension Ocean {
-    class InformativeCardEmptyView: UIView {
+    class InformativeCardSellView: UIView {
         
         // MARK: Private properties
         
-        private var model: Ocean.InformativeCardModel
+        var model: Ocean.InformativeCardModel {
+            didSet {
+                updateUI()
+            }
+        }
         
         // MARK: Views
         
@@ -22,18 +26,27 @@ extension Ocean {
             let imageView = UIImageView()
             imageView.contentMode = .scaleAspectFit
             imageView.isSkeletonable = true
-            imageView.tintColor = Ocean.color.colorInterfaceDarkUp
             imageView.translatesAutoresizingMaskIntoConstraints = false
             
             return imageView
+        }()
+        
+        private lazy var iconImageContainer: UIView = {
+            let view = UIView()
+            view.isSkeletonable = true
+            view.translatesAutoresizingMaskIntoConstraints = false
+            
+            view.addSubview(iconImageView)
+            
+            return view
         }()
         
         private lazy var titleLabel: UILabel = {
             Ocean.Typography.heading4 { label in
                 label.isSkeletonable = true
                 label.numberOfLines = -1
-                label.textAlignment = .center
-                label.textColor = Ocean.color.colorInterfaceDarkUp
+                label.textAlignment = .left
+                label.textColor = Ocean.color.colorInterfaceDarkDeep
                 label.translatesAutoresizingMaskIntoConstraints = false
             }
         }()
@@ -42,28 +55,26 @@ extension Ocean {
             Ocean.Typography.description { label in
                 label.isSkeletonable = true
                 label.numberOfLines = -1
-                label.textAlignment = .center
-                label.textColor = Ocean.color.colorInterfaceDarkUp
+                label.textAlignment = .left
+                label.textColor = Ocean.color.colorInterfaceDarkDown
                 label.translatesAutoresizingMaskIntoConstraints = false
             }
         }()
         
         private lazy var contentStack: Ocean.StackView = {
             Ocean.StackView { stack in
-                stack.alignment = .center
+                stack.alignment = .fill
                 stack.axis = .vertical
                 stack.distribution = .fill
                 stack.isSkeletonable = true
                 stack.translatesAutoresizingMaskIntoConstraints = false
                 
                 stack.add([
-                    Ocean.Spacer(space: Ocean.size.spacingStackXl),
-                    iconImageView,
+                    iconImageContainer,
                     Ocean.Spacer(space: Ocean.size.spacingStackXs),
                     titleLabel,
                     Ocean.Spacer(space: Ocean.size.spacingStackXxxs),
-                    descriptionLabel,
-                    Ocean.Spacer(space: Ocean.size.spacingStackXl)
+                    descriptionLabel
                 ])
             }
         }()
@@ -84,14 +95,18 @@ extension Ocean {
         // MARK: Setup
         
         private func setupUI() {
-            backgroundColor = Ocean.color.colorInterfaceLightUp
             isSkeletonable = true
-            
             addSubviews(contentStack)
-            
+            setupConstraints()
+        }
+        
+        private func setupConstraints() {
             iconImageView.oceanConstraints
-                .width(constant: 24)
-                .height(constant: 24)
+                .topToTop(to: iconImageContainer)
+                .bottomToBottom(to: iconImageContainer)
+                .centerX(to: iconImageContainer)
+                .width(constant: 80)
+                .height(constant: 80)
                 .make()
             
             contentStack.oceanConstraints
@@ -102,10 +117,10 @@ extension Ocean {
                 .make()
         }
         
-        // MARK: Public methods
+        // MARK: Private methods
         
-        func updateUI() {
-            iconImageView.image = model.iconImage.withRenderingMode(.alwaysTemplate)
+        private func updateUI() {
+            iconImageView.image = model.iconImage
             titleLabel.text = model.titleText
             descriptionLabel.text = model.descriptionText
             descriptionLabel.isHidden = model.descriptionText.isEmpty
