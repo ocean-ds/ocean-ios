@@ -186,6 +186,12 @@ extension Ocean {
             tooltip.show(target: rightIconImageView, position: .bottom, presenter: getRootSuperview())
         }
         
+        func update(model: InformativeCardModel) {
+            self.model = model
+            
+            updateUI()
+        }
+        
         func updateUI() {
             leftIconImageView.image = model.iconImage.withRenderingMode(.alwaysTemplate)
             tooltip.message = model.tooltipMessage

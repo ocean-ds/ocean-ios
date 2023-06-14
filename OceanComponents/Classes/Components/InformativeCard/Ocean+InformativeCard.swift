@@ -1,5 +1,5 @@
 //
-//  Ocean+InformativeCardView.swift
+//  Ocean+InformativeCard.swift
 //  FSCalendar
 //
 //  Created by Renan Massaroto on 19/05/23.
@@ -13,7 +13,7 @@ extension Ocean {
     
     public struct InformativeCardModel {
         
-        public var state: Ocean.InformativeCardViewState
+        public var state: Ocean.InformativeCardState
         public var iconImage: UIImage
         public var tooltipMessage: String
         public var titleText: String
@@ -24,7 +24,7 @@ extension Ocean {
         public var actionText: String?
         public var onTouchAction: ((GroupCTA) -> Void)?
         
-        public init(state: Ocean.InformativeCardViewState,
+        public init(state: Ocean.InformativeCardState,
                     iconImage: UIImage,
                     tooltipMessage: String? = nil,
                     titleText: String,
@@ -60,13 +60,13 @@ extension Ocean {
         }
     }
     
-    public enum InformativeCardViewState: String {
+    public enum InformativeCardState: String {
         case defaultState
         case sellState
         case emptyState
     }
     
-    public class InformativeCardView: UIView {
+    public class InformativeCard: UIView {
         
         // MARK: Private properties
         
@@ -166,6 +166,17 @@ extension Ocean {
             contentStack.oceanConstraints
                 .fill(to: self)
                 .make()
+        }
+        
+        // MARK: Public methods
+        
+        public func update(model: InformativeCardModel) {
+            self.model = model
+            defaultView.update(model: model)
+            sellView.update(model: model)
+            emptyView.update(model: model)
+            
+            updateUI()
         }
         
         // MARK: Private methods

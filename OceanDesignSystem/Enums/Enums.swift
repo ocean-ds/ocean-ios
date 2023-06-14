@@ -67,7 +67,7 @@ public enum DesignSystemComponentsType: String {
     case SettingsListItem
     case FilterBar
     case ChartCard
-    case InformativeCardView
+    case InformativeCard
     case ProgressBar
     case DetailedCard
 }
