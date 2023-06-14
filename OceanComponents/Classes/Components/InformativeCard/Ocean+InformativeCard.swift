@@ -70,7 +70,11 @@ extension Ocean {
         
         // MARK: Private properties
         
-        private var model: InformativeCardModel
+        public var model: InformativeCardModel {
+            didSet {
+                updateUI()
+            }
+        }
         
         // MARK: Views
         
@@ -168,17 +172,6 @@ extension Ocean {
                 .make()
         }
         
-        // MARK: Public methods
-        
-        public func update(model: InformativeCardModel) {
-            self.model = model
-            defaultView.update(model: model)
-            sellView.update(model: model)
-            emptyView.update(model: model)
-            
-            updateUI()
-        }
-        
         // MARK: Private methods
         
         private func updateUI() {
@@ -186,9 +179,9 @@ extension Ocean {
             sellView.isHidden = model.state != .sellState
             emptyView.isHidden = model.state != .emptyState
             
-            defaultView.updateUI()
-            sellView.updateUI()
-            emptyView.updateUI()
+            defaultView.model = model
+            sellView.model = model
+            emptyView.model = model
             
             cta.text = model.actionText ?? ""
             cta.isHidden = model.actionText == nil || model.actionText?.isEmpty == true

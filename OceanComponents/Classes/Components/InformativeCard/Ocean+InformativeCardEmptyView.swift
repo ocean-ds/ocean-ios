@@ -14,7 +14,11 @@ extension Ocean {
         
         // MARK: Private properties
         
-        private var model: Ocean.InformativeCardModel
+        var model: Ocean.InformativeCardModel {
+            didSet {
+                updateUI()
+            }
+        }
         
         // MARK: Views
         
@@ -86,9 +90,11 @@ extension Ocean {
         private func setupUI() {
             backgroundColor = Ocean.color.colorInterfaceLightUp
             isSkeletonable = true
-            
             addSubviews(contentStack)
-            
+            setupConstraints()
+        }
+        
+        private func setupConstraints() {
             iconImageView.oceanConstraints
                 .width(constant: 24)
                 .height(constant: 24)
@@ -102,15 +108,9 @@ extension Ocean {
                 .make()
         }
         
-        // MARK: Public methods
+        // MARK: Private methods
         
-        func update(model: InformativeCardModel) {
-            self.model = model
-            
-            updateUI()
-        }
-        
-        func updateUI() {
+        private func updateUI() {
             iconImageView.image = model.iconImage.withRenderingMode(.alwaysTemplate)
             titleLabel.text = model.titleText
             descriptionLabel.text = model.descriptionText

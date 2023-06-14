@@ -14,7 +14,11 @@ extension Ocean {
         
         // MARK: Private properties
         
-        private var model: Ocean.InformativeCardModel
+        var model: Ocean.InformativeCardModel {
+            didSet {
+                updateUI()
+            }
+        }
         
         // MARK: Views
         
@@ -143,7 +147,6 @@ extension Ocean {
             super.init(frame: frame)
             
             setupUI()
-            updateUI()
         }
         
         public required init?(coder: NSCoder) {
@@ -154,9 +157,11 @@ extension Ocean {
         
         private func setupUI() {
             isSkeletonable = true
-            
             addSubviews(leftIconImageView, rightIconImageView, contentStack)
-            
+            setupConstraints()
+        }
+        
+        private func setupConstraints() {
             leftIconImageView.oceanConstraints
                 .topToTop(to: self, constant: Ocean.size.spacingInsetSm)
                 .leadingToLeading(to: self, constant: Ocean.size.spacingInsetSm)
@@ -186,13 +191,9 @@ extension Ocean {
             tooltip.show(target: rightIconImageView, position: .bottom, presenter: getRootSuperview())
         }
         
-        func update(model: InformativeCardModel) {
-            self.model = model
-            
-            updateUI()
-        }
+        // MARK: Private methods
         
-        func updateUI() {
+        private func updateUI() {
             leftIconImageView.image = model.iconImage.withRenderingMode(.alwaysTemplate)
             tooltip.message = model.tooltipMessage
             rightIconImageView.isHidden = model.tooltipMessage.isEmpty
@@ -207,8 +208,6 @@ extension Ocean {
             removeSubItems()
             model.subItems.forEach { addSubItem(model: $0) }
         }
-        
-        // MARK: Private methods
         
         private func addSubItem(model: Ocean.InformativeCardSubItemModel) {
             let itemView = InformativeCardInfoListItemView(frame: .zero, model: model)
