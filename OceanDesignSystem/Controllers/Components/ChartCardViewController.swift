@@ -20,8 +20,6 @@ class ChartCardViewController: UIViewController {
         {
             let item = Ocean.ChartCardItem()
             item.title = "Title 1"
-            item.subtitle = "Subtitle 1"
-            item.tooltipMessage = "message tooltip"
             item.value = 123.00
             item.color = Ocean.color.colorComplementaryPure
             item.valueRepresentationType = .percent
@@ -31,7 +29,6 @@ class ChartCardViewController: UIViewController {
         {
             let item = Ocean.ChartCardItem()
             item.title = "Title 2"
-            item.subtitle = "Subtitle 2"
             item.tooltipMessage = "message tooltip"
             item.value = 123.00
             item.color = Ocean.color.colorStatusNeutralPure
@@ -54,7 +51,6 @@ class ChartCardViewController: UIViewController {
             let item = Ocean.ChartCardItem()
             item.title = "Title 4"
             item.subtitle = "Subtitle 4"
-            item.tooltipMessage = "message tooltip"
             item.value = 123.00
             item.color = Ocean.color.colorBrandPrimaryDown
             item.valueRepresentationType = .percent
