@@ -72,10 +72,19 @@ extension Ocean {
         private lazy var dotLegendView: UIView = {
             let view = UIView()
             view.layer.cornerRadius = Ocean.size.borderRadiusSm
+            view.clipsToBounds = true
             view.isSkeletonable = true
             view.isUserInteractionDisabledWhenSkeletonIsActive = true
             
             view.skeletonCornerRadius = Float(Ocean.size.borderRadiusSm)
+            
+            return view
+        }()
+        
+        private lazy var containerDotLegendView: UIView = {
+            let view = UIView()
+            view.clipsToBounds = true
+            view.isSkeletonable = true
             
             return view
         }()
@@ -99,6 +108,20 @@ extension Ocean {
             return image
         }()
         
+        private lazy var titleStack: Ocean.StackView = {
+            let stack = Ocean.StackView()
+            stack.axis = .horizontal
+            stack.spacing = Ocean.size.spacingInlineXxs
+            stack.isSkeletonable = true
+            
+            stack.add([
+                titleLegendLabel,
+                iconLegendImage
+            ])
+            
+            return stack
+        }()
+        
         private lazy var tooltip: Ocean.Tooltip = {
             Ocean.Tooltip { component in
                 component.indicatorMargin = Ocean.size.spacingStackXxxs
@@ -113,6 +136,21 @@ extension Ocean {
             label.isUserInteractionDisabledWhenSkeletonIsActive = true
             
             return label
+        }()
+        
+        private lazy var titleAndSubtitleStack: Ocean.StackView = {
+            let stack = Ocean.StackView()
+            stack.axis = .vertical
+            stack.alignment = .leading
+            stack.spacing = Ocean.size.spacingInlineXxxs
+            stack.isSkeletonable = true
+            
+            stack.add([
+                titleStack,
+                subtitleLegendLabel
+            ])
+            
+            return stack
         }()
         
         private lazy var valueLegendLabel: UILabel = {
@@ -160,10 +198,10 @@ extension Ocean {
             self.isSkeletonable = true
             self.isUserInteractionDisabledWhenSkeletonIsActive = true
             
-            addSubview(dotLegendView)
-            addSubview(iconLegendImage)
-            addSubview(titleLegendLabel)
-            addSubview(subtitleLegendLabel)
+            containerDotLegendView.addSubview(dotLegendView)
+            
+            addSubview(containerDotLegendView)
+            addSubview(titleAndSubtitleStack)
             addSubview(valueLegendLabel)
             
             setupConstraints()
@@ -177,32 +215,24 @@ extension Ocean {
                 .height(constant: Constants.chartCardItemHeight)
                 .make()
             
+            containerDotLegendView.oceanConstraints
+                .topToTop(to: self)
+                .bottomToBottom(to: self)
+                .width(constant: Ocean.size.spacingStackXxs)
+                .leadingToLeading(to: self, constant: Ocean.size.spacingStackXs)
+                .make()
+            
             dotLegendView.oceanConstraints
                 .centerY(to: titleLegendLabel)
-                .leadingToLeading(to: self, constant: Ocean.size.spacingStackXs)
                 .height(constant: Ocean.size.spacingStackXxs)
                 .width(constant: Ocean.size.spacingStackXxs)
                 .make()
             
-            titleLegendLabel.oceanConstraints
-                .topToTop(to: self, constant: Ocean.size.spacingStackXxs)
-                .leadingToTrailing(to: dotLegendView, constant: Ocean.size.spacingStackXxs)
+            titleAndSubtitleStack.oceanConstraints
+                .centerY(to: self)
+                .leadingToTrailing(to: containerDotLegendView, constant: Ocean.size.spacingStackXxs)
                 .make()
-            
-            iconLegendImage.oceanConstraints
-                .leadingToTrailing(to: titleLegendLabel,
-                                   constant: Constants.iconLegendImageSpaceLeading)
-                .centerY(to: titleLegendLabel)
-                .width(constant: Constants.iconLegendImageWidth)
-                .height(constant: Constants.iconLegendImageHeight)
-                .make()
-            
-            subtitleLegendLabel.oceanConstraints
-                .topToBottom(to: titleLegendLabel, constant: Ocean.size.spacingStackXxxs)
-                .bottomToBottom(to: self, constant: -Ocean.size.spacingStackXxs)
-                .leadingToLeading(to: titleLegendLabel)
-                .make()
-            
+
             valueLegendLabel.oceanConstraints
                 .centerY(to: self)
                 .trailingToTrailing(to: self, constant: -Ocean.size.spacingStackXs)
