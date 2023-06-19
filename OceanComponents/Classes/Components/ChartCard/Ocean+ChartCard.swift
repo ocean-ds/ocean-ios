@@ -362,6 +362,7 @@ extension Ocean {
         
         private func setupListItems() {
             guard showLegend else { return }
+            legendItemsListStack.removeSubviews()
             
             for (index, item) in items.enumerated() {
                 item.onLegendTapped = { [weak self] _ in self?.legendTaped(chartItem: item) }
