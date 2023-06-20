@@ -20,13 +20,6 @@ extension Ocean {
 
         public var onStateChanged: ((BalanceState) -> Void)?
 
-        public var state: BalanceState = .collapsed {
-            didSet {
-                updateState()
-                onStateChanged?(state)
-            }
-        }
-
         private lazy var heightConstraint: NSLayoutConstraint = {
             return self.heightAnchor.constraint(equalToConstant: Constants.heightContent + Constants.space + Constants.heightPage)
         }()
@@ -34,6 +27,8 @@ extension Ocean {
         private lazy var heightCollectionViewConstraint: NSLayoutConstraint = {
             return collectionView.heightAnchor.constraint(equalToConstant: Constants.heightContent)
         }()
+
+        private (set) public var state: BalanceState = .collapsed
 
         private var data: [BalanceModel] = []
 
@@ -64,6 +59,7 @@ extension Ocean {
             collection.register(BalanceCell.self, forCellWithReuseIdentifier: BalanceCell.identifier)
             collection.backgroundColor = .clear
             collection.translatesAutoresizingMaskIntoConstraints = false
+            collection.allowsSelection = false
             collection.isSkeletonable = true
             return collection
         }()
@@ -77,14 +73,28 @@ extension Ocean {
             pageControl.isSelected = false
             pageControl.translatesAutoresizingMaskIntoConstraints = false
             pageControl.transform = CGAffineTransformMakeScale(0.6, 0.6)
+
             return pageControl
         }()
+
+        public init(frame: CGRect = .zero, state: BalanceState? = nil) {
+            super.init(frame: frame)
+            setupUI()
+            setState(state ?? self.state, animated: false)
+        }
+
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
 
         public func addBalances(with balances: [BalanceModel]) {
             guard !balances.isEmpty else { return }
 
             collectionView.collectionViewLayout = getBalanceLayout(state: self.state)
+
+            let previousVisibility = pageControl.isHidden
             pageControl.numberOfPages = balances.count
+            pageControl.isHidden = previousVisibility
 
             self.data = balances
             self.currentPage = 0
@@ -95,13 +105,10 @@ extension Ocean {
             collectionView.setContentOffset(.zero, animated: true)
         }
 
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            setupUI()
-        }
-
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
+        public func setState(_ state: BalanceState, animated: Bool = true) {
+            self.state = state
+            updateState(animated: animated)
+            onStateChanged?(state)
         }
 
         private func setupUI() {
@@ -159,35 +166,44 @@ extension Ocean {
             return balanceLayout
         }
 
-        private func updateState() {
-            if state == .collapsed || state == .scroll {
+        private func updateState(animated: Bool = true) {
+            if state == .collapsed {
                 self.collapseAllCollectionView()
             }
 
             if state == .scroll {
-                let data = self.data[pageControl.currentPage]
-                self.balanceScrollView.model = data
+                self.updateStateScroll(animated: animated)
+                return
+            }
 
-                self.heightConstraint.constant = Constants.heightContentScroll
+            self.updateVisibility()
+            self.updateCollectionViewHeight(state: self.state)
+        }
+
+        private func updateStateScroll(animated: Bool = true) {
+            self.collapseAllCollectionView()
+
+            if pageControl.currentPage < data.count {
+                let data = data[pageControl.currentPage]
+                balanceScrollView.model = data
+            }
+
+            heightConstraint.constant = Constants.heightContentScroll
+
+            if animated {
                 UIView.animate(withDuration: 0.3) {
                     self.layoutIfNeeded()
-                    self.balanceScrollView.isHidden = false
-                    self.collectionView.isHidden = true
-                    self.pageControl.isHidden = true
+                    self.updateVisibility()
                 }
-
-                return
+            } else {
+                updateVisibility()
             }
+        }
 
-            if self.balanceScrollView.isHidden {
-                self.updateCollectionViewHeight(state: self.state)
-                return
-            }
-            
-            self.collectionView.isHidden = false
-            self.pageControl.isHidden = false
-            self.balanceScrollView.isHidden = true
-            self.updateCollectionViewHeight(state: self.state)
+        private func updateVisibility() {
+            self.balanceScrollView.isHidden = state != .scroll
+            self.collectionView.isHidden = state == .scroll
+            self.pageControl.isHidden = state == .scroll
         }
 
         private func updateCollectionViewHeight(state: BalanceState) {
@@ -218,7 +234,7 @@ extension Ocean {
                 }
             }
 
-            self.state = hasItemsExpanded ? .expanded : .collapsed
+            setState(hasItemsExpanded ? .expanded : .collapsed)
         }
 
         private func collapseAllCollectionView() {
@@ -238,6 +254,30 @@ extension Ocean {
         private func getAllIndexPathsInSection(section: Int) -> [IndexPath] {
             let count = self.collectionView.numberOfItems(inSection: section)
             return (0..<count).map { IndexPath(row: $0, section: section) }
+        }
+
+        private func getCurrentPage() -> Int {
+            let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
+            let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
+            if let visibleIndexPath = collectionView.indexPathForItem(at: visiblePoint) {
+                return visibleIndexPath.row
+            }
+
+            return currentPage
+        }
+
+        private func updateStateCollectionViewCellSelected() {
+            let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
+            let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
+            if let visibleIndexPath = collectionView.indexPathForItem(at: visiblePoint) {
+                if let cell = self.collectionView.cellForItem(at: visibleIndexPath) as? BalanceCell {
+                    if cell.state == .collapsed {
+                        self.setState(.collapsed)
+                    } else {
+                        self.setState(.expanded)
+                    }
+                }
+            }
         }
 
         // MARK: - SkeletonCollectionViewDataSource
@@ -287,30 +327,6 @@ extension Ocean {
 
         public func scrollViewDidScroll(_ scrollView: UIScrollView) {
             currentPage = getCurrentPage()
-        }
-
-        private func getCurrentPage() -> Int {
-            let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
-            let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
-            if let visibleIndexPath = collectionView.indexPathForItem(at: visiblePoint) {
-                return visibleIndexPath.row
-            }
-
-            return currentPage
-        }
-
-        private func updateStateCollectionViewCellSelected() {
-            let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
-            let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
-            if let visibleIndexPath = collectionView.indexPathForItem(at: visiblePoint) {
-                if let cell = self.collectionView.cellForItem(at: visibleIndexPath) as? BalanceCell {
-                    if cell.state == .collapsed {
-                        self.state = .collapsed
-                    } else {
-                        self.state = .expanded
-                    }
-                }
-            }
         }
     }
 }
