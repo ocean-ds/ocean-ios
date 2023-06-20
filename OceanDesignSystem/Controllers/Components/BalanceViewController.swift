@@ -18,7 +18,7 @@ final public class BalanceViewController : UIViewController {
         Ocean.Button.secondarySM { button in
             button.text = "Toggle Scroll"
             button.onTouch = {
-                self.balance.state = self.balance.state == .scroll ? .collapsed : .scroll
+                self.balance.setState(self.balance.state == .scroll ? .collapsed : .scroll)
             }
         }
     }()
