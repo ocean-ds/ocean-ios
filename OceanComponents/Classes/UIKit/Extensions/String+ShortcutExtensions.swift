@@ -17,4 +17,12 @@ public extension String {
         default: return nil
         }
     }
+
+    func toOceanShortcutOrientation() -> Ocean.Shortcut.Orientation? {
+        switch self.lowercased() {
+        case "horizontal": return Ocean.Shortcut.Orientation.horizontal
+        case "vertical": return Ocean.Shortcut.Orientation.vertical
+        default: return nil
+        }
+    }
 }
