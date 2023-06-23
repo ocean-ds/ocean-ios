@@ -17,8 +17,12 @@ extension Ocean {
             static let space: CGFloat = Ocean.size.spacingInsetMd
             static let heightPage: CGFloat = 4
         }
+        
+        // MARK: - Properties public
 
         public var onStateChanged: ((BalanceState) -> Void)?
+        
+        // MARK: - Properties private
 
         private lazy var heightConstraint: NSLayoutConstraint = {
             return self.heightAnchor.constraint(equalToConstant: Constants.heightContent + Constants.space + Constants.heightPage)
@@ -57,6 +61,7 @@ extension Ocean {
             collection.showsVerticalScrollIndicator = false
             collection.isPagingEnabled = true
             collection.register(BalanceCell.self, forCellWithReuseIdentifier: BalanceCell.identifier)
+            collection.register(BalanceWithoutValueCell.self, forCellWithReuseIdentifier: BalanceWithoutValueCell.identifier)
             collection.backgroundColor = .clear
             collection.translatesAutoresizingMaskIntoConstraints = false
             collection.allowsSelection = false
@@ -76,6 +81,8 @@ extension Ocean {
 
             return pageControl
         }()
+        
+        // MARK: - Constructors
 
         public init(frame: CGRect = .zero, state: BalanceState? = nil) {
             super.init(frame: frame)
@@ -86,6 +93,8 @@ extension Ocean {
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
+        
+        // MARK: - Functions public
 
         public func addBalances(with balances: [BalanceModel]) {
             guard !balances.isEmpty else { return }
@@ -111,6 +120,8 @@ extension Ocean {
             onStateChanged?(state)
         }
 
+        // MARK: - Setups
+        
         private func setupUI() {
             isSkeletonable = true
             backgroundColor = .clear
@@ -150,6 +161,8 @@ extension Ocean {
                 .height(constant: Constants.heightPage)
                 .make()
         }
+        
+        // MARK: - Functions private
 
         private func getBalanceLayout(state: BalanceState) -> UICollectionViewFlowLayout {
             let itemWidth = frame.width - (Ocean.size.spacingStackXs * 2) - 20
@@ -279,6 +292,31 @@ extension Ocean {
                 }
             }
         }
+        
+        private func setupBalanceCell(data: BalanceModel, indexPath: IndexPath) -> UICollectionViewCell {
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: BalanceCell.identifier,
+                for: indexPath
+            ) as? BalanceCell else { return UICollectionViewCell() }
+            
+            cell.model = data
+            cell.onStateChanged = { _ in
+                self.changeStateCollectionView()
+            }
+            
+            return cell
+        }
+        
+        private func setupWithoutValueCell(data: BalanceModel, indexPath: IndexPath) -> UICollectionViewCell {
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: BalanceWithoutValueCell.identifier,
+                for: indexPath
+            ) as? BalanceWithoutValueCell else { return UICollectionViewCell() }
+            
+            cell.model = data
+            
+            return cell
+        }
 
         // MARK: - SkeletonCollectionViewDataSource
 
@@ -305,15 +343,13 @@ extension Ocean {
         }
 
         public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BalanceCell.identifier, for: indexPath) as? BalanceCell else { return UICollectionViewCell() }
-
             let data = self.data[indexPath.row]
-            cell.model = data
-            cell.onStateChanged = { _ in
-                self.changeStateCollectionView()
+            
+            if data.cellType == .balance {
+                return setupBalanceCell(data: data, indexPath: indexPath)
+            } else {
+                return setupWithoutValueCell(data: data, indexPath: indexPath)
             }
-
-            return cell
         }
 
         public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

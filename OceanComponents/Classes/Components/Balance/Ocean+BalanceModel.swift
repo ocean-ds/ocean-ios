@@ -11,6 +11,10 @@ extension Ocean {
     public enum BalanceState {
         case expanded, collapsed, scroll
     }
+    
+    public enum BalanceCellType {
+        case balance, withoutValue
+    }
 
     public struct BalanceModel {
         let title: String
@@ -21,7 +25,9 @@ extension Ocean {
         let item2Value: Double
         let description: String
         let actionCTA: String
+        let actionCTACollapsed: String
         let action: (() -> Void)?
+        let cellType: BalanceCellType
 
         public init(title: String,
                     value: Double?,
@@ -31,7 +37,9 @@ extension Ocean {
                     item2Value: Double,
                     description: String,
                     actionCTA: String,
-                    action: (() -> Void)?) {
+                    actionCTACollapsed: String  = "",
+                    action: (() -> Void)?,
+                    cellType: BalanceCellType = .balance) {
             self.title = title
             self.value = value
             self.item1Title = item1Title
@@ -40,14 +48,18 @@ extension Ocean {
             self.item2Value = item2Value
             self.description = description
             self.actionCTA = actionCTA
+            self.actionCTACollapsed = actionCTACollapsed
             self.action = action
+            self.cellType = cellType
         }
 
         public init(title: String,
                     value: Double?,
                     description: String,
                     actionCTA: String,
-                    action: (() -> Void)?) {
+                    actionCTACollapsed: String,
+                    action: (() -> Void)?,
+                    cellType: BalanceCellType = .withoutValue) {
             self.init(title: title,
                       value: value,
                       item1Title: "",
@@ -56,7 +68,9 @@ extension Ocean {
                       item2Value: 0,
                       description: description,
                       actionCTA: actionCTA,
-                      action: action)
+                      actionCTACollapsed: actionCTACollapsed,
+                      action: action,
+                      cellType: cellType)
         }
 
         public static func empty() -> Self {
@@ -64,6 +78,7 @@ extension Ocean {
                                 value: nil,
                                 description: "",
                                 actionCTA: "",
+                                actionCTACollapsed: "",
                                 action: nil)
         }
     }
