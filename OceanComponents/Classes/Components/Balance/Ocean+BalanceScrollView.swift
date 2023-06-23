@@ -44,6 +44,14 @@ extension Ocean {
                 label.textColor = Ocean.color.colorBrandPrimaryUp
             }
         }()
+        
+        private lazy var descriptionLabel: UILabel = {
+            Ocean.Typography.description { label in
+                label.textColor = Ocean.color.colorInterfaceLightDown
+                label.numberOfLines = 2
+                label.setContentCompressionResistancePriority(.required, for: .horizontal)
+            }
+        }()
 
         private lazy var valueLabel: UILabel = {
             UILabel { label in
@@ -51,21 +59,6 @@ extension Ocean {
                 label.textColor = Ocean.color.colorInterfaceLightPure
                 label.isSkeletonable = true
             }
-        }()
-
-        private lazy var placeholderValueView: UIView = {
-            let view = UIView()
-            view.backgroundColor = Ocean.color.colorBrandPrimaryDown
-            view.clipsToBounds = true
-            view.ocean.radius.applySm()
-            return view
-        }()
-
-        private lazy var placeholderValueContainer: UIView = {
-            let view = UIView()
-            view.addSubview(placeholderValueView)
-            view.isHidden = true
-            return view
         }()
 
         private lazy var titleStack: Ocean.StackView = {
@@ -78,8 +71,8 @@ extension Ocean {
 
                 stack.add([
                     titleLabel,
-                    valueLabel,
-                    placeholderValueContainer
+                    descriptionLabel,
+                    valueLabel
                 ])
             }
         }()
@@ -159,29 +152,37 @@ extension Ocean {
             contentStack.oceanConstraints
                 .fill(to: self)
                 .make()
-
-            placeholderValueView.oceanConstraints
-                .width(constant: 40)
-                .height(constant: 6)
-                .centerY(to: placeholderValueContainer)
-                .leadingToLeading(to: placeholderValueContainer)
-                .make()
-
-            placeholderValueContainer.oceanConstraints
-                .height(constant: 27)
-                .make()
         }
 
         private func updateUI() {
-            self.titleLabel.text = model.title
-            self.valueLabel.text = model.value?.toCurrency()
-            self.valueLabel.isHidden = model.value == nil
-            self.placeholderValueContainer.isHidden = model.value != nil
-            self.eyeContainerView.isHidden = model.value == nil
-
-            self.arrowView.isHidden = model.item1Title.isEmpty && model.item2Title.isEmpty
-            self.footerButton.text = model.actionCTA
-            self.footerButton.isHidden = !model.item1Title.isEmpty && !model.item2Title.isEmpty
+            if model.cellType == .withValue {
+                setupBalanceWithValueCell()
+            } else {
+                setupBalanceWithoutValueCell()
+            }
+        }
+        
+        private func setupBalanceWithValueCell() {
+            titleLabel.text = model.title
+            titleLabel.isHidden = false
+            descriptionLabel.isHidden = true
+            footerButton.text = model.actionCTA
+            footerButton.isHidden = true
+            valueLabel.text = model.value?.toCurrency()
+            valueLabel.isHidden = false
+            eyeContainerView.isHidden = false
+            arrowView.isHidden = false
+        }
+        
+        private func setupBalanceWithoutValueCell() {
+            descriptionLabel.text = model.description
+            descriptionLabel.isHidden = false
+            footerButton.text = model.actionCTACollapsed
+            footerButton.isHidden = false
+            titleLabel.isHidden = true
+            arrowView.isHidden = true
+            valueLabel.isHidden = true
+            eyeContainerView.isHidden = true
         }
 
         private func updateVisibleUI() {

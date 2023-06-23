@@ -17,8 +17,12 @@ extension Ocean {
             static let space: CGFloat = Ocean.size.spacingInsetMd
             static let heightPage: CGFloat = 4
         }
+        
+        // MARK: - Properties public
 
         public var onStateChanged: ((BalanceState) -> Void)?
+        
+        // MARK: - Properties private
 
         private lazy var heightConstraint: NSLayoutConstraint = {
             return self.heightAnchor.constraint(equalToConstant: Constants.heightContent + Constants.space + Constants.heightPage)
@@ -56,7 +60,8 @@ extension Ocean {
             collection.showsHorizontalScrollIndicator = false
             collection.showsVerticalScrollIndicator = false
             collection.isPagingEnabled = true
-            collection.register(BalanceCell.self, forCellWithReuseIdentifier: BalanceCell.identifier)
+            collection.register(BalanceWithValueCell.self, forCellWithReuseIdentifier: BalanceWithValueCell.identifier)
+            collection.register(BalanceWithoutValueCell.self, forCellWithReuseIdentifier: BalanceWithoutValueCell.identifier)
             collection.backgroundColor = .clear
             collection.translatesAutoresizingMaskIntoConstraints = false
             collection.allowsSelection = false
@@ -76,6 +81,8 @@ extension Ocean {
 
             return pageControl
         }()
+        
+        // MARK: - Constructors
 
         public init(frame: CGRect = .zero, state: BalanceState? = nil) {
             super.init(frame: frame)
@@ -86,6 +93,8 @@ extension Ocean {
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
+        
+        // MARK: - Functions public
 
         public func addBalances(with balances: [BalanceModel]) {
             guard !balances.isEmpty else { return }
@@ -111,6 +120,8 @@ extension Ocean {
             onStateChanged?(state)
         }
 
+        // MARK: - Setups
+        
         private func setupUI() {
             isSkeletonable = true
             backgroundColor = .clear
@@ -150,6 +161,8 @@ extension Ocean {
                 .height(constant: Constants.heightPage)
                 .make()
         }
+        
+        // MARK: - Functions private
 
         private func getBalanceLayout(state: BalanceState) -> UICollectionViewFlowLayout {
             let itemWidth = frame.width - (Ocean.size.spacingStackXs * 2) - 20
@@ -217,7 +230,7 @@ extension Ocean {
             let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
             let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
             if let visibleIndexPath = collectionView.indexPathForItem(at: visiblePoint) {
-                if let cell = self.collectionView.cellForItem(at: visibleIndexPath) as? BalanceCell {
+                if let cell = self.collectionView.cellForItem(at: visibleIndexPath) as? BalanceWithValueCell {
                     cell.state = state
                 }
             }
@@ -227,7 +240,7 @@ extension Ocean {
             var hasItemsExpanded = false
             let allIndexPaths = self.getAllIndexPaths()
             allIndexPaths.forEach { indexPath in
-                if let cell = self.collectionView.cellForItem(at: indexPath) as? BalanceCell {
+                if let cell = self.collectionView.cellForItem(at: indexPath) as? BalanceWithValueCell {
                     if cell.state == .expanded {
                         hasItemsExpanded = true
                     }
@@ -240,7 +253,7 @@ extension Ocean {
         private func collapseAllCollectionView() {
             let allIndexPaths = self.getAllIndexPaths()
             allIndexPaths.forEach { indexPath in
-                if let cell = self.collectionView.cellForItem(at: indexPath) as? BalanceCell {
+                if let cell = self.collectionView.cellForItem(at: indexPath) as? BalanceWithValueCell {
                     cell.state = .collapsed
                 }
             }
@@ -270,7 +283,7 @@ extension Ocean {
             let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
             let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
             if let visibleIndexPath = collectionView.indexPathForItem(at: visiblePoint) {
-                if let cell = self.collectionView.cellForItem(at: visibleIndexPath) as? BalanceCell {
+                if let cell = self.collectionView.cellForItem(at: visibleIndexPath) as? BalanceWithValueCell {
                     if cell.state == .collapsed {
                         self.setState(.collapsed)
                     } else {
@@ -278,6 +291,31 @@ extension Ocean {
                     }
                 }
             }
+        }
+        
+        private func setupWithValueCell(data: BalanceModel, indexPath: IndexPath) -> UICollectionViewCell {
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: BalanceWithValueCell.identifier,
+                for: indexPath
+            ) as? BalanceWithValueCell else { return UICollectionViewCell() }
+            
+            cell.model = data
+            cell.onStateChanged = { _ in
+                self.changeStateCollectionView()
+            }
+            
+            return cell
+        }
+        
+        private func setupWithoutValueCell(data: BalanceModel, indexPath: IndexPath) -> UICollectionViewCell {
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: BalanceWithoutValueCell.identifier,
+                for: indexPath
+            ) as? BalanceWithoutValueCell else { return UICollectionViewCell() }
+            
+            cell.model = data
+            
+            return cell
         }
 
         // MARK: - SkeletonCollectionViewDataSource
@@ -291,7 +329,13 @@ extension Ocean {
         }
 
         public func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
-            BalanceCell.identifier
+            let data = self.data[indexPath.row]
+            
+            if data.cellType == .withValue {
+                return BalanceWithValueCell.identifier
+            } else {
+                return BalanceWithoutValueCell.identifier
+            }
         }
 
         // MARK: - UICollectionViewDataSource
@@ -305,15 +349,13 @@ extension Ocean {
         }
 
         public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BalanceCell.identifier, for: indexPath) as? BalanceCell else { return UICollectionViewCell() }
-
             let data = self.data[indexPath.row]
-            cell.model = data
-            cell.onStateChanged = { _ in
-                self.changeStateCollectionView()
+            
+            if data.cellType == .withValue {
+                return setupWithValueCell(data: data, indexPath: indexPath)
+            } else {
+                return setupWithoutValueCell(data: data, indexPath: indexPath)
             }
-
-            return cell
         }
 
         public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
