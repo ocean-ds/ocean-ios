@@ -8,8 +8,8 @@
 import OceanTokens
 
 extension Ocean {
-    public class BalanceCell: UICollectionViewCell {
-        static let identifier = "BalanceCellIdentifier"
+    public class BalanceWithValueCell: UICollectionViewCell {
+        static let identifier = "BalanceWithValueCellIdentifier"
 
         public var onStateChanged: ((BalanceState) -> Void)?
 

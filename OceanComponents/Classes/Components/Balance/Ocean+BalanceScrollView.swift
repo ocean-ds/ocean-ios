@@ -156,13 +156,13 @@ extension Ocean {
 
         private func updateUI() {
             if model.cellType == .withValue {
-                setupBalanceCell()
+                setupBalanceWithValueCell()
             } else {
                 setupBalanceWithoutValueCell()
             }
         }
         
-        private func setupBalanceCell() {
+        private func setupBalanceWithValueCell() {
             titleLabel.text = model.title
             titleLabel.isHidden = false
             descriptionLabel.isHidden = true

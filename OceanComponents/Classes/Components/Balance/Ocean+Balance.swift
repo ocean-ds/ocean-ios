@@ -60,7 +60,7 @@ extension Ocean {
             collection.showsHorizontalScrollIndicator = false
             collection.showsVerticalScrollIndicator = false
             collection.isPagingEnabled = true
-            collection.register(BalanceCell.self, forCellWithReuseIdentifier: BalanceCell.identifier)
+            collection.register(BalanceWithValueCell.self, forCellWithReuseIdentifier: BalanceWithValueCell.identifier)
             collection.register(BalanceWithoutValueCell.self, forCellWithReuseIdentifier: BalanceWithoutValueCell.identifier)
             collection.backgroundColor = .clear
             collection.translatesAutoresizingMaskIntoConstraints = false
@@ -230,7 +230,7 @@ extension Ocean {
             let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
             let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
             if let visibleIndexPath = collectionView.indexPathForItem(at: visiblePoint) {
-                if let cell = self.collectionView.cellForItem(at: visibleIndexPath) as? BalanceCell {
+                if let cell = self.collectionView.cellForItem(at: visibleIndexPath) as? BalanceWithValueCell {
                     cell.state = state
                 }
             }
@@ -240,7 +240,7 @@ extension Ocean {
             var hasItemsExpanded = false
             let allIndexPaths = self.getAllIndexPaths()
             allIndexPaths.forEach { indexPath in
-                if let cell = self.collectionView.cellForItem(at: indexPath) as? BalanceCell {
+                if let cell = self.collectionView.cellForItem(at: indexPath) as? BalanceWithValueCell {
                     if cell.state == .expanded {
                         hasItemsExpanded = true
                     }
@@ -253,7 +253,7 @@ extension Ocean {
         private func collapseAllCollectionView() {
             let allIndexPaths = self.getAllIndexPaths()
             allIndexPaths.forEach { indexPath in
-                if let cell = self.collectionView.cellForItem(at: indexPath) as? BalanceCell {
+                if let cell = self.collectionView.cellForItem(at: indexPath) as? BalanceWithValueCell {
                     cell.state = .collapsed
                 }
             }
@@ -283,7 +283,7 @@ extension Ocean {
             let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
             let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
             if let visibleIndexPath = collectionView.indexPathForItem(at: visiblePoint) {
-                if let cell = self.collectionView.cellForItem(at: visibleIndexPath) as? BalanceCell {
+                if let cell = self.collectionView.cellForItem(at: visibleIndexPath) as? BalanceWithValueCell {
                     if cell.state == .collapsed {
                         self.setState(.collapsed)
                     } else {
@@ -293,11 +293,11 @@ extension Ocean {
             }
         }
         
-        private func setupBalanceCell(data: BalanceModel, indexPath: IndexPath) -> UICollectionViewCell {
+        private func setupWithValueCell(data: BalanceModel, indexPath: IndexPath) -> UICollectionViewCell {
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: BalanceCell.identifier,
+                withReuseIdentifier: BalanceWithValueCell.identifier,
                 for: indexPath
-            ) as? BalanceCell else { return UICollectionViewCell() }
+            ) as? BalanceWithValueCell else { return UICollectionViewCell() }
             
             cell.model = data
             cell.onStateChanged = { _ in
@@ -329,7 +329,13 @@ extension Ocean {
         }
 
         public func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
-            BalanceCell.identifier
+            let data = self.data[indexPath.row]
+            
+            if data.cellType == .withValue {
+                return BalanceWithValueCell.identifier
+            } else {
+                return BalanceWithoutValueCell.identifier
+            }
         }
 
         // MARK: - UICollectionViewDataSource
@@ -346,7 +352,7 @@ extension Ocean {
             let data = self.data[indexPath.row]
             
             if data.cellType == .withValue {
-                return setupBalanceCell(data: data, indexPath: indexPath)
+                return setupWithValueCell(data: data, indexPath: indexPath)
             } else {
                 return setupWithoutValueCell(data: data, indexPath: indexPath)
             }
