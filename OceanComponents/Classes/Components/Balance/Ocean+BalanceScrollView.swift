@@ -155,7 +155,7 @@ extension Ocean {
         }
 
         private func updateUI() {
-            if model.cellType == .balance {
+            if model.cellType == .withValue {
                 setupBalanceCell()
             } else {
                 setupBalanceWithoutValueCell()

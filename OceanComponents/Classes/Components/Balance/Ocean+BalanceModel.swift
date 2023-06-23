@@ -13,7 +13,7 @@ extension Ocean {
     }
     
     public enum BalanceCellType {
-        case balance, withoutValue
+        case withValue, withoutValue
     }
 
     public struct BalanceModel {
@@ -39,7 +39,7 @@ extension Ocean {
                     actionCTA: String,
                     actionCTACollapsed: String  = "",
                     action: (() -> Void)?,
-                    cellType: BalanceCellType = .balance) {
+                    cellType: BalanceCellType = .withValue) {
             self.title = title
             self.value = value
             self.item1Title = item1Title

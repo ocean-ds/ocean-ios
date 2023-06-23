@@ -345,7 +345,7 @@ extension Ocean {
         public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             let data = self.data[indexPath.row]
             
-            if data.cellType == .balance {
+            if data.cellType == .withValue {
                 return setupBalanceCell(data: data, indexPath: indexPath)
             } else {
                 return setupWithoutValueCell(data: data, indexPath: indexPath)
