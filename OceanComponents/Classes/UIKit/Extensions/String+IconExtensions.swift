@@ -23,6 +23,8 @@ public extension String {
         case "btokenoutline": return Ocean.icon.btokenOutline
         case "cardmachineoutline": return Ocean.icon.cardMachineOutline
         case "cashbackoutline": return Ocean.icon.cashbackOutline
+        case "chargeoutline": return Ocean.icon.chargeOutline
+        case "chargesolid": return Ocean.icon.chargeSolid
         case "consultoutline": return Ocean.icon.consultOutline
         case "constructionmaterialoutline": return Ocean.icon.constructionMaterialOutline
         case "contactbookoutline": return Ocean.icon.contactBookOutline
@@ -44,6 +46,7 @@ public extension String {
         case "orderoutline": return Ocean.icon.orderOutline
         case "otheroutline": return Ocean.icon.otherOutline
         case "pagbluoutline": return Ocean.icon.pagbluOutline
+        case "pagblusolid": return Ocean.icon.pagbluSolid
         case "paperplaneoutline": return Ocean.icon.paperPlaneOutline
         case "paymentoutline": return Ocean.icon.paymentOutline
         case "petshopoutline": return Ocean.icon.petshopOutline
@@ -418,6 +421,8 @@ public extension String {
         case "refreshsolid": return Ocean.icon.refreshSolid
         case "replyoutline": return Ocean.icon.replyOutline
         case "replysolid": return Ocean.icon.replySolid
+        case "reportoutline": return Ocean.icon.reportOutline
+        case "reportsolid": return Ocean.icon.reportSolid
         case "rewindoutline": return Ocean.icon.rewindOutline
         case "rewindsolid": return Ocean.icon.rewindSolid
         case "rssoutline": return Ocean.icon.rssOutline
