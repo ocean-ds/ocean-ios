@@ -22,6 +22,12 @@ extension Ocean {
             }
         }
         
+        public var titleAttributedString: NSAttributedString? {
+            didSet {
+                updateUI()
+            }
+        }
+        
         public var number: Int? = nil {
             didSet {
                 updateUI()
@@ -133,7 +139,11 @@ extension Ocean {
         }
         
         private func updateUI() {
-            titleLabel.text = title
+            if let textAttributedString = self.titleAttributedString {
+                titleLabel.attributedText = textAttributedString
+            } else {
+                titleLabel.text = title
+            }
             
             numberLabel.text = number?.description ?? "1"
             imageView.image = image?.withRenderingMode(.alwaysTemplate)
