@@ -39,7 +39,11 @@ extension Ocean {
         }
         public var onTouch: (() -> Void)?
         public var leftIcon: UIImage?
-        public var rightIcon: UIImage?
+        public var rightIcon: UIImage? {
+            didSet {
+                imageView?.image = rightIcon?.withRenderingMode(.alwaysTemplate)
+            }
+        }
         public var text: String = "" {
             didSet {
                 label?.text = text
