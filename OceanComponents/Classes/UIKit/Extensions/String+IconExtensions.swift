@@ -20,6 +20,7 @@ public extension String {
         case "barcodeoutline": return Ocean.icon.barcodeOutline
         case "bikeoutline": return Ocean.icon.bikeOutline
         case "blulogooutline": return Ocean.icon.BluLogoOutline
+        case "bmsoutline": return Ocean.icon.BmsOutline
         case "btokenoutline": return Ocean.icon.btokenOutline
         case "cardmachineoutline": return Ocean.icon.cardMachineOutline
         case "cashbackoutline": return Ocean.icon.cashbackOutline
