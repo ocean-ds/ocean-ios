@@ -35,6 +35,12 @@ extension Ocean {
                 updateUI()
             }
         }
+        
+        public var tooltipMessage: String = "" {
+            didSet {
+                updateUI()
+            }
+        }
 
         public var subtitleTextLabel: TextLabelModel? {
             didSet {
@@ -263,6 +269,26 @@ extension Ocean {
                 tag.status = .highlight
             }
         }()
+        
+        private lazy var tooltip: Ocean.Tooltip = {
+            Ocean.Tooltip { component in
+                component.indicatorMargin = Ocean.size.spacingStackXxxs
+                component.message = ""
+            }
+        }()
+        
+        private lazy var tooltipIcon: UIImageView = {
+            let image = UIImageView()
+            image.image = Ocean.icon.infoSolid?.withTintColor(Ocean.color.colorInterfaceLightDeep)
+            image.addTapGesture(target: self, selector: #selector(tooltipClick))
+            image.isSkeletonable = true
+            image.isUserInteractionDisabledWhenSkeletonIsActive = true
+            image.isHiddenWhenSkeletonIsActive = true
+            
+            return image
+        }()
+        
+        private lazy var tooltipIconSpacer = Ocean.Spacer(space: Ocean.size.spacingStackXxs)
 
         private lazy var infoStackTitle: Ocean.StackView = {
             Ocean.StackView { stack in
@@ -273,6 +299,8 @@ extension Ocean {
 
                 stack.add([
                     titleLabel,
+                    tooltipIconSpacer,
+                    tooltipIcon,
                     Ocean.Spacer(space: Ocean.size.spacingStackXxs),
                     tagHighlightView
                 ])
@@ -445,6 +473,8 @@ extension Ocean {
                                                 right: 0)
                 }
             }
+            
+            updateTooltip()
         }
 
         private func setupButton(title: String) {
@@ -471,12 +501,24 @@ extension Ocean {
             }
         }
         
+        private func updateTooltip() {
+            tooltip.message = tooltipMessage
+            tooltipIcon.isHidden = tooltipMessage.isEmpty
+            tooltipIconSpacer.isHidden = tooltipMessage.isEmpty
+        }
+        
         @objc func viewTapped() {
             self.onTouch?()
         }
 
         @objc private func buttonTapped() {
             self.onTouchButton?()
+        }
+        
+        @objc private func tooltipClick() {
+            tooltip.show(target: tooltipIcon,
+                         position: .top,
+                         presenter: self.superview ?? self)
         }
     }
 }

@@ -63,6 +63,7 @@ final public class TextListViewController : UIViewController {
         let textList6 = Ocean.TextList.cellInverse { textList in
             textList.title = "Title"
             textList.subtitle = "Subtitle"
+            textList.tooltipMessage = "toolptip message"
             textList.arrow = true
         }
         
