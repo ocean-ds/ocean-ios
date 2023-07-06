@@ -30,6 +30,7 @@ extension Ocean {
         public static let barcodeOutline = UIImage(named: "OceanComponents.bundle/barcode-outline", in: .bundleOceanComponents, compatibleWith: .none)
         public static let bikeOutline = UIImage(named: "OceanComponents.bundle/bike-outline", in: .bundleOceanComponents, compatibleWith: .none)
         public static let BluLogoOutline = UIImage(named: "OceanComponents.bundle/blu-logo-outline", in: .bundleOceanComponents, compatibleWith: .none)
+        public static let BmsOutline = UIImage(named: "OceanComponents.bundle/bms-outline", in: .bundleOceanComponents, compatibleWith: .none)
         public static let btokenOutline = UIImage(named: "OceanComponents.bundle/btoken-outline", in: .bundleOceanComponents, compatibleWith: .none)
         public static let cardMachineOutline = UIImage(named: "OceanComponents.bundle/card-machine-outline", in: .bundleOceanComponents, compatibleWith: .none)
         public static let cashbackOutline = UIImage(named: "OceanComponents.bundle/cashback-outline", in: .bundleOceanComponents, compatibleWith: .none)
