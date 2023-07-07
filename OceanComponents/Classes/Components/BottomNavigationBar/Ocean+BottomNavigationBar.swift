@@ -110,7 +110,7 @@ open class OceanBottomNavigationBar: UITabBarController {
     }
 
     private func moveBackgroundFrame(to view: UIView) {
-        self.movingBackgroundView.frame = view.frame.insetBy(dx: 4, dy: 4)
+        self.movingBackgroundView.frame = view.frame.insetBy(dx: 1, dy: 1)
     }
 }
 
