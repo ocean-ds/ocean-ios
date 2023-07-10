@@ -9,7 +9,7 @@ import Foundation
 import SDWebImage
 
 extension UIImageView {
-    func downloadImage(url: String, placeHolder: UIImage? = nil) {
+    public func downloadImage(url: String, placeHolder: UIImage? = nil) {
         guard !url.isEmpty else { return }
         
         if let url = URL(string: url) {
