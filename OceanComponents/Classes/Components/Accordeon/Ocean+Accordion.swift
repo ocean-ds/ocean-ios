@@ -11,7 +11,7 @@ extension Ocean {
     
     public class Accordion: UIView {
         public enum Status {
-            case expanded, enabled
+            case expanded, collapsed
         }
         
         public struct ItemModel {
@@ -22,7 +22,7 @@ extension Ocean {
             
             public init(title: String,
                         content: String,
-                        status: Status = .enabled,
+                        status: Status = .collapsed,
                         hasDivider: Bool = true) {
                 self.title = title
                 self.content = content
@@ -141,7 +141,7 @@ extension Ocean {
         }
         
         private func updateState() {
-            if itemModel?.status == .enabled {
+            if itemModel?.status == .collapsed {
                 contentLabel.isHidden = false
                 contentSpacer.isHidden = false
                 titleLabel.textColor = Ocean.color.colorBrandPrimaryDown
@@ -154,7 +154,7 @@ extension Ocean {
                 titleLabel.textColor = Ocean.color.colorInterfaceDarkDown
                 arrowView.tintColor = Ocean.color.colorInterfaceDarkDown
                 arrowView.transform = CGAffineTransform.identity
-                itemModel?.status = .enabled
+                itemModel?.status = .collapsed
             }
         }
         
