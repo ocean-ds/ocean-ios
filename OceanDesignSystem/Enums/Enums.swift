@@ -70,6 +70,7 @@ public enum DesignSystemComponentsType: String {
     case InformativeCard
     case ProgressBar
     case DetailedCard
+    case Accordion
 }
 
 public enum DesignSystemTypographyType: Int {

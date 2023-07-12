@@ -62,9 +62,10 @@
 		B833D03E24A6796300587FDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B833D03D24A6796300587FDE /* Assets.xcassets */; };
 		B833D04124A6796300587FDE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B833D03F24A6796300587FDE /* LaunchScreen.storyboard */; };
 		D50896062A156A1E00ED3968 /* InformativeCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50896052A156A1E00ED3968 /* InformativeCardViewController.swift */; };
-		D5D28DE32A1C05DD0070B8CE /* DetailedCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D28DE22A1C05DD0070B8CE /* DetailedCardViewController.swift */; };
 		D5D28DDD2A1BA2550070B8CE /* ProgressBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D28DDC2A1BA2550070B8CE /* ProgressBarViewController.swift */; };
+		D5D28DE32A1C05DD0070B8CE /* DetailedCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D28DE22A1C05DD0070B8CE /* DetailedCardViewController.swift */; };
 		E13578B729F07252003A2B9D /* FilterBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13578B629F07252003A2B9D /* FilterBarViewController.swift */; };
+		E1D0E0D92A5F0F4500FF4B60 /* AccordionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D0E0D82A5F0F4500FF4B60 /* AccordionViewController.swift */; };
 		E1DB7A2428FF243900A0459A /* CardListItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DB7A2328FF243900A0459A /* CardListItemViewController.swift */; };
 		E1DBF42929898E4100BCD65B /* SettingsListItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DBF42829898E4100BCD65B /* SettingsListItemViewController.swift */; };
 		E1DE74F32A12C18500C9361F /* ChartCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DE74F22A12C18500C9361F /* ChartCardViewController.swift */; };
@@ -157,10 +158,11 @@
 		B833D04024A6796300587FDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B833D04224A6796300587FDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D50896052A156A1E00ED3968 /* InformativeCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformativeCardViewController.swift; sourceTree = "<group>"; };
-		D5D28DE22A1C05DD0070B8CE /* DetailedCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedCardViewController.swift; sourceTree = "<group>"; };
 		D5D28DDC2A1BA2550070B8CE /* ProgressBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarViewController.swift; sourceTree = "<group>"; };
+		D5D28DE22A1C05DD0070B8CE /* DetailedCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedCardViewController.swift; sourceTree = "<group>"; };
 		DEF0897C97A977F0864993D7 /* Pods-OceanDesignSystemTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OceanDesignSystemTests.release.xcconfig"; path = "Target Support Files/Pods-OceanDesignSystemTests/Pods-OceanDesignSystemTests.release.xcconfig"; sourceTree = "<group>"; };
 		E13578B629F07252003A2B9D /* FilterBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBarViewController.swift; sourceTree = "<group>"; };
+		E1D0E0D82A5F0F4500FF4B60 /* AccordionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccordionViewController.swift; sourceTree = "<group>"; };
 		E1DB7A2328FF243900A0459A /* CardListItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListItemViewController.swift; sourceTree = "<group>"; };
 		E1DBF42829898E4100BCD65B /* SettingsListItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsListItemViewController.swift; sourceTree = "<group>"; };
 		E1DE74F22A12C18500C9361F /* ChartCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartCardViewController.swift; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 				D50896052A156A1E00ED3968 /* InformativeCardViewController.swift */,
 				D5D28DE22A1C05DD0070B8CE /* DetailedCardViewController.swift */,
 				D5D28DDC2A1BA2550070B8CE /* ProgressBarViewController.swift */,
+				E1D0E0D82A5F0F4500FF4B60 /* AccordionViewController.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -556,6 +559,7 @@
 				4223DDA2293F894C00257DBC /* OrderedListItemViewController.swift in Sources */,
 				4291D9A32A153CF4006A0342 /* BalanceViewController.swift in Sources */,
 				B833D03924A6796100587FDE /* TokensViewController.swift in Sources */,
+				E1D0E0D92A5F0F4500FF4B60 /* AccordionViewController.swift in Sources */,
 				8EB41BED27E42D1800F18CC7 /* FloatVerticalMenuListViewController.swift in Sources */,
 				B71D65EA24CA47C500C3938C /* Enums.swift in Sources */,
 				B7CA694E24CB4C940051CA6A /* ComponentTypeViewController.swift in Sources */,
