@@ -16,18 +16,51 @@ class AccordionViewController: UIViewController {
     lazy var scrollView: UIScrollView = { return UIScrollView(frame: .zero) }()
     lazy var scrollableContentView: UIView = { UIView(frame: .zero) }()
     
-    private lazy var accordion: Ocean.Accordion = {
-        let item = Ocean.Accordion()
-        item.itemModel = .init(title: "What is Lorem Ipsum?", content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make")
+    lazy var titleAccordion = "What is Lorem Ipsum What is Lorem Ipsum What is Lorem Ipsum What is Lorem Ipsum?"
+    lazy var contentAccordion = """
+    Lorem Ipsum is simply dummy text of <b>the printing</b> and typesetting industry. <br><br>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
+    """.htmlToAttributedText(size: Ocean.font.fontSizeXxxs,
+                             color: Ocean.color.colorInterfaceDarkDown)
+    
+    lazy var accordion: Ocean.Accordion = {
+        let accordion = Ocean.Accordion()
+        accordion.model = .init(title: titleAccordion,
+                                contentAttributedString: contentAccordion)
         
-        return item
+        return accordion
     }()
     
     private lazy var accordion2: Ocean.Accordion = {
-        let item = Ocean.Accordion()
-        item.itemModel = .init(title: "What is Lorem Ipsum?", content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make", hasDivider: false)
+        let accordion = Ocean.Accordion()
+        accordion.model = .init(title: titleAccordion,
+                                contentAttributedString: contentAccordion)
+        accordion.status = .expanded
+        return accordion
+    }()
+    
+    private lazy var accordion3: Ocean.Accordion = {
+        let accordion = Ocean.Accordion()
+        accordion.model = .init(title: "Title",
+                                content: "Lorem Ipsum has been the industry's")
         
-        return item
+        return accordion
+    }()
+    
+    private lazy var accordion4: Ocean.Accordion = {
+        let accordion = Ocean.Accordion()
+        accordion.model = .init(title: titleAccordion,
+                                contentAttributedString: contentAccordion)
+        
+        return accordion
+    }()
+    
+    private lazy var accordion5: Ocean.Accordion = {
+        let accordion = Ocean.Accordion()
+        accordion.model = .init(title: titleAccordion,
+                                contentAttributedString: contentAccordion,
+                                hasDivider: false)
+        
+        return accordion
     }()
     
     private lazy var mainStack: Ocean.StackView = {
@@ -36,7 +69,13 @@ class AccordionViewController: UIViewController {
         stack.distribution = .fill
         stack.alignment = .fill
         
-        stack.add([accordion, accordion2])
+        stack.add([accordion,
+                   accordion2,
+                   accordion3,
+                   accordion4,
+                   accordion5])
+        
+        stack.setMargins(horizontal: Ocean.size.spacingStackXs)
         
         return stack
     }()

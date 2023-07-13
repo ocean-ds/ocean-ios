@@ -14,65 +14,90 @@ extension Ocean {
             case expanded, collapsed
         }
         
-        public struct ItemModel {
+        public struct Model {
             public var title: String
             public var content: String
-            public var status: Status
+            public var contentAttributedString: NSAttributedString?
             public var hasDivider: Bool
             
             public init(title: String,
-                        content: String,
-                        status: Status = .collapsed,
+                        content: String = "",
+                        contentAttributedString: NSAttributedString? = nil,
                         hasDivider: Bool = true) {
                 self.title = title
                 self.content = content
-                self.status = status
+                self.contentAttributedString = contentAttributedString
                 self.hasDivider = hasDivider
             }
         }
         
-        public var itemModel: ItemModel? {
+        public var model: Model? {
             didSet {
                 updateUI()
             }
         }
         
-        private var titleHeightConstraints: CGFloat = 54.0
-        
+        public var status: Status = .collapsed {
+            didSet {
+                updateUIForStatus()
+            }
+        }
+
         private lazy var titleLabel: UILabel = {
             Ocean.Typography.heading5 { label in
+                label.font = .baseSemiBold(size: Ocean.font.fontSizeXxs)
                 label.text = ""
                 label.numberOfLines = 0
-                label.textColor = Ocean.color.colorBrandPrimaryDown
+                label.textColor = Ocean.color.colorInterfaceDarkDown
             }
         }()
         
         private lazy var arrowView: UIImageView = {
             UIImageView { imageView in
                 imageView.image = Ocean.icon.chevronDownSolid?.withRenderingMode(.alwaysTemplate)
-                imageView.tintColor = Ocean.color.colorInterfaceDarkUp
+                imageView.tintColor = Ocean.color.colorInterfaceDarkDown
                 imageView.contentMode = .scaleAspectFit
                 imageView.translatesAutoresizingMaskIntoConstraints = false
             }
         }()
         
-        private lazy var containerTitleView: UIView = {
+        private lazy var containerArrowView: UIView = {
             let view = UIView()
-            
-            view.addSubview(titleLabel)
+            view.clipsToBounds = false
+            view.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(arrowView)
-            
+
             return view
+        }()
+        
+        private lazy var titleStack: Ocean.StackView = {
+            let stack = Ocean.StackView()
+            stack.axis = .horizontal
+            stack.alignment = .leading
+            stack.distribution = .fill
+            stack.spacing = Ocean.size.spacingStackXs
+            
+            stack.add([
+                titleLabel,
+                containerArrowView
+            ])
+            
+            return stack
         }()
         
         private lazy var contentLabel: UILabel = {
             Ocean.Typography.caption { label in
                 label.numberOfLines = 0
+                label.isHidden = true
                 label.text = ""
             }
         }()
         
-        private lazy var contentSpacer = Ocean.Spacer(space: Ocean.size.spacingStackXs)
+        private lazy var contentSpacer: Ocean.Spacer = {
+            let spacer = Ocean.Spacer(space: Ocean.size.spacingStackXs)
+            spacer.isHidden = true
+            return spacer
+        }()
         
         private lazy var divider = Ocean.Divider()
         
@@ -83,19 +108,20 @@ extension Ocean {
             stack.alignment = .fill
             
             stack.add([
-                containerTitleView,
+                Ocean.Spacer(space: Ocean.size.spacingStackXs),
+                titleStack,
+                Ocean.Spacer(space: Ocean.size.spacingStackXs),
                 contentLabel,
                 contentSpacer,
                 divider
             ])
-            
-            stack.setMargins(horizontal: Ocean.size.spacingStackXs)
+
             stack.addTapGesture(target: self, selector: #selector(tap))
             
             return stack
         }()
         
-        public override init(frame: CGRect) {
+        public override init(frame: CGRect = .zero) {
             super.init(frame: frame)
             setupUI()
         }
@@ -107,61 +133,78 @@ extension Ocean {
         private func setupUI() {
             addSubviews(mainStack)
             setupContraints()
-            
-            contentLabel.isHidden = true
-            contentSpacer.isHidden = true
+            updateUI()
         }
         
         private func setupContraints() {
             mainStack.oceanConstraints
                 .fill(to: self)
                 .make()
-            
-            containerTitleView.oceanConstraints
-                .height(constant: titleHeightConstraints)
-                .make()
-            
-            titleLabel.oceanConstraints
-                .leadingToLeading(to: containerTitleView)
-                .centerY(to: containerTitleView)
+
+            containerArrowView.oceanConstraints
+                .topToTop(to: titleStack)
+                .bottomToBottom(to: titleStack)
+                .trailingToTrailing(to: titleStack)
+                .width(constant: 16, type: .greaterThanOrEqualTo)
                 .make()
             
             arrowView.oceanConstraints
-                .trailingToTrailing(to: containerTitleView)
-                .centerY(to: titleLabel)
+                .height(constant: 16)
+                .width(constant: 16)
+                .trailingToTrailing(to: containerArrowView)
+                .centerY(to: containerArrowView)
                 .make()
         }
         
         private func updateUI() {
-            if let item = itemModel {
-                titleLabel.text = item.title
-                contentLabel.text = item.content
-                divider.isHidden = !item.hasDivider
+            guard let model = model else { return }
+            titleLabel.text = model.title
+            
+            if let contentAttributedString = model.contentAttributedString {
+                contentLabel.attributedText = contentAttributedString
+            } else {
+                contentLabel.text = model.content
+            }
+            divider.isHidden = !model.hasDivider
+        }
+        
+        private func updateUIForStatus() {
+            UIView.animate(withDuration: 0.25) {
+                switch self.status {
+                case .expanded:
+                    self.expandAccordion()
+                case .collapsed:
+                    self.collapseAccordion()
+                }
             }
         }
         
-        private func updateState() {
-            if itemModel?.status == .collapsed {
-                contentLabel.isHidden = false
-                contentSpacer.isHidden = false
-                titleLabel.textColor = Ocean.color.colorBrandPrimaryDown
-                arrowView.tintColor = Ocean.color.colorBrandPrimaryDown
-                arrowView.transform = CGAffineTransform(rotationAngle: .pi)
-                itemModel?.status = .expanded
+        private func expandAccordion() {
+            contentLabel.isHidden = false
+            contentSpacer.isHidden = false
+            titleLabel.textColor = Ocean.color.colorBrandPrimaryDown
+            arrowView.tintColor = Ocean.color.colorBrandPrimaryDown
+            arrowView.transform = CGAffineTransform(rotationAngle: .pi)
+        }
+        
+        private func collapseAccordion() {
+            contentLabel.isHidden = true
+            contentSpacer.isHidden = true
+            titleLabel.textColor = Ocean.color.colorInterfaceDarkDown
+            arrowView.tintColor = Ocean.color.colorInterfaceDarkDown
+            arrowView.transform = CGAffineTransform.identity
+        }
+        
+        private func toogleStatus() {
+            if status == .collapsed {
+                status = .expanded
             } else {
-                contentLabel.isHidden = true
-                contentSpacer.isHidden = true
-                titleLabel.textColor = Ocean.color.colorInterfaceDarkDown
-                arrowView.tintColor = Ocean.color.colorInterfaceDarkDown
-                arrowView.transform = CGAffineTransform.identity
-                itemModel?.status = .collapsed
+                status = .collapsed
             }
         }
         
         @objc private func tap() {
-            UIView.animate(withDuration: 0.25){
-                self.updateState()
-            }
+            toogleStatus()
         }
     }
 }
