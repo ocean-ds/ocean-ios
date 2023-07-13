@@ -140,6 +140,8 @@ class ComponentsViewController: UITableViewController {
             self.present(DetailedCardViewController(), animated: true, completion: nil)
         case .Accordion:
             self.present(AccordionViewController(), animated: true, completion: nil)
+        case .Link:
+            self.present(LinkViewController(), animated: true, completion: nil)
         default:
             performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }

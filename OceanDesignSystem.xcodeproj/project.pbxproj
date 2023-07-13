@@ -69,6 +69,7 @@
 		E1DB7A2428FF243900A0459A /* CardListItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DB7A2328FF243900A0459A /* CardListItemViewController.swift */; };
 		E1DBF42929898E4100BCD65B /* SettingsListItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DBF42829898E4100BCD65B /* SettingsListItemViewController.swift */; };
 		E1DE74F32A12C18500C9361F /* ChartCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DE74F22A12C18500C9361F /* ChartCardViewController.swift */; };
+		E1EDBC902A6044AE00A39762 /* LinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EDBC8F2A6044AE00A39762 /* LinkViewController.swift */; };
 		E985454E275EA0EF0010B9EC /* ChipsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985454D275EA0EF0010B9EC /* ChipsViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -166,6 +167,7 @@
 		E1DB7A2328FF243900A0459A /* CardListItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListItemViewController.swift; sourceTree = "<group>"; };
 		E1DBF42829898E4100BCD65B /* SettingsListItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsListItemViewController.swift; sourceTree = "<group>"; };
 		E1DE74F22A12C18500C9361F /* ChartCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartCardViewController.swift; sourceTree = "<group>"; };
+		E1EDBC8F2A6044AE00A39762 /* LinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkViewController.swift; sourceTree = "<group>"; };
 		E985454D275EA0EF0010B9EC /* ChipsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -236,6 +238,7 @@
 				D5D28DE22A1C05DD0070B8CE /* DetailedCardViewController.swift */,
 				D5D28DDC2A1BA2550070B8CE /* ProgressBarViewController.swift */,
 				E1D0E0D82A5F0F4500FF4B60 /* AccordionViewController.swift */,
+				E1EDBC8F2A6044AE00A39762 /* LinkViewController.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -573,6 +576,7 @@
 				249DC9402672AD2600012411 /* SwitchViewController.swift in Sources */,
 				D5D28DDD2A1BA2550070B8CE /* ProgressBarViewController.swift in Sources */,
 				B768C52624DDFA740086BF9C /* LineHeightsViewController.swift in Sources */,
+				E1EDBC902A6044AE00A39762 /* LinkViewController.swift in Sources */,
 				B71D65E224CA053500C3938C /* TokensBySubCategories.swift in Sources */,
 				B75C81FB24F6F5BD001A500B /* ButtonViewController.swift in Sources */,
 				B7A4FF7924BF8484006712AA /* ComponentsViewController.swift in Sources */,
