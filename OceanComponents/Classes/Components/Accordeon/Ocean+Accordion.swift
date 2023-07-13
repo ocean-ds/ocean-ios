@@ -18,23 +18,30 @@ extension Ocean {
             public var title: String
             public var content: String
             public var contentAttributedString: NSAttributedString?
-            public var status: Status
             public var hasDivider: Bool
             
             public init(title: String,
                         content: String = "",
                         contentAttributedString: NSAttributedString? = nil,
-                        status: Status = .collapsed,
                         hasDivider: Bool = true) {
                 self.title = title
                 self.content = content
                 self.contentAttributedString = contentAttributedString
-                self.status = status
                 self.hasDivider = hasDivider
             }
         }
         
-        private var model: Model
+        public var model: Model? {
+            didSet {
+                updateUI()
+            }
+        }
+        
+        public var status: Status = .collapsed {
+            didSet {
+                updateUIForStatus()
+            }
+        }
 
         private lazy var titleLabel: UILabel = {
             Ocean.Typography.heading5 { label in
@@ -114,8 +121,7 @@ extension Ocean {
             return stack
         }()
         
-        public init(model: Model, frame: CGRect = .zero) {
-            self.model = model
+        public override init(frame: CGRect = .zero) {
             super.init(frame: frame)
             setupUI()
         }
@@ -151,6 +157,7 @@ extension Ocean {
         }
         
         private func updateUI() {
+            guard let model = model else { return }
             titleLabel.text = model.title
             
             if let contentAttributedString = model.contentAttributedString {
@@ -159,15 +166,16 @@ extension Ocean {
                 contentLabel.text = model.content
             }
             divider.isHidden = !model.hasDivider
-            updateUIForStatus(status: model.status)
         }
         
-        private func updateUIForStatus(status: Status) {
-            switch status {
-            case .expanded:
-                expandAccordion()
-            case .collapsed:
-                collapseAccordion()
+        private func updateUIForStatus() {
+            UIView.animate(withDuration: 0.25) {
+                switch self.status {
+                case .expanded:
+                    self.expandAccordion()
+                case .collapsed:
+                    self.collapseAccordion()
+                }
             }
         }
         
@@ -188,18 +196,15 @@ extension Ocean {
         }
         
         private func toogleStatus() {
-            if model.status == .collapsed {
-                model.status = .expanded
+            if status == .collapsed {
+                status = .expanded
             } else {
-                model.status = .collapsed
+                status = .collapsed
             }
         }
         
         @objc private func tap() {
             toogleStatus()
-            UIView.animate(withDuration: 0.25){
-                self.updateUI()
-            }
         }
     }
 }

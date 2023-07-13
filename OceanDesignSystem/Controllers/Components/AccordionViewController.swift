@@ -16,48 +16,52 @@ class AccordionViewController: UIViewController {
     lazy var scrollView: UIScrollView = { return UIScrollView(frame: .zero) }()
     lazy var scrollableContentView: UIView = { UIView(frame: .zero) }()
     
-    var titleAccordion = "What is Lorem Ipsum What is Lorem Ipsum What is Lorem Ipsum What is Lorem Ipsum?"
-    var contentAccordion = """
+    lazy var titleAccordion = "What is Lorem Ipsum What is Lorem Ipsum What is Lorem Ipsum What is Lorem Ipsum?"
+    lazy var contentAccordion = """
     Lorem Ipsum is simply dummy text of <b>the printing</b> and typesetting industry. <br><br>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
     """.htmlToAttributedText(size: Ocean.font.fontSizeXxxs,
                              color: Ocean.color.colorInterfaceDarkDown)
     
-    private lazy var accordion = Ocean.Accordion(
-        model: .init(
-            title: titleAccordion,
-            contentAttributedString: contentAccordion
-        )
-    )
+    lazy var accordion: Ocean.Accordion = {
+        let accordion = Ocean.Accordion()
+        accordion.model = .init(title: titleAccordion,
+                                contentAttributedString: contentAccordion)
+        
+        return accordion
+    }()
     
-    private lazy var accordion2 = Ocean.Accordion(
-        model: .init(
-            title: titleAccordion,
-            contentAttributedString: contentAccordion,
-            status: .expanded
-        )
-    )
+    private lazy var accordion2: Ocean.Accordion = {
+        let accordion = Ocean.Accordion()
+        accordion.model = .init(title: titleAccordion,
+                                contentAttributedString: contentAccordion)
+        accordion.status = .expanded
+        return accordion
+    }()
     
-    private lazy var accordion3 = Ocean.Accordion(
-        model: .init(
-            title: "Title",
-            content: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
-        )
-    )
+    private lazy var accordion3: Ocean.Accordion = {
+        let accordion = Ocean.Accordion()
+        accordion.model = .init(title: "Title",
+                                content: "Lorem Ipsum has been the industry's")
+        
+        return accordion
+    }()
     
-    private lazy var accordion4 = Ocean.Accordion(
-        model: .init(
-            title: titleAccordion,
-            contentAttributedString: contentAccordion
-        )
-    )
+    private lazy var accordion4: Ocean.Accordion = {
+        let accordion = Ocean.Accordion()
+        accordion.model = .init(title: titleAccordion,
+                                contentAttributedString: contentAccordion)
+        
+        return accordion
+    }()
     
-    private lazy var accordion5 = Ocean.Accordion(
-        model: .init(
-            title: titleAccordion,
-            contentAttributedString: contentAccordion,
-            hasDivider: false
-        )
-    )
+    private lazy var accordion5: Ocean.Accordion = {
+        let accordion = Ocean.Accordion()
+        accordion.model = .init(title: titleAccordion,
+                                contentAttributedString: contentAccordion,
+                                hasDivider: false)
+        
+        return accordion
+    }()
     
     private lazy var mainStack: Ocean.StackView = {
         let stack = Ocean.StackView()
