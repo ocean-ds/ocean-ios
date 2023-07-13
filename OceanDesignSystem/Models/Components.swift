@@ -35,6 +35,7 @@ struct DSComponents {
         "GroupCTA",
         "InformativeCard",
         "Input",
+        "Link",
         "Modal",
         "NavigationBar",
         "OrderedListItem",
