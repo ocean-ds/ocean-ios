@@ -36,6 +36,45 @@ extension Ocean {
                 component.message = infoMessage
             }
         }()
+        
+        private lazy var iconHelperImage: UIImageView = {
+            let icon = UIImageView()
+            icon.image = Ocean.icon.infoSolid?.withRenderingMode(.alwaysTemplate)
+            icon.tintColor = Ocean.color.colorInterfaceDarkUp
+            
+            return icon
+        }()
+        
+        private lazy var labelHelperStack: Ocean.StackView = {
+            Ocean.StackView { stack in
+                stack.axis = .horizontal
+                stack.alignment = .fill
+                stack.distribution = .fill
+                stack.spacing = Ocean.size.spacingStackXxxs
+                
+                stack.add([
+                    labelHelper,
+                    iconHelperImage,
+                    UIView(),
+                ])
+            }
+        }()
+        
+        private lazy var contentHelperStack: Ocean.StackView = {
+            Ocean.StackView { stack in
+                stack.axis = .horizontal
+                stack.alignment = .leading
+                stack.distribution = .fill
+                
+                stack.add([labelHelperStack])
+                
+                stack.addTapGesture(target: self, selector: #selector(helperOnTouch))
+            }
+        }()
+        
+        @objc private func helperOnTouch() {
+            onHelperTextTouched?()
+        }
 
         public var errorMessage: String = "" {
             didSet {
@@ -157,6 +196,7 @@ extension Ocean {
         public var onKeyEnterTouched: (() -> Void)?
         public var onBeginEditing: (() -> Void)?
         public var onInfoIconTouched: (() -> Void)?
+        public var onHelperTextTouched: (() -> Void)?
 
         public var rightButton: UIButton?
 
@@ -253,6 +293,7 @@ extension Ocean {
             labelHelper.textColor = Ocean.color.colorInterfaceDarkUp
             labelHelper.text = helper
             labelHelper.isHidden = true
+            iconHelperImage.isHidden = onInfoIconTouched == nil
         }
 
         func makeImageView() {
@@ -270,6 +311,7 @@ extension Ocean {
                 infoIconImageView.widthAnchor.constraint(equalToConstant: 12.8)
             ])
             infoIconImageView.isUserInteractionEnabled = true
+            
             infoIconImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(infoAction)))
             infoIconImageView.isHidden = infoMessage.isEmpty
         }
@@ -376,7 +418,7 @@ extension Ocean {
 
             mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxxs))
             mainStack.addArrangedSubview(labelError)
-            mainStack.addArrangedSubview(labelHelper)
+            mainStack.addArrangedSubview(contentHelperStack)
             mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
 
             self.addSubview(mainStack)
@@ -411,6 +453,11 @@ extension Ocean {
             if !self.errorMessage.isEmpty {
                 labelError.text = self.errorMessage
             }
+            
+            iconHelperImage.oceanConstraints
+                .height(constant: 16)
+                .width(constant: 16)
+                .make()
 
             updateState()
         }
