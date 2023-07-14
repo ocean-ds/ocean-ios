@@ -81,7 +81,7 @@ extension Ocean {
                     stack.addArrangedSubview(view)
                 }
 
-                if items.count < cols {
+                for _ in items.count..<cols {
                     stack.addArrangedSubview(UIView())
                 }
 
