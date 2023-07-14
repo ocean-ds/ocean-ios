@@ -63,13 +63,21 @@ extension Ocean {
             return imageView
         }()
         
-        private lazy var linkContainer: UIView = {
-            let view = UIView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubviews(linkTitleLabel, linkIconImageView)
-            view.addTapGesture(target: self, selector: #selector(onLinkTouch))
+        private lazy var mainStack: Ocean.StackView = {
+            let stack = Ocean.StackView()
+            stack.axis = .horizontal
+            stack.distribution = .fill
+            stack.alignment = .center
+            stack.spacing = Ocean.size.spacingStackXxs
             
-            return view
+            stack.add([
+                linkTitleLabel,
+                linkIconImageView
+            ])
+            
+            stack.addTapGesture(target: self, selector: #selector(onLinkTouch))
+            
+            return stack
         }()
         
         public override init(frame: CGRect = .zero) {
@@ -82,25 +90,17 @@ extension Ocean {
         }
         
         private func setupUI() {
-            addSubviews(linkContainer)
+            addSubviews(mainStack)
             setupConstraints()
         }
         
         private func setupConstraints() {
-            linkContainer.oceanConstraints
+            mainStack.oceanConstraints
                 .fill(to: self)
                 .make()
             
-            linkTitleLabel.oceanConstraints
-                .topToTop(to: linkContainer)
-                .bottomToBottom(to: linkContainer)
-                .leadingToLeading(to: linkContainer)
-                .make()
-            
             linkIconImageView.oceanConstraints
-                .centerY(to: linkContainer)
                 .leadingToTrailing(to: linkTitleLabel)
-                .trailingToTrailing(to: linkContainer)
                 .width(constant: 16)
                 .height(constant: 16)
                 .make()
@@ -130,6 +130,7 @@ extension Ocean {
             case .none:
                 icon = nil
             }
+            linkIconImageView.isHidden = icon == nil
             linkIconImageView.image = icon?.withRenderingMode(.alwaysTemplate)
         }
         
