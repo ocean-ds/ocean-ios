@@ -25,6 +25,7 @@ public class InputViewController : UIViewController {
         self.textfield = Ocean.Input.textfieldWithLabel { component in
             component.placeholder = "placeholder"
             component.helper = "helper text"
+            component.iconHelper = Ocean.icon.infoSolid
             component.onHelperTextTouched = { print("helper text on touch") }
             component.infoMessage = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."
             component.onInfoIconTouched = {

@@ -39,7 +39,6 @@ extension Ocean {
         
         private lazy var iconHelperImage: UIImageView = {
             let icon = UIImageView()
-            icon.image = Ocean.icon.infoSolid?.withRenderingMode(.alwaysTemplate)
             icon.tintColor = Ocean.color.colorInterfaceDarkUp
             
             return icon
@@ -109,6 +108,12 @@ extension Ocean {
             }
         }
 
+        public var iconHelper: UIImage? = nil {
+            didSet {
+                iconHelperImage.image = iconHelper?.withRenderingMode(.alwaysTemplate)
+            }
+        }
+        
         public var image: UIImage? = nil {
             didSet {
                 imageView.image = image
@@ -293,7 +298,7 @@ extension Ocean {
             labelHelper.textColor = Ocean.color.colorInterfaceDarkUp
             labelHelper.text = helper
             labelHelper.isHidden = true
-            iconHelperImage.isHidden = onInfoIconTouched == nil
+            iconHelperImage.isHidden = iconHelper == nil
         }
 
         func makeImageView() {
@@ -455,8 +460,8 @@ extension Ocean {
             }
             
             iconHelperImage.oceanConstraints
-                .height(constant: 16)
-                .width(constant: 16)
+                .height(constant: Ocean.size.spacingStackXs)
+                .width(constant: Ocean.size.spacingStackXs)
                 .make()
 
             updateState()
