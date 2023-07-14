@@ -43,7 +43,8 @@ final public class ShortcutViewController : UIViewController {
         addSection(stackView: contentStack, text: "Tiny - Horizontal")
         addExample(stack: contentStack,
                    orientation: .horizontal,
-                   size: .tiny)
+                   size: .tiny,
+                   cols: 3)
         addSection(stackView: contentStack, text: "Small - Vertical")
         addExample(stack: contentStack,
                    orientation: .vertical,
@@ -51,7 +52,8 @@ final public class ShortcutViewController : UIViewController {
         addSection(stackView: contentStack, text: "Medium - Vertical")
         addExample(stack: contentStack,
                    orientation: .vertical,
-                   size: .medium)
+                   size: .medium,
+                   cols: 3)
         addSection(stackView: contentStack, text: "Medium - Horizontal")
         addExample(stack: contentStack,
                    orientation: .horizontal,
@@ -87,13 +89,14 @@ final public class ShortcutViewController : UIViewController {
 
     public func addExample(stack: UIStackView,
                            orientation: Ocean.Shortcut.Orientation,
-                           size: Ocean.Shortcut.Size) {
+                           size: Ocean.Shortcut.Size,
+                           cols: Int = 2) {
 
         let view = Ocean.Shortcut()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.orientation = orientation
         view.size = size
-        view.set(data: examples, cols: 2)
+        view.set(data: examples, cols: cols)
         view.onTouch = { index in
             print(index)
         }
