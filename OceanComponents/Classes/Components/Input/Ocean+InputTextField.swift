@@ -17,18 +17,191 @@ extension Ocean {
     }
 
     public class InputTextField: UIControl, UITextFieldDelegate {
+        public var errorMessage: String = "" {
+            didSet {
+                labelError.text = errorMessage.isEmpty == true ? errorEmpty : errorMessage
+                self.updateState()
+            }
+        }
+
+        public var title: String  = "" {
+            didSet {
+                labelTitle.text = isOptional ? "\(title) (opcional)" : title
+            }
+        }
+
+        public var placeholder: String = "" {
+            didSet {
+                textField.placeholder = placeholder
+            }
+        }
+
+        public var text: String = "" {
+            didSet {
+                textField.text = text
+                self.updateState()
+            }
+        }
+
+        public var helper: String = "" {
+            didSet {
+                labelHelper.text = helper
+                self.updateState()
+            }
+        }
+
+        public var iconHelper: UIImage? = nil {
+            didSet {
+                iconHelperImage.image = iconHelper?.withRenderingMode(.alwaysTemplate)
+                iconHelperImage.isHidden = iconHelper == nil
+            }
+        }
+
+        public var image: UIImage? = nil {
+            didSet {
+                imageView.image = image
+            }
+        }
+
+        public override var isEnabled: Bool {
+            didSet {
+                self.updateState()
+            }
+        }
+
+        public var isActivated: Bool = true {
+            didSet {
+                isEnabled = isActivated
+            }
+        }
+
+        public var isOptional: Bool = false {
+            didSet {
+                labelTitle.text = isOptional ? "\(title) (opcional)" : title
+            }
+        }
+
+        public var infoMessage: String = "" {
+            didSet {
+                infoIconImageView.isHidden = infoMessage.isEmpty
+                tooltip.message = infoMessage
+            }
+        }
+
+        public var isValidCharactersRange: Bool {
+            return charactersLimitValidator()
+        }
+
+        public var isSecureTextEntry: Bool = false {
+            didSet {
+                textField.isSecureTextEntry = isSecureTextEntry
+            }
+        }
+
+        public var autocorrectionType: UITextAutocorrectionType = .default {
+            didSet {
+                textField.autocorrectionType = autocorrectionType
+            }
+        }
+
+        public var keyboardType: UIKeyboardType = .default {
+            didSet {
+                textField.keyboardType = keyboardType
+            }
+        }
+
+        public var autocapitalizationType: UITextAutocapitalizationType = .sentences {
+            didSet {
+                textField.autocapitalizationType = autocapitalizationType
+            }
+        }
+
+        public var textContentType: UITextContentType? {
+            didSet {
+                textField.textContentType = textContentType
+            }
+        }
+
+        public var maxLenght: Int? = nil
+
+        public var charactersLimitNumber: Int? = nil {
+            didSet {
+                guard let limitValue = charactersLimitNumber else { return }
+                maxLenght = limitValue
+                labelHelper.text = "\(textField.text?.count ?? 0)/\(limitValue)"
+            }
+        }
+
+        public override func becomeFirstResponder() -> Bool {
+            return textField.becomeFirstResponder() == true
+        }
+
+        public override func resignFirstResponder() -> Bool {
+            return textField.resignFirstResponder() == true
+        }
+
+        public var onValueChanged: ((String) -> Void)?
+        public var onKeyEnterTouched: (() -> Void)?
+        public var onBeginEditing: (() -> Void)?
+        public var onInfoIconTouched: (() -> Void)?
+        public var onHelperTextTouched: (() -> Void)?
+
         internal var mainStack: Ocean.StackView!
-        internal var labelTitle: UILabel!
-        internal var textField: UITextField!
-        internal var imageView: UIImageView!
-        internal var labelError: UILabel!
         internal var hStack: Ocean.StackView!
         internal var backgroundView: UIView!
         internal var titleStackContent: Ocean.StackView!
         internal var titleStackView: Ocean.StackView!
-        internal var infoIconImageView: UIImageView!
 
         private let errorEmpty = "..."
+
+        internal lazy var textField: UITextField = {
+            let view = UITextField()
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.delegate = self
+            view.font = .baseRegular(size: Ocean.font.fontSizeXs)
+            view.textColor = Ocean.color.colorInterfaceDarkDeep
+            view.heightAnchor.constraint(equalToConstant: 48).isActive = true
+            view.addTarget(self, action: #selector(editingChanged(textField:)), for: .editingChanged)
+            return view
+        }()
+
+        private lazy var labelTitle: UILabel = {
+            let label = UILabel()
+            label.font = .baseRegular(size: Ocean.font.fontSizeXxs)
+            label.textColor = Ocean.color.colorInterfaceDarkDown
+            return label
+        }()
+
+        private lazy var imageView: UIImageView = {
+            let view = UIImageView()
+            view.translatesAutoresizingMaskIntoConstraints = false
+            return view
+        }()
+
+        private lazy var labelError: UILabel = {
+            let label = UILabel()
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.font = .baseRegular(size: Ocean.font.fontSizeXxxs)
+            label.textColor = Ocean.color.colorStatusNegativePure
+            label.text = errorEmpty
+            label.isHidden = true
+            return label
+        }()
+
+        private lazy var infoIconImageView: UIImageView = {
+            let view = UIImageView()
+            view.image = Ocean.icon.informationCircleSolid?.withRenderingMode(.alwaysTemplate)
+            view.tintColor = Ocean.color.colorInterfaceDarkUp
+            view.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                view.heightAnchor.constraint(equalToConstant: 12.8),
+                view.widthAnchor.constraint(equalToConstant: 12.8)
+            ])
+            view.isUserInteractionEnabled = true
+            view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(infoAction)))
+            view.isHidden = infoMessage.isEmpty
+            return view
+        }()
 
         private lazy var tooltip: Ocean.Tooltip = {
             Ocean.Tooltip { component in
@@ -74,135 +247,6 @@ extension Ocean {
             onHelperTextTouched?()
         }
 
-        public var errorMessage: String = "" {
-            didSet {
-                labelError?.text = errorMessage.isEmpty == true ? errorEmpty : errorMessage
-                self.updateState()
-            }
-        }
-
-        public var title: String  = "" {
-            didSet {
-                labelTitle?.text = isOptional ? "\(title) (opcional)" : title
-            }
-        }
-
-        public var placeholder: String = "" {
-            didSet {
-                textField?.placeholder = placeholder
-            }
-        }
-
-        public var text: String = "" {
-            didSet {
-                textField?.text = text
-                self.updateState()
-            }
-        }
-
-        public var helper: String = "" {
-            didSet {
-                labelHelper.text = helper
-                self.updateState()
-            }
-        }
-
-        public var iconHelper: UIImage? = nil {
-            didSet {
-                iconHelperImage.image = iconHelper?.withRenderingMode(.alwaysTemplate)
-                iconHelperImage.isHidden = iconHelper == nil
-            }
-        }
-
-        public var image: UIImage? = nil {
-            didSet {
-                imageView.image = image
-            }
-        }
-
-        public override var isEnabled: Bool {
-            didSet {
-                self.updateState()
-            }
-        }
-
-        public var isActivated: Bool = true {
-            didSet {
-                isEnabled = isActivated
-            }
-        }
-
-        public var isOptional: Bool = false {
-            didSet {
-                labelTitle?.text = isOptional ? "\(title) (opcional)" : title
-            }
-        }
-
-        public var infoMessage: String = "" {
-            didSet {
-                infoIconImageView?.isHidden = infoMessage.isEmpty
-                tooltip.message = infoMessage
-            }
-        }
-
-        public var isValidCharactersRange: Bool {
-            return charactersLimitValidator()
-        }
-
-        public var isSecureTextEntry: Bool = false {
-            didSet {
-                textField?.isSecureTextEntry = isSecureTextEntry
-            }
-        }
-
-        public var autocorrectionType: UITextAutocorrectionType = .default {
-            didSet {
-                textField?.autocorrectionType = autocorrectionType
-            }
-        }
-
-        public var keyboardType: UIKeyboardType = .default {
-            didSet {
-                textField?.keyboardType = keyboardType
-            }
-        }
-
-        public var autocapitalizationType: UITextAutocapitalizationType = .sentences {
-            didSet {
-                textField?.autocapitalizationType = autocapitalizationType
-            }
-        }
-
-        public var textContentType: UITextContentType? {
-            didSet {
-                textField?.textContentType = textContentType
-            }
-        }
-
-        public var maxLenght: Int? = nil
-
-        public var charactersLimitNumber: Int? = nil {
-            didSet {
-                guard let limitValue = charactersLimitNumber else { return }
-                maxLenght = limitValue
-                labelHelper.text = "\(textField.text?.count ?? 0)/\(limitValue)"
-            }
-        }
-
-        public override func becomeFirstResponder() -> Bool {
-            return textField?.becomeFirstResponder() == true
-        }
-
-        public override func resignFirstResponder() -> Bool {
-            return textField?.resignFirstResponder() == true
-        }
-
-        public var onValueChanged: ((String) -> Void)?
-        public var onKeyEnterTouched: (() -> Void)?
-        public var onBeginEditing: (() -> Void)?
-        public var onInfoIconTouched: (() -> Void)?
-        public var onHelperTextTouched: (() -> Void)?
-
         public var rightButton: UIButton?
 
         public convenience init(builder: InputTextFieldBuilder) {
@@ -228,14 +272,6 @@ extension Ocean {
             hStack.distribution = .fill
         }
 
-        func makeTitleLabel() {
-            labelTitle = UILabel()
-            labelTitle.font = UIFont(
-                name: Ocean.font.fontFamilyBaseWeightRegular,
-                size: Ocean.font.fontSizeXxs)
-            labelTitle.textColor = Ocean.color.colorInterfaceDarkDown
-        }
-
         func makeTitleStackContent() {
             makeTitleStackView()
             titleStackContent = Ocean.StackView()
@@ -246,8 +282,6 @@ extension Ocean {
         }
 
         func makeTitleStackView() {
-            makeTitleLabel()
-            makeInfoIconImageView()
             titleStackView = Ocean.StackView()
             titleStackView.axis = .horizontal
             titleStackView.alignment = .center
@@ -255,19 +289,6 @@ extension Ocean {
             titleStackView.spacing = 5
             titleStackView.addArrangedSubview(labelTitle)
             titleStackView.addArrangedSubview(infoIconImageView)
-        }
-
-        func makeTextField() {
-            textField = UITextField()
-            textField.translatesAutoresizingMaskIntoConstraints = false
-            textField.delegate = self
-
-            textField.font = UIFont(
-                name: Ocean.font.fontFamilyBaseWeightRegular,
-                size: Ocean.font.fontSizeXs)
-            textField.textColor = Ocean.color.colorInterfaceDarkDeep
-            textField.heightAnchor.constraint(equalToConstant: 48).isActive = true
-            textField.addTarget(self, action: #selector(editingChanged(textField:)), for: .editingChanged)
         }
 
         @objc func editingChanged(textField: UITextField) {
@@ -278,54 +299,23 @@ extension Ocean {
             self.onValueChanged?(self.text)
         }
 
-        func makeLabelError() {
-            labelError = UILabel()
-            labelError.translatesAutoresizingMaskIntoConstraints = false
-            labelError.font = UIFont(
-                name: Ocean.font.fontFamilyBaseWeightRegular,
-                size: Ocean.font.fontSizeXxxs)
-            labelError.textColor = Ocean.color.colorStatusNegativePure
-            labelError.text = errorEmpty
-            labelError.isHidden = true
-        }
-
-        func makeImageView() {
-            imageView = UIImageView()
-            imageView.translatesAutoresizingMaskIntoConstraints = false
-        }
-
-        private func makeInfoIconImageView() {
-            infoIconImageView = UIImageView()
-            infoIconImageView.image = Ocean.icon.informationCircleSolid?.withRenderingMode(.alwaysTemplate)
-            infoIconImageView.tintColor = Ocean.color.colorInterfaceDarkUp
-            infoIconImageView.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                infoIconImageView.heightAnchor.constraint(equalToConstant: 12.8),
-                infoIconImageView.widthAnchor.constraint(equalToConstant: 12.8)
-            ])
-            infoIconImageView.isUserInteractionEnabled = true
-
-            infoIconImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(infoAction)))
-            infoIconImageView.isHidden = infoMessage.isEmpty
-        }
-
         @objc func infoAction(_ sender: Any) {
             onInfoIconTouched?()
             tooltip.show(target: infoIconImageView, presenter: self)
         }
 
         func updateState() {
-            textField?.isEnabled = isEnabled
-            labelError?.isHidden = true
+            textField.isEnabled = isEnabled
+            labelError.isHidden = true
             labelHelperStack.isHidden = true
 
-            if labelError?.text != nil && labelError?.text != errorEmpty {
-                labelError?.isHidden = false
+            if labelError.text != nil && labelError.text != errorEmpty {
+                labelError.isHidden = false
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
                             border: Ocean.color.colorStatusNegativePure,
                             labelTitle: Ocean.color.colorInterfaceDarkDown)
                 backgroundView?.ocean.borderWidth.applyHairline()
-            } else if textField?.isFirstResponder == true {
+            } else if textField.isFirstResponder == true {
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
                             border: Ocean.color.colorBrandPrimaryDown,
                             labelTitle: Ocean.color.colorInterfaceDarkDown)
@@ -336,7 +326,7 @@ extension Ocean {
                             labelTitle: Ocean.color.colorInterfaceDarkUp)
                 backgroundView?.ocean.borderWidth.applyHairline()
             } else if isEnabled {
-                let isActivated = self.textField?.text?.isEmpty == true
+                let isActivated = self.textField.text?.isEmpty == true
                 let color = isActivated ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorInterfaceDarkDeep
                 let border = isActivated ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorBrandPrimaryUp
                 let labelColor = Ocean.color.colorInterfaceDarkDown
@@ -357,7 +347,7 @@ extension Ocean {
                 labelHelper.text = "\(textField.text?.count ?? 0)/\(limitValue)"
             }
 
-            if labelError?.isHidden ?? true,
+            if labelError.isHidden,
                let helperText = labelHelper.text,
                !helperText.isEmpty {
                 labelHelperStack.isHidden = false
@@ -369,20 +359,17 @@ extension Ocean {
                          background: UIColor? = Ocean.color.colorInterfaceLightPure,
                          placeHolder: UIColor? = Ocean.color.colorInterfaceLightDeep,
                          labelTitle: UIColor) {
-            self.textField?.textColor = text
+            self.textField.textColor = text
             self.backgroundView?.backgroundColor = background
             self.backgroundView?.layer.borderColor = border.cgColor
-            self.textField?.placeHolderColor = placeHolder
-            self.labelTitle?.textColor = labelTitle
+            self.textField.placeHolderColor = placeHolder
+            self.labelTitle.textColor = labelTitle
         }
 
         func makeView() {
             self.makemainStack()
             self.makeHStack()
             self.makeTitleStackContent()
-            self.makeTextField()
-            self.makeLabelError()
-            self.makeImageView()
 
             textField.addSubview(imageView)
 
