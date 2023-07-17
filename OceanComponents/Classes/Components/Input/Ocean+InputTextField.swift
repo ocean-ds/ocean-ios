@@ -22,7 +22,6 @@ extension Ocean {
         internal var textField: UITextField!
         internal var imageView: UIImageView!
         internal var labelError: UILabel!
-        internal var labelHelper: UILabel!
         internal var hStack: Ocean.StackView!
         internal var backgroundView: UIView!
         internal var titleStackContent: Ocean.StackView!
@@ -36,41 +35,41 @@ extension Ocean {
                 component.message = infoMessage
             }
         }()
-        
+
         private lazy var iconHelperImage: UIImageView = {
             let icon = UIImageView()
             icon.tintColor = Ocean.color.colorInterfaceDarkUp
-            
+            icon.isHidden = iconHelper == nil
             return icon
         }()
-        
+
+        private lazy var labelHelper: UILabel = {
+            let label = UILabel()
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.font = .baseRegular(size: Ocean.font.fontSizeXxxs)
+            label.textColor = Ocean.color.colorInterfaceDarkUp
+            label.text = helper
+            return label
+        }()
+
         private lazy var labelHelperStack: Ocean.StackView = {
             Ocean.StackView { stack in
                 stack.axis = .horizontal
                 stack.alignment = .fill
                 stack.distribution = .fill
                 stack.spacing = Ocean.size.spacingStackXxxs
-                
+                stack.isHidden = true
+
                 stack.add([
                     labelHelper,
                     iconHelperImage,
-                    UIView(),
+                    UIView()
                 ])
-            }
-        }()
-        
-        private lazy var contentHelperStack: Ocean.StackView = {
-            Ocean.StackView { stack in
-                stack.axis = .horizontal
-                stack.alignment = .leading
-                stack.distribution = .fill
-                
-                stack.add([labelHelperStack])
-                
+
                 stack.addTapGesture(target: self, selector: #selector(helperOnTouch))
             }
         }()
-        
+
         @objc private func helperOnTouch() {
             onHelperTextTouched?()
         }
@@ -103,7 +102,7 @@ extension Ocean {
 
         public var helper: String = "" {
             didSet {
-                labelHelper?.text = helper
+                labelHelper.text = helper
                 self.updateState()
             }
         }
@@ -111,9 +110,10 @@ extension Ocean {
         public var iconHelper: UIImage? = nil {
             didSet {
                 iconHelperImage.image = iconHelper?.withRenderingMode(.alwaysTemplate)
+                iconHelperImage.isHidden = iconHelper == nil
             }
         }
-        
+
         public var image: UIImage? = nil {
             didSet {
                 imageView.image = image
@@ -185,7 +185,7 @@ extension Ocean {
             didSet {
                 guard let limitValue = charactersLimitNumber else { return }
                 maxLenght = limitValue
-                labelHelper?.text = "\(textField.text?.count ?? 0)/\(limitValue)"
+                labelHelper.text = "\(textField.text?.count ?? 0)/\(limitValue)"
             }
         }
 
@@ -289,18 +289,6 @@ extension Ocean {
             labelError.isHidden = true
         }
 
-        func makeLabelHelper() {
-            labelHelper = UILabel()
-            labelHelper.translatesAutoresizingMaskIntoConstraints = false
-            labelHelper.font = UIFont(
-                name: Ocean.font.fontFamilyBaseWeightRegular,
-                size: Ocean.font.fontSizeXxxs)
-            labelHelper.textColor = Ocean.color.colorInterfaceDarkUp
-            labelHelper.text = helper
-            labelHelper.isHidden = true
-            iconHelperImage.isHidden = iconHelper == nil
-        }
-
         func makeImageView() {
             imageView = UIImageView()
             imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -316,7 +304,7 @@ extension Ocean {
                 infoIconImageView.widthAnchor.constraint(equalToConstant: 12.8)
             ])
             infoIconImageView.isUserInteractionEnabled = true
-            
+
             infoIconImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(infoAction)))
             infoIconImageView.isHidden = infoMessage.isEmpty
         }
@@ -329,7 +317,7 @@ extension Ocean {
         func updateState() {
             textField?.isEnabled = isEnabled
             labelError?.isHidden = true
-            labelHelper?.isHidden = true
+            labelHelperStack.isHidden = true
 
             if labelError?.text != nil && labelError?.text != errorEmpty {
                 labelError?.isHidden = false
@@ -366,13 +354,13 @@ extension Ocean {
             }
 
             if let limitValue = self.charactersLimitNumber {
-                labelHelper?.text = "\(textField.text?.count ?? 0)/\(limitValue)"
+                labelHelper.text = "\(textField.text?.count ?? 0)/\(limitValue)"
             }
 
             if labelError?.isHidden ?? true,
-               let helperText = labelHelper?.text,
+               let helperText = labelHelper.text,
                !helperText.isEmpty {
-                labelHelper.isHidden = false
+                labelHelperStack.isHidden = false
             }
         }
 
@@ -394,7 +382,6 @@ extension Ocean {
             self.makeTitleStackContent()
             self.makeTextField()
             self.makeLabelError()
-            self.makeLabelHelper()
             self.makeImageView()
 
             textField.addSubview(imageView)
@@ -423,7 +410,7 @@ extension Ocean {
 
             mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxxs))
             mainStack.addArrangedSubview(labelError)
-            mainStack.addArrangedSubview(contentHelperStack)
+            mainStack.addArrangedSubview(labelHelperStack)
             mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
 
             self.addSubview(mainStack)
@@ -458,7 +445,7 @@ extension Ocean {
             if !self.errorMessage.isEmpty {
                 labelError.text = self.errorMessage
             }
-            
+
             iconHelperImage.oceanConstraints
                 .height(constant: Ocean.size.spacingStackXs)
                 .width(constant: Ocean.size.spacingStackXs)
@@ -498,7 +485,7 @@ extension Ocean {
             self.textField.leftView = Ocean.Spacer(space: Ocean.size.spacingStackXxs)
             self.textField.leftViewMode = .always
             self.textField.defaultTextAttributes.updateValue(Ocean.size.spacingStackXxs,
-                forKey: NSAttributedString.Key.kern)
+                                                             forKey: NSAttributedString.Key.kern)
             self.textField.textAlignment = .center
         }
 
