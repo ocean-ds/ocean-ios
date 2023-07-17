@@ -21,10 +21,7 @@ extension Ocean {
             self.init()
             builder(self)
             makeView()
-        }
-        
-        override func makeTextField() {
-            super.makeTextField()
+
             textField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(inputSelectorAction)))
         }
         
