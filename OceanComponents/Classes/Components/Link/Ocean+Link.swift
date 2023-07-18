@@ -100,16 +100,16 @@ extension Ocean {
                 .make()
 
             linkIconImageView.oceanConstraints
-                .leadingToTrailing(to: linkTitleLabel)
-                .width(constant: 16)
-                .height(constant: 16)
+                .leadingToTrailing(to: linkTitleLabel, constant: Ocean.size.spacingStackXxs)
+                .width(constant: Ocean.size.spacingStackXs)
+                .height(constant: Ocean.size.spacingStackXs)
                 .make()
         }
 
         private func updateUI() {
             let size = size == .medium ? Ocean.font.fontSizeXs : Ocean.font.fontSizeXxs
 
-            linkTitleLabel.font = .highlightBold(size: size)
+            linkTitleLabel.font = .baseSemiBold(size: size)
 
             if let attributedTitle = attributedTitle {
                 linkTitleLabel.attributedText = attributedTitle
