@@ -82,6 +82,7 @@ public extension OceanNavigationBar {
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
         navigationController?.navigationBar.prefersLargeTitles = navigationLargeTitle
         navigationItem.backButtonTitle = navigationBackButtonTitle
+        self.navigationController?.navigationBar.topItem?.backButtonTitle = navigationBackButtonTitle
         
         self.navigationController?.navigationBar.setNeedsLayout()
         self.navigationController?.navigationBar.layoutIfNeeded()
