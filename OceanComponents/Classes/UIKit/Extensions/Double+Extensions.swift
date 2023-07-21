@@ -17,15 +17,17 @@ extension Double {
         }
         return formatter.string(from: self as NSNumber)
     }
-    
+
     public func toPercent(withDecimalCase: Int = 1) -> String {
         let valueTruncate = self.rounded()
         if self != valueTruncate {
             let format = "%.\(withDecimalCase.description)f"
-            return NSString(format: format as NSString, locale: Locale(identifier: "pt-br"), self).description
+            let value = NSString(format: format as NSString, locale: Locale(identifier: "pt-br"), self).description
+            return "\(value)%"
         }
 
-        return NSString(format: "%.0f", locale: Locale(identifier: "pt-br"), self).description
+        let value = NSString(format: "%.0f", locale: Locale(identifier: "pt-br"), self).description
+        return "\(value)%"
     }
 
     public func toDecimal() -> String {
