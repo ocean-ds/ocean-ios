@@ -35,14 +35,16 @@ extension Ocean {
         private lazy var optionsListCheckBox: [Ocean.CheckBox] = []
         
         lazy var contentStack: Ocean.StackView = {
-            let stack = Ocean.StackView()
-            stack.axis = .vertical
-            stack.distribution = .fill
-            stack.spacing = Ocean.size.spacingStackXxs
+            Ocean.StackView { stackView in
+                stackView.translatesAutoresizingMaskIntoConstraints = false
+                stackView.axis = .vertical
+                stackView.distribution = .fillEqually
+                stackView.alignment = .fill
+                stackView.spacing = Ocean.size.spacingStackXxs
 
-            stack.add(optionsListCheckBox)
+                stackView.add(optionsListCheckBox)
 
-            return stack
+            }
         }()
         
         private lazy var bottomStack: Ocean.StackView = {
@@ -109,7 +111,10 @@ extension Ocean {
             mainStack.addArrangedSubview(Spacer(space: bottomSpacing))
 
             let widthWithoutSpacing = view.frame.width - Ocean.size.spacingInsetLg
-            let totalLines = (label.frame.width / widthWithoutSpacing).rounded()
+
+            let labelEstimatedSize = label.text!.size(withAttributes: [.font: label.font!])
+            let totalLines = (labelEstimatedSize.width / widthWithoutSpacing).rounded(.up)
+
             return (totalLines * label.frame.height) + bottomSpacing
         }
         
