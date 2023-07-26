@@ -75,17 +75,18 @@ extension Ocean {
         private func setupScrollView() {
             addSubview(scrollView)
             scrollView.addSubview(mainStack)
-            
+
             scrollView.oceanConstraints
                 .fill(to: self)
                 .height(constant: 64)
                 .make()
-            
-            NSLayoutConstraint.activate([
-                mainStack.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-                mainStack.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-                mainStack.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor)
-            ])
+
+            mainStack.oceanConstraints
+                .topToTop(to: scrollView, constant: Ocean.size.spacingStackXs)
+                .bottomToBottom(to: scrollView, constant: -Ocean.size.spacingStackXs)
+                .leadingToLeading(to: scrollView)
+                .trailingToTrailing(to: scrollView)
+                .make()
         }
         
         public func addFilterChips(_ view: [FilterBarChipWithModal]) {
