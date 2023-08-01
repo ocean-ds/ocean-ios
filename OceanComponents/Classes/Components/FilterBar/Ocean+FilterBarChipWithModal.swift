@@ -120,7 +120,7 @@ extension Ocean {
         }
 
         private func configureBadge() {
-            let selectedCount = optionsModel.options.filter { $0.isSelected ?? false }.count
+            let selectedCount = optionsModel.options.filter { $0.isSelected }.count
             status = selectedCount > 0 ? .selected : .inactive
             number = selectedCount > 0 ? selectedCount : nil
         }
