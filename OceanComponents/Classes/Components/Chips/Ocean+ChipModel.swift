@@ -14,20 +14,24 @@ extension Ocean {
         public let number: Int?
         public let title: String
         public var status: Ocean.ChipStatus
-        public var isSelected: Bool?
+        public var isSelected: Bool
         
         public init(id: String? = nil,
                     icon: UIImage? = nil,
                     number: Int? = nil,
                     title: String,
                     status: Ocean.ChipStatus = .normal,
-                    isSelected: Bool? = false) {
+                    isSelected: Bool = false) {
             self.id = id
             self.icon = icon
             self.number = number
             self.title = title
             self.status = status
             self.isSelected = isSelected
+        }
+
+        public static func empty() -> Self {
+            return ChipModel(title: "")
         }
     }
 }

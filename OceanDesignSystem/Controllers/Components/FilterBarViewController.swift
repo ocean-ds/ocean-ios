@@ -18,91 +18,67 @@ class FilterBarViewController: UIViewController {
         Ocean.ChipModel(id: "pending", title: "Pendente"),
         Ocean.ChipModel(id: "refused", title: "Recusado")
     ]
-    
+
     lazy var filterOptionsModel: Ocean.FilterBarOptionsModel = {
         Ocean.FilterBarOptionsModel(
             modalTitle: "Opções de Filtro",
             options: optionsChipModel)
     }()
 
-    lazy var filterChip: Ocean.FilterBarChipWithModal = {
-        let chip = Ocean.FilterBarChipWithModal()
-        chip.text = "Filtro"
-        chip.modalType = .multipleChoice
-        chip.filterOptionsModel = filterOptionsModel
-        chip.rootViewController = self
-        chip.onValuesChange = { [weak self] _, items in
-            guard let self = self else { return }
-            let itemsSelected = items.filter { $0.isSelected ?? false }
-            let selectedTitles = itemsSelected.map { $0.title }
-            let message = "Items: \(selectedTitles.joined(separator: ", "))"
-            self.showSnackbar(text: message)
-        }
-        chip.onCancel = { [weak self] in
-            guard let self = self else { return }
-            self.showSnackbar(text: "Cancel")
-        }
-        
-        return chip
-    }()
-    
     lazy var filterOptionsModel2: Ocean.FilterBarOptionsModel = {
         Ocean.FilterBarOptionsModel(
             modalTitle: "Opções de Filtro",
             options: optionsChipModel
         )
     }()
-    
+
+    lazy var filterChip: Ocean.FilterBarChipWithModal = {
+        let chip = Ocean.FilterBarChipWithModal()
+        chip.text = "Filtro"
+        chip.modalType = .multipleChoice
+        chip.optionsModel = filterOptionsModel
+        chip.rootViewController = self
+        chip.onCancel = { [weak self] in
+            guard let self = self else { return }
+            self.showSnackbar(text: "Cancel")
+        }
+
+        return chip
+    }()
+
     lazy var filterChip2: Ocean.FilterBarChipWithModal = {
         let chip = Ocean.FilterBarChipWithModal()
         chip.text = "Filtro"
         chip.modalType = .singleChoice
-        chip.filterOptionsModel = filterOptionsModel2
+        chip.optionsModel = filterOptionsModel2
         chip.rootViewController = self
-        chip.onValuesChange = { [weak self] _, value in
-            guard let self = self else { return }
-            if let item = value.first (where: { $0.isSelected == true }) {
-                let message = "Id: \(item.id), Title: \(item.title), \(item.isSelected ?? false)"
-                self.showSnackbar(text: message)
-            }
-        }
-        
+
         return chip
     }()
     
     lazy var basicChip1: Ocean.FilterBarBasicChip = {
         let chip = Ocean.FilterBarBasicChip()
-        chip.number = 999
-        chip.icon = Ocean.icon.calendarOutline
-        chip.text = "Todos os Filtros"
-        chip.onValueChange = { [weak self] selected, item in
-            guard let self = self else { return }
-            self.showSnackbar(text: "Item: \(item) - Selected: \(selected)")
-        }
+        chip.chipModel = Ocean.ChipModel(icon: Ocean.icon.calendarOutline,
+                                         number: 999,
+                                         title: "Todos os Filtros")
         
         return chip
     }()
     
     lazy var basicChip2: Ocean.FilterBarBasicChip = {
         let chip = Ocean.FilterBarBasicChip()
-        chip.number = 9
-        chip.text = "Filtros"
-        chip.onValueChange = { [weak self] selected, item in
-            guard let self = self else { return }
-            self.showSnackbar(text: "Item: \(item) - Selected: \(selected)")
-        }
-        
+        chip.chipModel = Ocean.ChipModel(icon: Ocean.icon.calendarOutline,
+                                         number: 9,
+                                         title: "Filtros")
+
         return chip
     }()
     
     lazy var basicChip3: Ocean.FilterBarBasicChip = {
         let chip = Ocean.FilterBarBasicChip()
-        chip.text = "Filtrados"
-        chip.onValueChange = { [weak self] selected, item in
-            guard let self = self else { return }
-            self.showSnackbar(text: "Item: \(item) - Selected: \(selected)")
-        }
-        
+        chip.chipModel = Ocean.ChipModel(icon: Ocean.icon.calendarOutline,
+                                         title: "Filtrados")
+
         return chip
     }()
     
@@ -132,6 +108,16 @@ class FilterBarViewController: UIViewController {
         
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
                 view.addGestureRecognizer(panGesture)
+
+        filterBar.onValueChange = { [weak self] items in
+            guard let self = self else { return }
+
+            if items.count > 0 {
+                self.showSnackbar(text: "Selected: \(items.map { $0.title }.joined(separator: ", "))")
+            } else {
+                self.showSnackbar(text: "No items selected")
+            }
+        }
     }
     
     private func showSnackbar(text: String) {

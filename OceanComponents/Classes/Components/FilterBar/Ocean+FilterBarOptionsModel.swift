@@ -24,5 +24,10 @@ extension Ocean {
             self.primaryButtonTitle = primaryButtonTitle
             self.secondaryButtonTitle = secondaryButtonTitle
         }
+
+        public static func empty() -> Self {
+            return FilterBarOptionsModel(modalTitle: "",
+                                         options: [])
+        }
     }
 }
