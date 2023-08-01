@@ -14,7 +14,6 @@ extension Ocean {
         
         struct Constants {
             static let heightCell: CGFloat = 48
-            static let heightCellWithImages: CGFloat = 73
         }
         
         public var onValueSelected: ((Int, CellModel) -> Void)?
@@ -92,14 +91,12 @@ extension Ocean {
             totalSpacing += addActionsIfExist()
 
             if let contentValues = contentValues {
-                let pureHeight = contentValues.first?.imageIcon != nil ? Constants.heightCellWithImages : Constants.heightCell
-                let tableHeight = pureHeight * (CGFloat(contentValues.count))
+                let tableHeight = Constants.heightCell * (CGFloat(contentValues.count))
                 totalSpacing += tableHeight
             }
 
             if let contentValues = contenteMultipleOptions {
-                let pureHeight = contentValues.first?.imageIcon != nil ? Constants.heightCellWithImages : Constants.heightCell
-                let tableHeight = pureHeight * (CGFloat(contentValues.count))
+                let tableHeight = Constants.heightCell * (CGFloat(contentValues.count))
                 totalSpacing += tableHeight
             }
 
@@ -226,8 +223,7 @@ extension Ocean {
 
         public func tableView(_ tableView: UITableView,
                               heightForRowAt indexPath: IndexPath) -> CGFloat {
-            let hasImageIcon = self.contentValues?[indexPath.row].imageIcon != nil
-            return hasImageIcon ? Constants.heightCellWithImages : Constants.heightCell
+            return  Constants.heightCell
         }
 
         public func tableView(_ tableView: UITableView,
