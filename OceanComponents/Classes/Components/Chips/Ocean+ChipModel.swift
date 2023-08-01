@@ -29,5 +29,9 @@ extension Ocean {
             self.status = status
             self.isSelected = isSelected
         }
+
+        public static func empty() -> Self {
+            return ChipModel(title: "")
+        }
     }
 }

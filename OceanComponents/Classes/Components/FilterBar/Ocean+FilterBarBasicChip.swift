@@ -10,11 +10,18 @@ import OceanTokens
 
 extension Ocean {
     public class FilterBarBasicChip: BaseFilterBarChip {
+
+        public var chipModel: Ocean.ChipModel = .empty() {
+            didSet {
+                text = chipModel.title
+            }
+        }
+
         public var needChangeStatus: Bool = true
 
-        public var onValueChange: ((Bool, String) -> Void)?
-        
-        private var isSelected: Bool = false
+        public var onValueChange: ((Ocean.ChipModel?) -> Void)?
+
+        private (set) public var isSelected: Bool = false
         
         private lazy var mainStack: Ocean.StackView = {
             let stack = Ocean.StackView()
@@ -52,7 +59,7 @@ extension Ocean {
                 .make()
         }
         
-        override init(frame: CGRect) {
+        override init(frame: CGRect = .zero) {
             super.init(frame: frame)
             setupUI()
         }
@@ -66,7 +73,7 @@ extension Ocean {
             if needChangeStatus {
                 updateBasicChip()
             }
-            onValueChange?(isSelected, text)
+            onValueChange?(isSelected ? chipModel : nil)
         }
         
         private func updateBasicChip() {

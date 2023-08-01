@@ -16,7 +16,7 @@ extension Ocean {
             case singleChoice
         }
         
-        public var filterOptionsModel: FilterBarOptionsModel? = nil {
+        public var optionsModel: FilterBarOptionsModel = .empty() {
             didSet {
                 updateUI()
             }
@@ -24,7 +24,7 @@ extension Ocean {
         
         public weak var rootViewController: UIViewController?
   
-        public var onValuesChange: ((FilterBarChipWithModal, [Ocean.ChipModel]) -> Void)? = nil
+        public var onValueChange: (([Ocean.ChipModel]) -> Void)? = nil
         
         public var onCancel: (() -> Void)? = nil
         
@@ -81,11 +81,10 @@ extension Ocean {
         }
         
         private func setupSingleChoiceModal() {
-            if let rootViewController = rootViewController,
-               let filterOptionsModel = filterOptionsModel {
+            if let rootViewController = rootViewController {
                 let modal = Ocean.ModalList(rootViewController)
-                    .withTitle(filterOptionsModel.modalTitle)
-                    .withValues(getOptions(filterOptionsModel: filterOptionsModel))
+                    .withTitle(optionsModel.modalTitle)
+                    .withValues(getOptions(optionsModel: optionsModel))
                     .build()
 
                 modal.onValueSelected = { [weak self] _, option in
@@ -94,27 +93,26 @@ extension Ocean {
                     self.updateFilterOptionsModel(selectedItem: option)
                     self.text = option.title
                     self.updateFilterChipSingleChoice()
-                    self.onValuesChange?(self, self.filterOptionsModel?.options ?? [])
+                    self.onValueChange?(self.optionsModel.options)
                 }
                 modal.show()
             }
         }
         
         private func setupMultipleChoiceModal() {
-            if let rootViewController = rootViewController,
-               let filterOptionsModel = filterOptionsModel {
+            if let rootViewController = rootViewController {
                 Ocean.ModalMultipleChoice(rootViewController)
-                    .withTitle(filterOptionsModel.modalTitle)
+                    .withTitle(optionsModel.modalTitle)
                     .withDismiss(true)
-                    .withMultipleOptions(getOptions(filterOptionsModel: filterOptionsModel))
-                    .withAction(textNegative: filterOptionsModel.secondaryButtonTitle, actionNegative: {
+                    .withMultipleOptions(getOptions(optionsModel: optionsModel))
+                    .withAction(textNegative: optionsModel.secondaryButtonTitle, actionNegative: {
                         self.onCancel?()
-                    }, textPositive: filterOptionsModel.primaryButtonTitle, actionPositive: { [weak self] options in
+                    }, textPositive: optionsModel.primaryButtonTitle, actionPositive: { [weak self] options in
                         guard let self = self else { return }
                         
                         self.updateFilterOptionsModel(selectedItems: options)
                         self.configureBadge()
-                        self.onValuesChange?(self, self.filterOptionsModel?.options ?? [])
+                        self.onValueChange?(self.optionsModel.options)
                     })
                     .build()
                     .show()
@@ -122,7 +120,7 @@ extension Ocean {
         }
         
         private func configureBadge() {
-            let selectedCount = filterOptionsModel?.options.filter { $0.isSelected ?? false }.count ?? 0
+            let selectedCount = optionsModel.options.filter { $0.isSelected ?? false }.count
             status = selectedCount > 0 ? .selected : .inactive
             number = selectedCount > 0 ? selectedCount : nil
         }
@@ -151,9 +149,9 @@ extension Ocean {
         }
         
         private func updateFilterOptionsModel(selectedItems: [CellModel]) {
-            guard let originalModel = filterOptionsModel else { return }
+            let originalModel = optionsModel
             
-            filterOptionsModel?.options = originalModel.options.compactMap {
+            optionsModel.options = originalModel.options.compactMap {
                 var item = $0
                 item.isSelected = selectedItems.contains(where: { item.title == $0.title && $0.isSelected })
                 return item
@@ -161,9 +159,9 @@ extension Ocean {
         }
         
         private func updateFilterOptionsModel(selectedItem: CellModel) {
-            guard let originalModel = filterOptionsModel else { return }
+            let originalModel = optionsModel
             
-            filterOptionsModel?.options = originalModel.options.compactMap {
+            optionsModel.options = originalModel.options.compactMap {
                 var item = $0
                 item.isSelected = item.title == selectedItem.title
                 return item
@@ -174,12 +172,12 @@ extension Ocean {
             super.updateUI()
         }
 
-        private func getOptions(filterOptionsModel: FilterBarOptionsModel) -> [Ocean.CellModel] {
+        private func getOptions(optionsModel: FilterBarOptionsModel) -> [Ocean.CellModel] {
             var cellModels: [Ocean.CellModel] = []
-                filterOptionsModel.options.forEach { item in
-                    cellModels.append(CellModel(title: item.title,
-                                                isSelected: item.isSelected ?? false))
-                }
+            optionsModel.options.forEach { item in
+                cellModels.append(CellModel(title: item.title,
+                                            isSelected: item.isSelected ?? false))
+            }
             
             return cellModels
         }
