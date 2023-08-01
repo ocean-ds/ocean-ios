@@ -139,6 +139,11 @@ extension Ocean {
                 .leadingToLeading(to: contentView, constant: Ocean.size.spacingStackXxxs)
                 .trailingToTrailing(to: contentView, constant: -Ocean.size.spacingStackXxxs)
                 .make()
+            
+            iconImageView.oceanConstraints
+                .height(constant: Ocean.size.spacingStackXs)
+                .width(constant: Ocean.size.spacingStackXs)
+                .make()
         }
     }
 }

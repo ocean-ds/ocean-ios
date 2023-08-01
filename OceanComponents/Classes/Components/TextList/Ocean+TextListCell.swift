@@ -442,7 +442,7 @@ extension Ocean {
             roundedIconView.isSkeletonable = !imageNotExist
             arrowImageViewSpacer.isHidden = !arrow
             arrowImageView.isHidden = !arrow
-            arrowImageView.image = arrowIcon
+            arrowImageView.image = arrowIcon?.withRenderingMode(.alwaysTemplate)
             arrowImageView.tintColor = arrowTintColor
             if locked {
                 arrowImageViewSpacer.isHidden = false
