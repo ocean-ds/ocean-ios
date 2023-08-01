@@ -10,17 +10,17 @@ import OceanTokens
 
 extension Ocean {
     public class FilterBarBasicChip: BaseFilterBarChip {
-
+        
         public var chipModel: Ocean.ChipModel = .empty() {
             didSet {
                 text = chipModel.title
             }
         }
-
+        
         public var needChangeStatus: Bool = true
-
-        public var onValueChange: ((Ocean.ChipModel?) -> Void)?
-
+        
+        var onValueChange: ((Ocean.ChipModel?) -> Void)?
+        
         private (set) public var isSelected: Bool = false
         
         private lazy var mainStack: Ocean.StackView = {
@@ -63,7 +63,7 @@ extension Ocean {
             super.init(frame: frame)
             setupUI()
         }
-
+        
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
