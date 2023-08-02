@@ -42,6 +42,8 @@ extension Ocean {
                 updateUI()
             }
         }
+
+        public var onTouch: (() -> Void)?
         
         internal var type: ChipType = .basicChip {
             didSet {
@@ -97,7 +99,9 @@ extension Ocean {
             self.addGestureRecognizer(tapGesture)
         }
         
-        @objc func didTapButton() {}
+        @objc func didTapButton() {
+            onTouch?()
+        }
 
         internal func updateUI() {
             label.text = text
