@@ -78,6 +78,11 @@ class FilterBarViewController: UIViewController {
         let chip = Ocean.FilterBarBasicChip()
         chip.chipModel = Ocean.ChipModel(icon: Ocean.icon.calendarOutline,
                                          title: "Filtrados")
+        chip.needChangeStatus = false
+        chip.onTouch = {[weak self] in
+            guard let self = self else { return }
+            self.showSnackbar(text: "Touch")
+        }
 
         return chip
     }()
