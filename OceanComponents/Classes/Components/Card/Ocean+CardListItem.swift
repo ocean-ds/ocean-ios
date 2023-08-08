@@ -43,8 +43,26 @@ extension Ocean {
                 updateUI()
             }
         }
-        
+
         public var trailingIcon: UIImage? {
+            didSet {
+                updateUI()
+            }
+        }
+
+        public var titleNumberOfLines: Int = 0 {
+            didSet {
+                updateUI()
+            }
+        }
+
+        public var subtitleNumberOfLines: Int = 0 {
+            didSet {
+                updateUI()
+            }
+        }
+        
+        public var captionNumberOfLines: Int = 0 {
             didSet {
                 updateUI()
             }
@@ -118,19 +136,19 @@ extension Ocean {
         
         private lazy var titleLabel: UILabel = {
             Ocean.Typography.heading4 { label in
-                label.numberOfLines = 0
+                label.numberOfLines = self.titleNumberOfLines
             }
         }()
 
         private lazy var subtitleLabel: UILabel = {
             Ocean.Typography.description { label in
-                label.numberOfLines = 0
+                label.numberOfLines = self.subtitleNumberOfLines
             }
         }()
         
         private lazy var captionLabel: UILabel = {
             Ocean.Typography.caption { label in
-                label.numberOfLines = 0
+                label.numberOfLines = self.captionNumberOfLines
             }
         }()
 
@@ -197,6 +215,10 @@ extension Ocean {
             roundedIconView.isHidden = leadingIcon == nil
             trailingIconView.isHidden = trailingIcon == nil
             trailingIconSpacer.isHidden = trailingIcon == nil
+
+            titleLabel.numberOfLines = titleNumberOfLines
+            subtitleLabel.numberOfLines = subtitleNumberOfLines
+            captionLabel.numberOfLines = captionNumberOfLines
         }
         
         @objc func handleOnTouch() {
