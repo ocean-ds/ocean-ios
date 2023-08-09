@@ -38,6 +38,7 @@ struct DSComponents {
         "Link",
         "Modal",
         "NavigationBar",
+        "Onboarding",
         "OrderedListItem",
         "ParentChildTextList",
         "ProgressBar",

@@ -72,6 +72,7 @@ public enum DesignSystemComponentsType: String {
     case DetailedCard
     case Accordion
     case Link
+    case Onboarding
 }
 
 public enum DesignSystemTypographyType: Int {
