@@ -12,16 +12,16 @@ extension Ocean {
     public class Onboarding: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
         private let containerPageControlViewHeight: CGFloat = 48
 
-        public struct Pages {
+        public struct PagesModel {
             var pages: [PageModel] = []
             var titleButton: String = ""
             var titleButtonLastPage: String = ""
-            var actionLastPage: (() -> Void)
+            var actionLastPage: (() -> Void)?
             
             public init(pages: [PageModel],
                         titleButton: String,
                         titleButtonLastPage: String,
-                        actionLastPage: @escaping () -> Void) {
+                        actionLastPage: (() -> Void)?) {
                 self.pages = pages
                 self.titleButton = titleButton
                 self.titleButtonLastPage = titleButtonLastPage
@@ -32,7 +32,7 @@ extension Ocean {
                 return .init(pages: [],
                              titleButton: "",
                              titleButtonLastPage: "",
-                             actionLastPage: {})
+                             actionLastPage: nil)
             }
         }
         
@@ -48,7 +48,7 @@ extension Ocean {
             }
         }
         
-        public var model: Pages = .empty() {
+        public var model: PagesModel = .empty() {
             didSet {
                 updateUI()
             }
@@ -173,7 +173,9 @@ extension Ocean {
         
         public func scrollViewDidScroll(_ scrollView: UIScrollView) {
             let pageWidth = scrollView.frame.size.width
-            if pageWidth == 0 { return }
+            if pageWidth == 0 {
+                return
+            }
             let currentPageFloat = scrollView.contentOffset.x / pageWidth
             
             pageControlView.currentPage = currentPageFloat
