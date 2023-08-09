@@ -47,13 +47,34 @@ final public class CardListItemViewController: UIViewController {
         card.trailingIcon = Ocean.icon.chevronRightSolid
         card.onTouch = { print("card5") }
     }
-    
+
     lazy var card6 = Ocean.CardListItem { card in
         card.title = "Title"
         card.subtitle = "Subtitle"
         card.leadingIcon = Ocean.icon.archiveOutline
         card.trailingIcon = Ocean.icon.chevronRightSolid
-        card.onTouch = { print("card5") }
+        card.onTouch = { print("card6") }
+    }
+
+    lazy var card7 = Ocean.CardListItem { card in
+        card.title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        card.subtitle = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        card.caption = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        card.leadingIcon = Ocean.icon.archiveOutline
+        card.trailingIcon = Ocean.icon.chevronRightSolid
+        card.onTouch = { print("card7") }
+    }
+    
+    lazy var card8 = Ocean.CardListItem { card in
+        card.title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        card.subtitle = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        card.caption = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        card.leadingIcon = Ocean.icon.archiveOutline
+        card.trailingIcon = Ocean.icon.chevronRightSolid
+        card.onTouch = { print("card8") }
+        card.titleNumberOfLines = 1
+        card.subtitleNumberOfLines = 1
+        card.captionNumberOfLines = 1
     }
     
     lazy var mainStack: Ocean.StackView = {
@@ -69,7 +90,9 @@ final public class CardListItemViewController: UIViewController {
             card3,
             card4,
             card5,
-            card6
+            card6,
+            card7,
+            card8
         ])
         
         return stack
@@ -77,12 +100,21 @@ final public class CardListItemViewController: UIViewController {
     
     public override func viewDidLoad() {
         self.view.backgroundColor = .white
-        self.view.addSubview(mainStack)
+
+        let scrollView = UIScrollView()
+        scrollView.addSubview(mainStack)
+        self.view.addSubview(scrollView)
+
+        scrollView.oceanConstraints
+            .topToTop(to: view, constant: Ocean.size.spacingStackXs)
+            .bottomToBottom(to: view, constant: -Ocean.size.spacingStackXs)
+            .leadingToLeading(to: view, constant: Ocean.size.spacingStackXs)
+            .trailingToTrailing(to: view, constant: -Ocean.size.spacingStackXs)
+            .make()
 
         mainStack.oceanConstraints
-            .topToTop(to: view, constant: 16)
-            .leadingToLeading(to: view, constant: 16)
-            .trailingToTrailing(to: view, constant: -16)
+            .fill(to: scrollView)
+            .width(to: view, constant: -(Ocean.size.spacingStackXs * 2))
             .make()
     }
 }
