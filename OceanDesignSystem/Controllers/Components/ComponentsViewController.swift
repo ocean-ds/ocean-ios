@@ -142,6 +142,11 @@ class ComponentsViewController: UITableViewController {
             self.present(AccordionViewController(), animated: true, completion: nil)
         case .Link:
             self.present(LinkViewController(), animated: true, completion: nil)
+        case .Onboarding:
+            let navigationController = UINavigationController(rootViewController: OnboardingViewController())
+            navigationController.modalTransitionStyle = .coverVertical
+            navigationController.modalPresentationStyle = .overFullScreen
+            self.present(navigationController, animated: true, completion: nil)
         default:
             performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }
