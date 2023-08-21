@@ -58,6 +58,10 @@ struct DSComponents {
         "Tab",
         "Typography"
     ]
+
+    static let listSwiftUI = [
+        "Button"
+    ]
 }
 
 struct DSTypographies {

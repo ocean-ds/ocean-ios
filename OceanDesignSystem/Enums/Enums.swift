@@ -75,6 +75,10 @@ public enum DesignSystemComponentsType: String {
     case Onboarding
 }
 
+public enum DesignSystemComponentsSwiftUIType: String {
+    case Button
+}
+
 public enum DesignSystemTypographyType: Int {
     case Headings
     case Subtitle

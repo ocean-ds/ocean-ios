@@ -10,11 +10,10 @@ import Foundation
 import UIKit
 
 public struct Ocean {
-    
     static let resourceBundleName = "OceanTokens.bundle"
     static let bundle = Bundle(url: Bundle.bundleOceanTokens.resourceURL!.appendingPathComponent(resourceBundleName))!
 }
 
+public struct OceanSwiftUI {
 
-
-
+}
