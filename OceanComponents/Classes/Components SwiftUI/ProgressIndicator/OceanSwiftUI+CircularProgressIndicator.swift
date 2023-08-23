@@ -1,5 +1,5 @@
 //
-//  Ocean.CircularProgressIndicator.swift
+//  OceanSwiftUI+CircularProgressIndicator.swift
 //  OceanComponents
 //
 //  Created by Vinicius Romeiro on 21/08/23.
@@ -32,6 +32,8 @@ extension OceanSwiftUI {
     }
 
     public struct CircularProgressIndicator: View {
+        public typealias Builder = (CircularProgressIndicator) -> Void
+
         @ObservedObject public var parameters: CircularProgressIndicatorParameters
 
         @State private var isAnimating = false
@@ -43,6 +45,11 @@ extension OceanSwiftUI {
 
         public init(parameters: CircularProgressIndicatorParameters = CircularProgressIndicatorParameters()) {
             self.parameters = parameters
+        }
+
+        public init(builder: Builder) {
+            self.init()
+            builder(self)
         }
 
         public var body: some View {

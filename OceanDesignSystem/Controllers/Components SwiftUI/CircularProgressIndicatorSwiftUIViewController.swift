@@ -11,33 +11,42 @@ import OceanTokens
 
 class CircularProgressIndicatorSwiftUIViewController: UIViewController {
     lazy var progress1: OceanSwiftUI.CircularProgressIndicator = {
-        var view = OceanSwiftUI.CircularProgressIndicator(parameters: .init(style: .normal, size: .small))
-        return view
+        return OceanSwiftUI.CircularProgressIndicator { view in
+            view.parameters.size = .small
+        }
     }()
 
     lazy var progress2: OceanSwiftUI.CircularProgressIndicator = {
-        var view = OceanSwiftUI.CircularProgressIndicator(parameters: .init(style: .normal, size: .medium))
-        return view
+        return OceanSwiftUI.CircularProgressIndicator { view in
+            view.parameters.size = .medium
+        }
     }()
 
     lazy var progress3: OceanSwiftUI.CircularProgressIndicator = {
-        var view = OceanSwiftUI.CircularProgressIndicator(parameters: .init(style: .normal, size: .large))
-        return view
+        return OceanSwiftUI.CircularProgressIndicator { view in
+            view.parameters.size = .large
+        }
     }()
 
     lazy var progress4: OceanSwiftUI.CircularProgressIndicator = {
-        var view = OceanSwiftUI.CircularProgressIndicator(parameters: .init(style: .primary, size: .small))
-        return view
+        return OceanSwiftUI.CircularProgressIndicator { view in
+            view.parameters.style = .primary
+            view.parameters.size = .small
+        }
     }()
 
     lazy var progress5: OceanSwiftUI.CircularProgressIndicator = {
-        var view = OceanSwiftUI.CircularProgressIndicator(parameters: .init(style: .primary, size: .medium))
-        return view
+        return OceanSwiftUI.CircularProgressIndicator { view in
+            view.parameters.style = .primary
+            view.parameters.size = .medium
+        }
     }()
 
     lazy var progress6: OceanSwiftUI.CircularProgressIndicator = {
-        var view = OceanSwiftUI.CircularProgressIndicator(parameters: .init(style: .primary, size: .large))
-        return view
+        return OceanSwiftUI.CircularProgressIndicator { view in
+            view.parameters.style = .primary
+            view.parameters.size = .large
+        }
     }()
 
     private lazy var mainStack: Ocean.StackView = {
