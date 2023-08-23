@@ -15,6 +15,5 @@ public struct Ocean {
 }
 
 public struct OceanSwiftUI {
-    static let resourceBundleName = "OceanTokens.bundle"
-    static let bundle = Bundle(url: Bundle.bundleOceanTokens.resourceURL!.appendingPathComponent(resourceBundleName))!
+
 }
