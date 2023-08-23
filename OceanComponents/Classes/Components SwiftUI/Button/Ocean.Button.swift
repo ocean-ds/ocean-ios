@@ -91,7 +91,7 @@ extension OceanSwiftUI {
 
         public var body: some View {
             SwiftUI.Button {
-                if !self.parameters.isLoading {
+                if !self.parameters.isDisabled && !self.parameters.isLoading {
                     self.parameters.onTouch()
                 }
             } label: {

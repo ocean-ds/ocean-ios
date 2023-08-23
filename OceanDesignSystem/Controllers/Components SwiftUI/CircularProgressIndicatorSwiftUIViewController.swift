@@ -6,8 +6,8 @@
 //  Copyright © 2023 Blu Pagamentos. All rights reserved.
 //
 
-import OceanTokens
 import SwiftUI
+import OceanTokens
 
 class CircularProgressIndicatorSwiftUIViewController: UIViewController {
     lazy var progress1: OceanSwiftUI.CircularProgressIndicator = {
