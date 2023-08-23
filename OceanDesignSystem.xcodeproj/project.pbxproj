@@ -199,7 +199,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		249999B726A9CE7A004DAB05 /* Components */ = {
+		249999B726A9CE7A004DAB05 /* Components UIKit */ = {
 			isa = PBXGroup;
 			children = (
 				B7A4FF7824BF8484006712AA /* ComponentsViewController.swift */,
@@ -249,7 +249,7 @@
 				E1EDBC8F2A6044AE00A39762 /* LinkViewController.swift */,
 				E1AC7C2C2A7D76C900B81B0B /* OnboardingViewController.swift */,
 			);
-			path = Components;
+			path = "Components UIKit";
 			sourceTree = "<group>";
 		};
 		24C801502682585600744F30 /* OceanDesignSystemTests */ = {
@@ -284,7 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				42DF5BD72A8FFD9C00A77CE1 /* Components SwiftUI */,
-				249999B726A9CE7A004DAB05 /* Components */,
+				249999B726A9CE7A004DAB05 /* Components UIKit */,
 				B833D03824A6796100587FDE /* TokensViewController.swift */,
 				B71D65C724C8F28100C3938C /* TokensByCategoryViewController.swift */,
 				B71D65E124CA053500C3938C /* TokensBySubCategories.swift */,
