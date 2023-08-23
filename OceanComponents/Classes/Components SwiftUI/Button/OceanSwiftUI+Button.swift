@@ -1,5 +1,5 @@
 //
-//  Ocean.Button.swift
+//  OceanSwiftUI+Button.swift
 //  OceanComponents
 //
 //  Created by Vinicius Romeiro on 18/08/23.
@@ -83,10 +83,17 @@ extension OceanSwiftUI {
     }
 
     public struct Button: View {
+        public typealias Builder = (Button) -> Void
+
         @ObservedObject public var parameters: ButtonParameters
 
         public init(parameters: ButtonParameters = ButtonParameters()) {
             self.parameters = parameters
+        }
+
+        public init(builder: Builder) {
+            self.init()
+            builder(self)
         }
 
         public var body: some View {
