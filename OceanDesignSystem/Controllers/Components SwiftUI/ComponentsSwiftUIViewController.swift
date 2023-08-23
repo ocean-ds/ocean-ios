@@ -42,6 +42,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
         switch self.designSystemComponentsTypeSelected! {
         case .Button:
             self.present(ButtonSwiftUIViewController(), animated: true, completion: nil)
+        case .ProgressIndicator:
+            self.present(CircularProgressIndicatorSwiftUIViewController(), animated: true, completion: nil)
         }
     }
 }

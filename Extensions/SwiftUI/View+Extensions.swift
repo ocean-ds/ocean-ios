@@ -10,7 +10,8 @@ import SwiftUI
 public extension View {
     func getUIView() -> UIView {
         let hostingController = UIHostingController(rootView: self)
-
-        return hostingController.view ?? UIView()
+        let view = hostingController.view ?? UIView()
+        view.backgroundColor = .clear
+        return view
     }
 }

@@ -7,12 +7,127 @@
 //
 
 import OceanTokens
-
 import SwiftUI
 
 class ButtonSwiftUIViewController: UIViewController {
-    lazy var button: OceanSwiftUI.ButtonPrimary = {
-        var view = OceanSwiftUI.ButtonPrimary()
+    lazy var button1: OceanSwiftUI.Button = {
+        var view = OceanSwiftUI.Button()
+        view.parameters.text = "Avançar"
+        view.parameters.icon = Ocean.icon.plusSolid
+        view.parameters.style = .primary
+        view.parameters.onTouch = {
+            view.parameters.isLoading.toggle()
+            print("Tap")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                view.parameters.isLoading.toggle()
+            }
+        }
+        return view
+    }()
+
+    lazy var button2: OceanSwiftUI.Button = {
+        var view = OceanSwiftUI.Button()
+        view.parameters.text = "Avançar"
+        view.parameters.icon = Ocean.icon.plusSolid
+        view.parameters.style = .secondary
+        view.parameters.onTouch = {
+            view.parameters.isLoading.toggle()
+            print("Tap")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                view.parameters.isLoading.toggle()
+            }
+        }
+        return view
+    }()
+
+    lazy var button3: OceanSwiftUI.Button = {
+        var view = OceanSwiftUI.Button()
+        view.parameters.text = "Avançar"
+        view.parameters.icon = Ocean.icon.plusSolid
+        view.parameters.style = .text
+        view.parameters.onTouch = {
+            view.parameters.isLoading.toggle()
+            print("Tap")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                view.parameters.isLoading.toggle()
+            }
+        }
+        return view
+    }()
+
+    lazy var button4: OceanSwiftUI.Button = {
+        var view = OceanSwiftUI.Button()
+        view.parameters.text = "Avançar"
+        view.parameters.icon = Ocean.icon.plusSolid
+        view.parameters.style = .primaryCritical
+        view.parameters.onTouch = {
+            view.parameters.isLoading.toggle()
+            print("Tap")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                view.parameters.isLoading.toggle()
+            }
+        }
+        return view
+    }()
+
+    lazy var button5: OceanSwiftUI.Button = {
+        var view = OceanSwiftUI.Button()
+        view.parameters.text = "Avançar"
+        view.parameters.icon = Ocean.icon.plusSolid
+        view.parameters.style = .secondaryCritical
+        view.parameters.onTouch = {
+            view.parameters.isLoading.toggle()
+            print("Tap")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                view.parameters.isLoading.toggle()
+            }
+        }
+        return view
+    }()
+
+    lazy var button6: OceanSwiftUI.Button = {
+        var view = OceanSwiftUI.Button()
+        view.parameters.text = "Avançar"
+        view.parameters.icon = Ocean.icon.plusSolid
+        view.parameters.style = .textCritical
+        view.parameters.onTouch = {
+            view.parameters.isLoading.toggle()
+            print("Tap")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                view.parameters.isLoading.toggle()
+            }
+        }
+        return view
+    }()
+
+    lazy var button7: OceanSwiftUI.Button = {
+        var view = OceanSwiftUI.Button()
+        view.parameters.text = "Avançar"
+        view.parameters.icon = Ocean.icon.plusSolid
+        view.parameters.style = .primaryInverse
+        view.parameters.onTouch = {
+            view.parameters.isLoading.toggle()
+            print("Tap")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                view.parameters.isLoading.toggle()
+            }
+        }
+        return view
+    }()
+
+    lazy var button8: OceanSwiftUI.Button = {
+        var view = OceanSwiftUI.Button()
+        view.parameters.text = "Avançar"
+        view.parameters.icon = Ocean.icon.plusSolid
+        view.parameters.style = .primary
+        view.parameters.isDisabled = true
+        view.parameters.onTouch = {
+            view.parameters.isLoading.toggle()
+            print("Tap")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                view.parameters.isLoading.toggle()
+            }
+        }
         return view
     }()
 
@@ -21,11 +136,20 @@ class ButtonSwiftUIViewController: UIViewController {
         stack.axis = .vertical
         stack.alignment = .fill
         stack.distribution = .fill
-        stack.spacing = 16
+        stack.spacing = Ocean.size.spacingStackXs
 
         stack.add([
-            button.getUIView()
+            button1.getUIView(),
+            button2.getUIView(),
+            button3.getUIView(),
+            button4.getUIView(),
+            button5.getUIView(),
+            button6.getUIView(),
+            button7.getUIView(),
+            button8.getUIView()
         ])
+
+        stack.setMargins(allMargins: Ocean.size.spacingStackXs)
 
         return stack
     }()
@@ -33,11 +157,6 @@ class ButtonSwiftUIViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.button.parameters.isLoading = true
-            print(self.button.parameters.text)
-        }
     }
 
     private func setupUI() {
@@ -48,7 +167,9 @@ class ButtonSwiftUIViewController: UIViewController {
 
     private func setupConstraints() {
         mainStack.oceanConstraints
-            .fill(to: self.view)
+            .topToTop(to: self.view)
+            .leadingToLeading(to: self.view)
+            .trailingToTrailing(to: self.view)
             .make()
     }
 }

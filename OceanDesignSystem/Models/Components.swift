@@ -60,7 +60,8 @@ struct DSComponents {
     ]
 
     static let listSwiftUI = [
-        "Button"
+        "Button",
+        "ProgressIndicator"
     ]
 }
 
@@ -88,7 +89,6 @@ let defaultText = "Soluções de negócios inovadoras e que beneficiam toda a ca
 public class Headings {
     static let heading1WithBold = Ocean.Typography.heading1 { label in
         label.text = defaultText
-        
     }
     
     static let heading1 = Ocean.Typography.heading1 { label in
