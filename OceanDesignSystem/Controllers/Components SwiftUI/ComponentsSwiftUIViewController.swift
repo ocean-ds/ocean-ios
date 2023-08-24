@@ -44,6 +44,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(ButtonSwiftUIViewController(), animated: true, completion: nil)
         case .ProgressIndicator:
             self.present(CircularProgressIndicatorSwiftUIViewController(), animated: true, completion: nil)
+        case .Typography:
+            self.present(TypographySwiftUIViewController(), animated: true, completion: nil)
         }
     }
 }

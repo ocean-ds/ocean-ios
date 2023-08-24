@@ -1,5 +1,5 @@
 //
-//  Ocean.Button.swift
+//  OceanSwiftUI+Button.swift
 //  OceanComponents
 //
 //  Created by Vinicius Romeiro on 18/08/23.
@@ -9,6 +9,8 @@ import SwiftUI
 import OceanTokens
 
 extension OceanSwiftUI {
+    // MARK: Parameters
+    
     public class ButtonParameters: ObservableObject {
         @Published public var text: String
         @Published public var icon: UIImage?
@@ -83,11 +85,33 @@ extension OceanSwiftUI {
     }
 
     public struct Button: View {
+        // MARK: Properties for UIKit
+
+        public lazy var hostingController = UIHostingController(rootView: self)
+        public lazy var uiView = self.hostingController.getUIView()
+
+        // MARK: Builder
+        
+        public typealias Builder = (Button) -> Void
+
+        // MARK: Properties
+        
         @ObservedObject public var parameters: ButtonParameters
 
+        // MARK: Properties private
+
+        // MARK: Constructors
+        
         public init(parameters: ButtonParameters = ButtonParameters()) {
             self.parameters = parameters
         }
+
+        public init(builder: Builder) {
+            self.init()
+            builder(self)
+        }
+
+        // MARK: View SwiftUI
 
         public var body: some View {
             SwiftUI.Button {
