@@ -57,12 +57,12 @@ class CircularProgressIndicatorSwiftUIViewController: UIViewController {
         stack.spacing = Ocean.size.spacingStackXs
 
         stack.add([
-            progress1.getUIView(),
-            progress2.getUIView(),
-            progress3.getUIView(),
-            progress4.getUIView(),
-            progress5.getUIView(),
-            progress6.getUIView()
+            progress1.uiView,
+            progress2.uiView,
+            progress3.uiView,
+            progress4.uiView,
+            progress5.uiView,
+            progress6.uiView
         ])
 
         stack.setMargins(horizontal: Ocean.size.spacingStackXs)

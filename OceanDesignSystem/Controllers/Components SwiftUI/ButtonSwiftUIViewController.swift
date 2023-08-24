@@ -131,14 +131,14 @@ class ButtonSwiftUIViewController: UIViewController {
         stack.spacing = Ocean.size.spacingStackXs
 
         stack.add([
-            button1.getUIView(),
-            button2.getUIView(),
-            button3.getUIView(),
-            button4.getUIView(),
-            button5.getUIView(),
-            button6.getUIView(),
-            button7.getUIView(),
-            button8.getUIView()
+            button1.uiView,
+            button2.uiView,
+            button3.uiView,
+            button4.uiView,
+            button5.uiView,
+            button6.uiView,
+            button7.uiView,
+            button8.uiView
         ])
 
         stack.setMargins(allMargins: Ocean.size.spacingStackXs)

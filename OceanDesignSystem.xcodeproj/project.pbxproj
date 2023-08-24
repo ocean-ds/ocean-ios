@@ -36,6 +36,7 @@
 		4274CD6228AD422100F35540 /* GroupCTAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4274CD6128AD422100F35540 /* GroupCTAViewController.swift */; };
 		4291D9A32A153CF4006A0342 /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4291D9A22A153CF4006A0342 /* BalanceViewController.swift */; };
 		42C89A1A2A952FC100B8174A /* CircularProgressIndicatorSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C89A192A952FC100B8174A /* CircularProgressIndicatorSwiftUIViewController.swift */; };
+		42C89A612A96A89700B8174A /* TypographySwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C89A602A96A89700B8174A /* TypographySwiftUIViewController.swift */; };
 		42DF5BD92A8FFDBA00A77CE1 /* ComponentsSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DF5BD82A8FFDBA00A77CE1 /* ComponentsSwiftUIViewController.swift */; };
 		42DF5BDB2A8FFECB00A77CE1 /* ButtonSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DF5BDA2A8FFECB00A77CE1 /* ButtonSwiftUIViewController.swift */; };
 		8EB41BED27E42D1800F18CC7 /* FloatVerticalMenuListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB41BEC27E42D1800F18CC7 /* FloatVerticalMenuListViewController.swift */; };
@@ -132,6 +133,7 @@
 		4274CD6128AD422100F35540 /* GroupCTAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCTAViewController.swift; sourceTree = "<group>"; };
 		4291D9A22A153CF4006A0342 /* BalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceViewController.swift; sourceTree = "<group>"; };
 		42C89A192A952FC100B8174A /* CircularProgressIndicatorSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressIndicatorSwiftUIViewController.swift; sourceTree = "<group>"; };
+		42C89A602A96A89700B8174A /* TypographySwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypographySwiftUIViewController.swift; sourceTree = "<group>"; };
 		42DF5BD82A8FFDBA00A77CE1 /* ComponentsSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsSwiftUIViewController.swift; sourceTree = "<group>"; };
 		42DF5BDA2A8FFECB00A77CE1 /* ButtonSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonSwiftUIViewController.swift; sourceTree = "<group>"; };
 		5D9D9A171B743DED8A2B2297 /* Pods_OceanDesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OceanDesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -267,6 +269,7 @@
 				42DF5BD82A8FFDBA00A77CE1 /* ComponentsSwiftUIViewController.swift */,
 				42DF5BDA2A8FFECB00A77CE1 /* ButtonSwiftUIViewController.swift */,
 				42C89A192A952FC100B8174A /* CircularProgressIndicatorSwiftUIViewController.swift */,
+				42C89A602A96A89700B8174A /* TypographySwiftUIViewController.swift */,
 			);
 			path = "Components SwiftUI";
 			sourceTree = "<group>";
@@ -576,6 +579,7 @@
 				42C89A1A2A952FC100B8174A /* CircularProgressIndicatorSwiftUIViewController.swift in Sources */,
 				B7CA695024CB56B90051CA6A /* RenderComponentsViewController.swift in Sources */,
 				D50896062A156A1E00ED3968 /* InformativeCardViewController.swift in Sources */,
+				42C89A612A96A89700B8174A /* TypographySwiftUIViewController.swift in Sources */,
 				249999B626A9CDA5004DAB05 /* NavigationBarViewController.swift in Sources */,
 				B71D65C824C8F28100C3938C /* TokensByCategoryViewController.swift in Sources */,
 				24B70BB826E7D0B400C9CE1E /* TransactionListViewController.swift in Sources */,
