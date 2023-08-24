@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 import OceanTokens
 
 extension UIStackView {
