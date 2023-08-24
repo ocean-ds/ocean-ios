@@ -39,22 +39,19 @@ jobs:
       - name: Increment version cocoapod
         run: |
           LATEST_VERSION_TOKENS_LIB_NPM=`npm show @useblu/ocean-tokens version`
-          rm OceanTokens.podspec
+          # rm OceanTokens.podspec
           rm OceanComponents.podspec
-          cp -fR OceanTokens.template OceanTokens.podspec
+          # cp -fR OceanTokens.template OceanTokens.podspec
           cp -fR OceanComponents.template OceanComponents.podspec
-          sed -i '' "s/#VERSION_NAME#/'$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER'/g" OceanTokens.podspec
+          # sed -i '' "s/#VERSION_NAME#/'$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER'/g" OceanTokens.podspec
           sed -i '' "s/#VERSION_NAME#/'$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER'/g" OceanComponents.podspec
 
       - name: Commit changes
         run: |
           LATEST_VERSION_TOKENS_LIB_NPM=`npm show @useblu/ocean-tokens version`
           git add . && git commit -am "chore: update tokens v$LATEST_VERSION_TOKENS_LIB_NPM [skip ci]" && git push
+          # git tag -a "OceanTokens-$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" -m "Release of version OceanTokens $LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" && git push --tags
           git tag -a "OceanComponents-$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" -m "Release of version OceanComponents $LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" && git push --tags
-          git tag -a "OceanTokens-$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" -m "Release of version OceanTokens $LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" && git push --tags
-
-      - name: Install pods
-        run: pod install
 
       - name: Deploy libary cocoapod
         run: |
@@ -62,6 +59,9 @@ jobs:
           pod trunk push OceanComponents.podspec
         env:
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
+
+      - name: Install pods
+        run: pod install
 
       - name: Increment version app sample
         run: bundle exec fastlane prepare_new_version
