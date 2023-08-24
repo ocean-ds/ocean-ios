@@ -34,7 +34,7 @@ Project created with the objective use components created by OceanTokens.
   s.ios.deployment_target = '13.0'
   s.swift_versions = ['5.0']
   
-  s.dependency 'OceanTokens', '3.3.1-314'
+  s.dependency 'OceanTokens'
   s.dependency 'SPStorkController'
   s.dependency 'FSCalendar'
   s.dependency 'SkeletonView'

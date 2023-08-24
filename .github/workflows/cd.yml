@@ -53,15 +53,15 @@ jobs:
           git tag -a "OceanComponents-$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" -m "Release of version OceanComponents $LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" && git push --tags
           git tag -a "OceanTokens-$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" -m "Release of version OceanTokens $LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" && git push --tags
 
+      - name: Install pods
+        run: pod install
+
       - name: Deploy libary cocoapod
         run: |
-          pod trunk push OceanTokens.podspec
+          # pod trunk push OceanTokens.podspec
           pod trunk push OceanComponents.podspec
         env:
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
-
-      - name: Install pods
-        run: pod install
 
       - name: Increment version app sample
         run: bundle exec fastlane prepare_new_version
