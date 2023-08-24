@@ -16,16 +16,12 @@ PODS:
     - SDWebImage/Core (= 5.17.0)
   - SDWebImage/Core (5.17.0)
   - SkeletonView (1.30.4)
-  - Sourcery (1.0.3)
   - SPStorkController (1.8.5)
   - SwiftAlgorithms (1.0.0)
-  - SwiftyMocky (4.0.4):
-    - Sourcery (~> 1.0.2)
 
 DEPENDENCIES:
   - OceanComponents (from `./`)
   - OceanTokens (from `./`)
-  - SwiftyMocky (= 4.0.4)
 
 SPEC REPOS:
   trunk:
@@ -33,10 +29,8 @@ SPEC REPOS:
     - FSCalendar
     - SDWebImage
     - SkeletonView
-    - Sourcery
     - SPStorkController
     - SwiftAlgorithms
-    - SwiftyMocky
 
 EXTERNAL SOURCES:
   OceanComponents:
@@ -51,11 +45,9 @@ SPEC CHECKSUMS:
   OceanTokens: 8adbcfcf47530a725b4f1f121d3056ff61ccdb65
   SDWebImage: 750adf017a315a280c60fde706ab1e552a3ae4e9
   SkeletonView: 5a050f6411e697abd4cda0a8d767013399dccd69
-  Sourcery: 70a6048014bd4f37ea80e6bd4354d47bf3b760e1
   SPStorkController: 68966ed3134de2be2a8bbd1475c7e81f3f7d01ee
   SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
-  SwiftyMocky: 1fb3ceca9ded134dad4da58a0f20023d7f685ccf
 
-PODFILE CHECKSUM: b26a4eb2965c266727d1a4eb323d7b169c0f6df1
+PODFILE CHECKSUM: 67927ef0e6d19e6b203c4a0ba072af40cab38851
 
 COCOAPODS: 1.12.1

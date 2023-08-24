@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,6 +22,7 @@
                     <connections>
                         <segue destination="6WR-ko-ii5" kind="relationship" relationship="viewControllers" id="Zmk-6N-qpy"/>
                         <segue destination="f3g-c2-F66" kind="relationship" relationship="viewControllers" id="ZZr-gJ-rAY"/>
+                        <segue destination="gcl-fj-ZML" kind="relationship" relationship="viewControllers" id="OWl-6M-v5q"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sT4-uc-oxJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -116,7 +117,7 @@
                             <outlet property="delegate" destination="f3g-c2-F66" id="2Se-px-rZT"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Components" image="rectangle.3.offgrid" catalog="system" id="eMM-aA-MbI"/>
+                    <tabBarItem key="tabBarItem" title="UIKit" image="rectangle.3.offgrid" catalog="system" id="eMM-aA-MbI"/>
                     <connections>
                         <segue destination="5ef-au-a5S" kind="modal" identifier="SegueInputComponents" id="ZJ2-le-hGI"/>
                         <segue destination="CbQ-Zt-QpH" kind="modal" identifier="SegueComponentTypeView" id="tAz-Xv-g6K"/>
@@ -1002,10 +1003,58 @@
             </objects>
             <point key="canvasLocation" x="-1574" y="212"/>
         </scene>
+        <!--Components-->
+        <scene sceneID="lDo-q8-Vrp">
+            <objects>
+                <tableViewController title="Components" id="gcl-fj-ZML" customClass="ComponentsSwiftUIViewController" customModule="OceanDesignSystem" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="8XM-4d-B2y">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="gray" indentationWidth="10" reuseIdentifier="ComponentsCell" rowHeight="80" id="8SV-a8-fE4" customClass="StandardCell" customModule="OceanDesignSystem" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="50" width="414" height="80"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8SV-a8-fE4" id="znX-hw-60J">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xJZ-bo-ou1">
+                                            <rect key="frame" x="10" y="10" width="394" height="60"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="xJZ-bo-ou1" secondAttribute="trailing" constant="10" id="F3e-EL-OXA"/>
+                                        <constraint firstAttribute="bottom" secondItem="xJZ-bo-ou1" secondAttribute="bottom" constant="10" id="Li8-b8-BvW"/>
+                                        <constraint firstItem="xJZ-bo-ou1" firstAttribute="leading" secondItem="znX-hw-60J" secondAttribute="leading" constant="10" id="ZaG-G5-fxV"/>
+                                        <constraint firstItem="xJZ-bo-ou1" firstAttribute="top" secondItem="znX-hw-60J" secondAttribute="top" constant="10" id="aZC-gV-nHd"/>
+                                        <constraint firstItem="xJZ-bo-ou1" firstAttribute="top" secondItem="znX-hw-60J" secondAttribute="top" constant="10" id="dXm-35-e1i"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="title" destination="xJZ-bo-ou1" id="5nz-EC-SWw"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="gcl-fj-ZML" id="7Fe-A1-b3c"/>
+                            <outlet property="delegate" destination="gcl-fj-ZML" id="jHI-Pj-viF"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="SwiftUI" image="squares.below.rectangle" catalog="system" id="mQ3-iq-ffm"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gpv-8T-2U6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-38" y="773"/>
+        </scene>
     </scenes>
     <resources>
         <image name="note.text" catalog="system" width="128" height="107"/>
         <image name="rectangle.3.offgrid" catalog="system" width="128" height="80"/>
+        <image name="squares.below.rectangle" catalog="system" width="128" height="93"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

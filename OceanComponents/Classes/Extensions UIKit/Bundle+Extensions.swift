@@ -11,6 +11,4 @@ import UIKit
 
 extension Bundle {
     static public let bundleOceanComponents = Bundle(identifier: "br.com.blu.OceanComponents")!
-    
-    
 }
