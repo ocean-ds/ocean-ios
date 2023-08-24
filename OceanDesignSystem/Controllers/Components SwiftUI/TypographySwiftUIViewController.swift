@@ -40,6 +40,42 @@ class TypographySwiftUIViewController: UIViewController {
         }
     }()
 
+    lazy var typography6: OceanSwiftUI.Typography = {
+        OceanSwiftUI.Typography.subTitle1 { view in
+            view.parameters.text = "subTitle1"
+        }
+    }()
+
+    lazy var typography7: OceanSwiftUI.Typography = {
+        OceanSwiftUI.Typography.subTitle2 { view in
+            view.parameters.text = "subTitle2"
+        }
+    }()
+
+    lazy var typography8: OceanSwiftUI.Typography = {
+        OceanSwiftUI.Typography.paragraph { view in
+            view.parameters.text = "paragraph"
+        }
+    }()
+
+    lazy var typography9: OceanSwiftUI.Typography = {
+        OceanSwiftUI.Typography.lead { view in
+            view.parameters.text = "lead"
+        }
+    }()
+
+    lazy var typography10: OceanSwiftUI.Typography = {
+        OceanSwiftUI.Typography.description { view in
+            view.parameters.text = "description"
+        }
+    }()
+
+    lazy var typography11: OceanSwiftUI.Typography = {
+        OceanSwiftUI.Typography.caption { view in
+            view.parameters.text = "caption"
+        }
+    }()
+
     private lazy var mainStack: Ocean.StackView = {
         let stack = Ocean.StackView()
         stack.axis = .vertical
@@ -52,7 +88,13 @@ class TypographySwiftUIViewController: UIViewController {
             typography2.uiView,
             typography3.uiView,
             typography4.uiView,
-            typography5.uiView
+            typography5.uiView,
+            typography6.uiView,
+            typography7.uiView,
+            typography8.uiView,
+            typography9.uiView,
+            typography10.uiView,
+            typography11.uiView
         ])
 
         stack.setMargins(allMargins: Ocean.size.spacingStackXs)

@@ -12,7 +12,7 @@ extension OceanSwiftUI.Typography {
         return OceanSwiftUI.Typography { label in
             label.parameters.font = .highlightExtraBold(size: Ocean.font.fontSizeLg)
             label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
-//            label.setLineHeight(lineHeight: Ocean.font.lineHeightMedium)
+            label.parameters.lineSpacing = Ocean.font.lineHeightMedium
             builder?(label)
         }
     }
@@ -21,7 +21,7 @@ extension OceanSwiftUI.Typography {
         return OceanSwiftUI.Typography { label in
             label.parameters.font = .highlightExtraBold(size: Ocean.font.fontSizeMd)
             label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
-//            label.setLineHeight(lineHeight: Ocean.font.lineHeightMedium)
+            label.parameters.lineSpacing = Ocean.font.lineHeightMedium
             builder?(label)
         }
     }
@@ -30,7 +30,7 @@ extension OceanSwiftUI.Typography {
         return OceanSwiftUI.Typography { label in
             label.parameters.font = .highlightExtraBold(size: Ocean.font.fontSizeSm)
             label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
-//            label.setLineHeight(lineHeight: Ocean.font.lineHeightMedium)
+            label.parameters.lineSpacing = Ocean.font.lineHeightMedium
             builder?(label)
         }
     }
@@ -39,7 +39,7 @@ extension OceanSwiftUI.Typography {
         return OceanSwiftUI.Typography { label in
             label.parameters.font = .highlightBold(size: Ocean.font.fontSizeXs)
             label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
-//            label.setLineHeight(lineHeight: Ocean.font.lineHeightMedium)
+            label.parameters.lineSpacing = Ocean.font.lineHeightMedium
             builder?(label)
         }
     }
@@ -48,7 +48,7 @@ extension OceanSwiftUI.Typography {
         return OceanSwiftUI.Typography { label in
             label.parameters.font = .highlightBold(size: Ocean.font.fontSizeXxs)
             label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
-//            label.setLineHeight(lineHeight: Ocean.font.lineHeightMedium)
+            label.parameters.lineSpacing = Ocean.font.lineHeightMedium
             builder?(label)
         }
     }
@@ -92,7 +92,7 @@ extension OceanSwiftUI.Typography {
         return OceanSwiftUI.Typography { label in
             label.parameters.font = .baseRegular(size: Ocean.font.fontSizeMd)
             label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
-//            label.setLineHeight(lineHeight: Ocean.font.lineHeightMedium)
+            label.parameters.lineSpacing = Ocean.font.lineHeightMedium
             builder?(label)
         }
     }
@@ -101,7 +101,7 @@ extension OceanSwiftUI.Typography {
         return OceanSwiftUI.Typography { label in
             label.parameters.font = .baseRegular(size: Ocean.font.fontSizeSm)
             label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
-//            label.setLineHeight(lineHeight: Ocean.font.lineHeightMedium)
+            label.parameters.lineSpacing = Ocean.font.lineHeightMedium
             builder?(label)
         }
     }
@@ -124,7 +124,7 @@ extension OceanSwiftUI.Typography {
         return OceanSwiftUI.Typography { label in
             label.parameters.font = .baseRegular(size: Ocean.font.fontSizeXs)
             label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
-//            label.setLineHeight(lineHeight: Ocean.font.lineHeightComfy)
+            label.parameters.lineSpacing = Ocean.font.lineHeightComfy
             builder?(label)
         }
     }
@@ -140,7 +140,7 @@ extension OceanSwiftUI.Typography {
         return OceanSwiftUI.Typography { label in
             label.parameters.font = .baseBold(size: Ocean.font.fontSizeSm)
             label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
-//            label.setLineHeight(lineHeight: Ocean.font.lineHeightComfy)
+            label.parameters.lineSpacing = Ocean.font.lineHeightComfy
             builder?(label)
         }
     }
@@ -156,7 +156,7 @@ extension OceanSwiftUI.Typography {
         return OceanSwiftUI.Typography { label in
             label.parameters.font = .baseRegular(size: Ocean.font.fontSizeXxs)
             label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
-//            label.setLineHeight(lineHeight: Ocean.font.lineHeightComfy)
+            label.parameters.lineSpacing = Ocean.font.lineHeightComfy
             builder?(label)
         }
     }
@@ -172,7 +172,7 @@ extension OceanSwiftUI.Typography {
         return OceanSwiftUI.Typography { label in
             label.parameters.font = .baseRegular(size: Ocean.font.fontSizeXxxs)
             label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
-//            label.setLineHeight(lineHeight: Ocean.font.lineHeightComfy)
+            label.parameters.lineSpacing = Ocean.font.lineHeightComfy
             builder?(label)
         }
     }
