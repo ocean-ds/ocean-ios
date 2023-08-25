@@ -41,7 +41,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Charts: ce0768268078eee0336f122c3c4ca248e4e204c5
   FSCalendar: 2d1d0d9398f12d439f55c1fe0f01525b151b8260
-  OceanComponents: 0bd4926b9d3014af1eed334c649886c40bdc311e
+  OceanComponents: 59251eb0e0f260f122118f2a5b99e5ac9cb4635f
   OceanTokens: 8f57890acc014823f4b6a5cbfde29bedffa390fe
   SDWebImage: 750adf017a315a280c60fde706ab1e552a3ae4e9
   SkeletonView: 5a050f6411e697abd4cda0a8d767013399dccd69
