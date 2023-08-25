@@ -17,6 +17,7 @@ extension OceanSwiftUI {
         @Published public var font: UIFont?
         @Published public var lineLimit: Int?
         @Published public var lineSpacing: CGFloat
+        @Published public var multilineTextAlignment: TextAlignment
 
         public enum Style {
             case normal
@@ -27,12 +28,14 @@ extension OceanSwiftUI {
                     textColor: UIColor = Ocean.color.colorInterfaceDarkDown,
                     font: UIFont? = .baseRegular(size: Ocean.font.fontSizeXs),
                     lineLimit: Int? = nil,
-                    lineSpacing: CGFloat = Ocean.font.lineHeightComfy) {
+                    lineSpacing: CGFloat = Ocean.font.lineHeightComfy,
+                    multilineTextAlignment: TextAlignment = .leading) {
             self.text = text
             self.textColor = textColor
             self.font = font
             self.lineLimit = lineLimit
             self.lineSpacing = lineSpacing
+            self.multilineTextAlignment = multilineTextAlignment
         }
     }
 
@@ -71,6 +74,7 @@ extension OceanSwiftUI {
                 .foregroundColor(Color(self.parameters.textColor))
                 .lineLimit(self.parameters.lineLimit)
                 .lineSpacing(self.parameters.lineSpacing)
+                .multilineTextAlignment(self.parameters.multilineTextAlignment)
         }
     }
 }
