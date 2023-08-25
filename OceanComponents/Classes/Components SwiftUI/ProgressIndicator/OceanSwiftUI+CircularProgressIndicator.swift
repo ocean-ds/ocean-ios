@@ -38,7 +38,7 @@ extension OceanSwiftUI {
         public lazy var uiView = self.hostingController.getUIView()
 
         // MARK: Builder
-        
+
         public typealias Builder = (CircularProgressIndicator) -> Void
 
         // MARK: Properties
@@ -46,7 +46,7 @@ extension OceanSwiftUI {
         @ObservedObject public var parameters: CircularProgressIndicatorParameters
 
         // MARK: Properties private
-        
+
         @State private var isAnimating = false
         private var foreverAnimation: Animation {
             Animation.linear(duration: 1.0)
@@ -67,7 +67,8 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            Image(uiImage: self.parameters.style == .normal ? Ocean.icon.spinner! : Ocean.icon.spinnerPrimary!)
+            let image = self.parameters.style == .normal ? Ocean.icon.spinner : Ocean.icon.spinnerPrimary
+            Image(uiImage: image!)
                 .resizable()
                 .frame(width: self.parameters.size.rawValue,
                        height: self.parameters.size.rawValue,
