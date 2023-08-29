@@ -108,8 +108,9 @@ extension Ocean {
             self.data = balances
             self.currentPage = 0
 
-            let data = self.data[pageControl.currentPage]
-            balanceScrollView.model = data
+            if let data = self.data[safe: pageControl.currentPage] {
+                balanceScrollView.model = data
+            }
             collectionView.reloadData()
             collectionView.setContentOffset(.zero, animated: true)
         }
@@ -196,8 +197,8 @@ extension Ocean {
         private func updateStateScroll(animated: Bool = true) {
             self.collapseAllCollectionView()
 
-            if pageControl.currentPage < data.count {
-                let data = data[pageControl.currentPage]
+            if pageControl.currentPage < data.count,
+               let data = data[safe: pageControl.currentPage] {
                 balanceScrollView.model = data
             }
 
