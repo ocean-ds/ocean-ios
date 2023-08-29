@@ -24,9 +24,15 @@ extension Ocean {
             }
         }
 
-        public var title: String  = "" {
+        public var title: String = "" {
             didSet {
                 labelTitle.text = isOptional ? "\(title) (opcional)" : title
+            }
+        }
+
+        public var titleColor: UIColor = Ocean.color.colorInterfaceDarkDown {
+            didSet {
+                labelTitle.textColor = titleColor
             }
         }
 
@@ -168,7 +174,7 @@ extension Ocean {
         private lazy var labelTitle: UILabel = {
             let label = UILabel()
             label.font = .baseRegular(size: Ocean.font.fontSizeXxs)
-            label.textColor = Ocean.color.colorInterfaceDarkDown
+            label.textColor = titleColor
             return label
         }()
 
@@ -313,12 +319,12 @@ extension Ocean {
                 labelError.isHidden = false
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
                             border: Ocean.color.colorStatusNegativePure,
-                            labelTitle: Ocean.color.colorInterfaceDarkDown)
+                            labelTitle: titleColor)
                 backgroundView?.ocean.borderWidth.applyHairline()
             } else if textField.isFirstResponder == true {
                 changeColor(text: Ocean.color.colorInterfaceDarkDeep,
                             border: Ocean.color.colorBrandPrimaryDown,
-                            labelTitle: Ocean.color.colorInterfaceDarkDown)
+                            labelTitle: titleColor)
                 backgroundView?.ocean.borderWidth.applyThin()
             } else if isActivated == false {
                 changeColor(text: Ocean.color.colorInterfaceLightDeep,
@@ -329,10 +335,9 @@ extension Ocean {
                 let isActivated = self.textField.text?.isEmpty == true
                 let color = isActivated ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorInterfaceDarkDeep
                 let border = isActivated ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorBrandPrimaryUp
-                let labelColor = Ocean.color.colorInterfaceDarkDown
                 changeColor(text: color,
                             border: border,
-                            labelTitle: labelColor)
+                            labelTitle: titleColor)
                 backgroundView?.ocean.borderWidth.applyHairline()
             } else {
                 changeColor(text: Ocean.color.colorInterfaceDarkUp,
