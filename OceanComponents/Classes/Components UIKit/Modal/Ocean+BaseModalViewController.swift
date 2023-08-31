@@ -13,7 +13,7 @@ extension Ocean {
     open class BaseModalViewController: UIViewController {
 
         var onDismiss: ((Bool) -> Void)?
-        var wasClosed: Bool = false
+        var wasClosed: Bool = true
 
         public lazy var mainStack: Ocean.StackView = {
             Ocean.StackView { stack in
@@ -118,12 +118,15 @@ extension Ocean {
 
         open override func viewWillDisappear(_ animated: Bool) {
             super.viewWillDisappear(animated)
-
             onDismiss?(wasClosed)
         }
 
+        func dismiss(animated flag: Bool, wasClosed: Bool, completion: (() -> Void)? = nil) {
+            self.wasClosed = wasClosed
+            super.dismiss(animated: flag, completion: completion)
+        }
+
         @objc func closeTap() {
-            self.wasClosed = true
             self.dismiss(animated: true)
         }
     }
