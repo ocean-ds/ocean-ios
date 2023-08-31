@@ -192,10 +192,10 @@ extension Ocean {
 
         private func updateUI() {
             iconImageView.image = (model.image ?? Ocean.icon.placeholderOutline)?.withRenderingMode(.alwaysTemplate)
-            horizontalTitleLabel.text = model.title
+            horizontalTitleLabel.text = orientation == .horizontal ? model.title : ""
             badgeNumber.status = model.badgeStatus
             badgeNumber.number = model.badgeNumber ?? 0
-            verticalTitleLabel.text = model.title
+            verticalTitleLabel.text = orientation == .vertical ? model.title : ""
             subtitleLabel.text = model.subtitle
 
             horizontalTitleLabel.isHidden = orientation != .horizontal || model.title.isEmpty
