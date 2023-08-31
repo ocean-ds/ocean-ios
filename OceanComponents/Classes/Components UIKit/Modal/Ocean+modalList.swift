@@ -41,7 +41,7 @@ extension Ocean {
                 button.icon = icon
                 button.onTouch = {
                     if shouldDismiss {
-                        self.modalListViewController.dismiss(animated: true) {
+                        self.modalListViewController.dismiss(animated: true, wasClosed: false) {
                             action?()
                         }
                     } else {
@@ -62,7 +62,7 @@ extension Ocean {
                 button.icon = icon
                 button.onTouch = {
                     if shouldDismiss {
-                        self.modalListViewController.dismiss(animated: true) {
+                        self.modalListViewController.dismiss(animated: true, wasClosed: false) {
                             action?()
                         }
                     } else {
