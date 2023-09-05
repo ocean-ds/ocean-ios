@@ -28,18 +28,6 @@ extension Ocean {
             }
         }
 
-        public var subtitle: String = "" {
-            didSet {
-                updateUI()
-            }
-        }
-
-        public var subtitleAttributedString: NSAttributedString? {
-            didSet {
-                updateUI()
-            }
-        }
-
         public var number: Int? = nil {
             didSet {
                 updateUI()
@@ -64,7 +52,7 @@ extension Ocean {
             }
         }
 
-        private lazy var numberLabel: UILabel = {
+        public lazy var numberLabel: UILabel = {
             let label = UILabel()
             label.font = .baseSemiBold(size: Ocean.font.fontSizeXxs)
             label.translatesAutoresizingMaskIntoConstraints = false
@@ -74,7 +62,7 @@ extension Ocean {
             return label
         }()
 
-        private lazy var imageView: UIImageView = {
+        public lazy var imageView: UIImageView = {
             let imageView = UIImageView()
             imageView.translatesAutoresizingMaskIntoConstraints = false
             imageView.contentMode = .scaleAspectFit
@@ -82,7 +70,7 @@ extension Ocean {
             return imageView
         }()
 
-        private lazy var roundedView: UIView = {
+        public lazy var roundedView: UIView = {
             let view = UIView()
             view.translatesAutoresizingMaskIntoConstraints = false
             view.clipsToBounds = true
@@ -94,15 +82,7 @@ extension Ocean {
             return view
         }()
 
-        private lazy var titleLabel: UILabel = {
-            Ocean.Typography.heading5 { label in
-                label.textColor = Ocean.color.colorInterfaceDarkDown
-                label.numberOfLines = 0
-                label.adjustsFontSizeToFitWidth = true
-            }
-        }()
-
-        private lazy var subtitleLabel: UILabel = {
+        public lazy var titleLabel: UILabel = {
             Ocean.Typography.description { label in
                 label.textColor = Ocean.color.colorInterfaceDarkDown
                 label.numberOfLines = 0
@@ -110,21 +90,7 @@ extension Ocean {
             }
         }()
 
-        private lazy var labelStack: Ocean.StackView = {
-            Ocean.StackView { stack in
-                stack.axis = .vertical
-                stack.distribution = .fill
-                stack.alignment = .fill
-                stack.spacing = Ocean.size.spacingStackXxxs
-
-                stack.add([
-                    titleLabel,
-                    subtitleLabel
-                ])
-            }
-        }()
-
-        private lazy var contentStack: Ocean.StackView = {
+        public lazy var contentStack: Ocean.StackView = {
             Ocean.StackView { stack in
                 stack.axis = .horizontal
                 stack.distribution = .fill
@@ -133,7 +99,7 @@ extension Ocean {
 
                 stack.add([
                     roundedView,
-                    labelStack
+                    titleLabel
                 ])
             }
         }()
@@ -173,20 +139,11 @@ extension Ocean {
         }
 
         private func updateUI() {
-            if let attributedText = titleAttributedString {
-                titleLabel.attributedText = attributedText
+            if let textAttributedString = self.titleAttributedString {
+                titleLabel.attributedText = textAttributedString
             } else {
                 titleLabel.text = title
             }
-
-            if let attributedText = subtitleAttributedString {
-                subtitleLabel.attributedText = attributedText
-            } else {
-                subtitleLabel.text = subtitle
-            }
-
-            titleLabel.isHidden = titleAttributedString == nil && title.isEmpty
-            subtitleLabel.isHidden = subtitleAttributedString == nil && subtitle.isEmpty
 
             numberLabel.text = number?.description ?? "1"
             imageView.image = image?.withRenderingMode(.alwaysTemplate)
