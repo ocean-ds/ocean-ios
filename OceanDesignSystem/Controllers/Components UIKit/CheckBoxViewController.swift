@@ -18,6 +18,7 @@ final public class CheckBoxViewController : UIViewController {
     private var ck4: Ocean.CheckBox!
     private var ck5: Ocean.CheckBox!
     private var ck6: Ocean.CheckBox!
+    private var ck7: Ocean.CheckBox!
     
     public override func viewDidLoad() {
         self.view.backgroundColor = .white
@@ -68,6 +69,11 @@ final public class CheckBoxViewController : UIViewController {
             ck.isEnabled = true
         }
         
+        ck7 = Ocean.CheckBox { ck in
+            ck.text = "Check Box 7 - Show minus"
+            ck.setupIconType(.minus)
+        }
+        
         let stack = Ocean.StackView()
         stack.alignment = .leading
         stack.distribution = .fill
@@ -81,6 +87,7 @@ final public class CheckBoxViewController : UIViewController {
         stack.addArrangedSubview(ck4)
         stack.addArrangedSubview(ck5)
         stack.addArrangedSubview(ck6)
+        stack.addArrangedSubview(ck7)
         
         self.view.addSubview(stack)
 

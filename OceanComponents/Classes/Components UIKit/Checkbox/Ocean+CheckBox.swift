@@ -10,6 +10,15 @@ import UIKit
 
 extension Ocean {
     public class CheckBox: RadioButton {
+        public enum Icon {
+            case check
+            case minus
+        }
+        
+        private lazy var icon: CGPath = checkIcon
+        private lazy var checkIcon: CGPath = setupCheckIcon()
+        private lazy var minusIcon: CGPath = setupMinusIcon()
+        
         override var withAnimation: Bool {
             get {
                 return false
@@ -21,12 +30,6 @@ extension Ocean {
                 return UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: size, height: size), cornerRadius: Ocean.size.borderRadiusSm).cgPath
             }
         }
-
-        override var foregroundShrinkPath: CGPath {
-            get {
-                self.setupCheckIcon()
-            }
-        }
         
         override var foregroundExpandPath: CGPath {
             get {
@@ -36,10 +39,38 @@ extension Ocean {
             }
         }
         
+        override var foregroundShrinkPath: CGPath {
+            get {
+                return icon
+            }
+        }
+        
         override func toogleRadio() {
             isSelected = !isSelected
             onTouch?()
             generator.selectionChanged()
+        }
+        
+        public override init(frame: CGRect) {
+            super.init(frame: frame)
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        public convenience init(setup: (CheckBox) -> Void) {
+            self.init()
+            setup(self)
+        }
+        
+        public func setupIconType(_ type: Icon) {
+            switch type {
+            case .check:
+                icon = checkIcon
+            case .minus:
+                icon = minusIcon
+            }
         }
         
         private func setupCheckIcon() -> CGPath {
@@ -64,6 +95,14 @@ extension Ocean {
             bezier2Path.lineJoinStyle = .round
             bezier2Path.stroke()
             return bezier2Path.cgPath
+        }
+        
+        private func setupMinusIcon() -> CGPath {
+            let rectangle2Path = UIBezierPath(roundedRect: CGRect(x: 5, y: 10, width: 11, height: 1),
+                                              cornerRadius: 0.5)
+            UIColor.gray.setFill()
+            rectangle2Path.fill()
+            return rectangle2Path.cgPath
         }
     }
 }
