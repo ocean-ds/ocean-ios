@@ -230,7 +230,7 @@ extension Ocean {
                               didSelectRowAt indexPath: IndexPath) {
             
             if let value = contentValues?[indexPath.row] {
-                self.dismiss(animated: true, completion: nil)
+                self.dismiss(animated: true, wasClosed: false, completion: nil)
                 self.onValueSelected?(indexPath.row, value)
             }
         }

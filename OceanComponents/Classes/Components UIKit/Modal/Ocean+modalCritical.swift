@@ -18,7 +18,7 @@ extension Ocean {
             modalViewController.actions.append(Ocean.Button.secondaryMD { button in
                 button.text = textNegative
                 button.onTouch = {
-                    self.modalViewController.dismiss(animated: true) {
+                    self.modalViewController.dismiss(animated: true, wasClosed: false) {
                         actionNegative?()
                     }
                 }
@@ -26,7 +26,7 @@ extension Ocean {
             modalViewController.actions.append(Ocean.Button.primaryCriticalMD { button in
                 button.text = textPositive
                 button.onTouch = {
-                    self.modalViewController.dismiss(animated: true) {
+                    self.modalViewController.dismiss(animated: true, wasClosed: false) {
                         actionPositive?()
                     }
                 }
@@ -39,7 +39,7 @@ extension Ocean {
             modalViewController.actions.append(Ocean.Button.primaryCriticalBlockedMD { button in
                 button.text = text
                 button.onTouch = {
-                    self.modalViewController.dismiss(animated: true) {
+                    self.modalViewController.dismiss(animated: true, wasClosed: false) {
                         action?()
                     }
                 }

@@ -38,7 +38,7 @@ extension Ocean {
             modalMultipleChoiceViewController.actions.append(Ocean.Button.secondaryMD { button in
                 button.text = textNegative
                 button.onTouch = {
-                    self.modalMultipleChoiceViewController.dismiss(animated: true) {
+                    self.modalMultipleChoiceViewController.dismiss(animated: true, wasClosed: false) {
                         actionNegative?()
                     }
                 }
@@ -46,7 +46,7 @@ extension Ocean {
             modalMultipleChoiceViewController.actions.append(Ocean.Button.primaryMD { button in
                 button.text = textPositive
                 button.onTouch = {
-                    self.modalMultipleChoiceViewController.dismiss(animated: true) {
+                    self.modalMultipleChoiceViewController.dismiss(animated: true, wasClosed: false) {
                         let selectedOption = self.modalMultipleChoiceViewController.getOptionSelected()
                                                 actionPositive?(selectedOption)
                     }

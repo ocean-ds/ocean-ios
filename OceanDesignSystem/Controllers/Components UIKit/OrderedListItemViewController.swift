@@ -13,32 +13,45 @@ import OceanComponents
 
 final public class OrderedListItemViewController : UIViewController {
     let component1 = Ocean.ListItem.ordered { view in
-        view.title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Velit amet sem tempus volutpat nulla posuere consectetur ac in."
+        view.title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        view.subtitle = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Velit amet sem tempus volutpat nulla posuere consectetur ac in."
         view.number = 1
     }
 
     let component2 = Ocean.ListItem.ordered { view in
-        view.title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Velit amet sem tempus volutpat nulla posuere consectetur ac in. Lorem ipsum dolor sit amet"
+        view.subtitle = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Velit amet sem tempus volutpat nulla posuere consectetur ac in. Lorem ipsum dolor sit amet"
         view.number = 2
     }
 
     let component3 = Ocean.ListItem.ordered { view in
-        view.title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Velit amet sem tempus volutpat nulla posuere consectetur ac in. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet"
+        view.subtitle = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Velit amet sem tempus volutpat nulla posuere consectetur ac in. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet"
         view.number = 3
     }
 
     let component4 = Ocean.ListItem.ordered { view in
-        view.title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        view.subtitle = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
         view.number = 4
     }
 
     let component5 = Ocean.ListItem.ordered { view in
-        view.title = "Lorem ipsum dolor sit amet."
+        view.subtitle = "Lorem ipsum dolor sit amet."
         view.number = 5
     }
 
     let component6 = Ocean.ListItem.unordered { view in
         view.title = "Lorem ipsum dolor sit amet."
+    }
+
+    let component7 = Ocean.ListItem.unordered { view in
+        view.title = "Lorem ipsum dolor sit amet."
+        view.subtitle = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Velit amet sem tempus volutpat nulla posuere consectetur ac in."
+    }
+
+    let component8 = Ocean.ListItem.unordered { view in
+        view.titleAttributedString = "Lorem ipsum dolor sit amet.".htmlToAttributedText(size: Ocean.font.fontSizeSm,
+                                                                                        color: Ocean.color.colorInterfaceDarkDown)
+        view.subtitleAttributedString = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Velit amet sem tempus volutpat nulla posuere consectetur ac in.".htmlToAttributedText(size: Ocean.font.fontSizeXxs,
+                                                                                                                                                                                        color: Ocean.color.colorInterfaceDarkDown)
     }
 
     public override func viewDidLoad() {
@@ -56,6 +69,8 @@ final public class OrderedListItemViewController : UIViewController {
         stack1.addArrangedSubview(component4)
         stack1.addArrangedSubview(component5)
         stack1.addArrangedSubview(component6)
+        stack1.addArrangedSubview(component7)
+        stack1.addArrangedSubview(component8)
 
         self.view.addSubview(stack1)
 
