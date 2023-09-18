@@ -100,7 +100,7 @@ extension Ocean {
         }
         
         private func setupMinusIcon() -> CGPath {
-            let rectangle2Path = UIBezierPath(roundedRect: CGRect(x: 5, y: 10, width: 11, height: 1),
+            let rectangle2Path = UIBezierPath(roundedRect: CGRect(x: 5, y: 9, width: 11, height: 2),
                                               cornerRadius: 0.5)
             UIColor.gray.setFill()
             rectangle2Path.fill()
