@@ -26,6 +26,7 @@ struct DSComponents {
         "Carousel",
         "ChartCard",
         "CheckBox",
+        "CheckBoxGroup",
         "Chips",
         "DatePicker",
         "DetailedCard",
