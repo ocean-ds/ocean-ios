@@ -73,6 +73,7 @@ public enum DesignSystemComponentsType: String {
     case Accordion
     case Link
     case Onboarding
+    case CheckBoxGroup
 }
 
 public enum DesignSystemComponentsSwiftUIType: String {
