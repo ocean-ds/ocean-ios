@@ -147,6 +147,8 @@ class ComponentsViewController: UITableViewController {
             navigationController.modalTransitionStyle = .coverVertical
             navigationController.modalPresentationStyle = .overFullScreen
             self.present(navigationController, animated: true, completion: nil)
+        case .CheckBoxGroup:
+            self.present(CheckBoxGroupViewController(), animated: true, completion: nil)
         default:
             performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }
