@@ -19,10 +19,9 @@ public class CheckBoxGroupViewController: UIViewController {
         .init(title: "checkbox4", subtitle: "00.000.000/0001-04", isSelected: false)
     ]
     
-    private lazy var model: Ocean.CheckBoxGroup.CheckboxesModel = .init(
-        selectAllLabel: "Selecionar todas",
-        checkboxes: checkboxesModel,
-        onChange: onChange
+    private lazy var model: Ocean.CheckBoxGroup.CheckboxesModel = .init(selectAllText: "Selecionar todas", 
+                                                                        checkboxes: checkboxesModel,
+                                                                        onChange: onChange
     )
     
     private lazy var checkBoxGroup = Ocean.CheckBoxGroup(model: model)
