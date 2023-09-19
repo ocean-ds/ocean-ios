@@ -15,7 +15,7 @@ extension Ocean {
             checkBox.onTouch = { [weak self] in
                 guard let self = self else { return }
                 self.onTouchSelectAll()
-                self.model.onChange(model.checkboxes)
+                self.model.onChange(self.model.checkboxes)
             }
             
             return checkBox
@@ -77,7 +77,7 @@ extension Ocean {
                 checkBox.onTouch = { [weak self] in
                     guard let self = self else { return }
                     self.updateUI(checkBox)
-                    self.model.onChange(model.checkboxes)
+                    self.model.onChange(self.model.checkboxes)
                 }
                 
                 groupCheckBoxStack.add([checkBox.addMargins(horizontal: Ocean.size.spacingStackXs)])
