@@ -10,14 +10,14 @@ import OceanTokens
 
 extension Ocean.CheckBoxGroup {
     public struct CheckboxesModel {
-        public var selectAllLabel: String
+        public var selectAllText: String
         public var checkboxes: [CheckboxModel]
         public var onChange: (([CheckboxModel]) -> Void)
         
-        public init(selectAllLabel: String,
+        public init(selectAllText: String,
                     checkboxes: [CheckboxModel],
                     onChange: @escaping (([CheckboxModel]) -> Void)) {
-            self.selectAllLabel = selectAllLabel
+            self.selectAllText = selectAllText
             self.checkboxes = checkboxes
             self.onChange = onChange
         }

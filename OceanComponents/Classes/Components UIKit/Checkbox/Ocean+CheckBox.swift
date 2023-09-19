@@ -15,7 +15,7 @@ extension Ocean {
             case minus
         }
         
-        public var id: Int = 0;
+        public var id: Int = -1;
         
         private lazy var icon: CGPath = checkIcon
         private lazy var checkIcon: CGPath = setupCheckIcon()

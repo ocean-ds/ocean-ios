@@ -10,6 +10,11 @@ import OceanTokens
 
 extension Ocean {
     public class CheckBoxGroup: UIView {
+        
+        private var model: CheckboxesModel
+        
+        private var allSelected: Bool = false
+
         private lazy var selectAllCheckBox: Ocean.CheckBox = {
             let checkBox = Ocean.CheckBox()
             checkBox.onTouch = { [weak self] in
@@ -21,10 +26,6 @@ extension Ocean {
             return checkBox
         }()
         
-        private var model: CheckboxesModel
-        
-        private var allSelected: Bool = false
-
         private lazy var groupCheckBoxStack: Ocean.StackView = {
             let stack = Ocean.StackView()
             stack.axis = .vertical
@@ -63,7 +64,7 @@ extension Ocean {
         private func setupListCheckBox() {
             groupCheckBoxStack.removeAllArrangedSubviews()
             
-            selectAllCheckBox.text = model.selectAllLabel
+            selectAllCheckBox.text = model.selectAllText
             
             groupCheckBoxStack.add([selectAllCheckBox.addMargins(horizontal: Ocean.size.spacingStackXs),
                                     Ocean.Divider(widthConstraint: widthAnchor)])
@@ -148,7 +149,6 @@ extension Ocean {
                     checkBox.isSelected = selected
                 }
             }
-            
         }
     }
 }
