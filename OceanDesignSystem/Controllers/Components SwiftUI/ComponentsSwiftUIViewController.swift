@@ -40,6 +40,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
 
         switch self.designSystemComponentsTypeSelected! {
+        case .Alert:
+            self.present(AlertSwiftUIViewController(), animated: true, completion: nil)
         case .Button:
             self.present(ButtonSwiftUIViewController(), animated: true, completion: nil)
         case .ProgressIndicator:

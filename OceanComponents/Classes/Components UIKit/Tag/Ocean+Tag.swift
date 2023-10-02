@@ -22,7 +22,10 @@ extension Ocean {
             case negative
             case complementary
             case neutral
+            case neutralPrimary
             case highlight
+            case highlightImportant
+            case highlightNeutral
         }
 
         public var status: Status = .neutral {
@@ -141,11 +144,20 @@ extension Ocean {
                 self.backgroundColor = Ocean.color.colorComplementaryPure.withAlphaComponent(Ocean.size.opacityLevelSemitransparent)
                 self.imageView.tintColor = Ocean.color.colorComplementaryPure
                 self.titleLabel.textColor = Ocean.color.colorComplementaryPure
-            case .highlight:
+            case .highlight, .highlightImportant:
                 self.backgroundColor = Ocean.color.colorHighlightPure
                 self.titleLabel.textColor = Ocean.color.colorInterfaceLightPure
                 self.titleLabel.font = .baseBold(size: Ocean.font.fontSizeXxxs)
                 self.imageView.isHidden = true
+            case .highlightNeutral:
+                self.backgroundColor = Ocean.color.colorBrandPrimaryDown
+                self.titleLabel.textColor = Ocean.color.colorInterfaceLightPure
+                self.titleLabel.font = .baseBold(size: Ocean.font.fontSizeXxxs)
+                self.imageView.isHidden = true
+            case .neutralPrimary:
+                self.backgroundColor = Ocean.color.colorInterfaceLightUp
+                self.imageView.tintColor = Ocean.color.colorInterfaceDarkUp
+                self.titleLabel.textColor = Ocean.color.colorBrandPrimaryDown
             default:
                 self.backgroundColor = Ocean.color.colorInterfaceLightUp
                 self.imageView.tintColor = Ocean.color.colorInterfaceDarkUp

@@ -17,6 +17,11 @@ final public class TagViewController : UIViewController {
         view.status = .neutral
     }
     
+    let neutralPrimary = Ocean.Tag { view in
+        view.title = "neutralPrimary"
+        view.status = .neutralPrimary
+    }
+    
     let positive = Ocean.Tag { view in
         view.title = "positive"
         view.status = .positive
@@ -46,6 +51,7 @@ final public class TagViewController : UIViewController {
         stack.translatesAutoresizingMaskIntoConstraints = false
         
         stack.add([neutral,
+                   neutralPrimary,
                    positive,
                    warning,
                    complementary,
@@ -58,6 +64,12 @@ final public class TagViewController : UIViewController {
         view.title = "neutral"
         view.image = Ocean.icon.mapSolid
         view.status = .neutral
+    }
+    
+    let neutralPrimaryIcon = Ocean.Tag { view in
+        view.title = "neutralPrimary"
+        view.image = Ocean.icon.mapSolid
+        view.status = .neutralPrimary
     }
     
     let positiveIcon = Ocean.Tag { view in
@@ -93,6 +105,7 @@ final public class TagViewController : UIViewController {
         stack.translatesAutoresizingMaskIntoConstraints = false
         
         stack.add([neutralIcon,
+                   neutralPrimaryIcon,
                    positiveIcon,
                    warningIcon,
                    negativeIcon,
@@ -101,9 +114,14 @@ final public class TagViewController : UIViewController {
         return stack
     }()
     
-    let highlightTag = Ocean.Tag { view in
+    let highlightImportantTag = Ocean.Tag { view in
         view.title = "novo"
-        view.status = .highlight
+        view.status = .highlightImportant
+    }
+    
+    let highlightNeutralTag = Ocean.Tag { view in
+        view.title = "novo"
+        view.status = .highlightNeutral
     }
     
     private lazy var mainStack: Ocean.StackView = {
@@ -118,7 +136,8 @@ final public class TagViewController : UIViewController {
                    Ocean.Divider(),
                    tagWithIconStack,
                    Ocean.Divider(),
-                   highlightTag])
+                   highlightImportantTag,
+                   highlightNeutralTag])
         
         return stack
     }()

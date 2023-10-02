@@ -1,5 +1,5 @@
 //
-//  Ocean+BadgeTiny.swift
+//  Ocean+BadgeDot.swift
 //  OceanComponents
 //
 //  Created by Vini on 03/09/21.
@@ -10,7 +10,7 @@ import UIKit
 import OceanTokens
 
 extension Ocean {
-    public class BadgeTiny: UIView {
+    public class BadgeDot: UIView {
         struct Constants {
             static let size: CGFloat = 8
         }
@@ -21,7 +21,7 @@ extension Ocean {
             }
         }
         
-        public convenience init(builder: BadgeTinyBuilder) {
+        public convenience init(builder: BadgeDotBuilder) {
             self.init()
             setupUI()
             builder(self)
