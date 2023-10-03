@@ -11,22 +11,29 @@ import SwiftUI
 
 class AlertSwiftUIViewController: UIViewController {
     
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
     lazy var alertInfo: OceanSwiftUI.Alert = {
         return OceanSwiftUI.Alert.info { alert in
-            alert.parameters.text = "Text"
+            alert.parameters.text = "Text Ocean SwiftUI Alert Info"
         }
     }()
     
     lazy var alertInfoLong: OceanSwiftUI.Alert = {
         return OceanSwiftUI.Alert.infoLong { alert in
-            alert.parameters.title = "Title"
-            alert.parameters.text = "Text alert Info Long"
+            alert.parameters.title = "Alert With Long Another Icon"
+            alert.parameters.text = "Text Ocean SwiftUI Alert Info Text Ocean SwiftUI Alert Info Warning Positive Negative Text Ocean SwiftUI Alert Info"
+            alert.parameters.icon = Ocean.icon.placeholderOutline
         }
     }()
     
     lazy var alertInfoShort: OceanSwiftUI.Alert = {
         return OceanSwiftUI.Alert.infoShort { alert in
-            alert.parameters.title = "Title"
+            alert.parameters.title = "Info Short"
             alert.parameters.text = "Text alert Info Short"
         }
     }()
@@ -39,57 +46,91 @@ class AlertSwiftUIViewController: UIViewController {
     
     lazy var alertWarningLong: OceanSwiftUI.Alert = {
         return OceanSwiftUI.Alert.warningLong { alert in
-            alert.parameters.title = "Title"
-            alert.parameters.text = "Text alert Warning Long"
+            alert.parameters.title = "Title Long"
+            alert.parameters.text = "Text Ocean SwiftUI Alert Info Text Ocean SwiftUI Alert Info Warning Positive Negative Text Ocean SwiftUI Alert Info"
         }
     }()
     
     lazy var alertWarningShort: OceanSwiftUI.Alert = {
         return OceanSwiftUI.Alert.warningShort { alert in
-            alert.parameters.title = "Title"
+            alert.parameters.title = "Title Short"
             alert.parameters.text = "Text alert Warning Short"
         }
     }()
     
     lazy var alertPositive: OceanSwiftUI.Alert = {
         return OceanSwiftUI.Alert.positive { alert in
-            alert.parameters.title = "Title"
             alert.parameters.text = "alert Positive"
         }
     }()
     
     lazy var alertPositiveLong: OceanSwiftUI.Alert = {
         return OceanSwiftUI.Alert.positiveLong { alert in
-            alert.parameters.title = "Title"
-            alert.parameters.text = "Text alert Positive Long"
+            alert.parameters.title = "Title Long"
+            alert.parameters.text = "Text Ocean SwiftUI Alert Info Text Ocean SwiftUI Alert Info Warning Positive Negative Text Ocean SwiftUI Alert Info"
         }
     }()
     
     lazy var alertPositiveShort: OceanSwiftUI.Alert = {
         return OceanSwiftUI.Alert.positiveShort { alert in
-            alert.parameters.title = "Title"
+            alert.parameters.title = "Title Short"
             alert.parameters.text = "Text alert Positive Short"
         }
     }()
     
     lazy var alertNegative: OceanSwiftUI.Alert = {
         return OceanSwiftUI.Alert.negative { alert in
-            alert.parameters.title = "Title"
             alert.parameters.text = "Text alert Negative"
         }
     }()
     
     lazy var alertNegativeLong: OceanSwiftUI.Alert = {
         return OceanSwiftUI.Alert.negativeLong { alert in
-            alert.parameters.title = "Title"
-            alert.parameters.text = "Text alert Negative Long"
+            alert.parameters.title = "Title Long"
+            alert.parameters.text = "Text Ocean SwiftUI Alert Info Text Ocean SwiftUI Alert Info Warning Positive Negative Text Ocean SwiftUI Alert Info"
         }
     }()
     
     lazy var alertNegativeShort: OceanSwiftUI.Alert = {
         return OceanSwiftUI.Alert.negativeShort { alert in
-            alert.parameters.title = "Title"
+            alert.parameters.title = "Title Short"
             alert.parameters.text = "Text alert Negative Short"
+        }
+    }()
+    
+    lazy var alertInfoWithLink: OceanSwiftUI.Alert = {
+        return OceanSwiftUI.Alert.infoShort { alert in
+            alert.parameters.title = "Title Short"
+            alert.parameters.text = "Lorem ipsum dolor sit amet consectetur. Sed tincidunt habitasse nam arcu orci. Mi dui in sed."
+            alert.parameters.actionText = "action Text"
+            alert.parameters.actionOnTouch = { print("actionOnTouch")}
+        }
+    }()
+    
+    lazy var alertWarningWithLink: OceanSwiftUI.Alert = {
+        return OceanSwiftUI.Alert.warningShort { alert in
+            alert.parameters.title = "Title Short"
+            alert.parameters.text = "Lorem ipsum dolor sit amet consectetur. Sed tincidunt habitasse nam arcu orci. Mi dui in sed."
+            alert.parameters.actionText = "action Text"
+            alert.parameters.actionOnTouch = { print("actionOnTouch")}
+        }
+    }()
+    
+    lazy var alertPositiveWithLink: OceanSwiftUI.Alert = {
+        return OceanSwiftUI.Alert.positiveLong { alert in
+            alert.parameters.title = "Title Long"
+            alert.parameters.text = "Lorem ipsum dolor sit amet consectetur. Sed tincidunt habitasse nam arcu orci. Mi dui in sed."
+            alert.parameters.actionText = "action Text"
+            alert.parameters.actionOnTouch = { print("actionOnTouch")}
+        }
+    }()
+    
+    lazy var alertNegativeWithLink: OceanSwiftUI.Alert = {
+        return OceanSwiftUI.Alert.negativeLong { alert in
+            alert.parameters.title = "Title Long"
+            alert.parameters.text = "Lorem ipsum dolor sit amet consectetur. Sed tincidunt habitasse nam arcu orci. Mi dui in sed."
+            alert.parameters.actionText = "action Text"
+            alert.parameters.actionOnTouch = { print("actionOnTouch")}
         }
     }()
     
@@ -99,7 +140,7 @@ class AlertSwiftUIViewController: UIViewController {
         stack.alignment = .fill
         stack.distribution = .fill
         stack.spacing = Ocean.size.spacingStackXs
-
+        
         stack.add([
             alertInfo.uiView,
             alertInfoLong.uiView,
@@ -112,30 +153,38 @@ class AlertSwiftUIViewController: UIViewController {
             alertPositiveShort.uiView,
             alertNegative.uiView,
             alertNegativeLong.uiView,
-            alertNegativeShort.uiView
+            alertNegativeShort.uiView,
+            alertInfoWithLink.uiView,
+            alertWarningWithLink.uiView,
+            alertPositiveWithLink.uiView,
+            alertNegativeWithLink.uiView
         ])
-
+        
         stack.setMargins(horizontal: Ocean.size.spacingStackXs)
-
+        
         return stack
     }()
-
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
-
+    
     private func setupUI() {
         view.backgroundColor = .white
-        view.addSubview(mainStack)
+        view.addSubview(scrollView)
+        scrollView.addSubview(mainStack)
         setupConstraints()
     }
-
+    
     private func setupConstraints() {
+        scrollView.oceanConstraints
+            .fill(to: view, safeArea: true)
+            .make()
+        
         mainStack.oceanConstraints
-            .topToTop(to: self.view)
-            .leadingToLeading(to: self.view)
-            .trailingToTrailing(to: self.view)
+            .fill(to: scrollView)
+            .width(to: view)
             .make()
     }
 }

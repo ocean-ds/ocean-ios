@@ -75,6 +75,7 @@ extension OceanSwiftUI {
                 .lineLimit(self.parameters.lineLimit)
                 .lineSpacing(self.parameters.lineSpacing)
                 .multilineTextAlignment(self.parameters.multilineTextAlignment)
+                .fixedSize(horizontal: false, vertical: true)
         }
     }
 }
