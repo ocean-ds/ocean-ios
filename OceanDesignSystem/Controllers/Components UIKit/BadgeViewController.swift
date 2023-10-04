@@ -12,7 +12,7 @@ import OceanTokens
 import OceanComponents
 
 final public class BadgeViewController : UIViewController {
-    let badgeTiny = Ocean.Badge.tiny()
+    let badgeDot = Ocean.Badge.dot()
     let badgeNumber1 = Ocean.Badge.number { view in
         view.status = .primary
         view.number = 99
@@ -51,7 +51,7 @@ final public class BadgeViewController : UIViewController {
         stack.spacing = Ocean.size.spacingStackXs
         stack.translatesAutoresizingMaskIntoConstraints = false
         
-        stack.addArrangedSubview(badgeTiny)
+        stack.addArrangedSubview(badgeDot)
         stack.addArrangedSubview(badgeNumber1)
         stack.addArrangedSubview(badgeNumber2)
         stack.addArrangedSubview(badgeNumber3)

@@ -61,7 +61,9 @@ struct DSComponents {
     ]
 
     static let listSwiftUI = [
+        "Alert",
         "Button",
+        "Link",
         "ProgressIndicator",
         "Typography"
     ]

@@ -77,7 +77,9 @@ public enum DesignSystemComponentsType: String {
 }
 
 public enum DesignSystemComponentsSwiftUIType: String {
+    case Alert
     case Button
+    case Link
     case ProgressIndicator
     case Typography
 }

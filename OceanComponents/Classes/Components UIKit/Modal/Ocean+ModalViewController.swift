@@ -115,7 +115,7 @@ extension Ocean {
                 label.text = title
                 label.textAlignment = .center
                 label.numberOfLines = 0
-                label.textColor = self.contentIsCritical ? Ocean.color.colorStatusNegativePure : Ocean.color.colorBrandPrimaryPure
+                label.textColor = self.contentIsCritical ? Ocean.color.colorStatusNegativePure : Ocean.color.colorInterfaceDarkDeep
                 label.translatesAutoresizingMaskIntoConstraints = false
                 label.adjustsFontSizeToFitWidth = true
                 label.minimumScaleFactor = 0.82

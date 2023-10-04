@@ -142,6 +142,7 @@ extension Ocean {
         private lazy var textLabel: UILabel = {
             Ocean.Typography.paragraph { label in
                 label.textColor = Ocean.color.colorInterfaceDarkPure
+                label.font = .baseRegular(size: Ocean.font.fontSizeXxs)
                 label.text = self.text
                 label.isHidden = self.text.isEmpty
             }
@@ -164,6 +165,7 @@ extension Ocean {
         private lazy var descriptionLabel: UILabel = {
             Ocean.Typography.description { label in
                 label.textColor = Ocean.color.colorInterfaceDarkDown
+                label.font = .baseRegular(size: Ocean.font.fontSizeXxxs)
                 label.text = self.descriptionText
                 label.isHidden = self.descriptionText.isEmpty
             }

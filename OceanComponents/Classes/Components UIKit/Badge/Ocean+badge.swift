@@ -9,12 +9,12 @@ import Foundation
 import OceanTokens
 
 extension Ocean {
-    public typealias BadgeTinyBuilder = (BadgeTiny) -> Void
+    public typealias BadgeDotBuilder = (BadgeDot) -> Void
     public typealias BadgeNumberBuilder = (BadgeNumber) -> Void
     
     public struct Badge {
-        public static func tiny(builder: BadgeTinyBuilder? = nil) -> BadgeTiny {
-            return BadgeTiny { view in
+        public static func dot(builder: BadgeDotBuilder? = nil) -> BadgeDot {
+            return BadgeDot { view in
                 builder?(view)
             }
         }
