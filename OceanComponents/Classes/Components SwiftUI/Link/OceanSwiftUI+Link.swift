@@ -112,7 +112,7 @@ extension OceanSwiftUI {
         private var titleView: some View {
             Text(parameters.text)
                 .font(Font(UIFont.baseBold(size: parameters.size.getFontSize())!))
-                .foregroundColor(getForengroundColor())
+                .foregroundColor(getForegroundColor())
                 .underline()
         }
         
@@ -135,7 +135,7 @@ extension OceanSwiftUI {
                             maxHeight: parameters.size.getIconSize(),
                             alignment: .center
                         )
-                        .foregroundColor(getForengroundColor())
+                        .foregroundColor(getForegroundColor())
                 }
             }
         }
@@ -189,7 +189,7 @@ extension OceanSwiftUI {
         
         // MARK: Methods private
         
-        private func getForengroundColor() -> Color {
+        private func getForegroundColor() -> Color {
             if let color = self.parameters.textColor {
                 return Color(color)
             }

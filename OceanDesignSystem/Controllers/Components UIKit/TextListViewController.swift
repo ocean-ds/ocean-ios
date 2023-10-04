@@ -85,7 +85,7 @@ final public class TextListViewController : UIViewController {
             textList.title = "Title"
             textList.subtitle = "Subitle"
             textList.text = "Text"
-            textList.buttonTitle = "Botão"
+            textList.buttonTitle = "Button"
             textList.onTouchButton = self.triggerButton
         }
 

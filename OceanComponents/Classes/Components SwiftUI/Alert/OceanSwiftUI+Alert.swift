@@ -65,8 +65,8 @@ extension OceanSwiftUI {
         // MARK: Properties
         
         @ObservedObject public var parameters: AlertParameters
-        private var withIcon: CGFloat = 24
-        private var heightIcon: CGFloat = 24
+        private var iconWidth: CGFloat = 24
+        private var iconHeight: CGFloat = 24
         
         // MARK: Properties private
         
@@ -81,7 +81,7 @@ extension OceanSwiftUI {
             Image(uiImage: icon)
                 .resizable()
                 .renderingMode(.template)
-                .frame(width: withIcon, height: heightIcon, alignment: .center)
+                .frame(width: iconWidth, height: iconHeight, alignment: .center)
                 .foregroundColor(Color(getForegroundColor()))
         }
         
@@ -100,7 +100,7 @@ extension OceanSwiftUI {
         
         private var withAction: some View {
             Group {
-                if ((parameters.actionText?.isEmpty) != nil) {
+                if let actionText = parameters.actionText {
                     Spacer().frame(width: Ocean.size.spacingStackXxxs + Ocean.size.spacingStackXxs)
                     OceanSwiftUI.Link.primaryTiny { link in
                         link.parameters.text = parameters.actionText ?? ""

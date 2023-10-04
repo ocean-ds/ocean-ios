@@ -41,7 +41,6 @@ class ComponentsSwiftUIViewController: UITableViewController {
 
         switch self.designSystemComponentsTypeSelected! {
         case .Alert:
-            self.modalPresentationStyle = .fullScreen
             self.present(AlertSwiftUIViewController(), animated: true, completion: nil)
         case .Button:
             self.present(ButtonSwiftUIViewController(), animated: true, completion: nil)
