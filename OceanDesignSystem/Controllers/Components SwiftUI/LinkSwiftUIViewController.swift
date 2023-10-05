@@ -20,7 +20,7 @@ class LinkSwiftUIViewController: UIViewController {
     lazy var linkPrimaryMedium: OceanSwiftUI.Link = {
         return OceanSwiftUI.Link.primaryMedium { link in
             link.parameters.text = "linkPrimaryMedium"
-            link.parameters.onTouch = { print("linkPrimaryMedium") }
+            link.parameters.onTouch = { }
         }
     }()
     
@@ -28,7 +28,7 @@ class LinkSwiftUIViewController: UIViewController {
         return OceanSwiftUI.Link.primaryMedium { link in
             link.parameters.text = "linkPrimaryMediumChevron"
             link.parameters.type = .chevron
-            link.parameters.onTouch = { print("linkPrimaryMediumChevron") }
+            link.parameters.onTouch = { }
         }
     }()
     
@@ -36,14 +36,14 @@ class LinkSwiftUIViewController: UIViewController {
         return OceanSwiftUI.Link.primaryMedium { link in
             link.parameters.text = "linkPrimaryMediumExternal"
             link.parameters.type = .external
-            link.parameters.onTouch = { print("linkPrimaryMediumExternal") }
+            link.parameters.onTouch = { }
         }
     }()
     
     lazy var linkPrimarySmall: OceanSwiftUI.Link = {
         return OceanSwiftUI.Link.primarySmall { link in
             link.parameters.text = "linkPrimarySmall"
-            link.parameters.onTouch = { print("linkPrimarySmall") }
+            link.parameters.onTouch = { }
         }
     }()
     
@@ -51,7 +51,7 @@ class LinkSwiftUIViewController: UIViewController {
         return OceanSwiftUI.Link.primarySmall { link in
             link.parameters.text = "linkPrimarySmallChevron"
             link.parameters.type = .chevron
-            link.parameters.onTouch = { print("linkPrimarySmallChevron") }
+            link.parameters.onTouch = { }
         }
     }()
     
@@ -59,14 +59,14 @@ class LinkSwiftUIViewController: UIViewController {
         return OceanSwiftUI.Link.primarySmall { link in
             link.parameters.text = "linkPrimarySmallExternal"
             link.parameters.type = .external
-            link.parameters.onTouch = { print("linkPrimarySmallExternal") }
+            link.parameters.onTouch = { }
         }
     }()
     
     lazy var linkPrimaryTiny: OceanSwiftUI.Link = {
         return OceanSwiftUI.Link.primaryTiny { link in
             link.parameters.text = "linkPrimaryTiny"
-            link.parameters.onTouch = { print("linkPrimaryTiny") }
+            link.parameters.onTouch = { }
         }
     }()
     
@@ -74,7 +74,7 @@ class LinkSwiftUIViewController: UIViewController {
         return OceanSwiftUI.Link.primaryTiny { link in
             link.parameters.text = "linkPrimaryTinyChevron"
             link.parameters.type = .chevron
-            link.parameters.onTouch = { print("linkPrimaryTinyChevron") }
+            link.parameters.onTouch = { }
         }
     }()
     
@@ -82,7 +82,7 @@ class LinkSwiftUIViewController: UIViewController {
         return OceanSwiftUI.Link.primaryTiny { link in
             link.parameters.text = "linkPrimaryTinyExternal"
             link.parameters.type = .external
-            link.parameters.onTouch = { print("linkPrimaryTinyExternal") }
+            link.parameters.onTouch = { }
         }
     }()
     
@@ -90,49 +90,49 @@ class LinkSwiftUIViewController: UIViewController {
         return OceanSwiftUI.Link.primaryMedium { link in
             link.parameters.text = "linkDisabled"
             link.parameters.isEnabled = false
-            link.parameters.onTouch = { print("linkDisabled") }
+            link.parameters.onTouch = { }
         }
     }()
     
     lazy var linkInverseMedium: OceanSwiftUI.Link = {
         return OceanSwiftUI.Link.inverseMedium { link in
             link.parameters.text = "linkInverseMedium"
-            link.parameters.onTouch = { print("linkInverseMedium") }
+            link.parameters.onTouch = { }
         }
     }()
     
     lazy var linkInverseSmall: OceanSwiftUI.Link = {
         return OceanSwiftUI.Link.inverseSmall { link in
             link.parameters.text = "linkInverseSmall"
-            link.parameters.onTouch = { print("linkInverseSmall") }
+            link.parameters.onTouch = { }
         }
     }()
     
     lazy var linkInverseTiny: OceanSwiftUI.Link = {
         return OceanSwiftUI.Link.inverseTiny { link in
             link.parameters.text = "linkInverseTiny"
-            link.parameters.onTouch = { print("linkInverseTiny") }
+            link.parameters.onTouch = { }
         }
     }()
     
     lazy var linkNeutralMedium: OceanSwiftUI.Link = {
         return OceanSwiftUI.Link.neutralMedium { link in
             link.parameters.text = "linkNeutralMedium"
-            link.parameters.onTouch = { print("linkNeutralMedium") }
+            link.parameters.onTouch = { }
         }
     }()
     
     lazy var linkNeutralSmall: OceanSwiftUI.Link = {
         return OceanSwiftUI.Link.neutralSmall { link in
             link.parameters.text = "linkNeutralSmall"
-            link.parameters.onTouch = { print("linkNeutralSmall") }
+            link.parameters.onTouch = { }
         }
     }()
     
     lazy var linkNeutralTiny: OceanSwiftUI.Link = {
         return OceanSwiftUI.Link.neutralTiny { link in
             link.parameters.text = "linkNeutralTiny"
-            link.parameters.onTouch = { print("linkNeutralTiny") }
+            link.parameters.onTouch = { }
         }
     }()
     
