@@ -103,7 +103,7 @@ extension OceanSwiftUI {
                 if let actionText = parameters.actionText {
                     Spacer().frame(width: Ocean.size.spacingStackXxxs + Ocean.size.spacingStackXxs)
                     OceanSwiftUI.Link.primaryTiny { link in
-                        link.parameters.text = parameters.actionText ?? ""
+                        link.parameters.text = actionText
                         link.parameters.type = .chevron
                         link.parameters.textColor = getForegroundColor()
                         link.parameters.onTouch = parameters.actionOnTouch ?? { }
