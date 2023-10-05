@@ -26,7 +26,7 @@ class AlertSwiftUIViewController: UIViewController {
     lazy var alertInfoLong: OceanSwiftUI.Alert = {
         return OceanSwiftUI.Alert.infoLong { alert in
             alert.parameters.title = "Alert With Long Another Icon"
-            alert.parameters.text = "Text Ocean SwiftUI Alert Info Text Ocean SwiftUI Alert Info Warning Positive Negative Text Ocean SwiftUI Alert Info"
+            alert.parameters.text = "Enim id vestibulum convallis in posuere pulvinar orci, convallis commodo lorem lacus quam eros"
             alert.parameters.icon = Ocean.icon.placeholderOutline
         }
     }()
@@ -46,14 +46,14 @@ class AlertSwiftUIViewController: UIViewController {
     
     lazy var alertWarningLong: OceanSwiftUI.Alert = {
         return OceanSwiftUI.Alert.warningLong { alert in
-            alert.parameters.title = "Title Long"
+            alert.parameters.title = "Title Long Text"
             alert.parameters.text = "Text Ocean SwiftUI Alert Info Text Ocean SwiftUI Alert Info Warning Positive Negative Text Ocean SwiftUI Alert Info"
         }
     }()
     
     lazy var alertWarningShort: OceanSwiftUI.Alert = {
         return OceanSwiftUI.Alert.warningShort { alert in
-            alert.parameters.title = "Title Short"
+            alert.parameters.title = "Warning Short"
             alert.parameters.text = "Text alert Warning Short"
         }
     }()
@@ -101,9 +101,9 @@ class AlertSwiftUIViewController: UIViewController {
     lazy var alertInfoWithLink: OceanSwiftUI.Alert = {
         return OceanSwiftUI.Alert.infoShort { alert in
             alert.parameters.title = "Title Short"
-            alert.parameters.text = "Lorem ipsum dolor sit amet consectetur. Sed tincidunt habitasse nam arcu orci. Mi dui in sed."
-            alert.parameters.actionText = "action Text"
-            alert.parameters.actionOnTouch = { print("actionOnTouch")}
+            alert.parameters.text = "Orci vel donec consectetur taciti at sagittis neque maecenas quam venenatis adipiscing."
+            alert.parameters.actionText = "action"
+            alert.parameters.actionOnTouch = { }
         }
     }()
     
@@ -111,8 +111,8 @@ class AlertSwiftUIViewController: UIViewController {
         return OceanSwiftUI.Alert.warningShort { alert in
             alert.parameters.title = "Title Short"
             alert.parameters.text = "Lorem ipsum dolor sit amet consectetur. Sed tincidunt habitasse nam arcu orci. Mi dui in sed."
-            alert.parameters.actionText = "action Text"
-            alert.parameters.actionOnTouch = { print("actionOnTouch")}
+            alert.parameters.actionText = "link"
+            alert.parameters.actionOnTouch = { }
         }
     }()
     
@@ -120,8 +120,8 @@ class AlertSwiftUIViewController: UIViewController {
         return OceanSwiftUI.Alert.positiveLong { alert in
             alert.parameters.title = "Title Long"
             alert.parameters.text = "Lorem ipsum dolor sit amet consectetur. Sed tincidunt habitasse nam arcu orci. Mi dui in sed."
-            alert.parameters.actionText = "action Text"
-            alert.parameters.actionOnTouch = { print("actionOnTouch")}
+            alert.parameters.actionText = "Link Text"
+            alert.parameters.actionOnTouch = { }
         }
     }()
     
