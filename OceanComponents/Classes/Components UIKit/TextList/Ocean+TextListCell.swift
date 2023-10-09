@@ -36,6 +36,12 @@ extension Ocean {
             }
         }
         
+        public var numberOfLinesSubtitle: Int = 1 {
+            didSet {
+                updateUI()
+            }
+        }
+        
         public var tooltipMessage: String = "" {
             didSet {
                 updateUI()
@@ -344,7 +350,7 @@ extension Ocean {
             let label = TextLabel()
             label.font = .baseRegular(size: Ocean.font.fontSizeXxs)
             label.textColor = Ocean.color.colorInterfaceDarkDown
-            label.numberOfLines = 1
+            label.numberOfLines = numberOfLinesSubtitle
 
             return label
         }()
@@ -420,6 +426,7 @@ extension Ocean {
             subtitleLabel.isSkeletonable = !subtitle.isEmpty || subtitleTextLabel != nil
             subtitleLabel.text = subtitle
             subtitleLabel.model = subtitleTextLabel
+            subtitleLabel.numberOfLines = numberOfLinesSubtitle
             textLabel.isHidden = text.isEmpty && textTextLabel == nil
             textLabel.isSkeletonable = !text.isEmpty
             textLabel.text = text
