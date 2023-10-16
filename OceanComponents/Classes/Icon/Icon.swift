@@ -396,6 +396,7 @@ extension Ocean {
         public static let pencilAltSolid = UIImage(named: "OceanComponents.bundle/pencil-alt-solid", in: .bundleOceanComponents, compatibleWith: .none)
         public static let pencilOutline = UIImage(named: "OceanComponents.bundle/pencil-outline", in: .bundleOceanComponents, compatibleWith: .none)
         public static let pencilSolid = UIImage(named: "OceanComponents.bundle/pencil-solid", in: .bundleOceanComponents, compatibleWith: .none)
+        public static let personOutline = UIImage(named: "OceanComponents.bundle/person-outline", in: .bundleOceanComponents, compatibleWith: .none)
         public static let phoneIncomingOutline = UIImage(named: "OceanComponents.bundle/phone-incoming-outline", in: .bundleOceanComponents, compatibleWith: .none)
         public static let phoneIncomingSolid = UIImage(named: "OceanComponents.bundle/phone-incoming-solid", in: .bundleOceanComponents, compatibleWith: .none)
         public static let phoneMissedCallOutline = UIImage(named: "OceanComponents.bundle/phone-missed-call-outline", in: .bundleOceanComponents, compatibleWith: .none)
