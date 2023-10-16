@@ -30,6 +30,12 @@ extension Ocean {
             }
         }
 
+        public var numberOfLinesTitle: Int = 1 {
+            didSet {
+                updateUI()
+            }
+        }
+
         public var subtitle: String = "" {
             didSet {
                 updateUI()
@@ -342,7 +348,7 @@ extension Ocean {
             Ocean.Typography.paragraph { label in
                 label.font = .baseSemiBold(size: Ocean.font.fontSizeXs)
                 label.textColor = Ocean.color.colorInterfaceDarkDeep
-                label.numberOfLines = 1
+                label.numberOfLines = self.numberOfLinesTitle
             }
         }()
 
@@ -420,7 +426,7 @@ extension Ocean {
             let imageNotExist = image == nil
 
             titleLabel.text = title
-            
+            titleLabel.numberOfLines = numberOfLinesTitle
             subtitleSpacer.isHidden = subtitleLabel.isHidden
             subtitleLabel.isHidden = subtitle.isEmpty && subtitleTextLabel == nil
             subtitleLabel.isSkeletonable = !subtitle.isEmpty || subtitleTextLabel != nil

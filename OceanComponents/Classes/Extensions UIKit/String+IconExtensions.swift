@@ -384,6 +384,7 @@ public extension String {
         case "pencilaltsolid": return Ocean.icon.pencilAltSolid
         case "penciloutline": return Ocean.icon.pencilOutline
         case "pencilsolid": return Ocean.icon.pencilSolid
+        case "personoutline": return Ocean.icon.personOutline
         case "phoneincomingoutline": return Ocean.icon.phoneIncomingOutline
         case "phoneincomingsolid": return Ocean.icon.phoneIncomingSolid
         case "phonemissedcalloutline": return Ocean.icon.phoneMissedCallOutline
