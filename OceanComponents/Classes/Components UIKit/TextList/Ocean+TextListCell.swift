@@ -78,6 +78,12 @@ extension Ocean {
             }
         }
 
+        public var textNumberOfLines: Int = 1 {
+            didSet {
+                updateUI()
+            }
+        }
+
         public var tagTitle: String = "" {
             didSet {
                 updateUI()
@@ -372,8 +378,8 @@ extension Ocean {
             label.font = .baseRegular(size: Ocean.font.fontSizeXxxs)
             label.boldSize = Ocean.font.fontSizeXxxs
             label.textColor = textTextColor
-            label.numberOfLines = 1
-            
+            label.numberOfLines = textNumberOfLines
+
             return label
         }()
 
@@ -444,6 +450,7 @@ extension Ocean {
             textLabel.text = text
             textLabel.model = textTextLabel
             textLabel.textColor = textTextColor
+            textLabel.numberOfLines = textNumberOfLines
             tagView.title = tagTitle
             tagView.image = tagImage
             tagView.status = tagStatus
