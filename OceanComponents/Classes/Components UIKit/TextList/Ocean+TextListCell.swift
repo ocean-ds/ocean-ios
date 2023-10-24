@@ -72,13 +72,13 @@ extension Ocean {
             }
         }
 
-        public var textTextColor: UIColor = Ocean.color.colorInterfaceDarkDown {
+        public var textColorText: UIColor = Ocean.color.colorInterfaceDarkDown {
             didSet {
                 updateUI()
             }
         }
 
-        public var textNumberOfLines: Int = 1 {
+        public var numberOfLinesText: Int = 1 {
             didSet {
                 updateUI()
             }
@@ -377,8 +377,8 @@ extension Ocean {
             let label = TextLabel()
             label.font = .baseRegular(size: Ocean.font.fontSizeXxxs)
             label.boldSize = Ocean.font.fontSizeXxxs
-            label.textColor = textTextColor
-            label.numberOfLines = textNumberOfLines
+            label.textColor = textColorText
+            label.numberOfLines = numberOfLinesText
 
             return label
         }()
@@ -449,8 +449,8 @@ extension Ocean {
             textLabel.isSkeletonable = !text.isEmpty
             textLabel.text = text
             textLabel.model = textTextLabel
-            textLabel.textColor = textTextColor
-            textLabel.numberOfLines = textNumberOfLines
+            textLabel.textColor = textColorText
+            textLabel.numberOfLines = numberOfLinesText
             tagView.title = tagTitle
             tagView.image = tagImage
             tagView.status = tagStatus

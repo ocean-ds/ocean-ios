@@ -85,8 +85,8 @@ final public class TextListViewController : UIViewController {
             textList.title = "Title"
             textList.subtitle = "Subitle"
             textList.text = "Colored text Colored text Colored text Colored text Colored text Colored text"
-            textList.textTextColor = UIColor.red
-            textList.textNumberOfLines = 2
+            textList.textColorText = UIColor.red
+            textList.numberOfLinesText = 2
             textList.buttonTitle = "Button"
             textList.onTouchButton = self.triggerButton
         }
