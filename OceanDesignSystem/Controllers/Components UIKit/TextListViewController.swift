@@ -84,7 +84,8 @@ final public class TextListViewController : UIViewController {
         let textList9 = Ocean.TextList.cell { textList in
             textList.title = "Title"
             textList.subtitle = "Subitle"
-            textList.text = "Text"
+            textList.text = "Colored text"
+            textList.textTextColor = UIColor.red
             textList.buttonTitle = "Button"
             textList.onTouchButton = self.triggerButton
         }
