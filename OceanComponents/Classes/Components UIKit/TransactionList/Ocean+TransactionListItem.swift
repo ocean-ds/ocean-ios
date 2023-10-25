@@ -97,6 +97,7 @@ extension Ocean {
                 view.onTouch = {
                     self.onTouchCheckbox?()
                 }
+                view.oceanConstraints.width(constant: 20).make()
             }
         }()
 
@@ -234,6 +235,7 @@ extension Ocean {
                     selectCheckBox,
                     selectCheckBoxSpacer,
                     leftContentStack,
+                    UIView(),
                     rightContentStack
                 ])
 
