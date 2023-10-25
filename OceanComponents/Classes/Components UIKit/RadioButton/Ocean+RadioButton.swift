@@ -19,6 +19,8 @@ extension Ocean {
                 textLabel.isHidden = text.isEmpty
 
                 textView.isHidden = true
+
+                textStack.isHidden = textLabel.isHidden && textView.isHidden && descriptionLabel.isHidden
             }
         }
 
@@ -28,6 +30,8 @@ extension Ocean {
                 textView.isHidden = attributedText?.length == .zero
 
                 textLabel.isHidden = true
+
+                textStack.isHidden = textLabel.isHidden && textView.isHidden && descriptionLabel.isHidden
             }
         }
 
@@ -38,6 +42,8 @@ extension Ocean {
                 descriptionLabel.isHidden = descriptionText.isEmpty
 
                 stackAlignment = descriptionText.isEmpty ? .top : .center
+
+                textStack.isHidden = textLabel.isHidden && textView.isHidden && descriptionLabel.isHidden
             }
         }
 
@@ -315,6 +321,7 @@ extension Ocean {
         }
 
         private func changeToUnchecked() {
+            errorLabel.text = errorEmpty
             errorLabel.isHidden = true
 
             changeForegroundCircle(path: foregroundExpandPath)
