@@ -97,20 +97,6 @@ extension Ocean {
             return true
         }
         
-        private func setOn(on: Bool, animated: Bool) {
-            switch animated {
-            case true:
-                self.animate(on: on)
-            case false:
-                self.privateIsOn = on
-                self.setupViewsOnAction()
-                self.completeAction()
-            }
-            
-            self.onValueChanged?(self.privateIsOn)
-            generator.selectionChanged()
-        }
-        
         fileprivate func animate(on: Bool? = nil) {
             self.privateIsOn = on ?? !self.isOn
             
@@ -150,6 +136,20 @@ extension Ocean {
                 self.thumbView.frame = CGRect(origin: self.isOn ? self.onPoint : self.offPoint, size: self.thumbSize)
                 self.thumbView.layer.cornerRadius = self.thumbSize.height * self.thumbCornerRadius
             }
+        }
+
+        public func setOn(on: Bool, animated: Bool) {
+            switch animated {
+            case true:
+                self.animate(on: on)
+            case false:
+                self.privateIsOn = on
+                self.setupViewsOnAction()
+                self.completeAction()
+            }
+
+            self.onValueChanged?(self.privateIsOn)
+            generator.selectionChanged()
         }
     }
 }
