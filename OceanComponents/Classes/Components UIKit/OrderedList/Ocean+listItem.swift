@@ -28,5 +28,14 @@ extension Ocean {
             
             return item
         }
+        
+        public static func unorderedDefault(builder: OrderedListItemBuilder = nil) -> OrderedListItem {
+            let item = OrderedListItem(builder: builder)
+            item.image = Ocean.icon.chevronRightSolid
+            item.roundedBackgroundColor = Ocean.color.colorInterfaceLightUp
+            item.roundedTintColor = Ocean.color.colorBrandPrimaryDown
+            
+            return item
+        }
     }
 }
