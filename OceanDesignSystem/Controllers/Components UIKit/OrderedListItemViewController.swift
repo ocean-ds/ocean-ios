@@ -53,6 +53,14 @@ final public class OrderedListItemViewController : UIViewController {
         view.subtitleAttributedString = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Velit amet sem tempus volutpat nulla posuere consectetur ac in.".htmlToAttributedText(size: Ocean.font.fontSizeXxs,
                                                                                                                                                                                         color: Ocean.color.colorInterfaceDarkDown)
     }
+    
+    let component9 = Ocean.ListItem.unorderedDefault { view in
+        view.title = "Lorem ipsum dolor sit amet unordered."
+    }
+    
+    let component10 = Ocean.ListItem.unorderedDefault { view in
+        view.subtitle = "Lorem ipsum dolor sit amet unordered default."
+    }
 
     public override func viewDidLoad() {
         self.view.backgroundColor = .white
@@ -71,6 +79,8 @@ final public class OrderedListItemViewController : UIViewController {
         stack1.addArrangedSubview(component6)
         stack1.addArrangedSubview(component7)
         stack1.addArrangedSubview(component8)
+        stack1.addArrangedSubview(component9)
+        stack1.addArrangedSubview(component10)
 
         self.view.addSubview(stack1)
 
