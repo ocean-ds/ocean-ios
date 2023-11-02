@@ -22,11 +22,12 @@ extension Ocean {
             return self
         }
         
-        public func withImage(_ image: UIImage?) -> Modal {
+        public func withImage(_ image: UIImage?, maxHeight: CGFloat? = nil) -> Modal {
             modalViewController.contentImage = image
+            modalViewController.maxImageHeight = maxHeight
             return self
         }
-        
+
         public func withTitle(_ title: String?) -> Modal {
             modalViewController.contentTitle = title
             return self
