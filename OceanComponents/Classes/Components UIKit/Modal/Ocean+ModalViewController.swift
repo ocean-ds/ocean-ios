@@ -13,6 +13,7 @@ extension Ocean {
     public class ModalViewController: BaseModalViewController {
         var contentIsCritical: Bool = false
         var contentImage: UIImage?
+        var maxImageHeight: CGFloat?
         var contentTitle: String?
         var contentDescription: String?
         var contentDescriptionAttributeText: NSAttributedString?
@@ -98,12 +99,20 @@ extension Ocean {
                 imageView.sizeToFit()
             }
 
+            var imageHeight = imageView.frame.height
+            if let maxHeight = maxImageHeight, imageHeight > maxHeight {
+                imageHeight = maxHeight
+                imageView.oceanConstraints
+                    .height(constant: maxHeight)
+                    .make()
+            }
+
             let bottomSpacing = Ocean.size.spacingStackSm
 
             mainStack.addArrangedSubview(imageView)
             mainStack.addArrangedSubview(Spacer(space: bottomSpacing))
 
-            return imageView.frame.height + bottomSpacing
+            return imageHeight + bottomSpacing
         }
 
         fileprivate func addTitleIfExist() -> CGFloat {
