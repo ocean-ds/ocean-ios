@@ -47,24 +47,31 @@ extension UIView {
             .make()
     }
 
-    public func addMargins(allMargins: CGFloat) -> UIView {
+    public func addMargins(allMargins: CGFloat, 
+                           isSkeletonable: Bool = true) -> UIView {
         return addMargins(top: allMargins, left: allMargins,
-                          bottom: allMargins, right: allMargins)
+                          bottom: allMargins, right: allMargins,
+                          isSkeletonable: isSkeletonable)
     }
 
-    public func addMargins(horizontal: CGFloat) -> UIView {
-        return addMargins(left: horizontal, right: horizontal)
+    public func addMargins(horizontal: CGFloat,
+                           isSkeletonable: Bool = true) -> UIView {
+        return addMargins(left: horizontal, right: horizontal,
+                          isSkeletonable: isSkeletonable)
     }
 
-    public func addMargins(vertical: CGFloat) -> UIView {
-        return addMargins(top: vertical, bottom: vertical)
+    public func addMargins(vertical: CGFloat,
+                           isSkeletonable: Bool = true) -> UIView {
+        return addMargins(top: vertical, bottom: vertical,
+                          isSkeletonable: isSkeletonable)
     }
 
     public func addMargins(top: CGFloat = 0,
                            left: CGFloat = 0,
                            bottom: CGFloat = 0,
-                           right: CGFloat = 0) -> UIView {
-        let newView = createNewView()
+                           right: CGFloat = 0,
+                           isSkeletonable: Bool = true) -> UIView {
+        let newView = createNewView(isSkeletonable: isSkeletonable)
 
         self.oceanConstraints
             .topToTop(to: newView, constant: top)
@@ -76,8 +83,8 @@ extension UIView {
         return newView
     }
 
-    public func alignCenter(height: CGFloat? = nil) -> UIView {
-        let newView = createNewView()
+    public func alignCenter(height: CGFloat? = nil, isSkeletonable: Bool = true) -> UIView {
+        let newView = createNewView(isSkeletonable: isSkeletonable)
 
         self.oceanConstraints
             .center(to: newView)
@@ -88,8 +95,8 @@ extension UIView {
         return newView
     }
 
-    public func alignLeft(height: CGFloat? = nil) -> UIView {
-        let newView = createNewView()
+    public func alignLeft(height: CGFloat? = nil, isSkeletonable: Bool = true) -> UIView {
+        let newView = createNewView(isSkeletonable: isSkeletonable)
 
         self.oceanConstraints
             .topToTop(to: newView)
@@ -102,8 +109,8 @@ extension UIView {
         return newView
     }
 
-    public func alignRight(height: CGFloat? = nil) -> UIView {
-        let newView = createNewView()
+    public func alignRight(height: CGFloat? = nil, isSkeletonable: Bool = true) -> UIView {
+        let newView = createNewView(isSkeletonable: isSkeletonable)
 
         self.oceanConstraints
             .topToTop(to: newView)
@@ -116,12 +123,12 @@ extension UIView {
         return newView
     }
 
-    private func createNewView() -> UIView {
+    private func createNewView(isSkeletonable: Bool = true) -> UIView {
         let newView = UIView()
         translatesAutoresizingMaskIntoConstraints = false
         newView.translatesAutoresizingMaskIntoConstraints = false
         newView.addSubview(self)
-        newView.isSkeletonable = true
+        newView.isSkeletonable = isSkeletonable
         return newView
     }
 
