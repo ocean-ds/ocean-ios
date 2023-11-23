@@ -149,6 +149,8 @@ class ComponentsViewController: UITableViewController {
             self.present(navigationController, animated: true, completion: nil)
         case .CheckBoxGroup:
             self.present(CheckBoxGroupViewController(), animated: true, completion: nil)
+        case .StatusListItem:
+            self.present(StatusListItemViewController(), animated: true, completion: nil)
         default:
             performSegue(withIdentifier: "SegueComponentTypeView", sender: self)
         }

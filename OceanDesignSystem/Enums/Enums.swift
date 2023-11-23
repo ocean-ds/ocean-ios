@@ -74,6 +74,7 @@ public enum DesignSystemComponentsType: String {
     case Link
     case Onboarding
     case CheckBoxGroup
+    case StatusListItem
 }
 
 public enum DesignSystemComponentsSwiftUIType: String {

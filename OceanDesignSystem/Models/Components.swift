@@ -48,6 +48,7 @@ struct DSComponents {
         "SettingsListItem",
         "Shortcut",
         "Snackbar",
+        "StatusListItem",
         "Step",
         "Subheader",
         "Switch",
