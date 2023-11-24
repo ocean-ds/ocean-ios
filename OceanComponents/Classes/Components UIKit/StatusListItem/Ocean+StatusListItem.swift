@@ -56,7 +56,11 @@ extension Ocean {
 
         public var onTouchButton: (() -> Void)?
 
-        lazy var titleLabel = Ocean.Typography.paragraph()
+        lazy var titleLabel: UILabel = {
+            Ocean.Typography.paragraph { label in
+                label.textColor = Ocean.color.colorInterfaceDarkPure
+            }
+        }()
 
         lazy var subtitleLabel: UILabel = {
             Ocean.Typography.description { label in
