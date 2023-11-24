@@ -66,6 +66,8 @@ struct DSComponents {
         "Button",
         "Link",
         "ProgressIndicator",
+        "StatusListItem",
+        "Tag",
         "Typography"
     ]
 }

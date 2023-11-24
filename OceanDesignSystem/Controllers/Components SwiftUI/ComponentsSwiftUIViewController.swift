@@ -49,6 +49,10 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(LinkSwiftUIViewController(), animated: true, completion: nil)
         case .ProgressIndicator:
             self.present(CircularProgressIndicatorSwiftUIViewController(), animated: true, completion: nil)
+        case .StatusListItem:
+            self.present(StatusListItemSwiftUIViewController(), animated: true, completion: nil)
+        case .Tag:
+            self.present(TagSwiftUIViewController(), animated: true, completion: nil)
         case .Typography:
             self.present(TypographySwiftUIViewController(), animated: true, completion: nil)
         }
