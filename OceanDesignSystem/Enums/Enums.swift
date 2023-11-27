@@ -82,6 +82,8 @@ public enum DesignSystemComponentsSwiftUIType: String {
     case Button
     case Link
     case ProgressIndicator
+    case StatusListItem
+    case Tag
     case Typography
 }
 

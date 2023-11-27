@@ -32,6 +32,8 @@
 		3EC980927BF0109693E47882 /* Pods_OceanDesignSystemTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDF2EC3ACFA07DE2F890D43F /* Pods_OceanDesignSystemTests.framework */; };
 		4223DDA2293F894C00257DBC /* OrderedListItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4223DDA1293F894C00257DBC /* OrderedListItemViewController.swift */; };
 		42256BA62B0FEE410055C034 /* StatusListItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42256BA52B0FEE410055C034 /* StatusListItemViewController.swift */; };
+		423171AF2B11189000082955 /* StatusListItemSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423171AE2B11189000082955 /* StatusListItemSwiftUIViewController.swift */; };
+		423171B52B1121ED00082955 /* TagSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423171B42B1121ED00082955 /* TagSwiftUIViewController.swift */; };
 		4241FB5227E8AD4B003EF1F3 /* ParentChildTextListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4241FB5127E8AD4B003EF1F3 /* ParentChildTextListViewController.swift */; };
 		4274CD6228AD422100F35540 /* GroupCTAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4274CD6128AD422100F35540 /* GroupCTAViewController.swift */; };
 		4291D9A32A153CF4006A0342 /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4291D9A22A153CF4006A0342 /* BalanceViewController.swift */; };
@@ -133,6 +135,8 @@
 		24FEEBC02744282E00211FEC /* StepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepViewController.swift; sourceTree = "<group>"; };
 		4223DDA1293F894C00257DBC /* OrderedListItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedListItemViewController.swift; sourceTree = "<group>"; };
 		42256BA52B0FEE410055C034 /* StatusListItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusListItemViewController.swift; sourceTree = "<group>"; };
+		423171AE2B11189000082955 /* StatusListItemSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusListItemSwiftUIViewController.swift; sourceTree = "<group>"; };
+		423171B42B1121ED00082955 /* TagSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSwiftUIViewController.swift; sourceTree = "<group>"; };
 		4241FB5127E8AD4B003EF1F3 /* ParentChildTextListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentChildTextListViewController.swift; sourceTree = "<group>"; };
 		4274CD6128AD422100F35540 /* GroupCTAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCTAViewController.swift; sourceTree = "<group>"; };
 		4291D9A22A153CF4006A0342 /* BalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceViewController.swift; sourceTree = "<group>"; };
@@ -282,6 +286,8 @@
 				42C89A602A96A89700B8174A /* TypographySwiftUIViewController.swift */,
 				E18D698D2ACB420100A1051C /* AlertSwiftUIViewController.swift */,
 				E18D69992ACC3FDA00A1051C /* LinkSwiftUIViewController.swift */,
+				423171AE2B11189000082955 /* StatusListItemSwiftUIViewController.swift */,
+				423171B42B1121ED00082955 /* TagSwiftUIViewController.swift */,
 			);
 			path = "Components SwiftUI";
 			sourceTree = "<group>";
@@ -611,6 +617,7 @@
 				4274CD6228AD422100F35540 /* GroupCTAViewController.swift in Sources */,
 				B7BB722224EEEB6F007F8848 /* NibWrapperView.swift in Sources */,
 				1385ADEF2694719B003F6D07 /* TooltipViewController.swift in Sources */,
+				423171AF2B11189000082955 /* StatusListItemSwiftUIViewController.swift in Sources */,
 				B71D65DC24CA038B00C3938C /* Models.swift in Sources */,
 				249DC9402672AD2600012411 /* SwitchViewController.swift in Sources */,
 				D5D28DDD2A1BA2550070B8CE /* ProgressBarViewController.swift in Sources */,
@@ -634,6 +641,7 @@
 				B71D65FD24CA530000C3938C /* Components.swift in Sources */,
 				2491356C26C5BB10005EE76E /* CheckBoxViewController.swift in Sources */,
 				246535FC26E28B760079354A /* BadgeViewController.swift in Sources */,
+				423171B52B1121ED00082955 /* TagSwiftUIViewController.swift in Sources */,
 				E1DB7A2428FF243900A0459A /* CardListItemViewController.swift in Sources */,
 				AF833AAE2890764F0012AE58 /* TransactionFooterViewController.swift in Sources */,
 				138EF63E268502E1000E65EA /* AlertBoxViewController.swift in Sources */,
@@ -693,8 +701,9 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 57KSFR5UHN;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = "";
 				INFOPLIST_FILE = OceanDesignSystemTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -703,6 +712,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.blu.ocean.OceanDesignSystemTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OceanDesignSystem.app/OceanDesignSystem";
 			};
@@ -714,8 +725,9 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 57KSFR5UHN;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = "";
 				INFOPLIST_FILE = OceanDesignSystemTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -724,6 +736,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.blu.ocean.OceanDesignSystemTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OceanDesignSystem.app/OceanDesignSystem";
 			};
