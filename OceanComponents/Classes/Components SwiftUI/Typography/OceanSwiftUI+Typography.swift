@@ -69,7 +69,7 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            Text(self.parameters.text)
+            Text(self.parameters.text.htmlToMarkdown())
                 .font(Font(self.parameters.font ?? .systemFont(ofSize: Ocean.font.fontSizeXs)))
                 .foregroundColor(Color(self.parameters.textColor))
                 .lineLimit(self.parameters.lineLimit)
