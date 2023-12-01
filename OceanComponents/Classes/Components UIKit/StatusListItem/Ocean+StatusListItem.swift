@@ -125,6 +125,8 @@ extension Ocean {
                     imageView,
                     Ocean.Spacer(space: Ocean.size.spacingStackXs)
                 ])
+
+                stack.addTapGesture(target: self, selector: #selector(tap))
             }
         }()
 
@@ -180,6 +182,10 @@ extension Ocean {
             subtitleLabel.isSkeletonable = true
             captionLabel.isSkeletonable = true
             infoTag.setSkeleton()
+        }
+
+        @objc private func tap() {
+            self.onTouchButton?()
         }
     }
 }
