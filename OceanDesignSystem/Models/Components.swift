@@ -65,6 +65,7 @@ struct DSComponents {
         "Alert",
         "Button",
         "Link",
+        "OrderedListItem",
         "ProgressIndicator",
         "StatusListItem",
         "Tag",

@@ -47,6 +47,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
         case .Link:
             self.modalPresentationStyle = .fullScreen
             self.present(LinkSwiftUIViewController(), animated: true, completion: nil)
+        case .OrderedListItem:
+            self.present(OrderedListItemSwiftUIViewController(), animated: true, completion: nil)
         case .ProgressIndicator:
             self.present(CircularProgressIndicatorSwiftUIViewController(), animated: true, completion: nil)
         case .StatusListItem:

@@ -69,7 +69,7 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            Text(self.parameters.text)
+            Text(self.parameters.text.htmlToMarkdown())
                 .font(Font(self.parameters.font ?? .systemFont(ofSize: Ocean.font.fontSizeXs)))
                 .foregroundColor(Color(self.parameters.textColor))
                 .lineLimit(self.parameters.lineLimit)
@@ -83,5 +83,28 @@ extension OceanSwiftUI {
 struct Ocean_Typography_Previews: PreviewProvider {
     static var previews: some View {
         OceanSwiftUI.Typography()
+    }
+}
+
+extension String {
+    public func htmlToMarkdown() -> LocalizedStringKey {
+        var markdownString = self
+        
+        let htmlToMarkdownRules: [String: String] = [
+            "<b>": "**", 
+            "</b>": "**",
+            "<i>": "*", 
+            "</i>": "*",
+            "<br>": "\n", 
+            "<br/>": "\n",
+            "<p>": "", 
+            "</p>": "\n\n"
+        ]
+
+        htmlToMarkdownRules.forEach { html, markdown in
+            markdownString = markdownString.replacingOccurrences(of: html, with: markdown)
+        }
+
+        return LocalizedStringKey(markdownString)
     }
 }
