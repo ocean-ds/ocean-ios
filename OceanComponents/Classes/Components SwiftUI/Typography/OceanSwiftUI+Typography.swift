@@ -85,26 +85,3 @@ struct Ocean_Typography_Previews: PreviewProvider {
         OceanSwiftUI.Typography()
     }
 }
-
-extension String {
-    public func htmlToMarkdown() -> LocalizedStringKey {
-        var markdownString = self
-        
-        let htmlToMarkdownRules: [String: String] = [
-            "<b>": "**", 
-            "</b>": "**",
-            "<i>": "*", 
-            "</i>": "*",
-            "<br>": "\n", 
-            "<br/>": "\n",
-            "<p>": "", 
-            "</p>": "\n\n"
-        ]
-
-        htmlToMarkdownRules.forEach { html, markdown in
-            markdownString = markdownString.replacingOccurrences(of: html, with: markdown)
-        }
-
-        return LocalizedStringKey(markdownString)
-    }
-}

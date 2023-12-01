@@ -51,6 +51,14 @@ class OrderedListItemSwiftUIViewController: UIViewController {
         }
     }()
     
+    lazy var item7: OceanSwiftUI.OrderedListItem = {
+        return OceanSwiftUI.OrderedListItem.unorderedDefault() { item in
+            item.parameters.title = "This is Title"
+            item.parameters.icon = Ocean.icon.placeholderSolid
+            item.parameters.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Velit amet sem tempus volutpat nulla posuere consectetur ac in."
+        }
+    }()
+    
     private lazy var mainStack: Ocean.StackView = {
         let stack = Ocean.StackView()
         stack.axis = .vertical
@@ -64,7 +72,8 @@ class OrderedListItemSwiftUIViewController: UIViewController {
             item3.uiView,
             item4.uiView,
             item5.uiView,
-            item6.uiView
+            item6.uiView,
+            item7.uiView
         ])
 
         stack.setMargins(allMargins: Ocean.size.spacingStackXs)
