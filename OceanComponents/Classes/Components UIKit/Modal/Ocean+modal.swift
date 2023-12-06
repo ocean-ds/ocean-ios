@@ -11,17 +11,17 @@ import OceanTokens
 extension Ocean {
     public class Modal {
         internal var modalViewController: ModalViewController
-        
+
         public init(_ rootViewController: UIViewController) {
             modalViewController = ModalViewController(rootViewController)
         }
-        
+
         public func withDismiss(_ value: Bool, completion: ((Bool) -> Void)? = nil) -> Modal {
             modalViewController.swipeDismiss = value
             modalViewController.onDismiss = completion
             return self
         }
-        
+
         public func withImage(_ image: UIImage?, maxHeight: CGFloat? = nil) -> Modal {
             modalViewController.contentImage = image
             modalViewController.maxImageHeight = maxHeight
@@ -32,26 +32,31 @@ extension Ocean {
             modalViewController.contentTitle = title
             return self
         }
-        
+
         public func withDescription(_ description: String?) -> Modal {
             modalViewController.contentDescription = description
             return self
         }
-        
+
         public func withDescription(_ description: NSAttributedString?) -> Modal {
             modalViewController.contentDescriptionAttributeText = description
             return self
         }
-        
+
         public func withAction(textNegative: String,
-                        actionNegative: (() -> Void)?,
-                        textPositive: String,
-                        actionPositive: (() -> Void)?) -> Modal {
+                               actionNegative: (() -> Void)?,
+                               textPositive: String,
+                               actionPositive: (() -> Void)?,
+                               shouldDismiss: Bool = true) -> Modal {
             modalViewController.actionsAxis = .horizontal
             modalViewController.actions.append(Ocean.Button.secondaryMD { button in
                 button.text = textNegative
                 button.onTouch = {
-                    self.modalViewController.dismiss(animated: true, wasClosed: false) {
+                    if shouldDismiss {
+                        self.modalViewController.dismiss(animated: true, wasClosed: false) {
+                            actionNegative?()
+                        }
+                    } else {
                         actionNegative?()
                     }
                 }
@@ -59,40 +64,56 @@ extension Ocean {
             modalViewController.actions.append(Ocean.Button.primaryMD { button in
                 button.text = textPositive
                 button.onTouch = {
-                    self.modalViewController.dismiss(animated: true, wasClosed: false) {
+                    if shouldDismiss {
+                        self.modalViewController.dismiss(animated: true, wasClosed: false) {
+                            actionPositive?()
+                        }
+                    } else {
                         actionPositive?()
                     }
                 }
             })
             return self
         }
-        
-        public func withActionPrimary(text: String, action: (() -> Void)?) -> Modal {
+
+        public func withActionPrimary(text: String,
+                                      action: (() -> Void)?,
+                                      shouldDismiss: Bool = true) -> Modal {
             modalViewController.actionsAxis = .vertical
             modalViewController.actions.append(Ocean.Button.primaryBlockedMD { button in
                 button.text = text
                 button.onTouch = {
-                    self.modalViewController.dismiss(animated: true, wasClosed: false) {
+                    if shouldDismiss {
+                        self.modalViewController.dismiss(animated: true, wasClosed: false) {
+                            action?()
+                        }
+                    } else {
                         action?()
                     }
                 }
             })
             return self
         }
-        
-        public func withActionSecondary(text: String, action: (() -> Void)?) -> Modal {
+
+        public func withActionSecondary(text: String,
+                                        action: (() -> Void)?,
+                                        shouldDismiss: Bool = true) -> Modal {
             modalViewController.actionsAxis = .vertical
             modalViewController.actions.append(Ocean.Button.secondaryBlockedMD { button in
                 button.text = text
                 button.onTouch = {
-                    self.modalViewController.dismiss(animated: true, wasClosed: false) {
+                    if shouldDismiss {
+                        self.modalViewController.dismiss(animated: true, wasClosed: false) {
+                            action?()
+                        }
+                    } else {
                         action?()
                     }
                 }
             })
             return self
         }
-        
+
         public func withCode(_ code: Int?) -> Modal {
             if let code = code {
                 modalViewController.contentAdditionalInformation = "Código \(code)"
@@ -104,12 +125,12 @@ extension Ocean {
             modalViewController.contentAdditionalInformation = additionalInformation
             return self
         }
-        
+
         public func withCustomView(view: UIView) -> Modal {
             modalViewController.customContent = view
             return self
         }
-        
+
         public func build() -> ModalViewController {
             self.modalViewController.makeView()
             return modalViewController

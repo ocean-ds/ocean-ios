@@ -22,6 +22,16 @@ extension Ocean {
         var actions: [UIControl] = []
         var customContent: UIView?
 
+        public var isLoading: Bool = false {
+            didSet {
+                actions.map { $0 as? ButtonPrimary }
+                    .forEach { $0?.isLoading = isLoading }
+
+                actions.map { $0 as? ButtonSecondary }
+                    .forEach { $0?.isLoading = isLoading }
+            }
+        }
+
         public override var heightSpacing: CGFloat {
             return hasTopNotch ? 85 : 55
         }
