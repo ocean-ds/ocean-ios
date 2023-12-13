@@ -57,6 +57,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(TagSwiftUIViewController(), animated: true, completion: nil)
         case .Typography:
             self.present(TypographySwiftUIViewController(), animated: true, completion: nil)
+        case .Badge:
+            self.present(BadgeSwiftUIViewController(), animated: true, completion: nil)
         }
     }
 }
