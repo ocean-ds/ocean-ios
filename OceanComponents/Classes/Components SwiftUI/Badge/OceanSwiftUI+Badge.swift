@@ -36,6 +36,10 @@ extension OceanSwiftUI {
             case dot
         }
 
+        public var value: String {
+            return self.count < 100 ? self.count.description : "99+"
+        }
+
         public init(count: Int = 0,
                     status: Status = .primary,
                     size: Size = .medium,
@@ -66,15 +70,13 @@ extension OceanSwiftUI {
 
         private var countView: some View {
             HStack(alignment: .center) {
-                Spacer()
                 OceanSwiftUI.Typography { label in
                     label.parameters.font = .baseRegular(size: self.parameters.size == .medium ? Ocean.font.fontSizeXxxs : 10)
-                    label.parameters.text = self.parameters.count < 100 ? self.parameters.count.description : "99+"
+                    label.parameters.text = self.parameters.value
                     label.parameters.textColor = self.getForegroundColor()
                 }
-                Spacer()
             }
-            .frame(width: self.parameters.size.rawValue, height: self.parameters.size.rawValue)
+            .frame(width: self.getWidth(), height: self.parameters.size.rawValue)
             .background(Color(self.getBackgroundColor()))
             .cornerRadius(self.parameters.size.rawValue * Ocean.size.borderRadiusCircular)
         }
@@ -135,6 +137,29 @@ extension OceanSwiftUI {
                 return Ocean.color.colorHighlightPure
             case .disabled:
                 return Ocean.color.colorInterfaceDarkUp
+            }
+        }
+
+        private func getWidth() -> CGFloat {
+            switch self.parameters.size {
+            case .medium:
+                switch self.parameters.value.count {
+                case 2:
+                    return 24
+                case 3:
+                    return 30
+                default:
+                    return 24
+                }
+            case .small:
+                switch self.parameters.value.count {
+                case 2:
+                    return 20
+                case 3:
+                    return 26
+                default:
+                    return 16
+                }
             }
         }
     }

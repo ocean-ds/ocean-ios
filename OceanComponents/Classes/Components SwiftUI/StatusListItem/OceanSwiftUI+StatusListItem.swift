@@ -19,6 +19,9 @@ extension OceanSwiftUI {
         @Published public var tagLabel: String
         @Published public var tagStatus: TagParameters.Status
         @Published public var tagPosition: Position
+        @Published public var badgeCount: Int?
+        @Published public var badgeStatus: BadgeParameters.Status
+        @Published public var badgePosition: Position
         @Published public var onTouch: () -> Void = { }
 
         public enum Style {
@@ -39,6 +42,9 @@ extension OceanSwiftUI {
                     tagLabel: String = "",
                     tagStatus: TagParameters.Status = .positive,
                     tagPosition: Position = .below,
+                    badgeCount: Int? = nil,
+                    badgeStatus: BadgeParameters.Status = .warning,
+                    badgePosition: Position = .below,
                     onTouch: @escaping () -> Void = { }) {
             self.title = title
             self.description = description
@@ -47,6 +53,9 @@ extension OceanSwiftUI {
             self.tagLabel = tagLabel
             self.tagStatus = tagStatus
             self.tagPosition = tagPosition
+            self.badgeCount = badgeCount
+            self.badgeStatus = badgeStatus
+            self.badgePosition = badgePosition
             self.onTouch = onTouch
         }
     }
@@ -107,6 +116,14 @@ extension OceanSwiftUI {
                             tag.parameters.status = self.parameters.tagStatus
                         }
                     }
+                    if self.parameters.badgeCount != nil && self.parameters.badgePosition == .below {
+                        Spacer().frame(width: Ocean.size.spacingStackXxs)
+                        OceanSwiftUI.Badge { badge in
+                            badge.parameters.count = self.parameters.badgeCount ?? 0
+                            badge.parameters.status = self.parameters.badgeStatus
+                            badge.parameters.size = .small
+                        }
+                    }
                 }
 
                 Spacer().frame(width: Ocean.size.spacingStackXs)
@@ -119,6 +136,14 @@ extension OceanSwiftUI {
                         tag.parameters.status = self.parameters.tagStatus
                     }
                     Spacer().frame(width: Ocean.size.spacingStackXxs)
+                }
+                if self.parameters.badgeCount != nil && self.parameters.badgePosition == .right {
+                    Spacer().frame(width: Ocean.size.spacingStackXxs)
+                    OceanSwiftUI.Badge { badge in
+                        badge.parameters.count = self.parameters.badgeCount ?? 0
+                        badge.parameters.status = self.parameters.badgeStatus
+                        badge.parameters.size = .small
+                    }
                 }
 
                 if let icon = getIconImage() {
