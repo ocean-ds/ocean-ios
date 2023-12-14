@@ -105,6 +105,9 @@ class StatusListItemSwiftUIViewController: UIViewController {
             statusListItem.parameters.description = "Description"
             statusListItem.parameters.caption = "Caption"
             statusListItem.parameters.style = .normal
+            statusListItem.parameters.badgeCount = 9
+            statusListItem.parameters.badgeStatus = .warning
+            statusListItem.parameters.badgePosition = .right
         }
     }()
 
