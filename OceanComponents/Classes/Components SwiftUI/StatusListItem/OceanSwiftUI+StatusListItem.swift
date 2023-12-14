@@ -156,6 +156,9 @@ extension OceanSwiftUI {
             }
             .background(Color(Ocean.color.colorInterfaceLightPure))
             .padding(.all, Ocean.size.spacingStackXs)
+            .onTapGesture {
+                self.parameters.onTouch()
+            }
         }
 
         // MARK: Methods private
