@@ -166,7 +166,6 @@ extension OceanSwiftUI {
                 }
                 Spacer()
                 withActionButton
-                Spacer()
             }
             .padding(.all, Ocean.size.spacingStackXs)
         }
@@ -181,7 +180,6 @@ extension OceanSwiftUI {
                 }
                 Spacer()
                 withActionButton
-                Spacer()
             }
             .padding(.all, Ocean.size.spacingStackXs)
         }

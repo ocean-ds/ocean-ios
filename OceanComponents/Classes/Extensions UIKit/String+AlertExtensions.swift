@@ -18,4 +18,14 @@ public extension String {
         default: return nil
         }
     }
+
+    func toOceanAlertStatus() -> OceanSwiftUI.AlertParameters.Status? {
+        switch self.lowercased() {
+        case "info": return OceanSwiftUI.AlertParameters.Status.info
+        case "error", "negative": return OceanSwiftUI.AlertParameters.Status.negative
+        case "warning": return OceanSwiftUI.AlertParameters.Status.warning
+        case "success", "positive": return OceanSwiftUI.AlertParameters.Status.positive
+        default: return nil
+        }
+    }
 }

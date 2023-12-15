@@ -40,11 +40,19 @@ extension Ocean {
             var image: UIImage
             var title: String
             var subtitle: String
+            var linkText: String
+            var linkAction: () -> Void
             
-            public init(image: UIImage, title: String, subtitle: String) {
+            public init(image: UIImage,
+                        title: String,
+                        subtitle: String,
+                        linkText: String = "",
+                        linkAction: @escaping () -> Void = { }) {
                 self.image = image
                 self.title = title
                 self.subtitle = subtitle
+                self.linkText = linkText
+                self.linkAction = linkAction
             }
         }
         

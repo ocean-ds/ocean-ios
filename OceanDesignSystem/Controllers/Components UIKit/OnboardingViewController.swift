@@ -19,7 +19,9 @@ class OnboardingViewController: UIViewController, OceanNavigationBar {
             pages: [
                 .init(image: Ocean.icon.placeholderSolid!,
                       title: "Title 1",
-                      subtitle: "Lorem ipsum dolor sit amet consectetur. Pellentesque risus venenatis vestibulum sit."),
+                      subtitle: "Lorem ipsum dolor sit amet consectetur. Pellentesque risus venenatis vestibulum sit.",
+                      linkText: "Link externo",
+                      linkAction: { print("link touched") }),
                 .init(image: Ocean.icon.placeholderSolid!,
                       title: "Title 2",
                       subtitle: "Lorem ipsum dolor sit amet consectetur. Pellentesque risus venenatis vestibulum sit. Lorem ipsum dolor sit amet consectetur."),
