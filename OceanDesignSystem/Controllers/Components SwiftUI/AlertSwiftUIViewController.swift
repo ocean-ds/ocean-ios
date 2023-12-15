@@ -111,8 +111,10 @@ class AlertSwiftUIViewController: UIViewController {
         return OceanSwiftUI.Alert.warningShort { alert in
             alert.parameters.title = "Title Short"
             alert.parameters.text = "Lorem ipsum dolor sit amet consectetur. Sed tincidunt habitasse nam arcu orci. Mi dui in sed."
-            alert.parameters.actionText = "link"
+            alert.parameters.actionText = "action"
+            alert.parameters.actionType = .button
             alert.parameters.actionOnTouch = { }
+            alert.parameters.withIcon = false
         }
     }()
     
@@ -131,9 +133,21 @@ class AlertSwiftUIViewController: UIViewController {
             alert.parameters.text = "Lorem ipsum dolor sit amet consectetur. Sed tincidunt habitasse nam arcu orci. Mi dui in sed."
             alert.parameters.actionText = "action Text"
             alert.parameters.actionOnTouch = { print("actionOnTouch")}
+            alert.parameters.withIcon = false
         }
     }()
-    
+
+    lazy var alertNegativeWithButton: OceanSwiftUI.Alert = {
+        return OceanSwiftUI.Alert.negativeLong { alert in
+            alert.parameters.title = "Title Long"
+            alert.parameters.text = "Lorem ipsum dolor sit amet consectetur. Sed tincidunt habitasse nam arcu orci. Mi dui in sed."
+            alert.parameters.actionText = "action"
+            alert.parameters.actionType = .button
+            alert.parameters.actionOnTouch = { print("actionOnTouch")}
+            alert.parameters.withIcon = false
+        }
+    }()
+
     private lazy var mainStack: Ocean.StackView = {
         let stack = Ocean.StackView()
         stack.axis = .vertical
@@ -157,7 +171,8 @@ class AlertSwiftUIViewController: UIViewController {
             alertInfoWithLink.uiView,
             alertWarningWithLink.uiView,
             alertPositiveWithLink.uiView,
-            alertNegativeWithLink.uiView
+            alertNegativeWithLink.uiView,
+            alertNegativeWithButton.uiView
         ])
         
         stack.setMargins(horizontal: Ocean.size.spacingStackXs)

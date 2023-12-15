@@ -28,6 +28,7 @@ extension OceanSwiftUI {
             case secondaryCritical
             case textCritical
             case primaryInverse
+            case warning
         }
         
         public enum Size: CGFloat {
@@ -182,6 +183,8 @@ extension OceanSwiftUI {
                 return Color(Ocean.color.colorStatusNegativePure)
             case .primaryInverse:
                 return Color(Ocean.color.colorInterfaceLightPure)
+            case .warning:
+                return Color(Ocean.color.colorInterfaceLightPure)
             }
         }
     }
@@ -234,6 +237,8 @@ extension OceanSwiftUI {
                 return configuration.isPressed ? Color(Ocean.color.colorInterfaceLightDeep) : Color(UIColor.clear)
             case .primaryInverse:
                 return configuration.isPressed ? Color(Ocean.color.colorComplementaryDeep) : Color(Ocean.color.colorComplementaryPure)
+            case .warning:
+                return configuration.isPressed ? Color(Ocean.color.colorStatusNeutralDeep) : Color(Ocean.color.colorStatusNeutralPure)
             }
         }
         
@@ -254,6 +259,8 @@ extension OceanSwiftUI {
             case .textCritical:
                 return Color(Ocean.color.colorStatusNegativePure)
             case .primaryInverse:
+                return Color(Ocean.color.colorInterfaceLightPure)
+            case .warning:
                 return Color(Ocean.color.colorInterfaceLightPure)
             }
         }

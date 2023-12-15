@@ -16,11 +16,13 @@ extension OceanSwiftUI {
         @Published public var title: String
         @Published public var text: String
         @Published public var icon: UIImage?
+        @Published public var withIcon: Bool
         @Published public var status: Status
         @Published public var style: Style
-        @Published public var actionText: String?
-        @Published public var actionOnTouch: (() -> Void)?
-        
+        @Published public var actionText: String
+        @Published public var actionType: ActionType
+        @Published public var actionOnTouch: () -> Void
+
         public enum Status {
             case info
             case positive
@@ -33,20 +35,29 @@ extension OceanSwiftUI {
             case longDescription
             case shortDescription
         }
-        
+
+        public enum ActionType {
+            case link
+            case button
+        }
+
         public init(title: String = "",
                     text: String = "",
                     icon: UIImage? = nil,
+                    withIcon: Bool = true,
                     status: Status = .info,
                     style: Style = .none,
-                    actionText: String? = nil,
-                    actionOnTouch: (() -> Void)? = nil ){
+                    actionText: String = "",
+                    actionType: ActionType = .link,
+                    actionOnTouch: @escaping () -> Void = { }){
             self.title = title
             self.text = text
             self.icon = icon
+            self.withIcon = withIcon
             self.status = status
             self.style = style
             self.actionText = actionText
+            self.actionType = actionType
             self.actionOnTouch = actionOnTouch
         }
     }
@@ -78,11 +89,16 @@ extension OceanSwiftUI {
         }
         
         private var iconImage: some View {
-            Image(uiImage: icon)
-                .resizable()
-                .renderingMode(.template)
-                .frame(width: iconWidth, height: iconHeight, alignment: .center)
-                .foregroundColor(Color(getForegroundColor()))
+            Group {
+                if self.parameters.withIcon {
+                    Image(uiImage: icon)
+                        .resizable()
+                        .renderingMode(.template)
+                        .frame(width: iconWidth, height: iconHeight, alignment: .center)
+                        .foregroundColor(Color(getForegroundColor()))
+                    Spacer().frame(width: Ocean.size.spacingStackXxs)
+                }
+            }
         }
         
         private var titleView: some View {
@@ -98,24 +114,38 @@ extension OceanSwiftUI {
             }
         }
         
-        private var withAction: some View {
+        private var withActionLink: some View {
             Group {
-                if let actionText = parameters.actionText {
+                if self.parameters.actionType == .link && !self.parameters.actionText.isEmpty {
                     Spacer().frame(width: Ocean.size.spacingStackXxxs + Ocean.size.spacingStackXxs)
                     OceanSwiftUI.Link.primaryTiny { link in
-                        link.parameters.text = actionText
+                        link.parameters.text = self.parameters.actionText
                         link.parameters.type = .chevron
                         link.parameters.textColor = getForegroundColor()
-                        link.parameters.onTouch = parameters.actionOnTouch ?? { }
+                        link.parameters.onTouch = parameters.actionOnTouch
                     }
                 }
             }
         }
-        
+
+        private var withActionButton: some View {
+            Group {
+                if self.parameters.actionType == .button && !self.parameters.actionText.isEmpty {
+                    Spacer().frame(width: Ocean.size.spacingStackXxs)
+                    OceanSwiftUI.Button { button in
+                        button.parameters.text = self.parameters.actionText
+                        button.parameters.onTouch = self.parameters.actionOnTouch
+                        button.parameters.size = .small
+                        button.parameters.style = self.getButtonStyle()
+                    }
+                    .frame(width: 80)
+                }
+            }
+        }
+
         private var defaultView: some View {
             HStack {
                 iconImage
-                Spacer().frame(width: Ocean.size.spacingStackXxs)
                 textView
                 Spacer()
             }
@@ -123,16 +153,20 @@ extension OceanSwiftUI {
         }
         
         private var longDescriptionView: some View {
-            VStack(alignment: .leading) {
-                HStack {
-                    iconImage
+            HStack {
+                VStack(alignment: .leading) {
+                    HStack {
+                        iconImage
+                        titleView
+                        Spacer()
+                    }
                     Spacer().frame(width: Ocean.size.spacingStackXxs)
-                    titleView
-                    Spacer()
+                    textView
+                    withActionLink
                 }
-                Spacer().frame(width: Ocean.size.spacingStackXxs)
-                textView
-                withAction
+                Spacer()
+                withActionButton
+                Spacer()
             }
             .padding(.all, Ocean.size.spacingStackXs)
         }
@@ -143,8 +177,10 @@ extension OceanSwiftUI {
                 VStack(alignment: .leading) {
                     titleView
                     textView
-                    withAction
+                    withActionLink
                 }
+                Spacer()
+                withActionButton
                 Spacer()
             }
             .padding(.all, Ocean.size.spacingStackXs)
@@ -216,6 +252,19 @@ extension OceanSwiftUI {
                 return Color(Ocean.color.colorStatusNeutralUp)
             case .negative:
                 return Color(Ocean.color.colorStatusNegativeUp)
+            }
+        }
+
+        private func getButtonStyle() -> ButtonParameters.Style {
+            switch parameters.status {
+            case .info:
+                return .primary
+            case .positive:
+                return .primaryInverse
+            case .warning:
+                return .warning
+            case .negative:
+                return .primaryCritical
             }
         }
     }
