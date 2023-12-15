@@ -132,7 +132,7 @@ extension OceanSwiftUI {
                                 .frame(width: self.parameters.size.getIconSize(),
                                        height: self.parameters.size.getIconSize(),
                                        alignment: .center)
-                                .foregroundColor(self.getIconForegroundColor())
+                                .foregroundColor(self.getForegroundColor())
                         }
                         
                         if !self.parameters.text.isEmpty {
@@ -143,7 +143,7 @@ extension OceanSwiftUI {
                     Spacer()
                 }
             }
-            .buttonStyle(OceanButtonStyle(parameters: self.parameters))
+            .buttonStyle(OceanButtonStyle(parameters: self.parameters, foregroundColor: self.getForegroundColor()))
         }
         
         public func getLoadingView() -> OceanSwiftUI.CircularProgressIndicator {
@@ -164,10 +164,10 @@ extension OceanSwiftUI {
                 return OceanSwiftUI.CircularProgressIndicator(parameters: .init(style: .primary, size: size))
             }
         }
-        
-        public func getIconForegroundColor() -> Color {
+
+        public func getForegroundColor() -> Color {
             guard !self.parameters.isDisabled else { return Color(Ocean.color.colorInterfaceDarkUp) }
-            
+
             switch self.parameters.style {
             case .primary:
                 return Color(Ocean.color.colorInterfaceLightPure)
@@ -191,9 +191,12 @@ extension OceanSwiftUI {
     
     public struct OceanButtonStyle: ButtonStyle {
         @ObservedObject public var parameters: ButtonParameters
-        
-        public init(parameters: ButtonParameters = ButtonParameters()) {
+        public var foregroundColor: Color
+
+        public init(parameters: ButtonParameters = ButtonParameters(),
+                    foregroundColor: Color) {
             self.parameters = parameters
+            self.foregroundColor = foregroundColor
         }
         
         public func makeBody(configuration: Self.Configuration) -> some View {
@@ -209,7 +212,7 @@ extension OceanSwiftUI {
                     RoundedRectangle(cornerRadius: Ocean.size.borderRadiusCircular * self.parameters.size.rawValue)
                         .fill(self.getBackgroundColor(configuration: configuration))
                 )
-                .foregroundColor(self.getForegroundColor())
+                .foregroundColor(self.foregroundColor)
         }
         
         public func getBackgroundColor(configuration: Self.Configuration) -> Color {
@@ -239,29 +242,6 @@ extension OceanSwiftUI {
                 return configuration.isPressed ? Color(Ocean.color.colorComplementaryDeep) : Color(Ocean.color.colorComplementaryPure)
             case .warning:
                 return configuration.isPressed ? Color(Ocean.color.colorStatusNeutralDeep) : Color(Ocean.color.colorStatusNeutralPure)
-            }
-        }
-        
-        public func getForegroundColor() -> Color {
-            guard !self.parameters.isDisabled else { return Color(Ocean.color.colorInterfaceDarkUp) }
-            
-            switch self.parameters.style {
-            case .primary:
-                return Color(Ocean.color.colorInterfaceLightPure)
-            case .secondary:
-                return Color(Ocean.color.colorBrandPrimaryPure)
-            case .text:
-                return Color(Ocean.color.colorBrandPrimaryPure)
-            case .primaryCritical:
-                return Color(Ocean.color.colorInterfaceLightPure)
-            case .secondaryCritical:
-                return Color(Ocean.color.colorStatusNegativePure)
-            case .textCritical:
-                return Color(Ocean.color.colorStatusNegativePure)
-            case .primaryInverse:
-                return Color(Ocean.color.colorInterfaceLightPure)
-            case .warning:
-                return Color(Ocean.color.colorInterfaceLightPure)
             }
         }
     }
