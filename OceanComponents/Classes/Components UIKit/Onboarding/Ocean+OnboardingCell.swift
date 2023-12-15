@@ -34,6 +34,12 @@ class OnboardingCell: UICollectionViewCell {
         }
     }()
     
+    lazy var linkView: OceanSwiftUI.Link = {
+        OceanSwiftUI.Link.primaryMedium { link in
+            link.parameters.type = .external
+        }
+    }()
+    
     lazy var mainStack: Ocean.StackView = {
         let stack = Ocean.StackView()
         stack.axis = .vertical
@@ -45,7 +51,9 @@ class OnboardingCell: UICollectionViewCell {
                    Ocean.Spacer(space: Ocean.size.spacingStackSm),
                    titleLabel,
                    Ocean.Spacer(space: Ocean.size.spacingStackXs),
-                   subtitleLabel])
+                   subtitleLabel,
+                   Ocean.Spacer(space: Ocean.size.spacingStackXs),
+                   linkView.uiView])
         
         return stack
     }()
@@ -89,5 +97,8 @@ class OnboardingCell: UICollectionViewCell {
         illustrationImageView.image = model.image
         titleLabel.text = model.title
         subtitleLabel.text = model.subtitle
+        linkView.uiView.isHidden = model.linkText.isEmpty
+        linkView.parameters.text = model.linkText
+        linkView.parameters.onTouch = model.linkAction
     }
 }
