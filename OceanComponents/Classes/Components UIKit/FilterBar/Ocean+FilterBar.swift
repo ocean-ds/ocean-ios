@@ -95,6 +95,7 @@ extension Ocean {
         public func addFilterChips(_ views: [FilterBarChipWithModal]) {
             stackFilterChipView.removeAllArrangedSubviews()
             stackFilterChipView.add(views)
+            updateUI()
 
             views.forEach {
                 $0.onValueChange = { [weak self ] _ in
@@ -107,7 +108,7 @@ extension Ocean {
         public func addBasicChips(_ views: [FilterBarBasicChip]) {
             stackBasicChipView.removeAllArrangedSubviews()
             stackBasicChipView.add(views)
-            divider.isHidden = false
+            updateUI()
 
             views.filter { $0.needChangeStatus }
                 .forEach {
@@ -116,6 +117,12 @@ extension Ocean {
                         self.notifyChanges()
                     }
                 }
+        }
+
+        private func updateUI() {
+            stackFilterChipView.isHidden = stackFilterChipView.arrangedSubviews.isEmpty
+            divider.isHidden = stackFilterChipView.arrangedSubviews.isEmpty
+            stackBasicChipView.isHidden = stackBasicChipView.arrangedSubviews.isEmpty
         }
 
         private func notifyChanges() {
