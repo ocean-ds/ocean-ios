@@ -21,26 +21,26 @@ extension OceanSwiftUI {
             self.items = items
             self.onUpdateUI = onUpdateUI
         }
-    }
 
-    public class Item: ObservableObject, Identifiable {
-        @Published public var title: String
-        @Published public var text: String
-        @Published public var hasDivider: Bool
-        @Published public var status: Status
+        public class Item: ObservableObject, Identifiable {
+            @Published public var title: String
+            @Published public var text: String
+            @Published public var hasDivider: Bool
+            @Published public var status: Status
 
-        public enum Status {
-            case expanded, collapsed
-        }
+            public enum Status {
+                case expanded, collapsed
+            }
 
-        public init(title: String = "",
-                    text: String = "",
-                    hasDivider: Bool = true,
-                    status: Status = .collapsed) {
-            self.title = title
-            self.text = text
-            self.hasDivider = hasDivider
-            self.status = status
+            public init(title: String = "",
+                        text: String = "",
+                        hasDivider: Bool = true,
+                        status: Status = .collapsed) {
+                self.title = title
+                self.text = text
+                self.hasDivider = hasDivider
+                self.status = status
+            }
         }
     }
 
@@ -86,7 +86,7 @@ extension OceanSwiftUI {
     }
 
     public struct Row: View {
-        @ObservedObject public var item: Item
+        @ObservedObject public var item: AccordionParameters.Item
         public var onUpdateUI: () -> Void
 
         public var body: some View {
