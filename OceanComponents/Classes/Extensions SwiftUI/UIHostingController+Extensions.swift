@@ -14,3 +14,11 @@ public extension UIHostingController {
         return view
     }
 }
+
+public extension UIView {
+    func updateUIView() {
+        self.setNeedsLayout()
+        self.layoutIfNeeded()
+        self.invalidateIntrinsicContentSize()
+    }
+}
