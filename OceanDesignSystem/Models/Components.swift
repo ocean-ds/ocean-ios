@@ -67,6 +67,7 @@ struct DSComponents {
         "Badge",
         "Button",
         "Divider",
+        "Input",
         "Link",
         "OrderedListItem",
         "ProgressIndicator",

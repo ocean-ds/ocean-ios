@@ -103,21 +103,21 @@ extension OceanSwiftUI {
                         }
                     }
                     if !self.parameters.caption.isEmpty {
-                        Spacer().frame(width: Ocean.size.spacingStackXxxs)
+                        Spacer().frame(height: Ocean.size.spacingStackXxxs)
                         OceanSwiftUI.Typography.caption { label in
                             label.parameters.text = self.parameters.caption
                         }
                     }
 
                     if !self.parameters.tagLabel.isEmpty && self.parameters.tagPosition == .below {
-                        Spacer().frame(width: Ocean.size.spacingStackXxs)
+                        Spacer().frame(height: Ocean.size.spacingStackXxs)
                         OceanSwiftUI.Tag { tag in
                             tag.parameters.label = self.parameters.tagLabel
                             tag.parameters.status = self.parameters.tagStatus
                         }
                     }
                     if self.parameters.badgeCount != nil && self.parameters.badgePosition == .below {
-                        Spacer().frame(width: Ocean.size.spacingStackXxs)
+                        Spacer().frame(height: Ocean.size.spacingStackXxs)
                         OceanSwiftUI.Badge { badge in
                             badge.parameters.count = self.parameters.badgeCount ?? 0
                             badge.parameters.status = self.parameters.badgeStatus

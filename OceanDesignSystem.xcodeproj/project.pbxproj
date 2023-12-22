@@ -37,6 +37,7 @@
 		4241FB5227E8AD4B003EF1F3 /* ParentChildTextListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4241FB5127E8AD4B003EF1F3 /* ParentChildTextListViewController.swift */; };
 		426320ED2B34CCEC00A975E6 /* AccordionSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426320EC2B34CCEC00A975E6 /* AccordionSwiftUIViewController.swift */; };
 		426320F32B35D47E00A975E6 /* DividerSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426320F22B35D47E00A975E6 /* DividerSwiftUIViewController.swift */; };
+		42699DDA2B35FCB0006E0F57 /* InputSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42699DD92B35FCB0006E0F57 /* InputSwiftUIViewController.swift */; };
 		4274CD6228AD422100F35540 /* GroupCTAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4274CD6128AD422100F35540 /* GroupCTAViewController.swift */; };
 		4291D9A32A153CF4006A0342 /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4291D9A22A153CF4006A0342 /* BalanceViewController.swift */; };
 		42C89A1A2A952FC100B8174A /* CircularProgressIndicatorSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C89A192A952FC100B8174A /* CircularProgressIndicatorSwiftUIViewController.swift */; };
@@ -144,6 +145,7 @@
 		4241FB5127E8AD4B003EF1F3 /* ParentChildTextListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentChildTextListViewController.swift; sourceTree = "<group>"; };
 		426320EC2B34CCEC00A975E6 /* AccordionSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccordionSwiftUIViewController.swift; sourceTree = "<group>"; };
 		426320F22B35D47E00A975E6 /* DividerSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerSwiftUIViewController.swift; sourceTree = "<group>"; };
+		42699DD92B35FCB0006E0F57 /* InputSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputSwiftUIViewController.swift; sourceTree = "<group>"; };
 		4274CD6128AD422100F35540 /* GroupCTAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCTAViewController.swift; sourceTree = "<group>"; };
 		4291D9A22A153CF4006A0342 /* BalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceViewController.swift; sourceTree = "<group>"; };
 		42C89A192A952FC100B8174A /* CircularProgressIndicatorSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressIndicatorSwiftUIViewController.swift; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 				42E695722B2A53A100E5AB11 /* BadgeSwiftUIViewController.swift */,
 				426320EC2B34CCEC00A975E6 /* AccordionSwiftUIViewController.swift */,
 				426320F22B35D47E00A975E6 /* DividerSwiftUIViewController.swift */,
+				42699DD92B35FCB0006E0F57 /* InputSwiftUIViewController.swift */,
 			);
 			path = "Components SwiftUI";
 			sourceTree = "<group>";
@@ -648,6 +651,7 @@
 				E149D4072AB8D4A8009B7BE2 /* CheckBoxGroupViewController.swift in Sources */,
 				B768C57724E3186C0086BF9C /* InputViewController.swift in Sources */,
 				24FEEBC12744282E00211FEC /* StepViewController.swift in Sources */,
+				42699DDA2B35FCB0006E0F57 /* InputSwiftUIViewController.swift in Sources */,
 				2479453226CFEAD6000F4DF0 /* CarouselViewController.swift in Sources */,
 				B7BB717924E615B3007F8848 /* SnackbarViewController.swift in Sources */,
 				E1DBF42929898E4100BCD65B /* SettingsListItemViewController.swift in Sources */,

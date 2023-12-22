@@ -124,7 +124,7 @@ extension OceanSwiftUI {
                         OceanSwiftUI.Typography.caption { label in
                             label.parameters.text = item.text
                         }
-                        Spacer().frame(width: Ocean.size.spacingStackXs)
+                        Spacer().frame(height: Ocean.size.spacingStackXs)
                     }
                 }
 
