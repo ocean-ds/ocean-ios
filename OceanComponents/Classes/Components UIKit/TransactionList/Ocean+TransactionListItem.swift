@@ -26,6 +26,7 @@ extension Ocean {
             public var level4: String = ""
             public var value: Double = 0
             public var valueStatus: ValueStatus = .neutral
+            public var valueLevel2: Double?
             public var date: String = ""
             public var tagTitle: String = ""
             public var tagImage: UIImage? = nil
@@ -39,6 +40,7 @@ extension Ocean {
                         level4: String = "",
                         value: Double = 0,
                         valueStatus: ValueStatus = .neutral,
+                        valueLevel2: Double? = nil,
                         date: String = "",
                         tagTitle: String = "",
                         tagImage: UIImage? = nil,
@@ -51,6 +53,7 @@ extension Ocean {
                 self.level4 = level4
                 self.value = value
                 self.valueStatus = valueStatus
+                self.valueLevel2 = valueLevel2
                 self.date = date
                 self.tagTitle = tagTitle
                 self.tagImage = tagImage
@@ -185,6 +188,7 @@ extension Ocean {
 
                 stack.add([
                     valueContainer,
+                    valueLevel2Container,
                     tagView,
                     dateLabel
                 ])
@@ -203,6 +207,24 @@ extension Ocean {
         }()
 
         private lazy var valueContainer = valueLabel.addMargins()
+
+        private lazy var valueLevel2Label: UILabel = {
+            UILabel { label in
+                label.font = .baseRegular(size: Ocean.font.fontSizeXxs)
+                label.textAlignment = .right
+                label.textColor = Ocean.color.colorInterfaceDarkDown
+                label.numberOfLines = 1
+                label.translatesAutoresizingMaskIntoConstraints = false
+                label.setContentCompressionResistancePriority(.required, for: .horizontal)
+            }
+        }()
+
+        private lazy var valueLevel2Container: UIView = {
+            var view = valueLevel2Label.addMargins()
+            view.isHidden = true
+            
+            return view
+        }()
 
         private lazy var tagView: Ocean.Tag = {
             Ocean.Tag { view in
@@ -298,6 +320,12 @@ extension Ocean {
                 valueLabel.text = valueCurrency
                 valueLabel.textColor = Ocean.color.colorInterfaceDarkDeep
             }
+            
+            if let valueLevel2Currency = model.valueLevel2?.toCurrency() {
+                valueLevel2Container.isHidden = false
+                valueLevel2Label.text = valueLevel2Currency
+            }
+            
             tagView.status = model.tagStatus
             tagView.image = model.tagImage
             tagView.title = model.tagTitle

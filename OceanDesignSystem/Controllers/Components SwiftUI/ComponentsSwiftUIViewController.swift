@@ -61,6 +61,10 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(BadgeSwiftUIViewController(), animated: true, completion: nil)
         case .CardListItem:
             self.present(CardListItemSwiftUIViewController(), animated: true, completion: nil)
+        case .Accordion:
+            self.present(AccordionSwiftUIViewController(), animated: true, completion: nil)
+        case .Divider:
+            self.present(DividerSwiftUIViewController(), animated: true, completion: nil)
         }
     }
 }

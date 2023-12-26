@@ -78,10 +78,12 @@ public enum DesignSystemComponentsType: String {
 }
 
 public enum DesignSystemComponentsSwiftUIType: String {
+    case Accordion
     case Alert
     case Badge
     case Button
     case CardListItem
+    case Divider
     case Link
     case OrderedListItem
     case ProgressIndicator

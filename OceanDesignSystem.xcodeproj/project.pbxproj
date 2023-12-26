@@ -35,6 +35,8 @@
 		423171AF2B11189000082955 /* StatusListItemSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423171AE2B11189000082955 /* StatusListItemSwiftUIViewController.swift */; };
 		423171B52B1121ED00082955 /* TagSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423171B42B1121ED00082955 /* TagSwiftUIViewController.swift */; };
 		4241FB5227E8AD4B003EF1F3 /* ParentChildTextListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4241FB5127E8AD4B003EF1F3 /* ParentChildTextListViewController.swift */; };
+		426320ED2B34CCEC00A975E6 /* AccordionSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426320EC2B34CCEC00A975E6 /* AccordionSwiftUIViewController.swift */; };
+		426320F32B35D47E00A975E6 /* DividerSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426320F22B35D47E00A975E6 /* DividerSwiftUIViewController.swift */; };
 		4274CD6228AD422100F35540 /* GroupCTAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4274CD6128AD422100F35540 /* GroupCTAViewController.swift */; };
 		4291D9A32A153CF4006A0342 /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4291D9A22A153CF4006A0342 /* BalanceViewController.swift */; };
 		42C89A1A2A952FC100B8174A /* CircularProgressIndicatorSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C89A192A952FC100B8174A /* CircularProgressIndicatorSwiftUIViewController.swift */; };
@@ -141,6 +143,8 @@
 		423171AE2B11189000082955 /* StatusListItemSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusListItemSwiftUIViewController.swift; sourceTree = "<group>"; };
 		423171B42B1121ED00082955 /* TagSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSwiftUIViewController.swift; sourceTree = "<group>"; };
 		4241FB5127E8AD4B003EF1F3 /* ParentChildTextListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentChildTextListViewController.swift; sourceTree = "<group>"; };
+		426320EC2B34CCEC00A975E6 /* AccordionSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccordionSwiftUIViewController.swift; sourceTree = "<group>"; };
+		426320F22B35D47E00A975E6 /* DividerSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerSwiftUIViewController.swift; sourceTree = "<group>"; };
 		4274CD6128AD422100F35540 /* GroupCTAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCTAViewController.swift; sourceTree = "<group>"; };
 		4291D9A22A153CF4006A0342 /* BalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceViewController.swift; sourceTree = "<group>"; };
 		42C89A192A952FC100B8174A /* CircularProgressIndicatorSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressIndicatorSwiftUIViewController.swift; sourceTree = "<group>"; };
@@ -297,6 +301,8 @@
 				E10FA7962B18062100D3B0BC /* OrderedListItemSwiftUIViewController.swift */,
 				42E695722B2A53A100E5AB11 /* BadgeSwiftUIViewController.swift */,
 				D5A319FC2B3B2D3200786FCD /* CardListItemSwiftUIViewController.swift */,
+				426320EC2B34CCEC00A975E6 /* AccordionSwiftUIViewController.swift */,
+				426320F22B35D47E00A975E6 /* DividerSwiftUIViewController.swift */,
 			);
 			path = "Components SwiftUI";
 			sourceTree = "<group>";
@@ -610,6 +616,7 @@
 				42E695732B2A53A100E5AB11 /* BadgeSwiftUIViewController.swift in Sources */,
 				249999B626A9CDA5004DAB05 /* NavigationBarViewController.swift in Sources */,
 				D5A319FD2B3B2D3200786FCD /* CardListItemSwiftUIViewController.swift in Sources */,
+				426320F32B35D47E00A975E6 /* DividerSwiftUIViewController.swift in Sources */,
 				B71D65C824C8F28100C3938C /* TokensByCategoryViewController.swift in Sources */,
 				24B70BB826E7D0B400C9CE1E /* TransactionListViewController.swift in Sources */,
 				2491357826C6F634005EE76E /* ProgressIndicatorViewController.swift in Sources */,
@@ -621,6 +628,7 @@
 				8EB41BED27E42D1800F18CC7 /* FloatVerticalMenuListViewController.swift in Sources */,
 				B71D65EA24CA47C500C3938C /* Enums.swift in Sources */,
 				B7CA694E24CB4C940051CA6A /* ComponentTypeViewController.swift in Sources */,
+				426320ED2B34CCEC00A975E6 /* AccordionSwiftUIViewController.swift in Sources */,
 				E1AC7C2D2A7D76C900B81B0B /* OnboardingViewController.swift in Sources */,
 				245E5D812698B90100CCF41D /* TextListViewController.swift in Sources */,
 				2445B86B26D4147D0067B680 /* ShortcutViewController.swift in Sources */,
@@ -878,7 +886,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 354;
+				CURRENT_PROJECT_VERSION = 356;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 57KSFR5UHN;
 				INFOPLIST_FILE = OceanDesignSystem/Info.plist;
@@ -901,7 +909,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 354;
+				CURRENT_PROJECT_VERSION = 356;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 57KSFR5UHN;
 				INFOPLIST_FILE = OceanDesignSystem/Info.plist;
