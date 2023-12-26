@@ -68,12 +68,14 @@ struct DSComponents {
         "Button",
         "CardListItem",
         "Divider",
+        "Input",
         "Link",
         "OrderedListItem",
         "ProgressIndicator",
         "StatusListItem",
         "Tag",
-        "Typography"
+        "Typography",
+        "CardListItem"
     ]
 }
 

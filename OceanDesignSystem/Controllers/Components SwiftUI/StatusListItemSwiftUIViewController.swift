@@ -10,13 +10,6 @@ import OceanTokens
 import SwiftUI
 
 class StatusListItemSwiftUIViewController: UIViewController {
-
-    private lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        return scrollView
-    }()
-
     lazy var statusListItem1: OceanSwiftUI.StatusListItem = {
         return OceanSwiftUI.StatusListItem { statusListItem in
             statusListItem.parameters.title = "Title"
@@ -111,47 +104,28 @@ class StatusListItemSwiftUIViewController: UIViewController {
         }
     }()
 
-    private lazy var mainStack: Ocean.StackView = {
-        let stack = Ocean.StackView()
-        stack.axis = .vertical
-        stack.alignment = .fill
-        stack.distribution = .fill
-        stack.spacing = 0
+    public lazy var hostingController = UIHostingController(rootView: ScrollView {
+        VStack(spacing: Ocean.size.spacingStackXs) {
+            statusListItem1
+            statusListItem2
+            statusListItem3
+            statusListItem4
+            statusListItem5
+            statusListItem6
+            statusListItem7
+            statusListItem8
+        }
+    })
 
-        stack.add([
-            statusListItem1.uiView,
-            statusListItem2.uiView,
-            statusListItem3.uiView,
-            statusListItem4.uiView,
-            statusListItem5.uiView,
-            statusListItem6.uiView,
-            statusListItem7.uiView,
-            statusListItem8.uiView
-        ])
-        
-        return stack
-    }()
+    public lazy var uiView = self.hostingController.getUIView()
 
     public override func viewDidLoad() {
-        super.viewDidLoad()
-        setupUI()
-    }
+        self.view.backgroundColor = .white
 
-    private func setupUI() {
-        view.backgroundColor = .white
-        view.addSubview(scrollView)
-        scrollView.addSubview(mainStack)
-        setupConstraints()
-    }
+        self.view.addSubview(uiView)
 
-    private func setupConstraints() {
-        scrollView.oceanConstraints
-            .fill(to: view, safeArea: true)
-            .make()
-
-        mainStack.oceanConstraints
-            .fill(to: scrollView)
-            .width(to: view)
+        uiView.oceanConstraints
+            .fill(to: self.view, constant: Ocean.size.spacingStackXs)
             .make()
     }
 }

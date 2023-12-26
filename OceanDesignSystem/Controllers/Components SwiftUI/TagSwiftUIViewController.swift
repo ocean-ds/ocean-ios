@@ -10,13 +10,6 @@ import OceanTokens
 import SwiftUI
 
 class TagSwiftUIViewController: UIViewController {
-
-    private lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        return scrollView
-    }()
-
     lazy var tag1: OceanSwiftUI.Tag = {
         return OceanSwiftUI.Tag.positiveMD { tag in
             tag.parameters.label = "Label"
@@ -83,51 +76,30 @@ class TagSwiftUIViewController: UIViewController {
         }
     }()
 
-    private lazy var mainStack: Ocean.StackView = {
-        let stack = Ocean.StackView()
-        stack.axis = .vertical
-        stack.alignment = .fill
-        stack.distribution = .fill
-        stack.spacing = Ocean.size.spacingStackXs
+    public lazy var hostingController = UIHostingController(rootView: ScrollView {
+        VStack(spacing: Ocean.size.spacingStackXs) {
+            tag1
+            tag2
+            tag3
+            tag4
+            tag5
+            tag6
+            tag7
+            tag8
+            tag9
+            tag10
+        }
+    })
 
-        stack.add([
-            tag1.uiView,
-            tag2.uiView,
-            tag3.uiView,
-            tag4.uiView,
-            tag5.uiView,
-            tag6.uiView,
-            tag7.uiView,
-            tag8.uiView,
-            tag9.uiView,
-            tag10.uiView
-        ])
-
-        stack.setMargins(allMargins: Ocean.size.spacingStackXs)
-
-        return stack
-    }()
+    public lazy var uiView = self.hostingController.getUIView()
 
     public override func viewDidLoad() {
-        super.viewDidLoad()
-        setupUI()
-    }
+        self.view.backgroundColor = .white
 
-    private func setupUI() {
-        view.backgroundColor = .white
-        view.addSubview(scrollView)
-        scrollView.addSubview(mainStack)
-        setupConstraints()
-    }
+        self.view.addSubview(uiView)
 
-    private func setupConstraints() {
-        scrollView.oceanConstraints
-            .fill(to: view, safeArea: true)
-            .make()
-
-        mainStack.oceanConstraints
-            .fill(to: scrollView)
-            .width(to: view)
+        uiView.oceanConstraints
+            .fill(to: self.view, constant: Ocean.size.spacingStackXs)
             .make()
     }
 }

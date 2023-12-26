@@ -65,6 +65,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(AccordionSwiftUIViewController(), animated: true, completion: nil)
         case .Divider:
             self.present(DividerSwiftUIViewController(), animated: true, completion: nil)
+        case .Input:
+            self.present(InputSwiftUIViewController(), animated: true, completion: nil)
         }
     }
 }
