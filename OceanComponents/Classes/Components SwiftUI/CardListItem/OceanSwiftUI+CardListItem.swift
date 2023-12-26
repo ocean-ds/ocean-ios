@@ -26,7 +26,7 @@ extension OceanSwiftUI {
 
         @Published public var onTouch: (() -> Void)
 
-        @Published public var isLoading: Bool = false
+        @Published public var showSkeleton: Bool = false
 
         public init(title: String = "", 
                     subtitle: String = "",
@@ -96,7 +96,7 @@ extension OceanSwiftUI {
                                 .foregroundColor(Color(Ocean.color.colorBrandPrimaryDown))
                                 .frame(maxWidth: Constants.leadingIconImageMaxSize, 
                                        maxHeight: Constants.leadingIconImageMaxSize)
-                                .skeleton(with: parameters.isLoading)
+                                .skeleton(with: parameters.showSkeleton)
                         }
                         .frame(width: Constants.leadingIconSize, height: Constants.leadingIconSize)
                         .background(Color(Ocean.color.colorInterfaceLightUp))
@@ -110,13 +110,14 @@ extension OceanSwiftUI {
                             label.parameters.text = parameters.title
                             label.parameters.lineLimit = parameters.titleLineLimit
                         }
-                        .skeleton(with: parameters.isLoading)
+                        .skeleton(with: parameters.showSkeleton)
 
                         if !parameters.subtitle.isEmpty {
                             OceanSwiftUI.Typography.description { label in
                                 label.parameters.text = parameters.subtitle
                                 label.parameters.lineLimit = parameters.subtitleLineLimit
                             }
+                            .skeleton(with: parameters.showSkeleton)
                         }
 
                         if !parameters.caption.isEmpty {
@@ -126,6 +127,7 @@ extension OceanSwiftUI {
                                 label.parameters.text = parameters.caption
                                 label.parameters.lineLimit = parameters.captionLineLimit
                             }
+                            .skeleton(with: parameters.showSkeleton)
                         }
                     }
 
@@ -136,7 +138,9 @@ extension OceanSwiftUI {
                             .resizable()
                             .renderingMode(.template)
                             .foregroundColor(Color(Ocean.color.colorInterfaceDarkDown))
-                            .frame(maxWidth: Constants.trailingIconImageMaxSize, maxHeight: Constants.trailingIconImageMaxSize)
+                            .frame(maxWidth: Constants.trailingIconImageMaxSize, 
+                                   maxHeight: Constants.trailingIconImageMaxSize)
+                            .skeleton(with: parameters.showSkeleton)
 
                         Spacer().frame(width: Ocean.size.spacingInsetXxs)
                     }

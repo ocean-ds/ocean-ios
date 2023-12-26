@@ -22,7 +22,7 @@ class CardListItemSwiftUIViewController: UIViewController {
         builder.parameters.subtitle = "Subtitle"
         builder.parameters.caption = "Caption"
         builder.parameters.onTouch = { print("card1") }
-        builder.parameters.isLoading = true
+        builder.parameters.showSkeleton = true
     }
 
     lazy var card2 = OceanSwiftUI.CardListItem { builder in
@@ -43,7 +43,6 @@ class CardListItemSwiftUIViewController: UIViewController {
         builder.parameters.caption = "Caption"
         builder.parameters.leadingIcon = Ocean.icon.archiveOutline
         builder.parameters.onTouch = { print("card4") }
-        builder.parameters.isLoading = true
     }
 
     lazy var card5 = OceanSwiftUI.CardListItem { builder in
