@@ -55,9 +55,9 @@ final public class InputSwiftUIViewController : UIViewController {
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
-            inputTextField1
-            inputTextField2
-            inputTextField3
+            self.inputTextField1
+            self.inputTextField2
+            self.inputTextField3
         }
     })
 

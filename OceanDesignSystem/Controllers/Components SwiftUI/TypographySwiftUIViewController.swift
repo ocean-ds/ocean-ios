@@ -78,17 +78,17 @@ class TypographySwiftUIViewController: UIViewController {
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
-            typography1
-            typography2
-            typography3
-            typography4
-            typography5
-            typography6
-            typography7
-            typography8
-            typography9
-            typography10
-            typography11
+            self.typography1
+            self.typography2
+            self.typography3
+            self.typography4
+            self.typography5
+            self.typography6
+            self.typography7
+            self.typography8
+            self.typography9
+            self.typography10
+            self.typography11
         }
     })
 

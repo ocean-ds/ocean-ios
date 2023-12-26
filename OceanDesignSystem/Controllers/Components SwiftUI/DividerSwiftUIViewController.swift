@@ -16,7 +16,7 @@ final public class DividerSwiftUIViewController : UIViewController {
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
-            dividerHorizontal
+            self.dividerHorizontal
         }
     })
 

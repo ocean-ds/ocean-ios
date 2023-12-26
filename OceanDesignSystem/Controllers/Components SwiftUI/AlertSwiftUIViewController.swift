@@ -143,23 +143,23 @@ class AlertSwiftUIViewController: UIViewController {
     
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
-            alertInfo
-            alertInfoLong
-            alertInfoShort
-            alertWarning
-            alertWarningLong
-            alertWarningShort
-            alertPositive
-            alertPositiveLong
-            alertPositiveShort
-            alertNegative
-            alertNegativeLong
-            alertNegativeShort
-            alertInfoWithLink
-            alertWarningWithLink
-            alertPositiveWithLink
-            alertNegativeWithLink
-            alertNegativeWithButton
+            self.alertInfo
+            self.alertInfoLong
+            self.alertInfoShort
+            self.alertWarning
+            self.alertWarningLong
+            self.alertWarningShort
+            self.alertPositive
+            self.alertPositiveLong
+            self.alertPositiveShort
+            self.alertNegative
+            self.alertNegativeLong
+            self.alertNegativeShort
+            self.alertInfoWithLink
+            self.alertWarningWithLink
+            self.alertPositiveWithLink
+            self.alertNegativeWithLink
+            self.alertNegativeWithButton
         }
     })
 

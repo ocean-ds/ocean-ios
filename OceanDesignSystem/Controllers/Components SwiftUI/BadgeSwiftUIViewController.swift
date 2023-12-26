@@ -63,12 +63,12 @@ class BadgeSwiftUIViewController: UIViewController {
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
-            badge1
-            badge2
-            badge3
-            badge4
-            badge5
-            badge6
+            self.badge1
+            self.badge2
+            self.badge3
+            self.badge4
+            self.badge5
+            self.badge6
         }
     })
 

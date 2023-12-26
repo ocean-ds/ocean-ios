@@ -61,13 +61,13 @@ class OrderedListItemSwiftUIViewController: UIViewController {
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
-            item1
-            item2
-            item3
-            item4
-            item5
-            item6
-            item7
+            self.item1
+            self.item2
+            self.item3
+            self.item4
+            self.item5
+            self.item6
+            self.item7
         }
     })
 

@@ -78,16 +78,16 @@ class TagSwiftUIViewController: UIViewController {
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
-            tag1
-            tag2
-            tag3
-            tag4
-            tag5
-            tag6
-            tag7
-            tag8
-            tag9
-            tag10
+            self.tag1
+            self.tag2
+            self.tag3
+            self.tag4
+            self.tag5
+            self.tag6
+            self.tag7
+            self.tag8
+            self.tag9
+            self.tag10
         }
     })
 
