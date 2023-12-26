@@ -57,7 +57,7 @@ extension OceanSwiftUI {
         // MARK: Properties for UIKit
         
         public lazy var hostingController = UIHostingController(rootView: self)
-        public lazy var uiView = self.hostingController.getUIView()
+        public lazy var uiView = hostingController.getUIView()
         
         // MARK: Builder
         
@@ -136,7 +136,7 @@ extension OceanSwiftUI {
             }
             .frame(minWidth: 0, maxWidth: .infinity)
             .border(cornerRadius: Ocean.size.borderRadiusMd,
-                    width: 1,
+                    width: Ocean.size.borderWidthHairline,
                     color: Ocean.color.colorInterfaceLightDown)
             .onTapGesture { parameters.onTouch() }
         }
