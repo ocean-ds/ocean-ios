@@ -100,30 +100,21 @@ extension OceanSwiftUI {
                         .onTapGesture {
                             self.focused = true
                         }
-                        .onReceive(Just(self.parameters.text), perform: { text in
-                            let textMask = self.parameters.onMask?(text) ?? text
-                            if textMask != self.textOld {
-                                self.parameters.text = textMask
-                                self.textOld = textMask
-                                self.parameters.onValueChanged(textMask)
-                                self.parameters.errorMessage = ""
-                            }
-                        })
                 } else {
                     TextField(self.parameters.placeholder, text: self.$parameters.text, onEditingChanged: { edit in
                         self.focused = edit
                     })
-                    .onReceive(Just(self.parameters.text), perform: { text in
-                        let textMask = self.parameters.onMask?(text) ?? text
-                        if textMask != self.textOld {
-                            self.parameters.text = textMask
-                            self.textOld = textMask
-                            self.parameters.onValueChanged(textMask)
-                            self.parameters.errorMessage = ""
-                        }
-                    })
                 }
             }
+            .onReceive(Just(self.parameters.text), perform: { text in
+                let textMask = self.parameters.onMask?(text) ?? text
+                if textMask != self.textOld {
+                    self.parameters.text = textMask
+                    self.textOld = textMask
+                    self.parameters.onValueChanged(textMask)
+                    self.parameters.errorMessage = ""
+                }
+            })
         }
 
         public var body: some View {

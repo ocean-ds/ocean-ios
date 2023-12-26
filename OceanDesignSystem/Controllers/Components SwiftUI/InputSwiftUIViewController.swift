@@ -19,6 +19,12 @@ final public class InputSwiftUIViewController : UIViewController {
             input.parameters.icon = Ocean.icon.eyeOutline
             input.parameters.onTouchIcon = {
                 print("icon tapped")
+                input.parameters.isSecureTextEntry = !input.parameters.isSecureTextEntry
+                if input.parameters.isSecureTextEntry {
+                    input.parameters.icon = Ocean.icon.eyeOffOutline
+                } else {
+                    input.parameters.icon = Ocean.icon.eyeOutline
+                }
             }
             input.parameters.onValueChanged = { text in
                 print(text)
