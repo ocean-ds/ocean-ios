@@ -70,7 +70,8 @@ struct DSComponents {
         "ProgressIndicator",
         "StatusListItem",
         "Tag",
-        "Typography"
+        "Typography",
+        "CardListItem"
     ]
 }
 
