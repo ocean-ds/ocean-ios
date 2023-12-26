@@ -87,7 +87,7 @@ class CardListItemSwiftUIViewController: UIViewController {
         stack.axis = .vertical
         stack.alignment = .fill
         stack.distribution = .fill
-        stack.spacing = Ocean.size.spacingStackXs
+        stack.spacing = Ocean.size.spacingStackXxs
 
         stack.add([
             card1.uiView,
