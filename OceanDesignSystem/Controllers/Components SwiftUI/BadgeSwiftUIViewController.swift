@@ -10,13 +10,6 @@ import OceanTokens
 import SwiftUI
 
 class BadgeSwiftUIViewController: UIViewController {
-
-    private lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        return scrollView
-    }()
-
     lazy var badge1: OceanSwiftUI.Badge = {
         return OceanSwiftUI.Badge.primaryMd { badge in
             badge.parameters.count = 9
@@ -60,12 +53,7 @@ class BadgeSwiftUIViewController: UIViewController {
         stack.spacing = Ocean.size.spacingStackXs
 
         stack.add([
-            badge1.uiView,
-            badge2.uiView,
-            badge3.uiView,
-            badge4.uiView,
-            badge5.uiView,
-            badge6.uiView
+
         ])
 
         stack.setMargins(allMargins: Ocean.size.spacingStackXs)
@@ -73,26 +61,26 @@ class BadgeSwiftUIViewController: UIViewController {
         return stack
     }()
 
+    public lazy var hostingController = UIHostingController(rootView: ScrollView {
+        VStack(spacing: Ocean.size.spacingStackXs) {
+            badge1
+            badge2
+            badge3
+            badge4
+            badge5
+            badge6
+        }
+    })
+
+    public lazy var uiView = self.hostingController.getUIView()
+
     public override func viewDidLoad() {
-        super.viewDidLoad()
-        setupUI()
-    }
+        self.view.backgroundColor = .white
 
-    private func setupUI() {
-        view.backgroundColor = .white
-        view.addSubview(scrollView)
-        scrollView.addSubview(mainStack)
-        setupConstraints()
-    }
+        self.view.addSubview(uiView)
 
-    private func setupConstraints() {
-        scrollView.oceanConstraints
-            .fill(to: view, safeArea: true)
-            .make()
-
-        mainStack.oceanConstraints
-            .fill(to: scrollView)
-            .width(to: view)
+        uiView.oceanConstraints
+            .fill(to: self.view, constant: Ocean.size.spacingStackXs)
             .make()
     }
 }

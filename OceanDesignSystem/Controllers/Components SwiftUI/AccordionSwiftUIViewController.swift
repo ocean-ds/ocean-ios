@@ -7,15 +7,11 @@
 //
 
 import Foundation
-import UIKit
 import OceanTokens
 import OceanComponents
+import SwiftUI
 
 class AccordionSwiftUIViewController: UIViewController {
-
-    lazy var scrollView: UIScrollView = { return UIScrollView(frame: .zero) }()
-    lazy var scrollableContentView: UIView = { UIView(frame: .zero) }()
-
     lazy var titleAccordion = "What is Lorem Ipsum What is Lorem Ipsum What is Lorem Ipsum What is Lorem Ipsum?"
     lazy var contentAccordion = """
     Lorem Ipsum is simply dummy text of <b>the printing</b> and typesetting industry. <br><br>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
@@ -34,47 +30,21 @@ class AccordionSwiftUIViewController: UIViewController {
         }
     }()
 
-    private lazy var mainStack: Ocean.StackView = {
-        let stack = Ocean.StackView()
-        stack.axis = .vertical
-        stack.distribution = .fill
-        stack.alignment = .fill
+    public lazy var hostingController = UIHostingController(rootView: ScrollView {
+        VStack(spacing: Ocean.size.spacingStackXs) {
+            accordion
+        }
+    })
 
-        stack.add([
-            accordion.uiView
-        ])
-
-        stack.setMargins(horizontal: Ocean.size.spacingStackXs)
-
-        return stack
-    }()
-
+    public lazy var uiView = self.hostingController.getUIView()
 
     public override func viewDidLoad() {
-        self.addScrollView()
         self.view.backgroundColor = .white
 
-        scrollableContentView.addSubview(mainStack)
-        mainStack.oceanConstraints
-            .fill(to: scrollableContentView)
-            .make()
-    }
+        self.view.addSubview(uiView)
 
-    private func addScrollView() {
-        view.addSubview(scrollView)
-        scrollView.addSubview(scrollableContentView)
-
-        applyScrollViewDefaultContraints()
-    }
-
-    private func applyScrollViewDefaultContraints() {
-        scrollView.oceanConstraints
-            .fill(to: view)
-            .make()
-
-        scrollableContentView.oceanConstraints
-            .fill(to: scrollView)
-            .width(to: view)
+        uiView.oceanConstraints
+            .fill(to: self.view, constant: Ocean.size.spacingStackXs)
             .make()
     }
 }
