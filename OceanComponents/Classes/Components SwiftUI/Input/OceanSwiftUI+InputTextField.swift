@@ -20,13 +20,14 @@ extension OceanSwiftUI {
         @Published public var isSecureTextEntry: Bool
         @Published public var errorMessage: String
         @Published public var helperMessage: String
-        @Published public var tooltipMessage: String
         @Published public var icon: UIImage?
         @Published public var iconHelper: UIImage?
         @Published public var keyboardType: UIKeyboardType
         @Published public var textContentType: UITextContentType?
         @Published public var onMask: ((String) -> String)?
         @Published public var onValueChanged: (String) -> Void
+        @Published public var onTouchIcon: () -> Void
+        @Published public var onTouchIconHelper: () -> Void
 
         public init(title: String = "",
                     placeholder: String = "",
@@ -34,26 +35,28 @@ extension OceanSwiftUI {
                     isSecureTextEntry: Bool = false,
                     errorMessage: String = "",
                     helperMessage: String = "",
-                    tooltipMessage: String = "",
                     icon: UIImage? = nil,
                     iconHelper: UIImage? = nil,
                     keyboardType: UIKeyboardType = .default,
                     textContentType: UITextContentType? = nil,
                     onMask: ((String) -> String)? = nil,
-                    onValueChanged: @escaping (String) -> Void = { _ in }) {
+                    onValueChanged: @escaping (String) -> Void = { _ in },
+                    onTouchIcon: @escaping () -> Void = { },
+                    onTouchIconHelper: @escaping () -> Void = { }) {
             self.title = title
             self.placeholder = placeholder
             self.text = text
             self.isSecureTextEntry = isSecureTextEntry
             self.errorMessage = errorMessage
             self.helperMessage = helperMessage
-            self.tooltipMessage = tooltipMessage
             self.icon = icon
             self.iconHelper = iconHelper
             self.keyboardType = keyboardType
             self.textContentType = textContentType
             self.onMask = onMask
             self.onValueChanged = onValueChanged
+            self.onTouchIcon = onTouchIcon
+            self.onTouchIconHelper = onTouchIconHelper
         }
     }
 
@@ -130,23 +133,68 @@ extension OceanSwiftUI {
                     Spacer().frame(height: Ocean.size.spacingStackXxs)
                 }
 
-                textFieldView
-                    .keyboardType(self.parameters.keyboardType)
-                    .textContentType(self.parameters.textContentType)
-                    .frame(height: 48)
-                    .padding([.leading, .trailing], Ocean.size.spacingStackXs)
-                    .padding([.top, .bottom], 2)
-                    .background(
-                        RoundedRectangle(cornerRadius: Ocean.size.borderRadiusMd)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: Ocean.size.borderRadiusMd)
-                                    .strokeBorder(Color(self.focused ? Ocean.color.colorBrandPrimaryDown :
-                                                            Ocean.color.colorInterfaceLightDeep),
-                                                  lineWidth: 1))
-                            .foregroundColor(Color(Ocean.color.colorInterfaceLightPure))
-                    )
-                    .font(Font(UIFont.baseRegular(size: Ocean.font.fontSizeXs)!))
-                    .foregroundColor(Color(Ocean.color.colorInterfaceDarkDeep))
+                ZStack(alignment: .trailing) {
+                    textFieldView
+                        .keyboardType(self.parameters.keyboardType)
+                        .textContentType(self.parameters.textContentType)
+                        .frame(height: 48)
+                        .padding([.leading, .trailing], Ocean.size.spacingStackXs)
+                        .padding([.top, .bottom], 2)
+                        .background(
+                            RoundedRectangle(cornerRadius: Ocean.size.borderRadiusMd)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: Ocean.size.borderRadiusMd)
+                                        .strokeBorder(Color(!self.parameters.errorMessage.isEmpty ? Ocean.color.colorStatusNegativePure :
+                                                                self.focused ? Ocean.color.colorBrandPrimaryDown : Ocean.color.colorInterfaceLightDeep),
+                                                      lineWidth: 1))
+                                .foregroundColor(Color(Ocean.color.colorInterfaceLightPure))
+                        )
+                        .font(Font(UIFont.baseRegular(size: Ocean.font.fontSizeXs)!))
+                        .foregroundColor(Color(Ocean.color.colorInterfaceDarkDeep))
+
+                    if let icon = self.parameters.icon {
+                        Image(uiImage: icon)
+                            .resizable()
+                            .renderingMode(.template)
+                            .frame(width: 24, height: 24, alignment: .center)
+                            .padding(.trailing, Ocean.size.spacingStackXs)
+                            .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
+                            .onTapGesture {
+                                self.parameters.onTouchIcon()
+                            }
+                    }
+                }
+
+                if !self.parameters.errorMessage.isEmpty {
+                    Spacer().frame(height: Ocean.size.spacingStackXxxs)
+
+                    OceanSwiftUI.Typography.caption { label in
+                        label.parameters.text = self.parameters.errorMessage
+                        label.parameters.textColor = Ocean.color.colorStatusNegativePure
+                    }
+                } else if !self.parameters.helperMessage.isEmpty {
+                    Spacer().frame(height: Ocean.size.spacingStackXxxs)
+
+                    HStack {
+                        OceanSwiftUI.Typography.caption { label in
+                            label.parameters.text = self.parameters.helperMessage
+                            label.parameters.textColor = Ocean.color.colorInterfaceDarkUp
+                        }
+                        
+                        Spacer().frame(width: Ocean.size.spacingStackXxxs)
+
+                        if let icon = self.parameters.iconHelper {
+                            Image(uiImage: icon)
+                                .resizable()
+                                .renderingMode(.template)
+                                .frame(width: 16, height: 16, alignment: .center)
+                                .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
+                                .onTapGesture {
+                                    self.parameters.onTouchIconHelper()
+                                }
+                        }
+                    }
+                }
             }
         }
 

@@ -12,25 +12,40 @@ import OceanTokens
 import OceanComponents
 
 final public class InputSwiftUIViewController : UIViewController {
-    lazy var inputTextField: OceanSwiftUI.InputTextField = {
+    lazy var inputTextField1: OceanSwiftUI.InputTextField = {
         OceanSwiftUI.InputTextField { input in
             input.parameters.title = "Title"
             input.parameters.placeholder = "Placeholder"
-            input.parameters.onMask = { text in
-                let cleanPhoneNumber = text.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
-                let mask = "#####-####"
-                var result = ""
-                var index = cleanPhoneNumber.startIndex
-                for ch in mask where index < cleanPhoneNumber.endIndex {
-                    if ch == "#" {
-                        result.append(cleanPhoneNumber[index])
-                        index = cleanPhoneNumber.index(after: index)
-                    } else {
-                        result.append(ch)
-                    }
-                }
-                return result
+            input.parameters.icon = Ocean.icon.eyeOutline
+            input.parameters.onTouchIcon = {
+                print("icon tapped")
             }
+            input.parameters.onValueChanged = { text in
+                print(text)
+            }
+        }
+    }()
+
+    lazy var inputTextField2: OceanSwiftUI.InputTextField = {
+        OceanSwiftUI.InputTextField { input in
+            input.parameters.title = "Title"
+            input.parameters.placeholder = "Placeholder"
+            input.parameters.helperMessage = "Helper message"
+            input.parameters.iconHelper = Ocean.icon.infoSolid
+            input.parameters.onTouchIconHelper = {
+                print("icon tapped")
+            }
+            input.parameters.onValueChanged = { text in
+                print(text)
+            }
+        }
+    }()
+
+    lazy var inputTextField3: OceanSwiftUI.InputTextField = {
+        OceanSwiftUI.InputTextField { input in
+            input.parameters.title = "Title"
+            input.parameters.placeholder = "Placeholder"
+            input.parameters.errorMessage = "Error message"
             input.parameters.onValueChanged = { text in
                 print(text)
             }
@@ -46,7 +61,11 @@ final public class InputSwiftUIViewController : UIViewController {
         stack.axis = .vertical
         stack.spacing = Ocean.size.spacingStackXs
 
-        stack.addArrangedSubview(inputTextField.uiView)
+        stack.add([
+            inputTextField1.uiView
+//            inputTextField2.uiView,
+//            inputTextField3.uiView
+        ])
 
         stack.setMargins(allMargins: Ocean.size.spacingStackXs)
 
