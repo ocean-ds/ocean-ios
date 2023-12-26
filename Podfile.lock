@@ -13,9 +13,9 @@ PODS:
     - SkeletonView
     - SPStorkController
   - OceanTokens (3.3.1-314)
-  - SDWebImage (5.17.0):
-    - SDWebImage/Core (= 5.17.0)
-  - SDWebImage/Core (5.17.0)
+  - SDWebImage (5.18.7):
+    - SDWebImage/Core (= 5.18.7)
+  - SDWebImage/Core (5.18.7)
   - SkeletonUI (2.0.0)
   - SkeletonView (1.30.4)
   - SPStorkController (1.8.5)
@@ -44,13 +44,9 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Charts: ce0768268078eee0336f122c3c4ca248e4e204c5
   FSCalendar: 2d1d0d9398f12d439f55c1fe0f01525b151b8260
-<<<<<<< HEAD
-  OceanComponents: 2a75209f5badd5cf58c8775b71c19ff4379b9545
-=======
-  OceanComponents: bd94c447945b35d1360347a019daf08f53c396e5
->>>>>>> master
+  OceanComponents: 65f73db6deff092099b28e2bf15691422cf43505
   OceanTokens: 8f57890acc014823f4b6a5cbfde29bedffa390fe
-  SDWebImage: 750adf017a315a280c60fde706ab1e552a3ae4e9
+  SDWebImage: f9258c58221ed854cfa0e2b80ee4033710b1c6d3
   SkeletonUI: 236767189616d1d15fefd95c13f0dcd73bcefa10
   SkeletonView: 5a050f6411e697abd4cda0a8d767013399dccd69
   SPStorkController: 68966ed3134de2be2a8bbd1475c7e81f3f7d01ee
