@@ -10,13 +10,6 @@ import OceanTokens
 import SwiftUI
 
 class AlertSwiftUIViewController: UIViewController {
-    
-    private lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        return scrollView
-    }()
-    
     lazy var alertInfo: OceanSwiftUI.Alert = {
         return OceanSwiftUI.Alert.info { alert in
             alert.parameters.text = "Text Ocean SwiftUI Alert Info"
@@ -147,59 +140,38 @@ class AlertSwiftUIViewController: UIViewController {
             alert.parameters.withIcon = false
         }
     }()
+    
+    public lazy var hostingController = UIHostingController(rootView: ScrollView {
+        VStack(spacing: Ocean.size.spacingStackXs) {
+            alertInfo
+            alertInfoLong
+            alertInfoShort
+            alertWarning
+            alertWarningLong
+            alertWarningShort
+            alertPositive
+            alertPositiveLong
+            alertPositiveShort
+            alertNegative
+            alertNegativeLong
+            alertNegativeShort
+            alertInfoWithLink
+            alertWarningWithLink
+            alertPositiveWithLink
+            alertNegativeWithLink
+            alertNegativeWithButton
+        }
+    })
 
-    private lazy var mainStack: Ocean.StackView = {
-        let stack = Ocean.StackView()
-        stack.axis = .vertical
-        stack.alignment = .fill
-        stack.distribution = .fill
-        stack.spacing = Ocean.size.spacingStackXs
-        
-        stack.add([
-            alertInfo.uiView,
-            alertInfoLong.uiView,
-            alertInfoShort.uiView,
-            alertWarning.uiView,
-            alertWarningLong.uiView,
-            alertWarningShort.uiView,
-            alertPositive.uiView,
-            alertPositiveLong.uiView,
-            alertPositiveShort.uiView,
-            alertNegative.uiView,
-            alertNegativeLong.uiView,
-            alertNegativeShort.uiView,
-            alertInfoWithLink.uiView,
-            alertWarningWithLink.uiView,
-            alertPositiveWithLink.uiView,
-            alertNegativeWithLink.uiView,
-            alertNegativeWithButton.uiView
-        ])
-        
-        stack.setMargins(horizontal: Ocean.size.spacingStackXs)
-        
-        return stack
-    }()
-    
+    public lazy var uiView = self.hostingController.getUIView()
+
     public override func viewDidLoad() {
-        super.viewDidLoad()
-        setupUI()
-    }
-    
-    private func setupUI() {
-        view.backgroundColor = .white
-        view.addSubview(scrollView)
-        scrollView.addSubview(mainStack)
-        setupConstraints()
-    }
-    
-    private func setupConstraints() {
-        scrollView.oceanConstraints
-            .fill(to: view, safeArea: true)
-            .make()
-        
-        mainStack.oceanConstraints
-            .fill(to: scrollView)
-            .width(to: view)
+        self.view.backgroundColor = .white
+
+        self.view.addSubview(uiView)
+
+        uiView.oceanConstraints
+            .fill(to: self.view, constant: Ocean.size.spacingStackXs)
             .make()
     }
 }

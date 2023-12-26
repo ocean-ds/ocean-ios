@@ -58,45 +58,28 @@ class OrderedListItemSwiftUIViewController: UIViewController {
             item.parameters.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Velit amet sem tempus volutpat nulla posuere consectetur ac in."
         }
     }()
-    
-    private lazy var mainStack: Ocean.StackView = {
-        let stack = Ocean.StackView()
-        stack.axis = .vertical
-        stack.alignment = .fill
-        stack.distribution = .fill
-        stack.spacing = Ocean.size.spacingStackXs
 
-        stack.add([
-            item1.uiView,
-            item2.uiView,
-            item3.uiView,
-            item4.uiView,
-            item5.uiView,
-            item6.uiView,
-            item7.uiView
-        ])
+    public lazy var hostingController = UIHostingController(rootView: ScrollView {
+        VStack(spacing: Ocean.size.spacingStackXs) {
+            item1
+            item2
+            item3
+            item4
+            item5
+            item6
+            item7
+        }
+    })
 
-        stack.setMargins(allMargins: Ocean.size.spacingStackXs)
-
-        return stack
-    }()
+    public lazy var uiView = self.hostingController.getUIView()
 
     public override func viewDidLoad() {
-        super.viewDidLoad()
-        setupUI()
-    }
-    
-    private func setupUI() {
-        view.backgroundColor = .white
-        view.addSubview(mainStack)
-        setupConstraints()
-    }
+        self.view.backgroundColor = .white
 
-    private func setupConstraints() {
-        mainStack.oceanConstraints
-            .topToTop(to: self.view)
-            .leadingToLeading(to: self.view)
-            .trailingToTrailing(to: self.view)
+        self.view.addSubview(uiView)
+
+        uiView.oceanConstraints
+            .fill(to: self.view, constant: Ocean.size.spacingStackXs)
             .make()
     }
 }

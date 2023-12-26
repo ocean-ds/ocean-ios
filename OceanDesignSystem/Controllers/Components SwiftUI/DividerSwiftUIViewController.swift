@@ -7,36 +7,28 @@
 //
 
 import Foundation
-import UIKit
 import OceanTokens
 import OceanComponents
+import SwiftUI
 
 final public class DividerSwiftUIViewController : UIViewController {
     lazy var dividerHorizontal = OceanSwiftUI.Divider()
 
+    public lazy var hostingController = UIHostingController(rootView: ScrollView {
+        VStack(spacing: Ocean.size.spacingStackXs) {
+            dividerHorizontal
+        }
+    })
+
+    public lazy var uiView = self.hostingController.getUIView()
+
     public override func viewDidLoad() {
         self.view.backgroundColor = .white
 
-        let stack = Ocean.StackView()
-        stack.alignment = .fill
-        stack.distribution = .fill
-        stack.axis = .vertical
-        stack.spacing = Ocean.size.spacingStackXs
+        self.view.addSubview(uiView)
 
-        stack.addArrangedSubview(dividerHorizontal.uiView)
-
-        self.add(view: stack)
-    }
-
-    private func add(view: UIView) {
-        self.view.addSubview(view)
-        view.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            view.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            view.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-            view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
-        ])
+        uiView.oceanConstraints
+            .fill(to: self.view, constant: Ocean.size.spacingStackXs)
+            .make()
     }
 }

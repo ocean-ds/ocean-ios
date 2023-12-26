@@ -76,48 +76,31 @@ class TypographySwiftUIViewController: UIViewController {
         }
     }()
 
-    private lazy var mainStack: Ocean.StackView = {
-        let stack = Ocean.StackView()
-        stack.axis = .vertical
-        stack.alignment = .fill
-        stack.distribution = .fill
-        stack.spacing = Ocean.size.spacingStackXs
+    public lazy var hostingController = UIHostingController(rootView: ScrollView {
+        VStack(spacing: Ocean.size.spacingStackXs) {
+            typography1
+            typography2
+            typography3
+            typography4
+            typography5
+            typography6
+            typography7
+            typography8
+            typography9
+            typography10
+            typography11
+        }
+    })
 
-        stack.add([
-            typography1.uiView,
-            typography2.uiView,
-            typography3.uiView,
-            typography4.uiView,
-            typography5.uiView,
-            typography6.uiView,
-            typography7.uiView,
-            typography8.uiView,
-            typography9.uiView,
-            typography10.uiView,
-            typography11.uiView
-        ])
-
-        stack.setMargins(allMargins: Ocean.size.spacingStackXs)
-
-        return stack
-    }()
+    public lazy var uiView = self.hostingController.getUIView()
 
     public override func viewDidLoad() {
-        super.viewDidLoad()
-        setupUI()
-    }
+        self.view.backgroundColor = .white
 
-    private func setupUI() {
-        view.backgroundColor = .white
-        view.addSubview(mainStack)
-        setupConstraints()
-    }
+        self.view.addSubview(uiView)
 
-    private func setupConstraints() {
-        mainStack.oceanConstraints
-            .topToTop(to: self.view)
-            .leadingToLeading(to: self.view)
-            .trailingToTrailing(to: self.view)
+        uiView.oceanConstraints
+            .fill(to: self.view, constant: Ocean.size.spacingStackXs)
             .make()
     }
 }

@@ -49,41 +49,26 @@ class CircularProgressIndicatorSwiftUIViewController: UIViewController {
         }
     }()
 
-    private lazy var mainStack: Ocean.StackView = {
-        let stack = Ocean.StackView()
-        stack.axis = .vertical
-        stack.alignment = .fill
-        stack.distribution = .fill
-        stack.spacing = Ocean.size.spacingStackXs
+    public lazy var hostingController = UIHostingController(rootView: ScrollView {
+        VStack(spacing: Ocean.size.spacingStackXs) {
+            progress1
+            progress2
+            progress3
+            progress4
+            progress5
+            progress6
+        }
+    })
 
-        stack.add([
-            progress1.uiView,
-            progress2.uiView,
-            progress3.uiView,
-            progress4.uiView,
-            progress5.uiView,
-            progress6.uiView
-        ])
-
-        stack.setMargins(horizontal: Ocean.size.spacingStackXs)
-
-        return stack
-    }()
+    public lazy var uiView = self.hostingController.getUIView()
 
     public override func viewDidLoad() {
-        super.viewDidLoad()
-        setupUI()
-    }
+        self.view.backgroundColor = Ocean.color.colorInterfaceDarkUp
 
-    private func setupUI() {
-        view.backgroundColor = Ocean.color.colorInterfaceDarkUp
-        view.addSubview(mainStack)
-        setupConstraints()
-    }
+        self.view.addSubview(uiView)
 
-    private func setupConstraints() {
-        mainStack.oceanConstraints
-            .center(to: view)
+        uiView.oceanConstraints
+            .fill(to: self.view, constant: Ocean.size.spacingStackXs)
             .make()
     }
 }

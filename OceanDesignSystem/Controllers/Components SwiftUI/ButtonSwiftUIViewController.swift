@@ -123,45 +123,28 @@ class ButtonSwiftUIViewController: UIViewController {
         }
     }()
 
-    private lazy var mainStack: Ocean.StackView = {
-        let stack = Ocean.StackView()
-        stack.axis = .vertical
-        stack.alignment = .fill
-        stack.distribution = .fill
-        stack.spacing = Ocean.size.spacingStackXs
+    public lazy var hostingController = UIHostingController(rootView: ScrollView {
+        VStack(spacing: Ocean.size.spacingStackXs) {
+            button1
+            button2
+            button3
+            button4
+            button5
+            button6
+            button7
+            button8
+        }
+    })
 
-        stack.add([
-            button1.uiView,
-            button2.uiView,
-            button3.uiView,
-            button4.uiView,
-            button5.uiView,
-            button6.uiView,
-            button7.uiView,
-            button8.uiView
-        ])
-
-        stack.setMargins(allMargins: Ocean.size.spacingStackXs)
-
-        return stack
-    }()
+    public lazy var uiView = self.hostingController.getUIView()
 
     public override func viewDidLoad() {
-        super.viewDidLoad()
-        setupUI()
-    }
+        self.view.backgroundColor = .white
 
-    private func setupUI() {
-        view.backgroundColor = .white
-        view.addSubview(mainStack)
-        setupConstraints()
-    }
+        self.view.addSubview(uiView)
 
-    private func setupConstraints() {
-        mainStack.oceanConstraints
-            .topToTop(to: self.view)
-            .leadingToLeading(to: self.view)
-            .trailingToTrailing(to: self.view)
+        uiView.oceanConstraints
+            .fill(to: self.view, constant: Ocean.size.spacingStackXs)
             .make()
     }
 }

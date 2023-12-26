@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import UIKit
 import OceanTokens
 import OceanComponents
 import SwiftUI
@@ -54,15 +53,13 @@ final public class InputSwiftUIViewController : UIViewController {
         }
     }()
 
-    public lazy var hostingController = UIHostingController(rootView:
-        ScrollView {
-            VStack {
-                inputTextField1
-                inputTextField2
-                inputTextField3
-            }
+    public lazy var hostingController = UIHostingController(rootView: ScrollView {
+        VStack(spacing: Ocean.size.spacingStackXs) {
+            inputTextField1
+            inputTextField2
+            inputTextField3
         }
-    )
+    })
 
     public lazy var uiView = self.hostingController.getUIView()
 

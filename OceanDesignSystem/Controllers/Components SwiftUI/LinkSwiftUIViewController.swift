@@ -10,13 +10,6 @@ import OceanTokens
 import SwiftUI
 
 class LinkSwiftUIViewController: UIViewController {
-    
-    private lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        return scrollView
-    }()
-    
     lazy var linkPrimaryMedium: OceanSwiftUI.Link = {
         return OceanSwiftUI.Link.primaryMedium { link in
             link.parameters.text = "linkPrimaryMedium"
@@ -135,58 +128,37 @@ class LinkSwiftUIViewController: UIViewController {
             link.parameters.onTouch = { }
         }
     }()
-    
-    private lazy var mainStack: Ocean.StackView = {
-        let stack = Ocean.StackView()
-        stack.axis = .vertical
-        stack.alignment = .fill
-        stack.distribution = .fill
-        stack.spacing = Ocean.size.spacingStackXs
-        
-        stack.add([
-            linkPrimaryMedium.uiView,
-            linkPrimaryMediumChevron.uiView,
-            linkPrimaryMediumExternal.uiView,
-            linkPrimarySmall.uiView,
-            linkPrimarySmallChevron.uiView,
-            linkPrimarySmallExternal.uiView,
-            linkPrimaryTiny.uiView,
-            linkPrimaryTinyChevron.uiView,
-            linkPrimaryTinyExternal.uiView,
-            linkDisabled.uiView,
-            linkInverseMedium.uiView,
-            linkInverseSmall.uiView,
-            linkInverseTiny.uiView,
-            linkNeutralMedium.uiView,
-            linkNeutralSmall.uiView,
-            linkNeutralTiny.uiView,
-        ])
-        
-        stack.setMargins(horizontal: Ocean.size.spacingStackXs)
-        
-        return stack
-    }()
-    
+
+    public lazy var hostingController = UIHostingController(rootView: ScrollView {
+        VStack(spacing: Ocean.size.spacingStackXs) {
+            linkPrimaryMedium
+            linkPrimaryMediumChevron
+            linkPrimaryMediumExternal
+            linkPrimarySmall
+            linkPrimarySmallChevron
+            linkPrimarySmallExternal
+            linkPrimaryTiny
+            linkPrimaryTinyChevron
+            linkPrimaryTinyExternal
+            linkDisabled
+            linkInverseMedium
+            linkInverseSmall
+            linkInverseTiny
+            linkNeutralMedium
+            linkNeutralSmall
+            linkNeutralTiny
+        }
+    })
+
+    public lazy var uiView = self.hostingController.getUIView()
+
     public override func viewDidLoad() {
-        super.viewDidLoad()
-        setupUI()
-    }
-    
-    private func setupUI() {
-        view.backgroundColor = .white
-        view.addSubview(scrollView)
-        scrollView.addSubview(mainStack)
-        setupConstraints()
-    }
-    
-    private func setupConstraints() {
-        scrollView.oceanConstraints
-            .fill(to: view, safeArea: true)
-            .make()
-        
-        mainStack.oceanConstraints
-            .fill(to: scrollView)
-            .width(to: view)
+        self.view.backgroundColor = .white
+
+        self.view.addSubview(uiView)
+
+        uiView.oceanConstraints
+            .fill(to: self.view, constant: Ocean.size.spacingStackXs)
             .make()
     }
 }
