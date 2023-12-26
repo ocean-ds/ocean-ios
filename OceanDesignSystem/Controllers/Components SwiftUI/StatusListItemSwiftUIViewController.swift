@@ -106,14 +106,14 @@ class StatusListItemSwiftUIViewController: UIViewController {
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
-            self.statusListItem1
-            self.statusListItem2
-            self.statusListItem3
-            self.statusListItem4
-            self.statusListItem5
-            self.statusListItem6
-            self.statusListItem7
-            self.statusListItem8
+            statusListItem1
+            statusListItem2
+            statusListItem3
+            statusListItem4
+            statusListItem5
+            statusListItem6
+            statusListItem7
+            statusListItem8
         }
     })
 

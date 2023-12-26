@@ -77,14 +77,14 @@ class CardListItemSwiftUIViewController: UIViewController {
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
-            self.card1
-            self.card2
-            self.card3
-            self.card4
-            self.card5
-            self.card6
-            self.card7
-            self.card8
+            card1
+            card2
+            card3
+            card4
+            card5
+            card6
+            card7
+            card8
         }
     })
 

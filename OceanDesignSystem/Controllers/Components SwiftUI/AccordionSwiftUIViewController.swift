@@ -32,7 +32,7 @@ class AccordionSwiftUIViewController: UIViewController {
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
-            self.accordion
+            accordion
         }
     })
 

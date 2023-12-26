@@ -51,12 +51,12 @@ class CircularProgressIndicatorSwiftUIViewController: UIViewController {
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
-            self.progress1
-            self.progress2
-            self.progress3
-            self.progress4
-            self.progress5
-            self.progress6
+            progress1
+            progress2
+            progress3
+            progress4
+            progress5
+            progress6
         }
     })
 

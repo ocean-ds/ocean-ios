@@ -125,14 +125,14 @@ class ButtonSwiftUIViewController: UIViewController {
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
-            self.button1
-            self.button2
-            self.button3
-            self.button4
-            self.button5
-            self.button6
-            self.button7
-            self.button8
+            button1
+            button2
+            button3
+            button4
+            button5
+            button6
+            button7
+            button8
         }
     })
 

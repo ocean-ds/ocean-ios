@@ -131,22 +131,22 @@ class LinkSwiftUIViewController: UIViewController {
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
-            self.linkPrimaryMedium
-            self.linkPrimaryMediumChevron
-            self.linkPrimaryMediumExternal
-            self.linkPrimarySmall
-            self.linkPrimarySmallChevron
-            self.linkPrimarySmallExternal
-            self.linkPrimaryTiny
-            self.linkPrimaryTinyChevron
-            self.linkPrimaryTinyExternal
-            self.linkDisabled
-            self.linkInverseMedium
-            self.linkInverseSmall
-            self.linkInverseTiny
-            self.linkNeutralMedium
-            self.linkNeutralSmall
-            self.linkNeutralTiny
+            linkPrimaryMedium
+            linkPrimaryMediumChevron
+            linkPrimaryMediumExternal
+            linkPrimarySmall
+            linkPrimarySmallChevron
+            linkPrimarySmallExternal
+            linkPrimaryTiny
+            linkPrimaryTinyChevron
+            linkPrimaryTinyExternal
+            linkDisabled
+            linkInverseMedium
+            linkInverseSmall
+            linkInverseTiny
+            linkNeutralMedium
+            linkNeutralSmall
+            linkNeutralTiny
         }
     })
 
