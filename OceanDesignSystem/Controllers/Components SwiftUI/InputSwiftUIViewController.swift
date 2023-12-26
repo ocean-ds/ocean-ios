@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import OceanTokens
 import OceanComponents
+import SwiftUI
 
 final public class InputSwiftUIViewController : UIViewController {
     lazy var inputTextField1: OceanSwiftUI.InputTextField = {
@@ -45,6 +46,7 @@ final public class InputSwiftUIViewController : UIViewController {
         OceanSwiftUI.InputTextField { input in
             input.parameters.title = "Title"
             input.parameters.placeholder = "Placeholder"
+            input.parameters.helperMessage = "Helper message"
             input.parameters.errorMessage = "Error message"
             input.parameters.onValueChanged = { text in
                 print(text)
@@ -52,34 +54,25 @@ final public class InputSwiftUIViewController : UIViewController {
         }
     }()
 
+    public lazy var hostingController = UIHostingController(rootView:
+        ScrollView {
+            VStack {
+                inputTextField1
+                inputTextField2
+                inputTextField3
+            }
+        }
+    )
+
+    public lazy var uiView = self.hostingController.getUIView()
+
     public override func viewDidLoad() {
         self.view.backgroundColor = .white
 
-        let stack = Ocean.StackView()
-        stack.alignment = .fill
-        stack.distribution = .fill
-        stack.axis = .vertical
-        stack.spacing = Ocean.size.spacingStackXs
+        self.view.addSubview(uiView)
 
-        stack.add([
-            inputTextField1.uiView
-//            inputTextField2.uiView,
-//            inputTextField3.uiView
-        ])
-
-        stack.setMargins(allMargins: Ocean.size.spacingStackXs)
-
-        self.add(view: stack)
-    }
-
-    private func add(view: UIView) {
-        self.view.addSubview(view)
-        view.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            view.topAnchor.constraint(equalTo: self.view.topAnchor),
-            view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
-        ])
+        uiView.oceanConstraints
+            .fill(to: self.view, constant: Ocean.size.spacingStackXs)
+            .make()
     }
 }

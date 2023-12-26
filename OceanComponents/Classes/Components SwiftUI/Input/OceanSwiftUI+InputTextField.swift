@@ -106,6 +106,7 @@ extension OceanSwiftUI {
                                 self.parameters.text = textMask
                                 self.textOld = textMask
                                 self.parameters.onValueChanged(textMask)
+                                self.parameters.errorMessage = ""
                             }
                         })
                 } else {
@@ -118,6 +119,7 @@ extension OceanSwiftUI {
                             self.parameters.text = textMask
                             self.textOld = textMask
                             self.parameters.onValueChanged(textMask)
+                            self.parameters.errorMessage = ""
                         }
                     })
                 }
@@ -180,7 +182,7 @@ extension OceanSwiftUI {
                             label.parameters.text = self.parameters.helperMessage
                             label.parameters.textColor = Ocean.color.colorInterfaceDarkUp
                         }
-                        
+
                         Spacer().frame(width: Ocean.size.spacingStackXxxs)
 
                         if let icon = self.parameters.iconHelper {
