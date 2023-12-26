@@ -7,6 +7,7 @@
 
 import SwiftUI
 import OceanTokens
+import SkeletonUI
 
 extension OceanSwiftUI {
     // MARK: Parameters
@@ -24,6 +25,8 @@ extension OceanSwiftUI {
         @Published public var captionLineLimit: Int?
 
         @Published public var onTouch: (() -> Void)
+
+        @Published public var isLoading: Bool = false
 
         public init(title: String = "", 
                     subtitle: String = "",
@@ -87,9 +90,13 @@ extension OceanSwiftUI {
                 HStack {
                     if let image = parameters.leadingIcon {
                         ZStack {
-                            Image(uiImage: image.withRenderingMode(.alwaysTemplate))
+                            Image(uiImage: image)
+                                .resizable()
+                                .renderingMode(.template)
                                 .foregroundColor(Color(Ocean.color.colorBrandPrimaryDown))
-                                .frame(maxWidth: Constants.leadingIconImageMaxSize, maxHeight: Constants.leadingIconImageMaxSize)
+                                .frame(maxWidth: Constants.leadingIconImageMaxSize, 
+                                       maxHeight: Constants.leadingIconImageMaxSize)
+                                .skeleton(with: parameters.isLoading)
                         }
                         .frame(width: Constants.leadingIconSize, height: Constants.leadingIconSize)
                         .background(Color(Ocean.color.colorInterfaceLightUp))
@@ -103,6 +110,7 @@ extension OceanSwiftUI {
                             label.parameters.text = parameters.title
                             label.parameters.lineLimit = parameters.titleLineLimit
                         }
+                        .skeleton(with: parameters.isLoading)
 
                         if !parameters.subtitle.isEmpty {
                             OceanSwiftUI.Typography.description { label in
@@ -124,7 +132,9 @@ extension OceanSwiftUI {
                     Spacer()
 
                     if let image = parameters.trailingIcon {
-                        Image(uiImage: image.withRenderingMode(.alwaysTemplate))
+                        Image(uiImage: image)
+                            .resizable()
+                            .renderingMode(.template)
                             .foregroundColor(Color(Ocean.color.colorInterfaceDarkDown))
                             .frame(maxWidth: Constants.trailingIconImageMaxSize, maxHeight: Constants.trailingIconImageMaxSize)
 

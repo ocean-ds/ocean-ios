@@ -885,10 +885,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 356;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 57KSFR5UHN;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 57KSFR5UHN;
 				INFOPLIST_FILE = OceanDesignSystem/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -898,6 +900,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.blu.ocean.DesignSystem;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore br.com.blu.ocean.DesignSystem";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development br.com.blu.ocean.DesignSystem";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -908,10 +911,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 356;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 57KSFR5UHN;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 57KSFR5UHN;
 				INFOPLIST_FILE = OceanDesignSystem/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -921,6 +926,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.blu.ocean.DesignSystem;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore br.com.blu.ocean.DesignSystem";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development br.com.blu.ocean.DesignSystem";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
