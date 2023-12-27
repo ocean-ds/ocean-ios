@@ -24,9 +24,9 @@ extension OceanSwiftUI {
         @Published public var subtitleLineLimit: Int?
         @Published public var captionLineLimit: Int?
 
-        @Published public var onTouch: (() -> Void)
+        @Published public var showSkeleton: Bool
 
-        @Published public var showSkeleton: Bool = false
+        @Published public var onTouch: (() -> Void)
 
         public init(title: String = "", 
                     subtitle: String = "",
@@ -36,6 +36,7 @@ extension OceanSwiftUI {
                     titleLineLimit: Int? = nil,
                     subtitleLineLimit: Int? = nil,
                     captionLineLimit: Int? = nil,
+                    showSkeleton: Bool = false,
                     onTouch: @escaping (() -> Void) = {}) {
             self.title = title
             self.subtitle = subtitle
@@ -45,6 +46,7 @@ extension OceanSwiftUI {
             self.titleLineLimit = titleLineLimit
             self.subtitleLineLimit = subtitleLineLimit
             self.captionLineLimit = captionLineLimit
+            self.showSkeleton = showSkeleton
             self.onTouch = onTouch
         }
     }
@@ -109,15 +111,15 @@ extension OceanSwiftUI {
                         OceanSwiftUI.Typography.heading4 { label in
                             label.parameters.text = parameters.title
                             label.parameters.lineLimit = parameters.titleLineLimit
+                            label.parameters.showSkeleton = parameters.showSkeleton
                         }
-                        .skeleton(with: parameters.showSkeleton)
 
                         if !parameters.subtitle.isEmpty {
                             OceanSwiftUI.Typography.description { label in
                                 label.parameters.text = parameters.subtitle
                                 label.parameters.lineLimit = parameters.subtitleLineLimit
+                                label.parameters.showSkeleton = parameters.showSkeleton
                             }
-                            .skeleton(with: parameters.showSkeleton)
                         }
 
                         if !parameters.caption.isEmpty {
@@ -126,8 +128,8 @@ extension OceanSwiftUI {
                             OceanSwiftUI.Typography.caption { label in
                                 label.parameters.text = parameters.caption
                                 label.parameters.lineLimit = parameters.captionLineLimit
+                                label.parameters.showSkeleton = parameters.showSkeleton
                             }
-                            .skeleton(with: parameters.showSkeleton)
                         }
                     }
 

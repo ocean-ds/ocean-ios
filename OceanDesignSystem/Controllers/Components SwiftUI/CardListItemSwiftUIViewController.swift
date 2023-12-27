@@ -15,8 +15,10 @@ class CardListItemSwiftUIViewController: UIViewController {
         builder.parameters.title = "Title"
         builder.parameters.subtitle = "Subtitle"
         builder.parameters.caption = "Caption"
-        builder.parameters.onTouch = { print("card1") }
-        builder.parameters.showSkeleton = true
+        builder.parameters.onTouch = {
+            print("card1")
+            builder.parameters.showSkeleton = !builder.parameters.showSkeleton
+        }
     }
 
     lazy var card2 = OceanSwiftUI.CardListItem { builder in

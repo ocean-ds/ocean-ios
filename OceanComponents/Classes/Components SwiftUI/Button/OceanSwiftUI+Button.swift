@@ -18,6 +18,7 @@ extension OceanSwiftUI {
         @Published public var style: Style
         @Published public var size: Size
         @Published public var isDisabled: Bool
+        @Published public var showSkeleton: Bool
         @Published public var onTouch: () -> Void = { }
         
         public enum Style {
@@ -74,6 +75,7 @@ extension OceanSwiftUI {
                     style: Style = .primary,
                     size: Size = .medium,
                     isDisabled: Bool = false,
+                    showSkeleton: Bool = false,
                     onTouch: @escaping () -> Void = { }) {
             self.text = text
             self.icon = icon
@@ -81,6 +83,7 @@ extension OceanSwiftUI {
             self.style = style
             self.size = size
             self.isDisabled = isDisabled
+            self.showSkeleton = showSkeleton
             self.onTouch = onTouch
         }
     }
@@ -144,6 +147,7 @@ extension OceanSwiftUI {
                 }
             }
             .buttonStyle(OceanButtonStyle(parameters: self.parameters, foregroundColor: self.getForegroundColor()))
+            .skeleton(with: self.parameters.showSkeleton)
         }
         
         public func getLoadingView() -> OceanSwiftUI.CircularProgressIndicator {

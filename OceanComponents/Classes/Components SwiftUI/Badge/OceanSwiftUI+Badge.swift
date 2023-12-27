@@ -17,6 +17,7 @@ extension OceanSwiftUI {
         @Published public var status: Status
         @Published public var size: Size
         @Published public var style: Style
+        @Published public var showSkeleton: Bool
 
         public enum Status {
             case primary
@@ -43,11 +44,13 @@ extension OceanSwiftUI {
         public init(count: Int = 0,
                     status: Status = .primary,
                     size: Size = .medium,
-                    style: Style = .count) {
+                    style: Style = .count,
+                    showSkeleton: Bool = false) {
             self.count = count
             self.status = status
             self.size = size
             self.style = style
+            self.showSkeleton = showSkeleton
         }
     }
 
@@ -79,6 +82,7 @@ extension OceanSwiftUI {
             .frame(width: self.getWidth(), height: self.parameters.size.rawValue)
             .background(Color(self.getBackgroundColor()))
             .cornerRadius(self.parameters.size.rawValue * Ocean.size.borderRadiusCircular)
+            .skeleton(with: self.parameters.showSkeleton)
         }
 
         private var dotView: some View {
@@ -88,6 +92,7 @@ extension OceanSwiftUI {
             .frame(width: 8, height: 8)
             .background(Color(Ocean.color.colorHighlightPure))
             .cornerRadius(Ocean.size.borderRadiusSm)
+            .skeleton(with: self.parameters.showSkeleton)
         }
 
         // MARK: Constructors

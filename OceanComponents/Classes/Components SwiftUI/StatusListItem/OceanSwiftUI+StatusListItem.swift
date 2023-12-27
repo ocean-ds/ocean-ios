@@ -22,6 +22,7 @@ extension OceanSwiftUI {
         @Published public var badgeCount: Int?
         @Published public var badgeStatus: BadgeParameters.Status
         @Published public var badgePosition: Position
+        @Published public var showSkeleton: Bool
         @Published public var onTouch: () -> Void = { }
 
         public enum Style {
@@ -45,6 +46,7 @@ extension OceanSwiftUI {
                     badgeCount: Int? = nil,
                     badgeStatus: BadgeParameters.Status = .warning,
                     badgePosition: Position = .below,
+                    showSkeleton: Bool = false,
                     onTouch: @escaping () -> Void = { }) {
             self.title = title
             self.description = description
@@ -56,6 +58,7 @@ extension OceanSwiftUI {
             self.badgeCount = badgeCount
             self.badgeStatus = badgeStatus
             self.badgePosition = badgePosition
+            self.showSkeleton = showSkeleton
             self.onTouch = onTouch
         }
     }
@@ -96,16 +99,19 @@ extension OceanSwiftUI {
                     OceanSwiftUI.Typography.paragraph { label in
                         label.parameters.textColor = Ocean.color.colorInterfaceDarkPure
                         label.parameters.text = self.parameters.title
+                        label.parameters.showSkeleton = self.parameters.showSkeleton
                     }
                     if !self.parameters.description.isEmpty {
                         OceanSwiftUI.Typography.description { label in
                             label.parameters.text = self.parameters.description
+                            label.parameters.showSkeleton = self.parameters.showSkeleton
                         }
                     }
                     if !self.parameters.caption.isEmpty {
                         Spacer().frame(height: Ocean.size.spacingStackXxxs)
                         OceanSwiftUI.Typography.caption { label in
                             label.parameters.text = self.parameters.caption
+                            label.parameters.showSkeleton = self.parameters.showSkeleton
                         }
                     }
 
@@ -114,6 +120,7 @@ extension OceanSwiftUI {
                         OceanSwiftUI.Tag { tag in
                             tag.parameters.label = self.parameters.tagLabel
                             tag.parameters.status = self.parameters.tagStatus
+                            tag.parameters.showSkeleton = self.parameters.showSkeleton
                         }
                     }
                     if self.parameters.badgeCount != nil && self.parameters.badgePosition == .below {
@@ -122,6 +129,7 @@ extension OceanSwiftUI {
                             badge.parameters.count = self.parameters.badgeCount ?? 0
                             badge.parameters.status = self.parameters.badgeStatus
                             badge.parameters.size = .small
+                            badge.parameters.showSkeleton = self.parameters.showSkeleton
                         }
                     }
                 }
@@ -134,6 +142,7 @@ extension OceanSwiftUI {
                     OceanSwiftUI.Tag { tag in
                         tag.parameters.label = self.parameters.tagLabel
                         tag.parameters.status = self.parameters.tagStatus
+                        tag.parameters.showSkeleton = self.parameters.showSkeleton
                     }
                     Spacer().frame(width: Ocean.size.spacingStackXxs)
                 }
@@ -143,6 +152,7 @@ extension OceanSwiftUI {
                         badge.parameters.count = self.parameters.badgeCount ?? 0
                         badge.parameters.status = self.parameters.badgeStatus
                         badge.parameters.size = .small
+                        badge.parameters.showSkeleton = self.parameters.showSkeleton
                     }
                 }
 
@@ -152,6 +162,7 @@ extension OceanSwiftUI {
                         .renderingMode(.template)
                         .frame(width: 20, height: 20, alignment: .center)
                         .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
+                        .skeleton(with: self.parameters.showSkeleton)
                 }
             }
             .background(Color(Ocean.color.colorInterfaceLightPure))
