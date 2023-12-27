@@ -26,9 +26,6 @@ final public class InputSwiftUIViewController : UIViewController {
                     input.parameters.icon = Ocean.icon.eyeOutline
                 }
             }
-            input.parameters.onValueChanged = { text in
-                print(text)
-            }
         }
     }()
 
@@ -41,9 +38,6 @@ final public class InputSwiftUIViewController : UIViewController {
             input.parameters.onTouchIconHelper = {
                 print("icon tapped")
             }
-            input.parameters.onValueChanged = { text in
-                print(text)
-            }
         }
     }()
 
@@ -53,9 +47,6 @@ final public class InputSwiftUIViewController : UIViewController {
             input.parameters.placeholder = "Placeholder"
             input.parameters.helperMessage = "Helper message"
             input.parameters.errorMessage = "Error message"
-            input.parameters.onValueChanged = { text in
-                print(text)
-            }
         }
     }()
 

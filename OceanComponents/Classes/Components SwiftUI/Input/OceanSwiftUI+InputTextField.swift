@@ -16,7 +16,7 @@ extension OceanSwiftUI {
     public class InputTextFieldParameters: ObservableObject {
         @Published public var title: String
         @Published public var placeholder: String
-        @Published public var text: String
+        @Published public var text: Binding<String>
         @Published public var isSecureTextEntry: Bool
         @Published public var errorMessage: String
         @Published public var helperMessage: String
@@ -25,13 +25,12 @@ extension OceanSwiftUI {
         @Published public var keyboardType: UIKeyboardType
         @Published public var textContentType: UITextContentType?
         @Published public var onMask: ((String) -> String)?
-        @Published public var onValueChanged: (String) -> Void
         @Published public var onTouchIcon: () -> Void
         @Published public var onTouchIconHelper: () -> Void
 
         public init(title: String = "",
                     placeholder: String = "",
-                    text: String = "",
+                    text: Binding<String> = .constant(""),
                     isSecureTextEntry: Bool = false,
                     errorMessage: String = "",
                     helperMessage: String = "",
@@ -40,7 +39,6 @@ extension OceanSwiftUI {
                     keyboardType: UIKeyboardType = .default,
                     textContentType: UITextContentType? = nil,
                     onMask: ((String) -> String)? = nil,
-                    onValueChanged: @escaping (String) -> Void = { _ in },
                     onTouchIcon: @escaping () -> Void = { },
                     onTouchIconHelper: @escaping () -> Void = { }) {
             self.title = title
@@ -54,7 +52,6 @@ extension OceanSwiftUI {
             self.keyboardType = keyboardType
             self.textContentType = textContentType
             self.onMask = onMask
-            self.onValueChanged = onValueChanged
             self.onTouchIcon = onTouchIcon
             self.onTouchIconHelper = onTouchIconHelper
         }
@@ -78,12 +75,15 @@ extension OceanSwiftUI {
         // MARK: Properties private
 
         @State private var focused: Bool = false
+        @State private var text: String = ""
         @State private var textOld: String = ""
 
         // MARK: Constructors
 
         public init(parameters: InputTextFieldParameters = InputTextFieldParameters()) {
             self.parameters = parameters
+            self.text = parameters.text.wrappedValue
+            self.textOld = parameters.text.wrappedValue
         }
 
         public init(builder: Builder) {
@@ -96,22 +96,21 @@ extension OceanSwiftUI {
         private var textFieldView: some View {
             Group {
                 if self.parameters.isSecureTextEntry {
-                    SecureField(self.parameters.placeholder, text: self.$parameters.text, onCommit: { self.focused = false })
+                    SecureField(self.parameters.placeholder, text: self.$text, onCommit: { self.focused = false })
                         .onTapGesture {
                             self.focused = true
                         }
                 } else {
-                    TextField(self.parameters.placeholder, text: self.$parameters.text, onEditingChanged: { edit in
+                    TextField(self.parameters.placeholder, text: self.$text, onEditingChanged: { edit in
                         self.focused = edit
                     })
                 }
             }
-            .onReceive(Just(self.parameters.text), perform: { text in
+            .onReceive(Just(self.text), perform: { text in
                 let textMask = self.parameters.onMask?(text) ?? text
                 if textMask != self.textOld {
-                    self.parameters.text = textMask
                     self.textOld = textMask
-                    self.parameters.onValueChanged(textMask)
+                    self.parameters.text.wrappedValue = textMask
                     self.parameters.errorMessage = ""
                 }
             })
@@ -158,17 +157,13 @@ extension OceanSwiftUI {
                     }
                 }
 
-                if !self.parameters.errorMessage.isEmpty {
-                    Spacer().frame(height: Ocean.size.spacingStackXxxs)
-
-                    OceanSwiftUI.Typography.caption { label in
-                        label.parameters.text = self.parameters.errorMessage
-                        label.parameters.textColor = Ocean.color.colorStatusNegativePure
-                    }
-                } else if !self.parameters.helperMessage.isEmpty {
-                    Spacer().frame(height: Ocean.size.spacingStackXxxs)
-
-                    HStack {
+                HStack {
+                    if !self.parameters.errorMessage.isEmpty {
+                        OceanSwiftUI.Typography.caption { label in
+                            label.parameters.text = self.parameters.errorMessage
+                            label.parameters.textColor = Ocean.color.colorStatusNegativePure
+                        }
+                    } else if !self.parameters.helperMessage.isEmpty {
                         OceanSwiftUI.Typography.caption { label in
                             label.parameters.text = self.parameters.helperMessage
                             label.parameters.textColor = Ocean.color.colorInterfaceDarkUp
@@ -188,6 +183,8 @@ extension OceanSwiftUI {
                         }
                     }
                 }
+                .frame(height: 16)
+                .opacity(self.parameters.errorMessage.isEmpty && self.parameters.helperMessage.isEmpty ? 0 : 1)
             }
         }
 
