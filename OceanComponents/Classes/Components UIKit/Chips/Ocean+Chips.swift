@@ -125,7 +125,7 @@ extension Ocean {
             case .filter:
                 widthItem = textWidth + 56
             case .basicChip:
-                widthItem = textWidth + 44
+                widthItem = textWidth + 46
                 if let _ = chipModel.icon {
                     widthItem += 20
                 }
