@@ -7,6 +7,7 @@
 
 import SwiftUI
 import OceanTokens
+import SkeletonUI
 
 extension OceanSwiftUI {
     // MARK: Parameters
@@ -23,6 +24,8 @@ extension OceanSwiftUI {
         @Published public var subtitleLineLimit: Int?
         @Published public var captionLineLimit: Int?
 
+        @Published public var showSkeleton: Bool
+
         @Published public var onTouch: (() -> Void)
 
         public init(title: String = "", 
@@ -33,6 +36,7 @@ extension OceanSwiftUI {
                     titleLineLimit: Int? = nil,
                     subtitleLineLimit: Int? = nil,
                     captionLineLimit: Int? = nil,
+                    showSkeleton: Bool = false,
                     onTouch: @escaping (() -> Void) = {}) {
             self.title = title
             self.subtitle = subtitle
@@ -42,6 +46,7 @@ extension OceanSwiftUI {
             self.titleLineLimit = titleLineLimit
             self.subtitleLineLimit = subtitleLineLimit
             self.captionLineLimit = captionLineLimit
+            self.showSkeleton = showSkeleton
             self.onTouch = onTouch
         }
     }
@@ -87,9 +92,13 @@ extension OceanSwiftUI {
                 HStack {
                     if let image = parameters.leadingIcon {
                         ZStack {
-                            Image(uiImage: image.withRenderingMode(.alwaysTemplate))
+                            Image(uiImage: image)
+                                .resizable()
+                                .renderingMode(.template)
                                 .foregroundColor(Color(Ocean.color.colorBrandPrimaryDown))
-                                .frame(maxWidth: Constants.leadingIconImageMaxSize, maxHeight: Constants.leadingIconImageMaxSize)
+                                .frame(maxWidth: Constants.leadingIconImageMaxSize, 
+                                       maxHeight: Constants.leadingIconImageMaxSize)
+                                .skeleton(with: parameters.showSkeleton)
                         }
                         .frame(width: Constants.leadingIconSize, height: Constants.leadingIconSize)
                         .background(Color(Ocean.color.colorInterfaceLightUp))
@@ -102,12 +111,14 @@ extension OceanSwiftUI {
                         OceanSwiftUI.Typography.heading4 { label in
                             label.parameters.text = parameters.title
                             label.parameters.lineLimit = parameters.titleLineLimit
+                            label.parameters.showSkeleton = parameters.showSkeleton
                         }
 
                         if !parameters.subtitle.isEmpty {
                             OceanSwiftUI.Typography.description { label in
                                 label.parameters.text = parameters.subtitle
                                 label.parameters.lineLimit = parameters.subtitleLineLimit
+                                label.parameters.showSkeleton = parameters.showSkeleton
                             }
                         }
 
@@ -117,6 +128,7 @@ extension OceanSwiftUI {
                             OceanSwiftUI.Typography.caption { label in
                                 label.parameters.text = parameters.caption
                                 label.parameters.lineLimit = parameters.captionLineLimit
+                                label.parameters.showSkeleton = parameters.showSkeleton
                             }
                         }
                     }
@@ -124,9 +136,13 @@ extension OceanSwiftUI {
                     Spacer()
 
                     if let image = parameters.trailingIcon {
-                        Image(uiImage: image.withRenderingMode(.alwaysTemplate))
+                        Image(uiImage: image)
+                            .resizable()
+                            .renderingMode(.template)
                             .foregroundColor(Color(Ocean.color.colorInterfaceDarkDown))
-                            .frame(maxWidth: Constants.trailingIconImageMaxSize, maxHeight: Constants.trailingIconImageMaxSize)
+                            .frame(maxWidth: Constants.trailingIconImageMaxSize, 
+                                   maxHeight: Constants.trailingIconImageMaxSize)
+                            .skeleton(with: parameters.showSkeleton)
 
                         Spacer().frame(width: Ocean.size.spacingInsetXxs)
                     }

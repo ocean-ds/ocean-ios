@@ -18,6 +18,7 @@ extension OceanSwiftUI {
         @Published public var lineLimit: Int?
         @Published public var lineSpacing: CGFloat
         @Published public var multilineTextAlignment: TextAlignment
+        @Published public var showSkeleton: Bool
 
         public enum Style {
             case normal
@@ -29,13 +30,15 @@ extension OceanSwiftUI {
                     font: UIFont? = .baseRegular(size: Ocean.font.fontSizeXs),
                     lineLimit: Int? = nil,
                     lineSpacing: CGFloat = Ocean.font.lineHeightComfy,
-                    multilineTextAlignment: TextAlignment = .leading) {
+                    multilineTextAlignment: TextAlignment = .leading,
+                    showSkeleton: Bool = false) {
             self.text = text
             self.textColor = textColor
             self.font = font
             self.lineLimit = lineLimit
             self.lineSpacing = lineSpacing
             self.multilineTextAlignment = multilineTextAlignment
+            self.showSkeleton = showSkeleton
         }
     }
 
@@ -76,6 +79,7 @@ extension OceanSwiftUI {
                 .lineSpacing(self.parameters.lineSpacing)
                 .multilineTextAlignment(self.parameters.multilineTextAlignment)
                 .fixedSize(horizontal: false, vertical: true)
+                .skeleton(with: self.parameters.showSkeleton)
         }
     }
 }

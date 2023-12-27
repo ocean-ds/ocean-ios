@@ -16,6 +16,7 @@ extension OceanSwiftUI {
         @Published public var icon: UIImage?
         @Published public var status: Status
         @Published public var size: Size
+        @Published public var showSkeleton: Bool
 
         public enum Status {
             case positive
@@ -36,11 +37,13 @@ extension OceanSwiftUI {
         public init(label: String = "",
                     icon: UIImage? = nil,
                     status: Status = .positive,
-                    size: Size = .medium) {
+                    size: Size = .medium,
+                    showSkeleton: Bool = false) {
             self.label = label
             self.icon = icon
             self.status = status
             self.size = size
+            self.showSkeleton = showSkeleton
         }
     }
 
@@ -96,6 +99,7 @@ extension OceanSwiftUI {
             }
             .background(Color(self.getBackgroundColor()))
             .cornerRadius(Ocean.size.borderRadiusLg)
+            .skeleton(with: self.parameters.showSkeleton)
         }
 
         // MARK: Methods private

@@ -66,6 +66,7 @@ struct DSComponents {
         "Alert",
         "Badge",
         "Button",
+        "CardListItem",
         "Divider",
         "Input",
         "Link",
@@ -73,8 +74,7 @@ struct DSComponents {
         "ProgressIndicator",
         "StatusListItem",
         "Tag",
-        "Typography",
-        "CardListItem"
+        "Typography"
     ]
 }
 

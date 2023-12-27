@@ -24,6 +24,7 @@ extension OceanSwiftUI {
         @Published public var iconHelper: UIImage?
         @Published public var keyboardType: UIKeyboardType
         @Published public var textContentType: UITextContentType?
+        @Published public var showSkeleton: Bool
         @Published public var onMask: ((String) -> String)?
         @Published public var onTouchIcon: () -> Void
         @Published public var onTouchIconHelper: () -> Void
@@ -38,6 +39,7 @@ extension OceanSwiftUI {
                     iconHelper: UIImage? = nil,
                     keyboardType: UIKeyboardType = .default,
                     textContentType: UITextContentType? = nil,
+                    showSkeleton: Bool = false,
                     onMask: ((String) -> String)? = nil,
                     onTouchIcon: @escaping () -> Void = { },
                     onTouchIconHelper: @escaping () -> Void = { }) {
@@ -51,6 +53,7 @@ extension OceanSwiftUI {
             self.iconHelper = iconHelper
             self.keyboardType = keyboardType
             self.textContentType = textContentType
+            self.showSkeleton = showSkeleton
             self.onMask = onMask
             self.onTouchIcon = onTouchIcon
             self.onTouchIconHelper = onTouchIconHelper
@@ -121,6 +124,7 @@ extension OceanSwiftUI {
                 if !self.parameters.title.isEmpty {
                     OceanSwiftUI.Typography.description { label in
                         label.parameters.text = self.parameters.title
+                        label.parameters.showSkeleton = self.parameters.showSkeleton
                     }
                     Spacer().frame(height: Ocean.size.spacingStackXxs)
                 }
@@ -143,6 +147,7 @@ extension OceanSwiftUI {
                         )
                         .font(Font(UIFont.baseRegular(size: Ocean.font.fontSizeXs)!))
                         .foregroundColor(Color(Ocean.color.colorInterfaceDarkDeep))
+                        .skeleton(with: self.parameters.showSkeleton)
 
                     if let icon = self.parameters.icon {
                         Image(uiImage: icon)
@@ -154,6 +159,7 @@ extension OceanSwiftUI {
                             .onTapGesture {
                                 self.parameters.onTouchIcon()
                             }
+                            .skeleton(with: self.parameters.showSkeleton)
                     }
                 }
 
@@ -162,11 +168,13 @@ extension OceanSwiftUI {
                         OceanSwiftUI.Typography.caption { label in
                             label.parameters.text = self.parameters.errorMessage
                             label.parameters.textColor = Ocean.color.colorStatusNegativePure
+                            label.parameters.showSkeleton = self.parameters.showSkeleton
                         }
                     } else if !self.parameters.helperMessage.isEmpty {
                         OceanSwiftUI.Typography.caption { label in
                             label.parameters.text = self.parameters.helperMessage
                             label.parameters.textColor = Ocean.color.colorInterfaceDarkUp
+                            label.parameters.showSkeleton = self.parameters.showSkeleton
                         }
 
                         Spacer().frame(width: Ocean.size.spacingStackXxxs)
@@ -180,6 +188,7 @@ extension OceanSwiftUI {
                                 .onTapGesture {
                                     self.parameters.onTouchIconHelper()
                                 }
+                                .skeleton(with: self.parameters.showSkeleton)
                         }
                     }
                 }
