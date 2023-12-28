@@ -16,31 +16,35 @@ extension OceanSwiftUI {
     public class InputTextFieldParameters: ObservableObject {
         @Published public var title: String
         @Published public var placeholder: String
-        @Published public var text: Binding<String>
+        @Published public var text: String
         @Published public var isSecureTextEntry: Bool
         @Published public var errorMessage: String
         @Published public var helperMessage: String
         @Published public var icon: UIImage?
         @Published public var iconHelper: UIImage?
         @Published public var keyboardType: UIKeyboardType
+        @Published public var autocapitalization: UITextAutocapitalizationType
         @Published public var textContentType: UITextContentType?
         @Published public var showSkeleton: Bool
         @Published public var onMask: ((String) -> String)?
+        @Published public var onValueChanged: (String) -> Void
         @Published public var onTouchIcon: () -> Void
         @Published public var onTouchIconHelper: () -> Void
 
         public init(title: String = "",
                     placeholder: String = "",
-                    text: Binding<String> = .constant(""),
+                    text: String = "",
                     isSecureTextEntry: Bool = false,
                     errorMessage: String = "",
                     helperMessage: String = "",
                     icon: UIImage? = nil,
                     iconHelper: UIImage? = nil,
                     keyboardType: UIKeyboardType = .default,
+                    autocapitalization: UITextAutocapitalizationType = .allCharacters,
                     textContentType: UITextContentType? = nil,
                     showSkeleton: Bool = false,
                     onMask: ((String) -> String)? = nil,
+                    onValueChanged: @escaping (String) -> Void = { _ in },
                     onTouchIcon: @escaping () -> Void = { },
                     onTouchIconHelper: @escaping () -> Void = { }) {
             self.title = title
@@ -52,9 +56,11 @@ extension OceanSwiftUI {
             self.icon = icon
             self.iconHelper = iconHelper
             self.keyboardType = keyboardType
+            self.autocapitalization = autocapitalization
             self.textContentType = textContentType
             self.showSkeleton = showSkeleton
             self.onMask = onMask
+            self.onValueChanged = onValueChanged
             self.onTouchIcon = onTouchIcon
             self.onTouchIconHelper = onTouchIconHelper
         }
@@ -78,15 +84,13 @@ extension OceanSwiftUI {
         // MARK: Properties private
 
         @State private var focused: Bool = false
-        @State private var text: String = ""
         @State private var textOld: String = ""
 
         // MARK: Constructors
 
         public init(parameters: InputTextFieldParameters = InputTextFieldParameters()) {
             self.parameters = parameters
-            self.text = parameters.text.wrappedValue
-            self.textOld = parameters.text.wrappedValue
+            self.textOld = parameters.text
         }
 
         public init(builder: Builder) {
@@ -99,21 +103,23 @@ extension OceanSwiftUI {
         private var textFieldView: some View {
             Group {
                 if self.parameters.isSecureTextEntry {
-                    SecureField(self.parameters.placeholder, text: self.$text, onCommit: { self.focused = false })
+                    SecureField(self.parameters.placeholder, text: self.$parameters.text, onCommit: { self.focused = false })
                         .onTapGesture {
                             self.focused = true
                         }
                 } else {
-                    TextField(self.parameters.placeholder, text: self.$text, onEditingChanged: { edit in
+                    TextField(self.parameters.placeholder, text: self.$parameters.text, onEditingChanged: { edit in
                         self.focused = edit
                     })
                 }
             }
-            .onReceive(Just(self.text), perform: { text in
+            .autocapitalization(self.parameters.autocapitalization)
+            .onReceive(Just(self.parameters.text), perform: { text in
                 let textMask = self.parameters.onMask?(text) ?? text
                 if textMask != self.textOld {
                     self.textOld = textMask
-                    self.parameters.text.wrappedValue = textMask
+                    self.parameters.text = textMask
+                    self.parameters.onValueChanged(textMask)
                     self.parameters.errorMessage = ""
                 }
             })
