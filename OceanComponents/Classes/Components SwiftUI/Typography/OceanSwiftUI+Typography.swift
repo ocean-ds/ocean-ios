@@ -14,6 +14,7 @@ extension OceanSwiftUI {
     public class TypographyParameters: ObservableObject {
         @Published public var text: String
         @Published public var textColor: UIColor
+        @Published public var tintColor: UIColor?
         @Published public var font: UIFont?
         @Published public var lineLimit: Int?
         @Published public var lineSpacing: CGFloat
@@ -27,6 +28,7 @@ extension OceanSwiftUI {
 
         public init(text: String = "",
                     textColor: UIColor = Ocean.color.colorInterfaceDarkDown,
+                    tintColor: UIColor? = nil,
                     font: UIFont? = .baseRegular(size: Ocean.font.fontSizeXs),
                     lineLimit: Int? = nil,
                     lineSpacing: CGFloat = Ocean.font.lineHeightComfy,
@@ -34,6 +36,7 @@ extension OceanSwiftUI {
                     showSkeleton: Bool = false) {
             self.text = text
             self.textColor = textColor
+            self.tintColor = tintColor
             self.font = font
             self.lineLimit = lineLimit
             self.lineSpacing = lineSpacing
@@ -71,7 +74,7 @@ extension OceanSwiftUI {
 
         // MARK: View SwiftUI
 
-        public var body: some View {
+        private var text: some View {
             Text(self.parameters.text.htmlToMarkdown())
                 .font(Font(self.parameters.font ?? .systemFont(ofSize: Ocean.font.fontSizeXs)))
                 .foregroundColor(Color(self.parameters.textColor))
@@ -80,6 +83,17 @@ extension OceanSwiftUI {
                 .multilineTextAlignment(self.parameters.multilineTextAlignment)
                 .fixedSize(horizontal: false, vertical: true)
                 .skeleton(with: self.parameters.showSkeleton)
+        }
+
+        public var body: some View {
+            Group {
+                if #available(iOS 16.0, *) {
+                    text
+                        .tint(Color(self.parameters.tintColor ?? self.parameters.textColor))
+                } else {
+                    text
+                }
+            }
         }
     }
 }
