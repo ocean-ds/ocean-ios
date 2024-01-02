@@ -100,12 +100,10 @@ class FilterBarViewController: UIViewController {
             filterBar.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
         ])
         
-        filterBar.addFilterChips([
+        filterBar.addFilters(leftItems: [
             filterChip,
             filterChip2
-        ])
-        
-        filterBar.addBasicChips([
+        ], rightItems: [
             basicChip1,
             basicChip2,
             basicChip3
