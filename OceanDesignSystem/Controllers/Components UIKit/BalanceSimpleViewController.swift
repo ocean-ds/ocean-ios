@@ -16,13 +16,8 @@ final public class BalanceSimpleViewController : UIViewController {
         view.balanceAvailable = 67762.60
         view.currentBalance = 68762.60
         view.scheduleBlu = -1000.00
-        view.balanceNotBlu = 200.00
-        view.howToUseButtonText = "Saiba mais"
         view.onStateChanged = { state in
             print(state)
-        }
-        view.howToUseTouch = {
-            print("howToUse")
         }
     }
     
