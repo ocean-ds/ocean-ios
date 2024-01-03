@@ -47,6 +47,9 @@ final public class InputSwiftUIViewController : UIViewController {
             input.parameters.placeholder = "Placeholder"
             input.parameters.helperMessage = "Helper message"
             input.parameters.errorMessage = "Error message"
+            input.parameters.onValueChanged = { _ in
+                input.parameters.errorMessage = "New error message"
+            }
         }
     }()
 
