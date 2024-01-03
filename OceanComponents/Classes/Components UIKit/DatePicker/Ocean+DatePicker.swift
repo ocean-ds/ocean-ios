@@ -20,8 +20,6 @@ extension Ocean {
         public var navigationBackgroundColor: UIColor? = Ocean.color.colorInterfaceLightPure
         public var navigationTintColor: UIColor = Ocean.color.colorBrandPrimaryPure
 
-        private var dates: [Date] = []
-
         private lazy var backView: UIImageView = {
             let view = UIImageView(image: Ocean.icon.chevronLeftSolid)
             view.contentMode = .scaleAspectFit
@@ -108,15 +106,33 @@ extension Ocean {
             }
         }()
 
-        public var selectedDate = Date()
+        public var selectedDate = Date() {
+            didSet {
+                selectedDate = selectedDate.onlyDate
+            }
+        }
+
+        public var minimumDate = Date() {
+            didSet {
+                minimumDate = minimumDate.onlyDate
+            }
+        }
+
+        public var maximumDate = Date() {
+            didSet {
+                maximumDate = maximumDate.onlyDate
+            }
+        }
+
+        public var datesToHide: [Date] = [] {
+            didSet {
+                datesToHide = datesToHide.map { $0.onlyDate }
+            }
+        }
+
+        public var disableWeekend: Bool = true
         public var onReleaseCalendar: ((Date) -> Void)?
         public var onCancel: (() -> Void)?
-
-        public var currentDate = Date()
-        public var minimumDate = Date()
-        public var maximumDate = Date()
-        public var datesToHide: [Date] = []
-        public var disableWeekend: Bool = true
 
         public override func viewDidLoad() {
             super.viewDidLoad()
@@ -238,27 +254,12 @@ extension Ocean {
         }
 
         private func dateIsToday(date: Date) -> Bool {
-            getFormatedDate(date: date) == getFormatedDate(date: Date())
+            getFormatedDate(date: date) == getFormatedDate(date: Date().onlyDate)
         }
 
         private func loadDates() {
-            dates = datesRange(fromDate: minimumDate, toDate: maximumDate)
             calendar.reloadData()
-            calendar.select(minimumDate)
-        }
-
-        private func datesRange(fromDate: Date, toDate: Date) -> [Date] {
-            if fromDate > toDate { return [Date]() }
-
-            var tempDate = fromDate
-            var array = [tempDate]
-
-            while tempDate < toDate {
-                tempDate = Calendar.current.date(byAdding: .day, value: 1, to: tempDate)!
-                array.append(tempDate)
-            }
-
-            return array
+            calendar.select(selectedDate)
         }
 
         private func getFormatedDate(date: Date) -> String {
@@ -278,11 +279,15 @@ extension Ocean {
                 return false
             }
 
-            if dates.contains(date) {
+            if isInRange(date: date, minDate: minimumDate, maxDate: maximumDate) {
                 return true
             } else {
                 return false
             }
+        }
+
+        private func isInRange(date: Date, minDate: Date, maxDate: Date) -> Bool {
+            return date >= minDate && date <= maxDate
         }
     }
 }
