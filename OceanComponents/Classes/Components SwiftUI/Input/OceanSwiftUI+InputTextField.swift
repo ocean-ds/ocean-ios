@@ -116,11 +116,11 @@ extension OceanSwiftUI {
             .autocapitalization(self.parameters.autocapitalization)
             .onReceive(Just(self.parameters.text), perform: { text in
                 let textMask = self.parameters.onMask?(text) ?? text
-                if textMask != self.textOld {
+                if textMask != self.textOld || text != self.textOld {
                     self.textOld = textMask
                     self.parameters.text = textMask
-                    self.parameters.onValueChanged(textMask)
                     self.parameters.errorMessage = ""
+                    self.parameters.onValueChanged(textMask)
                 }
             })
         }

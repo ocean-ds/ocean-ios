@@ -57,7 +57,8 @@ class ComponentsViewController: UITableViewController {
             datePicker.navigationTitle = "Agendar para"
             datePicker.minimumDate = Calendar.current.date(byAdding: .day, value: -10, to: Date())!
             datePicker.maximumDate = Calendar.current.date(byAdding: .day, value: 10, to: Date())!
-            datePicker.datesToHide = [Calendar.current.date(byAdding: .day, value: 2, to: Date())!]
+            datePicker.datesToHide = [Calendar.current.date(byAdding: .day, value: 1, to: Date())!]
+            datePicker.selectedDate = Date()
             datePicker.onCancel = {
                 print("DatePicker cancel")
             }
