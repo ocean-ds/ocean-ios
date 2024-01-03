@@ -122,7 +122,7 @@ extension Ocean {
 
         private func updateUI() {
             leftStack.isHidden = leftStack.arrangedSubviews.isEmpty
-            divider.isHidden = leftStack.arrangedSubviews.isEmpty
+            divider.isHidden = leftStack.arrangedSubviews.isEmpty || rightStack.arrangedSubviews.isEmpty
             rightStack.isHidden = rightStack.arrangedSubviews.isEmpty
         }
 
