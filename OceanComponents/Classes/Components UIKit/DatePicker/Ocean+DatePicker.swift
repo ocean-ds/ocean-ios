@@ -259,6 +259,9 @@ extension Ocean {
 
         private func loadDates() {
             calendar.reloadData()
+            if !isInRange(date: selectedDate, minDate: minimumDate, maxDate: maximumDate) {
+                selectedDate = minimumDate
+            }
             calendar.select(selectedDate)
         }
 
