@@ -24,6 +24,15 @@ extension OceanSwiftUI {
 
         weak public var rootViewController: UIViewController?
 
+        public var options: [OceanSwiftUI.FilterBarOption] {
+            get {
+                groups.flatMap { $0.options }
+            }
+            set {
+                groups = [.init(options: newValue)]
+            }
+        }
+
         public init(groups: [FilterBarGroup] = [],
                     showSkeleton: Bool = false,
                     onTouch: @escaping ([Ocean.ChipModel], FilterBarOption) -> Bool = { _, _ in return false },
@@ -88,7 +97,7 @@ extension OceanSwiftUI {
                                 Divider { divider in
                                     divider.parameters.axis = .vertical
                                 }
-                                .frame(height: Constants.itemHeight)
+                                .padding([.vertical], Ocean.size.spacingStackXs)
                             }
                         }
                     }
@@ -108,18 +117,15 @@ extension OceanSwiftUI {
                     Spacer(minLength: Ocean.size.spacingStackXxxs)
                 }
 
-                Text(option.label)
-                    .font(Font(
-                        UIFont.baseSemiBold(size: Ocean.font.fontSizeXxs)!
-                    ))
-                    .foregroundColor(Color(
-                        option.isSelected
-                        ? Ocean.color.colorInterfaceLightPure
-                        : Ocean.color.colorBrandPrimaryPure
-                    ))
-                    .frame(height: Constants.itemHeight)
-                    .fixedSize(horizontal: true, vertical: false)
-                    .padding([.vertical], Ocean.size.spacingStackXxs)
+                Typography.description { label in
+                    label.parameters.text = option.label
+                    label.parameters.textColor = option.isSelected
+                    ? Ocean.color.colorInterfaceLightPure
+                    : Ocean.color.colorBrandPrimaryPure
+                }
+                .frame(height: Constants.itemHeight)
+                .fixedSize(horizontal: true, vertical: false)
+                .padding([.vertical], Ocean.size.spacingStackXxs)
 
                 if option.mode == .multiple && option.chips.contains(where: { $0.isSelected }) {
                     badge(count: option.chips.filter { $0.isSelected }.count)
