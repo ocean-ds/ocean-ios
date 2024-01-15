@@ -11,7 +11,7 @@ import SwiftUI
 
 class FilterBarSwiftUIViewController: UIViewController {
 
-    lazy var filterBar = OceanSwiftUI.FilterBar.filterBar { filterBar in
+    lazy var filterBar = OceanSwiftUI.FilterBar { filterBar in
         filterBar.parameters.rootViewController = self
         filterBar.parameters.groups = [
             .init(mode: .multiple, options: [
