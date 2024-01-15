@@ -51,7 +51,7 @@ extension OceanSwiftUI {
         }
     }
 
-    struct Constants {
+    private struct Constants {
         static let leadingIconSize: CGFloat = 40
         static let leadingIconImageMaxSize: CGFloat = 24
         static let trailingIconImageMaxSize: CGFloat = 20

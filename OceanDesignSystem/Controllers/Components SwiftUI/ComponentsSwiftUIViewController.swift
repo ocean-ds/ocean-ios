@@ -67,6 +67,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(DividerSwiftUIViewController(), animated: true, completion: nil)
         case .Input:
             self.present(InputSwiftUIViewController(), animated: true, completion: nil)
+        case .FilterBar:
+            self.present(FilterBarSwiftUIViewController(), animated: true, completion: nil)
         }
     }
 }
