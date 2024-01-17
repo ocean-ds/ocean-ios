@@ -46,13 +46,5 @@ class SubheaderSwiftUIViewController: UIViewController {
             .fill(to: self.view)
             .make()
     }
-
-    private func showSnackbar(text: String) {
-        let snackbar = Ocean.View.snackbarInfo { view in
-            view.line = .one
-            view.snackbarText = text
-        }
-        snackbar.show(in: self.view)
-    }
 }
 

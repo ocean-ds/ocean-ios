@@ -18,12 +18,8 @@ extension OceanSwiftUI {
         static let iconSize: CGFloat = 16
     }
 
-    public enum Size {
-        case medium
-        case small
-    }
-
     public class SubheaderParameters: ObservableObject {
+
         @Published public var icon: UIImage?
         @Published public var title: String
         @Published public var subtitle: String
@@ -37,6 +33,11 @@ extension OceanSwiftUI {
             self.title = title
             self.subtitle = subtitle
             self.size = size
+        }
+
+        public enum Size {
+            case medium
+            case small
         }
     }
 
