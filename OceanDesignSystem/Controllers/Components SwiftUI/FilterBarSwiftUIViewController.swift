@@ -86,4 +86,3 @@ class FilterBarSwiftUIViewController: UIViewController {
         snackbar.show(in: self.view)
     }
 }
-

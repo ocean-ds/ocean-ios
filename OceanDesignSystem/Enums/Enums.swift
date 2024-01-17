@@ -90,6 +90,7 @@ public enum DesignSystemComponentsSwiftUIType: String {
     case OrderedListItem
     case ProgressIndicator
     case StatusListItem
+    case Subheader
     case Tag
     case Typography
 }
