@@ -74,6 +74,7 @@ struct DSComponents {
         "OrderedListItem",
         "ProgressIndicator",
         "StatusListItem",
+        "Subheader",
         "Tag",
         "Typography"
     ]
