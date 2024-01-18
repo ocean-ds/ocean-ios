@@ -72,6 +72,7 @@
 		B833D03E24A6796300587FDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B833D03D24A6796300587FDE /* Assets.xcassets */; };
 		B833D04124A6796300587FDE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B833D03F24A6796300587FDE /* LaunchScreen.storyboard */; };
 		D50896062A156A1E00ED3968 /* InformativeCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50896052A156A1E00ED3968 /* InformativeCardViewController.swift */; };
+		D50D86372B5996050075262C /* TransactionListItemSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50D86362B5996040075262C /* TransactionListItemSwiftUIViewController.swift */; };
 		D56AB26C2B4DCE700059D443 /* FilterBarSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56AB26B2B4DCE700059D443 /* FilterBarSwiftUIViewController.swift */; };
 		D5A319FD2B3B2D3200786FCD /* CardListItemSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A319FC2B3B2D3200786FCD /* CardListItemSwiftUIViewController.swift */; };
 		D5D1EEBF2B584A2F00A75EA2 /* SubheaderSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D1EEBE2B584A2F00A75EA2 /* SubheaderSwiftUIViewController.swift */; };
@@ -188,6 +189,7 @@
 		B833D04024A6796300587FDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B833D04224A6796300587FDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D50896052A156A1E00ED3968 /* InformativeCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformativeCardViewController.swift; sourceTree = "<group>"; };
+		D50D86362B5996040075262C /* TransactionListItemSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListItemSwiftUIViewController.swift; sourceTree = "<group>"; };
 		D56AB26B2B4DCE700059D443 /* FilterBarSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBarSwiftUIViewController.swift; sourceTree = "<group>"; };
 		D5A319FC2B3B2D3200786FCD /* CardListItemSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListItemSwiftUIViewController.swift; sourceTree = "<group>"; };
 		D5D1EEBE2B584A2F00A75EA2 /* SubheaderSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubheaderSwiftUIViewController.swift; sourceTree = "<group>"; };
@@ -312,6 +314,7 @@
 				42699DD92B35FCB0006E0F57 /* InputSwiftUIViewController.swift */,
 				D56AB26B2B4DCE700059D443 /* FilterBarSwiftUIViewController.swift */,
 				D5D1EEBE2B584A2F00A75EA2 /* SubheaderSwiftUIViewController.swift */,
+				D50D86362B5996040075262C /* TransactionListItemSwiftUIViewController.swift */,
 			);
 			path = "Components SwiftUI";
 			sourceTree = "<group>";
@@ -646,6 +649,7 @@
 				B7BB722224EEEB6F007F8848 /* NibWrapperView.swift in Sources */,
 				1385ADEF2694719B003F6D07 /* TooltipViewController.swift in Sources */,
 				423171AF2B11189000082955 /* StatusListItemSwiftUIViewController.swift in Sources */,
+				D50D86372B5996050075262C /* TransactionListItemSwiftUIViewController.swift in Sources */,
 				B71D65DC24CA038B00C3938C /* Models.swift in Sources */,
 				249DC9402672AD2600012411 /* SwitchViewController.swift in Sources */,
 				E10FA7972B18062100D3B0BC /* OrderedListItemSwiftUIViewController.swift in Sources */,

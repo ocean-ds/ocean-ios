@@ -76,6 +76,7 @@ struct DSComponents {
         "StatusListItem",
         "Subheader",
         "Tag",
+        "TransactionListItem",
         "Typography"
     ]
 }
