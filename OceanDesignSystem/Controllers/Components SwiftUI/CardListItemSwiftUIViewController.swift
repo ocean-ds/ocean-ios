@@ -104,3 +104,12 @@ class CardListItemSwiftUIViewController: UIViewController {
             .make()
     }
 }
+
+@available(iOS 13.0, *)
+struct CardListItemSwiftUIViewController_Preview: PreviewProvider {
+    static var previews: some View {
+        UIViewControllerPreview {
+            CardListItemSwiftUIViewController()
+        }
+    }
+}

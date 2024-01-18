@@ -87,3 +87,11 @@ class FilterBarSwiftUIViewController: UIViewController {
     }
 }
 
+@available(iOS 13.0, *)
+struct FilterBarSwiftUIViewController_Preview: PreviewProvider {
+    static var previews: some View {
+        UIViewControllerPreview {
+            FilterBarSwiftUIViewController()
+        }
+    }
+}

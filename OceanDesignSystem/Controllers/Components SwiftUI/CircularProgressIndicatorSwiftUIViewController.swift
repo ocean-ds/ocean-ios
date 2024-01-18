@@ -72,3 +72,12 @@ class CircularProgressIndicatorSwiftUIViewController: UIViewController {
             .make()
     }
 }
+
+@available(iOS 13.0, *)
+struct CircularProgressIndicatorSwiftUIViewController_Preview: PreviewProvider {
+    static var previews: some View {
+        UIViewControllerPreview {
+            CircularProgressIndicatorSwiftUIViewController()
+        }
+    }
+}

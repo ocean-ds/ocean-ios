@@ -129,3 +129,12 @@ class StatusListItemSwiftUIViewController: UIViewController {
             .make()
     }
 }
+
+@available(iOS 13.0, *)
+struct TStatusListItemSwiftUIViewController_Preview: PreviewProvider {
+    static var previews: some View {
+        UIViewControllerPreview {
+            StatusListItemSwiftUIViewController()
+        }
+    }
+}

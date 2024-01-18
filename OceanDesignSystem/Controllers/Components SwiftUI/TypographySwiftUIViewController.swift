@@ -108,3 +108,12 @@ class TypographySwiftUIViewController: UIViewController {
             .make()
     }
 }
+
+@available(iOS 13.0, *)
+struct TypographySwiftUIViewController_Preview: PreviewProvider {
+    static var previews: some View {
+        UIViewControllerPreview {
+            TypographySwiftUIViewController()
+        }
+    }
+}

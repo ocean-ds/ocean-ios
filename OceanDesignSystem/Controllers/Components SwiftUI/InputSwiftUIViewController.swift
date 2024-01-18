@@ -73,3 +73,12 @@ final public class InputSwiftUIViewController : UIViewController {
             .make()
     }
 }
+
+@available(iOS 13.0, *)
+struct InputSwiftUIViewController_Preview: PreviewProvider {
+    static var previews: some View {
+        UIViewControllerPreview {
+            InputSwiftUIViewController()
+        }
+    }
+}

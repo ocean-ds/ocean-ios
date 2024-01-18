@@ -83,3 +83,12 @@ class OrderedListItemSwiftUIViewController: UIViewController {
             .make()
     }
 }
+
+@available(iOS 13.0, *)
+struct OrderedListItemSwiftUIViewController_Preview: PreviewProvider {
+    static var previews: some View {
+        UIViewControllerPreview {
+            OrderedListItemSwiftUIViewController()
+        }
+    }
+}
