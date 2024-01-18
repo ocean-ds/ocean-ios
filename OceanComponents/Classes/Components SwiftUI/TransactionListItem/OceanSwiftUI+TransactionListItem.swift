@@ -28,12 +28,12 @@ extension OceanSwiftUI {
 
         public var sign: String {
             switch valueStatus {
-            case .neutral:
-                ""
             case .positive:
-                "+"
+                return "+"
             case .negative:
-                "-"
+                return "-"
+            default:
+                return ""
             }
         }
 
