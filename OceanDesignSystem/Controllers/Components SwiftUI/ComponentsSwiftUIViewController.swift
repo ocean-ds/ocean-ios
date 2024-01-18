@@ -71,6 +71,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(FilterBarSwiftUIViewController(), animated: true, completion: nil)
         case .Subheader:
             self.present(SubheaderSwiftUIViewController(), animated: true, completion: nil)
+        case .TransactionListItem:
+            self.present(TransactionListItemSwiftUIViewController(), animated: true, completion: nil)
         }
     }
 }

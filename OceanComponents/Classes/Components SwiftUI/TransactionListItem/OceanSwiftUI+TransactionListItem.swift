@@ -16,8 +16,8 @@ extension OceanSwiftUI {
         @Published public var level2: String
         @Published public var level3: String
         @Published public var level4: String
-        @Published public var value1: String
-        @Published public var value2: String
+        @Published public var value1: Double
+        @Published public var value2: Double?
         @Published public var value3: String
         @Published public var valueStatus: ValueStatus
         @Published public var tagIcon: UIImage?
@@ -26,12 +26,23 @@ extension OceanSwiftUI {
         @Published public var hasDivider: Bool
         @Published public var onTouch: () -> Void
 
+        public var sign: String {
+            switch valueStatus {
+            case .neutral:
+                ""
+            case .positive:
+                "+"
+            case .negative:
+                "-"
+            }
+        }
+
         public init(level1: String = "",
                     level2: String = "",
                     level3: String = "",
                     level4: String = "",
-                    value1: String = "",
-                    value2: String = "",
+                    value1: Double = 0.0,
+                    value2: Double? = nil,
                     value3: String = "",
                     valueStatus: ValueStatus = .neutral,
                     tagIcon: UIImage? = nil,
@@ -95,7 +106,7 @@ extension OceanSwiftUI {
                     leadingView
                     trailingView
                 }
-                .padding(.all, Ocean.size.spacingStackXs)
+                .padding([.horizontal, .bottom], Ocean.size.spacingStackXs)
 
                 if parameters.hasDivider {
                     Divider()
@@ -162,7 +173,7 @@ extension OceanSwiftUI {
         private var trailingView: some View {
             VStack(alignment: .trailing) {
                 OceanSwiftUI.Typography.heading5 { label in
-                    label.parameters.text = parameters.value1
+                    label.parameters.text = "\(parameters.sign) \(parameters.value1.toCurrency(symbolSpace: true) ?? " R$ 0,00")"
                     label.parameters.textColor = parameters.valueStatus == .positive
                     ? Ocean.color.colorStatusPositiveDeep
                     : Ocean.color.colorInterfaceDarkDeep
@@ -173,9 +184,9 @@ extension OceanSwiftUI {
                 Spacer()
                     .frame(height: Ocean.size.spacingStackXxxs)
 
-                if !parameters.value2.isEmpty {
+                if let value = parameters.value2?.toCurrency() {
                     OceanSwiftUI.Typography.description { label in
-                        label.parameters.text = parameters.value2
+                        label.parameters.text = value
                         label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
                         label.parameters.lineLimit = 1
                         label.parameters.font = .baseRegular(size: Ocean.font.fontSizeXxs)
@@ -216,8 +227,8 @@ struct TransactionListItem_Preview: PreviewProvider {
         view.parameters.level2 = "Level 2"
         view.parameters.level3 = "Level 3"
         view.parameters.level4 = "Level 4"
-        view.parameters.value1 = "R$ 1.000.000.00"
-        view.parameters.value2 = "R$ 1.00"
+        view.parameters.value1 = 1000000
+        view.parameters.value2 = 1.00
         view.parameters.value3 = "09:00"
         view.parameters.valueStatus = .positive
         view.parameters.tagTitle = "Label"

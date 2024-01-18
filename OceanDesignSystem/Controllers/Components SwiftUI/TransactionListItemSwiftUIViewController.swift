@@ -17,7 +17,7 @@ class TransactionListItemSwiftUIViewController: UIViewController {
             view.parameters.level2 = "Digilab Laboratório Óptico Digital Ltda"
             view.parameters.level3 = "Lente de contato Mônica"
             view.parameters.level4 = "Lojista 2"
-            view.parameters.value1 = "+ R$ 2.500,00"
+            view.parameters.value1 = 2500
             view.parameters.value3 = "09:00"
             view.parameters.valueStatus = .positive
             view.parameters.tagTitle = "Pago"
@@ -33,7 +33,7 @@ class TransactionListItemSwiftUIViewController: UIViewController {
             view.parameters.level1 = "Boleto pago"
             view.parameters.level2 = "Digilab Laboratório Óptico Digital Ltda"
             view.parameters.level3 = "Lente de contato Mônica"
-            view.parameters.value1 = "- R$ 1.546,90"
+            view.parameters.value1 = 1546.90
             view.parameters.value3 = "19:00"
             view.parameters.valueStatus = .negative
             view.parameters.tagTitle = "Pendente"
@@ -48,7 +48,7 @@ class TransactionListItemSwiftUIViewController: UIViewController {
         OceanSwiftUI.TransactionListItem { view in
             view.parameters.level1 = "Transferência recebida"
             view.parameters.level2 = "Digilab Laboratório Óptico Digital Ltda"
-            view.parameters.value1 = "+ R$ 500,00"
+            view.parameters.value1 = 500
             view.parameters.value3 = "12:00"
             view.parameters.valueStatus = .positive
             view.parameters.tagTitle = "Cancelado"
@@ -63,7 +63,7 @@ class TransactionListItemSwiftUIViewController: UIViewController {
         OceanSwiftUI.TransactionListItem { view in
             view.parameters.level1 = "Transferência enviada"
             view.parameters.level2 = "Digilab Laboratório Óptico Digital Ltda"
-            view.parameters.value1 = "+ R$ 200"
+            view.parameters.value1 = 200
             view.parameters.value3 = "12:00"
             view.parameters.valueStatus = .negative
             view.parameters.tagIcon = Ocean.icon.documentAddSolid
@@ -78,7 +78,7 @@ class TransactionListItemSwiftUIViewController: UIViewController {
     public lazy var transactionListItem5: OceanSwiftUI.TransactionListItem = {
         OceanSwiftUI.TransactionListItem { view in
             view.parameters.level1 = "Antecipação de recebíveis"
-            view.parameters.value1 = "R$ 800,00"
+            view.parameters.value1 = 800
             view.parameters.value3 = "13:00"
             view.parameters.valueStatus = .neutral
             view.parameters.onTouch = {
@@ -90,7 +90,7 @@ class TransactionListItemSwiftUIViewController: UIViewController {
     public lazy var transactionListItem6: OceanSwiftUI.TransactionListItem = {
         OceanSwiftUI.TransactionListItem { view in
             view.parameters.level1 = "Maskel Indústria e Comércio de Colchões da Silva Sauro Industrial"
-            view.parameters.value1 = "R$ 15.000,00"
+            view.parameters.value1 = 15000
             view.parameters.value3 = "Agendado 24 Jun 2021"
             view.parameters.valueStatus = .neutral
             view.parameters.onTouch = {
@@ -103,8 +103,8 @@ class TransactionListItemSwiftUIViewController: UIViewController {
         OceanSwiftUI.TransactionListItem { view in
             view.parameters.level1 = "Amex"
             view.parameters.level2 = "Rede"
-            view.parameters.value1 = "R$ 15.000,00"
-            view.parameters.value2 = "R$ 1.490,00"
+            view.parameters.value1 = 15000
+            view.parameters.value2 = 1490.00
             view.parameters.value3 = "Confirmado às 14:00"
             view.parameters.valueStatus = .positive
             view.parameters.hasDivider = false
@@ -116,6 +116,7 @@ class TransactionListItemSwiftUIViewController: UIViewController {
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
+            Spacer(minLength: 40)
             transactionListItem1
             transactionListItem2
             transactionListItem3
