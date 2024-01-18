@@ -19,7 +19,7 @@ extension OceanSwiftUI {
         @Published public var value1: Double
         @Published public var value2: Double?
         @Published public var value3: String
-        @Published public var valueStatus: ValueStatus
+        @Published public var value1Status: ValueStatus
         @Published public var tagIcon: UIImage?
         @Published public var tagTitle: String
         @Published public var tagStatus: OceanSwiftUI.TagParameters.Status
@@ -27,7 +27,7 @@ extension OceanSwiftUI {
         @Published public var onTouch: () -> Void
 
         public var sign: String {
-            switch valueStatus {
+            switch value1Status {
             case .positive:
                 return "+"
             case .negative:
@@ -44,7 +44,7 @@ extension OceanSwiftUI {
                     value1: Double = 0.0,
                     value2: Double? = nil,
                     value3: String = "",
-                    valueStatus: ValueStatus = .neutral,
+                    value1Status: ValueStatus = .neutral,
                     tagIcon: UIImage? = nil,
                     tagTitle: String = "",
                     tagStatus: OceanSwiftUI.TagParameters.Status = .neutral,
@@ -57,7 +57,7 @@ extension OceanSwiftUI {
             self.value1 = value1
             self.value2 = value2
             self.value3 = value3
-            self.valueStatus = valueStatus
+            self.value1Status = value1Status
             self.tagIcon = tagIcon
             self.tagTitle = tagTitle
             self.tagStatus = tagStatus
@@ -174,7 +174,7 @@ extension OceanSwiftUI {
             VStack(alignment: .trailing) {
                 OceanSwiftUI.Typography.heading5 { label in
                     label.parameters.text = "\(parameters.sign) \(parameters.value1.toCurrency(symbolSpace: true) ?? " R$ 0,00")"
-                    label.parameters.textColor = parameters.valueStatus == .positive
+                    label.parameters.textColor = parameters.value1Status == .positive
                     ? Ocean.color.colorStatusPositiveDeep
                     : Ocean.color.colorInterfaceDarkDeep
                     label.parameters.lineLimit = 1
@@ -230,7 +230,7 @@ struct TransactionListItem_Preview: PreviewProvider {
         view.parameters.value1 = 1000000
         view.parameters.value2 = 1.00
         view.parameters.value3 = "09:00"
-        view.parameters.valueStatus = .positive
+        view.parameters.value1Status = .positive
         view.parameters.tagTitle = "Label"
         view.parameters.tagIcon = Ocean.icon.checkSolid
         view.parameters.tagStatus = .important

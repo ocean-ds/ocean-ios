@@ -19,7 +19,7 @@ class TransactionListItemSwiftUIViewController: UIViewController {
             view.parameters.level4 = "Lojista 2"
             view.parameters.value1 = 2500
             view.parameters.value3 = "09:00"
-            view.parameters.valueStatus = .positive
+            view.parameters.value1Status = .positive
             view.parameters.tagTitle = "Pago"
             view.parameters.tagStatus = .positive
             view.parameters.onTouch = {
@@ -35,7 +35,7 @@ class TransactionListItemSwiftUIViewController: UIViewController {
             view.parameters.level3 = "Lente de contato Mônica"
             view.parameters.value1 = 1546.90
             view.parameters.value3 = "19:00"
-            view.parameters.valueStatus = .negative
+            view.parameters.value1Status = .negative
             view.parameters.tagTitle = "Pendente"
             view.parameters.tagStatus = .warning
             view.parameters.onTouch = {
@@ -50,7 +50,7 @@ class TransactionListItemSwiftUIViewController: UIViewController {
             view.parameters.level2 = "Digilab Laboratório Óptico Digital Ltda"
             view.parameters.value1 = 500
             view.parameters.value3 = "12:00"
-            view.parameters.valueStatus = .positive
+            view.parameters.value1Status = .positive
             view.parameters.tagTitle = "Cancelado"
             view.parameters.tagStatus = .negative
             view.parameters.onTouch = {
@@ -65,7 +65,7 @@ class TransactionListItemSwiftUIViewController: UIViewController {
             view.parameters.level2 = "Digilab Laboratório Óptico Digital Ltda"
             view.parameters.value1 = 200
             view.parameters.value3 = "12:00"
-            view.parameters.valueStatus = .negative
+            view.parameters.value1Status = .negative
             view.parameters.tagIcon = Ocean.icon.documentAddSolid
             view.parameters.tagTitle = "Pendente"
             view.parameters.tagStatus = .warning
@@ -80,7 +80,7 @@ class TransactionListItemSwiftUIViewController: UIViewController {
             view.parameters.level1 = "Antecipação de recebíveis"
             view.parameters.value1 = 800
             view.parameters.value3 = "13:00"
-            view.parameters.valueStatus = .neutral
+            view.parameters.value1Status = .neutral
             view.parameters.onTouch = {
                 print("Touched!")
             }
@@ -92,7 +92,7 @@ class TransactionListItemSwiftUIViewController: UIViewController {
             view.parameters.level1 = "Maskel Indústria e Comércio de Colchões da Silva Sauro Industrial"
             view.parameters.value1 = 15000
             view.parameters.value3 = "Agendado 24 Jun 2021"
-            view.parameters.valueStatus = .neutral
+            view.parameters.value1Status = .neutral
             view.parameters.onTouch = {
                 print("Touched!")
             }
@@ -106,7 +106,7 @@ class TransactionListItemSwiftUIViewController: UIViewController {
             view.parameters.value1 = 15000
             view.parameters.value2 = 1490.00
             view.parameters.value3 = "Confirmado às 14:00"
-            view.parameters.valueStatus = .positive
+            view.parameters.value1Status = .positive
             view.parameters.hasDivider = false
             view.parameters.onTouch = {
                 print("Touched!")
