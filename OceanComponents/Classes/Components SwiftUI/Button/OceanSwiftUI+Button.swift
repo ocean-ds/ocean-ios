@@ -19,7 +19,7 @@ extension OceanSwiftUI {
         @Published public var size: Size
         @Published public var isDisabled: Bool
         @Published public var showSkeleton: Bool
-        @Published public var onTouch: () -> Void = { }
+        public var onTouch: () -> Void = { }
         
         public enum Style {
             case primary

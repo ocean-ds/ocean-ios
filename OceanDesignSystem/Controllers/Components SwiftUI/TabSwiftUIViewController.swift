@@ -14,35 +14,63 @@ import OceanComponents
 class TabSwiftUIViewController: UIViewController {
 
     lazy var tabPayments: any View = {
-        VStack {
-            Spacer()
-            OceanSwiftUI.Typography.heading1 { view in
-                view.parameters.text = "Pagamentos"
+            VStack(alignment: .center) {
+                Spacer()
+                OceanSwiftUI.Button.primaryMD { button in
+                    button.parameters.text = "Ir para aba 1"
+                    button.parameters.onTouch = {
+                        self.tab.parameters.setSelectedIndex(1)
+                    }
+                }
+                Spacer()
+                OceanSwiftUI.Button.primaryMD { button in
+                    button.parameters.text = "Mudar dados aba 0"
+                    button.parameters.onTouch = self.updateTab
+                }
+                Spacer()
             }
-        }
+            .padding()
+            .background(Color.red)
+            .frame(maxHeight: 300)
     }()
 
     lazy var tabReceipts: any View = {
-        VStack {
+        VStack(alignment: .center) {
             Spacer()
-            OceanSwiftUI.Typography.heading1 { view in
-                view.parameters.text = "Recebimentos"
+            OceanSwiftUI.Button.primaryMD { button in
+                button.parameters.text = "Ir de aba 0"
+                button.parameters.onTouch = {
+                    self.tab.parameters.setSelectedIndex(0)
+                }
             }
+            Spacer()
+            OceanSwiftUI.Button.primaryMD { button in
+                button.parameters.text = "Mudar dados aba 1"
+                button.parameters.onTouch = self.updateTab
+            }
+            Spacer()
+        }
+        .padding()
+        .background(Color.red)
+        .frame(maxHeight: 300)
+    }()
+
+    lazy var tab: OceanSwiftUI.TabBar = {
+        OceanSwiftUI.TabBar { tab in
+            tab.parameters.tabs = [
+                .init(title: "Pagamentos",
+                      view: tabPayments,
+                      badgeNumber: 10),
+                .init(title: "Recebimentos",
+                      view: tabReceipts)
+            ]
+            tab.parameters.setSelectedIndex(1)
+            tab.parameters.onTouch = tabSelected
         }
     }()
 
-    var tab: OceanSwiftUI.TabBar {
-        OceanSwiftUI.TabBar { tab in
-            tab.parameters.tabs = [
-                .init(title: "Pagamentos", view: tabPayments, isSelected: true, badgeNumber: 10),
-                .init(title: "Recebimentos", view: tabReceipts, isSelected: false)
-            ]
-            tab.parameters.onTouch = tabSelected
-        }
-    }
-
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
-        VStack(spacing: Ocean.size.spacingStackXs) {
+        VStack {
             tab
         }
     })
@@ -60,7 +88,16 @@ class TabSwiftUIViewController: UIViewController {
     }
 
     private func tabSelected(_ tab: Int) {
-        print("Tab selecionada: \(tab)")
+        print("QWERT: Tab selecionada: \(tab)")
+    }
+
+    private func updateTab() {
+        self.tab.parameters.updateTab(
+            tab: .init(title: "Droguinha!",
+                       view: tabReceipts,
+                       badgeNumber: 3,
+                       badgeStatus: .highlight),
+            index: 1)
     }
 }
 

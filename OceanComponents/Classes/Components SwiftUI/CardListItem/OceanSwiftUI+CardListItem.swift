@@ -26,7 +26,7 @@ extension OceanSwiftUI {
 
         @Published public var showSkeleton: Bool
 
-        @Published public var onTouch: (() -> Void)
+        public var onTouch: (() -> Void)
 
         public init(title: String = "", 
                     subtitle: String = "",
