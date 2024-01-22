@@ -148,8 +148,6 @@ extension OceanSwiftUI {
                 if let tab = parameters.tabs[safe: parameters.tabSelectedIndex] {
                     tab.contentView
                 }
-
-                EmptyView()
             }
         }
     }

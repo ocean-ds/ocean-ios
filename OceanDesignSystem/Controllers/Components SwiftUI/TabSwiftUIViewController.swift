@@ -24,15 +24,13 @@ class TabSwiftUIViewController: UIViewController {
                         self.tab.parameters.setSelectedIndex(1)
                     }
                 }
-                Spacer()
                 OceanSwiftUI.Button.primaryMD { button in
-                    button.parameters.text = "Mudar dados aba 0"
+                    button.parameters.text = "Mudar dados aba 1"
                     button.parameters.onTouch = self.updateTab
                 }
-                Spacer()
             }
             .padding()
-            .frame(maxHeight: 300)
+            .frame(maxHeight: .infinity)
     }()
 
     lazy var tabReceipts: any View = {
@@ -44,21 +42,19 @@ class TabSwiftUIViewController: UIViewController {
                     self.tab.parameters.setSelectedIndex(0)
                 }
             }
-            Spacer()
             OceanSwiftUI.Button.primaryMD { button in
                 button.parameters.text = "Mudar dados aba 1"
                 button.parameters.onTouch = self.updateTab
             }
-            Spacer()
         }
         .padding()
-        .frame(maxHeight: 300)
+        .frame(maxHeight: .infinity)
     }()
 
     lazy var tab: OceanSwiftUI.TabBar = {
         OceanSwiftUI.TabBar { tab in
             tab.parameters.tabs = [
-                .init(title: "Pagamentos",
+                .init(title: "Novo Titulo",
                       view: tabPayments,
                       badgeNumber: 10),
                 .init(title: "Recebimentos",
