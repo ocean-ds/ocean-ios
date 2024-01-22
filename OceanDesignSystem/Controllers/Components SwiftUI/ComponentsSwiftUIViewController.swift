@@ -75,6 +75,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(SubheaderSwiftUIViewController(), animated: true, completion: nil)
         case .TransactionListItem:
             self.present(TransactionListItemSwiftUIViewController(), animated: true, completion: nil)
+        case .FileUploader:
+            self.present(FileUploaderSwiftUIViewController(), animated: true, completion: nil)
         }
     }
 }
