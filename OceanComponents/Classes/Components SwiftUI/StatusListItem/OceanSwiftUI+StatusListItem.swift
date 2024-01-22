@@ -23,7 +23,7 @@ extension OceanSwiftUI {
         @Published public var badgeStatus: BadgeParameters.Status
         @Published public var badgePosition: Position
         @Published public var showSkeleton: Bool
-        @Published public var onTouch: () -> Void = { }
+        public var onTouch: () -> Void = { }
 
         public enum Style {
             case normal

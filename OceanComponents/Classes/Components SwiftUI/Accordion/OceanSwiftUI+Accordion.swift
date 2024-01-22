@@ -14,7 +14,7 @@ extension OceanSwiftUI {
 
     public class AccordionParameters: ObservableObject {
         @Published public var items: [Item]
-        @Published public var onUpdateUI: () -> Void
+        public var onUpdateUI: () -> Void
 
         public init(items: [Item] = [],
                     onUpdateUI: @escaping () -> Void = { }) {

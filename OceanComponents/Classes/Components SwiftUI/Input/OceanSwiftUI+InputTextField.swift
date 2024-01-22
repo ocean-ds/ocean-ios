@@ -28,8 +28,8 @@ extension OceanSwiftUI {
         @Published public var showSkeleton: Bool
         @Published public var onMask: ((String) -> String)?
         @Published public var onValueChanged: (String) -> Void
-        @Published public var onTouchIcon: () -> Void
-        @Published public var onTouchIconHelper: () -> Void
+        public var onTouchIcon: () -> Void
+        public var onTouchIconHelper: () -> Void
 
         public init(title: String = "",
                     placeholder: String = "",

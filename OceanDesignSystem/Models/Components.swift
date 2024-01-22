@@ -75,6 +75,7 @@ struct DSComponents {
         "ProgressIndicator",
         "StatusListItem",
         "Subheader",
+        "Tab",
         "Tag",
         "TransactionListItem",
         "Typography"

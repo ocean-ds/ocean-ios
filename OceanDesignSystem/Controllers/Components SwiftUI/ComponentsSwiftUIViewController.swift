@@ -69,6 +69,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(InputSwiftUIViewController(), animated: true, completion: nil)
         case .FilterBar:
             self.present(FilterBarSwiftUIViewController(), animated: true, completion: nil)
+        case .Tab:
+            self.present(TabSwiftUIViewController(), animated: true, completion: nil)
         case .Subheader:
             self.present(SubheaderSwiftUIViewController(), animated: true, completion: nil)
         case .TransactionListItem:

@@ -22,7 +22,7 @@ extension OceanSwiftUI {
         @Published public var style: Style
         @Published public var isEnabled: Bool
         @Published public var type: LinkType
-        @Published public var onTouch: (() -> Void)
+        public var onTouch: (() -> Void)
         
         public enum Size {
             case medium

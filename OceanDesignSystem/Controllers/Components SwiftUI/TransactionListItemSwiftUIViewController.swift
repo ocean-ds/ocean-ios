@@ -147,19 +147,3 @@ struct TransactionListItemSwiftUIViewController_Preview: PreviewProvider {
         }
     }
 }
-
-struct UIViewControllerPreview<T: UIViewController>: UIViewControllerRepresentable {
-    let viewController: T
-
-    init(_ builder: @escaping () -> T) {
-        viewController = builder()
-    }
-
-    func makeUIViewController(context: Context) -> T {
-        viewController
-    }
-
-    func updateUIViewController(_ uiViewController: T, context: UIViewControllerRepresentableContext<UIViewControllerPreview<T>>) {
-        return
-    }
-}

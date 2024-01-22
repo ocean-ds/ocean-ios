@@ -21,7 +21,7 @@ extension OceanSwiftUI {
         @Published public var style: Style
         @Published public var actionText: String
         @Published public var actionType: ActionType
-        @Published public var actionOnTouch: () -> Void
+        public var actionOnTouch: () -> Void
 
         public enum Status {
             case info
