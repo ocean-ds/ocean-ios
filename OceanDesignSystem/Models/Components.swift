@@ -69,6 +69,7 @@ struct DSComponents {
         "CardListItem",
         "Divider",
         "Input",
+        "FileUploader",
         "FilterBar",
         "Link",
         "OrderedListItem",

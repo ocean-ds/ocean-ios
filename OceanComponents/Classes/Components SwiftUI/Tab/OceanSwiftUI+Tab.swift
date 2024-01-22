@@ -62,7 +62,7 @@ extension OceanSwiftUI {
         }
     }
 
-    public struct TabBar: View {
+    public struct Tab: View {
 
         // MARK: Properties for UIKit
 
@@ -71,7 +71,7 @@ extension OceanSwiftUI {
 
         // MARK: Builder
 
-        public typealias Builder = (TabBar) -> Void
+        public typealias Builder = (Tab) -> Void
 
         // MARK: Properties
 
