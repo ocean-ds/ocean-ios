@@ -13,6 +13,8 @@ import OceanComponents
 
 class TabSwiftUIViewController: UIViewController {
 
+    private static var badgeNumber: Int = 0
+
     lazy var tabPayments: any View = {
             VStack(alignment: .center) {
                 Spacer()
@@ -30,7 +32,6 @@ class TabSwiftUIViewController: UIViewController {
                 Spacer()
             }
             .padding()
-            .background(Color.red)
             .frame(maxHeight: 300)
     }()
 
@@ -38,7 +39,7 @@ class TabSwiftUIViewController: UIViewController {
         VStack(alignment: .center) {
             Spacer()
             OceanSwiftUI.Button.primaryMD { button in
-                button.parameters.text = "Ir de aba 0"
+                button.parameters.text = "Ir para aba 0"
                 button.parameters.onTouch = {
                     self.tab.parameters.setSelectedIndex(0)
                 }
@@ -51,7 +52,6 @@ class TabSwiftUIViewController: UIViewController {
             Spacer()
         }
         .padding()
-        .background(Color.red)
         .frame(maxHeight: 300)
     }()
 
@@ -92,10 +92,11 @@ class TabSwiftUIViewController: UIViewController {
     }
 
     private func updateTab() {
+        TabSwiftUIViewController.badgeNumber += 1
         self.tab.parameters.updateTab(
-            tab: .init(title: "Droguinha!",
+            tab: .init(title: "Recebimentos",
                        view: tabReceipts,
-                       badgeNumber: 3,
+                       badgeNumber: TabSwiftUIViewController.badgeNumber,
                        badgeStatus: .highlight),
             index: 1)
     }
