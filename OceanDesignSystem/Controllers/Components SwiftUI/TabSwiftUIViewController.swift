@@ -51,8 +51,8 @@ class TabSwiftUIViewController: UIViewController {
         .frame(maxHeight: .infinity)
     }()
 
-    lazy var tab: OceanSwiftUI.TabBar = {
-        OceanSwiftUI.TabBar { tab in
+    lazy var tab: OceanSwiftUI.Tab = {
+        OceanSwiftUI.Tab { tab in
             tab.parameters.tabs = [
                 .init(title: "Novo Titulo",
                       view: tabPayments,
