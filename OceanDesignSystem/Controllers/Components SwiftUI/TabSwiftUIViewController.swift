@@ -16,8 +16,8 @@ class TabSwiftUIViewController: UIViewController {
     private static var badgeNumber: Int = 0
 
     lazy var tabPayments: any View = {
+        ScrollView {
             VStack(alignment: .center) {
-                Spacer()
                 OceanSwiftUI.Button.primaryMD { button in
                     button.parameters.text = "Ir para aba 1"
                     button.parameters.onTouch = {
@@ -30,25 +30,27 @@ class TabSwiftUIViewController: UIViewController {
                 }
             }
             .padding()
-            .frame(maxHeight: .infinity)
+        }
+        .background(Color(Ocean.color.colorInterfaceLightDown))
     }()
 
     lazy var tabReceipts: any View = {
-        VStack(alignment: .center) {
-            Spacer()
-            OceanSwiftUI.Button.primaryMD { button in
-                button.parameters.text = "Ir para aba 0"
-                button.parameters.onTouch = {
-                    self.tab.parameters.setSelectedIndex(0)
+        ScrollView {
+            VStack(alignment: .center) {
+                OceanSwiftUI.Button.primaryMD { button in
+                    button.parameters.text = "Ir para aba 0"
+                    button.parameters.onTouch = {
+                        self.tab.parameters.setSelectedIndex(0)
+                    }
+                }
+                OceanSwiftUI.Button.primaryMD { button in
+                    button.parameters.text = "Mudar dados aba 1"
+                    button.parameters.onTouch = self.updateTab
                 }
             }
-            OceanSwiftUI.Button.primaryMD { button in
-                button.parameters.text = "Mudar dados aba 1"
-                button.parameters.onTouch = self.updateTab
-            }
+            .padding()
         }
-        .padding()
-        .frame(maxHeight: .infinity)
+        .background(Color(Ocean.color.colorInterfaceLightDown))
     }()
 
     lazy var tab: OceanSwiftUI.Tab = {
@@ -65,11 +67,7 @@ class TabSwiftUIViewController: UIViewController {
         }
     }()
 
-    public lazy var hostingController = UIHostingController(rootView: ScrollView {
-        VStack {
-            tab
-        }
-    })
+    public lazy var hostingController = UIHostingController(rootView: tab)
 
     public lazy var uiView = self.hostingController.getUIView()
 
