@@ -15,13 +15,16 @@ extension OceanSwiftUI {
     public class TabParameters: ObservableObject {
         @Published public var tabs: [TabModel]
         @Published private(set) var tabSelectedIndex: Int = 0
+        @Published public var contentIdealHeight: CGFloat? = nil
         public var onTouch: ((Int) -> Void)
 
         public init(tabs: [TabModel] = [],
                     tabSelectedIndex: Int = 0,
+                    contentIdealHeight: CGFloat? = nil,
                     onTouch: @escaping ((Int) -> Void) = { _ in }) {
             self.tabs = tabs
             self.tabSelectedIndex = tabSelectedIndex
+            self.contentIdealHeight = contentIdealHeight
             self.onTouch = onTouch
         }
 
@@ -99,10 +102,13 @@ extension OceanSwiftUI {
                         getTab(self.parameters.tabs[index], index: index)
                     }
                 }
-                .frame(maxWidth: .infinity, idealHeight: 60)
+                .frame(height: 60)
 
                 Divider()
+
                 getContent()
+                    .frame(minWidth: 0, maxWidth: .infinity,
+                           minHeight: 0, idealHeight: self.parameters.contentIdealHeight, maxHeight: .infinity)
             }
         }
 
