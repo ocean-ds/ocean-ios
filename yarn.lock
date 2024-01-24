@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@useblu/ocean-tokens@^3.3.1":
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/@useblu/ocean-tokens/-/ocean-tokens-3.3.1.tgz#bfc99e1b6d2f9244997c4a4b4e6357d1643d9b5d"
-  integrity sha512-lkd5txlA0v7fQixhdHIK8s3DW97J/+BIUThnakhcDEprWPNJYB/BSCcBA4Mf3gQ6Ihk8dyo0XYFOJwWW2pATsw==
+"@useblu/ocean-tokens@^3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@useblu/ocean-tokens/-/ocean-tokens-3.4.0.tgz#066f960e78efa8a4bc86c0f32d791e04ee66f6f5"
+  integrity sha512-rszMLAaBT6DsQh4p4E5VG13+3rC+DU3nZGgEAEX9qezeLXbnjdXITldFSv5KLLC/7dGhE2ApOZoUTXQzkucQpA==
   dependencies:
     gulp "^4.0.2"
     gulp-dom "^1.0.0"
