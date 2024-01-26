@@ -98,7 +98,8 @@ extension OceanSwiftUI {
                             .skeleton(with: true,
                                       size: CGSize(width: geometryReader.size.width, 
                                                    height: Constants.skeletonHeight),
-                                      shape: .rectangle)
+                                      shape: .rounded(.radius(Ocean.size.borderRadiusSm,
+                                                              style: .circular)))
                     }
                 } else {
                     HStack {
@@ -176,7 +177,7 @@ extension OceanSwiftUI {
 
         private struct Constants {
             static let iconSize: CGFloat = 20
-            static let skeletonHeight: CGFloat = 20
+            static let skeletonHeight: CGFloat = 24
         }
     }
 }
