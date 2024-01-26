@@ -10,11 +10,6 @@ import OceanTokens
 
 extension OceanSwiftUI {
 
-    private struct Constants {
-        static let iconSize: CGFloat = 20
-        static let skeletonHeight: CGFloat = 20
-    }
-
     public class InvertedTextListItemParameters: ObservableObject {
 
         @Published public var title: String
@@ -177,6 +172,11 @@ extension OceanSwiftUI {
             case .strikethrough:
                 Ocean.color.colorStatusPositiveDeep
             }
+        }
+
+        private struct Constants {
+            static let iconSize: CGFloat = 20
+            static let skeletonHeight: CGFloat = 20
         }
     }
 }
