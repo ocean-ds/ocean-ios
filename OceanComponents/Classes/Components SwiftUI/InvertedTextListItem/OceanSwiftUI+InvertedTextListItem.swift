@@ -160,18 +160,16 @@ extension OceanSwiftUI {
 
         private func getStatusColor() -> UIColor {
             switch parameters.status {
-            case .normal:
-                Ocean.color.colorInterfaceDarkDeep
             case .innactive:
                 Ocean.color.colorInterfaceDarkUp
             case .positive:
                 Ocean.color.colorStatusPositiveDeep
             case .warning:
                 Ocean.color.colorStatusNeutralDeep
-            case .highlight:
-                Ocean.color.colorInterfaceDarkDeep
             case .strikethrough:
                 Ocean.color.colorStatusPositiveDeep
+            default:
+                Ocean.color.colorInterfaceDarkDeep
             }
         }
 
