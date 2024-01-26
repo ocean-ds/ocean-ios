@@ -76,9 +76,16 @@ class TypographySwiftUIViewController: UIViewController {
         }
     }()
 
+    lazy var typography12: OceanSwiftUI.Typography = {
+        OceanSwiftUI.Typography.caption { view in
+            view.parameters.text = "strikethrough"
+            view.parameters.strikethrough = true
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
-            VStack(spacing: Ocean.size.spacingStackXs) {
+            Group {
                 typography1
                 typography2
                 typography3
@@ -87,11 +94,12 @@ class TypographySwiftUIViewController: UIViewController {
                 typography6
                 typography7
             }
-            VStack(spacing: Ocean.size.spacingStackXs) {
+            Group {
                 typography8
                 typography9
                 typography10
                 typography11
+                typography12
             }
         }
     })

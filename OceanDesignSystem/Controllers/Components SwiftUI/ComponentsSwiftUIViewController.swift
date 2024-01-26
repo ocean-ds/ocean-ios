@@ -77,6 +77,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(TransactionListItemSwiftUIViewController(), animated: true, completion: nil)
         case .FileUploader:
             self.present(FileUploaderSwiftUIViewController(), animated: true, completion: nil)
+        case .InvertedTextListItem:
+            self.present(InvertedTextListItemSwiftUIViewController(), animated: true, completion: nil)
         }
     }
 }

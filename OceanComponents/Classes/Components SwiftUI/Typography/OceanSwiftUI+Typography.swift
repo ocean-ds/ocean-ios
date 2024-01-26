@@ -15,6 +15,7 @@ extension OceanSwiftUI {
         @Published public var text: String
         @Published public var textColor: UIColor
         @Published public var tintColor: UIColor?
+        @Published public var strikethrough: Bool
         @Published public var font: UIFont?
         @Published public var lineLimit: Int?
         @Published public var lineSpacing: CGFloat
@@ -29,6 +30,7 @@ extension OceanSwiftUI {
         public init(text: String = "",
                     textColor: UIColor = Ocean.color.colorInterfaceDarkDown,
                     tintColor: UIColor? = nil,
+                    strikethrough: Bool = false,
                     font: UIFont? = .baseRegular(size: Ocean.font.fontSizeXs),
                     lineLimit: Int? = nil,
                     lineSpacing: CGFloat = Ocean.font.lineHeightComfy,
@@ -37,6 +39,7 @@ extension OceanSwiftUI {
             self.text = text
             self.textColor = textColor
             self.tintColor = tintColor
+            self.strikethrough = strikethrough
             self.font = font
             self.lineLimit = lineLimit
             self.lineSpacing = lineSpacing
@@ -76,6 +79,7 @@ extension OceanSwiftUI {
 
         private var text: some View {
             Text(self.parameters.text.htmlToMarkdown())
+                .strikethrough(self.parameters.strikethrough, color: Color(Ocean.color.colorInterfaceDarkPure))
                 .font(Font(self.parameters.font ?? .systemFont(ofSize: Ocean.font.fontSizeXs)))
                 .foregroundColor(Color(self.parameters.textColor))
                 .lineLimit(self.parameters.lineLimit)
