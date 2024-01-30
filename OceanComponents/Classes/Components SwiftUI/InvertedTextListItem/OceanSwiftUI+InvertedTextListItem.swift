@@ -138,6 +138,9 @@ extension OceanSwiftUI {
                         }
 
                         if !parameters.newSubtitle.isEmpty {
+                            Spacer()
+                                .frame(width: Ocean.size.spacingInsetXxs)
+
                             OceanSwiftUI.Typography.paragraph { label in
                                 label.parameters.text = parameters.subtitle
                                 label.parameters.textColor = getStatusColor()
