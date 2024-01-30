@@ -23,6 +23,11 @@ extension OceanSwiftUI {
         @Published public var status: OceanSwiftUI.InvertedTextListItemParameters.State
         @Published public var showSkeleton: Bool
 
+        public var marginLeft: CGFloat = Ocean.size.spacingStackXs
+        public var marginRight: CGFloat = Ocean.size.spacingStackXs
+        public var marginTop: CGFloat = Ocean.size.spacingStackXxs
+        public var marginBottom: CGFloat = Ocean.size.spacingStackXxs
+
         public init(title: String = "",
                     subtitle: String = "",
                     newSubtitle: String = "",
@@ -86,7 +91,7 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 0) {
                 OceanSwiftUI.Typography.description { label in
                     label.parameters.text = parameters.title
                     label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
@@ -101,8 +106,11 @@ extension OceanSwiftUI {
                                       shape: .rounded(.radius(Ocean.size.borderRadiusSm,
                                                               style: .circular)))
                     }
+
+                    Spacer()
+                        .frame(height: parameters.marginBottom)
                 } else {
-                    HStack {
+                    HStack(spacing: 0) {
                         if let image = parameters.icon {
                             Image(uiImage: image)
                                 .resizable()
@@ -152,8 +160,10 @@ extension OceanSwiftUI {
                 }
 
             }
-            .padding(.horizontal, Ocean.size.spacingStackXs)
-            .padding(.vertical, Ocean.size.spacingStackXxs)
+            .padding(.leading, parameters.marginLeft)
+            .padding(.trailing, parameters.marginRight)
+            .padding(.top, parameters.marginTop)
+            .padding(.bottom, parameters.marginBottom)
             .background(Color(Ocean.color.colorInterfaceLightPure))
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
         }
