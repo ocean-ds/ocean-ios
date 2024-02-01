@@ -19,11 +19,11 @@ final public class InputSwiftUIViewController : UIViewController {
             input.parameters.icon = Ocean.icon.eyeOutline
             input.parameters.onTouchIcon = {
                 print("icon tapped")
-                input.parameters.isSecureTextEntry = !input.parameters.isSecureTextEntry
-                if input.parameters.isSecureTextEntry {
-                    input.parameters.icon = Ocean.icon.eyeOffOutline
-                } else {
+                input.parameters.style = input.parameters.style == .input ? .secureText : .input
+                if input.parameters.style == .input {
                     input.parameters.icon = Ocean.icon.eyeOutline
+                } else {
+                    input.parameters.icon = Ocean.icon.eyeOffOutline
                 }
             }
         }
@@ -53,11 +53,26 @@ final public class InputSwiftUIViewController : UIViewController {
         }
     }()
 
+    lazy var inputTextField4: OceanSwiftUI.InputTextField = {
+        OceanSwiftUI.InputTextField { input in
+            input.parameters.title = "Title"
+            input.parameters.placeholder = "Placeholder"
+            input.parameters.helperMessage = "Helper message"
+            input.parameters.style = .textArea
+            input.parameters.maxLenght = 140
+            input.parameters.showMaxLenght = true
+            input.parameters.onValueChanged = { value in
+                print(value)
+            }
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             inputTextField1
             inputTextField2
             inputTextField3
+            inputTextField4
         }
     })
 
