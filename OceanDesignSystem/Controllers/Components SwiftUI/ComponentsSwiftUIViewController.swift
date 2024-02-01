@@ -79,6 +79,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(FileUploaderSwiftUIViewController(), animated: true, completion: nil)
         case .InvertedTextListItem:
             self.present(InvertedTextListItemSwiftUIViewController(), animated: true, completion: nil)
+        case .RadioButtonGroup:
+            self.present(RadioButtonGroupSwiftUIViewController(), animated: true, completion: nil)
         }
     }
 }

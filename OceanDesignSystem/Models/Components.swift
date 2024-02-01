@@ -75,6 +75,7 @@ struct DSComponents {
         "Link",
         "OrderedListItem",
         "ProgressIndicator",
+        "RadioButtonGroup",
         "StatusListItem",
         "Subheader",
         "Tab",

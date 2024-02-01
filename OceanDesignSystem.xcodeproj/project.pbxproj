@@ -43,6 +43,7 @@
 		42C89A1A2A952FC100B8174A /* CircularProgressIndicatorSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C89A192A952FC100B8174A /* CircularProgressIndicatorSwiftUIViewController.swift */; };
 		42C89A612A96A89700B8174A /* TypographySwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C89A602A96A89700B8174A /* TypographySwiftUIViewController.swift */; };
 		42C8D64E2B5EA825002150B1 /* FileUploaderSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C8D64D2B5EA825002150B1 /* FileUploaderSwiftUIViewController.swift */; };
+		42D8302E2B6BFA71004B0D38 /* RadioButtonGroupSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D8302D2B6BFA71004B0D38 /* RadioButtonGroupSwiftUIViewController.swift */; };
 		42DF5BD92A8FFDBA00A77CE1 /* ComponentsSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DF5BD82A8FFDBA00A77CE1 /* ComponentsSwiftUIViewController.swift */; };
 		42DF5BDB2A8FFECB00A77CE1 /* ButtonSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DF5BDA2A8FFECB00A77CE1 /* ButtonSwiftUIViewController.swift */; };
 		42E695732B2A53A100E5AB11 /* BadgeSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E695722B2A53A100E5AB11 /* BadgeSwiftUIViewController.swift */; };
@@ -159,6 +160,7 @@
 		42C89A192A952FC100B8174A /* CircularProgressIndicatorSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressIndicatorSwiftUIViewController.swift; sourceTree = "<group>"; };
 		42C89A602A96A89700B8174A /* TypographySwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypographySwiftUIViewController.swift; sourceTree = "<group>"; };
 		42C8D64D2B5EA825002150B1 /* FileUploaderSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUploaderSwiftUIViewController.swift; sourceTree = "<group>"; };
+		42D8302D2B6BFA71004B0D38 /* RadioButtonGroupSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonGroupSwiftUIViewController.swift; sourceTree = "<group>"; };
 		42DF5BD82A8FFDBA00A77CE1 /* ComponentsSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsSwiftUIViewController.swift; sourceTree = "<group>"; };
 		42DF5BDA2A8FFECB00A77CE1 /* ButtonSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonSwiftUIViewController.swift; sourceTree = "<group>"; };
 		42E695722B2A53A100E5AB11 /* BadgeSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeSwiftUIViewController.swift; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				D50D86362B5996040075262C /* TransactionListItemSwiftUIViewController.swift */,
 				42C8D64D2B5EA825002150B1 /* FileUploaderSwiftUIViewController.swift */,
 				D5F761442B62E3D400557DB6 /* InvertedTextListItemSwiftUIViewController.swift */,
+				42D8302D2B6BFA71004B0D38 /* RadioButtonGroupSwiftUIViewController.swift */,
 			);
 			path = "Components SwiftUI";
 			sourceTree = "<group>";
@@ -717,6 +720,7 @@
 				42C8D64E2B5EA825002150B1 /* FileUploaderSwiftUIViewController.swift in Sources */,
 				E18D698E2ACB420100A1051C /* AlertSwiftUIViewController.swift in Sources */,
 				13F2534526986B9400883519 /* ModalViewController.swift in Sources */,
+				42D8302E2B6BFA71004B0D38 /* RadioButtonGroupSwiftUIViewController.swift in Sources */,
 				E1DE74F32A12C18500C9361F /* ChartCardViewController.swift in Sources */,
 				B71D65E724CA2A8200C3938C /* Cells.swift in Sources */,
 				42256BA62B0FEE410055C034 /* StatusListItemViewController.swift in Sources */,
