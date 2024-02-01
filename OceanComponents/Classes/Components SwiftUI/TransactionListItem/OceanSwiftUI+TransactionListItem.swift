@@ -24,10 +24,7 @@ extension OceanSwiftUI {
         @Published public var tagTitle: String
         @Published public var tagStatus: OceanSwiftUI.TagParameters.Status
         @Published public var hasDivider: Bool
-        public var marginLeft: CGFloat
-        public var marginRight: CGFloat
-        public var marginBottom: CGFloat
-        public var marginTop: CGFloat
+        @Published public var padding: EdgeInsets
         public var onTouch: () -> Void
 
         public var sign: String {
@@ -53,10 +50,10 @@ extension OceanSwiftUI {
                     tagTitle: String = "",
                     tagStatus: OceanSwiftUI.TagParameters.Status = .neutral,
                     hasDivider: Bool = true,
-                    marginLeft: CGFloat = Ocean.size.spacingStackXs,
-                    marginRight: CGFloat = Ocean.size.spacingStackXs,
-                    marginBottom: CGFloat = Ocean.size.spacingStackXs,
-                    marginTop: CGFloat = 0,
+                    padding: EdgeInsets = .init(top: 0,
+                                                leading: Ocean.size.spacingStackXs,
+                                                bottom: Ocean.size.spacingStackXs,
+                                                trailing: Ocean.size.spacingStackXs),
                     onTouch: @escaping () -> Void = { }) {
             self.level1 = level1
             self.level2 = level2
@@ -70,10 +67,7 @@ extension OceanSwiftUI {
             self.tagTitle = tagTitle
             self.tagStatus = tagStatus
             self.hasDivider = hasDivider
-            self.marginLeft = marginLeft
-            self.marginRight = marginRight
-            self.marginBottom = marginBottom
-            self.marginTop = marginTop
+            self.padding = padding
             self.onTouch = onTouch
         }
 
@@ -118,10 +112,7 @@ extension OceanSwiftUI {
                     leadingView
                     trailingView
                 }
-                .padding(.leading, Ocean.size.spacingStackXs)
-                .padding(.trailing, Ocean.size.spacingStackXs)
-                .padding(.top, Ocean.size.spacingStackXs)
-                .padding(.bottom, Ocean.size.spacingStackXs)
+                .padding(parameters.padding)
 
                 if parameters.hasDivider {
                     Divider()
