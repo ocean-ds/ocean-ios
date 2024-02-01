@@ -19,7 +19,7 @@ extension OceanSwiftUI {
 
         public var isSelected: Bool { chips.contains { $0.isSelected } }
         public var label: String {
-            chips.count == 1 || !isSelected
+            chips.count == 1 || !isSelected || mode == .multiple
             ? title
             : chips.first { $0.isSelected }!.title
         }
