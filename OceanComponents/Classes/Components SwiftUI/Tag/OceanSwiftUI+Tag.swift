@@ -93,6 +93,7 @@ extension OceanSwiftUI {
                     OceanSwiftUI.Typography.caption { label in
                         label.parameters.textColor = self.getColor()
                         label.parameters.text = self.parameters.label
+                        label.parameters.lineLimit = 1
                     }
                 }
                 .padding(.horizontal, self.parameters.size == .medium ? Ocean.size.spacingStackXxs : Ocean.size.spacingStackXxxs)
