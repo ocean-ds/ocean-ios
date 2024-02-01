@@ -19,8 +19,6 @@ extension Ocean {
         public static let spinner = UIImage(named: "OceanComponents.bundle/spinner", in: .bundleOceanComponents, compatibleWith: .none)
         public static let spinnerPrimary = UIImage(named: "OceanComponents.bundle/spinner-primary", in: .bundleOceanComponents, compatibleWith: .none)
         public static let swipe = UIImage(named: "OceanComponents.bundle/swipe-icon", in: .bundleOceanComponents, compatibleWith: .none)
-        public static let radioButton = UIImage(named: "OceanComponents.bundle/radio-button", in: .bundleOceanComponents, compatibleWith: .none)
-        public static let radioButtonSelected = UIImage(named: "OceanComponents.bundle/radio-button-selected", in: .bundleOceanComponents, compatibleWith: .none)
 
         // BluIcons
 

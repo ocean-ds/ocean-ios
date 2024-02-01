@@ -15,13 +15,16 @@ extension OceanSwiftUI {
     public class RadioButtonGroupParameters: ObservableObject {
         @Published public var items: [String]
         @Published private(set) var itemSelectedIndex: Int?
+        @Published public var errorMessage: String
         public var onTouch: ((Int, String) -> Void)
 
         public init(items: [String] = [],
                     itemSelectedIndex: Int? = nil,
+                    errorMessage: String = "",
                     onTouch: @escaping ((Int, String) -> Void) = { _, _ in }) {
             self.items = items
             self.itemSelectedIndex = itemSelectedIndex
+            self.errorMessage = errorMessage
             self.onTouch = onTouch
         }
 
@@ -31,6 +34,7 @@ extension OceanSwiftUI {
         }
 
         fileprivate func selectItem(item: String, index: Int) {
+            errorMessage = ""
             itemSelectedIndex = index
             onTouch(index, item)
         }
@@ -67,13 +71,19 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            VStack {
-                VStack(spacing: Ocean.size.spacingStackXs) {
+            VStack(alignment: .leading) {
+                VStack(spacing: Ocean.size.spacingStackXxs) {
                     ForEach(0..<self.parameters.items.count, id: \.self) { index in
                         getItem(self.parameters.items[index], index: index)
                     }
                 }
 
+                if !self.parameters.errorMessage.isEmpty {
+                    OceanSwiftUI.Typography.caption { label in
+                        label.parameters.text = self.parameters.errorMessage
+                        label.parameters.textColor = Ocean.color.colorStatusNegativePure
+                    }
+                }
             }
         }
 
@@ -83,8 +93,13 @@ extension OceanSwiftUI {
         private func getItem(_ item: String, index: Int) -> some View {
             VStack {
                 HStack(alignment: .center, spacing: Ocean.size.spacingStackXxs) {
-                    let icon = self.parameters.itemSelectedIndex == index ? Ocean.icon.radioButtonSelected : Ocean.icon.radioButton
-                    Image(uiImage: icon!)
+                    Circle()
+                        .fill(Color(Ocean.color.colorInterfaceLightPure))
+                        .frame(width: 20, height: 20)
+                        .overlay(
+                            getItemOverlay(index: index)
+                        )
+                        .padding(.all, 6)
 
                     OceanSwiftUI.Typography.description { view in
                         view.parameters.text = item
@@ -96,6 +111,24 @@ extension OceanSwiftUI {
             }
             .animation(.default, value: parameters.itemSelectedIndex)
             .onTapGesture { parameters.selectItem(item: item, index: index) }
+        }
+
+        private func getItemOverlay(index: Int) -> some View {
+            let size: CGFloat = !self.parameters.errorMessage.isEmpty ? 20 : self.parameters.itemSelectedIndex == index ? 14 :20
+            return Group {
+                if !self.parameters.errorMessage.isEmpty {
+                    Circle()
+                        .stroke(Color(Ocean.color.colorStatusNegativePure), lineWidth: 1)
+                } else if self.parameters.itemSelectedIndex == index {
+                    Circle()
+                        .stroke(Color(Ocean.color.colorComplementaryPure), lineWidth: 6)
+                } else {
+                    Circle()
+                        .stroke(Color(Ocean.color.colorInterfaceDarkUp), lineWidth: 1)
+                }
+            }
+            .frame(width: size,
+                   height: size)
         }
     }
 }

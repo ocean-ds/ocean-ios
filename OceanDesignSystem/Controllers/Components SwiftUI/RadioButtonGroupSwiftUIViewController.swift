@@ -19,9 +19,21 @@ class RadioButtonGroupSwiftUIViewController: UIViewController {
         }
     }
 
+    lazy var radioButtonError = OceanSwiftUI.RadioButtonGroup { view in
+        view.parameters.items = ["Label 1", "Label 2", "Label 3"]
+        view.parameters.onTouch = { index, value in
+            print("Index: \(index) - Value: \(value)")
+        }
+        view.parameters.errorMessage = "Selecione uma opção"
+    }
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             radioButton
+
+            OceanSwiftUI.Divider()
+
+            radioButtonError
         }
     })
 
