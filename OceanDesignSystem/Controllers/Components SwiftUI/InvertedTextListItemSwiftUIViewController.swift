@@ -21,7 +21,7 @@ class InvertedTextListItemSwiftUIViewController: UIViewController {
     lazy var invertedTextListItem2 = OceanSwiftUI.InvertedTextListItem { invertedListItem in
         invertedListItem.parameters.title = "Title"
         invertedListItem.parameters.subtitle = "Description"
-        invertedListItem.parameters.status = .innactive
+        invertedListItem.parameters.status = .inactive
     }
 
     lazy var invertedTextListItem3 = OceanSwiftUI.InvertedTextListItem { invertedListItem in

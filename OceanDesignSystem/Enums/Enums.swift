@@ -91,6 +91,7 @@ public enum DesignSystemComponentsSwiftUIType: String {
     case Link
     case OrderedListItem
     case ProgressIndicator
+    case RadioButtonGroup
     case StatusListItem
     case Subheader
     case Tab

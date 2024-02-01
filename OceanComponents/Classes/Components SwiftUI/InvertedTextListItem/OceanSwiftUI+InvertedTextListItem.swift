@@ -10,8 +10,9 @@ import OceanTokens
 
 extension OceanSwiftUI {
 
-    public class InvertedTextListItemParameters: ObservableObject {
+    // MARK: Parameter
 
+    public class InvertedTextListItemParameters: ObservableObject {
         @Published public var title: String
         @Published public var subtitle: String
         @Published public var newSubtitle: String
@@ -21,12 +22,8 @@ extension OceanSwiftUI {
         @Published public var tagStatus: OceanSwiftUI.TagParameters.Status
         @Published public var tagSize: OceanSwiftUI.TagParameters.Size
         @Published public var status: OceanSwiftUI.InvertedTextListItemParameters.State
+        @Published public var padding: EdgeInsets
         @Published public var showSkeleton: Bool
-
-        public var marginLeft: CGFloat = Ocean.size.spacingStackXs
-        public var marginRight: CGFloat = Ocean.size.spacingStackXs
-        public var marginTop: CGFloat = Ocean.size.spacingStackXxs
-        public var marginBottom: CGFloat = Ocean.size.spacingStackXxs
 
         public init(title: String = "",
                     subtitle: String = "",
@@ -37,6 +34,10 @@ extension OceanSwiftUI {
                     tagStatus: OceanSwiftUI.TagParameters.Status = .positive,
                     tagSize: OceanSwiftUI.TagParameters.Size = .medium,
                     status: OceanSwiftUI.InvertedTextListItemParameters.State = .normal,
+                    padding: EdgeInsets = .init(top: Ocean.size.spacingStackXxs,
+                                                leading: Ocean.size.spacingStackXs,
+                                                bottom: Ocean.size.spacingStackXxs,
+                                                trailing: Ocean.size.spacingStackXs),
                     showSkeleton: Bool = false) {
             self.title = title
             self.subtitle = subtitle
@@ -47,12 +48,13 @@ extension OceanSwiftUI {
             self.tagStatus = tagStatus
             self.tagSize = tagSize
             self.status = status
+            self.padding = padding
             self.showSkeleton = showSkeleton
         }
 
         public enum State {
             case normal
-            case innactive
+            case inactive
             case positive
             case warning
             case highlight
@@ -108,7 +110,7 @@ extension OceanSwiftUI {
                     }
 
                     Spacer()
-                        .frame(height: parameters.marginBottom)
+                        .frame(height: parameters.padding.bottom)
                 } else {
                     HStack(spacing: 0) {
                         if let image = parameters.icon {
@@ -163,17 +165,14 @@ extension OceanSwiftUI {
                 }
 
             }
-            .padding(.leading, parameters.marginLeft)
-            .padding(.trailing, parameters.marginRight)
-            .padding(.top, parameters.marginTop)
-            .padding(.bottom, parameters.marginBottom)
+            .padding(parameters.padding)
             .background(Color(Ocean.color.colorInterfaceLightPure))
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
         }
 
         private func getStatusColor() -> UIColor {
             switch parameters.status {
-            case .innactive:
+            case .inactive:
                 return Ocean.color.colorInterfaceDarkUp
             case .positive:
                 return Ocean.color.colorStatusPositiveDeep
