@@ -14,11 +14,11 @@ extension OceanSwiftUI {
 
     public class RadioButtonGroupParameters: ObservableObject {
         @Published public var items: [String]
-        @Published private(set) var itemSelectedIndex: Int = 0
+        @Published private(set) var itemSelectedIndex: Int?
         public var onTouch: ((Int, String) -> Void)
 
         public init(items: [String] = [],
-                    itemSelectedIndex: Int = 0,
+                    itemSelectedIndex: Int? = nil,
                     onTouch: @escaping ((Int, String) -> Void) = { _, _ in }) {
             self.items = items
             self.itemSelectedIndex = itemSelectedIndex
@@ -32,7 +32,7 @@ extension OceanSwiftUI {
 
         fileprivate func selectItem(item: String, index: Int) {
             itemSelectedIndex = index
-            onTouch(itemSelectedIndex, item)
+            onTouch(index, item)
         }
     }
 
