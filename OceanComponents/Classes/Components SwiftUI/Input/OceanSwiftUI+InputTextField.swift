@@ -17,7 +17,7 @@ extension OceanSwiftUI {
         @Published public var title: String
         @Published public var placeholder: String
         @Published public var text: String
-        @Published public var isSecureTextEntry: Bool
+        @Published public var style: Style
         @Published public var errorMessage: String
         @Published public var helperMessage: String
         @Published public var icon: UIImage?
@@ -25,6 +25,8 @@ extension OceanSwiftUI {
         @Published public var keyboardType: UIKeyboardType
         @Published public var autocapitalization: UITextAutocapitalizationType
         @Published public var textContentType: UITextContentType?
+        @Published public var maxLenght: Int?
+        @Published public var showMaxLenght: Bool
         @Published public var showSkeleton: Bool
         @Published public var onMask: ((String) -> String)?
         @Published public var onValueChanged: (String) -> Void
@@ -34,14 +36,16 @@ extension OceanSwiftUI {
         public init(title: String = "",
                     placeholder: String = "",
                     text: String = "",
-                    isSecureTextEntry: Bool = false,
+                    style: Style = .input,
                     errorMessage: String = "",
                     helperMessage: String = "",
                     icon: UIImage? = nil,
                     iconHelper: UIImage? = nil,
                     keyboardType: UIKeyboardType = .default,
-                    autocapitalization: UITextAutocapitalizationType = .allCharacters,
+                    autocapitalization: UITextAutocapitalizationType = .words,
                     textContentType: UITextContentType? = nil,
+                    maxLenght: Int? = nil,
+                    showMaxLenght: Bool = false,
                     showSkeleton: Bool = false,
                     onMask: ((String) -> String)? = nil,
                     onValueChanged: @escaping (String) -> Void = { _ in },
@@ -50,7 +54,7 @@ extension OceanSwiftUI {
             self.title = title
             self.placeholder = placeholder
             self.text = text
-            self.isSecureTextEntry = isSecureTextEntry
+            self.style = style
             self.errorMessage = errorMessage
             self.helperMessage = helperMessage
             self.icon = icon
@@ -58,11 +62,19 @@ extension OceanSwiftUI {
             self.keyboardType = keyboardType
             self.autocapitalization = autocapitalization
             self.textContentType = textContentType
+            self.maxLenght = maxLenght
+            self.showMaxLenght = showMaxLenght
             self.showSkeleton = showSkeleton
             self.onMask = onMask
             self.onValueChanged = onValueChanged
             self.onTouchIcon = onTouchIcon
             self.onTouchIconHelper = onTouchIconHelper
+        }
+
+        public enum Style {
+            case input
+            case secureText
+            case textArea
         }
     }
 
@@ -102,21 +114,53 @@ extension OceanSwiftUI {
 
         private var textFieldView: some View {
             Group {
-                if self.parameters.isSecureTextEntry {
+                switch self.parameters.style {
+                case .input:
+                    TextField(self.parameters.placeholder, text: self.$parameters.text, onEditingChanged: { edit in
+                        self.focused = edit
+                    })
+                case .secureText:
                     SecureField(self.parameters.placeholder, text: self.$parameters.text, onCommit: { self.focused = false })
                         .onTapGesture {
                             self.focused = true
                         }
-                } else {
-                    TextField(self.parameters.placeholder, text: self.$parameters.text, onEditingChanged: { edit in
-                        self.focused = edit
-                    })
+                case .textArea:
+                    if #available(iOS 14.0, *) {
+                        ZStack {
+                            TextEditor(text: self.$parameters.text)
+                                .frame(height: 88)
+                                .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
+                                    self.focused = true
+                                }
+                                .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
+                                    self.focused = false
+                                }
+
+                            if self.parameters.text.isEmpty && !self.parameters.placeholder.isEmpty {
+                                OceanSwiftUI.Typography.paragraph { label in
+                                    label.parameters.text = self.parameters.placeholder
+                                    label.parameters.textColor = Ocean.color.colorInterfaceLightDeep
+                                }
+                                .padding(.vertical, 12)
+                                .padding(.horizontal, Ocean.size.spacingStackXxxs)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                            }
+                        }
+                    } else {
+                        TextField(self.parameters.placeholder, text: self.$parameters.text, onEditingChanged: { edit in
+                            self.focused = edit
+                        })
+                    }
                 }
             }
             .autocapitalization(self.parameters.autocapitalization)
             .onReceive(Just(self.parameters.text), perform: { text in
-                let textMask = self.parameters.onMask?(text) ?? text
+                var textMask = self.parameters.onMask?(text) ?? text
                 if textMask != self.textOld || text != self.textOld {
+                    if let maxLenght = self.parameters.maxLenght {
+                        textMask = String(textMask.prefix(maxLenght))
+                    }
+
                     self.textOld = textMask
                     self.parameters.text = textMask
                     self.parameters.errorMessage = ""
@@ -139,7 +183,7 @@ extension OceanSwiftUI {
                     textFieldView
                         .keyboardType(self.parameters.keyboardType)
                         .textContentType(self.parameters.textContentType)
-                        .frame(height: 48)
+                        .frame(height: self.parameters.style == .textArea ? 90 : 48)
                         .padding([.leading, .trailing], Ocean.size.spacingStackXs)
                         .padding([.top, .bottom], 2)
                         .background(
@@ -174,6 +218,14 @@ extension OceanSwiftUI {
                         OceanSwiftUI.Typography.caption { label in
                             label.parameters.text = self.parameters.errorMessage
                             label.parameters.textColor = Ocean.color.colorStatusNegativePure
+                            label.parameters.showSkeleton = self.parameters.showSkeleton
+                        }
+                    } else if let maxLenght = self.parameters.maxLenght,
+                              self.parameters.showMaxLenght,
+                              !self.parameters.text.isEmpty {
+                        OceanSwiftUI.Typography.caption { label in
+                            label.parameters.text = "Caracteres restantes: \(self.parameters.text.count)/\(maxLenght)"
+                            label.parameters.textColor = Ocean.color.colorInterfaceDarkUp
                             label.parameters.showSkeleton = self.parameters.showSkeleton
                         }
                     } else if !self.parameters.helperMessage.isEmpty {
