@@ -147,6 +147,7 @@ extension OceanSwiftUI {
                                 .padding(.vertical, 12)
                                 .padding(.horizontal, Ocean.size.spacingStackXxxs)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                                .background(Color(self.parameters.isDisabled ? Ocean.color.colorInterfaceLightUp : Ocean.color.colorInterfaceLightPure))
                             }
                         }
                     } else {
