@@ -27,6 +27,7 @@ extension OceanSwiftUI {
         @Published public var textContentType: UITextContentType?
         @Published public var maxLenght: Int?
         @Published public var showMaxLenght: Bool
+        @Published public var isDisabled: Bool
         @Published public var showSkeleton: Bool
         @Published public var onMask: ((String) -> String)?
         @Published public var onValueChanged: (String) -> Void
@@ -47,6 +48,7 @@ extension OceanSwiftUI {
                     maxLenght: Int? = nil,
                     showMaxLenght: Bool = false,
                     showSkeleton: Bool = false,
+                    isDisabled: Bool = false,
                     onMask: ((String) -> String)? = nil,
                     onValueChanged: @escaping (String) -> Void = { _ in },
                     onTouchIcon: @escaping () -> Void = { },
@@ -64,6 +66,7 @@ extension OceanSwiftUI {
             self.textContentType = textContentType
             self.maxLenght = maxLenght
             self.showMaxLenght = showMaxLenght
+            self.isDisabled = isDisabled
             self.showSkeleton = showSkeleton
             self.onMask = onMask
             self.onValueChanged = onValueChanged
@@ -153,6 +156,7 @@ extension OceanSwiftUI {
                     }
                 }
             }
+            .disabled(self.parameters.isDisabled)
             .autocapitalization(self.parameters.autocapitalization)
             .onReceive(Just(self.parameters.text), perform: { text in
                 var textMask = self.parameters.onMask?(text) ?? text
@@ -174,6 +178,7 @@ extension OceanSwiftUI {
                 if !self.parameters.title.isEmpty {
                     OceanSwiftUI.Typography.description { label in
                         label.parameters.text = self.parameters.title
+                        label.parameters.textColor = self.parameters.isDisabled ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorInterfaceDarkDown
                         label.parameters.showSkeleton = self.parameters.showSkeleton
                     }
                     Spacer().frame(height: Ocean.size.spacingStackXxs)
@@ -190,10 +195,9 @@ extension OceanSwiftUI {
                             RoundedRectangle(cornerRadius: Ocean.size.borderRadiusMd)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: Ocean.size.borderRadiusMd)
-                                        .strokeBorder(Color(!self.parameters.errorMessage.isEmpty ? Ocean.color.colorStatusNegativePure :
-                                                                self.focused ? Ocean.color.colorBrandPrimaryDown : Ocean.color.colorInterfaceLightDeep),
+                                        .strokeBorder(Color(getBorderColor()),
                                                       lineWidth: 1))
-                                .foregroundColor(Color(Ocean.color.colorInterfaceLightPure))
+                                .foregroundColor(Color(self.parameters.isDisabled ? Ocean.color.colorInterfaceLightUp : Ocean.color.colorInterfaceLightPure))
                         )
                         .font(Font(UIFont.baseRegular(size: Ocean.font.fontSizeXs)!))
                         .foregroundColor(Color(Ocean.color.colorInterfaceDarkDeep))
@@ -256,5 +260,17 @@ extension OceanSwiftUI {
         }
 
         // MARK: Methods private
+
+        private func getBorderColor() -> UIColor {
+            if self.parameters.isDisabled {
+                return Ocean.color.colorInterfaceLightUp
+            } else if !self.parameters.errorMessage.isEmpty {
+                return Ocean.color.colorStatusNegativePure
+            } else if self.focused {
+                return Ocean.color.colorBrandPrimaryDown
+            } else {
+                return Ocean.color.colorInterfaceLightDeep
+            }
+        }
     }
 }
