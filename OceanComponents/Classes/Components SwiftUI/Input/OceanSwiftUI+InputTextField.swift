@@ -106,6 +106,8 @@ extension OceanSwiftUI {
         public init(parameters: InputTextFieldParameters = InputTextFieldParameters()) {
             self.parameters = parameters
             self.textOld = parameters.text
+
+            UITextView.appearance().backgroundColor = .clear
         }
 
         public init(builder: Builder) {
@@ -129,16 +131,7 @@ extension OceanSwiftUI {
                         }
                 case .textArea:
                     if #available(iOS 14.0, *) {
-                        ZStack {
-                            TextEditor(text: self.$parameters.text)
-                                .frame(height: 88)
-                                .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
-                                    self.focused = true
-                                }
-                                .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
-                                    self.focused = false
-                                }
-
+                        ZStack(alignment: .topLeading) {
                             if self.parameters.text.isEmpty && !self.parameters.placeholder.isEmpty {
                                 OceanSwiftUI.Typography.paragraph { label in
                                     label.parameters.text = self.parameters.placeholder
@@ -146,8 +139,29 @@ extension OceanSwiftUI {
                                 }
                                 .padding(.vertical, 12)
                                 .padding(.horizontal, Ocean.size.spacingStackXxxs)
-                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                                .background(Color(self.parameters.isDisabled ? Ocean.color.colorInterfaceLightUp : Ocean.color.colorInterfaceLightPure))
+                            }
+
+                            if #available(iOS 16.0, *) {
+                                TextEditor(text: self.$parameters.text)
+                                    .scrollContentBackground(.hidden)
+                                    .background(Color.clear)
+                                    .frame(height: 88)
+                                    .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
+                                        self.focused = true
+                                    }
+                                    .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
+                                        self.focused = false
+                                    }
+                            } else {
+                                TextEditor(text: self.$parameters.text)
+                                    .frame(height: 88)
+                                    .background(Color.clear)
+                                    .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
+                                        self.focused = true
+                                    }
+                                    .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
+                                        self.focused = false
+                                    }
                             }
                         }
                     } else {
