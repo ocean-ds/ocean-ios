@@ -195,7 +195,7 @@ extension OceanSwiftUI {
                             RoundedRectangle(cornerRadius: Ocean.size.borderRadiusMd)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: Ocean.size.borderRadiusMd)
-                                        .strokeBorder(Color(getBoderColor()),
+                                        .strokeBorder(Color(getBorderColor()),
                                                       lineWidth: 1))
                                 .foregroundColor(Color(self.parameters.isDisabled ? Ocean.color.colorInterfaceLightUp : Ocean.color.colorInterfaceLightPure))
                         )
@@ -261,7 +261,7 @@ extension OceanSwiftUI {
 
         // MARK: Methods private
 
-        private func getBoderColor() -> UIColor {
+        private func getBorderColor() -> UIColor {
             if self.parameters.isDisabled {
                 return Ocean.color.colorInterfaceLightUp
             } else if !self.parameters.errorMessage.isEmpty {
