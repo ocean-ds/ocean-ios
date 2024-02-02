@@ -11,6 +11,8 @@ import OceanTokens
 
 extension OceanSwiftUI {
 
+    // MARK: Parameters
+
     public class TransactionListItemParameters: ObservableObject {
         @Published public var level1: String
         @Published public var level2: String

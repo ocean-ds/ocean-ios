@@ -58,6 +58,15 @@ final public class InputSwiftUIViewController : UIViewController {
             input.parameters.title = "Title"
             input.parameters.placeholder = "Placeholder"
             input.parameters.helperMessage = "Helper message"
+            input.parameters.isDisabled = true
+        }
+    }()
+
+    lazy var inputTextField5: OceanSwiftUI.InputTextField = {
+        OceanSwiftUI.InputTextField { input in
+            input.parameters.title = "Title"
+            input.parameters.placeholder = "Placeholder"
+            input.parameters.helperMessage = "Helper message"
             input.parameters.style = .textArea
             input.parameters.maxLenght = 140
             input.parameters.showMaxLenght = true
@@ -73,6 +82,7 @@ final public class InputSwiftUIViewController : UIViewController {
             inputTextField2
             inputTextField3
             inputTextField4
+            inputTextField5
         }
     })
 
