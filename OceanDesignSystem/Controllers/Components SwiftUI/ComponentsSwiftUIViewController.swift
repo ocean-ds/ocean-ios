@@ -81,6 +81,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(InvertedTextListItemSwiftUIViewController(), animated: true, completion: nil)
         case .RadioButtonGroup:
             self.present(RadioButtonGroupSwiftUIViewController(), animated: true, completion: nil)
+        case .CheckboxGroup:
+            self.present(CheckboxGroupSwiftUIViewController(), animated: true, completion: nil)
         }
     }
 }

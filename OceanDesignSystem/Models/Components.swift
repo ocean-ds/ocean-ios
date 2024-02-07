@@ -67,6 +67,7 @@ struct DSComponents {
         "Badge",
         "Button",
         "CardListItem",
+        "CheckboxGroup",
         "Divider",
         "Input",
         "InvertedTextListItem",
