@@ -4,7 +4,7 @@ PODS:
   - Charts/Core (4.1.0):
     - SwiftAlgorithms (~> 1.0)
   - FSCalendar (2.8.4)
-  - OceanComponents (3.4.0-386):
+  - OceanComponents (3.4.0-387):
     - Charts
     - FSCalendar
     - OceanTokens (= 3.3.1-314)
@@ -44,7 +44,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Charts: ce0768268078eee0336f122c3c4ca248e4e204c5
   FSCalendar: 2d1d0d9398f12d439f55c1fe0f01525b151b8260
-  OceanComponents: dd61db8e57d2e967a11f79f38a23a91e03d69daa
+  OceanComponents: 49b44423b849cbfc80f3ec92227e2c96132b4e16
   OceanTokens: 8f57890acc014823f4b6a5cbfde29bedffa390fe
   SDWebImage: f9258c58221ed854cfa0e2b80ee4033710b1c6d3
   SkeletonUI: 236767189616d1d15fefd95c13f0dcd73bcefa10
