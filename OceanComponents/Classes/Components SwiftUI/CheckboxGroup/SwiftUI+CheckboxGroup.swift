@@ -123,11 +123,11 @@ extension OceanSwiftUI {
         private func getItemOverlay(_ item: CheckboxGroupParameters.CheckboxModel) -> some View {
             return Group {
                 if item.isSelected {
-                    RoundedRectangle(cornerRadius: 2)
+                    RoundedRectangle(cornerRadius: 4)
                         .stroke(Color(Ocean.color.colorComplementaryPure),
                                 lineWidth: 1)
                 } else {
-                    RoundedRectangle(cornerRadius: 2)
+                    RoundedRectangle(cornerRadius: 4)
                         .stroke(Color(Ocean.color.colorInterfaceDarkUp),
                                 lineWidth: 1)
                 }
