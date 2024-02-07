@@ -11,8 +11,13 @@ import OceanComponents
 import SwiftUI
 
 class CheckboxGroupSwiftUIViewController: UIViewController {
+    private lazy var titleLabel: OceanSwiftUI.Typography = {
+        OceanSwiftUI.Typography.heading3 { label in
+            label.parameters.text = "CheckboxGroup"
+        }
+    }()
 
-    lazy var checkboxGroup: OceanSwiftUI.CheckboxGroup = OceanSwiftUI.CheckboxGroup { view in
+    private lazy var checkboxGroup: OceanSwiftUI.CheckboxGroup = OceanSwiftUI.CheckboxGroup { view in
         view.parameters.items = [
             .init(id: "labe1", title: "Label 1"),
             .init(id: "labe2", title: "Label 2"),
@@ -27,9 +32,8 @@ class CheckboxGroupSwiftUIViewController: UIViewController {
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
+            titleLabel
             checkboxGroup
-
-            OceanSwiftUI.Divider()
         }
     })
 
