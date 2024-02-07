@@ -22,12 +22,6 @@ extension OceanSwiftUI {
             self.onTouch = onTouch
         }
 
-        func selectItems(ids: [String]) {
-            for index in 0..<self.items.count {
-                self.items[index].isSelected = ids.contains(self.items[index].id)
-            }
-        }
-
         public struct CheckboxModel {
             public var id: String
             public var title: String
@@ -74,11 +68,9 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            VStack(alignment: .leading) {
-                VStack(spacing: Ocean.size.spacingStackXxs) {
-                    ForEach(0..<self.parameters.items.count, id: \.self) { index in
-                        getItem(self.parameters.items[index], index: index)
-                    }
+            VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
+                ForEach(0..<self.parameters.items.count, id: \.self) { index in
+                    getItem(self.parameters.items[index], index: index)
                 }
             }
         }
