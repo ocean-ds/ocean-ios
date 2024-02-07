@@ -82,7 +82,7 @@ extension OceanSwiftUI {
             VStack(alignment: .leading) {
                 HStack(alignment: .center, spacing: Ocean.size.spacingStackXxs) {
                     ZStack {
-                        Rectangle()
+                        RoundedRectangle(cornerRadius: 4)
                             .fill(item.isSelected
                                   ? Color(Ocean.color.colorComplementaryPure)
                                   : Color(Ocean.color.colorInterfaceLightPure))
