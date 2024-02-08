@@ -175,12 +175,12 @@ extension OceanSwiftUI {
         // MARK: Private properties
 
         private func onTouch(option touchedOption: FilterBarOption, group touchedGroup: FilterBarGroup) {
-            if touchedOption.chips.count == 1 {
-                if !parameters.onTouch(touchedOption.chips.map { getChipModel(original: $0, isSelected: true) }, touchedOption) {
+            if !parameters.onTouch(touchedOption.chips.map { getChipModel(original: $0, isSelected: true) }, touchedOption) {
+                if touchedOption.chips.count == 1 {
                     updateSelection(chips: touchedOption.chips, option: touchedOption, group: touchedGroup)
+                } else {
+                    showFilterModal(option: touchedOption, group: touchedGroup)
                 }
-            } else {
-                showFilterModal(option: touchedOption, group: touchedGroup)
             }
         }
 
