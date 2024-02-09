@@ -81,9 +81,3 @@ extension OceanSwiftUI {
         }
     }
 }
-
-struct Ocean_CircularProgressIndicator_Previews: PreviewProvider {
-    static var previews: some View {
-        OceanSwiftUI.CircularProgressIndicator()
-    }
-}

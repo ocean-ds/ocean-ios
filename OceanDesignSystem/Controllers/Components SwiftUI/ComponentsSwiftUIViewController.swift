@@ -83,6 +83,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(RadioButtonGroupSwiftUIViewController(), animated: true, completion: nil)
         case .CheckboxGroup:
             self.present(CheckboxGroupSwiftUIViewController(), animated: true, completion: nil)
+        case .CardCTA:
+            self.present(CardCTASwiftUIViewController(), animated: true, completion: nil)
         }
     }
 }

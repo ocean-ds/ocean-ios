@@ -82,6 +82,7 @@ public enum DesignSystemComponentsSwiftUIType: String {
     case Alert
     case Badge
     case Button
+    case CardCTA
     case CardListItem
     case CheckboxGroup
     case Divider
