@@ -1,5 +1,5 @@
 //
-//  SUIFilterBar.swift
+//  OceanSwiftUI+FilterBar.swift
 //  Blu
 //
 //  Created by Renan Massaroto on 08/01/24.
@@ -20,7 +20,7 @@ extension OceanSwiftUI {
         @Published public var marginRight: CGFloat = Ocean.size.spacingStackXs
         @Published public var showSkeleton: Bool
         @Published public var onTouch: (([Ocean.ChipModel], FilterBarOption) -> Bool)
-        @Published public var onSelectionChange: (([Ocean.ChipModel]) -> Void)
+        @Published public var onSelectionChange: (([Ocean.ChipModel], [FilterBarGroup]) -> Void)
 
         weak public var rootViewController: UIViewController?
 
@@ -36,7 +36,7 @@ extension OceanSwiftUI {
         public init(groups: [FilterBarGroup] = [],
                     showSkeleton: Bool = false,
                     onTouch: @escaping ([Ocean.ChipModel], FilterBarOption) -> Bool = { _, _ in return false },
-                    onSelectionChange: @escaping ([Ocean.ChipModel]) -> Void = { _ in }) {
+                    onSelectionChange: @escaping ([Ocean.ChipModel], [FilterBarGroup]) -> Void = { _, _ in }) {
             self.groups = groups
             self.showSkeleton = showSkeleton
             self.onTouch = onTouch
@@ -175,7 +175,7 @@ extension OceanSwiftUI {
         // MARK: Private properties
 
         private func onTouch(option touchedOption: FilterBarOption, group touchedGroup: FilterBarGroup) {
-            if !parameters.onTouch(touchedOption.chips.map { getChipModel(original: $0, isSelected: true) }, touchedOption) {
+            if !parameters.onTouch(touchedOption.chips, touchedOption) {
                 if touchedOption.chips.count == 1 {
                     updateSelection(chips: touchedOption.chips, option: touchedOption, group: touchedGroup)
                 } else {
@@ -201,9 +201,7 @@ extension OceanSwiftUI {
                         getChipModel(original: chip, isSelected: selectedOption.title == chip.title)
                     }.filter { $0.isSelected }
 
-                    if !parameters.onTouch(chips, touchedOption) {
-                        updateSelection(chips: chips, option: touchedOption, group: touchedGroup)
-                    }
+                    updateSelection(chips: chips, option: touchedOption, group: touchedGroup)
                 }
 
                 modal.show()
@@ -222,9 +220,7 @@ extension OceanSwiftUI {
                             getChipModel(original: chip, isSelected: selectedOptions.contains { $0.title == chip.title })
                         }.filter { $0.isSelected }
 
-                        if !parameters.onTouch(chips, touchedOption) {
-                            updateSelection(chips: chips, option: touchedOption, group: touchedGroup)
-                        }
+                        updateSelection(chips: chips, option: touchedOption, group: touchedGroup)
                     })
                     .build()
                     .show()
@@ -255,9 +251,10 @@ extension OceanSwiftUI {
 
             parameters.onSelectionChange(
                 parameters.groups
-                    .flatMap({ $0.options })
-                    .flatMap({ $0.chips })
-                    .filter({ $0.isSelected })
+                    .flatMap { $0.options }
+                    .flatMap { $0.chips }
+                    .filter { $0.isSelected },
+                parameters.groups
             )
         }
 
