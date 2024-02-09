@@ -40,6 +40,7 @@ extension OceanSwiftUI {
             self.subtitleColor = subtitleColor
             self.backgroundColor = backgroundColor
             self.ctaText = ctaText
+            self.ctaIcon = ctaIcon
             self.image = image
             self.isLoading = isLoading
             self.onTouch = onTouch
@@ -123,7 +124,6 @@ extension OceanSwiftUI {
             .border(cornerRadius: Ocean.size.borderRadiusMd,
                     width: Ocean.size.borderWidthHairline,
                     color: Ocean.color.colorInterfaceLightDown)
-            .onTapGesture { parameters.onTouch() }
         }
 
         // MARK: Methods private
