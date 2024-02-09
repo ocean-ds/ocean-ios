@@ -49,7 +49,7 @@ class FilterBarSwiftUIViewController: UIViewController {
 
             return false
         }
-        filterBar.parameters.onSelectionChange = { [weak self] selectedChips in
+        filterBar.parameters.onSelectionChange = { [weak self] selectedChips, _ in
             guard let self = self else { return }
 
             if selectedChips.count > 0 {
