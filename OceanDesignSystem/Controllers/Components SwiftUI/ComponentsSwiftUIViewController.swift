@@ -85,6 +85,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(CheckboxGroupSwiftUIViewController(), animated: true, completion: nil)
         case .CardCTA:
             self.present(CardCTASwiftUIViewController(), animated: true, completion: nil)
+        case .CardCrossSell:
+            self.present(CardCrossSellSwiftUIViewController(), animated: true, completion: nil)
         }
     }
 }

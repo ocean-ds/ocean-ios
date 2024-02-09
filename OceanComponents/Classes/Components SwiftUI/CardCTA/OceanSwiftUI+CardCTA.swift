@@ -14,13 +14,16 @@ extension OceanSwiftUI {
 
     public class CardCTAParameters: ObservableObject {
         @Published public var text: String
+        @Published public var icon: UIImage?
         @Published public var isLoading: Bool
         public var onTouch: () -> Void
 
         public init(text: String = "",
+                    icon: UIImage? = Ocean.icon.chevronRightSolid,
                     isLoading: Bool = false,
                     onTouch: @escaping () -> Void = { }) {
             self.text = text
+            self.icon = icon
             self.isLoading = isLoading
             self.onTouch = onTouch
         }
@@ -57,28 +60,38 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            if self.parameters.isLoading {
-                CircularProgressIndicator(parameters: .init(style: .primary))
-            } else {
-                SwiftUI.Button(action: {
-                    self.parameters.onTouch()
-                }, label: {
-                    HStack(spacing: Ocean.size.spacingStackXxs) {
-                        Typography.heading5 { label in
-                            label.parameters.text = self.parameters.text
-                            label.parameters.textColor = Ocean.color.colorBrandPrimaryPure
+            HStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: 0) {
+                if self.parameters.isLoading {
+                    Spacer()
+
+                    CircularProgressIndicator(parameters: .init(style: .primary))
+
+                    Spacer()
+                } else {
+                    SwiftUI.Button(action: {
+                        self.parameters.onTouch()
+                    }, label: {
+                        HStack(spacing: Ocean.size.spacingStackXxs) {
+                            Typography.heading5 { label in
+                                label.parameters.text = self.parameters.text
+                                label.parameters.textColor = Ocean.color.colorBrandPrimaryPure
+                            }
+
+                            Spacer()
+
+                            if let icon = self.parameters.icon {
+                                Image(uiImage: icon)
+                                    .renderingMode(.template)
+                                    .foregroundColor(Color(Ocean.color.colorBrandPrimaryPure))
+                            }
                         }
-
-                        Spacer()
-
-                        Image(uiImage: Ocean.icon.chevronRightSolid)
-                            .renderingMode(.template)
-                            .foregroundColor(Color(Ocean.color.colorBrandPrimaryPure))
-                    }
-                    .padding(.horizontal, Ocean.size.spacingStackXs)
-                    .cornerRadius(Ocean.size.borderRadiusMd)
-                })
+                    })
+                }
             }
+            .frame(height: 48)
+            .padding(.horizontal, Ocean.size.spacingStackXs)
+            .cornerRadius(Ocean.size.borderRadiusMd)
+            .background(Color(Ocean.color.colorInterfaceLightPure))
         }
 
         // MARK: Methods private

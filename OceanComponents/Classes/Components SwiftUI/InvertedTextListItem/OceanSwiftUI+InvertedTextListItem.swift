@@ -191,9 +191,3 @@ extension OceanSwiftUI {
         }
     }
 }
-
-struct InvertedTextListItem_Previews: PreviewProvider {
-    static var previews: some View {
-        OceanSwiftUI.InvertedTextListItem()
-    }
-}

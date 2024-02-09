@@ -229,27 +229,3 @@ extension OceanSwiftUI {
     }
 }
 
-struct TransactionListItem_Preview: PreviewProvider {
-    static var previews: some View {
-        let view = OceanSwiftUI.TransactionListItem()
-        view.parameters.level1 = "Level 1"
-        view.parameters.level2 = "Level 2"
-        view.parameters.level3 = "Level 3"
-        view.parameters.level4 = "Level 4"
-        view.parameters.value1 = 1000000
-        view.parameters.value2 = 1.00
-        view.parameters.value3 = "09:00"
-        view.parameters.value1Status = .positive
-        view.parameters.tagTitle = "Label"
-        view.parameters.tagIcon = Ocean.icon.checkSolid
-        view.parameters.tagStatus = .important
-
-
-        return ScrollView {
-            VStack {
-                view
-                view
-            }
-        }
-    }
-}
