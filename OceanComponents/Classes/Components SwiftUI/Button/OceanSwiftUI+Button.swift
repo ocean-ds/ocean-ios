@@ -250,9 +250,3 @@ extension OceanSwiftUI {
         }
     }
 }
-
-struct Ocean_Button_Previews: PreviewProvider {
-    static var previews: some View {
-        OceanSwiftUI.Button()
-    }
-}
