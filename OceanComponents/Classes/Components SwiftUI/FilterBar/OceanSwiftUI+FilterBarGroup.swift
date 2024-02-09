@@ -10,11 +10,11 @@ import OceanTokens
 extension OceanSwiftUI {
 
     public struct FilterBarGroup {
-        var id: UUID
-        var mode: FilterBarChoiceMode
-        var options: [FilterBarOption]
+        public var id: String
+        public var mode: FilterBarChoiceMode
+        public var options: [FilterBarOption]
 
-        public init(id: UUID = UUID(),
+        public init(id: String = UUID().uuidString,
                     mode: FilterBarChoiceMode = .single,
                     options: [FilterBarOption]) {
             self.id = id
