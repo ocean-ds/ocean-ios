@@ -48,6 +48,14 @@ extension OceanSwiftUI {
             self.isLoading = isLoading
             self.onTouch = onTouch
         }
+
+        fileprivate var contentView: AnyView {
+            if view != nil {
+                AnyView(view!)
+            } else {
+                AnyView(EmptyView())
+            }
+        }
     }
 
     public struct CardGroup: View {
@@ -120,10 +128,10 @@ extension OceanSwiftUI {
                     .padding(.all, Ocean.size.spacingStackXs)
                     .background(Color(Ocean.color.colorInterfaceLightPure))
 
-                    if let view = self.parameters.view {
+                    if let _ = self.parameters.view {
                         Divider()
 
-                        AnyView(view)
+                        self.parameters.contentView
                     }
 
                     if !self.parameters.ctaText.isEmpty {
