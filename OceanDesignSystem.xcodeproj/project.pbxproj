@@ -78,6 +78,7 @@
 		B833D04124A6796300587FDE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B833D03F24A6796300587FDE /* LaunchScreen.storyboard */; };
 		D50896062A156A1E00ED3968 /* InformativeCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50896052A156A1E00ED3968 /* InformativeCardViewController.swift */; };
 		D50D86372B5996050075262C /* TransactionListItemSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50D86362B5996040075262C /* TransactionListItemSwiftUIViewController.swift */; };
+		D5376B042B7E577E00B23B3E /* TextListItemSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5376B032B7E577E00B23B3E /* TextListItemSwiftUIViewController.swift */; };
 		D56AB26C2B4DCE700059D443 /* FilterBarSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56AB26B2B4DCE700059D443 /* FilterBarSwiftUIViewController.swift */; };
 		D5A319FD2B3B2D3200786FCD /* CardListItemSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A319FC2B3B2D3200786FCD /* CardListItemSwiftUIViewController.swift */; };
 		D5D1EEBF2B584A2F00A75EA2 /* SubheaderSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D1EEBE2B584A2F00A75EA2 /* SubheaderSwiftUIViewController.swift */; };
@@ -204,6 +205,7 @@
 		B833D04224A6796300587FDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D50896052A156A1E00ED3968 /* InformativeCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformativeCardViewController.swift; sourceTree = "<group>"; };
 		D50D86362B5996040075262C /* TransactionListItemSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListItemSwiftUIViewController.swift; sourceTree = "<group>"; };
+		D5376B032B7E577E00B23B3E /* TextListItemSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextListItemSwiftUIViewController.swift; sourceTree = "<group>"; };
 		D56AB26B2B4DCE700059D443 /* FilterBarSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBarSwiftUIViewController.swift; sourceTree = "<group>"; };
 		D5A319FC2B3B2D3200786FCD /* CardListItemSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListItemSwiftUIViewController.swift; sourceTree = "<group>"; };
 		D5D1EEBE2B584A2F00A75EA2 /* SubheaderSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubheaderSwiftUIViewController.swift; sourceTree = "<group>"; };
@@ -341,6 +343,7 @@
 				427CBD262B768AE500C33311 /* CardCTASwiftUIViewController.swift */,
 				427CBD2C2B7699FE00C33311 /* CardCrossSellSwiftUIViewController.swift */,
 				427CBD342B76AE4600C33311 /* CardGroupSwiftUIViewController.swift */,
+				D5376B032B7E577E00B23B3E /* TextListItemSwiftUIViewController.swift */,
 			);
 			path = "Components SwiftUI";
 			sourceTree = "<group>";
@@ -711,6 +714,7 @@
 				B7BB717924E615B3007F8848 /* SnackbarViewController.swift in Sources */,
 				E129C2B22B56D983003A82DE /* TabSwiftUIViewController.swift in Sources */,
 				E1DBF42929898E4100BCD65B /* SettingsListItemViewController.swift in Sources */,
+				D5376B042B7E577E00B23B3E /* TextListItemSwiftUIViewController.swift in Sources */,
 				8ED08AE727EE075500ACDCB4 /* TabViewController.swift in Sources */,
 				E13578B729F07252003A2B9D /* FilterBarViewController.swift in Sources */,
 				24E39BA326DE5BCE006B6A02 /* BalanceSimpleViewController.swift in Sources */,

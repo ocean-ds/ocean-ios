@@ -14,12 +14,28 @@ extension OceanSwiftUI {
 
     public class CheckboxGroupParameters: ObservableObject {
         @Published public var items: [CheckboxModel]
+        @Published public var hasError: Bool
+        @Published public var errorMessage: String {
+            didSet {
+                hasError = !errorMessage.isEmpty
+            }
+        }
         public var onTouch: (([CheckboxModel]) -> Void)
 
         public init(items: [CheckboxModel] = [],
+                    hasError: Bool = false,
+                    errorMessage: String = "",
                     onTouch: @escaping (([CheckboxModel]) -> Void) = { _ in }) {
             self.items = items
+            self.hasError = hasError
+            self.errorMessage = errorMessage
             self.onTouch = onTouch
+        }
+
+        fileprivate func selectItem(index: Int) {
+            errorMessage = ""
+            items[index].isSelected.toggle()
+            onTouch(items)
         }
 
         public struct CheckboxModel {
@@ -72,6 +88,13 @@ extension OceanSwiftUI {
                 ForEach(0..<self.parameters.items.count, id: \.self) { index in
                     getItem(self.parameters.items[index], index: index)
                 }
+
+                if !self.parameters.errorMessage.isEmpty {
+                    OceanSwiftUI.Typography.caption { label in
+                        label.parameters.text = self.parameters.errorMessage
+                        label.parameters.textColor = Ocean.color.colorStatusNegativePure
+                    }
+                }
             }
         }
 
@@ -97,24 +120,29 @@ extension OceanSwiftUI {
                                 .foregroundColor(.white)
                         }
                     }
-                    OceanSwiftUI.Typography.description { view in
-                        view.parameters.text = item.title
-                        view.parameters.lineLimit = 20
-                    }
 
-                    Spacer()
+                    if !item.title.isEmpty {
+                        OceanSwiftUI.Typography.description { view in
+                            view.parameters.text = item.title
+                            view.parameters.lineLimit = 20
+                        }
+
+                        Spacer()
+                    }
                 }
             }
             .animation(.default, value: item.isSelected)
             .onTapGesture {
-                parameters.items[index].isSelected.toggle()
-                parameters.onTouch(parameters.items)
+                parameters.selectItem(index: index)
             }
         }
 
         private func getItemOverlay(_ item: CheckboxGroupParameters.CheckboxModel) -> some View {
             return Group {
-                if item.isSelected {
+                if parameters.hasError {
+                    RoundedRectangle(cornerRadius: 4)
+                        .stroke(Color(Ocean.color.colorStatusNegativePure), lineWidth: 1)
+                } else if item.isSelected {
                     RoundedRectangle(cornerRadius: 4)
                         .stroke(Color(Ocean.color.colorComplementaryPure),
                                 lineWidth: 1)

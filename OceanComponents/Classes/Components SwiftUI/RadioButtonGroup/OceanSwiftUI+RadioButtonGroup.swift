@@ -15,15 +15,22 @@ extension OceanSwiftUI {
     public class RadioButtonGroupParameters: ObservableObject {
         @Published public var items: [String]
         @Published private(set) var itemSelectedIndex: Int?
-        @Published public var errorMessage: String
+        @Published public var hasError: Bool
+        @Published public var errorMessage: String {
+            didSet {
+                hasError = !errorMessage.isEmpty
+            }
+        }
         public var onTouch: ((Int, String) -> Void)
 
         public init(items: [String] = [],
                     itemSelectedIndex: Int? = nil,
+                    hasError: Bool = false,
                     errorMessage: String = "",
                     onTouch: @escaping ((Int, String) -> Void) = { _, _ in }) {
             self.items = items
             self.itemSelectedIndex = itemSelectedIndex
+            self.hasError = hasError
             self.errorMessage = errorMessage
             self.onTouch = onTouch
         }
@@ -101,12 +108,14 @@ extension OceanSwiftUI {
                         )
                         .padding(.all, 6)
 
-                    OceanSwiftUI.Typography.description { view in
-                        view.parameters.text = item
-                        view.parameters.lineLimit = 20
+                    if !item.isEmpty {
+                        OceanSwiftUI.Typography.description { view in
+                            view.parameters.text = item
+                            view.parameters.lineLimit = 20
+                        }
+                        
+                        Spacer()
                     }
-
-                    Spacer()
                 }
             }
             .animation(.default, value: parameters.itemSelectedIndex)
@@ -114,9 +123,9 @@ extension OceanSwiftUI {
         }
 
         private func getItemOverlay(index: Int) -> some View {
-            let size: CGFloat = !self.parameters.errorMessage.isEmpty ? 20 : self.parameters.itemSelectedIndex == index ? 14 :20
+            let size: CGFloat = !self.parameters.errorMessage.isEmpty ? 20 : self.parameters.itemSelectedIndex == index ? 14 : 20
             return Group {
-                if !self.parameters.errorMessage.isEmpty {
+                if !self.parameters.errorMessage.isEmpty || self.parameters.hasError {
                     Circle()
                         .stroke(Color(Ocean.color.colorStatusNegativePure), lineWidth: 1)
                 } else if self.parameters.itemSelectedIndex == index {
