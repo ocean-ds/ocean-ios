@@ -4,7 +4,7 @@ PODS:
   - Charts/Core (4.1.0):
     - SwiftAlgorithms (~> 1.0)
   - FSCalendar (2.8.4)
-  - OceanComponents (3.4.0-391):
+  - OceanComponents (3.4.0-397):
     - Charts
     - FSCalendar
     - OceanTokens (= 3.3.1-314)
@@ -13,10 +13,10 @@ PODS:
     - SkeletonView
     - SPStorkController
   - OceanTokens (3.3.1-314)
-  - SDWebImage (5.18.7):
-    - SDWebImage/Core (= 5.18.7)
-  - SDWebImage/Core (5.18.7)
-  - SkeletonUI (2.0.0)
+  - SDWebImage (5.18.10):
+    - SDWebImage/Core (= 5.18.10)
+  - SDWebImage/Core (5.18.10)
+  - SkeletonUI (2.0.1)
   - SkeletonView (1.30.4)
   - SPStorkController (1.8.5)
   - SwiftAlgorithms (1.0.0)
@@ -44,10 +44,10 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Charts: ce0768268078eee0336f122c3c4ca248e4e204c5
   FSCalendar: 2d1d0d9398f12d439f55c1fe0f01525b151b8260
-  OceanComponents: 6da60ea199fa93bb29b69ed4f32193c65e1824da
-  OceanTokens: 8f57890acc014823f4b6a5cbfde29bedffa390fe
-  SDWebImage: f9258c58221ed854cfa0e2b80ee4033710b1c6d3
-  SkeletonUI: 236767189616d1d15fefd95c13f0dcd73bcefa10
+  OceanComponents: 1b10da9cfefb398de3793afb8a5153dc4a828846
+  OceanTokens: 3f6a447ad966ba533d164e207f49473d959af2ea
+  SDWebImage: fc8f2d48bbfd72ef39d70e981bd24a3f3be53fec
+  SkeletonUI: 8d622a4dd755650bd5d50eed1e4180fa146c5d6b
   SkeletonView: 5a050f6411e697abd4cda0a8d767013399dccd69
   SPStorkController: 68966ed3134de2be2a8bbd1475c7e81f3f7d01ee
   SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53

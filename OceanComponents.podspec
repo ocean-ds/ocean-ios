@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'OceanComponents'
-  s.version          = '3.4.0-391'
+  s.version          = '3.4.0-397'
   s.summary          = 'OceanComponents are components created by theo for use in Blu applications'
 
 # This description is used to generate tags and improve search results.
@@ -25,7 +25,7 @@ Project created with the objective use components created by OceanTokens.
   s.homepage         = 'https://github.com/ocean-ds/ocean-ios'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'GPL-3.0', :file => 'LICENSE' }
-  s.author           = { 'Blu Pagamentos' => 'devs@useblu.com.br' }
+  s.author           = { 'Blu IP' => 'mobile@useblu.com.br' }
   s.source           = { :git => 'https://github.com/ocean-ds/ocean-ios.git',
                         :tag => 'OceanComponents-' + s.version.to_s }
 
