@@ -142,6 +142,8 @@ class TextListItemSwiftUIViewController: UIViewController {
     public lazy var uiView = self.hostingController.getUIView()
 
     public override func viewDidLoad() {
+        self.view.backgroundColor = .white
+        
         self.view.addSubview(uiView)
 
         uiView.oceanConstraints
