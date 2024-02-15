@@ -51,9 +51,9 @@ extension OceanSwiftUI {
 
         fileprivate var contentView: AnyView {
             if view != nil {
-                AnyView(view!)
+                return AnyView(view!)
             } else {
-                AnyView(EmptyView())
+                return AnyView(EmptyView())
             }
         }
     }
