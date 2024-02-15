@@ -24,7 +24,7 @@ Project created with the objective of compiling tokens created through theo (sal
   s.homepage         = 'https://github.com/ocean-ds/ocean-ios'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'GPL-3.0', :file => 'LICENSE' }
-  s.author           = { 'Blu Pagamentos' => 'devs@useblu.com.br' }
+  s.author           = { 'Blu IP' => 'mobile@useblu.com.br' }
   s.source           = { :git => 'https://github.com/ocean-ds/ocean-ios.git',
                          :tag => 'OceanTokens-' + s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
