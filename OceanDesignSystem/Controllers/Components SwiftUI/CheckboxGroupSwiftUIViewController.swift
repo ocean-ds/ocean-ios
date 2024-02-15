@@ -11,7 +11,7 @@ import OceanComponents
 import SwiftUI
 
 class CheckboxGroupSwiftUIViewController: UIViewController {
-    private lazy var checkboxGroup: OceanSwiftUI.CheckboxGroup = OceanSwiftUI.CheckboxGroup { view in
+    private lazy var checkboxGroup1: OceanSwiftUI.CheckboxGroup = OceanSwiftUI.CheckboxGroup { view in
         view.parameters.items = [
             .init(id: "labe1", title: "Label 1"),
             .init(id: "labe2", title: "Label 2"),
@@ -23,10 +23,25 @@ class CheckboxGroupSwiftUIViewController: UIViewController {
             views.forEach { print("title: \($0.title) - selected: \($0.isSelected)") }
         }
     }
+    private lazy var checkboxGroup2: OceanSwiftUI.CheckboxGroup = OceanSwiftUI.CheckboxGroup { view in
+        view.parameters.items = [
+            .init(id: "labe1", title: "Label 1"),
+            .init(id: "labe2", title: "Label 2"),
+            .init(id: "labe3", title: "Label 3"),
+            .init(id: "labe4", title: "Label 4"),
+            .init(id: "labe5", title: "Label 5")
+        ]
+        view.parameters.onTouch = { views in
+            views.forEach { print("title: \($0.title) - selected: \($0.isSelected)") }
+        }
+        view.parameters.hasError = true
+        view.parameters.errorMessage = "Selecione uma opção"
+    }
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
-            checkboxGroup
+            checkboxGroup1
+            checkboxGroup2
         }
     })
 

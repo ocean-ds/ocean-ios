@@ -84,6 +84,7 @@ struct DSComponents {
         "Subheader",
         "Tab",
         "Tag",
+        "TextListItem",
         "TransactionListItem",
         "Typography"
     ]

@@ -89,6 +89,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(CardCrossSellSwiftUIViewController(), animated: true, completion: nil)
         case .CardGroup:
             self.present(CardGroupSwiftUIViewController(), animated: true, completion: nil)
+        case .TextListItem:
+            self.present(TextListItemSwiftUIViewController(), animated: true, completion: nil)
         }
     }
 }

@@ -100,6 +100,7 @@ public enum DesignSystemComponentsSwiftUIType: String {
     case Subheader
     case Tab
     case Tag
+    case TextListItem
     case TransactionListItem
     case Typography
 }
