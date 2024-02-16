@@ -283,6 +283,8 @@ extension OceanSwiftUI {
                 return Ocean.color.colorStatusNegativePure
             } else if self.focused {
                 return Ocean.color.colorBrandPrimaryDown
+            } else if !self.parameters.text.isEmpty {
+                return Ocean.color.colorBrandPrimaryUp
             } else {
                 return Ocean.color.colorInterfaceLightDeep
             }
