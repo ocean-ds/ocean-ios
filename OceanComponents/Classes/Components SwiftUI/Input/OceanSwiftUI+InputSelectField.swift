@@ -34,7 +34,6 @@ extension OceanSwiftUI {
         public init(title: String = "",
                     placeholder: String = "",
                     text: String = "",
-                    style: Style = .input,
                     errorMessage: String = "",
                     helperMessage: String = "",
                     iconHelper: UIImage? = nil,
@@ -44,7 +43,6 @@ extension OceanSwiftUI {
                     placeholderFilter: String? = nil,
                     isDisabled: Bool = false,
                     showSkeleton: Bool = false,
-                    onMask: ((String) -> String)? = nil,
                     onValueChanged: @escaping (String) -> Void = { _ in },
                     onTouchIconHelper: @escaping () -> Void = { }) {
             self.title = title
@@ -61,12 +59,6 @@ extension OceanSwiftUI {
             self.showSkeleton = showSkeleton
             self.onValueChanged = onValueChanged
             self.onTouchIconHelper = onTouchIconHelper
-        }
-
-        public enum Style {
-            case input
-            case secureText
-            case textArea
         }
     }
 

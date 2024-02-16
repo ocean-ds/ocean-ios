@@ -34,5 +34,11 @@ extension OceanSwiftUI {
                 builder?(input)
             }
         }
+
+        public static func tokenField(builder: OceanSwiftUI.InputTokenField.Builder? = nil) -> OceanSwiftUI.InputTokenField {
+            return OceanSwiftUI.InputTokenField { input in
+                builder?(input)
+            }
+        }
     }
 }

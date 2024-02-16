@@ -91,6 +91,15 @@ final public class InputSwiftUIViewController : UIViewController {
         }
     }()
 
+    lazy var inputTokenField: OceanSwiftUI.InputTokenField = {
+        OceanSwiftUI.Input.tokenField { input in
+            input.parameters.title = "Title"
+            input.parameters.onValueChanged = { value in
+                print(value)
+            }
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             inputTextField1
@@ -99,6 +108,7 @@ final public class InputSwiftUIViewController : UIViewController {
             inputTextField4
             inputTextField5
             inputSelectField
+            inputTokenField
         }
     })
 
