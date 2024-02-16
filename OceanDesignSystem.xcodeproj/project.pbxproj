@@ -784,7 +784,6 @@
 			baseConfigurationReference = 514A462D2AE0DB1475D106D9 /* Pods-OceanDesignSystemTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = "";
@@ -808,7 +807,6 @@
 			baseConfigurationReference = F1C51EDA6F9FD188633DD21F /* Pods-OceanDesignSystemTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = "";
@@ -951,7 +949,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 390;
+				CURRENT_PROJECT_VERSION = 392;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 57KSFR5UHN;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 57KSFR5UHN;
@@ -977,7 +975,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 390;
+				CURRENT_PROJECT_VERSION = 392;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 57KSFR5UHN;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 57KSFR5UHN;

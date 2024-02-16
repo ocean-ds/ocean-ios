@@ -61,3 +61,13 @@ Join our [discord server](https://discord.gg/hDWzGPKuG2) to get the latest updat
 ## License
 
 All packages are licensed under the terms of the [GPL-3.0 License](LICENSE).
+
+## Pod trunk fix Xcode 15
+
+`cd /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/`
+
+`sudo mkdir arc`
+`cd  arc`
+`sudo git clone https://github.com/kamyarelyasi/Libarclite-Files.git`
+
+`sudo chmod +x *`
