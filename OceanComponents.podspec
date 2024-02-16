@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'OceanComponents'
-  s.version          = '3.4.0-402'
+  s.version          = '3.4.0-403'
   s.summary          = 'OceanComponents are components created by theo for use in Blu applications'
 
 # This description is used to generate tags and improve search results.
@@ -44,4 +44,5 @@ Project created with the objective use components created by OceanTokens.
   s.resource_bundles = {
     'OceanComponents' => ['OceanComponents/Resources/**/*']
   }
+  
 end
