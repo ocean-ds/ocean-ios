@@ -23,13 +23,10 @@ Project created with the objective use components created by OceanTokens.
                        DESC
 
   s.homepage         = 'https://github.com/ocean-ds/ocean-ios'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'GPL-3.0', :file => 'LICENSE' }
   s.author           = { 'Blu IP' => 'mobile@useblu.com.br' }
   s.source           = { :git => 'https://github.com/ocean-ds/ocean-ios.git',
                         :tag => 'OceanComponents-' + s.version.to_s }
-
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '13.0'
   s.swift_versions = ['5.0']
@@ -43,18 +40,8 @@ Project created with the objective use components created by OceanTokens.
   s.dependency 'SkeletonUI'
 
   s.source_files = 'OceanComponents/Classes/**/*'
-  s.info_plist = { 'CFBundleIdentifier' => 'br.com.blu.OceanComponents' }
   s.pod_target_xcconfig = { 'PRODUCT_BUNDLE_IDENTIFIER': 'br.com.blu.OceanComponents' }
   s.resource_bundles = {
     'OceanComponents' => ['OceanComponents/Resources/**/*']
   }
-  
-  # s.subspec 'OceanTokens' do |oceantokens|
-  #   oceantokens.source_files = 'OceanTokens/Classes/**/*'
-  #   oceantokens.resource_bundle = { 'OceanTokens' => 'OceanTokens/Resources/Fonts/*.ttf' }
-  # end
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  
 end
