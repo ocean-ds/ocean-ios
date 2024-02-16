@@ -18,9 +18,9 @@ extension OceanSwiftUI {
         @Published public var placeholder: String
         @Published public var text: String
         @Published public var style: Style
+        @Published public var icon: UIImage?
         @Published public var errorMessage: String
         @Published public var helperMessage: String
-        @Published public var icon: UIImage?
         @Published public var iconHelper: UIImage?
         @Published public var keyboardType: UIKeyboardType
         @Published public var autocapitalization: UITextAutocapitalizationType
@@ -38,17 +38,17 @@ extension OceanSwiftUI {
                     placeholder: String = "",
                     text: String = "",
                     style: Style = .input,
+                    icon: UIImage? = nil,
                     errorMessage: String = "",
                     helperMessage: String = "",
-                    icon: UIImage? = nil,
                     iconHelper: UIImage? = nil,
                     keyboardType: UIKeyboardType = .default,
                     autocapitalization: UITextAutocapitalizationType = .words,
                     textContentType: UITextContentType? = nil,
                     maxLenght: Int? = nil,
                     showMaxLenght: Bool = false,
-                    showSkeleton: Bool = false,
                     isDisabled: Bool = false,
+                    showSkeleton: Bool = false,
                     onMask: ((String) -> String)? = nil,
                     onValueChanged: @escaping (String) -> Void = { _ in },
                     onTouchIcon: @escaping () -> Void = { },
@@ -57,9 +57,9 @@ extension OceanSwiftUI {
             self.placeholder = placeholder
             self.text = text
             self.style = style
+            self.icon = icon
             self.errorMessage = errorMessage
             self.helperMessage = helperMessage
-            self.icon = icon
             self.iconHelper = iconHelper
             self.keyboardType = keyboardType
             self.autocapitalization = autocapitalization

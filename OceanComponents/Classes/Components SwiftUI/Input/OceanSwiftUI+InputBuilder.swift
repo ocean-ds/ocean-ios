@@ -14,5 +14,25 @@ extension OceanSwiftUI {
                 builder?(input)
             }
         }
+
+        public static func secureText(builder: OceanSwiftUI.InputTextField.Builder? = nil) -> OceanSwiftUI.InputTextField {
+            return OceanSwiftUI.InputTextField { input in
+                input.parameters.style = .secureText
+                builder?(input)
+            }
+        }
+
+        public static func textArea(builder: OceanSwiftUI.InputTextField.Builder? = nil) -> OceanSwiftUI.InputTextField {
+            return OceanSwiftUI.InputTextField { input in
+                input.parameters.style = .textArea
+                builder?(input)
+            }
+        }
+
+        public static func selectField(builder: OceanSwiftUI.InputSelectField.Builder? = nil) -> OceanSwiftUI.InputSelectField {
+            return OceanSwiftUI.InputSelectField { input in
+                builder?(input)
+            }
+        }
     }
 }
