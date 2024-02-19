@@ -1,6 +1,6 @@
 //
 //  OceanSwiftUI+TextListItem.swift
-//  Charts
+//  OceanComponents
 //
 //  Created by Renan Massaroto on 15/02/24.
 //
@@ -16,6 +16,7 @@ extension OceanSwiftUI {
         @Published public var description: String
         @Published public var caption: String
         @Published public var info: String
+        @Published public var icon: UIImage?
 
         @Published public var padding: EdgeInsets
 
@@ -34,6 +35,7 @@ extension OceanSwiftUI {
                     description: String = "",
                     caption: String = "",
                     info: String = "",
+                    icon: UIImage? = nil,
                     padding: EdgeInsets = .init(top: Ocean.size.spacingStackXxs,
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXxs,
@@ -50,6 +52,7 @@ extension OceanSwiftUI {
             self.description = description
             self.caption = caption
             self.info = info
+            self.icon = icon
             self.padding = padding
             self.state = state
             self.hasCheckbox = hasCheckbox
@@ -99,27 +102,18 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            HStack {
+            HStack(spacing: Ocean.size.spacingStackXs) {
                 if parameters.showSkeleton {
-                    VStack {
-                        Spacer()
-
-                        GeometryReader { geometryReader in
-                            Rectangle()
-                                .skeleton(with: true,
-                                          size: CGSize(width: geometryReader.size.width,
-                                                       height: 60),
-                                          shape: .rounded(.radius(Ocean.size.borderRadiusSm,
-                                                                  style: .circular)),
-                                          lines: 2,
-                                          scales: [0: 0.35, 1: 1.0])
-                        }
-
-                        Spacer()
-                            .frame(height: 60)
+                    Skeleton { skeleton in
+                        skeleton.parameters.withImage = parameters.icon != nil
                     }
                 } else {
-                    if parameters.hasCheckbox {
+                    if let icon = parameters.icon {
+                        RoundedIcon { image in
+                            image.parameters.icon = icon
+                        }
+                    }
+                    else if parameters.hasCheckbox {
                         OceanSwiftUI.CheckboxGroup { group in
                             group.parameters.hasError = parameters.hasError
                             group.parameters.items = [ .init() ]
@@ -128,9 +122,7 @@ extension OceanSwiftUI {
                                 parameters.onSelection(item.isSelected)
                             }
                         }
-                    }
-
-                    if parameters.hasRadioButton {
+                    } else if parameters.hasRadioButton {
                         OceanSwiftUI.RadioButtonGroup { group in
                             group.parameters.hasError = parameters.hasError
                             group.parameters.items = [ .init() ]
