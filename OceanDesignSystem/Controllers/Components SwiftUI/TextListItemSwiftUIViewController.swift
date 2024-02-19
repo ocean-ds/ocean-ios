@@ -38,6 +38,7 @@ class TextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.title = "Title 3"
             textListItem.parameters.description = "Description"
             textListItem.parameters.caption = "Caption"
+            textListItem.parameters.icon = Ocean.icon.personOutline
             textListItem.parameters.hasAction = true
             textListItem.parameters.onTouch = {
                 print("Touched!")
