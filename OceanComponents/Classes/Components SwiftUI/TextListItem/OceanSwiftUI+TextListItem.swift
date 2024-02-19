@@ -180,7 +180,9 @@ extension OceanSwiftUI {
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
             .padding(parameters.padding)
             .background(Color(Ocean.color.colorInterfaceLightPure))
-
+            .onTapGesture {
+                parameters.onTouch()
+            }
         }
 
         private struct Constants {
