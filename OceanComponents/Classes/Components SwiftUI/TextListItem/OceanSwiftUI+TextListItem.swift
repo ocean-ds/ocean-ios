@@ -138,9 +138,11 @@ extension OceanSwiftUI {
                             label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
                         }
 
-                        OceanSwiftUI.Typography.description { label in
-                            label.parameters.text = parameters.description
-                            label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                        if !parameters.description.isEmpty {
+                            OceanSwiftUI.Typography.description { label in
+                                label.parameters.text = parameters.description
+                                label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                            }
                         }
 
                         if !parameters.caption.isEmpty {
