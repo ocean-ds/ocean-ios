@@ -30,12 +30,14 @@ jobs:
       - name: Bundle install
         run: bundle install
 
-      # https://github.com/SwiftGen/SwiftGen/issues/1030
-      # - name: Install swiftgen
-      #   run: brew install swiftgen
+      - name: Install mint
+        run: brew install mint
 
-      # - name: Update tokens
-      #   run: sh update_tokens.sh
+      - name: Install swiftgen
+        run: mint install SwiftGen/SwiftGen
+
+      - name: Update tokens
+        run: sh update_tokens.sh
 
       - name: Increment version cocoapod
         run: |
