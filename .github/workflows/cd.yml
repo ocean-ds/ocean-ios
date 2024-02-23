@@ -30,8 +30,11 @@ jobs:
       - name: Bundle install
         run: bundle install
 
+      - name: Install mint
+        run: brew install mint
+
       - name: Install swiftgen
-        run: brew install swiftgen
+        run: mint install SwiftGen/SwiftGen
 
       - name: Update tokens
         run: sh update_tokens.sh
