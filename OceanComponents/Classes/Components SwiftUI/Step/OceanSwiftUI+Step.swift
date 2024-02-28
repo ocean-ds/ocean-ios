@@ -16,11 +16,11 @@ extension OceanSwiftUI {
         @Published public var steps: Int
         @Published public var currentStep: Int
 
-        public var stepFirst: Int {
+        public var firstStep: Int {
             return 0
         }
 
-        public var stepLast: Int {
+        public var lastStep: Int {
             return self.steps - 1
         }
 
@@ -77,9 +77,9 @@ extension OceanSwiftUI {
 
         @ViewBuilder
         private func getStep(index: Int) -> some View {
-            if index == self.parameters.stepFirst {
+            if index == self.parameters.firstStep {
                 Image(uiImage: index == self.parameters.currentStepInternal ? Ocean.icon.stepInitCurrent : Ocean.icon.stepInitSelected)
-            } else if index == self.parameters.stepLast {
+            } else if index == self.parameters.lastStep {
                 Image(uiImage: index == self.parameters.currentStepInternal ? Ocean.icon.stepEndCurrent : Ocean.icon.stepEnd)
             } else {
                 Image(uiImage: index < self.parameters.currentStepInternal ? Ocean.icon.stepMiddleSelected :
