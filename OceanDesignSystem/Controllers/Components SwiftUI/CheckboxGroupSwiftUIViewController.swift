@@ -17,7 +17,8 @@ class CheckboxGroupSwiftUIViewController: UIViewController {
             .init(id: "labe2", title: "Label 2"),
             .init(id: "labe3", title: "Label 3"),
             .init(id: "labe4", title: "Label 4"),
-            .init(id: "labe5", title: "Label 5")
+            .init(id: "labe5", title: "Label 5"),
+            .init(id: "label6", title: "[Link](http://www.blu.com.br)")
         ]
         view.parameters.onTouch = { views in
             views.forEach { print("title: \($0.title) - selected: \($0.isSelected)") }

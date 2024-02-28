@@ -125,6 +125,7 @@ extension OceanSwiftUI {
                         OceanSwiftUI.Typography.description { view in
                             view.parameters.text = item.title
                             view.parameters.lineLimit = 20
+                            view.parameters.tintColor = Ocean.color.colorBrandPrimaryPure
                         }
 
                         Spacer()
