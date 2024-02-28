@@ -30,6 +30,7 @@
 		24E39BA326DE5BCE006B6A02 /* BalanceSimpleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E39BA226DE5BCE006B6A02 /* BalanceSimpleViewController.swift */; };
 		24FEEBC12744282E00211FEC /* StepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FEEBC02744282E00211FEC /* StepViewController.swift */; };
 		3EC980927BF0109693E47882 /* Pods_OceanDesignSystemTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDF2EC3ACFA07DE2F890D43F /* Pods_OceanDesignSystemTests.framework */; };
+		421C21C52B8F9A7900EBD703 /* StepSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421C21C42B8F9A7900EBD703 /* StepSwiftUIViewController.swift */; };
 		4223DDA2293F894C00257DBC /* OrderedListItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4223DDA1293F894C00257DBC /* OrderedListItemViewController.swift */; };
 		42256BA62B0FEE410055C034 /* StatusListItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42256BA52B0FEE410055C034 /* StatusListItemViewController.swift */; };
 		423171AF2B11189000082955 /* StatusListItemSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423171AE2B11189000082955 /* StatusListItemSwiftUIViewController.swift */; };
@@ -152,6 +153,7 @@
 		24E301B426EF911400D2296C /* SubheaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubheaderViewController.swift; sourceTree = "<group>"; };
 		24E39BA226DE5BCE006B6A02 /* BalanceSimpleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceSimpleViewController.swift; sourceTree = "<group>"; };
 		24FEEBC02744282E00211FEC /* StepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepViewController.swift; sourceTree = "<group>"; };
+		421C21C42B8F9A7900EBD703 /* StepSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepSwiftUIViewController.swift; sourceTree = "<group>"; };
 		4223DDA1293F894C00257DBC /* OrderedListItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedListItemViewController.swift; sourceTree = "<group>"; };
 		42256BA52B0FEE410055C034 /* StatusListItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusListItemViewController.swift; sourceTree = "<group>"; };
 		423171AE2B11189000082955 /* StatusListItemSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusListItemSwiftUIViewController.swift; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 				427CBD2C2B7699FE00C33311 /* CardCrossSellSwiftUIViewController.swift */,
 				427CBD342B76AE4600C33311 /* CardGroupSwiftUIViewController.swift */,
 				D5376B032B7E577E00B23B3E /* TextListItemSwiftUIViewController.swift */,
+				421C21C42B8F9A7900EBD703 /* StepSwiftUIViewController.swift */,
 			);
 			path = "Components SwiftUI";
 			sourceTree = "<group>";
@@ -667,6 +670,7 @@
 				42E695732B2A53A100E5AB11 /* BadgeSwiftUIViewController.swift in Sources */,
 				249999B626A9CDA5004DAB05 /* NavigationBarViewController.swift in Sources */,
 				E17A61182B72B71000428E29 /* CheckboxGroupSwiftUIViewController.swift in Sources */,
+				421C21C52B8F9A7900EBD703 /* StepSwiftUIViewController.swift in Sources */,
 				D5A319FD2B3B2D3200786FCD /* CardListItemSwiftUIViewController.swift in Sources */,
 				426320F32B35D47E00A975E6 /* DividerSwiftUIViewController.swift in Sources */,
 				B71D65C824C8F28100C3938C /* TokensByCategoryViewController.swift in Sources */,

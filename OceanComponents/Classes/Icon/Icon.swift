@@ -19,6 +19,13 @@ extension Ocean {
         public static let spinner = UIImage(named: "OceanComponents.bundle/spinner", in: .bundleOceanComponents, compatibleWith: .none)
         public static let spinnerPrimary = UIImage(named: "OceanComponents.bundle/spinner-primary", in: .bundleOceanComponents, compatibleWith: .none)
         public static let swipe = UIImage(named: "OceanComponents.bundle/swipe-icon", in: .bundleOceanComponents, compatibleWith: .none)
+        public static let stepInitCurrent = UIImage(named: "OceanComponents.bundle/step-init-current", in: .bundleOceanComponents, compatibleWith: .none)
+        public static let stepInitSelected = UIImage(named: "OceanComponents.bundle/step-init-selected", in: .bundleOceanComponents, compatibleWith: .none)
+        public static let stepMiddle = UIImage(named: "OceanComponents.bundle/step-middle", in: .bundleOceanComponents, compatibleWith: .none)
+        public static let stepMiddleCurrent = UIImage(named: "OceanComponents.bundle/step-middle-current", in: .bundleOceanComponents, compatibleWith: .none)
+        public static let stepMiddleSelected = UIImage(named: "OceanComponents.bundle/step-middle-selected", in: .bundleOceanComponents, compatibleWith: .none)
+        public static let stepEnd = UIImage(named: "OceanComponents.bundle/step-end", in: .bundleOceanComponents, compatibleWith: .none)
+        public static let stepEndCurrent = UIImage(named: "OceanComponents.bundle/step-end-current", in: .bundleOceanComponents, compatibleWith: .none)
 
         // BluIcons
 
