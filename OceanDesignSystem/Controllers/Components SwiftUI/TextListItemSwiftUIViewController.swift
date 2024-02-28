@@ -154,7 +154,7 @@ class TextListItemSwiftUIViewController: UIViewController {
 }
 
 @available(iOS 13.0, *)
-struct ModalSwiftUIViewController_Preview: PreviewProvider {
+struct TextListItemSwiftUIViewController_Preview: PreviewProvider {
     
     static var previews: some View {
         UIViewControllerPreview {

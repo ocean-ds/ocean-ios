@@ -91,6 +91,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(CardGroupSwiftUIViewController(), animated: true, completion: nil)
         case .TextListItem:
             self.present(TextListItemSwiftUIViewController(), animated: true, completion: nil)
+        case .Step:
+            self.present(StepSwiftUIViewController(), animated: true, completion: nil)
         }
     }
 }

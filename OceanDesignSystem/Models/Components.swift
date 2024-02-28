@@ -82,6 +82,7 @@ struct DSComponents {
         "RadioButtonGroup",
         "StatusListItem",
         "Subheader",
+        "Step",
         "Tab",
         "Tag",
         "TextListItem",
