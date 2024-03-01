@@ -106,6 +106,7 @@ extension Ocean {
                 .topToTop(to: mainView)
                 .leadingToLeading(to: mainView)
                 .trailingToTrailing(to: mainView)
+                .height(constant: 130, type: .greaterThanOrEqualTo)
                 .make()
             
             contentStack.oceanConstraints
