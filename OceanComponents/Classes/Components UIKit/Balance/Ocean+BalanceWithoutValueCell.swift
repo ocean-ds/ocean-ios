@@ -42,21 +42,28 @@ extension Ocean {
             }
         }()
 
-        private lazy var contentStack: Ocean.StackView = {
-            Ocean.StackView { stack in
-                stack.axis = .vertical
-                stack.alignment = .leading
-                stack.distribution = .fill
-                stack.isSkeletonable = true
+        private lazy var contentContainerView: UIView = {
+            let view = UIView()
+            view.isSkeletonable = true
+            view.addSubviews(titleLabel, descriptionLabel, footerButton)
+            titleLabel.oceanConstraints
+                .topToTop(to: view)
+                .leadingToLeading(to: view)
+                .trailingToTrailing(to: view)
+                .make()
 
-                stack.add([
-                    titleLabel,
-                    Spacer(space: Ocean.size.spacingStackXxxs),
-                    descriptionLabel,
-                    Spacer(space: Ocean.size.spacingStackXxs),
-                    footerButton
-                ])
-            }
+            descriptionLabel.oceanConstraints
+                .topToBottom(to: titleLabel, constant: Ocean.size.spacingStackXxxs)
+                .leadingToLeading(to: view)
+                .trailingToTrailing(to: view)
+                .make()
+
+            footerButton.oceanConstraints
+                .leadingToLeading(to: view)
+                .bottomToBottom(to: view)
+                .make()
+
+            return view
         }()
 
         private lazy var contentContainer: UIView = {
@@ -94,7 +101,7 @@ extension Ocean {
             self.contentView.isSkeletonable = true
             self.contentView.addSubviews(mainView)
             mainView.addSubview(contentContainer)
-            contentContainer.addSubview(contentStack)
+            contentContainer.addSubview(contentContainerView)
         }
 
         private func setupConstraints() {
@@ -106,13 +113,11 @@ extension Ocean {
                 .topToTop(to: mainView)
                 .leadingToLeading(to: mainView)
                 .trailingToTrailing(to: mainView)
+                .height(constant: 130, type: .greaterThanOrEqualTo)
                 .make()
             
-            contentStack.oceanConstraints
-                .topToTop(to: contentContainer, constant: Ocean.size.spacingStackXs)
-                .leadingToLeading(to: contentContainer, constant: Ocean.size.spacingStackXs)
-                .trailingToTrailing(to: contentContainer, constant: -Ocean.size.spacingStackXs)
-                .bottomToBottom(to: contentContainer, constant: -Ocean.size.spacingStackXs)
+            contentContainerView.oceanConstraints
+                .fill(to: contentContainer, constant: Ocean.size.spacingStackXs)
                 .make()
         }
 

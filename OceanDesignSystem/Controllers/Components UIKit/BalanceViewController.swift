@@ -58,7 +58,7 @@ final public class BalanceViewController : UIViewController {
                                }),
             Ocean.BalanceModel(title: "Saldo em Outras maquininhas",
                                value: nil,
-                               description: "Receba na Blu as vendas feitas nas suas outras maquininhas",
+                               description: "Consulte o seu saldo para descobrir oportunidades",
                                actionCTA: "Trazer saldo para a Blu",
                                actionCTACollapsed: "Trazer saldo",
                                action: {
