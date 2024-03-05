@@ -140,7 +140,22 @@ class AlertSwiftUIViewController: UIViewController {
             alert.parameters.withIcon = false
         }
     }()
-    
+
+    lazy var alertPositiveInverted: OceanSwiftUI.Alert = {
+        return OceanSwiftUI.Alert.positiveInverted { alert in
+            alert.parameters.title = "Title inverted"
+            alert.parameters.text = "Text alert Positive inverted"
+            alert.parameters.icon = Ocean.icon.moneyInflowOutline
+        }
+    }()
+
+    lazy var alertNegativeInverted: OceanSwiftUI.Alert = {
+        return OceanSwiftUI.Alert.negativeInverted { alert in
+            alert.parameters.title = "Title inverted"
+            alert.parameters.text = "Text alert Negative inverted"
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             VStack(spacing: Ocean.size.spacingStackXs) {
@@ -163,6 +178,10 @@ class AlertSwiftUIViewController: UIViewController {
                 alertPositiveWithLink
                 alertNegativeWithLink
                 alertNegativeWithButton
+            }
+            VStack(spacing: Ocean.size.spacingStackXs) {
+                alertPositiveInverted
+                alertNegativeInverted
             }
         }
     })

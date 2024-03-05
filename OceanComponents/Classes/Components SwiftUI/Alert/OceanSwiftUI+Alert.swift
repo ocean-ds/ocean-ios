@@ -34,6 +34,7 @@ extension OceanSwiftUI {
             case none
             case longDescription
             case shortDescription
+            case inverted
         }
 
         public enum ActionType {
@@ -102,15 +103,29 @@ extension OceanSwiftUI {
         }
         
         private var titleView: some View {
-            OceanSwiftUI.Typography.heading5 { label in
-                label.parameters.text = parameters.title
-                label.parameters.textColor = getForegroundColor()
+            if parameters.style == .inverted {
+                OceanSwiftUI.Typography.description { label in
+                    label.parameters.text = parameters.title
+                    label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                }
+            } else {
+                OceanSwiftUI.Typography.heading5 { label in
+                    label.parameters.text = parameters.title
+                    label.parameters.textColor = getForegroundColor()
+                }
             }
         }
         
         private var textView: some View {
-            OceanSwiftUI.Typography.caption { label in
-                label.parameters.text = parameters.text
+            if parameters.style == .inverted {
+                OceanSwiftUI.Typography.paragraph { label in
+                    label.parameters.text = parameters.text
+                    label.parameters.textColor = Ocean.color.colorInterfaceDarkPure
+                }
+            } else {
+                OceanSwiftUI.Typography.caption { label in
+                    label.parameters.text = parameters.text
+                }
             }
         }
         
@@ -183,7 +198,21 @@ extension OceanSwiftUI {
             }
             .padding(.all, Ocean.size.spacingStackXs)
         }
-        
+
+        private var invertedView: some View {
+            HStack {
+                iconImage
+                VStack(alignment: .leading) {
+                    titleView
+                    textView
+                    withActionLink
+                }
+                Spacer()
+                withActionButton
+            }
+            .padding(.all, Ocean.size.spacingStackXs)
+        }
+
         // MARK: Constructors
         
         public init(parameters: AlertParameters = AlertParameters()) {
@@ -206,6 +235,8 @@ extension OceanSwiftUI {
                     longDescriptionView
                 case .shortDescription:
                     shortDescriptionView
+                case .inverted:
+                    invertedView
                 }
             }
             .background(getBackgroundColor())
