@@ -10,7 +10,7 @@ import SwiftUI
 import OceanTokens
 import DGCharts
 
-struct MyChart: UIViewRepresentable {
+struct ChartView: UIViewRepresentable {
     let centerText: String
     let entries: [PieChartDataEntry]
     let colors: [UIColor]
@@ -59,6 +59,8 @@ extension OceanSwiftUI {
     // MARK: Parameters
 
     public class ScoreChartParameters: ObservableObject {
+        @Published public var title: String
+        @Published public var subtitle: String
         @Published public var scoreMin: Double
         @Published public var scoreMax: Double {
             didSet {
@@ -70,27 +72,25 @@ extension OceanSwiftUI {
                 self.configureChart()
             }
         }
-        @Published public var colorPrimary: UIColor?
-        @Published public var colorSecondary: UIColor?
-
+        @Published fileprivate var colorPrimary: UIColor = Ocean.color.colorStatusNegativePure
+        @Published fileprivate var colorSecondary: UIColor = Ocean.color.colorInterfaceLightDeep
         @Published fileprivate var scoreDifference: Double = 0
 
-        public init(scoreMin: Double = 0,
+        public init(title: String = "",
+                    subtitle: String = "",
+                    scoreMin: Double = 0,
                     scoreMax: Double = 1000,
-                    scoreCurrent: Double = 0,
-                    colorPrimary: UIColor? = nil,
-                    colorSecondary: UIColor? = nil) {
+                    scoreCurrent: Double = 0) {
+            self.title = title
+            self.subtitle = subtitle
             self.scoreMin = scoreMin
             self.scoreMax = scoreMax
             self.scoreCurrent = scoreCurrent
-            self.colorPrimary = colorPrimary
-            self.colorSecondary = colorSecondary
         }
 
         private func configureChart() {
             calculateDiff()
             setPrimaryColorIfNeed()
-            setSecondaryColorIfNeed()
         }
 
         private func calculateDiff() {
@@ -98,8 +98,6 @@ extension OceanSwiftUI {
         }
 
         private func setPrimaryColorIfNeed() {
-            guard let _ = colorPrimary else { return }
-
             if scoreCurrent < 301 {
                 colorPrimary = Ocean.color.colorStatusNegativePure
             } else if scoreCurrent < 500 {
@@ -109,11 +107,6 @@ extension OceanSwiftUI {
             } else {
                 colorPrimary = Ocean.color.colorStatusPositiveDeep
             }
-        }
-
-        private func setSecondaryColorIfNeed() {
-            guard let _ = colorSecondary else { return }
-            colorSecondary = Ocean.color.colorInterfaceLightDeep
         }
     }
 
@@ -148,38 +141,54 @@ extension OceanSwiftUI {
 
         public var body: some View {
             VStack {
-                Spacer()
+                headerView
                 VStack {
-                    MyChart(centerText: self.parameters.scoreCurrent.toDecimal(),
+                    ChartView(centerText: self.parameters.scoreCurrent.toDecimal(),
                             entries: [.init(value: self.parameters.scoreCurrent),
                                       .init(value: self.parameters.scoreDifference)],
-                            colors: [self.parameters.colorPrimary!,
-                                     self.parameters.colorSecondary!])
+                            colors: [self.parameters.colorPrimary,
+                                     self.parameters.colorSecondary])
                     .frame(height: 100)
-                }
-                HStack {
-                    OceanSwiftUI.Typography.caption { label in
-                        label.parameters.text = self.parameters.scoreMin.toDecimal()
-                    }
-                    .padding(.leading, 12)
+                    labelsView
                     Spacer()
-                    OceanSwiftUI.Typography.caption { label in
-                        label.parameters.text = self.parameters.scoreMax.toDecimal()
-                    }
                 }
-                .padding(.horizontal, 32)
                 Spacer()
             }
-            .frame(width: 250, height: 150)
+        }
+
+        private var headerView: some View {
+            HStack {
+                VStack(alignment: .leading) {
+                    OceanSwiftUI.Typography.heading4 { label in
+                        label.parameters.text = self.parameters.title
+                    }
+                    Spacer()
+                        .frame(height: Ocean.size.spacingStackXxxs)
+                    OceanSwiftUI.Typography.description { label in
+                        label.parameters.text = self.parameters.subtitle
+                    }
+                    Spacer()
+                        .frame(height: Ocean.size.spacingStackXs)
+                }
+                Spacer()
+            }
+        }
+
+        private var labelsView: some View {
+            HStack {
+                OceanSwiftUI.Typography.caption { label in
+                    label.parameters.text = self.parameters.scoreMin.toDecimal()
+                }
+                .padding(.leading, 12)
+                Spacer()
+                OceanSwiftUI.Typography.caption { label in
+                    label.parameters.text = self.parameters.scoreMax.toDecimal()
+                }
+            }
+            .padding(.horizontal, 87)
         }
 
         // MARK: Methods private
-
-
-
-        private func getColorForScore() {
-
-        }
     }
 }
 

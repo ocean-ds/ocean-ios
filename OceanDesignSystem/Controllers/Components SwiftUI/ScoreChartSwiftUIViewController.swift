@@ -1,5 +1,5 @@
 //
-//  ScoreChartViewController.swift
+//  ScoreChartSwiftUIViewController.swift
 //  OceanDesignSystem
 //
 //  Created by Acassio Mendonça on 04/03/24.
@@ -9,27 +9,35 @@
 import OceanTokens
 import SwiftUI
 
-class ScoreChartViewController: UIViewController {
+class ScoreChartSwiftUIViewController: UIViewController {
     var chartHighRisk: OceanSwiftUI.ScoreChart = {
         let chart = OceanSwiftUI.ScoreChart()
+        chart.parameters.title = "Score"
+        chart.parameters.subtitle = "Última consulta em 10/11/2023"
         chart.parameters.scoreCurrent = 200
 
         return chart
     }()
     var chartMediumRisk: OceanSwiftUI.ScoreChart = {
         let chart = OceanSwiftUI.ScoreChart()
+        chart.parameters.title = "Score"
+        chart.parameters.subtitle = "Última consulta em 10/11/2023"
         chart.parameters.scoreCurrent = 400
 
         return chart
     }()
     var chartLowRisk: OceanSwiftUI.ScoreChart = {
         let chart = OceanSwiftUI.ScoreChart()
+        chart.parameters.title = "Score"
+        chart.parameters.subtitle = "Última consulta em 10/11/2023"
         chart.parameters.scoreCurrent = 600
 
         return chart
     }()
     var chartVeryLowRisk: OceanSwiftUI.ScoreChart = {
         let chart = OceanSwiftUI.ScoreChart()
+        chart.parameters.title = "Score"
+        chart.parameters.subtitle = "Última consulta em 10/11/2023"
         chart.parameters.scoreCurrent = 900
 
         return chart
@@ -58,10 +66,10 @@ class ScoreChartViewController: UIViewController {
 }
 
 @available(iOS 13.0, *)
-struct ScoreChartViewController_Preview: PreviewProvider {
+struct ScoreChartSwiftUIViewController_Preview: PreviewProvider {
     static var previews: some View {
         UIViewControllerPreview {
-            ScoreChartViewController()
+            ScoreChartSwiftUIViewController()
         }
     }
 }
