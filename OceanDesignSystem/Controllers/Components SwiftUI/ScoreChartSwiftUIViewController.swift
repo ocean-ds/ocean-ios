@@ -14,7 +14,7 @@ class ScoreChartSwiftUIViewController: UIViewController {
         let chart = OceanSwiftUI.ScoreChart()
         chart.parameters.title = "Score"
         chart.parameters.subtitle = "Última consulta em 10/11/2023"
-        chart.parameters.scoreCurrent = 200
+        chart.parameters.currentValue = 200
 
         return chart
     }()
@@ -22,7 +22,7 @@ class ScoreChartSwiftUIViewController: UIViewController {
         let chart = OceanSwiftUI.ScoreChart()
         chart.parameters.title = "Score"
         chart.parameters.subtitle = "Última consulta em 10/11/2023"
-        chart.parameters.scoreCurrent = 400
+        chart.parameters.currentValue = 400
 
         return chart
     }()
@@ -30,7 +30,7 @@ class ScoreChartSwiftUIViewController: UIViewController {
         let chart = OceanSwiftUI.ScoreChart()
         chart.parameters.title = "Score"
         chart.parameters.subtitle = "Última consulta em 10/11/2023"
-        chart.parameters.scoreCurrent = 600
+        chart.parameters.currentValue = 600
 
         return chart
     }()
@@ -38,7 +38,7 @@ class ScoreChartSwiftUIViewController: UIViewController {
         let chart = OceanSwiftUI.ScoreChart()
         chart.parameters.title = "Score"
         chart.parameters.subtitle = "Última consulta em 10/11/2023"
-        chart.parameters.scoreCurrent = 900
+        chart.parameters.currentValue = 900
 
         return chart
     }()

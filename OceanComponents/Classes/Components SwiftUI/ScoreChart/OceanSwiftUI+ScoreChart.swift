@@ -14,52 +14,33 @@ extension OceanSwiftUI {
     public class ScoreChartParameters: ObservableObject {
         @Published public var title: String
         @Published public var subtitle: String
-        @Published public var scoreMin: Double
-        @Published public var scoreMax: Double {
+        @Published public var minValue: Double
+        @Published public var maxValue: Double {
             didSet {
-                self.configureChart()
+                self.calculateDiff()
             }
         }
-        @Published public var scoreCurrent: Double {
+        @Published public var currentValue: Double {
             didSet {
-                self.configureChart()
+                self.calculateDiff()
             }
         }
-        @Published fileprivate var colorPrimary: UIColor = Ocean.color.colorStatusNegativePure
-        @Published fileprivate var colorSecondary: UIColor = Ocean.color.colorInterfaceLightDeep
-        @Published fileprivate var scoreDifference: Double = 0
+        @Published fileprivate var diffValue: Double = 0
 
         public init(title: String = "",
                     subtitle: String = "",
-                    scoreMin: Double = 0,
-                    scoreMax: Double = 1000,
-                    scoreCurrent: Double = 0) {
+                    minValue: Double = 0,
+                    maxValue: Double = 1000,
+                    currentValue: Double = 0) {
             self.title = title
             self.subtitle = subtitle
-            self.scoreMin = scoreMin
-            self.scoreMax = scoreMax
-            self.scoreCurrent = scoreCurrent
-        }
-
-        private func configureChart() {
-            calculateDiff()
-            setPrimaryColorIfNeed()
+            self.minValue = minValue
+            self.maxValue = maxValue
+            self.currentValue = currentValue
         }
 
         private func calculateDiff() {
-            self.scoreDifference = self.scoreMax - self.scoreCurrent
-        }
-
-        private func setPrimaryColorIfNeed() {
-            if scoreCurrent < 301 {
-                colorPrimary = Ocean.color.colorStatusNegativePure
-            } else if scoreCurrent < 500 {
-                colorPrimary = Ocean.color.colorStatusNeutralDeep
-            } else if scoreCurrent < 700 {
-                colorPrimary = Ocean.color.colorStatusPositivePure
-            } else {
-                colorPrimary = Ocean.color.colorStatusPositiveDeep
-            }
+            self.diffValue = self.maxValue - self.currentValue
         }
     }
 
@@ -96,11 +77,7 @@ extension OceanSwiftUI {
             VStack {
                 headerView
                 VStack {
-                    ChartView(centerText: self.parameters.scoreCurrent.toDecimal(),
-                            entries: [.init(value: self.parameters.scoreCurrent),
-                                      .init(value: self.parameters.scoreDifference)],
-                            colors: [self.parameters.colorPrimary,
-                                     self.parameters.colorSecondary])
+                    ChartView(currentValue: parameters.currentValue, diffValue: parameters.diffValue)
                     .frame(height: 100)
                     labelsView
                     Spacer()
@@ -130,12 +107,12 @@ extension OceanSwiftUI {
         private var labelsView: some View {
             HStack {
                 OceanSwiftUI.Typography.caption { label in
-                    label.parameters.text = self.parameters.scoreMin.toDecimal()
+                    label.parameters.text = self.parameters.minValue.toDecimal()
                 }
                 .padding(.leading, 12)
                 Spacer()
                 OceanSwiftUI.Typography.caption { label in
-                    label.parameters.text = self.parameters.scoreMax.toDecimal()
+                    label.parameters.text = self.parameters.maxValue.toDecimal()
                 }
             }
             .padding(.horizontal, 87)

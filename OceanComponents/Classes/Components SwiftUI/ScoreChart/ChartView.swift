@@ -10,16 +10,12 @@ import OceanTokens
 import DGCharts
 
 struct ChartView: UIViewRepresentable {
-    let centerText: String
-    let entries: [PieChartDataEntry]
-    let colors: [UIColor]
+    public let diffValue: Double
+    public let currentValue: Double
 
-    public init(centerText: String = "",
-                entries: [PieChartDataEntry],
-                colors: [UIColor]) {
-        self.centerText = centerText
-        self.entries = entries
-        self.colors = colors
+    public init(currentValue: Double, diffValue: Double) {
+        self.currentValue = currentValue
+        self.diffValue = diffValue
     }
 
     func makeUIView(context: Context) -> PieChartView {
@@ -28,12 +24,20 @@ struct ChartView: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: PieChartView, context: Context) {
+        let centerText = currentValue.toDecimal()
         uiView.centerAttributedText = buildAttributedString(text: centerText)
         uiView.configurePieChartViewHalfDonut()
+
+        let entries: [PieChartDataEntry] = [.init(value: currentValue), .init(value: diffValue)]
+        
+        let primaryColor = getPrimaryColor()
+        let secondaryColor = Ocean.color.colorInterfaceLightDeep
+        let colors: [UIColor] = [primaryColor, secondaryColor]
 
         let dataSet = PieChartDataSet(entries: entries)
         dataSet.configureDataSetAppearance()
         dataSet.colors = colors
+        
         let data = PieChartData(dataSet: dataSet)
         uiView.data = data
     }
@@ -50,6 +54,18 @@ struct ChartView: UIViewRepresentable {
                 .foregroundColor: Ocean.color.colorInterfaceDarkDeep,
                 .paragraphStyle: paragraphStyle
             ])
+    }
+
+    private func getPrimaryColor() -> UIColor {
+        if currentValue < 301 {
+            return Ocean.color.colorStatusNegativePure
+        } else if currentValue < 501 {
+            return Ocean.color.colorStatusNeutralDeep
+        } else if currentValue < 701 {
+            return Ocean.color.colorStatusPositivePure
+        } else {
+            return Ocean.color.colorStatusPositiveDeep
+        }
     }
 }
 
