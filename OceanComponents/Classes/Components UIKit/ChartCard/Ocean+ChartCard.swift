@@ -7,7 +7,7 @@
 
 import Foundation
 import OceanTokens
-import Charts
+import DGCharts
 
 extension Ocean {
     

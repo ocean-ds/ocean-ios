@@ -62,7 +62,7 @@ extension Ocean {
             self.data = data
             contentStack.removeAllArrangedSubviews()
 
-            let chunks = data.chunks(ofCount: cols)
+            let chunks = data.chunked(into: cols)
             chunks.forEach { items in
                 let stack = Ocean.StackView { stack in
                     stack.translatesAutoresizingMaskIntoConstraints = false
