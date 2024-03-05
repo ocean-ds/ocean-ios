@@ -93,6 +93,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(TextListItemSwiftUIViewController(), animated: true, completion: nil)
         case .Step:
             self.present(StepSwiftUIViewController(), animated: true, completion: nil)
+        case .Tooltip:
+            self.present(TooltipSwiftUIViewController(), animated: true, completion: nil)
         }
     }
 }

@@ -102,8 +102,10 @@ public enum DesignSystemComponentsSwiftUIType: String {
     case Tab
     case Tag
     case TextListItem
+    case Tooltip
     case TransactionListItem
     case Typography
+
 }
 
 public enum DesignSystemTypographyType: Int {
