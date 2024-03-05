@@ -24,19 +24,15 @@ extension OceanSwiftUI {
         @Published public var selectedIndex: Int
         @Published public var padding: EdgeInsets
 
-        public var onTabSelected: (Int, OceanSwiftUI.TabModel) -> Void
-
         public init(tabs: [OceanSwiftUI.TabModel] = [],
                     selectedIndex: Int = -1,
                     padding: EdgeInsets = .init(top: 0,
                                                 leading: 0,
                                                 bottom: 0,
-                                                trailing: 0),
-                    onTabSelected: @escaping (Int, OceanSwiftUI.TabModel) -> Void = { _, _ in }) {
+                                                trailing: 0)) {
             self.tabs = tabs
             self.selectedIndex = selectedIndex
             self.padding = padding
-            self.onTabSelected = onTabSelected
         }
     }
 
@@ -178,10 +174,8 @@ extension OceanSwiftUI {
             .animation(.default, value: parameters.selectedIndex)
             .onTapGesture {
                 shouldHandleScroll = false
-
                 showContentAtIndex = index
                 parameters.selectedIndex = index
-                parameters.onTabSelected(index, parameters.tabs[index])
             }
             .id(index)
         }
