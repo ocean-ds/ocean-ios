@@ -21,8 +21,8 @@ extension OceanSwiftUI {
         @Published public var style: Style
         @Published public var actionText: String
         @Published public var actionType: ActionType
+        @Published public var tooltipText: String
         public var actionOnTouch: () -> Void
-        public var actionOnTooltip: ((CGPoint) -> Void)?
 
         public enum Status {
             case info
@@ -52,8 +52,7 @@ extension OceanSwiftUI {
                     actionText: String = "",
                     actionType: ActionType = .link,
                     tooltipText: String = "",
-                    actionOnTouch: @escaping () -> Void = { },
-                    actionOnTooltip: ((CGPoint) -> Void)? = nil){
+                    actionOnTouch: @escaping () -> Void = { }) {
             self.title = title
             self.text = text
             self.icon = icon
@@ -62,8 +61,8 @@ extension OceanSwiftUI {
             self.style = style
             self.actionText = actionText
             self.actionType = actionType
+            self.tooltipText = tooltipText
             self.actionOnTouch = actionOnTouch
-            self.actionOnTooltip = actionOnTooltip
         }
     }
     
@@ -81,9 +80,11 @@ extension OceanSwiftUI {
         // MARK: Properties
         
         @ObservedObject public var parameters: AlertParameters
+        @State var position: CGPoint = .zero
         private var iconWidth: CGFloat = 24
         private var iconHeight: CGFloat = 24
-        
+        private let coordinateSpaceName = UUID()
+
         // MARK: Properties private
 
         private var icon: UIImage {
@@ -120,18 +121,9 @@ extension OceanSwiftUI {
                     }
                 }
 
-                if parameters.actionOnTooltip != nil {
-                    GeometryReader { g in
-                        Image(uiImage: Ocean.icon.infoSolid)
-                            .renderingMode(.template)
-                            .resizable()
-                            .frame(width: 16, height: 16, alignment: .center)
-                            .foregroundColor(Color(Ocean.color.colorInterfaceLightDeep))
-                            .onTapGesture {
-                                let point = g.frame(in: .named(UUID()))
-                                let origin = CGPoint(x: point.minX, y: point.minY)
-                                parameters.actionOnTooltip?(origin)
-                            }
+                if !parameters.tooltipText.isEmpty {
+                    OceanSwiftUI.Tooltip { tooltip in
+                        tooltip.parameters.text = parameters.tooltipText
                     }
                 }
             }

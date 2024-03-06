@@ -10,46 +10,16 @@ import OceanTokens
 import SwiftUI
 
 class TooltipSwiftUIViewController: UIViewController {
-    lazy var button1: OceanSwiftUI.Button = {
-        OceanSwiftUI.Button.primaryMD { button in
-            button.parameters.text = "Abrir"
-            button.parameters.onTouch = {
-                self.tooltip.parameters.position = .bottom
-//                self.tooltip.parameters.show = true
-            }
+    lazy var tooltip: OceanSwiftUI.Tooltip = {
+        OceanSwiftUI.Tooltip { tooltip in
+            tooltip.parameters.text = "Tooltip Text"
         }
     }()
-
-    lazy var button2: OceanSwiftUI.Button = {
-        OceanSwiftUI.Button.primaryMD { button in
-            button.parameters.text = "Abrir"
-            button.parameters.onTouch = {
-                self.tooltip.parameters.position = .top
-//                self.tooltip.parameters.show = true
-            }
-        }
-    }()
-
-    var tooltip = OceanSwiftUI.Tooltip()
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
-        VStack(spacing: Ocean.size.spacingStackXxxl) {
-            GeometryReader { g in
-                if #available(iOS 14.0, *) {
-                    self.button1
-                        .help(Text("abc"))
-                }
-//                    .onTapGesture {
-//                        print(g.frame(in: .named(UUID())).minY)
-//                    }
-
-                self.button2
-//                    .onTapGesture {
-//                        print(g.frame(in: .named(UUID())).minY)
-//                    }
-            }
+        VStack(spacing: Ocean.size.spacingStackXs) {
+            tooltip
         }
-        .tooltip(tooltip)
     })
 
     public lazy var uiView = self.hostingController.getUIView()

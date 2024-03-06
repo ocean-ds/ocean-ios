@@ -146,10 +146,7 @@ class AlertSwiftUIViewController: UIViewController {
             alert.parameters.title = "Title inverted"
             alert.parameters.text = "Text alert Positive inverted"
             alert.parameters.icon = Ocean.icon.moneyInflowOutline
-            alert.parameters.actionOnTooltip = { point in
-                self.tooltip.parameters.text = "Tooltip text"
-                self.tooltip.parameters.show(offset: point)
-            }
+            alert.parameters.tooltipText = "Tooltip text"
         }
     }()
 
@@ -159,8 +156,6 @@ class AlertSwiftUIViewController: UIViewController {
             alert.parameters.text = "Text alert Negative inverted"
         }
     }()
-
-    var tooltip = OceanSwiftUI.Tooltip()
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
@@ -190,7 +185,6 @@ class AlertSwiftUIViewController: UIViewController {
                 alertNegativeInverted
             }
         }
-        .tooltip(tooltip)
     })
 
     public lazy var uiView = self.hostingController.getUIView()
