@@ -14,11 +14,13 @@ extension OceanSwiftUI {
 
     public class TooltipParameters: ObservableObject {
         @Published public var text: String
-        @Published public var show: Bool
         @Published public var position: Position
         @Published public var timer: Timer
         @Published public var size: Size
         @Published public var arrowSize: CGSize
+
+        @Published fileprivate(set) var show: Bool = false
+        @Published private(set) var offset: CGPoint = .zero
 
         public enum Position: Int {
             case top = 4
@@ -53,17 +55,20 @@ extension OceanSwiftUI {
         }
 
         public init(text: String = "",
-                    show: Bool = false,
                     position: Position = .bottom,
                     timer: Timer = .medium,
                     size: Size = .medium,
                     arrowSize: CGSize = .init(width: 12, height: 6)) {
             self.text = text
-            self.show = show
             self.position = position
             self.timer = timer
             self.size = size
             self.arrowSize = arrowSize
+        }
+
+        public func show(offset: CGPoint) {
+            self.offset = offset
+            self.show = true
         }
     }
 
@@ -119,7 +124,7 @@ extension OceanSwiftUI {
                                 .foregroundColor(Color(Ocean.color.colorInterfaceDarkPure))
                         )
 
-                    ZStack {
+                    VStack {
                         OceanSwiftUI.Typography.description { label in
                             label.parameters.text = parameters.text
                             label.parameters.textColor = Ocean.color.colorInterfaceLightPure
@@ -145,7 +150,9 @@ extension OceanSwiftUI {
 
         public func body(content: Content) -> some View {
             content
-                .overlay(parameters.show ? tooltipBody : nil)
+                .overlay(parameters.show ? 
+                         tooltipBody
+                         : nil)
         }
 
         // MARK: Methods private
@@ -159,7 +166,7 @@ extension OceanSwiftUI {
             case .top:
                 return -(parameters.size.getCGSize().height + Ocean.size.spacingStackXxs + parameters.arrowSize.height)
             case .bottom:
-                return g.size.height + Ocean.size.spacingStackXxs + parameters.arrowSize.height
+                return parameters.offset.y + Ocean.size.spacingStackXxs + parameters.arrowSize.height
             }
         }
 

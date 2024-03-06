@@ -22,6 +22,7 @@ extension OceanSwiftUI {
         @Published public var actionText: String
         @Published public var actionType: ActionType
         public var actionOnTouch: () -> Void
+        public var actionOnTooltip: ((CGPoint) -> Void)?
 
         public enum Status {
             case info
@@ -50,7 +51,9 @@ extension OceanSwiftUI {
                     style: Style = .none,
                     actionText: String = "",
                     actionType: ActionType = .link,
-                    actionOnTouch: @escaping () -> Void = { }){
+                    tooltipText: String = "",
+                    actionOnTouch: @escaping () -> Void = { },
+                    actionOnTooltip: ((CGPoint) -> Void)? = nil){
             self.title = title
             self.text = text
             self.icon = icon
@@ -60,6 +63,7 @@ extension OceanSwiftUI {
             self.actionText = actionText
             self.actionType = actionType
             self.actionOnTouch = actionOnTouch
+            self.actionOnTooltip = actionOnTooltip
         }
     }
     
@@ -81,7 +85,7 @@ extension OceanSwiftUI {
         private var iconHeight: CGFloat = 24
         
         // MARK: Properties private
-        
+
         private var icon: UIImage {
             if let providedIcon = parameters.icon {
                 return providedIcon
@@ -101,17 +105,34 @@ extension OceanSwiftUI {
                 }
             }
         }
-        
+
         private var titleView: some View {
-            if parameters.style == .inverted {
-                OceanSwiftUI.Typography.description { label in
-                    label.parameters.text = parameters.title
-                    label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+            HStack(spacing: Ocean.size.spacingStackXxxs) {
+                if parameters.style == .inverted {
+                    OceanSwiftUI.Typography.description { label in
+                        label.parameters.text = parameters.title
+                        label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                    }
+                } else {
+                    OceanSwiftUI.Typography.heading5 { label in
+                        label.parameters.text = parameters.title
+                        label.parameters.textColor = getForegroundColor()
+                    }
                 }
-            } else {
-                OceanSwiftUI.Typography.heading5 { label in
-                    label.parameters.text = parameters.title
-                    label.parameters.textColor = getForegroundColor()
+
+                if parameters.actionOnTooltip != nil {
+                    GeometryReader { g in
+                        Image(uiImage: Ocean.icon.infoSolid)
+                            .renderingMode(.template)
+                            .resizable()
+                            .frame(width: 16, height: 16, alignment: .center)
+                            .foregroundColor(Color(Ocean.color.colorInterfaceLightDeep))
+                            .onTapGesture {
+                                let point = g.frame(in: .named(UUID()))
+                                let origin = CGPoint(x: point.minX, y: point.minY)
+                                parameters.actionOnTooltip?(origin)
+                            }
+                    }
                 }
             }
         }
@@ -169,7 +190,7 @@ extension OceanSwiftUI {
         
         private var longDescriptionView: some View {
             HStack {
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 0) {
                     HStack {
                         iconImage
                         titleView
@@ -188,7 +209,7 @@ extension OceanSwiftUI {
         private var shortDescriptionView: some View {
             HStack {
                 iconImage
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 0) {
                     titleView
                     textView
                     withActionLink
@@ -202,7 +223,7 @@ extension OceanSwiftUI {
         private var invertedView: some View {
             HStack {
                 iconImage
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 0) {
                     titleView
                     textView
                     withActionLink

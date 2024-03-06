@@ -10,26 +10,13 @@ import OceanTokens
 import SwiftUI
 
 class TooltipSwiftUIViewController: UIViewController {
-    lazy var tooltip1: OceanSwiftUI.Tooltip = {
-        OceanSwiftUI.Tooltip { tooltip in
-            tooltip.parameters.text = "Lorem ipsum dolor sit amet."
-        }
-    }()
-
     lazy var button1: OceanSwiftUI.Button = {
         OceanSwiftUI.Button.primaryMD { button in
             button.parameters.text = "Abrir"
             button.parameters.onTouch = {
-                self.tooltip1.parameters.show = true
+                self.tooltip.parameters.position = .bottom
+//                self.tooltip.parameters.show = true
             }
-        }
-    }()
-
-    lazy var tooltip2: OceanSwiftUI.Tooltip = {
-        OceanSwiftUI.Tooltip { tooltip in
-            tooltip.parameters.text = "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet."
-            tooltip.parameters.size = .large
-            tooltip.parameters.position = .top
         }
     }()
 
@@ -37,19 +24,32 @@ class TooltipSwiftUIViewController: UIViewController {
         OceanSwiftUI.Button.primaryMD { button in
             button.parameters.text = "Abrir"
             button.parameters.onTouch = {
-                self.tooltip2.parameters.show = true
+                self.tooltip.parameters.position = .top
+//                self.tooltip.parameters.show = true
             }
         }
     }()
 
+    var tooltip = OceanSwiftUI.Tooltip()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXxxl) {
-            button1
-                .tooltip(tooltip1)
-            
-            button2
-                .tooltip(tooltip2)
+            GeometryReader { g in
+                if #available(iOS 14.0, *) {
+                    self.button1
+                        .help(Text("abc"))
+                }
+//                    .onTapGesture {
+//                        print(g.frame(in: .named(UUID())).minY)
+//                    }
+
+                self.button2
+//                    .onTapGesture {
+//                        print(g.frame(in: .named(UUID())).minY)
+//                    }
+            }
         }
+        .tooltip(tooltip)
     })
 
     public lazy var uiView = self.hostingController.getUIView()
