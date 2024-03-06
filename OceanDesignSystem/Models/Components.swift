@@ -83,6 +83,7 @@ struct DSComponents {
         "StatusListItem",
         "Subheader",
         "Step",
+        "ScoreChart",
         "ScrollableTab",
         "Tab",
         "Tag",

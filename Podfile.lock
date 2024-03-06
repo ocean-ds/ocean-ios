@@ -1,13 +1,10 @@
 PODS:
-  - Charts (4.1.0):
-    - Charts/Core (= 4.1.0)
-  - Charts/Core (4.1.0):
-    - SwiftAlgorithms (~> 1.0)
-  - EasyTipView (2.1.0)
+  - DGCharts (5.1.0):
+    - DGCharts/Core (= 5.1.0)
+  - DGCharts/Core (5.1.0)
   - FSCalendar (2.8.4)
-  - OceanComponents (3.4.0-413):
-    - Charts
-    - EasyTipView
+  - OceanComponents (3.4.0-414):
+    - DGCharts
     - FSCalendar
     - OceanTokens (= 3.3.1-314)
     - SDWebImage
@@ -21,7 +18,6 @@ PODS:
   - SkeletonUI (2.0.1)
   - SkeletonView (1.30.4)
   - SPStorkController (1.8.5)
-  - SwiftAlgorithms (1.0.0)
 
 DEPENDENCIES:
   - OceanComponents (from `./`)
@@ -29,14 +25,12 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - Charts
-    - EasyTipView
+    - DGCharts
     - FSCalendar
     - SDWebImage
     - SkeletonUI
     - SkeletonView
     - SPStorkController
-    - SwiftAlgorithms
 
 EXTERNAL SOURCES:
   OceanComponents:
@@ -45,17 +39,15 @@ EXTERNAL SOURCES:
     :path: "./"
 
 SPEC CHECKSUMS:
-  Charts: ce0768268078eee0336f122c3c4ca248e4e204c5
-  EasyTipView: a92b6edc377b81c5ac18e9fd35d5ee78e9409488
+  DGCharts: 1c6daf585b6cfc78807af44ea690d357c410627f
   FSCalendar: 2d1d0d9398f12d439f55c1fe0f01525b151b8260
-  OceanComponents: 75a43f1c07e924f7ca1c055a3e1d4295bacd6fa7
+  OceanComponents: 18f02ae539b03ddd52387085964fa09a36f989bb
   OceanTokens: 6dd20b3abf122d72bfd6f42a7070f9d6997c76eb
   SDWebImage: a3ba0b8faac7228c3c8eadd1a55c9c9fe5e16457
   SkeletonUI: 8d622a4dd755650bd5d50eed1e4180fa146c5d6b
   SkeletonView: 5a050f6411e697abd4cda0a8d767013399dccd69
   SPStorkController: 68966ed3134de2be2a8bbd1475c7e81f3f7d01ee
-  SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
 
 PODFILE CHECKSUM: ab8e24fd7284a70c6fd7c94aac7243e86a16da07
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.15.0
