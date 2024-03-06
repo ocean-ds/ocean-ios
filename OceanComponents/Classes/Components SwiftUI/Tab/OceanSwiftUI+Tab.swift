@@ -60,7 +60,7 @@ extension OceanSwiftUI {
             self.badgeStatus = badgeStatus
         }
 
-        fileprivate var contentView: AnyView {
+        public var contentView: AnyView {
             AnyView(view)
         }
     }

@@ -82,6 +82,7 @@
 		D50D86372B5996050075262C /* TransactionListItemSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50D86362B5996040075262C /* TransactionListItemSwiftUIViewController.swift */; };
 		D5376B042B7E577E00B23B3E /* TextListItemSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5376B032B7E577E00B23B3E /* TextListItemSwiftUIViewController.swift */; };
 		D56AB26C2B4DCE700059D443 /* FilterBarSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56AB26B2B4DCE700059D443 /* FilterBarSwiftUIViewController.swift */; };
+		D58953712B96345500FC5340 /* ScrollableTabSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58953702B96345500FC5340 /* ScrollableTabSwiftUIViewController.swift */; };
 		D5A319FD2B3B2D3200786FCD /* CardListItemSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A319FC2B3B2D3200786FCD /* CardListItemSwiftUIViewController.swift */; };
 		D5D1EEBF2B584A2F00A75EA2 /* SubheaderSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D1EEBE2B584A2F00A75EA2 /* SubheaderSwiftUIViewController.swift */; };
 		D5D28DDD2A1BA2550070B8CE /* ProgressBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D28DDC2A1BA2550070B8CE /* ProgressBarViewController.swift */; };
@@ -211,6 +212,7 @@
 		D50D86362B5996040075262C /* TransactionListItemSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListItemSwiftUIViewController.swift; sourceTree = "<group>"; };
 		D5376B032B7E577E00B23B3E /* TextListItemSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextListItemSwiftUIViewController.swift; sourceTree = "<group>"; };
 		D56AB26B2B4DCE700059D443 /* FilterBarSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBarSwiftUIViewController.swift; sourceTree = "<group>"; };
+		D58953702B96345500FC5340 /* ScrollableTabSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableTabSwiftUIViewController.swift; sourceTree = "<group>"; };
 		D5A319FC2B3B2D3200786FCD /* CardListItemSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListItemSwiftUIViewController.swift; sourceTree = "<group>"; };
 		D5D1EEBE2B584A2F00A75EA2 /* SubheaderSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubheaderSwiftUIViewController.swift; sourceTree = "<group>"; };
 		D5D28DDC2A1BA2550070B8CE /* ProgressBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarViewController.swift; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 				D5376B032B7E577E00B23B3E /* TextListItemSwiftUIViewController.swift */,
 				421C21C42B8F9A7900EBD703 /* StepSwiftUIViewController.swift */,
 				42A7D7BA2B979E47002A03BA /* TooltipSwiftUIViewController.swift */,
+				D58953702B96345500FC5340 /* ScrollableTabSwiftUIViewController.swift */,
 			);
 			path = "Components SwiftUI";
 			sourceTree = "<group>";
@@ -676,6 +679,7 @@
 				421C21C52B8F9A7900EBD703 /* StepSwiftUIViewController.swift in Sources */,
 				D5A319FD2B3B2D3200786FCD /* CardListItemSwiftUIViewController.swift in Sources */,
 				426320F32B35D47E00A975E6 /* DividerSwiftUIViewController.swift in Sources */,
+				D58953712B96345500FC5340 /* ScrollableTabSwiftUIViewController.swift in Sources */,
 				B71D65C824C8F28100C3938C /* TokensByCategoryViewController.swift in Sources */,
 				24B70BB826E7D0B400C9CE1E /* TransactionListViewController.swift in Sources */,
 				2491357826C6F634005EE76E /* ProgressIndicatorViewController.swift in Sources */,
@@ -957,7 +961,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 401;
+				CURRENT_PROJECT_VERSION = 402;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 57KSFR5UHN;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 57KSFR5UHN;
@@ -983,7 +987,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 401;
+				CURRENT_PROJECT_VERSION = 402;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 57KSFR5UHN;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 57KSFR5UHN;
