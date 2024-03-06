@@ -211,7 +211,7 @@ extension OceanSwiftUI {
     }
 }
 
-public struct PositionObservingView<Content: View>: View {
+private struct PositionObservingView<Content: View>: View {
     public var coordinateSpace: CoordinateSpace
     @Binding public var position: CGPoint
     @ViewBuilder public var content: (CoordinateSpace) -> Content
@@ -230,7 +230,7 @@ public struct PositionObservingView<Content: View>: View {
     }
 }
 
-public extension PositionObservingView {
+private extension PositionObservingView {
     struct PreferenceKey: SwiftUI.PreferenceKey {
         public static var defaultValue: CGPoint { .zero }
 
