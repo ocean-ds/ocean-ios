@@ -7,7 +7,7 @@
 
 import Foundation
 import OceanTokens
-import Charts
+import DGCharts
 
 extension Ocean {
     
@@ -281,7 +281,7 @@ extension Ocean {
         private func configureChartAppearance() {
             let attributedString = buildAttributedString()
             chartView.centerAttributedText = attributedString
-            chartView.configurePieChartViewAparence()
+            chartView.configurePieChartViewAppearance()
         }
         
         private func buildAttributedString() -> NSMutableAttributedString {
@@ -452,7 +452,7 @@ extension PieChartDataSet {
 // MARK: PieChartView
 
 extension PieChartView {
-    func configurePieChartViewAparence() {
+    func configurePieChartViewAppearance() {
         holeRadiusPercent = 0.65
         transparentCircleRadiusPercent = 0.5
         chartDescription.enabled = false

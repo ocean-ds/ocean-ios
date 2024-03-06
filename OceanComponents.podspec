@@ -36,7 +36,7 @@ Project created with the objective use components created by OceanTokens.
   s.dependency 'FSCalendar'
   s.dependency 'SkeletonView'
   s.dependency 'SDWebImage'
-  s.dependency 'Charts'
+  s.dependency 'DGCharts'
   s.dependency 'SkeletonUI'
 
   s.source_files = 'OceanComponents/Classes/**/*'
