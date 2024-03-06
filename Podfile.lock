@@ -2,9 +2,11 @@ PODS:
   - DGCharts (5.1.0):
     - DGCharts/Core (= 5.1.0)
   - DGCharts/Core (5.1.0)
+  - EasyTipView (2.1.0)
   - FSCalendar (2.8.4)
   - OceanComponents (3.4.0-414):
     - DGCharts
+    - EasyTipView
     - FSCalendar
     - OceanTokens (= 3.3.1-314)
     - SDWebImage
@@ -26,6 +28,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - DGCharts
+    - EasyTipView
     - FSCalendar
     - SDWebImage
     - SkeletonUI
@@ -40,8 +43,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   DGCharts: 1c6daf585b6cfc78807af44ea690d357c410627f
+  EasyTipView: a92b6edc377b81c5ac18e9fd35d5ee78e9409488
   FSCalendar: 2d1d0d9398f12d439f55c1fe0f01525b151b8260
-  OceanComponents: 18f02ae539b03ddd52387085964fa09a36f989bb
+  OceanComponents: 506f2c30ae948c2f46b92fccd5fef4fa4f0c67f2
   OceanTokens: 6dd20b3abf122d72bfd6f42a7070f9d6997c76eb
   SDWebImage: a3ba0b8faac7228c3c8eadd1a55c9c9fe5e16457
   SkeletonUI: 8d622a4dd755650bd5d50eed1e4180fa146c5d6b
@@ -50,4 +54,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: ab8e24fd7284a70c6fd7c94aac7243e86a16da07
 
-COCOAPODS: 1.15.0
+COCOAPODS: 1.15.2
