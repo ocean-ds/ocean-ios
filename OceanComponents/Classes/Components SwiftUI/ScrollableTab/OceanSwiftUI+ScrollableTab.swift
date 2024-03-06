@@ -1,5 +1,5 @@
 //
-//  OceanSwiftUI+ScrollableTabView.swift
+//  OceanSwiftUI+ScrollableTab.swift
 //  Charts
 //
 //  Created by Renan Massaroto on 05/03/24.
@@ -11,7 +11,7 @@ import OceanTokens
 extension OceanSwiftUI {
     // MARK: Parameter
 
-    public class ScrollableTabViewParameters: ObservableObject {
+    public class ScrollableTabParameters: ObservableObject {
         @Published public var tabs: [OceanSwiftUI.TabModel] {
             didSet {
                 if !tabs.isEmpty {
@@ -36,7 +36,7 @@ extension OceanSwiftUI {
         }
     }
 
-    public struct ScrollableTabView: View {
+    public struct ScrollableTab: View {
 
         // MARK: Properties for UIKit
 
@@ -45,11 +45,11 @@ extension OceanSwiftUI {
 
         // MARK: Builder
 
-        public typealias Builder = (ScrollableTabView) -> Void
+        public typealias Builder = (ScrollableTab) -> Void
 
         // MARK: Properties
 
-        @ObservedObject public var parameters: ScrollableTabViewParameters
+        @ObservedObject public var parameters: ScrollableTabParameters
 
         // MARK: Private properties
 
@@ -62,7 +62,7 @@ extension OceanSwiftUI {
 
         // MARK: Constructors
 
-        public init(parameters: ScrollableTabViewParameters = ScrollableTabViewParameters()) {
+        public init(parameters: ScrollableTabParameters = ScrollableTabParameters()) {
             self.parameters = parameters
         }
 
@@ -211,12 +211,12 @@ extension OceanSwiftUI {
     }
 }
 
-private struct PositionObservingView<Content: View>: View {
-    var coordinateSpace: CoordinateSpace
-    @Binding var position: CGPoint
-    @ViewBuilder var content: (CoordinateSpace) -> Content
+public struct PositionObservingView<Content: View>: View {
+    public var coordinateSpace: CoordinateSpace
+    @Binding public var position: CGPoint
+    @ViewBuilder public var content: (CoordinateSpace) -> Content
 
-    var body: some View {
+    public var body: some View {
         content(coordinateSpace)
             .background(GeometryReader { geometry in
                 Color.clear.preference(
@@ -230,11 +230,11 @@ private struct PositionObservingView<Content: View>: View {
     }
 }
 
-private extension PositionObservingView {
+public extension PositionObservingView {
     struct PreferenceKey: SwiftUI.PreferenceKey {
-        static var defaultValue: CGPoint { .zero }
+        public static var defaultValue: CGPoint { .zero }
 
-        static func reduce(value: inout CGPoint, nextValue: () -> CGPoint) {
+        public static func reduce(value: inout CGPoint, nextValue: () -> CGPoint) {
             // No-op
         }
     }
