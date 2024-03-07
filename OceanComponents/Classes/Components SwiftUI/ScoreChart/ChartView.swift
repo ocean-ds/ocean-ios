@@ -10,12 +10,16 @@ import OceanTokens
 import DGCharts
 
 struct ChartView: UIViewRepresentable {
-    public let diffValue: Double
+    public let minValue: Double
+    public let maxValue: Double
     public let currentValue: Double
 
-    public init(currentValue: Double, diffValue: Double) {
+    public init(minValue: Double, 
+                maxValue: Double,
+                currentValue: Double) {
+        self.minValue = minValue
+        self.maxValue = maxValue
         self.currentValue = currentValue
-        self.diffValue = diffValue
     }
 
     func makeUIView(context: Context) -> PieChartView {
@@ -24,12 +28,24 @@ struct ChartView: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: PieChartView, context: Context) {
-        let centerText = currentValue.toDecimal()
+        let diffValue = maxValue - currentValue
+        var currentValueCalculate: Double = 0.0
+        var centerText: String = ""
+        
+        if currentValue > minValue {
+            currentValueCalculate = currentValue - minValue
+            centerText = currentValue.toDecimal()
+        }
+
         uiView.centerAttributedText = buildAttributedString(text: centerText)
         uiView.configurePieChartViewHalfDonut()
-
-        let entries: [PieChartDataEntry] = [.init(value: currentValue), .init(value: diffValue)]
         
+        uiView.animate(xAxisDuration: 1,
+                       yAxisDuration: 1.5,
+                       easingOption: .easeInOutSine)
+
+        let entries: [PieChartDataEntry] = [.init(value: currentValueCalculate), .init(value: diffValue)]
+
         let primaryColor = getPrimaryColor()
         let secondaryColor = Ocean.color.colorInterfaceLightDeep
         let colors: [UIColor] = [primaryColor, secondaryColor]
@@ -58,10 +74,14 @@ struct ChartView: UIViewRepresentable {
 
     private func getPrimaryColor() -> UIColor {
         if currentValue < 301 {
-            return Ocean.color.colorStatusNegativePure
+            return Ocean.color.colorInterfaceLightDeep
         } else if currentValue < 501 {
-            return Ocean.color.colorStatusNeutralDeep
+            return Ocean.color.colorStatusNegativeDeep
+        } else if currentValue < 601 {
+            return Ocean.color.colorStatusNegativePure
         } else if currentValue < 701 {
+            return Ocean.color.colorStatusNeutralDeep
+        } else if currentValue < 901 {
             return Ocean.color.colorStatusPositivePure
         } else {
             return Ocean.color.colorStatusPositiveDeep
