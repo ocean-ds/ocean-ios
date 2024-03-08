@@ -23,7 +23,6 @@ extension Ocean {
             case complementary
             case neutral
             case neutralPrimary
-            case highlight
             case highlightImportant
             case highlightNeutral
         }
@@ -144,7 +143,7 @@ extension Ocean {
                 self.backgroundColor = Ocean.color.colorComplementaryPure.withAlphaComponent(Ocean.size.opacityLevelSemitransparent)
                 self.imageView.tintColor = Ocean.color.colorComplementaryPure
                 self.titleLabel.textColor = Ocean.color.colorComplementaryPure
-            case .highlight, .highlightImportant:
+            case .highlightImportant:
                 self.backgroundColor = Ocean.color.colorHighlightPure
                 self.titleLabel.textColor = Ocean.color.colorInterfaceLightPure
                 self.titleLabel.font = .baseBold(size: Ocean.font.fontSizeXxxs)

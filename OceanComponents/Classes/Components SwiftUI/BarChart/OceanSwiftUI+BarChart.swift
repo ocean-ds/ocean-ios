@@ -17,20 +17,20 @@ extension OceanSwiftUI {
         @Published public var entries: [BarChartModel]
         @Published public var color: UIColor
         @Published public var highlightColor: UIColor
-        @Published public var isHighlight: Bool
+        @Published public var shouldHighlightHighestValue: Bool
 
         public init(title: String = "",
                     subtitle: String = "",
                     entries: [BarChartModel] = [],
                     color: UIColor  = Ocean.color.colorBrandPrimaryUp,
                     highlightColor: UIColor = Ocean.color.colorBrandPrimaryPure,
-                    isHighlight: Bool = true) {
+                    shouldHighlightHighestValue: Bool = true) {
             self.title = title
             self.subtitle = subtitle
             self.entries = entries
             self.color = color
             self.highlightColor = highlightColor
-            self.isHighlight = isHighlight
+            self.shouldHighlightHighestValue = shouldHighlightHighestValue
         }
     }
 
@@ -68,7 +68,7 @@ extension OceanSwiftUI {
             OceanBarChartView(entries: parameters.entries,
                               color: parameters.color,
                               highlightColor: parameters.highlightColor,
-                              isHighlightColor: parameters.isHighlight)
+                              shouldHighlightHighestValue: parameters.shouldHighlightHighestValue)
             .frame(height: 150)
         }
 

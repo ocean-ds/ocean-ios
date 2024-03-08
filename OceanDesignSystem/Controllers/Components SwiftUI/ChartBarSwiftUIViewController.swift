@@ -47,7 +47,7 @@ class ChartBarSwiftUIViewController: UIViewController {
         chart.parameters.title = "Consultas"
         chart.parameters.subtitle = "Última consulta em 10/11/2023"
         chart.parameters.color = Ocean.color.colorStatusPositiveUp
-        chart.parameters.isHighlight = false
+        chart.parameters.shouldHighlightHighestValue = false
 
         chart.parameters.entries = [
             .init(value: 20, label: "10/23"),

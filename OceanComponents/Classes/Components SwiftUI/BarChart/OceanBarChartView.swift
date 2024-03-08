@@ -13,16 +13,16 @@ struct OceanBarChartView: UIViewRepresentable {
     public let entries: [BarChartModel]
     public let color: UIColor
     public let highlightColor: UIColor
-    public let isHighlightColor: Bool
+    public let shouldHighlightHighestValue: Bool
 
     public init(entries: [BarChartModel],
                 color: UIColor,
                 highlightColor: UIColor,
-                isHighlightColor: Bool) {
+                shouldHighlightHighestValue: Bool) {
         self.entries = entries
         self.color = color
         self.highlightColor = highlightColor
-        self.isHighlightColor = isHighlightColor
+        self.shouldHighlightHighestValue = shouldHighlightHighestValue
     }
 
     func makeUIView(context: Context) -> BarChartView {
@@ -34,7 +34,7 @@ struct OceanBarChartView: UIViewRepresentable {
     func updateUIView(_ uiView: BarChartView, context: Context) {
         let model = convertToBarChartDataEntries(models: entries)
         let dataSet = BarChartDataSet(entries: model)
-        dataSet.colors = determineBarColors()
+        dataSet.colors = getBarColors()
         let data = BarChartData(dataSet: dataSet)
         uiView.data = data
         uiView.barData?.barWidth = 0.4
@@ -55,13 +55,13 @@ struct OceanBarChartView: UIViewRepresentable {
         return entries
     }
 
-    private func determineBarColors() -> [UIColor] {
+    private func getBarColors() -> [UIColor] {
         let maxValues = entries.map { $0.value }.max()
 
         if let maxValue = maxValues {
             let maxIndices = entries.indices.filter { entries[$0].value == maxValue }
 
-            if isHighlightColor {
+            if shouldHighlightHighestValue {
                 return entries.indices.map { maxIndices.contains($0) ? highlightColor : color }
             } else {
                 return Array(repeating: color, count: entries.count)
