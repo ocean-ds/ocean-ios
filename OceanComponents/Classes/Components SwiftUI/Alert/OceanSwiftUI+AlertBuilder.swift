@@ -31,7 +31,15 @@ extension OceanSwiftUI.Alert {
             builder?(alert)
         }
     }
-    
+
+    public static func infoInverted(builder: OceanSwiftUI.Alert.Builder? = nil) -> OceanSwiftUI.Alert {
+        return OceanSwiftUI.Alert { alert in
+            alert.parameters.status = .info
+            alert.parameters.style = .inverted
+            builder?(alert)
+        }
+    }
+
     public static func positive(builder: OceanSwiftUI.Alert.Builder? = nil) -> OceanSwiftUI.Alert {
         return OceanSwiftUI.Alert { alert in
             alert.parameters.status = .positive
@@ -55,7 +63,15 @@ extension OceanSwiftUI.Alert {
             builder?(alert)
         }
     }
-    
+
+    public static func positiveInverted(builder: OceanSwiftUI.Alert.Builder? = nil) -> OceanSwiftUI.Alert {
+        return OceanSwiftUI.Alert { alert in
+            alert.parameters.status = .positive
+            alert.parameters.style = .inverted
+            builder?(alert)
+        }
+    }
+
     public static func warning(builder: OceanSwiftUI.Alert.Builder? = nil) -> OceanSwiftUI.Alert {
         return OceanSwiftUI.Alert { alert in
             alert.parameters.status = .warning
@@ -79,7 +95,15 @@ extension OceanSwiftUI.Alert {
             builder?(alert)
         }
     }
-    
+
+    public static func warningInverted(builder: OceanSwiftUI.Alert.Builder? = nil) -> OceanSwiftUI.Alert {
+        return OceanSwiftUI.Alert { alert in
+            alert.parameters.status = .warning
+            alert.parameters.style = .inverted
+            builder?(alert)
+        }
+    }
+
     public static func negative(builder: OceanSwiftUI.Alert.Builder? = nil) -> OceanSwiftUI.Alert {
         return OceanSwiftUI.Alert { alert in
             alert.parameters.status = .negative
@@ -100,6 +124,14 @@ extension OceanSwiftUI.Alert {
         return OceanSwiftUI.Alert { alert in
             alert.parameters.status = .negative
             alert.parameters.style = .shortDescription
+            builder?(alert)
+        }
+    }
+
+    public static func negativeInverted(builder: OceanSwiftUI.Alert.Builder? = nil) -> OceanSwiftUI.Alert {
+        return OceanSwiftUI.Alert { alert in
+            alert.parameters.status = .negative
+            alert.parameters.style = .inverted
             builder?(alert)
         }
     }

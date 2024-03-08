@@ -11,8 +11,8 @@ import OceanComponents
 import SwiftUI
 
 class ScrollableTabSwiftUIViewController: UIViewController {
-    private lazy var scrollableTab: OceanSwiftUI.ScrollableTabView = {
-        OceanSwiftUI.ScrollableTabView { scrollView in
+    private lazy var scrollableTab: OceanSwiftUI.ScrollableTab = {
+        OceanSwiftUI.ScrollableTab { scrollView in
             scrollView.parameters.tabs = [
                 .init(title: "Tab 1",
                       view: Text("1 Beatae non nostrum voluptates molestiae ut sunt. Repudiandae laborum et explicabo. Earum quos quos sint ut provident dolorem eveniet et.")),
