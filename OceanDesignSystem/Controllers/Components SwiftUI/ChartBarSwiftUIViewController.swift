@@ -12,6 +12,8 @@ import SwiftUI
 class ChartBarSwiftUIViewController: UIViewController {
     var chart1: OceanSwiftUI.BarChart = {
         let chart = OceanSwiftUI.BarChart()
+        chart.parameters.title = "Consultas"
+        chart.parameters.subtitle = "Última consulta em 10/11/2023"
 
         chart.parameters.entries = [
             .init(value: 20, label: "10/23"),
@@ -27,6 +29,8 @@ class ChartBarSwiftUIViewController: UIViewController {
 
     var chart2: OceanSwiftUI.BarChart = {
         let chart = OceanSwiftUI.BarChart()
+        chart.parameters.title = "Consultas"
+        chart.parameters.subtitle = "Última consulta em 10/11/2023"
         chart.parameters.color = Ocean.color.colorComplementaryUp
         chart.parameters.highlightColor = Ocean.color.colorComplementaryPure
         chart.parameters.entries = [
@@ -40,6 +44,8 @@ class ChartBarSwiftUIViewController: UIViewController {
 
     var chart3: OceanSwiftUI.BarChart = {
         let chart = OceanSwiftUI.BarChart()
+        chart.parameters.title = "Consultas"
+        chart.parameters.subtitle = "Última consulta em 10/11/2023"
         chart.parameters.color = Ocean.color.colorStatusPositiveUp
         chart.parameters.isHighlight = false
 
