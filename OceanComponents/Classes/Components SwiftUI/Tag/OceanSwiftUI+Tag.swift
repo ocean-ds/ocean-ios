@@ -135,7 +135,7 @@ extension OceanSwiftUI {
             case .negative:
                 return Ocean.color.colorStatusNegativeUp
             case .complementary:
-                return Ocean.color.colorComplementaryUp
+                return Ocean.color.colorComplementaryPure.withAlphaComponent(Ocean.size.opacityLevelSemitransparent)
             case .neutralInterface:
                 return Ocean.color.colorInterfaceLightUp
             case .neutralPrimary:

@@ -13,9 +13,18 @@ extension OceanSwiftUI {
 
     public class BarChartParameters: ObservableObject {
         @Published public var entries: [BarChartModel] = []
+        @Published public var color: UIColor
+        @Published public var highlightColor: UIColor
+        @Published public var isHighlight: Bool
 
-        public init(entries: [BarChartModel] = []) {
+        public init(entries: [BarChartModel] = [],
+                    color: UIColor  = Ocean.color.colorBrandPrimaryUp,
+                    highlightColor: UIColor = Ocean.color.colorBrandPrimaryPure,
+                    isHighlight: Bool = true) {
             self.entries = entries
+            self.color = color
+            self.highlightColor = highlightColor
+            self.isHighlight = isHighlight
         }
     }
 
@@ -49,8 +58,11 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            OceanBarChartView(entries: self.parameters.entries)
-                .frame(height: 150)
+            OceanBarChartView(entries: parameters.entries,
+                              color: parameters.color,
+                              highlightColor: parameters.highlightColor,
+                              isHighlightColor: parameters.isHighlight)
+            .frame(height: 150)
         }
     }
 }

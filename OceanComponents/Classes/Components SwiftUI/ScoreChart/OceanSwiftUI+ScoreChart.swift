@@ -77,9 +77,9 @@ extension OceanSwiftUI {
             VStack {
                 headerView
                 VStack {
-                    ChartView(minValue: parameters.minValue,
-                              maxValue: parameters.maxValue,
-                              currentValue: parameters.currentValue)
+                    OceanScoreChartView(minValue: parameters.minValue,
+                                        maxValue: parameters.maxValue,
+                                        currentValue: parameters.currentValue)
                     .frame(height: 100)
                     labelsView
                     Spacer()

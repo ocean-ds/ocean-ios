@@ -1,5 +1,5 @@
 //
-//  ChartView.swift
+//  OceanScoreChartView.swift
 //  OceanComponents
 //
 //  Created by Acassio Mendonça on 05/03/24.
@@ -9,7 +9,7 @@ import SwiftUI
 import OceanTokens
 import DGCharts
 
-struct ChartView: UIViewRepresentable {
+struct OceanScoreChartView: UIViewRepresentable {
     public let minValue: Double
     public let maxValue: Double
     public let currentValue: Double

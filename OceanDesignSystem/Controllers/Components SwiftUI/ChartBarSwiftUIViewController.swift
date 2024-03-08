@@ -10,25 +10,46 @@ import OceanTokens
 import SwiftUI
 
 class ChartBarSwiftUIViewController: UIViewController {
-    var chart: OceanSwiftUI.BarChart = {
+    var chart1: OceanSwiftUI.BarChart = {
         let chart = OceanSwiftUI.BarChart()
 
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy"
+        chart.parameters.entries = [
+            .init(value: 20, label: "10/23"),
+            .init(value: 30, label: "11/23"),
+            .init(value: 56, label: "12/23"),
+            .init(value: 25, label: "01/24"),
+            .init(value: 56, label: "02/24"),
+            .init(value: 56, label: "03/24")
+        ]
+
+        return chart
+    }()
+
+    var chart2: OceanSwiftUI.BarChart = {
+        let chart = OceanSwiftUI.BarChart()
+        chart.parameters.color = Ocean.color.colorComplementaryUp
+        chart.parameters.highlightColor = Ocean.color.colorComplementaryPure
+        chart.parameters.entries = [
+            .init(value: 25, label: "01/24"),
+            .init(value: 56, label: "02/24"),
+            .init(value: 56, label: "03/24")
+        ]
+
+        return chart
+    }()
+
+    var chart3: OceanSwiftUI.BarChart = {
+        let chart = OceanSwiftUI.BarChart()
+        chart.parameters.color = Ocean.color.colorStatusPositiveUp
+        chart.parameters.isHighlight = false
 
         chart.parameters.entries = [
-            .init(date: dateFormatter.date(from: "10/01/2024")!,
-                  consultationCount: 20),
-            .init(date: dateFormatter.date(from: "11/02/2024")!,
-                  consultationCount: 50),
-            .init(date: dateFormatter.date(from: "01/03/2024")!,
-                  consultationCount: 16),
-            .init(date: dateFormatter.date(from: "01/04/2024")!,
-                  consultationCount: 30),
-            .init(date: dateFormatter.date(from: "01/05/2024")!,
-                  consultationCount: 10),
-            .init(date: dateFormatter.date(from: "01/06/2024")!,
-                  consultationCount: 60)
+            .init(value: 20, label: "10/23"),
+            .init(value: 30, label: "11/23"),
+            .init(value: 56, label: "12/23"),
+            .init(value: 25, label: "01/24"),
+            .init(value: 56, label: "02/24"),
+            .init(value: 56, label: "03/24")
         ]
 
         return chart
@@ -36,7 +57,9 @@ class ChartBarSwiftUIViewController: UIViewController {
 
     public lazy var hostingController = UIHostingController(rootView:  ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
-            chart
+            chart1
+            chart2
+            chart3
         }
     })
 
