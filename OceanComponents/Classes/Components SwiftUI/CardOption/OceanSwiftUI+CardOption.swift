@@ -100,7 +100,7 @@ extension OceanSwiftUI {
 
                 Spacer()
             }
-            .padding(.horizontal, Ocean.size.spacingStackSm)
+            .padding(.horizontal, self.parameters.subtitle.isEmpty ? Ocean.size.spacingStackXs : Ocean.size.spacingStackSm)
             .padding(.vertical, Ocean.size.spacingStackXs)
             .background(Color(Ocean.color.colorInterfaceLightPure))
             .overlay(self.parameters.isDisabled ? self.getLocked() : nil , alignment: .topTrailing)
