@@ -10,7 +10,15 @@ import OceanTokens
 import SwiftUI
 
 class ScoreChartSwiftUIViewController: UIViewController {
-    var chartHighRisk: OceanSwiftUI.ScoreChart = {
+    var chart1: OceanSwiftUI.ScoreChart = {
+        let chart = OceanSwiftUI.ScoreChart()
+        chart.parameters.title = "Score"
+        chart.parameters.subtitle = "Última consulta em 10/11/2023"
+        chart.parameters.currentValue = 100
+
+        return chart
+    }()
+    var chart2: OceanSwiftUI.ScoreChart = {
         let chart = OceanSwiftUI.ScoreChart()
         chart.parameters.title = "Score"
         chart.parameters.subtitle = "Última consulta em 10/11/2023"
@@ -18,7 +26,15 @@ class ScoreChartSwiftUIViewController: UIViewController {
 
         return chart
     }()
-    var chartMediumRisk: OceanSwiftUI.ScoreChart = {
+    var chart3: OceanSwiftUI.ScoreChart = {
+        let chart = OceanSwiftUI.ScoreChart()
+        chart.parameters.title = "Score"
+        chart.parameters.subtitle = "Última consulta em 10/11/2023"
+        chart.parameters.currentValue = 300
+
+        return chart
+    }()
+    var chart4: OceanSwiftUI.ScoreChart = {
         let chart = OceanSwiftUI.ScoreChart()
         chart.parameters.title = "Score"
         chart.parameters.subtitle = "Última consulta em 10/11/2023"
@@ -26,7 +42,15 @@ class ScoreChartSwiftUIViewController: UIViewController {
 
         return chart
     }()
-    var chartLowRisk: OceanSwiftUI.ScoreChart = {
+    var chart5: OceanSwiftUI.ScoreChart = {
+        let chart = OceanSwiftUI.ScoreChart()
+        chart.parameters.title = "Score"
+        chart.parameters.subtitle = "Última consulta em 10/11/2023"
+        chart.parameters.currentValue = 500
+
+        return chart
+    }()
+    var chart6: OceanSwiftUI.ScoreChart = {
         let chart = OceanSwiftUI.ScoreChart()
         chart.parameters.title = "Score"
         chart.parameters.subtitle = "Última consulta em 10/11/2023"
@@ -34,7 +58,23 @@ class ScoreChartSwiftUIViewController: UIViewController {
 
         return chart
     }()
-    var chartVeryLowRisk: OceanSwiftUI.ScoreChart = {
+    var chart7: OceanSwiftUI.ScoreChart = {
+        let chart = OceanSwiftUI.ScoreChart()
+        chart.parameters.title = "Score"
+        chart.parameters.subtitle = "Última consulta em 10/11/2023"
+        chart.parameters.currentValue = 700
+
+        return chart
+    }()
+    var chart8: OceanSwiftUI.ScoreChart = {
+        let chart = OceanSwiftUI.ScoreChart()
+        chart.parameters.title = "Score"
+        chart.parameters.subtitle = "Última consulta em 10/11/2023"
+        chart.parameters.currentValue = 800
+
+        return chart
+    }()
+    var chart9: OceanSwiftUI.ScoreChart = {
         let chart = OceanSwiftUI.ScoreChart()
         chart.parameters.title = "Score"
         chart.parameters.subtitle = "Última consulta em 10/11/2023"
@@ -42,13 +82,38 @@ class ScoreChartSwiftUIViewController: UIViewController {
 
         return chart
     }()
+    var chart10: OceanSwiftUI.ScoreChart = {
+        let chart = OceanSwiftUI.ScoreChart()
+        chart.parameters.title = "Score"
+        chart.parameters.subtitle = "Última consulta em 10/11/2023"
+        chart.parameters.currentValue = 1000
+
+        return chart
+    }()
+    var chart11: OceanSwiftUI.ScoreChart = {
+        let chart = OceanSwiftUI.ScoreChart()
+        chart.parameters.title = "Score"
+        chart.parameters.subtitle = "Última consulta em 10/11/2023"
+        chart.parameters.minValue = 0
+        chart.parameters.maxValue = 1000
+        chart.parameters.currentValue = 310
+
+        return chart
+    }()
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
-            chartHighRisk
-            chartMediumRisk
-            chartLowRisk
-            chartVeryLowRisk
+            chart1
+            chart2
+            chart3
+            chart4
+            chart5
+            chart6
+            chart7
+            chart8
+            chart9
+            chart10
+            chart11
         }
     })
 

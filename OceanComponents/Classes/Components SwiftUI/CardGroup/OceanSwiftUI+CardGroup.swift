@@ -153,7 +153,7 @@ extension OceanSwiftUI {
                         color: self.parameters.recommend ? Ocean.color.colorBrandPrimaryUp : Ocean.color.colorInterfaceLightDown)
 
                 if self.parameters.recommend {
-                    Tag.neutralMD { tag in
+                    Tag.highlightNeutralMD { tag in
                         tag.parameters.label = "Recomendado"
                     }
                     .padding(.leading, Ocean.size.spacingStackXs)

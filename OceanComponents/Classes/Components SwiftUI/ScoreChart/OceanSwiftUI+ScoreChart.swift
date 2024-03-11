@@ -29,7 +29,7 @@ extension OceanSwiftUI {
 
         public init(title: String = "",
                     subtitle: String = "",
-                    minValue: Double = 0,
+                    minValue: Double = 300,
                     maxValue: Double = 1000,
                     currentValue: Double = 0) {
             self.title = title
@@ -77,7 +77,9 @@ extension OceanSwiftUI {
             VStack {
                 headerView
                 VStack {
-                    ChartView(currentValue: parameters.currentValue, diffValue: parameters.diffValue)
+                    OceanScoreChartView(minValue: parameters.minValue,
+                                        maxValue: parameters.maxValue,
+                                        currentValue: parameters.currentValue)
                     .frame(height: 100)
                     labelsView
                     Spacer()
@@ -108,14 +110,19 @@ extension OceanSwiftUI {
             HStack {
                 OceanSwiftUI.Typography.caption { label in
                     label.parameters.text = self.parameters.minValue.toDecimal()
+                    label.parameters.multilineTextAlignment = .center
                 }
-                .padding(.leading, 12)
+                .frame(width: 46)
+
                 Spacer()
+
                 OceanSwiftUI.Typography.caption { label in
                     label.parameters.text = self.parameters.maxValue.toDecimal()
+                    label.parameters.multilineTextAlignment = .center
                 }
+                .frame(width: 46)
             }
-            .padding(.horizontal, 87)
+            .padding(.horizontal, 80)
         }
 
         // MARK: Methods private

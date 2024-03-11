@@ -290,7 +290,7 @@ extension Ocean {
         private lazy var tagHighlightView: Ocean.Tag = {
             Ocean.Tag { tag in
                 tag.title = "Novo"
-                tag.status = .highlight
+                tag.status = .highlightImportant
             }
         }()
         
