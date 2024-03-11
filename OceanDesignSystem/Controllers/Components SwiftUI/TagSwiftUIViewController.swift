@@ -53,13 +53,13 @@ class TagSwiftUIViewController: UIViewController {
     }()
 
     lazy var tag7: OceanSwiftUI.Tag = {
-        return OceanSwiftUI.Tag.importantMD { tag in
+        return OceanSwiftUI.Tag.highlightImportantMD { tag in
             tag.parameters.label = "Label"
         }
     }()
 
     lazy var tag8: OceanSwiftUI.Tag = {
-        return OceanSwiftUI.Tag.neutralMD { tag in
+        return OceanSwiftUI.Tag.highlightNeutralMD { tag in
             tag.parameters.label = "Label"
         }
     }()

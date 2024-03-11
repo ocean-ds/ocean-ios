@@ -25,8 +25,8 @@ extension OceanSwiftUI {
             case complementary
             case neutralInterface
             case neutralPrimary
-            case important
-            case neutral
+            case highlightImportant
+            case highlightNeutral
         }
 
         public enum Size {
@@ -119,9 +119,9 @@ extension OceanSwiftUI {
                 return Ocean.color.colorInterfaceDarkUp
             case .neutralPrimary:
                 return Ocean.color.colorBrandPrimaryDown
-            case .important:
+            case .highlightImportant:
                 return Ocean.color.colorInterfaceLightPure
-            case .neutral:
+            case .highlightNeutral:
                 return Ocean.color.colorInterfaceLightPure
             }
         }
@@ -135,14 +135,14 @@ extension OceanSwiftUI {
             case .negative:
                 return Ocean.color.colorStatusNegativeUp
             case .complementary:
-                return Ocean.color.colorComplementaryUp
+                return Ocean.color.colorComplementaryPure.withAlphaComponent(Ocean.size.opacityLevelSemitransparent)
             case .neutralInterface:
                 return Ocean.color.colorInterfaceLightUp
             case .neutralPrimary:
                 return Ocean.color.colorInterfaceLightUp
-            case .important:
+            case .highlightImportant:
                 return Ocean.color.colorHighlightPure
-            case .neutral:
+            case .highlightNeutral:
                 return Ocean.color.colorBrandPrimaryDown
             }
         }

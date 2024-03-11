@@ -17,8 +17,8 @@ public extension String {
         case "complementary": return Ocean.Tag.Status.complementary
         case "neutral", "neutral1", "neutral2", "neutralinterface": return Ocean.Tag.Status.neutral
         case "neutralprimary": return Ocean.Tag.Status.neutralPrimary
-        case "important", "highlight", "highlightimportant": return Ocean.Tag.Status.highlightImportant
-        case "highlightneutral": return Ocean.Tag.Status.highlightNeutral
+        case "important", "highlightimportant": return Ocean.Tag.Status.highlightImportant
+        case "highlight", "highlightneutral": return Ocean.Tag.Status.highlightNeutral
         default: return nil
         }
     }
@@ -31,8 +31,8 @@ public extension String {
         case "complementary": return OceanSwiftUI.TagParameters.Status.complementary
         case "neutral", "neutral1", "neutral2", "neutralinterface": return OceanSwiftUI.TagParameters.Status.neutralInterface
         case "neutralprimary": return OceanSwiftUI.TagParameters.Status.neutralPrimary
-        case "important", "highlight", "highlightimportant": return OceanSwiftUI.TagParameters.Status.important
-        case "highlightneutral": return OceanSwiftUI.TagParameters.Status.neutral
+        case "important", "highlightimportant": return OceanSwiftUI.TagParameters.Status.highlightImportant
+        case "highlight", "highlightneutral": return OceanSwiftUI.TagParameters.Status.highlightNeutral
         default: return nil
         }
     }

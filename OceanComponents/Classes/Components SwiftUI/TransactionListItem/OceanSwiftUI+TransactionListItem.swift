@@ -50,7 +50,7 @@ extension OceanSwiftUI {
                     value1Status: ValueStatus = .neutral,
                     tagIcon: UIImage? = nil,
                     tagTitle: String = "",
-                    tagStatus: OceanSwiftUI.TagParameters.Status = .neutral,
+                    tagStatus: OceanSwiftUI.TagParameters.Status = .highlightNeutral,
                     hasDivider: Bool = true,
                     padding: EdgeInsets = .init(top: 0,
                                                 leading: Ocean.size.spacingStackXs,

@@ -8,131 +8,131 @@
 import OceanTokens
 
 extension OceanSwiftUI.Tag {
-    public static func positiveMD(buider: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
+    public static func positiveMD(builder: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
         return OceanSwiftUI.Tag { tag in
             tag.parameters.status = .positive
             tag.parameters.size = .medium
-            buider?(tag)
+            builder?(tag)
         }
     }
 
-    public static func positiveSM(buider: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
+    public static func positiveSM(builder: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
         return OceanSwiftUI.Tag { tag in
             tag.parameters.status = .positive
             tag.parameters.size = .small
-            buider?(tag)
+            builder?(tag)
         }
     }
 
-    public static func warningMD(buider: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
+    public static func warningMD(builder: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
         return OceanSwiftUI.Tag { tag in
             tag.parameters.status = .warning
             tag.parameters.size = .medium
-            buider?(tag)
+            builder?(tag)
         }
     }
 
-    public static func warningSM(buider: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
+    public static func warningSM(builder: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
         return OceanSwiftUI.Tag { tag in
             tag.parameters.status = .warning
             tag.parameters.size = .small
-            buider?(tag)
+            builder?(tag)
         }
     }
 
-    public static func negativeMD(buider: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
+    public static func negativeMD(builder: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
         return OceanSwiftUI.Tag { tag in
             tag.parameters.status = .negative
             tag.parameters.size = .medium
-            buider?(tag)
+            builder?(tag)
         }
     }
 
-    public static func negativeSM(buider: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
+    public static func negativeSM(builder: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
         return OceanSwiftUI.Tag { tag in
             tag.parameters.status = .negative
             tag.parameters.size = .small
-            buider?(tag)
+            builder?(tag)
         }
     }
 
-    public static func complementaryMD(buider: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
+    public static func complementaryMD(builder: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
         return OceanSwiftUI.Tag { tag in
             tag.parameters.status = .complementary
             tag.parameters.size = .medium
-            buider?(tag)
+            builder?(tag)
         }
     }
 
-    public static func complementarySM(buider: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
+    public static func complementarySM(builder: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
         return OceanSwiftUI.Tag { tag in
             tag.parameters.status = .complementary
             tag.parameters.size = .small
-            buider?(tag)
+            builder?(tag)
         }
     }
 
-    public static func neutralInterfaceMD(buider: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
+    public static func neutralInterfaceMD(builder: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
         return OceanSwiftUI.Tag { tag in
             tag.parameters.status = .neutralInterface
             tag.parameters.size = .medium
-            buider?(tag)
+            builder?(tag)
         }
     }
 
-    public static func neutralInterfaceSM(buider: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
+    public static func neutralInterfaceSM(builder: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
         return OceanSwiftUI.Tag { tag in
             tag.parameters.status = .neutralInterface
             tag.parameters.size = .small
-            buider?(tag)
+            builder?(tag)
         }
     }
 
-    public static func neutralPrimaryMD(buider: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
+    public static func neutralPrimaryMD(builder: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
         return OceanSwiftUI.Tag { tag in
             tag.parameters.status = .neutralPrimary
             tag.parameters.size = .medium
-            buider?(tag)
+            builder?(tag)
         }
     }
 
-    public static func neutralPrimarySM(buider: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
+    public static func neutralPrimarySM(builder: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
         return OceanSwiftUI.Tag { tag in
             tag.parameters.status = .neutralPrimary
             tag.parameters.size = .small
-            buider?(tag)
+            builder?(tag)
         }
     }
 
-    public static func importantMD(buider: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
+    public static func highlightImportantMD(builder: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
         return OceanSwiftUI.Tag { tag in
-            tag.parameters.status = .important
+            tag.parameters.status = .highlightImportant
             tag.parameters.size = .medium
-            buider?(tag)
+            builder?(tag)
         }
     }
 
-    public static func importantSM(buider: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
+    public static func highlightImportantSM(builder: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
         return OceanSwiftUI.Tag { tag in
-            tag.parameters.status = .important
+            tag.parameters.status = .highlightImportant
             tag.parameters.size = .small
-            buider?(tag)
+            builder?(tag)
         }
     }
 
-    public static func neutralMD(buider: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
+    public static func highlightNeutralMD(builder: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
         return OceanSwiftUI.Tag { tag in
-            tag.parameters.status = .neutral
+            tag.parameters.status = .highlightNeutral
             tag.parameters.size = .medium
-            buider?(tag)
+            builder?(tag)
         }
     }
 
-    public static func neutralSM(buider: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
+    public static func highlightNeutralSM(builder: OceanSwiftUI.Tag.Builder? = nil) -> OceanSwiftUI.Tag {
         return OceanSwiftUI.Tag { tag in
-            tag.parameters.status = .neutral
+            tag.parameters.status = .highlightNeutral
             tag.parameters.size = .small
-            buider?(tag)
+            builder?(tag)
         }
     }
 }
