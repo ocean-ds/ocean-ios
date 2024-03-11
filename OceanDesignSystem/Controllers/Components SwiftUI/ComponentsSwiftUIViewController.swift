@@ -99,6 +99,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(ScoreChartSwiftUIViewController(), animated: true, completion: nil)
         case .ScrollableTab:
             self.present(ScrollableTabSwiftUIViewController(), animated: true, completion: nil)
+        case .CardOption:
+            self.present(CardOptionSwiftUIViewController(), animated: true, completion: nil)
         }
     }
 }

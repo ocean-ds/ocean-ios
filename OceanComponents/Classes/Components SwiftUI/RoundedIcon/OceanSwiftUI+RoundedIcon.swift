@@ -15,11 +15,14 @@ extension OceanSwiftUI {
     public class RoundedIconParameters: ObservableObject {
         @Published public var icon: UIImage
         @Published public var color: UIColor
+        @Published public var backgroundColor: UIColor
 
         public init(icon: UIImage = Ocean.icon.placeholderOutline!,
-                    color: UIColor = Ocean.color.colorBrandPrimaryDown) {
+                    color: UIColor = Ocean.color.colorBrandPrimaryDown,
+                    backgroundColor: UIColor = Ocean.color.colorInterfaceLightUp) {
             self.icon = icon
             self.color = color
+            self.backgroundColor = backgroundColor
         }
     }
 
@@ -63,7 +66,7 @@ extension OceanSwiftUI {
             }
             .padding(Ocean.size.spacingStackXxs)
             .frame(width: 40, height: 40, alignment: .center)
-            .background(Color(Ocean.color.colorInterfaceLightUp))
+            .background(Color(self.parameters.backgroundColor))
             .cornerRadius(40 * Ocean.size.borderRadiusCircular)
         }
 
