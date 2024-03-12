@@ -151,8 +151,6 @@ extension OceanSwiftUI {
                 return Ocean.color.colorStatusNegativePure
             } else if self.parameters.isSelected {
                 return Ocean.color.colorBrandPrimaryDown
-            } else if self.parameters.isDisabled {
-                return Ocean.color.colorInterfaceLightDown
             } else {
                 return Ocean.color.colorInterfaceLightDown
             }
