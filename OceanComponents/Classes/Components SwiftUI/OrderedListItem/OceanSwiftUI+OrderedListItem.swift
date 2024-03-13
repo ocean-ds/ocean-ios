@@ -19,7 +19,8 @@ extension OceanSwiftUI {
         @Published public var status: Status
         @Published public var number: Int?
         @Published public var icon: UIImage?
-        
+        @Published public var padding: EdgeInsets
+
         public enum Style {
             case ordered
             case unordered
@@ -35,13 +36,18 @@ extension OceanSwiftUI {
                     style: Style = .ordered,
                     status: Status = .info,
                     number: Int? = nil,
-                    icon: UIImage? = nil) {
+                    icon: UIImage? = nil,
+                    padding: EdgeInsets = .init(top: Ocean.size.spacingStackXs,
+                                                leading: Ocean.size.spacingStackXs,
+                                                bottom: Ocean.size.spacingStackXs,
+                                                trailing: Ocean.size.spacingStackXs)) {
             self.title = title
             self.text = text
             self.style = style
             self.status = status
             self.number = number
             self.icon = icon
+            self.padding = padding
         }
     }
     
@@ -131,7 +137,7 @@ extension OceanSwiftUI {
                 }
                 Spacer()
             }
-            .padding(.all, Ocean.size.spacingStackXs)
+            .padding(parameters.padding)
         }
         
         // MARK: Constructors
