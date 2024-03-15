@@ -64,8 +64,6 @@ extension OceanSwiftUI {
 
         // MARK: Properties private
 
-        @State private var labelWidth: CGSize = .zero
-
         // MARK: Constructors
 
         public init(parameters: TypographyParameters = TypographyParameters()) {

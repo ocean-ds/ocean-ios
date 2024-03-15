@@ -1,5 +1,5 @@
 //
-//  TransactionListItemSwiftUIViewController.swift
+//  OceanSwiftUI+TransactionListItem.swift
 //  OceanDesignSystem
 //
 //  Created by Renan Massaroto on 18/01/24.
