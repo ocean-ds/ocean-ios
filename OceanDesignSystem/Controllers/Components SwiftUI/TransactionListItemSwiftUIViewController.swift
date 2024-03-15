@@ -22,6 +22,7 @@ class TransactionListItemSwiftUIViewController: UIViewController {
             view.parameters.value1Status = .positive
             view.parameters.tagTitle = "Pago"
             view.parameters.tagStatus = .positive
+            view.parameters.hasChevron = true
             view.parameters.onTouch = {
                 print("Touched!")
             }

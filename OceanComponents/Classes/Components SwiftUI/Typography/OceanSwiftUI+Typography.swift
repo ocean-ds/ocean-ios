@@ -86,7 +86,12 @@ extension OceanSwiftUI {
                 .lineSpacing(self.parameters.lineSpacing)
                 .multilineTextAlignment(self.parameters.multilineTextAlignment)
                 .fixedSize(horizontal: false, vertical: true)
-                .skeleton(with: self.parameters.showSkeleton)
+                .overlay(
+                    Path()
+                        .background(Color.clear)
+                        .skeleton(with: self.parameters.showSkeleton, 
+                                  shape: .rounded(.radius(Ocean.size.borderRadiusSm)))
+                )
         }
 
         public var body: some View {
