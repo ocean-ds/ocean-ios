@@ -83,6 +83,20 @@ class TypographySwiftUIViewController: UIViewController {
         }
     }()
 
+    lazy var typography13: OceanSwiftUI.Typography = {
+        OceanSwiftUI.Typography.caption { view in
+            view.parameters.text = "                              "
+            view.parameters.showSkeleton = true
+        }
+    }()
+
+    lazy var typography14: OceanSwiftUI.Typography = {
+        OceanSwiftUI.Typography.heading1 { view in
+            view.parameters.text = "                                               "
+            view.parameters.showSkeleton = true
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             Group {
@@ -100,6 +114,8 @@ class TypographySwiftUIViewController: UIViewController {
                 typography10
                 typography11
                 typography12
+                typography13
+                typography14
             }
         }
     })

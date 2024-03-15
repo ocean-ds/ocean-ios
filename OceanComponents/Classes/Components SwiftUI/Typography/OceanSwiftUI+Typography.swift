@@ -64,6 +64,8 @@ extension OceanSwiftUI {
 
         // MARK: Properties private
 
+        @State private var labelWidth: CGSize = .zero
+
         // MARK: Constructors
 
         public init(parameters: TypographyParameters = TypographyParameters()) {
@@ -86,7 +88,12 @@ extension OceanSwiftUI {
                 .lineSpacing(self.parameters.lineSpacing)
                 .multilineTextAlignment(self.parameters.multilineTextAlignment)
                 .fixedSize(horizontal: false, vertical: true)
-                .skeleton(with: self.parameters.showSkeleton)
+                .overlay(
+                    Path()
+                        .background(Color.clear)
+                        .skeleton(with: self.parameters.showSkeleton, shape: .rectangle)
+                )
+
         }
 
         public var body: some View {

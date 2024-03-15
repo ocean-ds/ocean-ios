@@ -26,6 +26,7 @@ extension OceanSwiftUI {
         @Published public var tagTitle: String
         @Published public var tagStatus: OceanSwiftUI.TagParameters.Status
         @Published public var hasDivider: Bool
+        @Published public var hasChevron: Bool
         @Published public var padding: EdgeInsets
         public var onTouch: () -> Void
 
@@ -52,6 +53,7 @@ extension OceanSwiftUI {
                     tagTitle: String = "",
                     tagStatus: OceanSwiftUI.TagParameters.Status = .highlightNeutral,
                     hasDivider: Bool = true,
+                    hasChevron: Bool = false,
                     padding: EdgeInsets = .init(top: 0,
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXs,
@@ -70,6 +72,7 @@ extension OceanSwiftUI {
             self.tagStatus = tagStatus
             self.hasDivider = hasDivider
             self.padding = padding
+            self.hasChevron = hasChevron
             self.onTouch = onTouch
         }
 
@@ -180,49 +183,58 @@ extension OceanSwiftUI {
 
         @ViewBuilder
         private var trailingView: some View {
-            VStack(alignment: .trailing) {
-                OceanSwiftUI.Typography.heading5 { label in
-                    label.parameters.text = "\(parameters.sign) \(parameters.value1.toCurrency(symbolSpace: true) ?? " R$ 0,00")"
-                    label.parameters.textColor = parameters.value1Status == .positive
-                    ? Ocean.color.colorStatusPositiveDeep
-                    : Ocean.color.colorInterfaceDarkDeep
-                    label.parameters.lineLimit = 1
-                    label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
-                }
-
-                Spacer()
-                    .frame(height: Ocean.size.spacingStackXxxs)
-
-                if let value = parameters.value2?.toCurrency() {
-                    OceanSwiftUI.Typography.description { label in
-                        label.parameters.text = value
-                        label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+            HStack {
+                VStack(alignment: .trailing) {
+                    OceanSwiftUI.Typography.heading5 { label in
+                        label.parameters.text = "\(parameters.sign) \(parameters.value1.toCurrency(symbolSpace: true) ?? " R$ 0,00")"
+                        label.parameters.textColor = parameters.value1Status == .positive
+                        ? Ocean.color.colorStatusPositiveDeep
+                        : Ocean.color.colorInterfaceDarkDeep
                         label.parameters.lineLimit = 1
-                        label.parameters.font = .baseRegular(size: Ocean.font.fontSizeXxs)
+                        label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
                     }
 
                     Spacer()
                         .frame(height: Ocean.size.spacingStackXxxs)
-                }
 
-                if !parameters.tagTitle.isEmpty {
-                    OceanSwiftUI.Tag { tag in
-                        tag.parameters.icon = parameters.tagIcon
-                        tag.parameters.label = parameters.tagTitle
-                        tag.parameters.status = parameters.tagStatus
+                    if let value = parameters.value2?.toCurrency() {
+                        OceanSwiftUI.Typography.description { label in
+                            label.parameters.text = value
+                            label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                            label.parameters.lineLimit = 1
+                            label.parameters.font = .baseRegular(size: Ocean.font.fontSizeXxs)
+                        }
+
+                        Spacer()
+                            .frame(height: Ocean.size.spacingStackXxxs)
                     }
 
-                    Spacer()
-                        .frame(height: Ocean.size.spacingStackXxxs)
-                }
+                    if !parameters.tagTitle.isEmpty {
+                        OceanSwiftUI.Tag { tag in
+                            tag.parameters.icon = parameters.tagIcon
+                            tag.parameters.label = parameters.tagTitle
+                            tag.parameters.status = parameters.tagStatus
+                        }
 
-                if !parameters.value3.isEmpty {
-                    OceanSwiftUI.Typography.description { label in
-                        label.parameters.text = parameters.value3
-                        label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
-                        label.parameters.lineLimit = 1
-                        label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
+                        Spacer()
+                            .frame(height: Ocean.size.spacingStackXxxs)
                     }
+
+                    if !parameters.value3.isEmpty {
+                        OceanSwiftUI.Typography.description { label in
+                            label.parameters.text = parameters.value3
+                            label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                            label.parameters.lineLimit = 1
+                            label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
+                        }
+                    }
+                }
+                if parameters.hasChevron {
+                    Image(uiImage: Ocean.icon.chevronRightSolid)
+                        .resizable()
+                        .renderingMode(.template)
+                        .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
+                        .frame(width: 20, height: 20)
                 }
             }
         }
