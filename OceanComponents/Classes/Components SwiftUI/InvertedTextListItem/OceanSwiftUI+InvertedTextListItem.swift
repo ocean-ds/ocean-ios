@@ -108,9 +108,7 @@ extension OceanSwiftUI {
                                       shape: .rounded(.radius(Ocean.size.borderRadiusSm,
                                                               style: .circular)))
                     }
-
-                    Spacer()
-                        .frame(height: parameters.padding.bottom)
+                    .frame(height: Constants.skeletonHeight)
                 } else {
                     HStack(spacing: 0) {
                         if let image = parameters.icon {
