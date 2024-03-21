@@ -22,6 +22,7 @@ extension OceanSwiftUI {
         @Published public var tagStatus: OceanSwiftUI.TagParameters.Status
         @Published public var tagSize: OceanSwiftUI.TagParameters.Size
         @Published public var status: OceanSwiftUI.InvertedTextListItemParameters.State
+        @Published public var tooltipText: String
         @Published public var padding: EdgeInsets
         @Published public var showSkeleton: Bool
 
@@ -34,6 +35,7 @@ extension OceanSwiftUI {
                     tagStatus: OceanSwiftUI.TagParameters.Status = .positive,
                     tagSize: OceanSwiftUI.TagParameters.Size = .medium,
                     status: OceanSwiftUI.InvertedTextListItemParameters.State = .normal,
+                    tooltipText: String = "",
                     padding: EdgeInsets = .init(top: Ocean.size.spacingStackXxs,
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXxs,
@@ -48,6 +50,7 @@ extension OceanSwiftUI {
             self.tagStatus = tagStatus
             self.tagSize = tagSize
             self.status = status
+            self.tooltipText = tooltipText
             self.padding = padding
             self.showSkeleton = showSkeleton
         }
@@ -94,9 +97,17 @@ extension OceanSwiftUI {
 
         public var body: some View {
             VStack(alignment: .leading, spacing: 0) {
-                OceanSwiftUI.Typography.description { label in
-                    label.parameters.text = parameters.title
-                    label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                HStack(spacing: Ocean.size.spacingStackXxxs) {
+                    OceanSwiftUI.Typography.description { label in
+                        label.parameters.text = parameters.title
+                        label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                    }
+
+                    if !parameters.tooltipText.isEmpty {
+                        OceanSwiftUI.Tooltip { tooltip in
+                            tooltip.parameters.text = parameters.tooltipText
+                        }
+                    }
                 }
 
                 if parameters.showSkeleton {

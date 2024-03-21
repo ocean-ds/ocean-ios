@@ -107,6 +107,7 @@ extension OceanSwiftUI {
             }
         }
 
+        @ViewBuilder
         private var titleView: some View {
             HStack(spacing: Ocean.size.spacingStackXxxs) {
                 if parameters.style == .inverted {
@@ -129,6 +130,7 @@ extension OceanSwiftUI {
             }
         }
         
+        @ViewBuilder
         private var textView: some View {
             if parameters.style == .inverted {
                 OceanSwiftUI.Typography.paragraph { label in
