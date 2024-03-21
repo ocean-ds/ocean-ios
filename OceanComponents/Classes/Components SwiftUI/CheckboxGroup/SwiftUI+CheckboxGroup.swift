@@ -20,15 +20,18 @@ extension OceanSwiftUI {
                 hasError = !errorMessage.isEmpty
             }
         }
+        @Published public var orientation: Orientation
         public var onTouch: (([CheckboxModel]) -> Void)
 
         public init(items: [CheckboxModel] = [],
                     hasError: Bool = false,
                     errorMessage: String = "",
+                    orientation: Orientation = .vertical,
                     onTouch: @escaping (([CheckboxModel]) -> Void) = { _ in }) {
             self.items = items
             self.hasError = hasError
             self.errorMessage = errorMessage
+            self.orientation = orientation
             self.onTouch = onTouch
         }
 
@@ -50,6 +53,11 @@ extension OceanSwiftUI {
                 self.title = title
                 self.isSelected = isSelected
             }
+        }
+
+        public enum Orientation {
+            case horizontal
+            case vertical
         }
     }
 
@@ -85,18 +93,36 @@ extension OceanSwiftUI {
 
         public var body: some View {
             VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
-                ForEach(0..<self.parameters.items.count, id: \.self) { index in
-                    getItem(self.parameters.items[index], index: index)
+                switch parameters.orientation {
+                case .horizontal:
+                    let column1Count = (parameters.items.count + 1) / 2
+                    HStack(alignment: .top) {
+                        VStack {
+                            ForEach(0..<column1Count, id: \.self) { index in
+                                getItem(parameters.items[index], index: index)
+                            }
+                        }
+                        VStack {
+                            ForEach(column1Count..<parameters.items.count, id: \.self) { index in
+                                getItem(parameters.items[index], index: index)
+                            }
+                        }
+                    }
+                case .vertical:
+                    ForEach(parameters.items.indices, id: \.self) { index in
+                        getItem(parameters.items[index], index: index)
+                    }
                 }
 
-                if !self.parameters.errorMessage.isEmpty {
+                if !parameters.errorMessage.isEmpty {
                     OceanSwiftUI.Typography.caption { label in
-                        label.parameters.text = self.parameters.errorMessage
+                        label.parameters.text = parameters.errorMessage
                         label.parameters.textColor = Ocean.color.colorStatusNegativePure
                     }
                 }
             }
         }
+
 
         // MARK: Methods private
 
