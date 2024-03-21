@@ -16,6 +16,7 @@ class InvertedTextListItemSwiftUIViewController: UIViewController {
         invertedListItem.parameters.title = "Title"
         invertedListItem.parameters.subtitle = "Description"
         invertedListItem.parameters.status = .normal
+        invertedListItem.parameters.tooltipText = "This is a test"
     }
 
     lazy var invertedTextListItem2 = OceanSwiftUI.InvertedTextListItem { invertedListItem in
