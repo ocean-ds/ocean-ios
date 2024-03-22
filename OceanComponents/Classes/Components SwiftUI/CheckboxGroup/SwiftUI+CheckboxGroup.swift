@@ -192,8 +192,3 @@ extension OceanSwiftUI {
         }
     }
 }
-
-/*
- text isEnabled ? Ocean.color.colorInterfaceDarkDown : Ocean.color.colorInterfaceLightDeep
- let color = isEnabled ? Ocean.color.colorComplementaryPure : Ocean.color.colorInterfaceLightDown
- */
