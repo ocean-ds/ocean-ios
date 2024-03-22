@@ -19,7 +19,8 @@ class CheckboxGroupSwiftUIViewController: UIViewController {
             .init(id: "labe4", title: "Label 4"),
             .init(id: "labe5", title: "Label 5"),
             .init(id: "label6", title: "[Link](http://www.blu.com.br)"),
-            .init(id: "label7", title: "Label 7")
+            .init(id: "label8", title: "Label 8", isSelected: true, isEnable: false),
+            .init(id: "label9", title: "Label 9", isEnable: false)
         ]
         view.parameters.orientation = .horizontal
         view.parameters.onTouch = { views in
