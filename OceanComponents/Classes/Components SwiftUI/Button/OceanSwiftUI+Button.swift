@@ -206,8 +206,7 @@ extension OceanSwiftUI {
         public func makeBody(configuration: Self.Configuration) -> some View {
             configuration.label
                 .font(Font(UIFont.baseBold(size: self.parameters.size.getFontSize())!))
-                .frame(minWidth: 0,
-                       maxWidth: .infinity,
+                .frame(maxWidth: .infinity,
                        idealHeight: self.parameters.size.rawValue,
                        maxHeight: self.parameters.size.rawValue,
                        alignment: .center)
