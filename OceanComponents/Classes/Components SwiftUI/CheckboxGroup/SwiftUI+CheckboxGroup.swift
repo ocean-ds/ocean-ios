@@ -45,16 +45,16 @@ extension OceanSwiftUI {
             public var id: String
             public var title: String
             public var isSelected: Bool
-            public var isEnable: Bool
+            public var isEnabled: Bool
 
             public init(id: String = "",
                         title: String = "",
                         isSelected: Bool = false,
-                        isEnable: Bool = true) {
+                        isEnabled: Bool = true) {
                 self.id = id
                 self.title = title
                 self.isSelected = isSelected
-                self.isEnable = isEnable
+                self.isEnabled = isEnabled
             }
         }
 
@@ -135,7 +135,7 @@ extension OceanSwiftUI {
                 HStack(alignment: .center, spacing: Ocean.size.spacingStackXxs) {
                     ZStack {
                         RoundedRectangle(cornerRadius: 4)
-                            .fill(item.isSelected ? (item.isEnable ? Color(Ocean.color.colorComplementaryPure) : Color(Ocean.color.colorInterfaceLightDown)) : Color(Ocean.color.colorInterfaceLightPure))
+                            .fill(fillColorForItem(item))
                             .frame(width: 20, height: 20)
                             .overlay(
                                 getItemOverlay(item)
@@ -153,7 +153,7 @@ extension OceanSwiftUI {
                             view.parameters.text = item.title
                             view.parameters.lineLimit = 20
                             view.parameters.tintColor = Ocean.color.colorBrandPrimaryPure
-                            view.parameters.textColor = item.isEnable
+                            view.parameters.textColor = item.isEnabled
                                 ? Ocean.color.colorInterfaceDarkDown
                                 : Ocean.color.colorInterfaceLightDeep
                         }
@@ -163,7 +163,7 @@ extension OceanSwiftUI {
                 }
             }
             .animation(.default, value: item.isSelected)
-            .if(item.isEnable, transform: { view in
+            .transform(condition: item.isEnabled, transform: { view in
                 view.onTapGesture {
                     parameters.selectItem(index: index)
                 }
@@ -172,9 +172,9 @@ extension OceanSwiftUI {
 
         private func getItemOverlay(_ item: CheckboxGroupParameters.CheckboxModel) -> some View {
             return Group {
-                if !item.isEnable {
+                if !item.isEnabled {
                     RoundedRectangle(cornerRadius: 4)
-                        .stroke(Color(Ocean.color.colorInterfaceLightDeep),
+                        .stroke(Color(Ocean.color.colorInterfaceLightDown),
                                 lineWidth: 1)
                 } else if parameters.hasError {
                     RoundedRectangle(cornerRadius: 4)
@@ -189,6 +189,13 @@ extension OceanSwiftUI {
                                 lineWidth: 1)
                 }
             }
+        }
+
+        private func fillColorForItem(_ item: CheckboxGroupParameters.CheckboxModel) -> Color {
+            if item.isSelected {
+                return item.isEnabled ? Color(Ocean.color.colorComplementaryPure) : Color(Ocean.color.colorInterfaceLightDown)
+            }
+            return Color(Ocean.color.colorInterfaceLightPure)
         }
     }
 }
