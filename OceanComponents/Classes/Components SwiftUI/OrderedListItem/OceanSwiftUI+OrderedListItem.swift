@@ -9,9 +9,9 @@ import OceanTokens
 import SwiftUI
 
 extension OceanSwiftUI {
-    
+
     // MARK: Parameters
-    
+
     public class OrderedListItemParameters: ObservableObject {
         @Published public var title: String
         @Published public var text: String
@@ -25,21 +25,21 @@ extension OceanSwiftUI {
             case ordered
             case unordered
         }
-        
+
         public enum Status {
             case info
             case negative
         }
-        
+
         public init(title: String = "",
                     text: String = "",
                     style: Style = .ordered,
                     status: Status = .info,
                     number: Int? = nil,
                     icon: UIImage? = nil,
-                    padding: EdgeInsets = .init(top: Ocean.size.spacingStackXs,
+                    padding: EdgeInsets = .init(top: Ocean.size.spacingStackXxs,
                                                 leading: Ocean.size.spacingStackXs,
-                                                bottom: Ocean.size.spacingStackXs,
+                                                bottom: Ocean.size.spacingStackXxs,
                                                 trailing: Ocean.size.spacingStackXs)) {
             self.title = title
             self.text = text
@@ -50,25 +50,25 @@ extension OceanSwiftUI {
             self.padding = padding
         }
     }
-    
+
     public struct OrderedListItem: View {
-        
+
         // MARK: Properties for UIKit
-        
+
         public lazy var hostingController = UIHostingController(rootView: self)
         public lazy var uiView = self.hostingController.getUIView()
-        
+
         // MARK: Builder
-        
+
         public typealias Builder = (OrderedListItem) -> Void
-        
+
         // MARK: Properties
-        
+
         @ObservedObject public var parameters: OrderedListItemParameters
         private var roundedViewHeightWidthLg: CGFloat = Ocean.size.spacingStackSm
-        
+
         // MARK: Properties private
-        
+
         private var numberLabel: some View {
             OceanSwiftUI.Typography.description { label in
                 label.parameters.text = parameters.number?.description ?? "1"
@@ -77,10 +77,10 @@ extension OceanSwiftUI {
             }
             .lineLimit(1)
         }
-        
+
         private var imageView: some View {
             let providedIcon = parameters.icon ?? Ocean.icon.chevronRightSolid!
-            
+
             return Image(uiImage: providedIcon)
                 .resizable()
                 .renderingMode(.template)
@@ -88,7 +88,7 @@ extension OceanSwiftUI {
                        height: Ocean.size.spacingStackXs)
                 .foregroundColor(Color(getForegroundColor()))
         }
-        
+
         private var roundedView: some View {
             ZStack {
                 Circle()
@@ -106,18 +106,18 @@ extension OceanSwiftUI {
         }
 
         private var titleView: some View {
-         OceanSwiftUI.Typography.heading4 { label in
-            label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXs)
-            label.parameters.text = parameters.title
+            OceanSwiftUI.Typography.heading4 { label in
+                label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXs)
+                label.parameters.text = parameters.title
             }
         }
-        
+
         private var textView: some View {
             OceanSwiftUI.Typography.description { label in
                 label.parameters.text = parameters.text
             }
         }
-        
+
         private var defaultView: some View {
             HStack(alignment: .top) {
                 roundedView
@@ -125,9 +125,9 @@ extension OceanSwiftUI {
                 textView
                 Spacer()
             }
-            .padding(.all, Ocean.size.spacingStackXs)
+            .padding(parameters.padding)
         }
-        
+
         private var withTitleView: some View {
             HStack(alignment: .top) {
                 roundedView
@@ -139,20 +139,20 @@ extension OceanSwiftUI {
             }
             .padding(parameters.padding)
         }
-        
+
         // MARK: Constructors
-        
+
         public init(parameters: OrderedListItemParameters = OrderedListItemParameters()) {
             self.parameters = parameters
         }
-        
+
         public init(builder: Builder) {
             self.init()
             builder(self)
         }
-        
+
         // MARK: View SwiftUI
-        
+
         public var body: some View {
             if parameters.title.isEmpty {
                 defaultView
@@ -160,9 +160,9 @@ extension OceanSwiftUI {
                 withTitleView
             }
         }
-        
+
         // MARK: Methods private
-        
+
         private func getForegroundColor() -> UIColor {
             switch parameters.status {
             case .info:
@@ -171,7 +171,7 @@ extension OceanSwiftUI {
                 return Ocean.color.colorStatusNegativePure
             }
         }
-        
+
         private func getBackgroundColor() -> Color {
             switch parameters.status {
             case .info:
