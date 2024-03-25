@@ -18,13 +18,26 @@ class CheckboxGroupSwiftUIViewController: UIViewController {
             .init(id: "labe3", title: "Label 3"),
             .init(id: "labe4", title: "Label 4"),
             .init(id: "labe5", title: "Label 5"),
-            .init(id: "label6", title: "[Link](http://www.blu.com.br)")
+            .init(id: "label6", title: "[Link](http://www.blu.com.br)"),
+            .init(id: "label8", title: "Label 8", isSelected: true, isEnabled: false),
+            .init(id: "label9", title: "Label 9", isEnabled: false)
         ]
+        view.parameters.orientation = .horizontal
         view.parameters.onTouch = { views in
             views.forEach { print("title: \($0.title) - selected: \($0.isSelected)") }
         }
     }
     private lazy var checkboxGroup2: OceanSwiftUI.CheckboxGroup = OceanSwiftUI.CheckboxGroup { view in
+        view.parameters.items = [
+            .init(id: "labe1", title: "Label 1"),
+            .init(id: "labe2", title: "Label 2")
+        ]
+        view.parameters.orientation = .horizontal
+        view.parameters.onTouch = { views in
+            views.forEach { print("title: \($0.title) - selected: \($0.isSelected)") }
+        }
+    }
+    private lazy var checkboxGroup3: OceanSwiftUI.CheckboxGroup = OceanSwiftUI.CheckboxGroup { view in
         view.parameters.items = [
             .init(id: "labe1", title: "Label 1"),
             .init(id: "labe2", title: "Label 2"),
@@ -42,7 +55,14 @@ class CheckboxGroupSwiftUIViewController: UIViewController {
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             checkboxGroup1
+            
+            Divider()
+
             checkboxGroup2
+
+            Divider()
+
+            checkboxGroup3
         }
     })
 

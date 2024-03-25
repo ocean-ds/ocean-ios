@@ -20,15 +20,18 @@ extension OceanSwiftUI {
                 hasError = !errorMessage.isEmpty
             }
         }
+        @Published public var orientation: Orientation
         public var onTouch: (([CheckboxModel]) -> Void)
 
         public init(items: [CheckboxModel] = [],
                     hasError: Bool = false,
                     errorMessage: String = "",
+                    orientation: Orientation = .vertical,
                     onTouch: @escaping (([CheckboxModel]) -> Void) = { _ in }) {
             self.items = items
             self.hasError = hasError
             self.errorMessage = errorMessage
+            self.orientation = orientation
             self.onTouch = onTouch
         }
 
@@ -42,14 +45,22 @@ extension OceanSwiftUI {
             public var id: String
             public var title: String
             public var isSelected: Bool
+            public var isEnabled: Bool
 
             public init(id: String = "",
                         title: String = "",
-                        isSelected: Bool = false) {
+                        isSelected: Bool = false,
+                        isEnabled: Bool = true) {
                 self.id = id
                 self.title = title
                 self.isSelected = isSelected
+                self.isEnabled = isEnabled
             }
+        }
+
+        public enum Orientation {
+            case horizontal
+            case vertical
         }
     }
 
@@ -85,18 +96,36 @@ extension OceanSwiftUI {
 
         public var body: some View {
             VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
-                ForEach(0..<self.parameters.items.count, id: \.self) { index in
-                    getItem(self.parameters.items[index], index: index)
+                switch parameters.orientation {
+                case .horizontal:
+                    let column1Count = (parameters.items.count + 1) / 2
+                    HStack(alignment: .top) {
+                        VStack {
+                            ForEach(0..<column1Count, id: \.self) { index in
+                                getItem(parameters.items[index], index: index)
+                            }
+                        }
+                        VStack {
+                            ForEach(column1Count..<parameters.items.count, id: \.self) { index in
+                                getItem(parameters.items[index], index: index)
+                            }
+                        }
+                    }
+                case .vertical:
+                    ForEach(parameters.items.indices, id: \.self) { index in
+                        getItem(parameters.items[index], index: index)
+                    }
                 }
 
-                if !self.parameters.errorMessage.isEmpty {
+                if !parameters.errorMessage.isEmpty {
                     OceanSwiftUI.Typography.caption { label in
-                        label.parameters.text = self.parameters.errorMessage
+                        label.parameters.text = parameters.errorMessage
                         label.parameters.textColor = Ocean.color.colorStatusNegativePure
                     }
                 }
             }
         }
+
 
         // MARK: Methods private
 
@@ -106,9 +135,7 @@ extension OceanSwiftUI {
                 HStack(alignment: .center, spacing: Ocean.size.spacingStackXxs) {
                     ZStack {
                         RoundedRectangle(cornerRadius: 4)
-                            .fill(item.isSelected
-                                  ? Color(Ocean.color.colorComplementaryPure)
-                                  : Color(Ocean.color.colorInterfaceLightPure))
+                            .fill(fillColorForItem(item))
                             .frame(width: 20, height: 20)
                             .overlay(
                                 getItemOverlay(item)
@@ -126,6 +153,9 @@ extension OceanSwiftUI {
                             view.parameters.text = item.title
                             view.parameters.lineLimit = 20
                             view.parameters.tintColor = Ocean.color.colorBrandPrimaryPure
+                            view.parameters.textColor = item.isEnabled
+                                ? Ocean.color.colorInterfaceDarkDown
+                                : Ocean.color.colorInterfaceLightDeep
                         }
 
                         Spacer()
@@ -133,14 +163,20 @@ extension OceanSwiftUI {
                 }
             }
             .animation(.default, value: item.isSelected)
-            .onTapGesture {
-                parameters.selectItem(index: index)
-            }
+            .transform(condition: item.isEnabled, transform: { view in
+                view.onTapGesture {
+                    parameters.selectItem(index: index)
+                }
+            })
         }
 
         private func getItemOverlay(_ item: CheckboxGroupParameters.CheckboxModel) -> some View {
             return Group {
-                if parameters.hasError {
+                if !item.isEnabled {
+                    RoundedRectangle(cornerRadius: 4)
+                        .stroke(Color(Ocean.color.colorInterfaceLightDown),
+                                lineWidth: 1)
+                } else if parameters.hasError {
                     RoundedRectangle(cornerRadius: 4)
                         .stroke(Color(Ocean.color.colorStatusNegativePure), lineWidth: 1)
                 } else if item.isSelected {
@@ -154,6 +190,12 @@ extension OceanSwiftUI {
                 }
             }
         }
+
+        private func fillColorForItem(_ item: CheckboxGroupParameters.CheckboxModel) -> Color {
+            if item.isSelected {
+                return item.isEnabled ? Color(Ocean.color.colorComplementaryPure) : Color(Ocean.color.colorInterfaceLightDown)
+            }
+            return Color(Ocean.color.colorInterfaceLightPure)
+        }
     }
 }
-
