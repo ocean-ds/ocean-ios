@@ -13,15 +13,20 @@ extension OceanSwiftUI {
 
     public class TextListItemParameters: ObservableObject {
         @Published public var title: String
+        @Published public var titleLineLimit: Int?
         @Published public var description: String
+        @Published public var descriptionLineLimit: Int?
         @Published public var caption: String
+        @Published public var captionLineLimit: Int?
         @Published public var info: String
+        @Published public var infoLineLimit: Int?
         @Published public var icon: UIImage?
-
+        @Published public var tagLabel: String
+        @Published public var tagIcon: UIImage?
+        @Published public var tagStatus: OceanSwiftUI.TagParameters.Status
+        @Published public var tagSize: OceanSwiftUI.TagParameters.Size
         @Published public var padding: EdgeInsets
-
         @Published public var state: OceanSwiftUI.TextListItemParameters.State
-
         @Published public var hasCheckbox: Bool
         @Published public var hasRadioButton: Bool
         @Published public var hasError: Bool
@@ -32,10 +37,18 @@ extension OceanSwiftUI {
         public var onTouch: () -> Void
 
         public init(title: String = "",
+                    titleLineLimit: Int? = nil,
                     description: String = "",
+                    descriptionLineLimit: Int? = nil,
                     caption: String = "",
+                    captionLineLimit: Int? = nil,
                     info: String = "",
+                    infoLineLimit: Int? = nil,
                     icon: UIImage? = nil,
+                    tagLabel: String = "",
+                    tagIcon: UIImage? = nil,
+                    tagStatus: OceanSwiftUI.TagParameters.Status = .positive,
+                    tagSize: OceanSwiftUI.TagParameters.Size = .small,
                     padding: EdgeInsets = .init(top: Ocean.size.spacingStackXs,
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXs,
@@ -49,10 +62,18 @@ extension OceanSwiftUI {
                     onSelection: @escaping (Bool) -> Void = { _ in },
                     onTouch: @escaping () -> Void = { }) {
             self.title = title
+            self.titleLineLimit = titleLineLimit
             self.description = description
+            self.descriptionLineLimit = descriptionLineLimit
             self.caption = caption
+            self.captionLineLimit = captionLineLimit
             self.info = info
+            self.infoLineLimit = infoLineLimit
             self.icon = icon
+            self.tagLabel = tagLabel
+            self.tagIcon = tagIcon
+            self.tagStatus = tagStatus
+            self.tagSize = tagSize
             self.padding = padding
             self.state = state
             self.hasCheckbox = hasCheckbox
@@ -135,12 +156,14 @@ extension OceanSwiftUI {
                     VStack(alignment: .leading) {
                         OceanSwiftUI.Typography.heading4 { label in
                             label.parameters.text = parameters.title
+                            label.parameters.lineLimit = parameters.titleLineLimit
                             label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
                         }
 
                         if !parameters.description.isEmpty {
                             OceanSwiftUI.Typography.description { label in
                                 label.parameters.text = parameters.description
+                                label.parameters.lineLimit = parameters.descriptionLineLimit
                                 label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
                             }
                         }
@@ -151,6 +174,7 @@ extension OceanSwiftUI {
 
                             OceanSwiftUI.Typography.caption { label in
                                 label.parameters.text = parameters.caption
+                                label.parameters.lineLimit = parameters.captionLineLimit
                                 label.parameters.textColor = Ocean.color.colorInterfaceDarkUp
                             }
                         }
@@ -161,9 +185,22 @@ extension OceanSwiftUI {
 
                             OceanSwiftUI.Typography.description { label in
                                 label.parameters.text = parameters.info
+                                label.parameters.lineLimit = parameters.infoLineLimit
                                 label.parameters.textColor = parameters.state == .neutral
                                 ? Ocean.color.colorInterfaceDarkDeep
                                 : Ocean.color.colorStatusPositiveDeep
+                            }
+                        }
+
+                        if !parameters.tagLabel.isEmpty {
+                            Spacer()
+                                .frame(height: Ocean.size.spacingStackXxs)
+
+                            OceanSwiftUI.Tag { tag in
+                                tag.parameters.label = parameters.tagLabel
+                                tag.parameters.icon = parameters.tagIcon
+                                tag.parameters.status = parameters.tagStatus
+                                tag.parameters.size = parameters.tagSize
                             }
                         }
                     }
