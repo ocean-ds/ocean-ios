@@ -17,11 +17,12 @@ extension OceanSwiftUI {
         @Published public var caption: String
         @Published public var info: String
         @Published public var icon: UIImage?
-
+        @Published public var tagLabel: String
+        @Published public var tagIcon: UIImage?
+        @Published public var tagStatus: OceanSwiftUI.TagParameters.Status
+        @Published public var tagSize: OceanSwiftUI.TagParameters.Size
         @Published public var padding: EdgeInsets
-
         @Published public var state: OceanSwiftUI.TextListItemParameters.State
-
         @Published public var hasCheckbox: Bool
         @Published public var hasRadioButton: Bool
         @Published public var hasError: Bool
@@ -36,6 +37,10 @@ extension OceanSwiftUI {
                     caption: String = "",
                     info: String = "",
                     icon: UIImage? = nil,
+                    tagLabel: String = "",
+                    tagIcon: UIImage? = nil,
+                    tagStatus: OceanSwiftUI.TagParameters.Status = .positive,
+                    tagSize: OceanSwiftUI.TagParameters.Size = .small,
                     padding: EdgeInsets = .init(top: Ocean.size.spacingStackXs,
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXs,
@@ -53,6 +58,10 @@ extension OceanSwiftUI {
             self.caption = caption
             self.info = info
             self.icon = icon
+            self.tagLabel = tagLabel
+            self.tagIcon = tagIcon
+            self.tagStatus = tagStatus
+            self.tagSize = tagSize
             self.padding = padding
             self.state = state
             self.hasCheckbox = hasCheckbox
@@ -164,6 +173,18 @@ extension OceanSwiftUI {
                                 label.parameters.textColor = parameters.state == .neutral
                                 ? Ocean.color.colorInterfaceDarkDeep
                                 : Ocean.color.colorStatusPositiveDeep
+                            }
+                        }
+
+                        if !parameters.tagLabel.isEmpty {
+                            Spacer()
+                                .frame(height: Ocean.size.spacingStackXxs)
+
+                            OceanSwiftUI.Tag { tag in
+                                tag.parameters.label = parameters.tagLabel
+                                tag.parameters.icon = parameters.tagIcon
+                                tag.parameters.status = parameters.tagStatus
+                                tag.parameters.size = parameters.tagSize
                             }
                         }
                     }
