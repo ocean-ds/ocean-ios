@@ -14,7 +14,7 @@ extension OceanSwiftUI {
 
     public class TabParameters: ObservableObject {
         @Published public var tabs: [TabModel]
-        @Published private(set) var tabSelectedIndex: Int = 0
+        @Published private(set) public var tabSelectedIndex: Int = 0
         @Published public var contentIdealHeight: CGFloat? = nil
         public var onTouch: ((Int) -> Void)
 
