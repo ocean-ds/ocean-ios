@@ -95,6 +95,7 @@ public enum DesignSystemComponentsSwiftUIType: String {
     case FileUploader
     case FilterBar
     case Link
+    case Onboarding
     case OrderedListItem
     case ProgressIndicator
     case RadioButtonGroup
