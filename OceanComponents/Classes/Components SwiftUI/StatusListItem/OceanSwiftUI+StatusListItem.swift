@@ -13,8 +13,11 @@ extension OceanSwiftUI {
 
     public class StatusListItemParameters: ObservableObject {
         @Published public var title: String
+        @Published public var titleLineLimit: Int?
         @Published public var description: String
+        @Published public var descriptionLineLimit: Int?
         @Published public var caption: String
+        @Published public var captionLineLimit: Int?
         @Published public var style: Style
         @Published public var tagLabel: String
         @Published public var tagStatus: TagParameters.Status
@@ -37,8 +40,11 @@ extension OceanSwiftUI {
         }
 
         public init(title: String = "",
+                    titleLineLimit: Int? = nil,
                     description: String = "",
+                    descriptionLineLimit: Int? = nil,
                     caption: String = "",
+                    captionLineLimit: Int? = nil,
                     style: Style = .normal,
                     tagLabel: String = "",
                     tagStatus: TagParameters.Status = .positive,
@@ -49,8 +55,11 @@ extension OceanSwiftUI {
                     showSkeleton: Bool = false,
                     onTouch: @escaping () -> Void = { }) {
             self.title = title
+            self.titleLineLimit = titleLineLimit
             self.description = description
+            self.descriptionLineLimit = descriptionLineLimit
             self.caption = caption
+            self.captionLineLimit = captionLineLimit
             self.style = style
             self.tagLabel = tagLabel
             self.tagStatus = tagStatus
@@ -99,11 +108,13 @@ extension OceanSwiftUI {
                     OceanSwiftUI.Typography.paragraph { label in
                         label.parameters.textColor = Ocean.color.colorInterfaceDarkPure
                         label.parameters.text = self.parameters.title
+                        label.parameters.lineLimit = self.parameters.titleLineLimit
                         label.parameters.showSkeleton = self.parameters.showSkeleton
                     }
                     if !self.parameters.description.isEmpty {
                         OceanSwiftUI.Typography.description { label in
                             label.parameters.text = self.parameters.description
+                            label.parameters.lineLimit = self.parameters.descriptionLineLimit
                             label.parameters.showSkeleton = self.parameters.showSkeleton
                         }
                     }
@@ -111,6 +122,7 @@ extension OceanSwiftUI {
                         Spacer().frame(height: Ocean.size.spacingStackXxxs)
                         OceanSwiftUI.Typography.caption { label in
                             label.parameters.text = self.parameters.caption
+                            label.parameters.lineLimit = self.parameters.captionLineLimit
                             label.parameters.showSkeleton = self.parameters.showSkeleton
                         }
                     }
