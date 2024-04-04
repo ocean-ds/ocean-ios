@@ -1,5 +1,5 @@
 //
-//  SwiftUI+Onboarding.swift
+//  OceanSwiftUI+Onboarding.swift
 //  DGCharts
 //
 //  Created by Acassio Mendonça on 01/04/24.
@@ -99,25 +99,29 @@ extension OceanSwiftUI {
                 .animation(.default)
 
             }
-            .gesture(DragGesture()
-                .updating(self.$dragOffset) { value, dragOffset, _ in
-                    dragOffset = value.translation
-                }
-                .onEnded { value in
-                    let threshold = screenWidth * 0.2
-                    if value.translation.width < -threshold && self.currentPage < parameters.pages.count - 1 {
-                        self.currentPage += 1
-                    } else if value.translation.width > threshold && self.currentPage > 0 {
-                        self.currentPage -= 1
+            .gesture(
+                DragGesture()
+                    .updating(self.$dragOffset) { value, dragOffset, _ in
+                        dragOffset = value.translation
                     }
-                })
+                    .onEnded { value in
+                        let threshold = screenWidth * 0.2
+                        if value.translation.width < -threshold && self.currentPage < parameters.pages.count - 1 {
+                            self.currentPage += 1
+                        } else if value.translation.width > threshold && self.currentPage > 0 {
+                            self.currentPage -= 1
+                        }
+                    })
 
-            PageIndicator(numberOfPages: parameters.pages.count, currentPage: CGFloat(currentPage))
+            PageIndicator { pageIndicator in
+                pageIndicator.parameters.numberOfPages = parameters.pages.count
+                pageIndicator.parameters.currentPage = currentPage
+            }
 
             Button.primaryMD { button in
                 button.parameters.text = currentPage == parameters.pages.count - 1
-                    ? parameters.titleButtonLastPage
-                    : parameters.titleButton
+                ? parameters.titleButtonLastPage
+                : parameters.titleButton
                 button.parameters.onTouch = nextPage
             }
         }
@@ -131,36 +135,6 @@ extension OceanSwiftUI {
                 if currentPage < parameters.pages.count - 1 {
                     currentPage += 1
                 }
-            }
-        }
-
-        public struct PageIndicator: View {
-            public var numberOfPages: Int
-            public var currentPage: CGFloat = 0
-            public var currentPageIndicatorColor: Color = Color.blue
-            public var pageIndicatorColor: Color = Color.gray
-
-            var indicatorSize: CGSize = CGSize(width: 6, height: 6)
-            var selectedIndicatorSize: CGSize = CGSize(width: 12, height: 6)
-
-            public var body: some View {
-                HStack(spacing: 8) {
-                    ForEach(0..<numberOfPages, id: \.self) { index in
-                        Rectangle()
-                            .cornerRadius(50)
-                            .foregroundColor(index == Int(self.currentPage)
-                                             ? self.currentPageIndicatorColor
-                                             : self.pageIndicatorColor)
-                            .frame(width: index == Int(self.currentPage)
-                                   ? self.selectedIndicatorSize.width
-                                   : self.indicatorSize.width,
-                                   height: index == Int(self.currentPage)
-                                   ? self.selectedIndicatorSize.height
-                                   : self.indicatorSize.height)
-                            .animation(.default)
-                    }
-                }
-                .frame(height: indicatorSize.height)
             }
         }
 
