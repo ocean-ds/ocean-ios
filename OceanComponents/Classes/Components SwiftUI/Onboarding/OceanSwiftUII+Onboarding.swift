@@ -88,6 +88,7 @@ extension OceanSwiftUI {
                 HStack(spacing: 0) {
                     ForEach(0..<self.parameters.pages.count, id: \.self) { index in
                         Page(page: self.parameters.pages[index])
+                            .padding(.horizontal, Ocean.size.spacingStackSm)
                             .frame(width: geometry.size.width)
                             .background(Color(parameters.pages[index].backgroundColor))
                     }
@@ -159,6 +160,7 @@ extension OceanSwiftUI {
                     if !page.title.isEmpty {
                         Typography.heading3 { label in
                             label.parameters.text = page.title
+                            label.parameters.multilineTextAlignment = .center
                         }
 
                         Spacer()
@@ -168,6 +170,7 @@ extension OceanSwiftUI {
                     if !page.subtitle.isEmpty {
                         Typography.description { label in
                             label.parameters.text = page.subtitle
+                            label.parameters.multilineTextAlignment = .center
                         }
 
                         Spacer()
