@@ -30,17 +30,20 @@ extension OceanSwiftUI {
             @Published public var image: UIImage?
             @Published public var title: String
             @Published public var subtitle: String
+            @Published public var backgroundColor: UIColor
             @Published public var linkText: String
             @Published public var linkAction: (() -> Void)?
 
             public init(image: UIImage? = nil,
                         title: String = "",
                         subtitle: String = "",
+                        backgroundColor: UIColor = .white,
                         linkText: String = "",
                         linkAction: (() -> Void)? = nil) {
                 self.image = image
                 self.title = title
                 self.subtitle = subtitle
+                self.backgroundColor = backgroundColor
                 self.linkText = linkText
                 self.linkAction = linkAction
             }
@@ -86,6 +89,7 @@ extension OceanSwiftUI {
                     ForEach(0..<self.parameters.pages.count, id: \.self) { index in
                         Page(page: self.parameters.pages[index])
                             .frame(width: geometry.size.width)
+                            .background(Color(parameters.pages[index].backgroundColor))
                     }
                 }
                 .offset(x: -CGFloat(currentPage) * geometry.size.width + dragOffset.width)

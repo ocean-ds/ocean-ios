@@ -16,9 +16,7 @@ class OnboardingSwiftUIViewController: UIViewController {
         OceanSwiftUI.OnboardingParameters.PageModel(
             image: Ocean.icon.placeholderOutline,
             title: "Titile 1",
-            subtitle: "Subtitle",
-            linkText: "Link",
-            linkAction: { print("Link action") }
+            subtitle: "Subtitle"
         )
     }()
 
