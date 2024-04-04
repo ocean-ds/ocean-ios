@@ -41,6 +41,7 @@ class OnboardingSwiftUIViewController: UIViewController {
     lazy var onboarding: OceanSwiftUI.Onboarding = {
         OceanSwiftUI.Onboarding { onboarding in
             onboarding.parameters.pages = [page1, page2, page3]
+            onboarding.parameters.actionLastPage = close
         }
     }()
 
@@ -59,6 +60,11 @@ class OnboardingSwiftUIViewController: UIViewController {
         uiView.oceanConstraints
             .fill(to: self.view, constant: Ocean.size.spacingStackXs)
             .make()
+    }
+
+    @objc
+    private func close() {
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
