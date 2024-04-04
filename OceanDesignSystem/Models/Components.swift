@@ -79,6 +79,7 @@ struct DSComponents {
         "FileUploader",
         "FilterBar",
         "Link",
+        "Onboarding",
         "OrderedListItem",
         "ProgressIndicator",
         "RadioButtonGroup",

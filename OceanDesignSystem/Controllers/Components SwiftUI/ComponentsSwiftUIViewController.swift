@@ -103,6 +103,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(ScrollableTabSwiftUIViewController(), animated: true, completion: nil)
         case .CardOption:
             self.present(CardOptionSwiftUIViewController(), animated: true, completion: nil)
+        case .Onboarding:
+            self.present(OnboardingSwiftUIViewController(), animated: true, completion: nil)
         }
     }
 }

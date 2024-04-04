@@ -95,6 +95,7 @@
 		E13578B729F07252003A2B9D /* FilterBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13578B629F07252003A2B9D /* FilterBarViewController.swift */; };
 		E13FE2282B9671C900AA82B1 /* ScoreChartSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13FE2272B9671C900AA82B1 /* ScoreChartSwiftUIViewController.swift */; };
 		E149D4072AB8D4A8009B7BE2 /* CheckBoxGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E149D4062AB8D4A8009B7BE2 /* CheckBoxGroupViewController.swift */; };
+		E152E3342BBB5AB4007133E1 /* OnboardingSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E152E3332BBB5AB4007133E1 /* OnboardingSwiftUIViewController.swift */; };
 		E171219E2B98ACBA008563E8 /* ChartBarSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E171219D2B98ACBA008563E8 /* ChartBarSwiftUIViewController.swift */; };
 		E17A61182B72B71000428E29 /* CheckboxGroupSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17A61172B72B71000428E29 /* CheckboxGroupSwiftUIViewController.swift */; };
 		E18D698E2ACB420100A1051C /* AlertSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18D698D2ACB420100A1051C /* AlertSwiftUIViewController.swift */; };
@@ -229,6 +230,7 @@
 		E13578B629F07252003A2B9D /* FilterBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBarViewController.swift; sourceTree = "<group>"; };
 		E13FE2272B9671C900AA82B1 /* ScoreChartSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreChartSwiftUIViewController.swift; sourceTree = "<group>"; };
 		E149D4062AB8D4A8009B7BE2 /* CheckBoxGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxGroupViewController.swift; sourceTree = "<group>"; };
+		E152E3332BBB5AB4007133E1 /* OnboardingSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSwiftUIViewController.swift; sourceTree = "<group>"; };
 		E171219D2B98ACBA008563E8 /* ChartBarSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartBarSwiftUIViewController.swift; sourceTree = "<group>"; };
 		E17A61172B72B71000428E29 /* CheckboxGroupSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxGroupSwiftUIViewController.swift; sourceTree = "<group>"; };
 		E18D698D2ACB420100A1051C /* AlertSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertSwiftUIViewController.swift; sourceTree = "<group>"; };
@@ -362,6 +364,7 @@
 				42A7D7BA2B979E47002A03BA /* TooltipSwiftUIViewController.swift */,
 				D50D86362B5996040075262C /* TransactionListItemSwiftUIViewController.swift */,
 				42C89A602A96A89700B8174A /* TypographySwiftUIViewController.swift */,
+				E152E3332BBB5AB4007133E1 /* OnboardingSwiftUIViewController.swift */,
 			);
 			path = "Components SwiftUI";
 			sourceTree = "<group>";
@@ -754,6 +757,7 @@
 				8ECB029F283319340037DC25 /* CardCrossSellViewController.swift in Sources */,
 				246535F726E259C20079354A /* TagViewController.swift in Sources */,
 				2482CDD4267D055100A50422 /* RadioButtonViewController.swift in Sources */,
+				E152E3342BBB5AB4007133E1 /* OnboardingSwiftUIViewController.swift in Sources */,
 				E985454E275EA0EF0010B9EC /* ChipsViewController.swift in Sources */,
 				D56AB26C2B4DCE700059D443 /* FilterBarSwiftUIViewController.swift in Sources */,
 				4241FB5227E8AD4B003EF1F3 /* ParentChildTextListViewController.swift in Sources */,
