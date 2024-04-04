@@ -37,13 +37,13 @@ extension Ocean {
         }
         
         public struct PageModel {
-            var image: UIImage?
+            var image: UIImage
             var title: String
             var subtitle: String
             var linkText: String
             var linkAction: () -> Void
             
-            public init(image: UIImage? = nil,
+            public init(image: UIImage,
                         title: String,
                         subtitle: String,
                         linkText: String = "",
