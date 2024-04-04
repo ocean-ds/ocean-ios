@@ -15,24 +15,24 @@ class OnboardingSwiftUIViewController: UIViewController {
     lazy var page1: OceanSwiftUI.OnboardingParameters.PageModel = {
         OceanSwiftUI.OnboardingParameters.PageModel(
             image: Ocean.icon.placeholderOutline,
-            title: "Titile 1",
-            subtitle: "Subtitle"
+            title: "Titile 1 Lorem Ipsum is simply dummy text of the",
+            subtitle: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
         )
     }()
 
     lazy var page2: OceanSwiftUI.OnboardingParameters.PageModel = {
         OceanSwiftUI.OnboardingParameters.PageModel(
             image: Ocean.icon.placeholderOutline,
-            title: "Titile 2",
-            subtitle: "Subtitle"
+            title: "Titile 2 Lorem Ipsum is simply dummy text of the",
+            subtitle: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
         )
     }()
 
     lazy var page3: OceanSwiftUI.OnboardingParameters.PageModel = {
         OceanSwiftUI.OnboardingParameters.PageModel(
             image: Ocean.icon.placeholderOutline,
-            title: "Titile 3",
-            subtitle: "Subtitle"
+            title: "Titile 3 Lorem Ipsum is simply dummy text of the",
+            subtitle: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
         )
     }()
 
