@@ -230,9 +230,10 @@ extension OceanSwiftUI {
                 VStack(alignment: .trailing) {
                     OceanSwiftUI.Typography.heading5 { label in
                         label.parameters.text = "\(parameters.sign) \(parameters.value1.toCurrency(symbolSpace: true) ?? " R$ 0,00")"
-                        label.parameters.textColor = parameters.value1Status == .positive
-                        ? Ocean.color.colorStatusPositiveDeep
-                        : Ocean.color.colorInterfaceDarkDeep
+                        label.parameters.textColor = parameters.isEnabled 
+                        ? parameters.value1Status == .positive ? Ocean.color.colorStatusPositiveDeep : Ocean.color.colorInterfaceDarkDeep
+                        : Ocean.color.colorInterfaceDarkUp
+
                         label.parameters.lineLimit = 1
                         label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
                     }
@@ -256,7 +257,9 @@ extension OceanSwiftUI {
                         OceanSwiftUI.Tag { tag in
                             tag.parameters.icon = parameters.tagIcon
                             tag.parameters.label = parameters.tagTitle
-                            tag.parameters.status = parameters.tagStatus
+                            tag.parameters.status = parameters.isEnabled
+                            ? parameters.tagStatus
+                            : .neutralInterface
                         }
 
                         Spacer()
@@ -266,7 +269,9 @@ extension OceanSwiftUI {
                     if !parameters.value3.isEmpty {
                         OceanSwiftUI.Typography.description { label in
                             label.parameters.text = parameters.value3
-                            label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                            label.parameters.textColor = parameters.isEnabled
+                            ? Ocean.color.colorInterfaceDarkDown
+                            : Ocean.color.colorInterfaceDarkUp
                             label.parameters.lineLimit = 1
                             label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
                         }
