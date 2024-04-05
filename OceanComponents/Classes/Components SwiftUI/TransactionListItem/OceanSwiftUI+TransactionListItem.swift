@@ -215,9 +215,7 @@ extension OceanSwiftUI {
                 if !parameters.level3.isEmpty {
                     OceanSwiftUI.Typography.description { label in
                         label.parameters.text = parameters.level3
-                        label.parameters.textColor = parameters.isEnabled
-                        ? Ocean.color.colorInterfaceDarkUp
-                        : Ocean.color.colorInterfaceDarkUp
+                        label.parameters.textColor = Ocean.color.colorInterfaceDarkUp
                         label.parameters.lineLimit = 1
                         label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
                     }
