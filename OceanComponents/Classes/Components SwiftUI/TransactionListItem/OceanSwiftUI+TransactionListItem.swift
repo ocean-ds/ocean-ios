@@ -27,7 +27,10 @@ extension OceanSwiftUI {
         @Published public var tagStatus: OceanSwiftUI.TagParameters.Status
         @Published public var hasDivider: Bool
         @Published public var hasChevron: Bool
+        @Published public var hasCheckbox: Bool
+        @Published public var hasError: Bool
         @Published public var padding: EdgeInsets
+        public var onSelection: (Bool) -> Void
         public var onTouch: () -> Void
 
         public var sign: String {
@@ -54,10 +57,13 @@ extension OceanSwiftUI {
                     tagStatus: OceanSwiftUI.TagParameters.Status = .highlightNeutral,
                     hasDivider: Bool = true,
                     hasChevron: Bool = false,
+                    hasCheckbox: Bool = false,
+                    hasError: Bool = false,
                     padding: EdgeInsets = .init(top: 0,
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXs,
                                                 trailing: Ocean.size.spacingStackXs),
+                    onSelection: @escaping (Bool) -> Void = { _ in },
                     onTouch: @escaping () -> Void = { }) {
             self.level1 = level1
             self.level2 = level2
@@ -71,8 +77,11 @@ extension OceanSwiftUI {
             self.tagTitle = tagTitle
             self.tagStatus = tagStatus
             self.hasDivider = hasDivider
+            self.hasCheckbox = hasCheckbox
+            self.hasError = hasError
             self.padding = padding
             self.hasChevron = hasChevron
+            self.onSelection = onSelection
             self.onTouch = onTouch
         }
 
@@ -113,8 +122,9 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
         public var body: some View {
             VStack {
-                HStack {
+                HStack(spacing: Ocean.size.spacingStackXxs) {
                     leadingView
+                    centerView
                     trailingView
                 }
                 .padding(parameters.padding)
@@ -132,6 +142,25 @@ extension OceanSwiftUI {
 
         @ViewBuilder
         private var leadingView: some View {
+            HStack(spacing: 0) {
+                if parameters.hasCheckbox {
+                    OceanSwiftUI.CheckboxGroup { group in
+                        group.parameters.hasError = parameters.hasError
+                        group.parameters.items = [ .init() ]
+                        group.parameters.onTouch = { items in
+                            guard let item = items.first else { return }
+                            parameters.onSelection(item.isSelected)
+                        }
+                    }
+
+                    Spacer()
+                        .frame(width: Ocean.size.spacingStackXxs)
+                }
+            }
+        }
+
+        @ViewBuilder
+        private var centerView: some View {
             VStack(alignment: .leading) {
                 if !parameters.level4.isEmpty {
                     OceanSwiftUI.Typography.caption { label in
@@ -178,7 +207,7 @@ extension OceanSwiftUI {
                     }
                 }
             }
-            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
 
         @ViewBuilder
