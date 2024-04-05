@@ -23,6 +23,8 @@ class TransactionListItemSwiftUIViewController: UIViewController {
             view.parameters.tagTitle = "Pago"
             view.parameters.tagStatus = .positive
             view.parameters.hasChevron = true
+            view.parameters.hasCheckbox = true
+            view.parameters.isSelected = true
             view.parameters.onTouch = {
                 print("Touched!")
             }
@@ -39,6 +41,8 @@ class TransactionListItemSwiftUIViewController: UIViewController {
             view.parameters.value1Status = .negative
             view.parameters.tagTitle = "Pendente"
             view.parameters.tagStatus = .warning
+            view.parameters.hasCheckbox = true
+            view.parameters.isSelected = true
             view.parameters.onTouch = {
                 print("Touched!")
             }
@@ -115,6 +119,27 @@ class TransactionListItemSwiftUIViewController: UIViewController {
         }
     }()
 
+    public lazy var transactionListItem8: OceanSwiftUI.TransactionListItem = {
+        OceanSwiftUI.TransactionListItem { view in
+            view.parameters.level1 = "Transferência recebida"
+            view.parameters.level2 = "Digilab Laboratório Óptico Digital Ltda"
+            view.parameters.level3 = "Lente de contato Mônica"
+            view.parameters.level4 = "Lojista 2"
+            view.parameters.value1 = 2500
+            view.parameters.value3 = "09:00"
+            view.parameters.value1Status = .positive
+            view.parameters.tagTitle = "Pago"
+            view.parameters.tagStatus = .positive
+            view.parameters.hasChevron = true
+            view.parameters.hasCheckbox = true
+            view.parameters.isSelected = true
+            view.parameters.isEnabled = false
+            view.parameters.onTouch = {
+                print("Touched!")
+            }
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             Spacer(minLength: 40)
@@ -125,6 +150,7 @@ class TransactionListItemSwiftUIViewController: UIViewController {
             transactionListItem5
             transactionListItem6
             transactionListItem7
+            transactionListItem8
         }
     })
 

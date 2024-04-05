@@ -13,6 +13,7 @@ extension OceanSwiftUI {
     // MARK: Parameters
 
     public class CheckboxGroupParameters: ObservableObject {
+        @Published public var icon: UIImage?
         @Published public var items: [CheckboxModel]
         @Published public var hasError: Bool
         @Published public var errorMessage: String {
@@ -23,11 +24,13 @@ extension OceanSwiftUI {
         @Published public var orientation: Orientation
         public var onTouch: (([CheckboxModel]) -> Void)
 
-        public init(items: [CheckboxModel] = [],
+        public init(icon: UIImage? = nil,
+                    items: [CheckboxModel] = [],
                     hasError: Bool = false,
                     errorMessage: String = "",
                     orientation: Orientation = .vertical,
                     onTouch: @escaping (([CheckboxModel]) -> Void) = { _ in }) {
+            self.icon = icon
             self.items = items
             self.hasError = hasError
             self.errorMessage = errorMessage
@@ -142,9 +145,21 @@ extension OceanSwiftUI {
                             )
                             .padding(.all, 6)
                         if item.isSelected {
-                            Image(systemName: "checkmark")
-                                .font(.system(size: 12))
-                                .foregroundColor(.white)
+                            if let icon = parameters.icon {
+                                Image(uiImage: icon)
+                                    .resizable()
+                                    .renderingMode(.template)
+                                    .foregroundColor(.white)
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 13, height: 13)
+                            } else {
+                                Image(systemName: "checkmark")
+                                    .resizable()
+                                    .renderingMode(.template)
+                                    .foregroundColor(.white)
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 13, height: 13)
+                            }
                         }
                     }
 
@@ -154,8 +169,8 @@ extension OceanSwiftUI {
                             view.parameters.lineLimit = 20
                             view.parameters.tintColor = Ocean.color.colorBrandPrimaryPure
                             view.parameters.textColor = item.isEnabled
-                                ? Ocean.color.colorInterfaceDarkDown
-                                : Ocean.color.colorInterfaceLightDeep
+                            ? Ocean.color.colorInterfaceDarkDown
+                            : Ocean.color.colorInterfaceLightDeep
                         }
 
                         Spacer()

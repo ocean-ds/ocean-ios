@@ -29,6 +29,8 @@ extension OceanSwiftUI {
         @Published public var hasChevron: Bool
         @Published public var hasCheckbox: Bool
         @Published public var hasError: Bool
+        @Published public var isEnabled: Bool
+        @Published public var isSelected: Bool
         @Published public var padding: EdgeInsets
         public var onSelection: (Bool) -> Void
         public var onTouch: () -> Void
@@ -59,6 +61,8 @@ extension OceanSwiftUI {
                     hasChevron: Bool = false,
                     hasCheckbox: Bool = false,
                     hasError: Bool = false,
+                    isEnabled: Bool = true,
+                    isSelected: Bool = false,
                     padding: EdgeInsets = .init(top: 0,
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXs,
@@ -79,6 +83,8 @@ extension OceanSwiftUI {
             self.hasDivider = hasDivider
             self.hasCheckbox = hasCheckbox
             self.hasError = hasError
+            self.isEnabled = isEnabled
+            self.isSelected = isSelected
             self.padding = padding
             self.hasChevron = hasChevron
             self.onSelection = onSelection
@@ -138,6 +144,7 @@ extension OceanSwiftUI {
             .onTapGesture {
                 parameters.onTouch()
             }
+            .allowsHitTesting(parameters.isEnabled)
         }
 
         @ViewBuilder
@@ -146,7 +153,8 @@ extension OceanSwiftUI {
                 if parameters.hasCheckbox {
                     OceanSwiftUI.CheckboxGroup { group in
                         group.parameters.hasError = parameters.hasError
-                        group.parameters.items = [ .init() ]
+                        group.parameters.items = [.init(isSelected: parameters.isSelected,
+                                                        isEnabled: parameters.isEnabled)]
                         group.parameters.onTouch = { items in
                             guard let item = items.first else { return }
                             parameters.onSelection(item.isSelected)
@@ -165,7 +173,9 @@ extension OceanSwiftUI {
                 if !parameters.level4.isEmpty {
                     OceanSwiftUI.Typography.caption { label in
                         label.parameters.text = parameters.level4
-                        label.parameters.textColor = Ocean.color.colorBrandPrimaryDeep
+                        label.parameters.textColor = parameters.isEnabled
+                        ? Ocean.color.colorBrandPrimaryDeep
+                        : Ocean.color.colorInterfaceDarkUp
                         label.parameters.lineLimit = 1
                         label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
                     }
@@ -177,7 +187,9 @@ extension OceanSwiftUI {
                 if !parameters.level1.isEmpty {
                     OceanSwiftUI.Typography.heading4 { label in
                         label.parameters.text = parameters.level1
-                        label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
+                        label.parameters.textColor = parameters.isEnabled
+                        ? Ocean.color.colorInterfaceDarkDeep
+                        : Ocean.color.colorInterfaceDarkUp
                         label.parameters.lineLimit = 2
                         label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXs)
                     }
@@ -189,7 +201,9 @@ extension OceanSwiftUI {
                 if !parameters.level2.isEmpty {
                     OceanSwiftUI.Typography.description { label in
                         label.parameters.text = parameters.level2
-                        label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                        label.parameters.textColor = parameters.isEnabled
+                        ? Ocean.color.colorInterfaceDarkDown
+                        : Ocean.color.colorInterfaceDarkUp
                         label.parameters.lineLimit = 1
                         label.parameters.font = .baseRegular(size: Ocean.font.fontSizeXxs)
                     }
@@ -201,7 +215,9 @@ extension OceanSwiftUI {
                 if !parameters.level3.isEmpty {
                     OceanSwiftUI.Typography.description { label in
                         label.parameters.text = parameters.level3
-                        label.parameters.textColor = Ocean.color.colorInterfaceDarkUp
+                        label.parameters.textColor = parameters.isEnabled
+                        ? Ocean.color.colorInterfaceDarkUp
+                        : Ocean.color.colorInterfaceDarkUp
                         label.parameters.lineLimit = 1
                         label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
                     }
