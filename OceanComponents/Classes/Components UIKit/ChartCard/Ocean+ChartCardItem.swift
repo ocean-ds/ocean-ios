@@ -270,7 +270,7 @@ extension Ocean {
             case .decimal:
                 valueLegendLabel.text = value.toDecimal()
             case .percent:
-                valueLegendLabel.text = "\(value.toPercent())%"
+                valueLegendLabel.text = "\(value.toPercent())"
             case .monetary:
                 valueLegendLabel.text = value.toCurrency(symbolSpace: true)
             }
