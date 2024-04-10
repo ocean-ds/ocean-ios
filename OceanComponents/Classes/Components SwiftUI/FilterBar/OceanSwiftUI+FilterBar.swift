@@ -176,7 +176,7 @@ extension OceanSwiftUI {
 
         private func onTouch(option touchedOption: FilterBarOption, group touchedGroup: FilterBarGroup) {
             if !parameters.onTouch(touchedOption.chips, touchedOption) {
-                if touchedOption.chips.count == 1 {
+                if touchedOption.chips.count == 1, touchedOption.mode == .single {
                     updateSelection(chips: touchedOption.chips, option: touchedOption, group: touchedGroup)
                 } else {
                     showFilterModal(option: touchedOption, group: touchedGroup)
