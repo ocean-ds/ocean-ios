@@ -15,6 +15,7 @@ extension OceanSwiftUI {
 
     public class InputTextFieldParameters: ObservableObject {
         @Published public var title: String
+        @Published public var titleColor: UIColor
         @Published public var placeholder: String
         @Published public var text: String
         @Published public var style: Style
@@ -29,12 +30,13 @@ extension OceanSwiftUI {
         @Published public var showMaxLenght: Bool
         @Published public var isDisabled: Bool
         @Published public var showSkeleton: Bool
-        @Published public var onMask: ((String) -> String)?
-        @Published public var onValueChanged: (String) -> Void
+        public var onMask: ((String) -> String)?
+        public var onValueChanged: (String) -> Void
         public var onTouchIcon: () -> Void
         public var onTouchIconHelper: () -> Void
 
         public init(title: String = "",
+                    titleColor: UIColor = Ocean.color.colorInterfaceDarkDown,
                     placeholder: String = "",
                     text: String = "",
                     style: Style = .input,
@@ -54,6 +56,7 @@ extension OceanSwiftUI {
                     onTouchIcon: @escaping () -> Void = { },
                     onTouchIconHelper: @escaping () -> Void = { }) {
             self.title = title
+            self.titleColor = titleColor
             self.placeholder = placeholder
             self.text = text
             self.style = style
@@ -193,7 +196,7 @@ extension OceanSwiftUI {
                 if !self.parameters.title.isEmpty {
                     OceanSwiftUI.Typography.description { label in
                         label.parameters.text = self.parameters.title
-                        label.parameters.textColor = self.parameters.isDisabled ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorInterfaceDarkDown
+                        label.parameters.textColor = self.parameters.isDisabled ? Ocean.color.colorInterfaceLightDeep : self.parameters.titleColor
                         label.parameters.showSkeleton = self.parameters.showSkeleton
                     }
                     Spacer().frame(height: Ocean.size.spacingStackXxs)
