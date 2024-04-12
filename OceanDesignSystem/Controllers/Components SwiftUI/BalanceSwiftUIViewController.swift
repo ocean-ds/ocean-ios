@@ -12,9 +12,19 @@ import SwiftUI
 
 class BalanceSwiftUIViewController: UIViewController {
 
-    lazy var balance: OceanSwiftUI.Onboarding = {
-        OceanSwiftUI.Onboarding { onboarding in
-            onboarding.parameters.actionLastPage = close
+    lazy var balance: OceanSwiftUI.Balance = {
+        OceanSwiftUI.Balance { balance in
+            balance.parameters.title = "Saldo total na Blu"
+            balance.parameters.value = 10.00
+            balance.parameters.item1Title = "Saldo atual"
+            balance.parameters.item1Value = 10.00
+            balance.parameters.item2Title = "Agenda"
+            balance.parameters.item2Value = 10.00
+            balance.parameters.description = "Confira tudo o que entrou e saiu da sua Conta Digital Blu Confira tudo o que entrou e saiu da sua Conta Digital Blu"
+            balance.parameters.actionCTA = "Extrato"
+            balance.parameters.actionCTACollapsed = ""
+            balance.parameters.action = {}
+            balance.parameters.cellType = .withValue
         }
     }()
 
@@ -26,7 +36,7 @@ class BalanceSwiftUIViewController: UIViewController {
     public lazy var uiView = self.hostingController.getUIView()
 
     public override func viewDidLoad() {
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = Ocean.color.colorBrandPrimaryPure
 
         self.view.addSubview(uiView)
 
