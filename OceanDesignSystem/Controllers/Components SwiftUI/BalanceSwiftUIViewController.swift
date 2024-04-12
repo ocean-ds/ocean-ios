@@ -1,0 +1,52 @@
+//
+//  BalanceSwiftUIViewController.swift
+//  OceanDesignSystem
+//
+//  Created by Acassio Mendonça on 12/04/24.
+//  Copyright © 2024 Blu Pagamentos. All rights reserved.
+//
+
+import OceanTokens
+import OceanComponents
+import SwiftUI
+
+class BalanceSwiftUIViewController: UIViewController {
+
+    lazy var balance: OceanSwiftUI.Onboarding = {
+        OceanSwiftUI.Onboarding { onboarding in
+            onboarding.parameters.actionLastPage = close
+        }
+    }()
+
+    public lazy var hostingController = UIHostingController(rootView: VStack(spacing: Ocean.size.spacingStackXs) {
+        balance
+    })
+
+
+    public lazy var uiView = self.hostingController.getUIView()
+
+    public override func viewDidLoad() {
+        self.view.backgroundColor = .white
+
+        self.view.addSubview(uiView)
+
+        uiView.oceanConstraints
+            .fill(to: self.view, constant: Ocean.size.spacingStackXs)
+            .make()
+    }
+
+    @objc
+    private func close() {
+        self.dismiss(animated: true, completion: nil)
+    }
+}
+
+@available(iOS 13.0, *)
+struct BalanceSwiftUIViewController_Preview: PreviewProvider {
+    static var previews: some View {
+        UIViewControllerPreview {
+            BalanceSwiftUIViewController()
+        }
+    }
+}
+

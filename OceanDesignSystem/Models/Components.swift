@@ -65,6 +65,7 @@ struct DSComponents {
         "Accordion",
         "Alert",
         "Badge",
+        "Balance",
         "Button",
         "CardCrossSell",
         "CardCTA",
