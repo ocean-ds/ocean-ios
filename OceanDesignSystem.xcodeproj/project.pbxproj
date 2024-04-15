@@ -83,6 +83,7 @@
 		D50D86372B5996050075262C /* TransactionListItemSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50D86362B5996040075262C /* TransactionListItemSwiftUIViewController.swift */; };
 		D5376B042B7E577E00B23B3E /* TextListItemSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5376B032B7E577E00B23B3E /* TextListItemSwiftUIViewController.swift */; };
 		D56AB26C2B4DCE700059D443 /* FilterBarSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56AB26B2B4DCE700059D443 /* FilterBarSwiftUIViewController.swift */; };
+		D579D84F2BCDA156004615A5 /* ParentChildTransactionListItemSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D579D84E2BCDA156004615A5 /* ParentChildTransactionListItemSwiftUIViewController.swift */; };
 		D58953712B96345500FC5340 /* ScrollableTabSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58953702B96345500FC5340 /* ScrollableTabSwiftUIViewController.swift */; };
 		D5A319FD2B3B2D3200786FCD /* CardListItemSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A319FC2B3B2D3200786FCD /* CardListItemSwiftUIViewController.swift */; };
 		D5D1EEBF2B584A2F00A75EA2 /* SubheaderSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D1EEBE2B584A2F00A75EA2 /* SubheaderSwiftUIViewController.swift */; };
@@ -217,6 +218,7 @@
 		D50D86362B5996040075262C /* TransactionListItemSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListItemSwiftUIViewController.swift; sourceTree = "<group>"; };
 		D5376B032B7E577E00B23B3E /* TextListItemSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextListItemSwiftUIViewController.swift; sourceTree = "<group>"; };
 		D56AB26B2B4DCE700059D443 /* FilterBarSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBarSwiftUIViewController.swift; sourceTree = "<group>"; };
+		D579D84E2BCDA156004615A5 /* ParentChildTransactionListItemSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentChildTransactionListItemSwiftUIViewController.swift; sourceTree = "<group>"; };
 		D58953702B96345500FC5340 /* ScrollableTabSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableTabSwiftUIViewController.swift; sourceTree = "<group>"; };
 		D5A319FC2B3B2D3200786FCD /* CardListItemSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListItemSwiftUIViewController.swift; sourceTree = "<group>"; };
 		D5D1EEBE2B584A2F00A75EA2 /* SubheaderSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubheaderSwiftUIViewController.swift; sourceTree = "<group>"; };
@@ -365,6 +367,7 @@
 				D50D86362B5996040075262C /* TransactionListItemSwiftUIViewController.swift */,
 				42C89A602A96A89700B8174A /* TypographySwiftUIViewController.swift */,
 				E152E3332BBB5AB4007133E1 /* OnboardingSwiftUIViewController.swift */,
+				D579D84E2BCDA156004615A5 /* ParentChildTransactionListItemSwiftUIViewController.swift */,
 			);
 			path = "Components SwiftUI";
 			sourceTree = "<group>";
@@ -762,6 +765,7 @@
 				D56AB26C2B4DCE700059D443 /* FilterBarSwiftUIViewController.swift in Sources */,
 				4241FB5227E8AD4B003EF1F3 /* ParentChildTextListViewController.swift in Sources */,
 				B7BB722024EEEA89007F8848 /* SnackbarView.swift in Sources */,
+				D579D84F2BCDA156004615A5 /* ParentChildTransactionListItemSwiftUIViewController.swift in Sources */,
 				24E301B526EF911400D2296C /* SubheaderViewController.swift in Sources */,
 				B833D03724A6796100587FDE /* SceneDelegate.swift in Sources */,
 				E18D699A2ACC3FDA00A1051C /* LinkSwiftUIViewController.swift in Sources */,

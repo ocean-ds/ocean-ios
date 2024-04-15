@@ -105,6 +105,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(CardOptionSwiftUIViewController(), animated: true, completion: nil)
         case .Onboarding:
             self.present(OnboardingSwiftUIViewController(), animated: true, completion: nil)
+        case .ParentChildTransactionListItem:
+            self.present(ParentChildTransactionListItemSwiftUIViewController(), animated: true, completion: nil)
         }
     }
 }
