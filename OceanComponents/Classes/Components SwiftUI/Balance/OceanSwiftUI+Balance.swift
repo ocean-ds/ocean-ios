@@ -38,7 +38,7 @@ extension OceanSwiftUI {
             actionCTA: String = "",
             actionCTACollapsed: String = "",
             action: (() -> Void)? = nil,
-            cellType: BalanceCellType = .withoutValue,
+            cellType: BalanceCellType = .withValue,
             rootViewController: UIViewController? = nil
         ) {
             self.title = title
@@ -106,6 +106,8 @@ extension OceanSwiftUI {
                 PageIndicator { pageIndicator in
                     pageIndicator.parameters.numberOfPages = 2
                     pageIndicator.parameters.currentPage = 0
+                    pageIndicator.parameters.pageIndicatorColor = Ocean.color.colorBrandPrimaryDown
+                    pageIndicator.parameters.currentPageIndicatorColor = Ocean.color.colorInterfaceLightPure
                 }
             }
         }
@@ -115,7 +117,7 @@ extension OceanSwiftUI {
             VStack(alignment: .leading) {
                 HStack {
                     //olho aberto/fechado
-                    getEyes(closedEyes: isVisibility)
+                    eyesIconView
 
                     VStack(alignment: .leading) {
                         //saldo total na blu
@@ -247,8 +249,8 @@ extension OceanSwiftUI {
         }
 
         @ViewBuilder
-        private func getEyes(closedEyes: Bool) -> some View {
-            Image(uiImage: closedEyes
+        private var eyesIconView: some View {
+            Image(uiImage: isVisibility
                   ? Ocean.icon.eyeOutline?.withRenderingMode(.alwaysTemplate)
                   : Ocean.icon.eyeOffOutline?.withRenderingMode(.alwaysTemplate))
                 .resizable()
