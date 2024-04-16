@@ -81,7 +81,7 @@ struct DSComponents {
         "Link",
         "Onboarding",
         "OrderedListItem",
-        "ParentChildTransactionListItem",
+        "ParentChild",
         "ProgressIndicator",
         "RadioButtonGroup",
         "StatusListItem",

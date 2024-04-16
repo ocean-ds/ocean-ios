@@ -1,5 +1,5 @@
 //
-//  ParentChildTransactionListItemSwiftUIViewController.swift
+//  ParentChildSwiftUIViewController.swift
 //  OceanDesignSystem
 //
 //  Created by Renan Massaroto on 15/04/24.
@@ -9,10 +9,10 @@
 import SwiftUI
 import OceanTokens
 
-class ParentChildTransactionListItemSwiftUIViewController: UIViewController {
+class ParentChildSwiftUIViewController: UIViewController {
 
     public lazy var view1: OceanSwiftUI.ParentChild<OceanSwiftUI.TransactionListItem> = {
-        OceanSwiftUI.ParentChild<OceanSwiftUI.TransactionListItem> { view in
+        OceanSwiftUI.ParentChild { view in
             view.parameters.title = "Title"
             view.parameters.subtitle = "Subtitle"
             view.parameters.items = [
@@ -61,10 +61,10 @@ class ParentChildTransactionListItemSwiftUIViewController: UIViewController {
     }
 }
 
-struct ParentChildTransactionListItemSwiftUIViewController_Preview: PreviewProvider {
+struct ParentChildSwiftUIViewController_Preview: PreviewProvider {
     static var previews: some View {
         UIViewControllerPreview {
-            ParentChildTransactionListItemSwiftUIViewController()
+            ParentChildSwiftUIViewController()
         }
     }
 }

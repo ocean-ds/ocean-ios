@@ -1,6 +1,6 @@
 //
-//  SwiftUI+ParentChild.swift
-//  DGCharts
+//  OceanSwiftUI+ParentChild.swift
+//  OceanComponents
 //
 //  Created by Renan Massaroto on 15/04/24.
 //
