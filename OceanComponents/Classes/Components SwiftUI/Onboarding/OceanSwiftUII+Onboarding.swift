@@ -1,6 +1,6 @@
 //
 //  OceanSwiftUI+Onboarding.swift
-//  DGCharts
+//  OceanComponents
 //
 //  Created by Acassio Mendonça on 01/04/24.
 //

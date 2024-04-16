@@ -1,6 +1,6 @@
 //
 //  OceanSwiftUI+PageIndicator.swift
-//  DGCharts
+//  OceanComponents
 //
 //  Created by Acassio Mendonça on 04/04/24.
 //
