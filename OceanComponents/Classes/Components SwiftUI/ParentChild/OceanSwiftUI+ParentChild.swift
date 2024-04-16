@@ -104,7 +104,9 @@ extension OceanSwiftUI {
             }
             .frame(maxWidth: .infinity)
             .background(Color(Ocean.color.colorInterfaceLightPure))
-            .border(cornerRadius: Ocean.size.borderRadiusSm, width: 1, color: Ocean.color.colorInterfaceLightDown)
+            .border(cornerRadius: Ocean.size.borderRadiusMd,
+                    width: 1,
+                    color: Ocean.color.colorInterfaceLightDown)
             .padding(parameters.padding)
             .animation(.smooth)
             .onTapGesture {
