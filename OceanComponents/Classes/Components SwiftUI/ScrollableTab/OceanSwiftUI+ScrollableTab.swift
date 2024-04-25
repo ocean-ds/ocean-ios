@@ -12,7 +12,7 @@ extension OceanSwiftUI {
     // MARK: Parameter
 
     public class ScrollableTabParameters: ObservableObject {
-        @Published public var header: any View
+        @Published public var header: (any View)?
         @Published public var tabs: [OceanSwiftUI.TabModel] {
             didSet {
                 if !tabs.isEmpty {
@@ -25,7 +25,7 @@ extension OceanSwiftUI {
         @Published public var selectedIndex: Int
         @Published public var padding: EdgeInsets
 
-        public init(header: any View = EmptyView(),
+        public init(header: (any View)? = nil,
                     tabs: [OceanSwiftUI.TabModel] = [],
                     selectedIndex: Int = -1,
                     padding: EdgeInsets = .init(top: 0,
@@ -82,7 +82,7 @@ extension OceanSwiftUI {
         public var body: some View {
             if #available(iOS 14.0, *) {
                 VStack {
-                    if position.y < 0 {
+                    if position.y < 0 || parameters.header == nil {
                         ScrollViewReader { scrollReader in
                             getTabs().onChange(of: showTabAtIndex) { _ in
                                 withAnimation {
@@ -103,7 +103,9 @@ extension OceanSwiftUI {
                     ScrollViewReader { scrollReader in
                         OffsetObservingScrollView(offset: $contentOffset) { coordinateSpace in
                             VStack {
-                                AnyView(parameters.header)
+                                if let header = parameters.header {
+                                    AnyView(header)
+                                }
 
                                 PositionObservingView(coordinateSpace: coordinateSpace,
                                                       position: $position) { coordinateSpace in
@@ -111,11 +113,13 @@ extension OceanSwiftUI {
                                         .frame(height: 0)
                                 }
 
-                                if position.y > 0 {
-                                    getTabs(shouldUpdate: false)
-                                } else {
-                                    Spacer()
-                                        .frame(height: getSpacerHeight())
+                                if parameters.header != nil {
+                                    if position.y > 0 {
+                                        getTabs(shouldUpdate: false)
+                                    } else {
+                                        Spacer()
+                                            .frame(height: getSpacerHeight())
+                                    }
                                 }
 
                                 ForEach(0..<parameters.tabs.count, id: \.self) { index in
@@ -140,7 +144,21 @@ extension OceanSwiftUI {
                     }
                 }
             } else {
-                EmptyView()
+                ScrollView {
+                    VStack {
+                        if let header = parameters.header {
+                            AnyView(header)
+                        }
+
+                        getTabs(shouldUpdate: false)
+
+                        ForEach(0..<parameters.tabs.count, id: \.self) { index in
+                            getView(index: index, coordinateSpace: .global)
+                        }
+                    }
+                }
+                .padding(parameters.padding)
+                .background(Color(Ocean.color.colorInterfaceLightPure))
             }
         }
 
