@@ -64,6 +64,8 @@ extension OceanSwiftUI {
         @State private var debouncer: Timer?
         @State private var tabHeight: CGFloat = 60
 
+        @State private var wasClick: Bool = false
+
         // MARK: Constructors
 
         public init(parameters: ScrollableTabParameters = ScrollableTabParameters()) {
@@ -111,6 +113,9 @@ extension OceanSwiftUI {
 
                                 if position.y > 0 {
                                     getTabs(shouldUpdate: false)
+                                } else {
+                                    Spacer()
+                                        .frame(height: getSpacerHeight())
                                 }
 
                                 ForEach(0..<parameters.tabs.count, id: \.self) { index in
@@ -138,8 +143,6 @@ extension OceanSwiftUI {
                 EmptyView()
             }
         }
-
-        @State private var tabWidth: CGFloat = .zero
 
         @ViewBuilder
         private func getTabs(shouldUpdate: Bool = true) -> some View {
@@ -197,6 +200,7 @@ extension OceanSwiftUI {
                      alignment: .bottom)
             .animation(.default, value: parameters.selectedIndex)
             .onTapGesture {
+                wasClick = true
                 debouncer?.invalidate()
                 showContentAtIndex = index
                 parameters.selectedIndex = index
@@ -229,9 +233,21 @@ extension OceanSwiftUI {
                 }
             }
 
+            parameters.selectedIndex = currentSection > -1 ? currentSection : 0
             if currentSection > -1, currentSection != showTabAtIndex {
                 showTabAtIndex = currentSection
-                parameters.selectedIndex = currentSection
+            }
+        }
+
+        private func getSpacerHeight() -> CGFloat {
+            let height = tabHeight - position.y
+
+            if 0...tabHeight ~= height {
+                return height
+            } else if height < 0 {
+                return tabHeight
+            } else {
+                return 0
             }
         }
     }
