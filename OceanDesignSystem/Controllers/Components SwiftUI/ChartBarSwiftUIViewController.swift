@@ -10,8 +10,8 @@ import OceanTokens
 import SwiftUI
 
 class ChartBarSwiftUIViewController: UIViewController {
-    var chart1: OceanSwiftUI.BarChart = {
-        let chart = OceanSwiftUI.BarChart()
+    var chart1: OceanSwiftUI.ChartBar = {
+        let chart = OceanSwiftUI.ChartBar()
         chart.parameters.title = "Consultas"
         chart.parameters.subtitle = "Última consulta em 10/11/2023"
 
@@ -27,8 +27,8 @@ class ChartBarSwiftUIViewController: UIViewController {
         return chart
     }()
 
-    var chart2: OceanSwiftUI.BarChart = {
-        let chart = OceanSwiftUI.BarChart()
+    var chart2: OceanSwiftUI.ChartBar = {
+        let chart = OceanSwiftUI.ChartBar()
         chart.parameters.title = "Consultas"
         chart.parameters.subtitle = "Última consulta em 10/11/2023"
         chart.parameters.color = Ocean.color.colorComplementaryUp
@@ -42,8 +42,8 @@ class ChartBarSwiftUIViewController: UIViewController {
         return chart
     }()
 
-    var chart3: OceanSwiftUI.BarChart = {
-        let chart = OceanSwiftUI.BarChart()
+    var chart3: OceanSwiftUI.ChartBar = {
+        let chart = OceanSwiftUI.ChartBar()
         chart.parameters.title = "Consultas"
         chart.parameters.subtitle = "Última consulta em 10/11/2023"
         chart.parameters.color = Ocean.color.colorStatusPositiveUp
