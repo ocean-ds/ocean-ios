@@ -15,6 +15,9 @@ class CardListItemSwiftUIViewController: UIViewController {
         builder.parameters.title = "Title"
         builder.parameters.subtitle = "Subtitle"
         builder.parameters.caption = "Caption"
+        builder.parameters.tagLabel = "Tag"
+        builder.parameters.tagSize = .small
+        builder.parameters.tagStatus = .warning
         builder.parameters.onTouch = {
             print("card1")
             builder.parameters.showSkeleton = !builder.parameters.showSkeleton
