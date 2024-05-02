@@ -15,6 +15,7 @@ extension OceanSwiftUI {
     public class RadioButtonGroupParameters: ObservableObject {
         @Published public var items: [String]
         @Published private(set) var itemSelectedIndex: Int?
+        @Published public var isEnabled: Bool
         @Published public var hasError: Bool
         @Published public var errorMessage: String {
             didSet {
@@ -25,11 +26,13 @@ extension OceanSwiftUI {
 
         public init(items: [String] = [],
                     itemSelectedIndex: Int? = nil,
+                    isEnabled: Bool = true,
                     hasError: Bool = false,
                     errorMessage: String = "",
                     onTouch: @escaping ((Int, String) -> Void) = { _, _ in }) {
             self.items = items
             self.itemSelectedIndex = itemSelectedIndex
+            self.isEnabled = isEnabled
             self.hasError = hasError
             self.errorMessage = errorMessage
             self.onTouch = onTouch
@@ -113,13 +116,17 @@ extension OceanSwiftUI {
                             view.parameters.text = item
                             view.parameters.lineLimit = 20
                         }
-                        
+
                         Spacer()
                     }
                 }
             }
             .animation(.default, value: parameters.itemSelectedIndex)
-            .onTapGesture { parameters.selectItem(item: item, index: index) }
+            .transform(condition: parameters.isEnabled, transform: { view in
+                view.onTapGesture {
+                    parameters.selectItem(item: item, index: index)
+                }
+            })
         }
 
         private func getItemOverlay(index: Int) -> some View {
@@ -128,6 +135,10 @@ extension OceanSwiftUI {
                 if !self.parameters.errorMessage.isEmpty || self.parameters.hasError {
                     Circle()
                         .stroke(Color(Ocean.color.colorStatusNegativePure), lineWidth: 1)
+
+                } else if !self.parameters.isEnabled {
+                    Circle()
+                        .stroke(Color(Ocean.color.colorInterfaceLightDeep), lineWidth: 1)
                 } else if self.parameters.itemSelectedIndex == index {
                     Circle()
                         .stroke(Color(Ocean.color.colorComplementaryPure), lineWidth: 6)
