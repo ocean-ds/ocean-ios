@@ -29,6 +29,8 @@ extension OceanSwiftUI {
         @Published public var state: OceanSwiftUI.TextListItemParameters.State
         @Published public var hasCheckbox: Bool
         @Published public var hasRadioButton: Bool
+        @Published public var checked: Bool
+        @Published public var isEnabled: Bool
         @Published public var hasError: Bool
         @Published public var hasAction: Bool
         @Published public var showSkeleton: Bool
@@ -56,6 +58,8 @@ extension OceanSwiftUI {
                     state: OceanSwiftUI.TextListItemParameters.State = .normal,
                     hasCheckbox: Bool = false,
                     hasRadioButton: Bool = false,
+                    checked: Bool = false,
+                    isEnabled: Bool = true,
                     hasError: Bool = false,
                     hasAction: Bool = false,
                     showSkeleton: Bool = false,
@@ -78,6 +82,8 @@ extension OceanSwiftUI {
             self.state = state
             self.hasCheckbox = hasCheckbox
             self.hasRadioButton = hasRadioButton
+            self.checked = checked
+            self.isEnabled = isEnabled
             self.hasError = hasError
             self.hasAction = hasAction
             self.showSkeleton = showSkeleton
@@ -137,7 +143,8 @@ extension OceanSwiftUI {
                     else if parameters.hasCheckbox {
                         OceanSwiftUI.CheckboxGroup { group in
                             group.parameters.hasError = parameters.hasError
-                            group.parameters.items = [ .init() ]
+                            group.parameters.items = [ .init(isSelected: self.parameters.checked,
+                                                             isEnabled: self.parameters.isEnabled) ]
                             group.parameters.onTouch = { items in
                                 guard let item = items.first else { return }
                                 parameters.onSelection(item.isSelected)
@@ -147,6 +154,8 @@ extension OceanSwiftUI {
                         OceanSwiftUI.RadioButtonGroup { group in
                             group.parameters.hasError = parameters.hasError
                             group.parameters.items = [ .init() ]
+                            group.parameters.isEnabled = self.parameters.isEnabled
+                            group.parameters.setSelectedIndex(self.parameters.checked ? 0 : -1)
                             group.parameters.onTouch = { _, _ in
                                 parameters.onTouch()
                             }
@@ -157,14 +166,14 @@ extension OceanSwiftUI {
                         OceanSwiftUI.Typography.heading4 { label in
                             label.parameters.text = parameters.title
                             label.parameters.lineLimit = parameters.titleLineLimit
-                            label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
+                            label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDeep : Ocean.color.colorInterfaceDarkUp
                         }
 
                         if !parameters.description.isEmpty {
                             OceanSwiftUI.Typography.description { label in
                                 label.parameters.text = parameters.description
                                 label.parameters.lineLimit = parameters.descriptionLineLimit
-                                label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                                label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDown : Ocean.color.colorInterfaceLightDeep
                             }
                         }
 
@@ -219,9 +228,11 @@ extension OceanSwiftUI {
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
             .padding(parameters.padding)
             .background(Color(Ocean.color.colorInterfaceLightPure))
-            .onTapGesture {
-                parameters.onTouch()
-            }
+            .transform(condition: parameters.isEnabled, transform: { view in
+                view.onTapGesture {
+                    parameters.onTouch()
+                }
+            })
         }
 
         private struct Constants {
