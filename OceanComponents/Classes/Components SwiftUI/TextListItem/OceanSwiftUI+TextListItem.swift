@@ -163,7 +163,7 @@ extension OceanSwiftUI {
                     }
 
                     VStack(alignment: .leading) {
-                        OceanSwiftUI.Typography.heading4 { label in
+                        OceanSwiftUI.Typography.paragraph { label in
                             label.parameters.text = parameters.title
                             label.parameters.lineLimit = parameters.titleLineLimit
                             label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDeep : Ocean.color.colorInterfaceDarkUp
