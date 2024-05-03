@@ -15,6 +15,7 @@ class ScoreChartSwiftUIViewController: UIViewController {
         chart.parameters.title = "Score"
         chart.parameters.subtitle = "Última consulta em 10/11/2023"
         chart.parameters.currentValue = 100
+        chart.parameters.animated = false
 
         return chart
     }()

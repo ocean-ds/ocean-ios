@@ -25,17 +25,20 @@ extension OceanSwiftUI {
                 self.calculateDiff()
             }
         }
+        @Published public var animated: Bool
         @Published fileprivate var diffValue: Double = 0
 
         public init(title: String = "",
                     subtitle: String = "",
                     minValue: Double = 300,
                     maxValue: Double = 1000,
+                    animated: Bool = true,
                     currentValue: Double = 0) {
             self.title = title
             self.subtitle = subtitle
             self.minValue = minValue
             self.maxValue = maxValue
+            self.animated = animated
             self.currentValue = currentValue
         }
 
@@ -77,7 +80,8 @@ extension OceanSwiftUI {
             VStack {
                 headerView
                 VStack {
-                    OceanScoreChartView(minValue: parameters.minValue,
+                    OceanScoreChartView(animated: parameters.animated,
+                                        minValue: parameters.minValue,
                                         maxValue: parameters.maxValue,
                                         currentValue: parameters.currentValue)
                     .frame(height: 100)
