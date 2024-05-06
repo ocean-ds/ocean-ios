@@ -15,6 +15,13 @@ extension OceanSwiftUI {
             }
         }
 
+        public static func searchField(builder: OceanSwiftUI.InputTextField.Builder? = nil) -> OceanSwiftUI.InputTextField {
+            return OceanSwiftUI.InputTextField { input in
+                input.parameters.style = .inputSearch
+                builder?(input)
+            }
+        }
+
         public static func secureText(builder: OceanSwiftUI.InputTextField.Builder? = nil) -> OceanSwiftUI.InputTextField {
             return OceanSwiftUI.InputTextField { input in
                 input.parameters.style = .secureText
