@@ -12,6 +12,12 @@ import OceanComponents
 import SwiftUI
 
 final public class InputSwiftUIViewController : UIViewController {
+    lazy var inputSearchField: OceanSwiftUI.InputTextField = {
+        OceanSwiftUI.Input.searchField { input in
+            input.parameters.placeholder = "Placeholder"
+        }
+    }()
+
     lazy var inputTextField1: OceanSwiftUI.InputTextField = {
         OceanSwiftUI.Input.textField { input in
             input.parameters.title = "Title"
@@ -102,6 +108,7 @@ final public class InputSwiftUIViewController : UIViewController {
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
+            inputSearchField
             inputTextField1
             inputTextField2
             inputTextField3

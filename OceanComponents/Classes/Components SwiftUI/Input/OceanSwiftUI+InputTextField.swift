@@ -79,6 +79,7 @@ extension OceanSwiftUI {
 
         public enum Style {
             case input
+            case inputSearch
             case secureText
             case textArea
         }
@@ -127,6 +128,32 @@ extension OceanSwiftUI {
                     TextField(self.parameters.placeholder, text: self.$parameters.text, onEditingChanged: { edit in
                         self.focused = edit
                     })
+                case .inputSearch:
+                    HStack {
+                        Image(uiImage: Ocean.icon.searchOutline)
+                            .resizable()
+                            .renderingMode(.template)
+                            .frame(width: 24, height: 24, alignment: .center)
+                            .foregroundColor(Color(getSearchIconColor()))
+
+                        TextField(self.parameters.placeholder, text: self.$parameters.text, onEditingChanged: { edit in
+                            self.focused = edit
+                        })
+
+                        Spacer()
+
+                        if !parameters.text.isEmpty {
+                            Image(uiImage: Ocean.icon.xSolid)
+                                .resizable()
+                                .renderingMode(.template)
+                                .frame(width: 24, height: 24, alignment: .center)
+                                .foregroundColor(Color(Ocean.color.colorInterfaceLightDeep))
+                                .onTapGesture {
+                                    parameters.text = ""
+                                    parameters.onValueChanged("")
+                                }
+                        }
+                    }
                 case .secureText:
                     SecureField(self.parameters.placeholder, text: self.$parameters.text, onCommit: { self.focused = false })
                         .onTapGesture {
@@ -288,6 +315,18 @@ extension OceanSwiftUI {
                 return Ocean.color.colorBrandPrimaryDown
             } else if !self.parameters.text.isEmpty {
                 return Ocean.color.colorBrandPrimaryUp
+            } else {
+                return Ocean.color.colorInterfaceLightDeep
+            }
+        }
+
+        private func getSearchIconColor() -> UIColor {
+            if self.parameters.isDisabled {
+                return Ocean.color.colorInterfaceLightDeep
+            } else if self.focused {
+                return Ocean.color.colorBrandPrimaryPure
+            } else if !self.parameters.text.isEmpty {
+                return Ocean.color.colorBrandPrimaryDown
             } else {
                 return Ocean.color.colorInterfaceLightDeep
             }
