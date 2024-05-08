@@ -64,7 +64,7 @@ extension OceanSwiftUI {
         @State private var debouncer: Timer?
         @State private var tabHeight: CGFloat = 60
 
-        @State private var wasClick: Bool = false
+        @State public private(set) var contentSize: CGFloat = .zero
 
         // MARK: Constructors
 
@@ -81,8 +81,8 @@ extension OceanSwiftUI {
 
         public var body: some View {
             if #available(iOS 14.0, *) {
-                VStack {
-                    if position.y < 0 || parameters.header == nil {
+                VStack(spacing: 0) {
+                    if position.y <= 0 || parameters.header == nil {
                         ScrollViewReader { scrollReader in
                             getTabs().onChange(of: showTabAtIndex) { _ in
                                 withAnimation {
@@ -218,7 +218,6 @@ extension OceanSwiftUI {
                      alignment: .bottom)
             .animation(.default, value: parameters.selectedIndex)
             .onTapGesture {
-                wasClick = true
                 debouncer?.invalidate()
                 showContentAtIndex = index
                 parameters.selectedIndex = index
@@ -230,11 +229,15 @@ extension OceanSwiftUI {
         private func getView(index: Int, coordinateSpace: CoordinateSpace) -> some View {
             parameters.tabs[index].contentView
                 .id(index)
-                .background(GeometryReader { geometryReader in
+                .overlay(GeometryReader { geometryReader in
                     Color.clear.onAppear {
                         let value = Int(geometryReader.frame(in: coordinateSpace).minY)
                         sectionsOffset.append(value)
                         sectionsOffset.sort { $0 <= $1 }
+
+                        if geometryReader.frame(in: coordinateSpace).maxY > contentSize {
+                            contentSize = geometryReader.frame(in: coordinateSpace).maxY
+                        }
                     }
                 })
         }
@@ -243,8 +246,8 @@ extension OceanSwiftUI {
             let offset = position.y > 0
             ? Int(contentOffset.y)
             : Int(contentOffset.y + tabHeight)
-            var currentSection = -1
 
+            var currentSection = -1
             sectionsOffset.forEach { section in
                 if section <= offset {
                     currentSection += 1
@@ -260,7 +263,7 @@ extension OceanSwiftUI {
         private func getSpacerHeight() -> CGFloat {
             let height = tabHeight - position.y
 
-            if 0...tabHeight ~= height {
+            if 0..<tabHeight ~= height {
                 return height
             } else if height < 0 {
                 return tabHeight
