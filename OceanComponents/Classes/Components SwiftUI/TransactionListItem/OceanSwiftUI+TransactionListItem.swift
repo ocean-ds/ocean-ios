@@ -63,7 +63,7 @@ extension OceanSwiftUI {
                     hasError: Bool = false,
                     isEnabled: Bool = true,
                     isSelected: Bool = false,
-                    padding: EdgeInsets = .init(top: 0,
+                    padding: EdgeInsets = .init(top: Ocean.size.spacingStackXs,
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXs,
                                                 trailing: Ocean.size.spacingStackXs),
@@ -127,9 +127,11 @@ extension OceanSwiftUI {
 
         // MARK: View SwiftUI
         public var body: some View {
-            VStack {
+            VStack(spacing: 0) {
                 HStack(spacing: Ocean.size.spacingStackXxs) {
-                    leadingView
+                    if parameters.hasCheckbox {
+                        leadingView
+                    }
                     centerView
                     trailingView
                 }
@@ -150,20 +152,18 @@ extension OceanSwiftUI {
         @ViewBuilder
         private var leadingView: some View {
             HStack(spacing: 0) {
-                if parameters.hasCheckbox {
-                    OceanSwiftUI.CheckboxGroup { group in
-                        group.parameters.hasError = parameters.hasError
-                        group.parameters.items = [.init(isSelected: parameters.isSelected,
-                                                        isEnabled: parameters.isEnabled)]
-                        group.parameters.onTouch = { items in
-                            guard let item = items.first else { return }
-                            parameters.onSelection(item.isSelected)
-                        }
+                OceanSwiftUI.CheckboxGroup { group in
+                    group.parameters.hasError = parameters.hasError
+                    group.parameters.items = [.init(isSelected: parameters.isSelected,
+                                                    isEnabled: parameters.isEnabled)]
+                    group.parameters.onTouch = { items in
+                        guard let item = items.first else { return }
+                        parameters.onSelection(item.isSelected)
                     }
-
-                    Spacer()
-                        .frame(width: Ocean.size.spacingStackXxs)
                 }
+
+                Spacer()
+                    .frame(width: Ocean.size.spacingStackXxs)
             }
         }
 
@@ -193,12 +193,15 @@ extension OceanSwiftUI {
                         label.parameters.lineLimit = 2
                         label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXs)
                     }
-
-                    Spacer()
-                        .frame(height: Ocean.size.spacingStackXxxs)
                 }
 
                 if !parameters.level2.isEmpty {
+
+                    if !parameters.level1.isEmpty {
+                        Spacer()
+                            .frame(height: Ocean.size.spacingStackXxxs)
+                    }
+
                     OceanSwiftUI.Typography.description { label in
                         label.parameters.text = parameters.level2
                         label.parameters.textColor = parameters.isEnabled
@@ -207,12 +210,12 @@ extension OceanSwiftUI {
                         label.parameters.lineLimit = 1
                         label.parameters.font = .baseRegular(size: Ocean.font.fontSizeXxs)
                     }
-
-                    Spacer()
-                        .frame(height: Ocean.size.spacingStackXxs)
                 }
 
                 if !parameters.level3.isEmpty {
+                    Spacer()
+                        .frame(height: Ocean.size.spacingStackXxs)
+
                     OceanSwiftUI.Typography.description { label in
                         label.parameters.text = parameters.level3
                         label.parameters.textColor = Ocean.color.colorInterfaceDarkUp
@@ -230,7 +233,7 @@ extension OceanSwiftUI {
                 VStack(alignment: .trailing) {
                     OceanSwiftUI.Typography.heading5 { label in
                         label.parameters.text = "\(parameters.sign) \(parameters.value1.toCurrency(symbolSpace: true) ?? " R$ 0,00")"
-                        label.parameters.textColor = parameters.isEnabled 
+                        label.parameters.textColor = parameters.isEnabled
                         ? parameters.value1Status == .positive ? Ocean.color.colorStatusPositiveDeep : Ocean.color.colorInterfaceDarkDeep
                         : Ocean.color.colorInterfaceDarkUp
 
@@ -238,22 +241,23 @@ extension OceanSwiftUI {
                         label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
                     }
 
-                    Spacer()
-                        .frame(height: Ocean.size.spacingStackXxxs)
-
                     if let value = parameters.value2?.toCurrency() {
+                        Spacer()
+                            .frame(height: Ocean.size.spacingStackXxxs)
+
                         OceanSwiftUI.Typography.description { label in
                             label.parameters.text = value
                             label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
                             label.parameters.lineLimit = 1
                             label.parameters.font = .baseRegular(size: Ocean.font.fontSizeXxs)
                         }
-
-                        Spacer()
-                            .frame(height: Ocean.size.spacingStackXxxs)
                     }
 
                     if !parameters.tagTitle.isEmpty {
+
+                        Spacer()
+                            .frame(height: Ocean.size.spacingStackXxxs)
+
                         OceanSwiftUI.Tag { tag in
                             tag.parameters.icon = parameters.tagIcon
                             tag.parameters.label = parameters.tagTitle
@@ -261,12 +265,12 @@ extension OceanSwiftUI {
                             ? parameters.tagStatus
                             : .neutralInterface
                         }
-
-                        Spacer()
-                            .frame(height: Ocean.size.spacingStackXxxs)
                     }
 
                     if !parameters.value3.isEmpty {
+                        Spacer()
+                            .frame(height: Ocean.size.spacingStackXxxs)
+
                         OceanSwiftUI.Typography.description { label in
                             label.parameters.text = parameters.value3
                             label.parameters.textColor = parameters.isEnabled
@@ -277,6 +281,7 @@ extension OceanSwiftUI {
                         }
                     }
                 }
+
                 if parameters.hasChevron {
                     Image(uiImage: Ocean.icon.chevronRightSolid)
                         .resizable()
@@ -288,4 +293,3 @@ extension OceanSwiftUI {
         }
     }
 }
-
