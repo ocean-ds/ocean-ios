@@ -48,10 +48,6 @@ extension OceanSwiftUI {
         // MARK: Properties private
 
         @State private var isAnimating = false
-        private var foreverAnimation: Animation {
-            Animation.linear(duration: 1.0)
-                .repeatForever(autoreverses: false)
-        }
 
         // MARK: Constructors
 
@@ -73,8 +69,8 @@ extension OceanSwiftUI {
                 .frame(width: self.parameters.size.rawValue,
                        height: self.parameters.size.rawValue,
                        alignment: .center)
-                .rotationEffect(Angle(degrees: self.isAnimating ? 360.0 : 0.0))
-                .animation(self.foreverAnimation)
+                .rotationEffect(Angle(degrees: isAnimating ? 360.0 : 0.0))
+                .animation(.linear(duration: 1.0).repeatForever(autoreverses: false), value: isAnimating)
                 .onAppear {
                     self.isAnimating = true
                 }
