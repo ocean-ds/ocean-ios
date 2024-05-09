@@ -11,7 +11,7 @@ import DGCharts
 
 extension OceanSwiftUI {
 
-    public class BarChartParameters: ObservableObject {
+    public class ChartBarParameters: ObservableObject {
         @Published public var title: String
         @Published public var subtitle: String
         @Published public var entries: [BarChartModel]
@@ -34,7 +34,7 @@ extension OceanSwiftUI {
         }
     }
 
-    public struct BarChart: View {
+    public struct ChartBar: View {
         // MARK: Properties for UIKit
 
         public lazy var hostingController = UIHostingController(rootView: self)
@@ -42,17 +42,17 @@ extension OceanSwiftUI {
 
         // MARK: Builder
 
-        public typealias Builder = (BarChart) -> Void
+        public typealias Builder = (ChartBar) -> Void
 
         // MARK: Properties
 
-        @ObservedObject public var parameters: BarChartParameters
+        @ObservedObject public var parameters: ChartBarParameters
 
         // MARK: Properties private
 
         // MARK: Constructors
 
-        public init(parameters: BarChartParameters = BarChartParameters()) {
+        public init(parameters: ChartBarParameters = ChartBarParameters()) {
             self.parameters = parameters
         }
 
@@ -70,24 +70,32 @@ extension OceanSwiftUI {
                               highlightColor: parameters.highlightColor,
                               shouldHighlightHighestValue: parameters.shouldHighlightHighestValue)
             .frame(height: 150)
+            .allowsHitTesting(false)
         }
 
         private var headerView: some View {
-            HStack {
-                VStack(alignment: .leading) {
+            VStack(alignment: .leading) {
+                if !parameters.title.isEmpty {
                     OceanSwiftUI.Typography.heading4 { label in
                         label.parameters.text = self.parameters.title
                     }
+                }
+
+                if !parameters.subtitle.isEmpty {
                     Spacer()
                         .frame(height: Ocean.size.spacingStackXxxs)
+
                     OceanSwiftUI.Typography.description { label in
                         label.parameters.text = self.parameters.subtitle
                     }
+                }
+
+                if !parameters.title.isEmpty || !parameters.subtitle.isEmpty {
                     Spacer()
                         .frame(height: Ocean.size.spacingStackXs)
                 }
-                Spacer()
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
 }

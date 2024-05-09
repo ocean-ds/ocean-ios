@@ -10,13 +10,16 @@ import OceanTokens
 import DGCharts
 
 struct OceanScoreChartView: UIViewRepresentable {
+    public var animated: Bool
     public let minValue: Double
     public let maxValue: Double
     public let currentValue: Double
 
-    public init(minValue: Double, 
+    public init(animated: Bool,
+                minValue: Double,
                 maxValue: Double,
                 currentValue: Double) {
+        self.animated = animated
         self.minValue = minValue
         self.maxValue = maxValue
         self.currentValue = currentValue
@@ -40,9 +43,11 @@ struct OceanScoreChartView: UIViewRepresentable {
         uiView.centerAttributedText = buildAttributedString(text: centerText)
         uiView.configurePieChartViewHalfDonut()
         
-        uiView.animate(xAxisDuration: 1,
-                       yAxisDuration: 1.5,
-                       easingOption: .easeInOutSine)
+        if animated {
+            uiView.animate(xAxisDuration: 1,
+                           yAxisDuration: 1.5,
+                           easingOption: .easeInOutSine)
+        }
 
         let entries: [PieChartDataEntry] = [.init(value: currentValueCalculate), .init(value: diffValue)]
 

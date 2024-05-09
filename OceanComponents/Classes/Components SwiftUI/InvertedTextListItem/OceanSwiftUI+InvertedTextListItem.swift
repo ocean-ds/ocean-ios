@@ -16,6 +16,7 @@ extension OceanSwiftUI {
         @Published public var title: String
         @Published public var subtitle: String
         @Published public var newSubtitle: String
+        @Published public var caption: String
         @Published public var icon: UIImage?
         @Published public var tagLabel: String
         @Published public var tagIcon: UIImage?
@@ -29,6 +30,7 @@ extension OceanSwiftUI {
         public init(title: String = "",
                     subtitle: String = "",
                     newSubtitle: String = "",
+                    caption: String = "",
                     icon: UIImage? = nil,
                     tagLabel: String = "",
                     tagIcon: UIImage? = nil,
@@ -44,6 +46,7 @@ extension OceanSwiftUI {
             self.title = title
             self.subtitle = subtitle
             self.newSubtitle = newSubtitle
+            self.caption = caption
             self.icon = icon
             self.tagLabel = tagLabel
             self.tagIcon = tagIcon
@@ -71,7 +74,7 @@ extension OceanSwiftUI {
 
         public lazy var hostingController = UIHostingController(rootView: self)
         public lazy var uiView = hostingController.getUIView()
-        
+
         // MARK: Builder
 
         public typealias Builder = (InvertedTextListItem) -> Void
@@ -114,7 +117,7 @@ extension OceanSwiftUI {
                     GeometryReader { geometryReader in
                         Rectangle()
                             .skeleton(with: true,
-                                      size: CGSize(width: geometryReader.size.width, 
+                                      size: CGSize(width: geometryReader.size.width,
                                                    height: Constants.skeletonHeight),
                                       shape: .rounded(.radius(Ocean.size.borderRadiusSm,
                                                               style: .circular)))
@@ -171,8 +174,17 @@ extension OceanSwiftUI {
                             tag.parameters.size = parameters.tagSize
                         }
                     }
-                }
 
+                    if !parameters.caption.isEmpty {
+                        Spacer()
+                            .frame(height: Ocean.size.spacingStackXxs)
+
+                        OceanSwiftUI.Typography.caption { label in
+                            label.parameters.text = parameters.caption
+                            label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                        }
+                    }
+                }
             }
             .padding(parameters.padding)
             .background(Color(Ocean.color.colorInterfaceLightPure))
