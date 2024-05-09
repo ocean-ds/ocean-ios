@@ -7,6 +7,7 @@
 
 import Foundation
 import OceanTokens
+import SDWebImage
 
 public extension String {
     func htmlToAttributedText(font: UIFont = UIFont(name: Ocean.font.fontFamilyBaseWeightRegular, size: Ocean.font.fontSizeXs)!,
@@ -95,5 +96,19 @@ public extension String {
         let attributeString =  NSMutableAttributedString(string: self)
         attributeString.addAttribute(.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
         return attributeString
+    }
+
+    func getImage(completion: @escaping (Result<UIImage?, Error>) -> Void) {
+        SDWebImageDownloader.shared.downloadImage(with: URL(string: self),
+                                                  options: [.highPriority],
+                                                  progress: { _, _, _ in },
+                                                  completed: { image, _, error, _ in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            completion(.success(image))
+        })
     }
 }

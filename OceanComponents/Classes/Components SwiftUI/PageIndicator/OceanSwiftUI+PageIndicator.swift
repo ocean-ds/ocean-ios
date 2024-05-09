@@ -58,7 +58,7 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            HStack(spacing: 8) {
+            HStack(spacing: Ocean.size.spacingStackXxs) {
                 ForEach(0..<parameters.numberOfPages, id: \.self) { index in
                     Rectangle()
                         .cornerRadius(50)
