@@ -102,7 +102,6 @@ extension OceanSwiftUI {
                         getTab(self.parameters.tabs[index], index: index)
                     }
                 }
-                .frame(height: 60)
 
                 Divider()
 
@@ -119,31 +118,29 @@ extension OceanSwiftUI {
             VStack {
                 Spacer()
                 HStack {
-                    HStack {
-                        Spacer()
-                        OceanSwiftUI.Typography.heading4 { view in
-                            view.parameters.text = tab.title
-                            view.parameters.lineLimit = 0
-                            view.parameters.textColor = parameters.tabSelectedIndex == index ? Ocean.color.colorBrandPrimaryPure : Ocean.color.colorInterfaceDarkUp
-                        }
-                        if let badgeNumber = tab.badgeNumber {
-                            OceanSwiftUI.Badge { badge in
-                                badge.parameters.count = badgeNumber
-                                badge.parameters.status = parameters.tabSelectedIndex == index ? tab.badgeStatus : .disabled
-                                badge.parameters.size = .small
-                            }
-                        }
-                        Spacer()
+                    Spacer()
+                    OceanSwiftUI.Typography.heading4 { view in
+                        view.parameters.text = tab.title
+                        view.parameters.lineLimit = 2
+                        view.parameters.multilineTextAlignment = .center
+                        view.parameters.textColor = parameters.tabSelectedIndex == index ? Ocean.color.colorBrandPrimaryPure : Ocean.color.colorInterfaceDarkUp
                     }
+                    if let badgeNumber = tab.badgeNumber {
+                        OceanSwiftUI.Badge { badge in
+                            badge.parameters.count = badgeNumber
+                            badge.parameters.status = parameters.tabSelectedIndex == index ? tab.badgeStatus : .disabled
+                            badge.parameters.size = .small
+                        }
+                    }
+                    Spacer()
                 }
                 Spacer()
-
-                if parameters.tabSelectedIndex == index {
-                    Color(Ocean.color.colorBrandPrimaryPure).frame(height: 2)
-                } else {
-                    Color.clear.frame(height: 2)
-                }
             }
+            .frame(height: 60)
+            .overlay(parameters.tabSelectedIndex == index
+                     ? Color(Ocean.color.colorBrandPrimaryPure).frame(height: 2)
+                     : Color.clear.frame(height: 2),
+                     alignment: .bottom)
             .animation(.default, value: parameters.tabSelectedIndex)
             .onTapGesture { parameters.selectTab(tab: tab, index: index) }
         }
