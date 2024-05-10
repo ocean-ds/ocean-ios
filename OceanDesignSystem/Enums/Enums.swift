@@ -103,6 +103,7 @@ public enum DesignSystemComponentsSwiftUIType: String {
     case RadioButtonGroup
     case ScoreChart
     case ScrollableTab
+    case Shortcut
     case StatusListItem
     case Subheader
     case Step
