@@ -77,6 +77,7 @@ extension OceanSwiftUI {
                         }
 
                         let width = self.parameters.withImage ? geometryReader.size.width * 0.6 : geometryReader.size.width
+                        let scales: [Int: CGFloat] = self.parameters.lines == 1 ? [0: 1.0] : [0: 0.35, 1: 1.0]
 
                         Rectangle()
                             .skeleton(with: true,
@@ -85,7 +86,7 @@ extension OceanSwiftUI {
                                       shape: .rounded(.radius(self.parameters.radius,
                                                               style: .circular)),
                                       lines: self.parameters.lines,
-                                      scales: [0: 0.35, 1: 1.0])
+                                      scales: scales)
                     }
                 }
 
