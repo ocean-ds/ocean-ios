@@ -109,6 +109,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(BalanceSwiftUIViewController(), animated: true, completion: nil)
         case .ParentChild:
             self.present(ParentChildSwiftUIViewController(), animated: true, completion: nil)
+        case .Carousel:
+            self.present(CarouselSwiftUIViewController(), animated: true, completion: nil)
         }
     }
 }
