@@ -364,8 +364,8 @@ extension OceanSwiftUI {
                 return 220
             case .collapsed:
                 return 150
-            case .scroll:
-                return 110
+            default:
+                return 0
             }
         }
     }
