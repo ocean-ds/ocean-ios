@@ -1,6 +1,6 @@
 //
 //  OceanSwiftUI+Balance.swift
-//  DGCharts
+//  OceanComponents
 //
 //  Created by Acassio Mendonça on 12/04/24.
 //
