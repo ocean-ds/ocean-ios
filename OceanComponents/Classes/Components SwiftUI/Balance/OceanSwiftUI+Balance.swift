@@ -174,7 +174,7 @@ extension OceanSwiftUI {
         }
 
         @ViewBuilder
-        private func getBalanceBluViewHeader(_ item: BalanceModel) -> some View {
+        private func getBalanceBluViewHeader(_ item: BalanceModel, fontLarge: Bool) -> some View {
             HStack(spacing: Ocean.size.spacingStackXxs) {
                 eyesIconView
 
@@ -187,7 +187,7 @@ extension OceanSwiftUI {
 
                     Typography { label in
                         label.parameters.text = isVisibility ? item.value?.toCurrency() ?? "" : "R$ ••••••"
-                        label.parameters.font = .baseBold(size: Ocean.font.fontSizeSm)
+                        label.parameters.font = fontLarge ? .baseBold(size: Ocean.font.fontSizeSm) : .baseBold(size: Ocean.font.fontSizeXs)
                         label.parameters.textColor = Ocean.color.colorInterfaceLightPure
                     }
                 }
@@ -214,7 +214,7 @@ extension OceanSwiftUI {
         @ViewBuilder
         private func getBalanceBluView(_ item: BalanceModel) -> some View {
             VStack(alignment: .leading, spacing: Ocean.size.spacingStackXs) {
-                self.getBalanceBluViewHeader(item)
+                self.getBalanceBluViewHeader(item, fontLarge: true)
 
                 if self.parameters.state == .expanded {
                     VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
@@ -329,7 +329,7 @@ extension OceanSwiftUI {
         private func getItemScroll(_ item: BalanceModel, index: Int) -> some View {
             HStack(alignment: .top, spacing: 0) {
                 if item.cellType == .withValue {
-                    getBalanceBluViewHeader(item)
+                    getBalanceBluViewHeader(item, fontLarge: false)
                         .padding(.vertical, Ocean.size.spacingStackXxs)
                         .padding(.horizontal, Ocean.size.spacingStackXs)
                 } else {
