@@ -12,26 +12,55 @@ import SwiftUI
 
 class BalanceSwiftUIViewController: UIViewController {
 
+    private var model = [
+        OceanSwiftUI.BalanceModel(title: "Saldo total na Blu",
+                                  value: 100,
+                                  item1Title: "Saldo atual",
+                                  item1Value: 50,
+                                  item2Title: "Agenda",
+                                  item2Value: 50,
+                                  description: "Confira tudo o que entrou e saiu da sua Conta Digital Blu",
+                                  actionCTA: "Extrato",
+                                  action: {
+                                      print("Extrato")
+                                  }),
+        OceanSwiftUI.BalanceModel(title: "Saldo em Outras maquininhas",
+                                  value: nil,
+                                  description: "Receba na Blu as vendas feitas nas suas outras maquininhas",
+                                  actionCTA: "Trazer saldo para a Blu",
+                                  actionCTACollapsed: "Trazer saldo",
+                                  action: {
+                                      print("Trazer saldo para a Blu")
+                                  },
+                                  cellType: .withoutValue)
+    ]
+
     lazy var balance: OceanSwiftUI.Balance = {
         OceanSwiftUI.Balance { balance in
-            balance.parameters.title = "Saldo total na Blu"
-            balance.parameters.value = 10.00
-            balance.parameters.item1Title = "Saldo atual"
-            balance.parameters.item1Value = 10.00
-            balance.parameters.item2Title = "Agenda"
-            balance.parameters.item2Value = 10.00
-            balance.parameters.description = "Confira tudo o que entrou e saiu da sua Conta Digital Blu Confira tudo o que entrou e saiu da sua Conta Digital Blu"
-            balance.parameters.actionCTA = "Extrato"
-            balance.parameters.actionCTACollapsed = ""
-            balance.parameters.action = {}
-            balance.parameters.cellType = .withValue
+            balance.parameters.items = model
         }
     }()
 
-    public lazy var hostingController = UIHostingController(rootView: VStack(spacing: Ocean.size.spacingStackXs) {
-        balance
-    })
+    lazy var toogleButton: OceanSwiftUI.Button = {
+        OceanSwiftUI.Button.secondarySM { button in
+            button.parameters.text = "Toggle Scroll"
+            button.parameters.onTouch = {
+                if self.balance.parameters.state == .scroll {
+                    self.balance.parameters.state = .collapsed
+                } else {
+                    self.balance.parameters.state = .scroll
+                }
+            }
+        }
+    }()
 
+    public lazy var hostingController = UIHostingController(rootView: ScrollView {
+        VStack(spacing: Ocean.size.spacingStackMd) {
+            balance
+
+            toogleButton
+        }
+    })
 
     public lazy var uiView = self.hostingController.getUIView()
 
@@ -41,13 +70,11 @@ class BalanceSwiftUIViewController: UIViewController {
         self.view.addSubview(uiView)
 
         uiView.oceanConstraints
-            .fill(to: self.view, constant: Ocean.size.spacingStackXs)
+            .topToTop(to: self.view, constant: Ocean.size.spacingStackXs)
+            .leadingToLeading(to: self.view)
+            .trailingToTrailing(to: self.view)
+            .bottomToBottom(to: self.view)
             .make()
-    }
-
-    @objc
-    private func close() {
-        self.dismiss(animated: true, completion: nil)
     }
 }
 
