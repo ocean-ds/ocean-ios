@@ -359,13 +359,10 @@ extension OceanSwiftUI {
         }
 
         private func getIdealHeight() -> CGFloat {
-            switch self.parameters.state {
-            case .expanded:
+            if self.parameters.state == .expanded {
                 return 220
-            case .collapsed:
+            } else {
                 return 150
-            default:
-                return 0
             }
         }
     }
