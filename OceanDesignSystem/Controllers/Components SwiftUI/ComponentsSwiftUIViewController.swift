@@ -111,6 +111,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(ParentChildSwiftUIViewController(), animated: true, completion: nil)
         case .Carousel:
             self.present(CarouselSwiftUIViewController(), animated: true, completion: nil)
+        case .Shortcut:
+            self.present(ShortcutSwiftUIViewController(), animated: true, completion: nil)
         }
     }
 }

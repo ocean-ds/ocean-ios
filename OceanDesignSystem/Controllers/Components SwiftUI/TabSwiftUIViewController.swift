@@ -56,9 +56,11 @@ class TabSwiftUIViewController: UIViewController {
     lazy var tab: OceanSwiftUI.Tab = {
         OceanSwiftUI.Tab { tab in
             tab.parameters.tabs = [
-                .init(title: "Novo Titulo",
+                .init(title: "Titulo Grande Titulo",
                       view: tabPayments,
                       badgeNumber: 10),
+                .init(title: "Recebimentos",
+                      view: tabReceipts),
                 .init(title: "Recebimentos",
                       view: tabReceipts)
             ]

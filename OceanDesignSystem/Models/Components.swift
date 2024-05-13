@@ -91,6 +91,7 @@ struct DSComponents {
         "Step",
         "ScoreChart",
         "ScrollableTab",
+        "Shortcut",
         "Tab",
         "Tag",
         "TextListItem",

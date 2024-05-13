@@ -50,6 +50,7 @@
 		42C89A612A96A89700B8174A /* TypographySwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C89A602A96A89700B8174A /* TypographySwiftUIViewController.swift */; };
 		42C8D64E2B5EA825002150B1 /* FileUploaderSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C8D64D2B5EA825002150B1 /* FileUploaderSwiftUIViewController.swift */; };
 		42D67B4E2BED34B40072D3FF /* CarouselSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D67B4D2BED34B40072D3FF /* CarouselSwiftUIViewController.swift */; };
+		42D67B5A2BEE85A00072D3FF /* ShortcutSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D67B592BEE85A00072D3FF /* ShortcutSwiftUIViewController.swift */; };
 		42D8302E2B6BFA71004B0D38 /* RadioButtonGroupSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D8302D2B6BFA71004B0D38 /* RadioButtonGroupSwiftUIViewController.swift */; };
 		42DF5BD92A8FFDBA00A77CE1 /* ComponentsSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DF5BD82A8FFDBA00A77CE1 /* ComponentsSwiftUIViewController.swift */; };
 		42DF5BDB2A8FFECB00A77CE1 /* ButtonSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DF5BDA2A8FFECB00A77CE1 /* ButtonSwiftUIViewController.swift */; };
@@ -182,6 +183,7 @@
 		42C89A602A96A89700B8174A /* TypographySwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypographySwiftUIViewController.swift; sourceTree = "<group>"; };
 		42C8D64D2B5EA825002150B1 /* FileUploaderSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUploaderSwiftUIViewController.swift; sourceTree = "<group>"; };
 		42D67B4D2BED34B40072D3FF /* CarouselSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselSwiftUIViewController.swift; sourceTree = "<group>"; };
+		42D67B592BEE85A00072D3FF /* ShortcutSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutSwiftUIViewController.swift; sourceTree = "<group>"; };
 		42D8302D2B6BFA71004B0D38 /* RadioButtonGroupSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonGroupSwiftUIViewController.swift; sourceTree = "<group>"; };
 		42DF5BD82A8FFDBA00A77CE1 /* ComponentsSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsSwiftUIViewController.swift; sourceTree = "<group>"; };
 		42DF5BDA2A8FFECB00A77CE1 /* ButtonSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonSwiftUIViewController.swift; sourceTree = "<group>"; };
@@ -374,6 +376,7 @@
 				E16A24F02BC9B188004D6A1D /* BalanceSwiftUIViewController.swift */,
 				D579D84E2BCDA156004615A5 /* ParentChildSwiftUIViewController.swift */,
 				42D67B4D2BED34B40072D3FF /* CarouselSwiftUIViewController.swift */,
+				42D67B592BEE85A00072D3FF /* ShortcutSwiftUIViewController.swift */,
 			);
 			path = "Components SwiftUI";
 			sourceTree = "<group>";
@@ -740,6 +743,7 @@
 				E13FE2282B9671C900AA82B1 /* ScoreChartSwiftUIViewController.swift in Sources */,
 				24B70BBD26E91F0F00C9CE1E /* CardGroupViewController.swift in Sources */,
 				42DF5BDB2A8FFECB00A77CE1 /* ButtonSwiftUIViewController.swift in Sources */,
+				42D67B5A2BEE85A00072D3FF /* ShortcutSwiftUIViewController.swift in Sources */,
 				2456BF94268612E800E2361E /* DividerViewController.swift in Sources */,
 				E149D4072AB8D4A8009B7BE2 /* CheckBoxGroupViewController.swift in Sources */,
 				42A7D7BB2B979E47002A03BA /* TooltipSwiftUIViewController.swift in Sources */,
@@ -989,7 +993,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 436;
+				CURRENT_PROJECT_VERSION = 438;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 57KSFR5UHN;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 57KSFR5UHN;
@@ -1015,7 +1019,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 436;
+				CURRENT_PROJECT_VERSION = 438;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 57KSFR5UHN;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 57KSFR5UHN;

@@ -74,7 +74,7 @@ extension OceanSwiftUI {
         private var countView: some View {
             HStack(alignment: .center) {
                 OceanSwiftUI.Typography { label in
-                    label.parameters.font = .baseRegular(size: self.parameters.size == .medium ? Ocean.font.fontSizeXxxs : 10)
+                    label.parameters.font = .baseBold(size: self.parameters.size == .medium ? Ocean.font.fontSizeXxxs : 10)
                     label.parameters.text = self.parameters.value
                     label.parameters.textColor = self.getForegroundColor()
                 }
