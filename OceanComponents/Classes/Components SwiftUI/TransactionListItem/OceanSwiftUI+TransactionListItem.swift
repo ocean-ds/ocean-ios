@@ -141,7 +141,7 @@ extension OceanSwiftUI {
                     Divider()
                 }
             }
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+            .frame(maxWidth: .infinity)
             .background(Color(Ocean.color.colorInterfaceLightPure))
             .onTapGesture {
                 parameters.onTouch()
