@@ -17,17 +17,17 @@ extension Ocean {
     }
 
     public struct BalanceModel {
-        let title: String
-        let value: Double?
-        let item1Title: String
-        let item1Value: Double
-        let item2Title: String
-        let item2Value: Double
-        let description: String
-        let actionCTA: String
-        let actionCTACollapsed: String
-        let action: (() -> Void)?
-        let cellType: BalanceCellType
+        public let title: String
+        public let value: Double?
+        public let item1Title: String
+        public let item1Value: Double
+        public let item2Title: String
+        public let item2Value: Double
+        public let description: String
+        public let actionCTA: String
+        public let actionCTACollapsed: String
+        public let action: (() -> Void)?
+        public let cellType: BalanceCellType
 
         public init(title: String,
                     value: Double?,

@@ -88,8 +88,10 @@ extension OceanSwiftUI {
 
         @State private var isVisibility: Bool = true
         @State private var currentPage = 0
-        @GestureState private var dragOffset = CGSize.zero
         @State private var screenWidth: CGFloat = 0
+        @State private var screenHeight: CGFloat = 0
+        @State private var expandedHeight: CGFloat = 0
+        @GestureState private var dragOffset = CGSize.zero
 
         // MARK: Constructors
 
@@ -116,6 +118,13 @@ extension OceanSwiftUI {
                                 self.getItem(self.parameters.items[index], index: index)
                                     .padding(.horizontal, Ocean.size.spacingStackXxxs)
                                     .frame(width: screenWidth)
+                                    .overlay(GeometryReader { geometry in
+                                        Color.clear.onAppear {
+                                            if geometry.size.height > screenHeight {
+                                                screenHeight = geometry.size.height + Ocean.size.spacingStackXxs
+                                            }
+                                        }
+                                    })
                             }
                         }
                         .offset(x: -CGFloat(currentPage) * screenWidth + dragOffset.width +
@@ -126,8 +135,10 @@ extension OceanSwiftUI {
                         }
                         .animation(.default)
                     }
-                    .frame(minWidth: 0, maxWidth: .infinity,
-                           minHeight: 0, idealHeight: self.getIdealHeight(), maxHeight: .infinity)
+                    .frame(maxWidth: .infinity)
+                    .transform(condition: screenHeight != 0, transform: { view in
+                        view.frame(height: parameters.state == .expanded ? screenHeight + expandedHeight : screenHeight)
+                    })
                     .gesture(
                         DragGesture()
                             .updating(self.$dragOffset) { value, dragOffset, _ in
@@ -148,6 +159,9 @@ extension OceanSwiftUI {
                         pageIndicator.parameters.pageIndicatorColor = Ocean.color.colorBrandPrimaryDown
                         pageIndicator.parameters.currentPageIndicatorColor = Ocean.color.colorInterfaceLightPure
                     }
+
+                    Spacer()
+                        .frame(height: Ocean.size.spacingStackXxs)
                 }
             }
         }
@@ -254,6 +268,11 @@ extension OceanSwiftUI {
                             }
                         }
                     }
+                    .overlay(GeometryReader { geometry in
+                        Color.clear.onAppear {
+                            expandedHeight = geometry.size.height + Ocean.size.spacingStackXs
+                        }
+                    })
                 }
 
                 Divider { divider in
@@ -348,14 +367,14 @@ extension OceanSwiftUI {
             Image(uiImage: isVisibility
                   ? Ocean.icon.eyeOutline?.withRenderingMode(.alwaysTemplate)
                   : Ocean.icon.eyeOffOutline?.withRenderingMode(.alwaysTemplate))
-                .resizable()
-                .renderingMode(.template)
-                .frame(width: 24, height: 24)
-                .foregroundColor(Color(Ocean.color.colorBrandPrimaryUp))
-                .padding(.trailing, 16)
-                .onTapGesture {
-                    isVisibility.toggle()
-                }
+            .resizable()
+            .renderingMode(.template)
+            .frame(width: 24, height: 24)
+            .foregroundColor(Color(Ocean.color.colorBrandPrimaryUp))
+            .padding(.trailing, 16)
+            .onTapGesture {
+                isVisibility.toggle()
+            }
         }
 
         private func getIdealHeight() -> CGFloat {
