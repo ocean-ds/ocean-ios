@@ -24,6 +24,7 @@ extension OceanSwiftUI {
         }
         @Published public var selectedIndex: Int
         @Published public var padding: EdgeInsets
+        public var onTouch: (Int) -> Void
 
         public init(header: (any View)? = nil,
                     tabs: [OceanSwiftUI.TabModel] = [],
@@ -31,11 +32,13 @@ extension OceanSwiftUI {
                     padding: EdgeInsets = .init(top: 0,
                                                 leading: 0,
                                                 bottom: 0,
-                                                trailing: 0)) {
+                                                trailing: 0),
+                    onTouch: @escaping (Int) -> Void = { _ in }) {
             self.header = header
             self.tabs = tabs
             self.selectedIndex = selectedIndex
             self.padding = padding
+            self.onTouch = onTouch
         }
     }
 
@@ -221,6 +224,7 @@ extension OceanSwiftUI {
                 debouncer?.invalidate()
                 showContentAtIndex = index
                 parameters.selectedIndex = index
+                parameters.onTouch(index)
             }
             .id(index)
         }
