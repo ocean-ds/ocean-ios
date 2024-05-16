@@ -993,7 +993,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 442;
+				CURRENT_PROJECT_VERSION = 443;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 57KSFR5UHN;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 57KSFR5UHN;
@@ -1019,7 +1019,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 442;
+				CURRENT_PROJECT_VERSION = 443;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 57KSFR5UHN;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 57KSFR5UHN;
