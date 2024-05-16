@@ -117,10 +117,14 @@ extension OceanSwiftUI {
 
                         Spacer()
 
-                        if let badgeCount = self.parameters.badgeCount {
-                            Badge { badge in
-                                badge.parameters.count = badgeCount
-                                badge.parameters.status = self.parameters.badgeStatus
+                        VStack(spacing: 0) {
+                            if let badgeCount = self.parameters.badgeCount {
+                                Badge { badge in
+                                    badge.parameters.count = badgeCount
+                                    badge.parameters.status = self.parameters.badgeStatus
+                                }
+
+                                Spacer()
                             }
                         }
                     }
