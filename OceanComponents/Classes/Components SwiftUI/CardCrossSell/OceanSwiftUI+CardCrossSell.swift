@@ -22,6 +22,7 @@ extension OceanSwiftUI {
         @Published public var ctaIcon: UIImage?
         @Published public var image: UIImage?
         @Published public var isLoading: Bool
+        @Published public var showSkeleton: Bool
         public var onTouch: () -> Void
 
         public init(title: String = "",
@@ -33,6 +34,7 @@ extension OceanSwiftUI {
                     ctaIcon: UIImage? = Ocean.icon.chevronRightSolid,
                     image: UIImage? = nil,
                     isLoading: Bool = false,
+                    showSkeleton: Bool = false,
                     onTouch: @escaping () -> Void = { }) {
             self.title = title
             self.subtitle = subtitle
@@ -43,6 +45,7 @@ extension OceanSwiftUI {
             self.ctaIcon = ctaIcon
             self.image = image
             self.isLoading = isLoading
+            self.showSkeleton = showSkeleton
             self.onTouch = onTouch
         }
     }
@@ -85,6 +88,7 @@ extension OceanSwiftUI {
                             Typography.heading4 { label in
                                 label.parameters.text = self.parameters.title
                                 label.parameters.textColor = self.parameters.titleColor
+                                label.parameters.showSkeleton = self.parameters.showSkeleton
                             }
                         }
 
@@ -92,6 +96,7 @@ extension OceanSwiftUI {
                             Typography.description { label in
                                 label.parameters.text = self.parameters.subtitle
                                 label.parameters.textColor = self.parameters.subtitleColor
+                                label.parameters.showSkeleton = self.parameters.showSkeleton
                             }
                         }
                     }
@@ -116,6 +121,7 @@ extension OceanSwiftUI {
                     cardCTA.parameters.icon = self.parameters.ctaIcon
                     cardCTA.parameters.isLoading = self.parameters.isLoading
                     cardCTA.parameters.onTouch = self.parameters.onTouch
+                    cardCTA.parameters.showSkeleton = self.parameters.showSkeleton
                 }
             }
             .padding(.all, 1)

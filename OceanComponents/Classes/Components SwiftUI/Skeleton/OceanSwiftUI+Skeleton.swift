@@ -19,7 +19,7 @@ extension OceanSwiftUI {
         @Published public var lines: Int
         @Published public var withImage: Bool
 
-        public init(width: CGFloat? = nil, 
+        public init(width: CGFloat? = nil,
                     height: CGFloat? = nil,
                     radius: CGFloat = Ocean.size.borderRadiusSm,
                     lines: Int = 2,

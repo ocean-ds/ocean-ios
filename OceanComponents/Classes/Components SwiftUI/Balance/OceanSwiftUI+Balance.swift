@@ -15,15 +15,18 @@ extension OceanSwiftUI {
     public class BalanceParameters: ObservableObject {
         @Published public var items: [BalanceModel]
         @Published public var state: BalanceState
+        @Published public var showSkeleton: Bool
 
         public enum BalanceState {
             case expanded, collapsed, scroll
         }
 
         public init(items: [BalanceModel] = [],
-                    state: BalanceState = .collapsed) {
+                    state: BalanceState = .collapsed,
+                    showSkeleton: Bool = false) {
             self.items = items
             self.state = state
+            self.showSkeleton = showSkeleton
         }
     }
 
@@ -88,8 +91,10 @@ extension OceanSwiftUI {
 
         @State private var isVisibility: Bool = true
         @State private var currentPage = 0
-        @GestureState private var dragOffset = CGSize.zero
         @State private var screenWidth: CGFloat = 0
+        @State private var screenHeight: CGFloat = 0
+        @State private var expandedHeight: CGFloat = 0
+        @GestureState private var dragOffset = CGSize.zero
 
         // MARK: Constructors
 
@@ -126,12 +131,16 @@ extension OceanSwiftUI {
                         }
                         .animation(.default)
                     }
-                    .frame(minWidth: 0, maxWidth: .infinity,
-                           minHeight: 0, idealHeight: self.getIdealHeight(), maxHeight: .infinity)
+                    .frame(maxWidth: .infinity)
+                    .transform(condition: screenHeight != 0, transform: { view in
+                        view.frame(height: parameters.state == .expanded ? screenHeight + expandedHeight : screenHeight)
+                    })
                     .gesture(
                         DragGesture()
                             .updating(self.$dragOffset) { value, dragOffset, _ in
-                                dragOffset = value.translation
+                                if !parameters.showSkeleton {
+                                    dragOffset = value.translation
+                                }
                             }
                             .onEnded { value in
                                 let threshold = screenWidth * 0.2
@@ -148,6 +157,9 @@ extension OceanSwiftUI {
                         pageIndicator.parameters.pageIndicatorColor = Ocean.color.colorBrandPrimaryDown
                         pageIndicator.parameters.currentPageIndicatorColor = Ocean.color.colorInterfaceLightPure
                     }
+
+                    Spacer()
+                        .frame(height: Ocean.size.spacingStackXxs)
                 }
             }
         }
@@ -189,6 +201,7 @@ extension OceanSwiftUI {
                         label.parameters.text = isVisibility ? item.value?.toCurrency() ?? "" : "R$ ••••••"
                         label.parameters.font = fontLarge ? .baseBold(size: Ocean.font.fontSizeSm) : .baseBold(size: Ocean.font.fontSizeXs)
                         label.parameters.textColor = Ocean.color.colorInterfaceLightPure
+                        label.parameters.showSkeleton = parameters.showSkeleton
                     }
                 }
 
@@ -254,6 +267,11 @@ extension OceanSwiftUI {
                             }
                         }
                     }
+                    .overlay(GeometryReader { geometry in
+                        Color.clear.onAppear {
+                            expandedHeight = geometry.size.height + Ocean.size.spacingStackXs
+                        }
+                    })
                 }
 
                 Divider { divider in
@@ -278,6 +296,13 @@ extension OceanSwiftUI {
                     .frame(width: 110)
                 }
             }
+            .background(GeometryReader { geometry in
+                Color.clear.onAppear {
+                    if geometry.size.height > screenHeight {
+                        screenHeight = geometry.size.height + Ocean.size.spacingStackMd
+                    }
+                }
+            })
         }
 
         @ViewBuilder
@@ -303,6 +328,13 @@ extension OceanSwiftUI {
                 }
                 .frame(width: 185)
             }
+            .background(GeometryReader { geometry in
+                Color.clear.onAppear {
+                    if geometry.size.height > screenHeight {
+                        screenHeight = geometry.size.height + Ocean.size.spacingStackMd
+                    }
+                }
+            })
         }
 
         @ViewBuilder
@@ -348,14 +380,14 @@ extension OceanSwiftUI {
             Image(uiImage: isVisibility
                   ? Ocean.icon.eyeOutline?.withRenderingMode(.alwaysTemplate)
                   : Ocean.icon.eyeOffOutline?.withRenderingMode(.alwaysTemplate))
-                .resizable()
-                .renderingMode(.template)
-                .frame(width: 24, height: 24)
-                .foregroundColor(Color(Ocean.color.colorBrandPrimaryUp))
-                .padding(.trailing, 16)
-                .onTapGesture {
-                    isVisibility.toggle()
-                }
+            .resizable()
+            .renderingMode(.template)
+            .frame(width: 24, height: 24)
+            .foregroundColor(Color(Ocean.color.colorBrandPrimaryUp))
+            .padding(.trailing, 16)
+            .onTapGesture {
+                isVisibility.toggle()
+            }
         }
 
         private func getIdealHeight() -> CGFloat {
