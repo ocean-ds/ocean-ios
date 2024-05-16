@@ -15,15 +15,18 @@ extension OceanSwiftUI {
     public class BalanceParameters: ObservableObject {
         @Published public var items: [BalanceModel]
         @Published public var state: BalanceState
+        @Published public var showSkeleton: Bool
 
         public enum BalanceState {
             case expanded, collapsed, scroll
         }
 
         public init(items: [BalanceModel] = [],
-                    state: BalanceState = .collapsed) {
+                    state: BalanceState = .collapsed,
+                    showSkeleton: Bool = false) {
             self.items = items
             self.state = state
+            self.showSkeleton = showSkeleton
         }
     }
 
@@ -118,13 +121,6 @@ extension OceanSwiftUI {
                                 self.getItem(self.parameters.items[index], index: index)
                                     .padding(.horizontal, Ocean.size.spacingStackXxxs)
                                     .frame(width: screenWidth)
-                                    .overlay(GeometryReader { geometry in
-                                        Color.clear.onAppear {
-                                            if geometry.size.height > screenHeight {
-                                                screenHeight = geometry.size.height + Ocean.size.spacingStackXxs
-                                            }
-                                        }
-                                    })
                             }
                         }
                         .offset(x: -CGFloat(currentPage) * screenWidth + dragOffset.width +
@@ -142,7 +138,9 @@ extension OceanSwiftUI {
                     .gesture(
                         DragGesture()
                             .updating(self.$dragOffset) { value, dragOffset, _ in
-                                dragOffset = value.translation
+                                if !parameters.showSkeleton {
+                                    dragOffset = value.translation
+                                }
                             }
                             .onEnded { value in
                                 let threshold = screenWidth * 0.2
@@ -203,6 +201,7 @@ extension OceanSwiftUI {
                         label.parameters.text = isVisibility ? item.value?.toCurrency() ?? "" : "R$ ••••••"
                         label.parameters.font = fontLarge ? .baseBold(size: Ocean.font.fontSizeSm) : .baseBold(size: Ocean.font.fontSizeXs)
                         label.parameters.textColor = Ocean.color.colorInterfaceLightPure
+                        label.parameters.showSkeleton = parameters.showSkeleton
                     }
                 }
 
@@ -297,6 +296,13 @@ extension OceanSwiftUI {
                     .frame(width: 110)
                 }
             }
+            .background(GeometryReader { geometry in
+                Color.clear.onAppear {
+                    if geometry.size.height > screenHeight {
+                        screenHeight = geometry.size.height + Ocean.size.spacingStackMd
+                    }
+                }
+            })
         }
 
         @ViewBuilder
@@ -322,6 +328,13 @@ extension OceanSwiftUI {
                 }
                 .frame(width: 185)
             }
+            .background(GeometryReader { geometry in
+                Color.clear.onAppear {
+                    if geometry.size.height > screenHeight {
+                        screenHeight = geometry.size.height + Ocean.size.spacingStackMd
+                    }
+                }
+            })
         }
 
         @ViewBuilder

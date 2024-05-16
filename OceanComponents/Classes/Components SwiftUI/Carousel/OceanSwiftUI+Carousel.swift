@@ -74,7 +74,6 @@ extension OceanSwiftUI {
                     skeleton.parameters.radius = Ocean.size.borderRadiusMd
                     skeleton.parameters.lines = 1
                 }
-                .padding(.horizontal, Ocean.size.spacingStackXs)
             } else {
                 VStack(spacing: Ocean.size.spacingStackXs) {
                     GeometryReader { geometry in
