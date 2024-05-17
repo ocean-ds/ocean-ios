@@ -106,6 +106,7 @@ extension OceanSwiftUI {
                     if let image = self.parameters.image {
                         Image(uiImage: image)
                             .resizable()
+                            .aspectRatio(contentMode: .fit)
                             .frame(width: 72,
                                    height: 72,
                                    alignment: .center)

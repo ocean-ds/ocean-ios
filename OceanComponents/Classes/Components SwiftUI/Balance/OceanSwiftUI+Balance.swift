@@ -121,6 +121,16 @@ extension OceanSwiftUI {
                                 self.getItem(self.parameters.items[index], index: index)
                                     .padding(.horizontal, Ocean.size.spacingStackXxxs)
                                     .frame(width: screenWidth)
+                                    .background(GeometryReader { geometry in
+                                        Color.clear.onAppear {
+                                            let item = parameters.items[index]
+                                            let height = geometry.size.height
+
+                                            if height > screenHeight || index == parameters.items.count - 1 {
+                                                screenHeight = height
+                                            }
+                                        }
+                                    })
                             }
                         }
                         .offset(x: -CGFloat(currentPage) * screenWidth + dragOffset.width +
@@ -129,7 +139,6 @@ extension OceanSwiftUI {
                         .onAppear {
                             screenWidth = geometry.size.width - (Ocean.size.spacingStackSm * 2)
                         }
-                        .animation(.default)
                     }
                     .frame(maxWidth: .infinity)
                     .transform(condition: screenHeight != 0, transform: { view in
@@ -150,6 +159,9 @@ extension OceanSwiftUI {
                                     self.currentPage -= 1
                                 }
                             })
+
+                    Spacer()
+                        .frame(height: Ocean.size.spacingStackXxs)
 
                     OceanSwiftUI.PageIndicator { pageIndicator in
                         pageIndicator.parameters.numberOfPages = self.parameters.items.count
@@ -296,13 +308,6 @@ extension OceanSwiftUI {
                     .frame(width: 110)
                 }
             }
-            .background(GeometryReader { geometry in
-                Color.clear.onAppear {
-                    if geometry.size.height > screenHeight {
-                        screenHeight = geometry.size.height + Ocean.size.spacingStackMd
-                    }
-                }
-            })
         }
 
         @ViewBuilder
@@ -328,13 +333,6 @@ extension OceanSwiftUI {
                 }
                 .frame(width: 185)
             }
-            .background(GeometryReader { geometry in
-                Color.clear.onAppear {
-                    if geometry.size.height > screenHeight {
-                        screenHeight = geometry.size.height + Ocean.size.spacingStackMd
-                    }
-                }
-            })
         }
 
         @ViewBuilder
