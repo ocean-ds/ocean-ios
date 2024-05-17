@@ -25,4 +25,21 @@ public extension String {
         default: return nil
         }
     }
+
+    func toOceanShortcutSize() -> OceanSwiftUI.ShortcutParameters.Size? {
+        switch self.lowercased() {
+        case "medium": return .medium
+        case "small": return .small
+        case "tiny": return .tiny
+        default: return nil
+        }
+    }
+
+    func toOceanShortcutOrientation() -> OceanSwiftUI.ShortcutParameters.Orientation? {
+        switch self.lowercased() {
+        case "horizontal": return .horizontal
+        case "vertical": return .vertical
+        default: return nil
+        }
+    }
 }

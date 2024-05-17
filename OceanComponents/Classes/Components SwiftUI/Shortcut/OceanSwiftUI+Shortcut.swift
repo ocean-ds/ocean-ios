@@ -15,7 +15,7 @@ extension OceanSwiftUI {
         @Published public var size: Size
         @Published public var orientation: Orientation
         @Published public var showSkeleton: Bool
-        public var onTouch: (ShortcutModel) -> Void = { _ in }
+        public var onTouch: (Int, ShortcutModel) -> Void = { _, _ in }
 
         public enum Size {
             case tiny
@@ -33,7 +33,7 @@ extension OceanSwiftUI {
                     size: Size = .small,
                     orientation: Orientation = .vertical,
                     showSkeleton: Bool = false,
-                    onTouch: @escaping (ShortcutModel) -> Void = { _ in }) {
+                    onTouch: @escaping (Int, ShortcutModel) -> Void = { _, _ in }) {
             self.items = items
             self.cols = cols
             self.size = size
@@ -122,7 +122,7 @@ extension OceanSwiftUI {
                                 let item = chunks[chunksIndex][index]
 
                                 SwiftUI.Button(action: {
-                                    self.parameters.onTouch(item)
+                                    self.parameters.onTouch(index, item)
                                 }, label: {
                                     HStack(spacing: 0) {
                                         if self.parameters.orientation == .vertical {
