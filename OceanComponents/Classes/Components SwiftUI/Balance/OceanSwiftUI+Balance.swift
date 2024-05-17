@@ -123,9 +123,7 @@ extension OceanSwiftUI {
                                     .frame(width: screenWidth)
                                     .background(GeometryReader { geometry in
                                         Color.clear.onAppear {
-                                            let item = parameters.items[index]
                                             let height = geometry.size.height
-
                                             if height > screenHeight || index == parameters.items.count - 1 {
                                                 screenHeight = height
                                             }
