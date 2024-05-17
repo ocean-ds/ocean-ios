@@ -134,12 +134,11 @@ extension OceanSwiftUI {
                                         Spacer()
                                     }
                                     .padding(.all, Ocean.size.spacingStackXs)
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                                     .overlay(self.getOverlay(item: item), alignment: .topTrailing)
                                     .border(cornerRadius: Ocean.size.borderRadiusMd,
                                             width: Ocean.size.borderWidthHairline,
                                             color: Ocean.color.colorInterfaceLightDown)
-                                    .frame(minWidth: 0, maxWidth: .infinity,
-                                           minHeight: 0, maxHeight: .infinity)
                                 })
                                 .buttonStyle(OceanShortcutStyle())
                                 .disabled(item.blocked)
@@ -161,14 +160,20 @@ extension OceanSwiftUI {
 
         @ViewBuilder
         private func getViewVertical(item: ShortcutModel) -> some View {
-            VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
+            VStack(alignment: .leading, spacing: 0) {
                 if let icon = item.icon {
                     getImage(icon: icon)
+
+                    Spacer()
+                        .frame(height: Ocean.size.spacingStackXs)
                 }
 
                 getTitle(title: item.title)
 
-                if self.parameters.size == .medium {
+                if parameters.size == .medium && !item.subtitle.isEmpty {
+                    Spacer()
+                        .frame(height: Ocean.size.spacingStackXxs)
+
                     getSubtitle(subtitle: item.subtitle)
                 }
             }
@@ -176,7 +181,7 @@ extension OceanSwiftUI {
 
         @ViewBuilder
         private func getViewHorizontal(item: ShortcutModel) -> some View {
-            VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
+            VStack(alignment: .leading, spacing: 0) {
                 HStack(alignment: .center, spacing: Ocean.size.spacingStackXxs) {
                     if let icon = item.icon {
                         getImage(icon: icon)
@@ -185,7 +190,10 @@ extension OceanSwiftUI {
                     getTitle(title: item.title)
                 }
 
-                if self.parameters.size == .medium {
+                if parameters.size == .medium && !item.subtitle.isEmpty {
+                    Spacer()
+                        .frame(height: Ocean.size.spacingStackXs)
+
                     getSubtitle(subtitle: item.subtitle)
                 }
             }
@@ -204,14 +212,9 @@ extension OceanSwiftUI {
 
         @ViewBuilder
         private func getTitle(title: String) -> some View {
-            VStack(alignment: .leading, spacing: 0) {
-                Spacer()
-
-                OceanSwiftUI.Typography.heading5 { label in
-                    label.parameters.text = title
-                }
+            OceanSwiftUI.Typography.heading5 { label in
+                label.parameters.text = title
             }
-            .frame(minHeight: self.parameters.size == .small ? 40 : 0, maxHeight: .infinity)
         }
 
         @ViewBuilder
