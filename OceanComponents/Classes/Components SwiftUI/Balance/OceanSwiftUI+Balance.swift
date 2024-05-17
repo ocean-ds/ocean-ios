@@ -139,6 +139,7 @@ extension OceanSwiftUI {
                         .onAppear {
                             screenWidth = geometry.size.width - (Ocean.size.spacingStackSm * 2)
                         }
+                        .animation(.default)
                     }
                     .frame(maxWidth: .infinity)
                     .transform(condition: screenHeight != 0, transform: { view in
