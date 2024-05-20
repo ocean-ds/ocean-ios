@@ -214,6 +214,7 @@ extension OceanSwiftUI {
         private func getTitle(title: String) -> some View {
             OceanSwiftUI.Typography.heading5 { label in
                 label.parameters.text = title
+                label.parameters.lineLimit = self.parameters.size == .medium ? 2 : 1
             }
         }
 
