@@ -73,8 +73,8 @@ final public class InputSwiftUIViewController : UIViewController {
             input.parameters.title = "Title"
             input.parameters.placeholder = "Placeholder"
             input.parameters.helperMessage = "Helper message"
-            input.parameters.maxLenght = 140
-            input.parameters.showMaxLenght = true
+            input.parameters.maxLength = 140
+            input.parameters.showMaxLength = true
             input.parameters.onValueChanged = { value in
                 print(value)
             }

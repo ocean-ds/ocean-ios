@@ -128,12 +128,12 @@ extension Ocean {
             }
         }
 
-        public var maxLenght: Int? = nil
+        public var maxLength: Int? = nil
 
         public var charactersLimitNumber: Int? = nil {
             didSet {
                 guard let limitValue = charactersLimitNumber else { return }
-                maxLenght = limitValue
+                maxLength = limitValue
                 labelHelper.text = "\(textField.text?.count ?? 0)/\(limitValue)"
             }
         }
@@ -447,7 +447,7 @@ extension Ocean {
         }
 
         func charactersLimitValidator() -> Bool {
-            guard let textCount = textField.text?.count, let limitValue = maxLenght else { return true }
+            guard let textCount = textField.text?.count, let limitValue = maxLength else { return true }
             return textCount < (limitValue)
         }
 

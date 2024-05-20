@@ -94,6 +94,7 @@ extension OceanSwiftUI {
         @State private var screenWidth: CGFloat = 0
         @State private var screenHeight: CGFloat = 0
         @State private var expandedHeight: CGFloat = 0
+        @State public var shouldAnimate: Bool = false
         @GestureState private var dragOffset = CGSize.zero
 
         // MARK: Constructors
@@ -117,27 +118,37 @@ extension OceanSwiftUI {
                 } else {
                     GeometryReader { geometry in
                         HStack(alignment: .top, spacing: 0) {
+                            Spacer()
+                                .frame(width: Ocean.size.spacingStackXs)
+
                             ForEach(0..<self.parameters.items.count, id: \.self) { index in
                                 self.getItem(self.parameters.items[index], index: index)
-                                    .padding(.horizontal, Ocean.size.spacingStackXxxs)
                                     .frame(width: screenWidth)
                                     .background(GeometryReader { geometry in
                                         Color.clear.onAppear {
                                             let height = geometry.size.height
+
                                             if height > screenHeight || index == parameters.items.count - 1 {
                                                 screenHeight = height
                                             }
                                         }
                                     })
+
+                                Spacer()
+                                    .frame(width: Ocean.size.spacingStackXxs)
+                            }
+
+                            Spacer()
+                                .frame(width: Ocean.size.spacingStackXxs)
+                        }
+                        .offset(x: -CGFloat(currentPage) * (screenWidth + Ocean.size.spacingStackXxs) + dragOffset.width)
+                        .onAppear {
+                            screenWidth = geometry.size.width - (Ocean.size.spacingStackXs * 2) - (Ocean.size.spacingStackXxs / 2)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.033) {
+                                self.shouldAnimate = true
                             }
                         }
-                        .offset(x: -CGFloat(currentPage) * screenWidth + dragOffset.width +
-                                (currentPage == self.parameters.items.count - 1 ? Ocean.size.spacingStackSm : 0))
-                        .padding(.horizontal, Ocean.size.spacingStackXs)
-                        .onAppear {
-                            screenWidth = geometry.size.width - (Ocean.size.spacingStackSm * 2)
-                        }
-                        .animation(.default)
+                        .transform(condition: shouldAnimate) { $0.animation(.default) }
                     }
                     .frame(maxWidth: .infinity)
                     .transform(condition: screenHeight != 0, transform: { view in
@@ -173,6 +184,7 @@ extension OceanSwiftUI {
                         .frame(height: Ocean.size.spacingStackXxs)
                 }
             }
+            .clipped()
         }
 
         // MARK: Methods private
@@ -241,7 +253,7 @@ extension OceanSwiftUI {
                 self.getBalanceBluViewHeader(item, fontLarge: true)
 
                 if self.parameters.state == .expanded {
-                    VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
+                    VStack(alignment: .leading, spacing: Ocean.size.spacingStackXs) {
                         HStack(spacing: Ocean.size.spacingStackXs) {
                             Typography { label in
                                 label.parameters.text = item.item1Title

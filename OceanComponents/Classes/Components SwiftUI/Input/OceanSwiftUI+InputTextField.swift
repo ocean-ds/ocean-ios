@@ -26,8 +26,8 @@ extension OceanSwiftUI {
         @Published public var keyboardType: UIKeyboardType
         @Published public var autocapitalization: UITextAutocapitalizationType
         @Published public var textContentType: UITextContentType?
-        @Published public var maxLenght: Int?
-        @Published public var showMaxLenght: Bool
+        @Published public var maxLength: Int?
+        @Published public var showMaxLength: Bool
         @Published public var isDisabled: Bool
         @Published public var showSkeleton: Bool
         public var onMask: ((String) -> String)?
@@ -47,8 +47,8 @@ extension OceanSwiftUI {
                     keyboardType: UIKeyboardType = .default,
                     autocapitalization: UITextAutocapitalizationType = .words,
                     textContentType: UITextContentType? = nil,
-                    maxLenght: Int? = nil,
-                    showMaxLenght: Bool = false,
+                    maxLength: Int? = nil,
+                    showMaxLength: Bool = false,
                     isDisabled: Bool = false,
                     showSkeleton: Bool = false,
                     onMask: ((String) -> String)? = nil,
@@ -67,8 +67,8 @@ extension OceanSwiftUI {
             self.keyboardType = keyboardType
             self.autocapitalization = autocapitalization
             self.textContentType = textContentType
-            self.maxLenght = maxLenght
-            self.showMaxLenght = showMaxLenght
+            self.maxLength = maxLength
+            self.showMaxLength = showMaxLength
             self.isDisabled = isDisabled
             self.showSkeleton = showSkeleton
             self.onMask = onMask
@@ -206,8 +206,8 @@ extension OceanSwiftUI {
             .onReceive(Just(self.parameters.text), perform: { text in
                 var textMask = self.parameters.onMask?(text) ?? text
                 if textMask != self.textOld || text != self.textOld {
-                    if let maxLenght = self.parameters.maxLenght {
-                        textMask = String(textMask.prefix(maxLenght))
+                    if let maxLength = self.parameters.maxLength {
+                        textMask = String(textMask.prefix(maxLength))
                     }
 
                     self.textOld = textMask
@@ -219,7 +219,7 @@ extension OceanSwiftUI {
         }
 
         public var body: some View {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 0) {
                 if !self.parameters.title.isEmpty {
                     OceanSwiftUI.Typography.description { label in
                         label.parameters.text = self.parameters.title
@@ -262,18 +262,21 @@ extension OceanSwiftUI {
                     }
                 }
 
-                HStack {
+                Spacer()
+                    .frame(height: Ocean.size.spacingStackXxxs)
+
+                HStack(alignment: .center) {
                     if !self.parameters.errorMessage.isEmpty {
                         OceanSwiftUI.Typography.caption { label in
                             label.parameters.text = self.parameters.errorMessage
                             label.parameters.textColor = Ocean.color.colorStatusNegativePure
                             label.parameters.showSkeleton = self.parameters.showSkeleton
                         }
-                    } else if let maxLenght = self.parameters.maxLenght,
-                              self.parameters.showMaxLenght,
+                    } else if let maxLength = self.parameters.maxLength,
+                              self.parameters.showMaxLength,
                               !self.parameters.text.isEmpty {
                         OceanSwiftUI.Typography.caption { label in
-                            label.parameters.text = "Caracteres restantes: \(self.parameters.text.count)/\(maxLenght)"
+                            label.parameters.text = "Caracteres restantes: \(self.parameters.text.count)/\(maxLength)"
                             label.parameters.textColor = Ocean.color.colorInterfaceDarkUp
                             label.parameters.showSkeleton = self.parameters.showSkeleton
                         }
@@ -299,8 +302,11 @@ extension OceanSwiftUI {
                         }
                     }
                 }
-                .frame(height: 16)
+                .frame(height: Ocean.size.spacingStackXs)
                 .opacity(self.parameters.errorMessage.isEmpty && self.parameters.helperMessage.isEmpty ? 0 : 1)
+
+                Spacer()
+                    .frame(height: Ocean.size.spacingStackXxxs)
             }
         }
 
