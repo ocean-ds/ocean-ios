@@ -43,8 +43,8 @@ class ShortcutSwiftUIViewController: UIViewController {
             view.parameters.items = examples
             view.parameters.size = .tiny
             view.parameters.orientation = .vertical
-            view.parameters.onTouch = { item in
-                print(item.title)
+            view.parameters.onTouch = { index, item in
+                print("\(index): \(item.title)")
             }
         }
     }()
@@ -55,8 +55,8 @@ class ShortcutSwiftUIViewController: UIViewController {
             view.parameters.size = .tiny
             view.parameters.orientation = .horizontal
             view.parameters.cols = 3
-            view.parameters.onTouch = { item in
-                print(item.title)
+            view.parameters.onTouch = { index, item in
+                print("\(index): \(item.title)")
             }
         }
     }()
@@ -66,8 +66,8 @@ class ShortcutSwiftUIViewController: UIViewController {
             view.parameters.items = examples
             view.parameters.size = .small
             view.parameters.orientation = .vertical
-            view.parameters.onTouch = { item in
-                print(item.title)
+            view.parameters.onTouch = { index, item in
+                print("\(index): \(item.title)")
             }
         }
     }()
@@ -78,8 +78,8 @@ class ShortcutSwiftUIViewController: UIViewController {
             view.parameters.size = .medium
             view.parameters.orientation = .vertical
             view.parameters.cols = 3
-            view.parameters.onTouch = { item in
-                print(item.title)
+            view.parameters.onTouch = { index, item in
+                print("\(index): \(item.title)")
             }
         }
     }()
@@ -89,8 +89,8 @@ class ShortcutSwiftUIViewController: UIViewController {
             view.parameters.items = examples
             view.parameters.size = .medium
             view.parameters.orientation = .horizontal
-            view.parameters.onTouch = { item in
-                print(item.title)
+            view.parameters.onTouch = { index, item in
+                print("\(index): \(item.title)")
             }
         }
     }()

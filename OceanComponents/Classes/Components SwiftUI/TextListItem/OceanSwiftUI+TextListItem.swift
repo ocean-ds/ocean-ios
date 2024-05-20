@@ -25,6 +25,7 @@ extension OceanSwiftUI {
         @Published public var tagIcon: UIImage?
         @Published public var tagStatus: OceanSwiftUI.TagParameters.Status
         @Published public var tagSize: OceanSwiftUI.TagParameters.Size
+        @Published public var tagOrientation: OceanSwiftUI.TextListItemParameters.TagOrientation
         @Published public var padding: EdgeInsets
         @Published public var state: OceanSwiftUI.TextListItemParameters.State
         @Published public var hasCheckbox: Bool
@@ -51,6 +52,7 @@ extension OceanSwiftUI {
                     tagIcon: UIImage? = nil,
                     tagStatus: OceanSwiftUI.TagParameters.Status = .positive,
                     tagSize: OceanSwiftUI.TagParameters.Size = .small,
+                    tagOrientation: OceanSwiftUI.TextListItemParameters.TagOrientation = .vertical,
                     padding: EdgeInsets = .init(top: Ocean.size.spacingStackXs,
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXs,
@@ -78,6 +80,7 @@ extension OceanSwiftUI {
             self.tagIcon = tagIcon
             self.tagStatus = tagStatus
             self.tagSize = tagSize
+            self.tagOrientation = tagOrientation
             self.padding = padding
             self.state = state
             self.hasCheckbox = hasCheckbox
@@ -95,6 +98,11 @@ extension OceanSwiftUI {
             case normal
             case neutral
             case positive
+        }
+
+        public enum TagOrientation {
+            case vertical
+            case horizontal
         }
     }
 
@@ -163,10 +171,21 @@ extension OceanSwiftUI {
                     }
 
                     VStack(alignment: .leading) {
-                        OceanSwiftUI.Typography.paragraph { label in
-                            label.parameters.text = parameters.title
-                            label.parameters.lineLimit = parameters.titleLineLimit
-                            label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDeep : Ocean.color.colorInterfaceDarkUp
+                        HStack(spacing: Ocean.size.spacingStackXxs) {
+                            OceanSwiftUI.Typography.paragraph { label in
+                                label.parameters.text = parameters.title
+                                label.parameters.lineLimit = parameters.titleLineLimit
+                                label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDeep : Ocean.color.colorInterfaceDarkUp
+                            }
+
+                            if !parameters.tagLabel.isEmpty && parameters.tagOrientation == .horizontal {
+                                OceanSwiftUI.Tag { tag in
+                                    tag.parameters.label = parameters.tagLabel
+                                    tag.parameters.icon = parameters.tagIcon
+                                    tag.parameters.status = parameters.tagStatus
+                                    tag.parameters.size = parameters.tagSize
+                                }
+                            }
                         }
 
                         if !parameters.description.isEmpty {
@@ -201,7 +220,7 @@ extension OceanSwiftUI {
                             }
                         }
 
-                        if !parameters.tagLabel.isEmpty {
+                        if !parameters.tagLabel.isEmpty && parameters.tagOrientation == .vertical {
                             Spacer()
                                 .frame(height: Ocean.size.spacingStackXxs)
 
