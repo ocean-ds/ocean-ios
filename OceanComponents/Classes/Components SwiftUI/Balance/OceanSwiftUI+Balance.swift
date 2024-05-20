@@ -94,7 +94,7 @@ extension OceanSwiftUI {
         @State private var screenWidth: CGFloat = 0
         @State private var screenHeight: CGFloat = 0
         @State private var expandedHeight: CGFloat = 0
-        @State public var shouldAnimate: Bool = false
+        @State private var shouldAnimate: Bool = false
         @GestureState private var dragOffset = CGSize.zero
 
         // MARK: Constructors
@@ -249,7 +249,7 @@ extension OceanSwiftUI {
 
         @ViewBuilder
         private func getBalanceBluView(_ item: BalanceModel) -> some View {
-            VStack(alignment: .leading, spacing: Ocean.size.spacingStackXs) {
+            VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
                 self.getBalanceBluViewHeader(item, fontLarge: true)
 
                 if self.parameters.state == .expanded {
@@ -290,6 +290,7 @@ extension OceanSwiftUI {
                             }
                         }
                     }
+                    .padding(.top, Ocean.size.spacingStackXs)
                     .overlay(GeometryReader { geometry in
                         Color.clear.onAppear {
                             expandedHeight = geometry.size.height + Ocean.size.spacingStackXs
@@ -316,7 +317,7 @@ extension OceanSwiftUI {
                             item.action?()
                         }
                     }
-                    .frame(width: 110)
+                    .frame(width: 80)
                 }
             }
         }
