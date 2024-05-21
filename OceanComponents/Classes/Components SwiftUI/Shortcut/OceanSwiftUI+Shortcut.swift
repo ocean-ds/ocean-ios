@@ -122,7 +122,7 @@ extension OceanSwiftUI {
                                 let item = chunks[chunksIndex][index]
 
                                 SwiftUI.Button(action: {
-                                    self.parameters.onTouch(index, item)
+                                    self.parameters.onTouch((parameters.cols * chunksIndex) + index, item)
                                 }, label: {
                                     HStack(spacing: 0) {
                                         if self.parameters.orientation == .vertical {
