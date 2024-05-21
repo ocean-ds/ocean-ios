@@ -61,7 +61,7 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            HStack(spacing: 8) {
+            HStack(spacing: Ocean.size.spacingStackXxs) {
                 ZStack(alignment: .leading) {
                     Rectangle()
                         .fill(Color(Ocean.color.colorInterfaceLightDown))
@@ -72,11 +72,11 @@ extension OceanSwiftUI {
                                ? progressWidth * CGFloat(parameters.progress)
                                : progressWidth
                         )
-                        .cornerRadius(4, corners: .allCorners)
+                        .cornerRadius(Ocean.size.spacingStackXxxs, corners: .allCorners)
                 }
-                .frame(height: 8)
+                .frame(height: Ocean.size.spacingStackXxs)
                 .frame(maxWidth: .infinity)
-                .cornerRadius(4, corners: .allCorners)
+                .cornerRadius(Ocean.size.spacingStackXxxs, corners: .allCorners)
                 .overlay(GeometryReader { geometryReader in
                     Color.clear.onAppear {
                         progressWidth = geometryReader.size.width
@@ -89,7 +89,7 @@ extension OceanSwiftUI {
                         let progress = parameters.progress < 1 ? parameters.progress * 100 : 100
                         view.parameters.text = "\(String(format: "%.0f", progress))%"
                     }
-                    .frame(minWidth: 36)
+                    .frame(minWidth: Ocean.size.spacingStackLg)
                 }
             }
         }
