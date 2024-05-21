@@ -62,7 +62,7 @@ extension OceanSwiftUI {
         @State private var showTabAtIndex: Int = 0
         @State private var showContentAtIndex: Int = -1
         @State private var contentOffset: CGPoint = .zero
-        @State private var sectionsOffset: [Int] = []
+        @State private var sectionsOffset: [Int: Int] = [:]
         @State private var position: CGPoint = .zero
         @State private var debouncer: Timer?
         @State private var tabHeight: CGFloat = 60
@@ -108,6 +108,19 @@ extension OceanSwiftUI {
                             VStack {
                                 if let header = parameters.header {
                                     AnyView(header)
+                                        .overlay(GeometryReader { geometryReader in
+                                            Color.clear.onAppear {
+                                                guard !sectionsOffset.isEmpty, let firstOffset = sectionsOffset[0] else { return }
+
+                                                let height = Int(geometryReader.size.height)
+
+                                                if firstOffset < height {
+                                                    sectionsOffset = sectionsOffset.mapValues({ value in
+                                                        value - firstOffset + height + Int(tabHeight)
+                                                    })
+                                                }
+                                            }
+                                        })
                                 }
 
                                 PositionObservingView(coordinateSpace: coordinateSpace,
@@ -236,8 +249,7 @@ extension OceanSwiftUI {
                 .overlay(GeometryReader { geometryReader in
                     Color.clear.onAppear {
                         let value = Int(geometryReader.frame(in: coordinateSpace).minY)
-                        sectionsOffset.append(value)
-                        sectionsOffset.sort { $0 <= $1 }
+                        sectionsOffset[index] = value
 
                         if geometryReader.frame(in: coordinateSpace).maxY > contentSize {
                             contentSize = geometryReader.frame(in: coordinateSpace).maxY
@@ -251,12 +263,9 @@ extension OceanSwiftUI {
             ? Int(contentOffset.y)
             : Int(contentOffset.y + tabHeight)
 
-            var currentSection = -1
-            sectionsOffset.forEach { section in
-                if section <= offset {
-                    currentSection += 1
-                }
-            }
+            let currentSection = sectionsOffset.filter { $0.value <= offset }.max { value1, value2 in
+                value1.value <= value2.value
+            }?.key ?? -1
 
             parameters.selectedIndex = currentSection > -1 ? currentSection : 0
             if currentSection > -1, currentSection != showTabAtIndex {
