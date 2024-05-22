@@ -51,8 +51,7 @@ class ModalViewController: UIViewController {
             .withTitle("Titulo")
             .withCode(123)
             .withDescription("Lorem Ipsum is <b>simply dummy text</b> of the printing and typesetting industry. Galley of type and scrambled it to make a type specimen book. Galley of type and scrambled it to make a type specimen book. Galley of type and scrambled it to make a type specimen book.")
-            .withAction(textNegative: "Cancelar", actionNegative: nil,
-                        textPositive: "Ativar", actionPositive: nil)
+            .withActionPrimary(text: "Entendi", icon: Ocean.icon.whatsappOutline, action: nil)
             .withCode(123)
             .build()
     }()

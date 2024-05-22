@@ -77,11 +77,13 @@ extension Ocean {
         }
 
         public func withActionPrimary(text: String,
+                                      icon: UIImage? = nil,
                                       action: (() -> Void)?,
                                       shouldDismiss: Bool = true) -> Modal {
             modalViewController.actionsAxis = .vertical
             modalViewController.actions.append(Ocean.Button.primaryBlockedMD { button in
                 button.text = text
+                button.icon = icon
                 button.onTouch = {
                     if shouldDismiss {
                         self.modalViewController.dismiss(animated: true, wasClosed: false) {
@@ -96,11 +98,13 @@ extension Ocean {
         }
 
         public func withActionSecondary(text: String,
+                                        icon: UIImage? = nil,
                                         action: (() -> Void)?,
                                         shouldDismiss: Bool = true) -> Modal {
             modalViewController.actionsAxis = .vertical
             modalViewController.actions.append(Ocean.Button.secondaryBlockedMD { button in
                 button.text = text
+                button.icon = icon
                 button.onTouch = {
                     if shouldDismiss {
                         self.modalViewController.dismiss(animated: true, wasClosed: false) {
