@@ -44,11 +44,13 @@ extension Ocean {
         }
 
         public override func withActionPrimary(text: String,
+                                               icon: UIImage? = nil,
                                                action: (() -> Void)?,
                                                shouldDismiss: Bool = true) -> Modal {
             modalViewController.actionsAxis = .vertical
             modalViewController.actions.append(Ocean.Button.primaryCriticalBlockedMD { button in
                 button.text = text
+                button.icon = icon
                 button.onTouch = {
                     if shouldDismiss {
                         self.modalViewController.dismiss(animated: true, wasClosed: false) {
