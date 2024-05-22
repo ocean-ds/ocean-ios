@@ -18,6 +18,7 @@ extension OceanSwiftUI {
         @Published public var icon: UIImage?
         @Published public var badgeCount: Int?
         @Published public var badgeStatus: BadgeParameters.Status
+        @Published public var progress: Float?
         @Published public var view: (any View)?
         @Published public var ctaText: String
         @Published public var ctaIcon: UIImage?
@@ -30,6 +31,7 @@ extension OceanSwiftUI {
                     icon: UIImage? = nil,
                     badgeCount: Int? = nil,
                     badgeStatus: BadgeParameters.Status = .warning,
+                    progress: Float? = nil,
                     view: (any View)? = nil,
                     ctaText: String = "",
                     ctaIcon: UIImage? = Ocean.icon.chevronRightSolid,
@@ -41,6 +43,7 @@ extension OceanSwiftUI {
             self.icon = icon
             self.badgeCount = badgeCount
             self.badgeStatus = badgeStatus
+            self.progress = progress
             self.view = view
             self.ctaText = ctaText
             self.ctaIcon = ctaIcon
@@ -131,6 +134,16 @@ extension OceanSwiftUI {
                     .frame(minWidth: 0, maxWidth: .infinity)
                     .padding(.all, Ocean.size.spacingStackXs)
                     .background(Color(Ocean.color.colorInterfaceLightPure))
+
+                    if let progress = parameters.progress {
+                        ProgressBar { view in
+                            view.parameters.progress = progress
+                            view.parameters.padding = EdgeInsets(top: 0,
+                                                                 leading: Ocean.size.spacingStackXs,
+                                                                 bottom: Ocean.size.spacingStackXs,
+                                                                 trailing: Ocean.size.spacingStackXs)
+                        }
+                    }
 
                     if let _ = self.parameters.view {
                         Divider()

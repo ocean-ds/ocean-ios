@@ -18,10 +18,10 @@ extension OceanSwiftUI {
 
         public init(progress: Float = 0,
                     showValue: Bool = true,
-                    padding: EdgeInsets = .init(top: 0,
-                                                leading: 0,
-                                                bottom: 0,
-                                                trailing: 0)) {
+                    padding: EdgeInsets = .init(top: Ocean.size.spacingStackXxs,
+                                                leading: Ocean.size.spacingStackXs,
+                                                bottom: Ocean.size.spacingStackXxs,
+                                                trailing: Ocean.size.spacingStackXs)) {
             self.progress = progress
             self.showValue = showValue
             self.padding = padding
@@ -89,9 +89,10 @@ extension OceanSwiftUI {
                         let progress = parameters.progress < 1 ? parameters.progress * 100 : 100
                         view.parameters.text = "\(String(format: "%.0f", progress))%"
                     }
-                    .frame(minWidth: Ocean.size.spacingStackLg)
+                    .frame(minWidth: 33)
                 }
             }
+            .padding(parameters.padding)
         }
     }
 }
