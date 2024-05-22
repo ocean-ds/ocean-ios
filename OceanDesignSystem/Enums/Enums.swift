@@ -100,6 +100,7 @@ public enum DesignSystemComponentsSwiftUIType: String {
     case Onboarding
     case OrderedListItem
     case ParentChild
+    case ProgressBar
     case ProgressIndicator
     case RadioButtonGroup
     case ScoreChart

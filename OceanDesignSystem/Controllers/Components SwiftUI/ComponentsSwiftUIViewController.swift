@@ -113,6 +113,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(CarouselSwiftUIViewController(), animated: true, completion: nil)
         case .Shortcut:
             self.present(ShortcutSwiftUIViewController(), animated: true, completion: nil)
+        case .ProgressBar:
+            self.present(ProgressBarSwiftUIViewController(), animated: true, completion: nil)
         }
     }
 }

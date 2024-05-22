@@ -87,6 +87,7 @@
 		D56AB26C2B4DCE700059D443 /* FilterBarSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56AB26B2B4DCE700059D443 /* FilterBarSwiftUIViewController.swift */; };
 		D579D84F2BCDA156004615A5 /* ParentChildSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D579D84E2BCDA156004615A5 /* ParentChildSwiftUIViewController.swift */; };
 		D58953712B96345500FC5340 /* ScrollableTabSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58953702B96345500FC5340 /* ScrollableTabSwiftUIViewController.swift */; };
+		D59259A22BFD4BEF00963755 /* ProgressBarSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59259A12BFD4BEF00963755 /* ProgressBarSwiftUIViewController.swift */; };
 		D5A319FD2B3B2D3200786FCD /* CardListItemSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A319FC2B3B2D3200786FCD /* CardListItemSwiftUIViewController.swift */; };
 		D5D1EEBF2B584A2F00A75EA2 /* SubheaderSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D1EEBE2B584A2F00A75EA2 /* SubheaderSwiftUIViewController.swift */; };
 		D5D28DDD2A1BA2550070B8CE /* ProgressBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D28DDC2A1BA2550070B8CE /* ProgressBarViewController.swift */; };
@@ -225,6 +226,7 @@
 		D56AB26B2B4DCE700059D443 /* FilterBarSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBarSwiftUIViewController.swift; sourceTree = "<group>"; };
 		D579D84E2BCDA156004615A5 /* ParentChildSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentChildSwiftUIViewController.swift; sourceTree = "<group>"; };
 		D58953702B96345500FC5340 /* ScrollableTabSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableTabSwiftUIViewController.swift; sourceTree = "<group>"; };
+		D59259A12BFD4BEF00963755 /* ProgressBarSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarSwiftUIViewController.swift; sourceTree = "<group>"; };
 		D5A319FC2B3B2D3200786FCD /* CardListItemSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListItemSwiftUIViewController.swift; sourceTree = "<group>"; };
 		D5D1EEBE2B584A2F00A75EA2 /* SubheaderSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubheaderSwiftUIViewController.swift; sourceTree = "<group>"; };
 		D5D28DDC2A1BA2550070B8CE /* ProgressBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarViewController.swift; sourceTree = "<group>"; };
@@ -377,6 +379,7 @@
 				D579D84E2BCDA156004615A5 /* ParentChildSwiftUIViewController.swift */,
 				42D67B4D2BED34B40072D3FF /* CarouselSwiftUIViewController.swift */,
 				42D67B592BEE85A00072D3FF /* ShortcutSwiftUIViewController.swift */,
+				D59259A12BFD4BEF00963755 /* ProgressBarSwiftUIViewController.swift */,
 			);
 			path = "Components SwiftUI";
 			sourceTree = "<group>";
@@ -708,6 +711,7 @@
 				B71D65C824C8F28100C3938C /* TokensByCategoryViewController.swift in Sources */,
 				24B70BB826E7D0B400C9CE1E /* TransactionListViewController.swift in Sources */,
 				2491357826C6F634005EE76E /* ProgressIndicatorViewController.swift in Sources */,
+				D59259A22BFD4BEF00963755 /* ProgressBarSwiftUIViewController.swift in Sources */,
 				4223DDA2293F894C00257DBC /* OrderedListItemViewController.swift in Sources */,
 				4291D9A32A153CF4006A0342 /* BalanceViewController.swift in Sources */,
 				B833D03924A6796100587FDE /* TokensViewController.swift in Sources */,
