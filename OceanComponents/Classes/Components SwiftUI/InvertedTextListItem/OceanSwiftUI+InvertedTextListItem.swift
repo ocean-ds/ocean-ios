@@ -156,7 +156,7 @@ extension OceanSwiftUI {
                                 .frame(width: Ocean.size.spacingInsetXxs)
 
                             OceanSwiftUI.Typography.paragraph { label in
-                                label.parameters.text = parameters.subtitle
+                                label.parameters.text = parameters.newSubtitle
                                 label.parameters.textColor = getStatusColor()
                                 label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXs)
                             }
@@ -187,7 +187,6 @@ extension OceanSwiftUI {
                 }
             }
             .padding(parameters.padding)
-            .background(Color(Ocean.color.colorInterfaceLightPure))
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
         }
 
