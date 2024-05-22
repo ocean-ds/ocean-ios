@@ -81,6 +81,21 @@ class CardGroupSwiftUIViewController: UIViewController {
         }
     }()
 
+    lazy var cardGroup6: OceanSwiftUI.CardGroup = {
+        OceanSwiftUI.CardGroup { view in
+            view.parameters.title = "Title"
+            view.parameters.subtitle = "Subtitle"
+            view.parameters.progress = 0.5
+            view.parameters.ctaText = "Call to action"
+            view.parameters.onTouch = {
+                view.parameters.isLoading = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    view.parameters.isLoading = false
+                }
+            }
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             cardGroup1
@@ -88,6 +103,7 @@ class CardGroupSwiftUIViewController: UIViewController {
             cardGroup3
             cardGroup4
             cardGroup5
+            cardGroup6
         }
     })
 
