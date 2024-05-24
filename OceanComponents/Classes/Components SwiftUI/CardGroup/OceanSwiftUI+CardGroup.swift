@@ -23,6 +23,7 @@ extension OceanSwiftUI {
         @Published public var ctaText: String
         @Published public var ctaIcon: UIImage?
         @Published public var recommend: Bool
+        @Published public var showProgressText: Bool
         @Published public var isLoading: Bool
         public var onTouch: () -> Void
 
@@ -36,6 +37,7 @@ extension OceanSwiftUI {
                     ctaText: String = "",
                     ctaIcon: UIImage? = Ocean.icon.chevronRightSolid,
                     recommend: Bool = false,
+                    showProgressText: Bool = false,
                     isLoading: Bool = false,
                     onTouch: @escaping () -> Void = { }) {
             self.title = title
@@ -48,6 +50,7 @@ extension OceanSwiftUI {
             self.ctaText = ctaText
             self.ctaIcon = ctaIcon
             self.recommend = recommend
+            self.showProgressText = showProgressText
             self.isLoading = isLoading
             self.onTouch = onTouch
         }
@@ -138,6 +141,7 @@ extension OceanSwiftUI {
                     if let progress = parameters.progress {
                         ProgressBar { view in
                             view.parameters.progress = progress
+                            view.parameters.showValue = parameters.showProgressText
                             view.parameters.padding = EdgeInsets(top: 0,
                                                                  leading: Ocean.size.spacingStackXs,
                                                                  bottom: Ocean.size.spacingStackXs,
