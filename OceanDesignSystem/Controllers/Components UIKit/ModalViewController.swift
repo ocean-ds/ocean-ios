@@ -152,8 +152,14 @@ class ModalViewController: UIViewController {
     }()
     
     private lazy var customBottomSheet: Ocean.ModalViewController = {
-        Ocean.Modal(self)
-            .withCustomView(view: UIView())
+        let customView = UIView()
+        customView.oceanConstraints
+            .height(constant: 48)
+            .make()
+        customView.backgroundColor = UIColor.red
+
+        return Ocean.Modal(self)
+            .withCustomView(view: customView)
             .build()
     }()
     
