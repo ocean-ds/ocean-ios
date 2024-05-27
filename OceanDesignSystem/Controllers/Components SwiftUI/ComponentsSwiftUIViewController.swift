@@ -115,6 +115,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(ShortcutSwiftUIViewController(), animated: true, completion: nil)
         case .ProgressBar:
             self.present(ProgressBarSwiftUIViewController(), animated: true, completion: nil)
+        case .BalanceSimple:
+            self.present(BalanceSimpleSwiftUIViewController(), animated: true, completion: nil)
         }
     }
 }
