@@ -37,69 +37,30 @@ extension Ocean {
         }
 
         public override func makeView() {
-            var totalSpacing = heightSpacing
-            totalSpacing += Ocean.size.spacingStackXxs
-            mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxs))
+            setupConstraints()
 
-            let topSpacing = Ocean.size.spacingStackMd
-            totalSpacing += topSpacing
+            mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXxs))
 
             if swipeDismiss {
                 mainStack.addArrangedSubview(closeView)
             } else {
-                mainStack.addArrangedSubview(Spacer(space: topSpacing))
+                mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackMd))
             }
 
-            totalSpacing += addImageIfExist()
-            totalSpacing += addTitleIfExist()
-            totalSpacing += addDescriptionIfExist()
-            totalSpacing += addCustomViewIfExist()
-            totalSpacing += addActionsIfExist()
-            totalSpacing += addAdditionalInformationIfExist()
+            addImageIfExist()
+            addTitleIfExist()
+            addDescriptionIfExist()
+            addCustomViewIfExist()
+            addActionsIfExist()
+            addAdditionalInformationIfExist()
 
-            spTransitionDelegate.customHeight = totalSpacing
+            mainStack.layoutIfNeeded()
+            spTransitionDelegate.customHeight = mainStack.frame.height + Ocean.size.spacingStackSm
         }
 
-        fileprivate func addActionsIfExist() -> CGFloat {
-            guard !actions.isEmpty else {
-                return 0
-            }
-
-            let stackView = Ocean.StackView { stack in
-                stack.axis = actionsAxis
-                stack.distribution = .fillEqually
-                stack.spacing = Ocean.size.spacingStackXs
-                actions.forEach { (control) in
-                    stack.addArrangedSubview(control)
-                }
-            }
-
-            let actionsHeight: CGFloat = actionsAxis == .horizontal ? 48 : actions.count > 1 ? 112 : 48
-            let topSpacing = Ocean.size.spacingStackMd
-            let bottomSpacing = Ocean.size.spacingStackSm
-
-            mainStack.addArrangedSubview(Spacer(space: topSpacing))
-            mainStack.addArrangedSubview(stackView)
-            mainStack.addArrangedSubview(Spacer(space: bottomSpacing))
-
-            return actionsHeight + topSpacing + bottomSpacing
-        }
-
-        fileprivate func addCustomViewIfExist() -> CGFloat {
-            guard let customContent = self.customContent else {
-                return 0
-            }
-
-            customContent.sizeToFit()
-
-            mainStack.addArrangedSubview(customContent)
-
-            return customContent.frame.height
-        }
-
-        fileprivate func addImageIfExist() -> CGFloat {
+        fileprivate func addImageIfExist() {
             guard let image = contentImage else {
-                return 0
+                return
             }
 
             let imageView = UIImageView { imageView in
@@ -121,13 +82,11 @@ extension Ocean {
 
             mainStack.addArrangedSubview(imageView)
             mainStack.addArrangedSubview(Spacer(space: bottomSpacing))
-
-            return imageHeight + bottomSpacing
         }
 
-        fileprivate func addTitleIfExist() -> CGFloat {
+        fileprivate func addTitleIfExist() {
             guard let title = contentTitle else {
-                return 0
+                return
             }
 
             let label = Ocean.Typography.heading3 { label in
@@ -145,15 +104,11 @@ extension Ocean {
 
             mainStack.addArrangedSubview(label)
             mainStack.addArrangedSubview(Spacer(space: bottomSpacing))
-
-            let widthWithoutSpacing = view.frame.width - Ocean.size.spacingInsetLg
-            let totalLines = (label.frame.width / widthWithoutSpacing).rounded()
-            return (totalLines * label.frame.height) + bottomSpacing
         }
 
-        fileprivate func addDescriptionIfExist() -> CGFloat {
+        fileprivate func addDescriptionIfExist() {
             if contentDescription == nil && contentDescriptionAttributeText == nil {
-                return 0
+                return
             }
 
             let label = Ocean.Typography.paragraph { label in
@@ -173,15 +128,38 @@ extension Ocean {
             }
 
             mainStack.addArrangedSubview(label)
-
-            let widthWithoutSpacing = view.frame.width - Ocean.size.spacingInsetLg
-            let totalLines = (label.frame.width / widthWithoutSpacing).rounded()
-            return totalLines * label.frame.height
         }
 
-        fileprivate func addAdditionalInformationIfExist() -> CGFloat {
+        fileprivate func addCustomViewIfExist() {
+            guard let customContent = self.customContent else {
+                return
+            }
+
+            mainStack.addArrangedSubview(customContent)
+        }
+
+        fileprivate func addActionsIfExist() {
+            guard !actions.isEmpty else {
+                return
+            }
+
+            let stackView = Ocean.StackView { stack in
+                stack.axis = actionsAxis
+                stack.distribution = .fillEqually
+                stack.spacing = Ocean.size.spacingStackXs
+                actions.forEach { (control) in
+                    stack.addArrangedSubview(control)
+                }
+            }
+
+            mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackMd))
+            mainStack.addArrangedSubview(stackView)
+            mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackSm))
+        }
+
+        fileprivate func addAdditionalInformationIfExist() {
             guard let additionalInformation = contentAdditionalInformation else {
-                return 0
+                return
             }
 
             let label = Ocean.Typography.description { label in
@@ -193,28 +171,16 @@ extension Ocean {
                 label.sizeToFit()
             }
 
-            let bottomSpacing = Ocean.size.spacingStackXs
-
             mainStack.addArrangedSubview(label)
-            mainStack.addArrangedSubview(Spacer(space: bottomSpacing))
-
-            return label.frame.height + bottomSpacing
+            mainStack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
         }
 
-        public override func viewDidLoad() {
-            super.viewDidLoad()
-            addConstraintMainStack()
-        }
-
-        private func addConstraintMainStack() {
-            NSLayoutConstraint.activate([
-                mainStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                mainStack.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,
-                                                constant: Ocean.size.spacingStackSm),
-                mainStack.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor,
-                                                 constant: -Ocean.size.spacingStackSm),
-                mainStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-            ])
+        private func setupConstraints() {
+            mainStack.oceanConstraints
+                .topToTop(to: view)
+                .centerX(to: view)
+                .width(constant: UIScreen.main.bounds.width - Ocean.size.spacingStackSm * 2)
+                .make()
         }
     }
 }

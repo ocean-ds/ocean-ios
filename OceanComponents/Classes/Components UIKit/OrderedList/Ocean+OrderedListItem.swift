@@ -64,6 +64,19 @@ extension Ocean {
             }
         }
 
+        public var imageSize: CGSize = CGSize(width: Ocean.size.spacingInsetSm,
+                                              height: Ocean.size.spacingInsetSm) {
+            didSet {
+                imageView.removeConstraints(imageView.constraints)
+
+                imageView.oceanConstraints
+                    .center(to: roundedView)
+                    .width(constant: imageSize.width)
+                    .height(constant: imageSize.height)
+                    .make()
+            }
+        }
+
         private lazy var numberLabel: UILabel = {
             let label = UILabel()
             label.font = .baseSemiBold(size: Ocean.font.fontSizeXxs)
@@ -167,8 +180,8 @@ extension Ocean {
 
             imageView.oceanConstraints
                 .center(to: roundedView)
-                .width(constant: Ocean.size.spacingInsetSm)
-                .height(constant: Ocean.size.spacingInsetSm)
+                .width(constant: imageSize.width)
+                .height(constant: imageSize.height)
                 .make()
         }
 
