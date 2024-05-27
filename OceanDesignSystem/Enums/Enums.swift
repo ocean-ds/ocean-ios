@@ -82,7 +82,6 @@ public enum DesignSystemComponentsSwiftUIType: String {
     case Alert
     case Badge
     case Balance
-    case BalanceSimple
     case Button
     case CardCrossSell
     case CardCTA
@@ -107,6 +106,7 @@ public enum DesignSystemComponentsSwiftUIType: String {
     case ScoreChart
     case ScrollableTab
     case Shortcut
+    case SimpleBalance
     case StatusListItem
     case Subheader
     case Step

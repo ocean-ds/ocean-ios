@@ -1,5 +1,5 @@
 //
-//  BalanceSimpleSwiftUIViewController.swift
+//  SimpleBalanceSwiftUIViewController.swift
 //  OceanDesignSystem
 //
 //  Created by Acassio Mendonça on 27/05/24.
@@ -10,9 +10,9 @@ import Foundation
 import SwiftUI
 import OceanTokens
 
-class BalanceSimpleSwiftUIViewController: UIViewController {
+class SimpleBalanceSwiftUIViewController: UIViewController {
 
-    private lazy var balanceSimple = OceanSwiftUI.BalanceSimple { view in
+    private lazy var balance = OceanSwiftUI.SimpleBalance { view in
         view.parameters.balanceAvailable = 1000.00
         view.parameters.currentBalance = 10.00
         view.parameters.scheduleBlu = -90.00
@@ -20,7 +20,7 @@ class BalanceSimpleSwiftUIViewController: UIViewController {
 
     private lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack {
-            balanceSimple
+            balance
         }
     })
 
@@ -38,10 +38,10 @@ class BalanceSimpleSwiftUIViewController: UIViewController {
 }
 
 @available(iOS 13.0, *)
-struct BalanceSimpleSwiftUIViewController_Preview: PreviewProvider {
+struct SimpleBalanceSwiftUIViewController_Preview: PreviewProvider {
     static var previews: some View {
         UIViewControllerPreview {
-            BalanceSimpleSwiftUIViewController()
+            SimpleBalanceSwiftUIViewController()
         }
     }
 }

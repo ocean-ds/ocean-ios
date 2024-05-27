@@ -1,5 +1,5 @@
 //
-//  OceanSwiftUI+BalanceSimple.swift
+//  OceanSwiftUI+SimpleBalance.swift
 //  DGCharts
 //
 //  Created by Acassio Mendonça on 24/05/24.
@@ -13,7 +13,7 @@ extension OceanSwiftUI {
 
     // MARK: Parameters
 
-    public class BalanceSimpleParameters: ObservableObject {
+    public class SimpleBalanceParameters: ObservableObject {
         @Published public var isExpanded: Bool
         @Published public var isVisible: Bool
         @Published public var balanceAvailable: Double
@@ -39,7 +39,7 @@ extension OceanSwiftUI {
         }
     }
 
-    public struct BalanceSimple: View {
+    public struct SimpleBalance: View {
 
         // MARK: Properties for UIKit
 
@@ -48,11 +48,11 @@ extension OceanSwiftUI {
 
         // MARK: Builder
 
-        public typealias Builder = (BalanceSimple) -> Void
+        public typealias Builder = (SimpleBalance) -> Void
 
         // MARK: Properties
 
-        @ObservedObject public var parameters: BalanceSimpleParameters
+        @ObservedObject public var parameters: SimpleBalanceParameters
 
         // MARK: Properties private
 
@@ -119,7 +119,7 @@ extension OceanSwiftUI {
 
         // MARK: Constructors
 
-        public init(parameters: BalanceSimpleParameters = BalanceSimpleParameters()) {
+        public init(parameters: SimpleBalanceParameters = SimpleBalanceParameters()) {
             self.parameters = parameters
         }
 
