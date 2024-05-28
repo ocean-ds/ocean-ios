@@ -1,6 +1,6 @@
 //
 //  OceanSwiftUI+SimpleBalance.swift
-//  DGCharts
+//  OceanComponents
 //
 //  Created by Acassio Mendonça on 24/05/24.
 //
@@ -20,7 +20,7 @@ extension OceanSwiftUI {
         @Published public var currentBalance: Double
         @Published public var scheduleBlu: Double
         @Published public var showSkeleton: Bool
-        public var onExpansionChanged: ((Bool) -> Void)?
+        public var onStateChanged: ((Bool) -> Void)?
 
         public init(isExpanded: Bool = false,
                     isVisible: Bool = true,
@@ -28,14 +28,14 @@ extension OceanSwiftUI {
                     currentBalance: Double = 0.0,
                     scheduleBlu: Double = 0.0,
                     showSkeleton: Bool = false,
-                    onExpansionChanged: ((Bool) -> Void)? = nil) {
+                    onStateChanged: ((Bool) -> Void)? = nil) {
             self.isExpanded = isExpanded
             self.isVisible = isVisible
             self.balanceAvailable = balanceAvailable
             self.currentBalance = currentBalance
             self.scheduleBlu = scheduleBlu
             self.showSkeleton = showSkeleton
-            self.onExpansionChanged = onExpansionChanged
+            self.onStateChanged = onStateChanged
         }
     }
 
@@ -56,20 +56,20 @@ extension OceanSwiftUI {
 
         // MARK: Properties private
 
-        @State private var isVisibility: Bool = true
+        @State private var isVisible: Bool = true
 
         private var eyesIconView: some View {
-            Image(uiImage: isVisibility
+            Image(uiImage: isVisible
                   ? Ocean.icon.eyeOutline?.withRenderingMode(.alwaysTemplate)
                   : Ocean.icon.eyeOffOutline?.withRenderingMode(.alwaysTemplate))
             .resizable()
             .renderingMode(.template)
             .frame(width: 24, height: 24)
             .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
-            .padding(.trailing, 16)
+            .padding(.trailing, Ocean.size.spacingStackXs)
             .onTapGesture {
-                isVisibility.toggle()
-                parameters.onExpansionChanged?(parameters.isExpanded)
+                isVisible.toggle()
+                parameters.onStateChanged?(parameters.isExpanded)
             }
         }
 
@@ -78,7 +78,7 @@ extension OceanSwiftUI {
                 .resizable()
                 .renderingMode(.template)
                 .frame(width: 16, height: 16, alignment: .center)
-                .foregroundColor(Color(getColorChevron(isExpanded: parameters.isExpanded)))
+                .foregroundColor(Color(parameters.isExpanded ? Ocean.color.colorBrandPrimaryPure : Ocean.color.colorInterfaceDarkUp))
                 .rotationEffect(Angle(degrees: parameters.isExpanded ? 180.0 : 0.0))
         }
 
@@ -96,9 +96,9 @@ extension OceanSwiftUI {
                             }
 
                             Typography { label in
-                                label.parameters.text = isVisibility ? parameters.balanceAvailable.toCurrency() ?? "" : "R$ ••••••"
+                                label.parameters.text = isVisible ? parameters.balanceAvailable.toCurrency() ?? "" : "R$ ••••••"
                                 label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
-                                label.parameters.textColor = getColorValue(value: parameters.balanceAvailable)
+                                label.parameters.textColor = getValueColor(value: parameters.balanceAvailable)
                                 label.parameters.showSkeleton = parameters.showSkeleton
                             }
                         }
@@ -114,6 +114,7 @@ extension OceanSwiftUI {
 
                     chevronIconView
                 }
+                .background(Color(Ocean.color.colorInterfaceLightPure))
                 .frame(height: 56)
             }
 
@@ -149,7 +150,7 @@ extension OceanSwiftUI {
                             Typography { label in
                                 label.parameters.text = parameters.balanceAvailable.toCurrency() ?? "-"
                                 label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
-                                label.parameters.textColor = getColorValue(value: parameters.balanceAvailable)
+                                label.parameters.textColor = getValueColor(value: parameters.balanceAvailable)
                             }
                         }
 
@@ -167,7 +168,7 @@ extension OceanSwiftUI {
                             Typography { label in
                                 label.parameters.text = parameters.currentBalance.toCurrency() ?? "-"
                                 label.parameters.font = .baseRegular(size: Ocean.font.fontSizeXxs)
-                                label.parameters.textColor = getColorValue(value: parameters.currentBalance)
+                                label.parameters.textColor = getValueColor(value: parameters.currentBalance)
                             }
                         }
 
@@ -185,7 +186,7 @@ extension OceanSwiftUI {
                             Typography { label in
                                 label.parameters.text = parameters.scheduleBlu.toCurrency() ?? "-"
                                 label.parameters.font = .baseRegular(size: Ocean.font.fontSizeXxs)
-                                label.parameters.textColor = getColorValue(value: parameters.scheduleBlu)
+                                label.parameters.textColor = getValueColor(value: parameters.scheduleBlu)
                             }
                         }
                     }
@@ -194,7 +195,6 @@ extension OceanSwiftUI {
                 }
 
                 headerView
-                    .background(Color(Ocean.color.colorInterfaceLightPure))
             }
             .contentShape(Rectangle())
             .onTapGesture {
@@ -204,12 +204,8 @@ extension OceanSwiftUI {
             }
         }
 
-        private func getColorValue(value: Double) -> UIColor {
+        private func getValueColor(value: Double) -> UIColor {
             return value < 0 ? Ocean.color.colorStatusNegativePure : Ocean.color.colorInterfaceDarkDeep
-        }
-
-        private func getColorChevron(isExpanded: Bool) -> UIColor {
-            return !isExpanded ? Ocean.color.colorInterfaceDarkUp : Ocean.color.colorBrandPrimaryPure
         }
     }
 }
