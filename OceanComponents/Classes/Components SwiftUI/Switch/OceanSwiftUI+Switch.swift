@@ -68,8 +68,8 @@ extension OceanSwiftUI {
         let offColor = Color(Ocean.color.colorInterfaceLightPure)
         let offThumbColor = Color(Ocean.color.colorInterfaceDarkUp)
         let onThumbColor = Color(Ocean.color.colorInterfaceLightPure)
-        let onBorderColor = Ocean.color.colorInterfaceDarkUp
-        let offBorderColor = Ocean.color.colorComplementaryPure
+        let onBorderColor = Ocean.color.colorComplementaryPure
+        let offBorderColor = Ocean.color.colorInterfaceDarkUp
         
         init(onValueChanged: @escaping (Bool) -> Void) {
             self.onValueChanged = onValueChanged
