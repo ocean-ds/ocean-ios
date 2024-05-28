@@ -70,4 +70,3 @@ struct ProgressBarSwiftUIViewController_Preview: PreviewProvider {
         }
     }
 }
-
