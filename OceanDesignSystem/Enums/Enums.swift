@@ -110,6 +110,7 @@ public enum DesignSystemComponentsSwiftUIType: String {
     case StatusListItem
     case Subheader
     case Step
+    case Switch
     case Tab
     case Tag
     case TextListItem
