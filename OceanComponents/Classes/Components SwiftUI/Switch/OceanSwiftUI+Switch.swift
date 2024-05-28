@@ -86,7 +86,7 @@ extension OceanSwiftUI {
                         .offset(x: configuration.isOn ? 10 : -10)
                 )
                 .border(cornerRadius: Ocean.size.borderRadiusLg,
-                        width: Ocean.size.borderWidthThin,
+                        width: Ocean.size.borderWidthHairline,
                         color: configuration.isOn ? onBorderColor : offBorderColor)
                 .onTapGesture {
                     withAnimation(.smooth(duration: 0.2)) {
