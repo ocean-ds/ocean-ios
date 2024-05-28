@@ -94,6 +94,7 @@ struct DSComponents {
         "ScrollableTab",
         "Shortcut",
         "Switch",
+        "SimpleBalance",
         "Tab",
         "Tag",
         "TextListItem",
