@@ -1,5 +1,5 @@
 //
-//  Ocean+TransectionFooter.swift
+//  Ocean+TransactionFooter.swift
 //  OceanComponents
 //
 //  Created by Acassio Vilas Boas on 26/07/22.
