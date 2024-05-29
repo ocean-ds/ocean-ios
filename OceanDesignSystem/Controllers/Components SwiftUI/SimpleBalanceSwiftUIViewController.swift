@@ -13,7 +13,7 @@ import OceanTokens
 class SimpleBalanceSwiftUIViewController: UIViewController {
 
     private lazy var balance = OceanSwiftUI.SimpleBalance { view in
-        view.parameters.balanceAvailable = 1000.00
+        view.parameters.balanceAvailable = -1000.00
         view.parameters.currentBalance = 10.00
         view.parameters.scheduleBlu = -90.00
     }

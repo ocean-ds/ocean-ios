@@ -98,7 +98,7 @@ extension OceanSwiftUI {
                             Typography { label in
                                 label.parameters.text = isVisible ? parameters.balanceAvailable.toCurrency() ?? "" : "R$ ••••••"
                                 label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
-                                label.parameters.textColor = getValueColor(value: parameters.balanceAvailable)
+                                label.parameters.textColor = isVisible ? getValueColor(value: parameters.balanceAvailable) : Ocean.color.colorInterfaceDarkDeep
                                 label.parameters.showSkeleton = parameters.showSkeleton
                             }
                         }
