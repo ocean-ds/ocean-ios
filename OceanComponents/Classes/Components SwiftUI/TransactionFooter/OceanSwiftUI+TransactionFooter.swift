@@ -18,7 +18,7 @@ extension OceanSwiftUI {
         @Published public var secondaryButton: ButtonParameters?
         @Published public var buttonOrientation: ButtonOrientation
         @Published public var showSkeleton: Bool
-        @Published public var numberOfItemsToShowSkeleton: Int
+        @Published public var skeletonLines: Int
         @Published public var padding: EdgeInsets
 
         public init(items: [ItemModel] = [],
@@ -26,7 +26,7 @@ extension OceanSwiftUI {
                     secondaryButton: ButtonParameters? = nil,
                     buttonOrientation: ButtonOrientation = .horizontal,
                     showSkeleton: Bool = false,
-                    numberOfItemsToShowSkeleton: Int = 3,
+                    skeletonLines: Int = 3,
                     padding: EdgeInsets = .init(top: Ocean.size.spacingStackXs,
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXs,
@@ -36,7 +36,7 @@ extension OceanSwiftUI {
             self.secondaryButton = secondaryButton
             self.buttonOrientation = buttonOrientation
             self.showSkeleton = showSkeleton
-            self.numberOfItemsToShowSkeleton = numberOfItemsToShowSkeleton
+            self.skeletonLines = skeletonLines
             self.padding = padding
         }
 
@@ -49,7 +49,7 @@ extension OceanSwiftUI {
             @Published public var text: String
             @Published public var value: String
             @Published public var valueColor: UIColor
-            @Published public var valueIsBold: Bool
+            @Published public var isBoldValue: Bool
             @Published public var newValue: String
             @Published public var newValueColor: UIColor
             @Published public var imageIcon: UIImage?
@@ -58,7 +58,7 @@ extension OceanSwiftUI {
             public init(text: String = "",
                         value: String = "",
                         valueColor: UIColor = Ocean.color.colorInterfaceDarkDeep,
-                        valueIsBold: Bool = false,
+                        isBoldValue: Bool = false,
                         newValue: String = "",
                         newValueColor: UIColor = Ocean.color.colorStatusPositiveDeep,
                         imageIcon: UIImage? = nil,
@@ -66,7 +66,7 @@ extension OceanSwiftUI {
                 self.text = text
                 self.value = value
                 self.valueColor = valueColor
-                self.valueIsBold = valueIsBold
+                self.isBoldValue = isBoldValue
                 self.newValue = newValue
                 self.newValueColor = newValueColor
                 self.imageIcon = imageIcon
@@ -108,7 +108,7 @@ extension OceanSwiftUI {
             VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
 
                 if parameters.showSkeleton {
-                    getSkeletonView(itemsCount: parameters.numberOfItemsToShowSkeleton)
+                    getSkeletonView(skeletonLines: parameters.skeletonLines)
                 } else {
                     ForEach(parameters.items.indices, id: \.self) { index in
                         getItemView(item: parameters.items[index])
@@ -161,7 +161,7 @@ extension OceanSwiftUI {
                     Typography.paragraph { label in
                         label.parameters.text = item.value
                         label.parameters.textColor = item.valueColor
-                        label.parameters.font = item.valueIsBold
+                        label.parameters.font = item.isBoldValue
                             ? .baseBold(size: Ocean.font.fontSizeXs)
                             : .baseRegular(size: Ocean.font.fontSizeXs)
                     }
@@ -183,8 +183,8 @@ extension OceanSwiftUI {
             .padding(.vertical, Ocean.size.spacingStackXxs)
         }
 
-        private func getSkeletonView(itemsCount: Int) -> some View {
-            ForEach(0..<itemsCount, id: \.self) { index in
+        private func getSkeletonView(skeletonLines: Int) -> some View {
+            ForEach(0..<skeletonLines, id: \.self) { index in
                 HStack {
                     Typography.paragraph { label in
                         label.parameters.text = "                                        "

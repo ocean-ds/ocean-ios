@@ -14,7 +14,7 @@ class TransactionFooterSwiftUIViewController: UIViewController {
 
     private lazy var transactionFooterWithButton = OceanSwiftUI.TransactionFooter { view in
         view.parameters.primaryButton = .init(text: "Avançar", style: .primary, onTouch: { print("primaryButton") })
-        view.parameters.numberOfItemsToShowSkeleton = 2
+        view.parameters.skeletonLines = 2
         view.parameters.showSkeleton = true
         view.parameters.items = [
             .init(text: "Desconto à vista",
@@ -29,7 +29,7 @@ class TransactionFooterSwiftUIViewController: UIViewController {
     private lazy var transactionFooterWithButtons = OceanSwiftUI.TransactionFooter { view in
         view.parameters.primaryButton = .init(text: "Recusar", style: .secondaryCritical, onTouch: { print("primaryButton") })
         view.parameters.secondaryButton = .init(text: "Avançar", style: .primary, onTouch: { print("secondaryButton") })
-        view.parameters.numberOfItemsToShowSkeleton = 3
+        view.parameters.skeletonLines = 3
         view.parameters.showSkeleton = true
         view.parameters.items = [
             .init(text: "Valor cobrado", 
@@ -39,7 +39,7 @@ class TransactionFooterSwiftUIViewController: UIViewController {
                   newValue: "Zero"),
             .init(text: "Pague", 
                   value: "R$ 10,00",
-                  valueIsBold: true)
+                  isBoldValue: true)
         ]
     }
 
@@ -47,7 +47,7 @@ class TransactionFooterSwiftUIViewController: UIViewController {
         view.parameters.primaryButton = .init(text: "Avançar", style: .primary, onTouch: { print("primaryButton") })
         view.parameters.secondaryButton = .init(text: "Cancelar",  style: .secondary, onTouch: { print("secondaryButton") })
         view.parameters.buttonOrientation = .vertical
-        view.parameters.numberOfItemsToShowSkeleton = 4
+        view.parameters.skeletonLines = 4
         view.parameters.showSkeleton = true
         view.parameters.items = [
             .init(text: "Desconto à vista",
@@ -61,7 +61,7 @@ class TransactionFooterSwiftUIViewController: UIViewController {
                   newValue: "Zero"),
             .init(text: "Pague", 
                   value: "R$ 10,00",
-                  valueIsBold: true)
+                  isBoldValue: true)
         ]
     }
 
