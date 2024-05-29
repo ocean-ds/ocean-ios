@@ -44,6 +44,7 @@
 		427CBD272B768AE500C33311 /* CardCTASwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427CBD262B768AE500C33311 /* CardCTASwiftUIViewController.swift */; };
 		427CBD2D2B7699FE00C33311 /* CardCrossSellSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427CBD2C2B7699FE00C33311 /* CardCrossSellSwiftUIViewController.swift */; };
 		427CBD352B76AE4600C33311 /* CardGroupSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427CBD342B76AE4600C33311 /* CardGroupSwiftUIViewController.swift */; };
+		428C30F22C05240000179D06 /* SwitchSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428C30F12C05240000179D06 /* SwitchSwiftUIViewController.swift */; };
 		4291D9A32A153CF4006A0342 /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4291D9A22A153CF4006A0342 /* BalanceViewController.swift */; };
 		42A7D7BB2B979E47002A03BA /* TooltipSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A7D7BA2B979E47002A03BA /* TooltipSwiftUIViewController.swift */; };
 		42C89A1A2A952FC100B8174A /* CircularProgressIndicatorSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C89A192A952FC100B8174A /* CircularProgressIndicatorSwiftUIViewController.swift */; };
@@ -180,6 +181,7 @@
 		427CBD262B768AE500C33311 /* CardCTASwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCTASwiftUIViewController.swift; sourceTree = "<group>"; };
 		427CBD2C2B7699FE00C33311 /* CardCrossSellSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCrossSellSwiftUIViewController.swift; sourceTree = "<group>"; };
 		427CBD342B76AE4600C33311 /* CardGroupSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGroupSwiftUIViewController.swift; sourceTree = "<group>"; };
+		428C30F12C05240000179D06 /* SwitchSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchSwiftUIViewController.swift; sourceTree = "<group>"; };
 		4291D9A22A153CF4006A0342 /* BalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceViewController.swift; sourceTree = "<group>"; };
 		42A7D7BA2B979E47002A03BA /* TooltipSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipSwiftUIViewController.swift; sourceTree = "<group>"; };
 		42C89A192A952FC100B8174A /* CircularProgressIndicatorSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressIndicatorSwiftUIViewController.swift; sourceTree = "<group>"; };
@@ -384,8 +386,9 @@
 				42D67B4D2BED34B40072D3FF /* CarouselSwiftUIViewController.swift */,
 				42D67B592BEE85A00072D3FF /* ShortcutSwiftUIViewController.swift */,
 				D59259A12BFD4BEF00963755 /* ProgressBarSwiftUIViewController.swift */,
-				E12018782C04BA64008B040F /* SimpleBalanceSwiftUIViewController.swift */,
 				E113BFA02C0622900019A31E /* TransactionFooterSwiftUIViewController.swift */,
+				428C30F12C05240000179D06 /* SwitchSwiftUIViewController.swift */,
+				E12018782C04BA64008B040F /* SimpleBalanceSwiftUIViewController.swift */,
 			);
 			path = "Components SwiftUI";
 			sourceTree = "<group>";
@@ -721,6 +724,7 @@
 				4223DDA2293F894C00257DBC /* OrderedListItemViewController.swift in Sources */,
 				4291D9A32A153CF4006A0342 /* BalanceViewController.swift in Sources */,
 				B833D03924A6796100587FDE /* TokensViewController.swift in Sources */,
+				428C30F22C05240000179D06 /* SwitchSwiftUIViewController.swift in Sources */,
 				427CBD2D2B7699FE00C33311 /* CardCrossSellSwiftUIViewController.swift in Sources */,
 				E12018792C04BA64008B040F /* SimpleBalanceSwiftUIViewController.swift in Sources */,
 				E1D0E0D92A5F0F4500FF4B60 /* AccordionViewController.swift in Sources */,
@@ -1005,7 +1009,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 453;
+				CURRENT_PROJECT_VERSION = 455;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 57KSFR5UHN;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 57KSFR5UHN;
@@ -1031,7 +1035,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 453;
+				CURRENT_PROJECT_VERSION = 455;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 57KSFR5UHN;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 57KSFR5UHN;

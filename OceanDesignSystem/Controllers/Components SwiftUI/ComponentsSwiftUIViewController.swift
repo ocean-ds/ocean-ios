@@ -115,10 +115,12 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(ShortcutSwiftUIViewController(), animated: true, completion: nil)
         case .ProgressBar:
             self.present(ProgressBarSwiftUIViewController(), animated: true, completion: nil)
-        case .SimpleBalance:
-            self.present(SimpleBalanceSwiftUIViewController(), animated: true, completion: nil)
         case .TransactionFooter:
             self.present(TransactionFooterSwiftUIViewController(), animated: true, completion: nil)
+        case .Switch:
+            self.present(SwitchSwiftUIViewController(), animated: true, completion: nil)
+        case .SimpleBalance:
+            self.present(SimpleBalanceSwiftUIViewController(), animated: true, completion: nil)
         }
     }
 }
