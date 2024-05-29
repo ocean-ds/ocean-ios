@@ -114,6 +114,7 @@ public enum DesignSystemComponentsSwiftUIType: String {
     case Tag
     case TextListItem
     case Tooltip
+    case TransactionFooter
     case TransactionListItem
     case Typography
 
