@@ -99,6 +99,7 @@ struct DSComponents {
         "Tag",
         "TextListItem",
         "Tooltip",
+        "TransactionFooter",
         "TransactionListItem",
         "Typography"
     ]

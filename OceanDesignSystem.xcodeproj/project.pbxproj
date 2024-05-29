@@ -95,6 +95,7 @@
 		D5D28DE32A1C05DD0070B8CE /* DetailedCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D28DE22A1C05DD0070B8CE /* DetailedCardViewController.swift */; };
 		D5F761452B62E3D400557DB6 /* InvertedTextListItemSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F761442B62E3D400557DB6 /* InvertedTextListItemSwiftUIViewController.swift */; };
 		E10FA7972B18062100D3B0BC /* OrderedListItemSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10FA7962B18062100D3B0BC /* OrderedListItemSwiftUIViewController.swift */; };
+		E113BFA12C0622900019A31E /* TransactionFooterSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E113BFA02C0622900019A31E /* TransactionFooterSwiftUIViewController.swift */; };
 		E12018792C04BA64008B040F /* SimpleBalanceSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12018782C04BA64008B040F /* SimpleBalanceSwiftUIViewController.swift */; };
 		E129C2B22B56D983003A82DE /* TabSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129C2B12B56D983003A82DE /* TabSwiftUIViewController.swift */; };
 		E129C2B52B56E5D9003A82DE /* UIViewControllerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129C2B42B56E5D9003A82DE /* UIViewControllerPreview.swift */; };
@@ -237,6 +238,7 @@
 		D5F761442B62E3D400557DB6 /* InvertedTextListItemSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvertedTextListItemSwiftUIViewController.swift; sourceTree = "<group>"; };
 		DDF2EC3ACFA07DE2F890D43F /* Pods_OceanDesignSystemTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OceanDesignSystemTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E10FA7962B18062100D3B0BC /* OrderedListItemSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedListItemSwiftUIViewController.swift; sourceTree = "<group>"; };
+		E113BFA02C0622900019A31E /* TransactionFooterSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionFooterSwiftUIViewController.swift; sourceTree = "<group>"; };
 		E12018782C04BA64008B040F /* SimpleBalanceSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleBalanceSwiftUIViewController.swift; sourceTree = "<group>"; };
 		E129C2B12B56D983003A82DE /* TabSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSwiftUIViewController.swift; sourceTree = "<group>"; };
 		E129C2B42B56E5D9003A82DE /* UIViewControllerPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerPreview.swift; sourceTree = "<group>"; };
@@ -384,6 +386,7 @@
 				42D67B4D2BED34B40072D3FF /* CarouselSwiftUIViewController.swift */,
 				42D67B592BEE85A00072D3FF /* ShortcutSwiftUIViewController.swift */,
 				D59259A12BFD4BEF00963755 /* ProgressBarSwiftUIViewController.swift */,
+				E113BFA02C0622900019A31E /* TransactionFooterSwiftUIViewController.swift */,
 				428C30F12C05240000179D06 /* SwitchSwiftUIViewController.swift */,
 				E12018782C04BA64008B040F /* SimpleBalanceSwiftUIViewController.swift */,
 			);
@@ -737,6 +740,7 @@
 				B833D03524A6796100587FDE /* AppDelegate.swift in Sources */,
 				4274CD6228AD422100F35540 /* GroupCTAViewController.swift in Sources */,
 				B7BB722224EEEB6F007F8848 /* NibWrapperView.swift in Sources */,
+				E113BFA12C0622900019A31E /* TransactionFooterSwiftUIViewController.swift in Sources */,
 				1385ADEF2694719B003F6D07 /* TooltipViewController.swift in Sources */,
 				427CBD352B76AE4600C33311 /* CardGroupSwiftUIViewController.swift in Sources */,
 				427CBD272B768AE500C33311 /* CardCTASwiftUIViewController.swift in Sources */,
