@@ -27,7 +27,7 @@ extension OceanSwiftUI {
                     buttonOrientation: ButtonOrientation = .horizontal,
                     showSkeleton: Bool = false,
                     skeletonLines: Int = 3,
-                    padding: EdgeInsets = .init(top: Ocean.size.spacingStackXs,
+                    padding: EdgeInsets = .init(top: 0,
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXs,
                                                 trailing: Ocean.size.spacingStackXs)) {

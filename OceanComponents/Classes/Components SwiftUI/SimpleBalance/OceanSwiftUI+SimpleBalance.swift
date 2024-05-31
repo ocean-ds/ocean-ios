@@ -2,7 +2,7 @@
 //  OceanSwiftUI+SimpleBalance.swift
 //  OceanComponents
 //
-//  Created by Acassio Mendonça on 24/05/24.
+//  Created by Vinicius Romeiro on 24/05/24.
 //
 
 import Foundation
@@ -20,6 +20,7 @@ extension OceanSwiftUI {
         @Published public var currentBalance: Double
         @Published public var scheduleBlu: Double
         @Published public var showSkeleton: Bool
+        @Published public var padding: EdgeInsets
         public var onStateChanged: ((Bool) -> Void)?
 
         public init(isExpanded: Bool = false,
@@ -28,6 +29,10 @@ extension OceanSwiftUI {
                     currentBalance: Double = 0.0,
                     scheduleBlu: Double = 0.0,
                     showSkeleton: Bool = false,
+                    padding: EdgeInsets = .init(top: 0,
+                                                leading: Ocean.size.spacingStackXs,
+                                                bottom: 0,
+                                                trailing: Ocean.size.spacingStackXs),
                     onStateChanged: ((Bool) -> Void)? = nil) {
             self.isExpanded = isExpanded
             self.isVisible = isVisible
@@ -36,6 +41,7 @@ extension OceanSwiftUI {
             self.scheduleBlu = scheduleBlu
             self.showSkeleton = showSkeleton
             self.onStateChanged = onStateChanged
+            self.padding = padding
         }
     }
 
@@ -114,7 +120,8 @@ extension OceanSwiftUI {
 
                 chevronIconView
             }
-            .frame(height: 56)
+            .frame(height: Constants.height)
+            .padding(parameters.padding)
             .background(Color(Ocean.color.colorInterfaceLightPure))
         }
 
@@ -136,7 +143,7 @@ extension OceanSwiftUI {
                 if parameters.isExpanded {
                     VStack(alignment: .leading, spacing: Ocean.size.spacingStackXs) {
                         Spacer()
-                            .frame(height: 56)
+                            .frame(height: Constants.height - Ocean.size.spacingStackXs)
 
                         HStack {
                             Typography { label in
@@ -189,8 +196,9 @@ extension OceanSwiftUI {
                                 label.parameters.textColor = getValueColor(value: parameters.scheduleBlu)
                             }
                         }
+                        .padding(.bottom, Ocean.size.spacingStackXs)
                     }
-                    .padding(.bottom, Ocean.size.spacingStackXxs)
+                    .padding(parameters.padding)
                     .transition(.move(edge: .top))
                     .animation(.easeInOut)
                 }
@@ -198,6 +206,7 @@ extension OceanSwiftUI {
                 headerView
             }
             .contentShape(Rectangle())
+            .background(Color(Ocean.color.colorInterfaceLightPure))
             .onTapGesture {
                 withAnimation {
                     parameters.isExpanded = !parameters.isExpanded
@@ -207,6 +216,10 @@ extension OceanSwiftUI {
 
         private func getValueColor(value: Double) -> UIColor {
             return value < 0 ? Ocean.color.colorStatusNegativePure : Ocean.color.colorInterfaceDarkDeep
+        }
+
+        public struct Constants {
+            public static let height: CGFloat = 56
         }
     }
 }

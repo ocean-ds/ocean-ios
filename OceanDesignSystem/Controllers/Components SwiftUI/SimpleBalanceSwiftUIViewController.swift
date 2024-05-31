@@ -2,7 +2,7 @@
 //  SimpleBalanceSwiftUIViewController.swift
 //  OceanDesignSystem
 //
-//  Created by Acassio Mendonça on 27/05/24.
+//  Created by Renan Massaroto on 27/05/24.
 //  Copyright © 2024 Blu Pagamentos. All rights reserved.
 //
 
@@ -32,7 +32,7 @@ class SimpleBalanceSwiftUIViewController: UIViewController {
         self.view.addSubview(uiView)
 
         uiView.oceanConstraints
-            .fill(to: self.view, constant: Ocean.size.spacingStackXs)
+            .fill(to: self.view)
             .make()
     }
 }
