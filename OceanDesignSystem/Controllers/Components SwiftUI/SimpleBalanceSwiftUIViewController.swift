@@ -32,7 +32,7 @@ class SimpleBalanceSwiftUIViewController: UIViewController {
         self.view.addSubview(uiView)
 
         uiView.oceanConstraints
-            .fill(to: self.view, constant: Ocean.size.spacingStackXs)
+            .fill(to: self.view)
             .make()
     }
 }
