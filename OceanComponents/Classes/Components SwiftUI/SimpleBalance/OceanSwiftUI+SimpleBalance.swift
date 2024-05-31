@@ -143,7 +143,7 @@ extension OceanSwiftUI {
                 if parameters.isExpanded {
                     VStack(alignment: .leading, spacing: Ocean.size.spacingStackXs) {
                         Spacer()
-                            .frame(height: 40)
+                            .frame(height: Constants.height - Ocean.size.spacingStackXs)
 
                         HStack {
                             Typography { label in
