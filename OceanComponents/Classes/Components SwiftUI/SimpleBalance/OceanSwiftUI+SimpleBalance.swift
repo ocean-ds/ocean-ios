@@ -84,39 +84,39 @@ extension OceanSwiftUI {
 
         @ViewBuilder
         private var headerView: some View {
-                HStack(alignment: .center, spacing: 0) {
-                    if !parameters.isExpanded {
-                        eyesIconView
-                        VStack(alignment: .leading, spacing: 0) {
-                            Typography { label in
-                                label.parameters.text = "Saldo na Blu"
-                                label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
-                                label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
-                                label.parameters.lineSpacing = Ocean.font.lineHeightComfy
-                            }
-
-                            Typography { label in
-                                label.parameters.text = isVisible ? parameters.balanceAvailable.toCurrency() ?? "" : "R$ ••••••"
-                                label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
-                                label.parameters.textColor = isVisible ? getValueColor(value: parameters.balanceAvailable) : Ocean.color.colorInterfaceDarkDeep
-                                label.parameters.showSkeleton = parameters.showSkeleton
-                            }
-                        }
-                    } else {
+            HStack(alignment: .center, spacing: 0) {
+                if !parameters.isExpanded {
+                    eyesIconView
+                    VStack(alignment: .leading, spacing: 0) {
                         Typography { label in
                             label.parameters.text = "Saldo na Blu"
+                            label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
+                            label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                            label.parameters.lineSpacing = Ocean.font.lineHeightComfy
+                        }
+
+                        Typography { label in
+                            label.parameters.text = isVisible ? parameters.balanceAvailable.toCurrency() ?? "" : "R$ ••••••"
                             label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
-                            label.parameters.textColor = Ocean.color.colorBrandPrimaryPure
+                            label.parameters.textColor = isVisible ? getValueColor(value: parameters.balanceAvailable) : Ocean.color.colorInterfaceDarkDeep
+                            label.parameters.showSkeleton = parameters.showSkeleton
                         }
                     }
-
-                    Spacer()
-
-                    chevronIconView
+                } else {
+                    Typography { label in
+                        label.parameters.text = "Saldo na Blu"
+                        label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
+                        label.parameters.textColor = Ocean.color.colorBrandPrimaryPure
+                    }
                 }
-                .background(Color(Ocean.color.colorInterfaceLightPure))
-                .frame(height: 56)
+
+                Spacer()
+
+                chevronIconView
             }
+            .frame(height: 56)
+            .background(Color(Ocean.color.colorInterfaceLightPure))
+        }
 
         // MARK: Constructors
 
@@ -190,6 +190,7 @@ extension OceanSwiftUI {
                             }
                         }
                     }
+                    .padding(.bottom, Ocean.size.spacingStackXxs)
                     .transition(.move(edge: .top))
                     .animation(.easeInOut)
                 }
