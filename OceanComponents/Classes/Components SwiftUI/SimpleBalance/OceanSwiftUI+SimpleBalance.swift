@@ -2,7 +2,7 @@
 //  OceanSwiftUI+SimpleBalance.swift
 //  OceanComponents
 //
-//  Created by Acassio Mendonça on 24/05/24.
+//  Created by Vinicius Romeiro on 24/05/24.
 //
 
 import Foundation
@@ -120,7 +120,7 @@ extension OceanSwiftUI {
 
                 chevronIconView
             }
-            .frame(height: 56)
+            .frame(height: Constants.height)
             .padding(parameters.padding)
             .background(Color(Ocean.color.colorInterfaceLightPure))
         }
@@ -216,6 +216,10 @@ extension OceanSwiftUI {
 
         private func getValueColor(value: Double) -> UIColor {
             return value < 0 ? Ocean.color.colorStatusNegativePure : Ocean.color.colorInterfaceDarkDeep
+        }
+
+        public struct Constants {
+            public static let height: CGFloat = 56
         }
     }
 }

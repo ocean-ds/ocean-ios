@@ -2,7 +2,7 @@
 //  SimpleBalanceSwiftUIViewController.swift
 //  OceanDesignSystem
 //
-//  Created by Acassio Mendonça on 27/05/24.
+//  Created by Renan Massaroto on 27/05/24.
 //  Copyright © 2024 Blu Pagamentos. All rights reserved.
 //
 
