@@ -145,7 +145,7 @@ class TransactionListItemSwiftUIViewController: UIViewController {
             view.parameters.level1 = "Transferência recebida"
             view.parameters.level2 = "Digilab Laboratório Óptico Digital Ltda"
             view.parameters.level3 = "Lente de contato Mônica"
-            view.parameters.level4 = "Lojista 2"
+            view.parameters.level4 = "Lojista 1"
             view.parameters.value1Text = "Grátis"
             view.parameters.value1Status = .positive
             view.parameters.hasChevron = true
