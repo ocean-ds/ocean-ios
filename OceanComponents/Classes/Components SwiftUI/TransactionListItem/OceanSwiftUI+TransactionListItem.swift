@@ -19,6 +19,7 @@ extension OceanSwiftUI {
         @Published public var level3: String
         @Published public var level4: String
         @Published public var value1: Double
+        @Published public var value1Text: String?
         @Published public var value2: Double?
         @Published public var value3: String
         @Published public var value1Status: ValueStatus
@@ -232,7 +233,11 @@ extension OceanSwiftUI {
             HStack {
                 VStack(alignment: .trailing) {
                     OceanSwiftUI.Typography.heading5 { label in
-                        label.parameters.text = "\(parameters.sign) \(parameters.value1.toCurrency(symbolSpace: true) ?? " R$ 0,00")"
+                        if let text = parameters.value1Text {
+                            label.parameters.text = text
+                        } else {
+                            label.parameters.text = "\(parameters.sign) \(parameters.value1.toCurrency(symbolSpace: true) ?? " R$ 0,00")"
+                        }
                         label.parameters.textColor = parameters.isEnabled
                         ? parameters.value1Status == .positive ? Ocean.color.colorStatusPositiveDeep : Ocean.color.colorInterfaceDarkDeep
                         : Ocean.color.colorInterfaceDarkUp
