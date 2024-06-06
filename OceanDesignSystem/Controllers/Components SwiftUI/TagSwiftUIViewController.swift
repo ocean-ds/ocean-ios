@@ -12,67 +12,67 @@ import SwiftUI
 class TagSwiftUIViewController: UIViewController {
     lazy var tag1: OceanSwiftUI.Tag = {
         return OceanSwiftUI.Tag.positiveMD { tag in
-            tag.parameters.label = "Label"
+            tag.parameters.label = "positiveMD"
             tag.parameters.icon = Ocean.icon.placeholderSolid
         }
     }()
 
     lazy var tag2: OceanSwiftUI.Tag = {
         return OceanSwiftUI.Tag.warningMD { tag in
-            tag.parameters.label = "Label"
+            tag.parameters.label = "warningMD"
             tag.parameters.icon = Ocean.icon.placeholderSolid
         }
     }()
 
     lazy var tag3: OceanSwiftUI.Tag = {
         return OceanSwiftUI.Tag.negativeMD { tag in
-            tag.parameters.label = "Label"
+            tag.parameters.label = "negativeMD"
             tag.parameters.icon = Ocean.icon.placeholderSolid
         }
     }()
 
     lazy var tag4: OceanSwiftUI.Tag = {
         return OceanSwiftUI.Tag.complementaryMD { tag in
-            tag.parameters.label = "Label"
+            tag.parameters.label = "complementaryMD"
             tag.parameters.icon = Ocean.icon.placeholderSolid
         }
     }()
 
     lazy var tag5: OceanSwiftUI.Tag = {
         return OceanSwiftUI.Tag.neutralInterfaceMD { tag in
-            tag.parameters.label = "Label"
+            tag.parameters.label = "neutralInterfaceMD"
             tag.parameters.icon = Ocean.icon.placeholderSolid
         }
     }()
 
     lazy var tag6: OceanSwiftUI.Tag = {
         return OceanSwiftUI.Tag.neutralPrimaryMD { tag in
-            tag.parameters.label = "Label"
+            tag.parameters.label = "neutralPrimaryMD"
             tag.parameters.icon = Ocean.icon.placeholderSolid
         }
     }()
 
     lazy var tag7: OceanSwiftUI.Tag = {
         return OceanSwiftUI.Tag.highlightImportantMD { tag in
-            tag.parameters.label = "Label"
+            tag.parameters.label = "highlightImportantMD"
         }
     }()
 
     lazy var tag8: OceanSwiftUI.Tag = {
         return OceanSwiftUI.Tag.highlightNeutralMD { tag in
-            tag.parameters.label = "Label"
+            tag.parameters.label = "highlightNeutralMD"
         }
     }()
 
     lazy var tag9: OceanSwiftUI.Tag = {
         return OceanSwiftUI.Tag.positiveSM { tag in
-            tag.parameters.label = "Label"
+            tag.parameters.label = "positiveSM"
         }
     }()
 
     lazy var tag10: OceanSwiftUI.Tag = {
         return OceanSwiftUI.Tag.negativeSM { tag in
-            tag.parameters.label = "Label"
+            tag.parameters.label = "negativeSM"
         }
     }()
 

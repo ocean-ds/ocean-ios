@@ -16,6 +16,7 @@ extension OceanSwiftUI {
         @Published public var textColor: UIColor
         @Published public var tintColor: UIColor?
         @Published public var strikethrough: Bool
+        @Published public var strikethroughColor: UIColor
         @Published public var font: UIFont?
         @Published public var lineLimit: Int?
         @Published public var lineSpacing: CGFloat
@@ -31,6 +32,7 @@ extension OceanSwiftUI {
                     textColor: UIColor = Ocean.color.colorInterfaceDarkDown,
                     tintColor: UIColor? = nil,
                     strikethrough: Bool = false,
+                    strikethroughColor: UIColor = Ocean.color.colorInterfaceDarkPure,
                     font: UIFont? = .baseRegular(size: Ocean.font.fontSizeXs),
                     lineLimit: Int? = nil,
                     lineSpacing: CGFloat = Ocean.font.lineHeightComfy,
@@ -40,6 +42,7 @@ extension OceanSwiftUI {
             self.textColor = textColor
             self.tintColor = tintColor
             self.strikethrough = strikethrough
+            self.strikethroughColor = strikethroughColor
             self.font = font
             self.lineLimit = lineLimit
             self.lineSpacing = lineSpacing
@@ -79,7 +82,7 @@ extension OceanSwiftUI {
 
         private var text: some View {
             Text(self.parameters.text.htmlToMarkdown())
-                .strikethrough(self.parameters.strikethrough, color: Color(Ocean.color.colorInterfaceDarkPure))
+                .strikethrough(self.parameters.strikethrough, color: Color(self.parameters.strikethroughColor))
                 .font(Font(self.parameters.font ?? .systemFont(ofSize: Ocean.font.fontSizeXs)))
                 .foregroundColor(Color(self.parameters.textColor))
                 .lineLimit(self.parameters.lineLimit)
@@ -89,7 +92,7 @@ extension OceanSwiftUI {
                 .overlay(
                     Path()
                         .background(Color.clear)
-                        .skeleton(with: self.parameters.showSkeleton, 
+                        .skeleton(with: self.parameters.showSkeleton,
                                   shape: .rounded(.radius(Ocean.size.borderRadiusSm)))
                 )
         }
