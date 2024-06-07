@@ -262,6 +262,7 @@ extension OceanSwiftUI {
                         label.parameters.lineLimit = 1
                         label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
                         label.parameters.strikethrough = parameters.value1Status == .cancelled
+                        label.parameters.strikethroughColor = getValue1Color()
                     }
 
                     if let value = parameters.value2?.toCurrency() {

@@ -155,6 +155,46 @@ class TransactionListItemSwiftUIViewController: UIViewController {
         }
     }()
 
+    public lazy var transactionListItem10: OceanSwiftUI.TransactionListItem = {
+        OceanSwiftUI.TransactionListItem { view in
+            view.parameters.level1 = "Level 1 - cancelled"
+            view.parameters.level2 = "Level 2"
+            view.parameters.level3 = "Level 3"
+            view.parameters.level4 = "Level 4"
+            view.parameters.value1 = 1000
+            view.parameters.value3 = "Value 3"
+            view.parameters.value1Status = .cancelled
+            view.parameters.tagTitle = "Tag title"
+            view.parameters.tagStatus = .positive
+            view.parameters.hasChevron = true
+            view.parameters.hasCheckbox = true
+            view.parameters.isSelected = true
+            view.parameters.onTouch = {
+                print("Touched!")
+            }
+        }
+    }()
+
+    public lazy var transactionListItem11: OceanSwiftUI.TransactionListItem = {
+        OceanSwiftUI.TransactionListItem { view in
+            view.parameters.level1 = "Level 1 - processing"
+            view.parameters.level2 = "Level 2"
+            view.parameters.level3 = "Level 3"
+            view.parameters.level4 = "Level 4"
+            view.parameters.value1 = 1000
+            view.parameters.value3 = "Value 3"
+            view.parameters.value1Status = .processing
+            view.parameters.tagTitle = "Tag title"
+            view.parameters.tagStatus = .positive
+            view.parameters.hasChevron = true
+            view.parameters.hasCheckbox = true
+            view.parameters.isSelected = true
+            view.parameters.onTouch = {
+                print("Touched!")
+            }
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             Spacer(minLength: 40)
@@ -166,6 +206,8 @@ class TransactionListItemSwiftUIViewController: UIViewController {
             transactionListItem6
             transactionListItem7
             transactionListItem9
+            transactionListItem10
+            transactionListItem11
         }
     })
 
