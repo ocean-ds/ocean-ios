@@ -96,6 +96,8 @@ extension OceanSwiftUI {
             case neutral
             case positive
             case negative
+            case processing
+            case cancelled
         }
     }
 
@@ -228,6 +230,23 @@ extension OceanSwiftUI {
             .frame(maxWidth: .infinity, alignment: .leading)
         }
 
+        private func getValue1Color() -> UIColor {
+            if !parameters.isEnabled {
+                return Ocean.color.colorInterfaceDarkUp
+            }
+
+            switch parameters.value1Status {
+            case .neutral:
+                return Ocean.color.colorInterfaceDarkDeep
+            case .positive:
+                return Ocean.color.colorStatusPositiveDeep
+            case .negative:
+                return Ocean.color.colorInterfaceDarkDeep
+            case .cancelled, .processing:
+                return Ocean.color.colorInterfaceDarkUp
+            }
+        }
+
         @ViewBuilder
         private var trailingView: some View {
             HStack {
@@ -238,12 +257,12 @@ extension OceanSwiftUI {
                         } else {
                             label.parameters.text = "\(parameters.sign) \(parameters.value1.toCurrency(symbolSpace: true) ?? " R$ 0,00")"
                         }
-                        label.parameters.textColor = parameters.isEnabled
-                        ? parameters.value1Status == .positive ? Ocean.color.colorStatusPositiveDeep : Ocean.color.colorInterfaceDarkDeep
-                        : Ocean.color.colorInterfaceDarkUp
+                        label.parameters.textColor = getValue1Color()
 
                         label.parameters.lineLimit = 1
                         label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
+                        label.parameters.strikethrough = parameters.value1Status == .cancelled
+                        label.parameters.strikethroughColor = getValue1Color()
                     }
 
                     if let value = parameters.value2?.toCurrency() {
