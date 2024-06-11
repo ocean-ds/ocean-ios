@@ -18,6 +18,7 @@ extension OceanSwiftUI {
         @Published public var descriptionLineLimit: Int?
         @Published public var caption: String
         @Published public var captionLineLimit: Int?
+        @Published public var captionColor: UIColor?
         @Published public var style: Style
         @Published public var tagLabel: String
         @Published public var tagStatus: TagParameters.Status
@@ -45,6 +46,7 @@ extension OceanSwiftUI {
                     descriptionLineLimit: Int? = nil,
                     caption: String = "",
                     captionLineLimit: Int? = nil,
+                    captionColor: UIColor? = nil,
                     style: Style = .normal,
                     tagLabel: String = "",
                     tagStatus: TagParameters.Status = .positive,
@@ -60,6 +62,7 @@ extension OceanSwiftUI {
             self.descriptionLineLimit = descriptionLineLimit
             self.caption = caption
             self.captionLineLimit = captionLineLimit
+            self.captionColor = captionColor
             self.style = style
             self.tagLabel = tagLabel
             self.tagStatus = tagStatus
@@ -122,6 +125,7 @@ extension OceanSwiftUI {
                         Spacer().frame(height: Ocean.size.spacingStackXxxs)
                         OceanSwiftUI.Typography.caption { label in
                             label.parameters.text = self.parameters.caption
+                            label.parameters.textColor = self.parameters.captionColor ?? Ocean.color.colorInterfaceDarkDown
                             label.parameters.lineLimit = self.parameters.captionLineLimit
                             label.parameters.showSkeleton = self.parameters.showSkeleton
                         }
