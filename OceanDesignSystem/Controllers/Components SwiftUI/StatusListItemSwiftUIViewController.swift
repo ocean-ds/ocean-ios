@@ -27,6 +27,7 @@ class StatusListItemSwiftUIViewController: UIViewController {
             statusListItem.parameters.title = "Title"
             statusListItem.parameters.description = "Description"
             statusListItem.parameters.caption = "Caption"
+            statusListItem.parameters.captionColor = Ocean.color.colorStatusNegativePure
             statusListItem.parameters.style = .normal
             statusListItem.parameters.tagLabel = "Label"
             statusListItem.parameters.tagStatus = .warning
