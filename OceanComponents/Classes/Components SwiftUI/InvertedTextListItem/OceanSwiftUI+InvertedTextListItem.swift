@@ -15,6 +15,7 @@ extension OceanSwiftUI {
     public class InvertedTextListItemParameters: ObservableObject {
         @Published public var title: String
         @Published public var subtitle: String
+        @Published public var subtitleColor: UIColor?
         @Published public var newSubtitle: String
         @Published public var caption: String
         @Published public var icon: UIImage?
@@ -29,6 +30,7 @@ extension OceanSwiftUI {
 
         public init(title: String = "",
                     subtitle: String = "",
+                    subtitleColor: UIColor? = nil,
                     newSubtitle: String = "",
                     caption: String = "",
                     icon: UIImage? = nil,
@@ -45,6 +47,7 @@ extension OceanSwiftUI {
                     showSkeleton: Bool = false) {
             self.title = title
             self.subtitle = subtitle
+            self.subtitleColor = subtitleColor
             self.newSubtitle = newSubtitle
             self.caption = caption
             self.icon = icon
@@ -138,7 +141,7 @@ extension OceanSwiftUI {
 
                         OceanSwiftUI.Typography.paragraph { label in
                             label.parameters.text = parameters.subtitle
-
+                            
                             if parameters.newSubtitle.isEmpty {
                                 label.parameters.textColor = getStatusColor()
                             } else {
@@ -191,6 +194,10 @@ extension OceanSwiftUI {
         }
 
         private func getStatusColor() -> UIColor {
+            if let subtitleColor = parameters.subtitleColor {
+                return subtitleColor
+            }
+            
             switch parameters.status {
             case .inactive:
                 return Ocean.color.colorInterfaceDarkUp
