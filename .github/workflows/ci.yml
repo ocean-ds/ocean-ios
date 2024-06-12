@@ -68,7 +68,7 @@ jobs:
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
 
       - name: Install pods
-        run: pod install --repo-update
+        run: pod install
 
       - name: Run tests
         run: bundle exec fastlane build_test
