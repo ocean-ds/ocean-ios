@@ -35,10 +35,10 @@ public extension String {
         case "colorstatusnegativedown": return Ocean.color.colorStatusNegativeDown
         case "colorstatusnegativepure": return Ocean.color.colorStatusNegativePure
         case "colorstatusnegativeup": return Ocean.color.colorStatusNegativeUp
-        case "colorstatusneutraldeep", "colorstatuswarningdeep": return Ocean.color.colorStatusNeutralDeep
-        case "colorstatusneutraldown", "colorstatuswarningdown": return Ocean.color.colorStatusNeutralDown
-        case "colorstatusneutralpure", "colorstatuswarningpure": return Ocean.color.colorStatusNeutralPure
-        case "colorstatusneutralup", "colorstatuswarningup": return Ocean.color.colorStatusNeutralUp
+        case "colorstatusneutraldeep", "colorstatuswarningdeep": return Ocean.color.colorStatusWarningDeep
+        case "colorstatusneutraldown", "colorstatuswarningdown": return Ocean.color.colorStatusWarningDown
+        case "colorstatusneutralpure", "colorstatuswarningpure": return Ocean.color.colorStatusWarningPure
+        case "colorstatusneutralup", "colorstatuswarningup": return Ocean.color.colorStatusWarningUp
         case "colorstatuspositivedeep": return Ocean.color.colorStatusPositiveDeep
         case "colorstatuspositivedown": return Ocean.color.colorStatusPositiveDown
         case "colorstatuspositivepure": return Ocean.color.colorStatusPositivePure

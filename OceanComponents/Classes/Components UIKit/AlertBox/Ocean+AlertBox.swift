@@ -39,9 +39,9 @@ extension Ocean {
                     titleLabel.textColor = Ocean.color.colorBrandPrimaryDown
                     image = Ocean.icon.informationCircleOutline
                 case .warning:
-                    backgroundColor = Ocean.color.colorStatusNeutralUp
-                    iconImageView.tintColor = Ocean.color.colorStatusNeutralDeep
-                    titleLabel.textColor = Ocean.color.colorStatusNeutralDeep
+                    backgroundColor = Ocean.color.colorStatusWarningUp
+                    iconImageView.tintColor = Ocean.color.colorStatusWarningDeep
+                    titleLabel.textColor = Ocean.color.colorStatusWarningDeep
                     image = Ocean.icon.exclamationCircleOutline
                 case .error:
                     backgroundColor = Ocean.color.colorStatusNegativeUp

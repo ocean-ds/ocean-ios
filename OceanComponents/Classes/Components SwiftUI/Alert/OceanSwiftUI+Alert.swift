@@ -280,7 +280,7 @@ extension OceanSwiftUI {
             case .positive:
                 return Ocean.color.colorStatusPositiveDeep
             case .warning:
-                return Ocean.color.colorStatusNeutralDeep
+                return Ocean.color.colorStatusWarningDeep
             case .negative:
                 return Ocean.color.colorStatusNegativePure
             }
@@ -293,7 +293,7 @@ extension OceanSwiftUI {
             case .positive:
                 return Color(Ocean.color.colorStatusPositiveUp)
             case .warning:
-                return Color(Ocean.color.colorStatusNeutralUp)
+                return Color(Ocean.color.colorStatusWarningUp)
             case .negative:
                 return Color(Ocean.color.colorStatusNegativeUp)
             }

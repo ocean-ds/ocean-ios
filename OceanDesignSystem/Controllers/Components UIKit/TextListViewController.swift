@@ -138,14 +138,14 @@ final public class TextListViewController : UIViewController {
         let textList16 = Ocean.TextList.cell { textList in
             textList.title = "Title"
             textList.subtitleTextLabel = .init(value: "Calculada no dia",
-                                               color: Ocean.color.colorStatusNeutralDeep)
+                                               color: Ocean.color.colorStatusWarningDeep)
         }
 
         let textList17 = Ocean.TextList.cell { textList in
             textList.title = "Title"
             textList.subtitleTextLabel = .init(value: "Calculada no dia",
                                                imageIcon: Ocean.icon.exclamationCircleSolid,
-                                               color: Ocean.color.colorStatusNeutralDeep)
+                                               color: Ocean.color.colorStatusWarningDeep)
         }
         
         let textList18 = Ocean.TextList.cell { textList in

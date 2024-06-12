@@ -132,7 +132,7 @@ extension Ocean {
                 self.backgroundColor = Ocean.color.colorInterfaceLightPure
                 self.label.textColor = Ocean.color.colorBrandPrimaryPure
             case .warning, .alert:
-                self.backgroundColor = Ocean.color.colorStatusNeutralPure
+                self.backgroundColor = Ocean.color.colorStatusWarningPure
                 self.label.textColor = Ocean.color.colorInterfaceLightPure
             case .highlight:
                 self.backgroundColor = Ocean.color.colorHighlightPure

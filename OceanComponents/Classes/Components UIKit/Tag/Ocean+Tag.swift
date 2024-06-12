@@ -132,9 +132,9 @@ extension Ocean {
                 self.imageView.tintColor = Ocean.color.colorStatusPositiveDeep
                 self.titleLabel.textColor = Ocean.color.colorStatusPositiveDeep
             case .warning:
-                self.backgroundColor = Ocean.color.colorStatusNeutralUp
-                self.imageView.tintColor = Ocean.color.colorStatusNeutralDeep
-                self.titleLabel.textColor = Ocean.color.colorStatusNeutralDeep
+                self.backgroundColor = Ocean.color.colorStatusWarningUp
+                self.imageView.tintColor = Ocean.color.colorStatusWarningDeep
+                self.titleLabel.textColor = Ocean.color.colorStatusWarningDeep
             case .negative:
                 self.backgroundColor = Ocean.color.colorStatusNegativeUp
                 self.imageView.tintColor = Ocean.color.colorStatusNegativePure

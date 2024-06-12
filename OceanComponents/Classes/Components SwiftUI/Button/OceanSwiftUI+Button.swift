@@ -244,7 +244,7 @@ extension OceanSwiftUI {
             case .primaryInverse:
                 return configuration.isPressed ? Color(Ocean.color.colorComplementaryDeep) : Color(Ocean.color.colorComplementaryPure)
             case .warning:
-                return configuration.isPressed ? Color(Ocean.color.colorStatusNeutralDeep) : Color(Ocean.color.colorStatusNeutralPure)
+                return configuration.isPressed ? Color(Ocean.color.colorStatusWarningDeep) : Color(Ocean.color.colorStatusWarningPure)
             }
         }
     }

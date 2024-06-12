@@ -31,7 +31,7 @@ class ChartCardViewController: UIViewController {
             item.title = "Title 2"
             item.tooltipMessage = "message tooltip"
             item.value = 123.00
-            item.color = Ocean.color.colorStatusNeutralPure
+            item.color = Ocean.color.colorStatusWarningPure
             item.valueRepresentationType = .percent
             
             return item
@@ -182,7 +182,7 @@ class ChartCardViewController: UIViewController {
             item.subtitle = "Subtitle 2"
             item.tooltipMessage = "message tooltip"
             item.value = 123.00
-            item.color = Ocean.color.colorStatusNeutralPure
+            item.color = Ocean.color.colorStatusWarningPure
             item.valueRepresentationType = .percent
             
             return item

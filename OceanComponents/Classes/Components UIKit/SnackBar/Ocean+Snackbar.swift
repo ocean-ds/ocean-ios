@@ -160,7 +160,7 @@ extension Ocean {
                 setIconColor(color: Ocean.color.colorBrandPrimaryUp)
                 break
             case .alert:
-                setIconColor(color:Ocean.color.colorStatusNeutralPure)
+                setIconColor(color:Ocean.color.colorStatusWarningPure)
                 break
             case .error:
                 setIconColor(color:Ocean.color.colorStatusNegativePure)
@@ -212,7 +212,7 @@ extension Ocean {
                 labelButton.textColor = Ocean.color.colorBrandPrimaryUp
                 break
             case .alert:
-                labelButton.textColor = Ocean.color.colorStatusNeutralPure
+                labelButton.textColor = Ocean.color.colorStatusWarningPure
                 break
             case .error:
                 labelButton.textColor = Ocean.color.colorStatusNegativePure
