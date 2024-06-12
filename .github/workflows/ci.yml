@@ -7,11 +7,13 @@ jobs:
     runs-on: macos-13
     steps:
       - name: Checkout the code
-        run: |
-          /usr/local/bin/git checkout hotfix/fix-ocean-tokens
-        env:
-          BRANCH_NAME: ${{ github.head_ref || github.ref_name }} 
-          TOKEN: ${{ secrets.GH_TOKEN }}
+        uses: actions/checkout@v2
+        with:
+          # Check out as an admin to allow for pushing back to master
+          token: ${{ secrets.GH_TOKEN }}
+          # We need to fetch all tags and branches
+          fetch-depth: 0
+          ref: ${{ github.head_ref || github.ref_name }} 
 
       - name: Select xcode version
         uses: maxim-lobanov/setup-xcode@v1
