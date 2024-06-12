@@ -68,14 +68,14 @@ jobs:
         env:
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
 
-      - name: Install pods
-        run: pod install
-
       - name: Deploy libary cocoapod OceanComponents
         run: |
           pod trunk push OceanComponents.podspec
         env:
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
+
+      - name: Install pods
+        run: pod install --repo-update
 
       - name: Increment version app sample
         run: bundle exec fastlane prepare_new_version
