@@ -3,7 +3,7 @@ name: CD
 on:
   push:
     branches:
-      - hotfix/fix-ocean-tokens
+      - master
 
 jobs:
   build:
@@ -29,31 +29,18 @@ jobs:
 
       - name: Bundle install
         run: bundle install
-
-      - name: Install mint
-        run: brew install mint
-
-      - name: Install swiftgen
-        run: mint install SwiftGen/SwiftGen
-
-      - name: Update tokens
-        run: sh update_tokens.sh
-
+      
       - name: Increment version cocoapod
         run: |
           LATEST_VERSION_TOKENS_LIB_NPM=`npm show @useblu/ocean-tokens version`
-          rm OceanTokens.podspec
           rm OceanComponents.podspec
-          cp -fR OceanTokens.template OceanTokens.podspec
           cp -fR OceanComponents.template OceanComponents.podspec
-          sed -i '' "s/#VERSION_NAME#/'$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER'/g" OceanTokens.podspec
           sed -i '' "s/#VERSION_NAME#/'$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER'/g" OceanComponents.podspec
 
       - name: Commit changes
         run: |
           LATEST_VERSION_TOKENS_LIB_NPM=`npm show @useblu/ocean-tokens version`
           git add . && git commit -am "chore: update tokens v$LATEST_VERSION_TOKENS_LIB_NPM [skip ci]" && git push
-          git tag -a "OceanTokens-$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" -m "Release of version OceanTokens $LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" && git push --tags
           git tag -a "OceanComponents-$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" -m "Release of version OceanComponents $LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" && git push --tags
 
       - name: Fix cocoapod Xcode 15
@@ -61,17 +48,6 @@ jobs:
           cd /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/
           sudo git clone https://github.com/kamyarelyasi/Libarclite-Files.git
           sudo mv Libarclite-Files arc
-
-      - name: Deploy libary cocoapod OceanTokens
-        run: |
-          pod trunk push OceanTokens.podspec
-        env:
-          COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
-
-      - name: Wait OceanTokens
-        uses: GuillaumeFalourd/wait-sleep-action@v1
-        with:
-          time: '5m'
 
       - name: Deploy libary cocoapod OceanComponents
         run: |
