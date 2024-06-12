@@ -71,7 +71,7 @@ jobs:
       - name: Wait OceanTokens
         uses: GuillaumeFalourd/wait-sleep-action@v1
         with:
-          time: '3m' # for 1 minute
+          time: '5m'
 
       - name: Deploy libary cocoapod OceanComponents
         run: |
