@@ -68,6 +68,11 @@ jobs:
         env:
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
 
+      - name: Wait OceanTokens
+        uses: GuillaumeFalourd/wait-sleep-action@v1
+        with:
+          time: '3m' # for 1 minute
+
       - name: Deploy libary cocoapod OceanComponents
         run: |
           pod trunk push OceanComponents.podspec
