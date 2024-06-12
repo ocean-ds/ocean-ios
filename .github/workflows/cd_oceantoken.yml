@@ -2,7 +2,8 @@ name: CD_OceanToken
 
 on:
   create:
-    branches
+    branches:
+      - "**"
 
 jobs:
   build:
