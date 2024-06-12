@@ -8,7 +8,7 @@ jobs:
     steps:
       - name: Checkout the code
         run: |
-          /usr/local/bin/git checkout $BRANCH_NAME
+          /usr/local/bin/git checkout hotfix/fix-ocean-tokens
         env:
           BRANCH_NAME: ${{ github.head_ref || github.ref_name }} 
           TOKEN: ${{ secrets.GH_TOKEN }}
