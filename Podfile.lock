@@ -4,16 +4,16 @@ PODS:
   - DGCharts/Core (5.1.0)
   - EasyTipView (2.1.0)
   - FSCalendar (2.8.4)
-  - OceanComponents (3.7.0-483):
+  - OceanComponents (3.7.0-484):
     - DGCharts
     - EasyTipView
     - FSCalendar
-    - OceanTokens (= 3.7.0-483)
+    - OceanTokens (= 3.7.0-1361)
     - SDWebImage
     - SkeletonUI
     - SkeletonView
     - SPStorkController
-  - OceanTokens (3.7.0-483)
+  - OceanTokens (3.7.0-1361)
   - SDWebImage (5.18.11):
     - SDWebImage/Core (= 5.18.11)
   - SDWebImage/Core (5.18.11)
@@ -23,13 +23,13 @@ PODS:
 
 DEPENDENCIES:
   - OceanComponents (from `./`)
-  - OceanTokens (from `./`)
 
 SPEC REPOS:
   trunk:
     - DGCharts
     - EasyTipView
     - FSCalendar
+    - OceanTokens
     - SDWebImage
     - SkeletonUI
     - SkeletonView
@@ -38,20 +38,18 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   OceanComponents:
     :path: "./"
-  OceanTokens:
-    :path: "./"
 
 SPEC CHECKSUMS:
   DGCharts: 1c6daf585b6cfc78807af44ea690d357c410627f
   EasyTipView: a92b6edc377b81c5ac18e9fd35d5ee78e9409488
   FSCalendar: 2d1d0d9398f12d439f55c1fe0f01525b151b8260
-  OceanComponents: 21a07ed8b29e4b791abddb07516705d77bdd7778
-  OceanTokens: b77d20a0c464510616d934a3a3880df9933fe68d
+  OceanComponents: 46b17485704821acf4b3182c689d3b042356ee4f
+  OceanTokens: ebdce61746ba39813d6cefcb5f904c10335dc4fa
   SDWebImage: a3ba0b8faac7228c3c8eadd1a55c9c9fe5e16457
   SkeletonUI: 8d622a4dd755650bd5d50eed1e4180fa146c5d6b
   SkeletonView: 5a050f6411e697abd4cda0a8d767013399dccd69
   SPStorkController: 68966ed3134de2be2a8bbd1475c7e81f3f7d01ee
 
-PODFILE CHECKSUM: ab8e24fd7284a70c6fd7c94aac7243e86a16da07
+PODFILE CHECKSUM: 36535976410a1bc2716726ec41b5c8714b0ce38e
 
 COCOAPODS: 1.15.2
