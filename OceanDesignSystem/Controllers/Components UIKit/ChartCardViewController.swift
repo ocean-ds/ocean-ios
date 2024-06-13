@@ -16,59 +16,61 @@ class ChartCardViewController: UIViewController {
     lazy var scrollView: UIScrollView = { return UIScrollView(frame: .zero) }()
     lazy var scrollableContentView: UIView = { UIView(frame: .zero) }()
     
-    var chartCardFull: [Ocean.ChartCardItem] = [
-        {
-            let item = Ocean.ChartCardItem()
-            item.title = "Title 1"
-            item.value = 123.00
-            item.color = Ocean.color.colorComplementaryPure
-            item.valueRepresentationType = .percent
-            
-            return item
-        }(),
-        {
-            let item = Ocean.ChartCardItem()
-            item.title = "Title 2"
-            item.tooltipMessage = "message tooltip"
-            item.value = 123.00
-            item.color = Ocean.color.colorStatusNeutralPure
-            item.valueRepresentationType = .percent
-            
-            return item
-        }(),
-        {
-            let item = Ocean.ChartCardItem()
-            item.title = "Title 3"
-            item.subtitle = "Subtitle 3"
-            item.tooltipMessage = "message tooltip"
-            item.value = 123.00
-            item.color = Ocean.color.colorStatusPositivePure
-            item.valueRepresentationType = .percent
-            
-            return item
-        }(),
-        {
-            let item = Ocean.ChartCardItem()
-            item.title = "Title 4"
-            item.subtitle = "Subtitle 4"
-            item.value = 123.00
-            item.color = Ocean.color.colorBrandPrimaryDown
-            item.valueRepresentationType = .percent
-            
-            return item
-        }(),
-        {
-            let item = Ocean.ChartCardItem()
-            item.title = "Title 5"
-            item.subtitle = "Subtitle 5"
-            item.tooltipMessage = "message tooltip"
-            item.value = 123.00
-            item.color = Ocean.color.colorStatusNegativePure
-            item.valueRepresentationType = .percent
-            
-            return item
-        }()
-    ]
+    func getChartCard(value: Double = 123.00) -> [Ocean.ChartCardItem] {
+        return [
+            {
+                let item = Ocean.ChartCardItem()
+                item.title = "Title 1"
+                item.value = value
+                item.color = Ocean.color.colorComplementaryPure
+                item.valueRepresentationType = .percent
+                
+                return item
+            }(),
+            {
+                let item = Ocean.ChartCardItem()
+                item.title = "Title 2"
+                item.tooltipMessage = "message tooltip"
+                item.value = value
+                item.color = Ocean.color.colorStatusWarningPure
+                item.valueRepresentationType = .percent
+                
+                return item
+            }(),
+            {
+                let item = Ocean.ChartCardItem()
+                item.title = "Title 3"
+                item.subtitle = "Subtitle 3"
+                item.tooltipMessage = "message tooltip"
+                item.value = value
+                item.color = Ocean.color.colorStatusPositivePure
+                item.valueRepresentationType = .percent
+                
+                return item
+            }(),
+            {
+                let item = Ocean.ChartCardItem()
+                item.title = "Title 4"
+                item.subtitle = "Subtitle 4"
+                item.value = value
+                item.color = Ocean.color.colorBrandPrimaryDown
+                item.valueRepresentationType = .percent
+                
+                return item
+            }(),
+            {
+                let item = Ocean.ChartCardItem()
+                item.title = "Title 5"
+                item.subtitle = "Subtitle 5"
+                item.tooltipMessage = "message tooltip"
+                item.value = value
+                item.color = Ocean.color.colorStatusNegativePure
+                item.valueRepresentationType = .percent
+                
+                return item
+            }()
+        ]
+    }
     
     lazy var chartCardView: Ocean.ChartCard = {
         let chart = Ocean.ChartCard()
@@ -84,67 +86,9 @@ class ChartCardViewController: UIViewController {
         chart.bottomCTAAction =  {
             self.showSnackBar(message: "CTA action")
         }
-        chart.items = chartCardFull
+        chart.items = getChartCard()
         return chart
     }()
-    
-    var chartCardEmptyState: [Ocean.ChartCardItem] = [
-        {
-            let item = Ocean.ChartCardItem()
-            item.title = "Title 1"
-            item.subtitle = "Subtitle 1"
-            item.tooltipMessage = "message tooltip"
-            item.value = 0
-            item.color = Ocean.color.colorInterfaceLightDeep
-            item.valueRepresentationType = .percent
-            
-            return item
-        }(),
-        {
-            let item = Ocean.ChartCardItem()
-            item.title = "Title 2"
-            item.subtitle = "Subtitle 2"
-            item.tooltipMessage = "message tooltip"
-            item.value = 0
-            item.color = Ocean.color.colorInterfaceLightDeep
-            item.valueRepresentationType = .percent
-            
-            return item
-        }(),
-        {
-            let item = Ocean.ChartCardItem()
-            item.title = "Title 3"
-            item.subtitle = "Subtitle 3"
-            item.tooltipMessage = "message tooltip"
-            item.value = 0
-            item.color = Ocean.color.colorInterfaceLightDeep
-            item.valueRepresentationType = .percent
-            
-            return item
-        }(),
-        {
-            let item = Ocean.ChartCardItem()
-            item.title = "Title 4"
-            item.subtitle = "Subtitle 4"
-            item.tooltipMessage = "message tooltip"
-            item.value = 0
-            item.color = Ocean.color.colorInterfaceLightDeep
-            item.valueRepresentationType = .percent
-            
-            return item
-        }(),
-        {
-            let item = Ocean.ChartCardItem()
-            item.title = "Title 5"
-            item.subtitle = "Subtitle 5"
-            item.tooltipMessage = "message tooltip"
-            item.value = 0
-            item.color = Ocean.color.colorInterfaceLightDeep
-            item.valueRepresentationType = .percent
-            
-            return item
-        }()
-    ]
     
     lazy var chartCardViewEmptyState: Ocean.ChartCard = {
         let chart = Ocean.ChartCard()
@@ -160,67 +104,9 @@ class ChartCardViewController: UIViewController {
         chart.bottomCTAAction =  {
             self.showSnackBar(message: "CTA action")
         }
-        chart.items = chartCardEmptyState
+        chart.items = getChartCard(value: 0)
         return chart
     }()
-    
-    var chartCardSkeleton: [Ocean.ChartCardItem] = [
-        {
-            let item = Ocean.ChartCardItem()
-            item.title = "Title 1"
-            item.subtitle = "Subtitle 1"
-            item.tooltipMessage = "message tooltip"
-            item.value = 123.00
-            item.color = Ocean.color.colorComplementaryPure
-            item.valueRepresentationType = .percent
-            
-            return item
-        }(),
-        {
-            let item = Ocean.ChartCardItem()
-            item.title = "Title 2"
-            item.subtitle = "Subtitle 2"
-            item.tooltipMessage = "message tooltip"
-            item.value = 123.00
-            item.color = Ocean.color.colorStatusNeutralPure
-            item.valueRepresentationType = .percent
-            
-            return item
-        }(),
-        {
-            let item = Ocean.ChartCardItem()
-            item.title = "Title 3"
-            item.subtitle = "Subtitle 3"
-            item.tooltipMessage = "message tooltip"
-            item.value = 123.00
-            item.color = Ocean.color.colorStatusPositivePure
-            item.valueRepresentationType = .percent
-            
-            return item
-        }(),
-        {
-            let item = Ocean.ChartCardItem()
-            item.title = "Title 4"
-            item.subtitle = "Subtitle 4"
-            item.tooltipMessage = "message tooltip"
-            item.value = 123.00
-            item.color = Ocean.color.colorBrandPrimaryDown
-            item.valueRepresentationType = .percent
-            
-            return item
-        }(),
-        {
-            let item = Ocean.ChartCardItem()
-            item.title = "Title 5"
-            item.subtitle = "Subtitle 5"
-            item.tooltipMessage = "message tooltip"
-            item.value = 123.00
-            item.color = Ocean.color.colorStatusNegativePure
-            item.valueRepresentationType = .percent
-            
-            return item
-        }()
-    ]
     
     lazy var chartCardViewSkeleton: Ocean.ChartCard = {
         let chart = Ocean.ChartCard()
@@ -236,7 +122,7 @@ class ChartCardViewController: UIViewController {
         chart.bottomCTAAction =  {
             self.showSnackBar(message: "CTA action")
         }
-        chart.items = chartCardSkeleton
+        chart.items = getChartCard()
         return chart
     }()
     

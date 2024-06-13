@@ -85,7 +85,7 @@ struct OceanScoreChartView: UIViewRepresentable {
         } else if currentValue < 601 {
             return Ocean.color.colorStatusNegativePure
         } else if currentValue < 701 {
-            return Ocean.color.colorStatusNeutralDeep
+            return Ocean.color.colorStatusWarningDeep
         } else if currentValue < 901 {
             return Ocean.color.colorStatusPositivePure
         } else {

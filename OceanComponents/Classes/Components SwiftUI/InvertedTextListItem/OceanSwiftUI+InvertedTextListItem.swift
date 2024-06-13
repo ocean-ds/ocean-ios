@@ -204,7 +204,7 @@ extension OceanSwiftUI {
             case .positive:
                 return Ocean.color.colorStatusPositiveDeep
             case .warning:
-                return Ocean.color.colorStatusNeutralDeep
+                return Ocean.color.colorStatusWarningDeep
             case .strikethrough:
                 return Ocean.color.colorStatusPositiveDeep
             default:

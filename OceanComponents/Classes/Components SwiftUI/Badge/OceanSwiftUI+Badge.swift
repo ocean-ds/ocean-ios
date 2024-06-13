@@ -137,7 +137,7 @@ extension OceanSwiftUI {
             case .primaryInverted:
                 return Ocean.color.colorInterfaceLightPure
             case .warning:
-                return Ocean.color.colorStatusNeutralDeep
+                return Ocean.color.colorStatusWarningDeep
             case .highlight:
                 return Ocean.color.colorHighlightPure
             case .disabled:

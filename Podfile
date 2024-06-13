@@ -5,13 +5,11 @@ target 'OceanDesignSystem' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
   pod 'OceanComponents', :path => './'
-  pod 'OceanTokens', :path => './'
   
   target 'OceanDesignSystemTests' do
     inherit! :search_paths
     # Pods for testing
     pod 'OceanComponents', :path => './'
-    pod 'OceanTokens', :path => './'
   end
   
   post_install do |installer_representation|

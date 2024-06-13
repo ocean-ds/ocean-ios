@@ -61,7 +61,7 @@ final public class TransactionFooterViewController : UIViewController {
             var item = Ocean.TransactionItemModel()
             item.title = "Taxa de antecipação"
             item.subtitleTextLabel = .init(value: "Calculada no dia",
-                                           color: Ocean.color.colorStatusNeutralDeep)
+                                           color: Ocean.color.colorStatusWarningDeep)
             return item
         }()
 

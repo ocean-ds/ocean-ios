@@ -57,6 +57,8 @@ public struct size {
   public static let spacingInlineXxl: CGFloat = 64
   ///public static let spacingInlineXxs: CGFloat = 8
   public static let spacingInlineXxs: CGFloat = 8
+  ///public static let spacingInlineXxsExtra: CGFloat = 12
+  public static let spacingInlineXxsExtra: CGFloat = 12
   ///public static let spacingInlineXxxl: CGFloat = 80
   public static let spacingInlineXxxl: CGFloat = 80
   ///public static let spacingInlineXxxs: CGFloat = 4
@@ -87,6 +89,8 @@ public struct size {
   public static let spacingStackXxl: CGFloat = 64
   ///public static let spacingStackXxs: CGFloat = 8
   public static let spacingStackXxs: CGFloat = 8
+  ///public static let spacingStackXxsExtra: CGFloat = 12
+  public static let spacingStackXxsExtra: CGFloat = 12
   ///public static let spacingStackXxxl: CGFloat = 80
   public static let spacingStackXxxl: CGFloat = 80
   ///public static let spacingStackXxxs: CGFloat = 4
