@@ -1,9 +1,9 @@
 name: CD_OceanToken
 
-on:
-  create:
-    branches:
-      - "**"
+# on:
+#   create:
+#     branches:
+#       - "**"
 
 jobs:
   build:
