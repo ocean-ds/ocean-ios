@@ -121,6 +121,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(SwitchSwiftUIViewController(), animated: true, completion: nil)
         case .SimpleBalance:
             self.present(SimpleBalanceSwiftUIViewController(), animated: true, completion: nil)
+        case .SettingsListItem:
+            self.present(SettingListItemSwiftUIViewController(), animated: true, completion: nil)
         }
     }
 }

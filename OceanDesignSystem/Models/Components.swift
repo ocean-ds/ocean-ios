@@ -87,6 +87,7 @@ struct DSComponents {
         "ProgressBar",
         "ProgressIndicator",
         "RadioButtonGroup",
+        "SettingsListItem",
         "StatusListItem",
         "Subheader",
         "Step",
