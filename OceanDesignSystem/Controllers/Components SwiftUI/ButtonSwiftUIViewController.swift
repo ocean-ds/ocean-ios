@@ -123,6 +123,21 @@ class ButtonSwiftUIViewController: UIViewController {
         }
     }()
 
+    lazy var button9: OceanSwiftUI.Button = {
+        return OceanSwiftUI.Button.primaryMD { button in
+            button.parameters.text = "Avançar"
+            button.parameters.icon = Ocean.icon.plusSolid
+            button.parameters.showSkeleton = true
+            button.parameters.onTouch = {
+                button.parameters.isLoading.toggle()
+                print("Tap")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    button.parameters.isLoading.toggle()
+                }
+            }
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             button1
@@ -133,6 +148,7 @@ class ButtonSwiftUIViewController: UIViewController {
             button6
             button7
             button8
+            button9
         }
     })
 
