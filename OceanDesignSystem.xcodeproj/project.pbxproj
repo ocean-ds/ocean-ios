@@ -113,6 +113,7 @@
 		E1DB7A2428FF243900A0459A /* CardListItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DB7A2328FF243900A0459A /* CardListItemViewController.swift */; };
 		E1DBF42929898E4100BCD65B /* SettingsListItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DBF42829898E4100BCD65B /* SettingsListItemViewController.swift */; };
 		E1DE74F32A12C18500C9361F /* ChartCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DE74F22A12C18500C9361F /* ChartCardViewController.swift */; };
+		E1E384A42C220F2A00E149CC /* SettingListItemSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E384A32C220F2A00E149CC /* SettingListItemSwiftUIViewController.swift */; };
 		E1EDBC902A6044AE00A39762 /* LinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EDBC8F2A6044AE00A39762 /* LinkViewController.swift */; };
 		E985454E275EA0EF0010B9EC /* ChipsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985454D275EA0EF0010B9EC /* ChipsViewController.swift */; };
 		EF3B75637AB4C337A8815773 /* Pods_OceanDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EB1196835010A118EBD7D61 /* Pods_OceanDesignSystem.framework */; };
@@ -256,6 +257,7 @@
 		E1DB7A2328FF243900A0459A /* CardListItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListItemViewController.swift; sourceTree = "<group>"; };
 		E1DBF42829898E4100BCD65B /* SettingsListItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsListItemViewController.swift; sourceTree = "<group>"; };
 		E1DE74F22A12C18500C9361F /* ChartCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartCardViewController.swift; sourceTree = "<group>"; };
+		E1E384A32C220F2A00E149CC /* SettingListItemSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingListItemSwiftUIViewController.swift; sourceTree = "<group>"; };
 		E1EDBC8F2A6044AE00A39762 /* LinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkViewController.swift; sourceTree = "<group>"; };
 		E985454D275EA0EF0010B9EC /* ChipsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipsViewController.swift; sourceTree = "<group>"; };
 		F1C51EDA6F9FD188633DD21F /* Pods-OceanDesignSystemTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OceanDesignSystemTests.release.xcconfig"; path = "Target Support Files/Pods-OceanDesignSystemTests/Pods-OceanDesignSystemTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -389,6 +391,7 @@
 				E113BFA02C0622900019A31E /* TransactionFooterSwiftUIViewController.swift */,
 				428C30F12C05240000179D06 /* SwitchSwiftUIViewController.swift */,
 				E12018782C04BA64008B040F /* SimpleBalanceSwiftUIViewController.swift */,
+				E1E384A32C220F2A00E149CC /* SettingListItemSwiftUIViewController.swift */,
 			);
 			path = "Components SwiftUI";
 			sourceTree = "<group>";
@@ -786,6 +789,7 @@
 				D5D28DE32A1C05DD0070B8CE /* DetailedCardViewController.swift in Sources */,
 				8ECB029F283319340037DC25 /* CardCrossSellViewController.swift in Sources */,
 				246535F726E259C20079354A /* TagViewController.swift in Sources */,
+				E1E384A42C220F2A00E149CC /* SettingListItemSwiftUIViewController.swift in Sources */,
 				2482CDD4267D055100A50422 /* RadioButtonViewController.swift in Sources */,
 				E152E3342BBB5AB4007133E1 /* OnboardingSwiftUIViewController.swift in Sources */,
 				E985454E275EA0EF0010B9EC /* ChipsViewController.swift in Sources */,
