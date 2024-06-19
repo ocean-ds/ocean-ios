@@ -245,7 +245,7 @@ extension OceanSwiftUI {
                                 .foregroundColor(Color(self.parameters.isDisabled ? Ocean.color.colorInterfaceLightUp : Ocean.color.colorInterfaceLightPure))
                         )
                         .font(Font(UIFont.baseRegular(size: Ocean.font.fontSizeXs)!))
-                        .foregroundColor(Color(Ocean.color.colorInterfaceDarkDeep))
+                        .foregroundColor(Color(self.parameters.isDisabled ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorInterfaceDarkDeep))
                         .skeleton(with: self.parameters.showSkeleton)
 
                     if let icon = self.parameters.icon {
