@@ -64,6 +64,7 @@ final public class InputSwiftUIViewController : UIViewController {
             input.parameters.title = "Title"
             input.parameters.placeholder = "Placeholder"
             input.parameters.helperMessage = "Helper message"
+            input.parameters.text = "Text"
             input.parameters.isDisabled = true
         }
     }()
