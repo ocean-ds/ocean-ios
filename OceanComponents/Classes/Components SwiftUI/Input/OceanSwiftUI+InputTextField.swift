@@ -117,6 +117,7 @@ extension OceanSwiftUI {
         public init(builder: Builder) {
             self.init()
             builder(self)
+            self.textOld = parameters.text
         }
 
         // MARK: View SwiftUI
