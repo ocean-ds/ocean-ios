@@ -40,6 +40,8 @@ jobs:
             mint install SwiftGen/SwiftGen
             sh update_tokens.sh
 
+            echo $LATEST_VERSION_TOKENS_LIB_NPM > oceantokenversion
+
             rm OceanTokens.podspec
             rm OceanComponents.template
             cp -fR OceanTokens.template OceanTokens.podspec
@@ -55,10 +57,6 @@ jobs:
             sudo mv Libarclite-Files arc
 
             pod trunk push OceanTokens.podspec
-
-            echo $LATEST_VERSION_TOKENS_LIB_NPM > oceantokenversion
-
-            git add . && git commit -am "chore: update verison ocean tokens v$LATEST_VERSION_TOKENS_LIB_NPM [skip ci]" && git push origin $BRANCH_NAME
           fi
         env:
           BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
