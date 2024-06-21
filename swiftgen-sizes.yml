@@ -1,0 +1,6 @@
+json:
+    inputs:
+      - node_modules/@useblu/ocean-tokens/ios/tokens-size.json
+    outputs:
+      - templatePath: templates/ocean-sizes.stencil
+        output: OceanTokens/Classes/OceanExtensionSize.swift
