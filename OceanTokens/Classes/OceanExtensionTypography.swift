@@ -55,8 +55,10 @@ public struct font {
   public static let fontSizeXxxs: CGFloat = 12
   ///public static let lineHeightComfy: CGFloat = 1.5
   public static let lineHeightComfy: CGFloat = 1.5
-  ///public static let lineHeightMedium: CGFloat = 1.1
-  public static let lineHeightMedium: CGFloat = 1.1
+  ///public static let lineHeightLoose: CGFloat = 1.32
+  public static let lineHeightLoose: CGFloat = 1.32
+  ///public static let lineHeightMedium: CGFloat = 1.24
+  public static let lineHeightMedium: CGFloat = 1.24
   ///public static let lineHeightTight: CGFloat = 1
   public static let lineHeightTight: CGFloat = 1
 }
