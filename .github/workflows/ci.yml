@@ -40,7 +40,7 @@ jobs:
           then
             echo "diferente"
 
-            echo LATEST_VERSION_TOKENS_LIB_NPM >> oceantokenversion
+            echo `LATEST_VERSION_TOKENS_LIB_NPM` > oceantokenversion
 
             cat oceantokenversion
           fi
