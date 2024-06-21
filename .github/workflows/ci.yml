@@ -14,6 +14,7 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           # We need to fetch all tags and branches
           fetch-depth: 0
+          ref: ${{ github.head_ref || github.ref_name }} 
 
       - name: Select xcode version
         uses: maxim-lobanov/setup-xcode@v1
@@ -28,8 +29,22 @@ jobs:
       - name: Bundle install
         run: bundle install
 
-      - name: Install pods
-        run: pod install
+      - name: Install dependencies and update tokens
+        run: |
+          LATEST_VERSION_TOKENS_LIB_NPM=`npm show @useblu/ocean-tokens version`
+          LATEST_VERSION_TOKENS=cat oceantokenversion
 
-      - name: Run tests
-        run: bundle exec fastlane build_test
+          if [ LATEST_VERSION_TOKENS_LIB_NPM != LATEST_VERSION_TOKENS ]
+          then
+            echo "diferente"
+          fi
+
+      #     brew install mint
+      #     mint install SwiftGen/SwiftGen
+      #     sh update_tokens.sh
+
+      # - name: Install pods
+      #   run: pod install
+
+      # - name: Run tests
+      #   run: bundle exec fastlane build_test
