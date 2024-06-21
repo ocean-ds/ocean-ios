@@ -34,9 +34,15 @@ jobs:
           LATEST_VERSION_TOKENS_LIB_NPM=`npm show @useblu/ocean-tokens version`
           LATEST_VERSION_TOKENS=`cat oceantokenversion`
 
+          cat oceantokenversion
+
           if [ LATEST_VERSION_TOKENS_LIB_NPM != LATEST_VERSION_TOKENS ]
           then
             echo "diferente"
+
+            echo LATEST_VERSION_TOKENS_LIB_NPM >> oceantokenversion
+
+            cat oceantokenversion
           fi
 
       #     brew install mint
