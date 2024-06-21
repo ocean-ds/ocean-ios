@@ -57,11 +57,13 @@ jobs:
             pod trunk push OceanTokens.podspec
 
             echo $LATEST_VERSION_TOKENS_LIB_NPM > oceantokenversion
+
+            git add . && git commit -am "chore: update verison ocean tokens v$LATEST_VERSION_TOKENS_LIB_NPM [skip ci]" && git push origin $BRANCH_NAME
           fi
         env:
           BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
-          
+
       - name: Install pods
         run: pod install
 
