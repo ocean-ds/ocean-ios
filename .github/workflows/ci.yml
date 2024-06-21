@@ -32,7 +32,7 @@ jobs:
       - name: Install dependencies and update tokens
         run: |
           LATEST_VERSION_TOKENS_LIB_NPM=`npm show @useblu/ocean-tokens version`
-          LATEST_VERSION_TOKENS=cat oceantokenversion
+          LATEST_VERSION_TOKENS=`cat oceantokenversion`
 
           if [ LATEST_VERSION_TOKENS_LIB_NPM != LATEST_VERSION_TOKENS ]
           then
