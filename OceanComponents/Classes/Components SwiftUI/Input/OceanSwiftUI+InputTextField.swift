@@ -25,11 +25,13 @@ extension OceanSwiftUI {
         @Published public var iconHelper: UIImage?
         @Published public var keyboardType: UIKeyboardType
         @Published public var autocapitalization: UITextAutocapitalizationType
+        @Published public var autocorrectionDisabled: Bool
         @Published public var textContentType: UITextContentType?
         @Published public var maxLength: Int?
         @Published public var showMaxLength: Bool
         @Published public var isDisabled: Bool
         @Published public var showSkeleton: Bool
+        @Published public var reserveMessageHeight: Bool
         public var onMask: ((String) -> String)?
         public var onValueChanged: (String) -> Void
         public var onTouchIcon: () -> Void
@@ -46,11 +48,13 @@ extension OceanSwiftUI {
                     iconHelper: UIImage? = nil,
                     keyboardType: UIKeyboardType = .default,
                     autocapitalization: UITextAutocapitalizationType = .words,
+                    autocorrectionDisabled: Bool = false,
                     textContentType: UITextContentType? = nil,
                     maxLength: Int? = nil,
                     showMaxLength: Bool = false,
                     isDisabled: Bool = false,
                     showSkeleton: Bool = false,
+                    reserveMessageHeight: Bool = true,
                     onMask: ((String) -> String)? = nil,
                     onValueChanged: @escaping (String) -> Void = { _ in },
                     onTouchIcon: @escaping () -> Void = { },
@@ -66,11 +70,13 @@ extension OceanSwiftUI {
             self.iconHelper = iconHelper
             self.keyboardType = keyboardType
             self.autocapitalization = autocapitalization
+            self.autocorrectionDisabled = autocorrectionDisabled
             self.textContentType = textContentType
             self.maxLength = maxLength
             self.showMaxLength = showMaxLength
             self.isDisabled = isDisabled
             self.showSkeleton = showSkeleton
+            self.reserveMessageHeight = reserveMessageHeight
             self.onMask = onMask
             self.onValueChanged = onValueChanged
             self.onTouchIcon = onTouchIcon
@@ -204,6 +210,7 @@ extension OceanSwiftUI {
             }
             .disabled(self.parameters.isDisabled)
             .autocapitalization(self.parameters.autocapitalization)
+            .autocorrectionDisabled(self.parameters.autocorrectionDisabled)
             .onReceive(Just(self.parameters.text), perform: { text in
                 var textMask = self.parameters.onMask?(text) ?? text
                 if textMask != self.textOld || text != self.textOld {
@@ -303,7 +310,7 @@ extension OceanSwiftUI {
                         }
                     }
                 }
-                .frame(minHeight: Ocean.size.spacingStackXs)
+                .frame(minHeight: parameters.reserveMessageHeight ? Ocean.size.spacingStackXs : 0)
                 .opacity(self.parameters.errorMessage.isEmpty && self.parameters.helperMessage.isEmpty ? 0 : 1)
 
                 Spacer()
