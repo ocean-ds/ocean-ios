@@ -117,6 +117,8 @@ extension OceanSwiftUI {
                     Spacer(minLength: Ocean.size.spacingStackXxxs)
                 }
 
+                countView(chips: option.chips)
+
                 Typography.description { label in
                     label.parameters.text = option.label
                     label.parameters.textColor = option.isSelected
@@ -169,6 +171,21 @@ extension OceanSwiftUI {
         private func badge(count: Int) -> some View {
             Badge.primaryInvertedSm { badge in
                 badge.parameters.count = count
+            }
+        }
+
+        @ViewBuilder
+        private func countView(chips: [Ocean.ChipModel]) -> some View {
+            let count = chips.map { $0.number ?? 0 }.reduce(0, { partialResult, counter in
+                partialResult + counter
+            })
+
+            if count > 0 {
+                Badge.highlightSm { view in
+                    view.parameters.size = .small
+                    view.parameters.count = count
+                    view.parameters.status = .highlight
+                }
             }
         }
 
