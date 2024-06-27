@@ -18,9 +18,9 @@ class FilterBarSwiftUIViewController: UIViewController {
                 .init(title: "Filtro 1",
                       mode: .multiple,
                       chips: [
-                        .init(id: "paid1", title: "Pago"),
-                        .init(id: "pending1", title: "Pendente"),
-                        .init(id: "refused1", title: "Recusado")]),
+                        .init(id: "paid1", number: 1, title: "Pago"),
+                        .init(id: "pending1", number: 2, title: "Pendente"),
+                        .init(id: "refused1", number: 3, title: "Recusado")]),
                 .init(title: "Filtro 2",
                       mode: .multiple,
                       chips: [.init(id: "paid1", title: "Pago")]),

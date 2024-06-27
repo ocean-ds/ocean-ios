@@ -86,18 +86,26 @@ extension OceanSwiftUI {
                     Spacer(minLength: parameters.marginLeft)
 
                     HStack(spacing: Ocean.size.spacingStackXs) {
-                        ForEach(parameters.groups, id: \.id) { group in
-                            HStack(spacing: Ocean.size.spacingStackXs) {
-                                ForEach(group.options, id: \.title) { option in
-                                    itemView(option: option, group: group)
-                                }
+                        if parameters.showSkeleton {
+                            ForEach(0..<3, id: \.self) { _ in
+                                Rectangle()
+                                    .frame(width: 72, height: Constants.itemHeight)
+                                    .skeleton(with: true, size: CGSize(width: 72, height: Constants.itemHeight))
                             }
-
-                            if parameters.groups.last?.id != group.id {
-                                Divider { divider in
-                                    divider.parameters.axis = .vertical
+                        } else {
+                            ForEach(parameters.groups, id: \.id) { group in
+                                HStack(spacing: Ocean.size.spacingStackXs) {
+                                    ForEach(group.options, id: \.title) { option in
+                                        itemView(option: option, group: group)
+                                    }
                                 }
-                                .padding([.vertical], Ocean.size.spacingStackXs)
+
+                                if parameters.groups.last?.id != group.id {
+                                    Divider { divider in
+                                        divider.parameters.axis = .vertical
+                                    }
+                                    .padding([.vertical], Ocean.size.spacingStackXs)
+                                }
                             }
                         }
                     }
@@ -116,6 +124,8 @@ extension OceanSwiftUI {
                     imageView(icon: icon, option: option)
                     Spacer(minLength: Ocean.size.spacingStackXxxs)
                 }
+
+                countView(chips: option.chips)
 
                 Typography.description { label in
                     label.parameters.text = option.label
@@ -169,6 +179,21 @@ extension OceanSwiftUI {
         private func badge(count: Int) -> some View {
             Badge.primaryInvertedSm { badge in
                 badge.parameters.count = count
+            }
+        }
+
+        @ViewBuilder
+        private func countView(chips: [Ocean.ChipModel]) -> some View {
+            let count = chips.map { $0.number ?? 0 }.reduce(0, { partialResult, counter in
+                partialResult + counter
+            })
+
+            if count > 0 {
+                Badge.highlightSm { view in
+                    view.parameters.size = .small
+                    view.parameters.count = count
+                    view.parameters.status = .highlight
+                }
             }
         }
 
