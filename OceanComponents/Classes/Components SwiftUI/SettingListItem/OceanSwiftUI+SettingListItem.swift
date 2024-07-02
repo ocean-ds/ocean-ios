@@ -164,7 +164,7 @@ extension OceanSwiftUI {
 
         private func getDescriptionColor() -> UIColor {
             switch parameters.type {
-            case .changedBlocked, .changedPrimary, .changedSecondary:
+            case .changedBlocked, .changedPrimary, .changedSecondary, .pending:
                 return Ocean.color.colorInterfaceDarkUp
             default:
                 return Ocean.color.colorInterfaceDarkPure
