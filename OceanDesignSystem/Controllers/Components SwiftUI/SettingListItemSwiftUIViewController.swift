@@ -80,8 +80,20 @@ class SettingListItemSwiftUIViewController: UIViewController {
             view.parameters.title = "Changed Blocked"
             view.parameters.description = "Description"
             view.parameters.caption = "Caption"
-            view.parameters.hasDivider = false
+            view.parameters.hasDivider = true
             view.parameters.type = .changedBlocked
+        }
+    }()
+
+    lazy var view8: OceanSwiftUI.SettingListItem = {
+        return OceanSwiftUI.SettingListItem { view in
+            view.parameters.title = "Unchanged Primary"
+            view.parameters.description = "Description"
+            view.parameters.caption = "Caption"
+            view.parameters.buttonTitle = "Label"
+            view.parameters.buttonAction = { print("Unchanged Primary touched") }
+            view.parameters.type = .unchangedPrimary
+            view.parameters.showSkeleton = true
         }
     }()
 
@@ -94,6 +106,7 @@ class SettingListItemSwiftUIViewController: UIViewController {
             view5
             view6
             view7
+            view8
         }
     })
 

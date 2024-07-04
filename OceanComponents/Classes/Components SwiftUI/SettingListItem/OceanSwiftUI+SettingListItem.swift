@@ -23,6 +23,7 @@ extension OceanSwiftUI {
         @Published public var type: SettingListItemType
         @Published public var buttonTitle: String
         public var buttonAction: () -> Void
+        @Published public var showSkeleton: Bool
 
         public init(title: String = "",
                     description: String = "",
@@ -32,7 +33,8 @@ extension OceanSwiftUI {
                     tagStatus: TagParameters.Status = .warning,
                     type: SettingListItemType = .unchangedPrimary,
                     buttonTitle: String = "",
-                    buttonAction: @escaping () -> Void = { }) {
+                    buttonAction: @escaping () -> Void = { },
+                    showSkeleton: Bool = false) {
             self.title = title
             self.description = description
             self.caption = caption
@@ -42,6 +44,7 @@ extension OceanSwiftUI {
             self.type = type
             self.buttonTitle = buttonTitle
             self.buttonAction = buttonAction
+            self.showSkeleton = showSkeleton
         }
 
         public enum SettingListItemType {
@@ -144,15 +147,28 @@ extension OceanSwiftUI {
         public var body: some View {
             VStack(alignment: .leading, spacing: 0) {
                 HStack(alignment: .center, spacing: 0) {
-                    leadingView
-                        .padding()
+                    if parameters.showSkeleton {
+                        OceanSwiftUI.Skeleton { view in
+                            view.parameters.lines = 2
+                        }
+                    } else {
+                        leadingView
+                            .layoutPriority(1)
+                    }
 
                     Spacer()
+                        .frame(minWidth: Ocean.size.spacingStackXxs)
 
-                    trailingView
-                        .padding(.trailing)
-                        .fixedSize(horizontal: true, vertical: false)
+                    if parameters.showSkeleton {
+                        Button.primarySM { view in
+                            view.parameters.showSkeleton = true
+                        }
+                    } else {
+                        trailingView
+                            .fixedSize(horizontal: true, vertical: false)
+                    }
                 }
+                .padding(.all, Ocean.size.spacingStackXs)
 
                 if parameters.hasDivider {
                     Divider()
