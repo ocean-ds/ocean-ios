@@ -135,7 +135,9 @@ extension OceanSwiftUI {
                 .fixedSize(horizontal: true, vertical: false)
                 .padding([.vertical], Ocean.size.spacingStackXxs)
                 
-                countView(chips: option.chips)
+                if option.chips.count == 1 {
+                    countView(chips: option.chips)
+                }
 
                 if option.mode == .multiple && option.chips.contains(where: { $0.isSelected }) {
                     badge(count: option.chips.filter { $0.isSelected }.count)

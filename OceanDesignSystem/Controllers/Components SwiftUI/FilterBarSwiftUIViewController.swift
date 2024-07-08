@@ -11,7 +11,7 @@ import SwiftUI
 
 class FilterBarSwiftUIViewController: UIViewController {
 
-    lazy var filterBar = OceanSwiftUI.FilterBar { filterBar in
+    lazy var filterBar1 = OceanSwiftUI.FilterBar { filterBar in
         filterBar.parameters.rootViewController = self
         filterBar.parameters.groups = [
             .init(mode: .multiple, options: [
@@ -62,10 +62,28 @@ class FilterBarSwiftUIViewController: UIViewController {
             }
         }
     }
+    
+    lazy var filterBar2 = OceanSwiftUI.FilterBar { filterBar in
+        filterBar.parameters.rootViewController = self
+        filterBar.parameters.options = [
+            .init(chips: [.init(number: 2, title: "Filtro 1")]),
+            .init(chips: [.init(number: 3, title: "Filtro 2")]),
+            .init(chips: [.init(number: 4, title: "Filtro 3")])
+        ]
+        
+        filterBar.parameters.onSelectionChange = { [weak self] items, _ in
+            guard let self = self, let selectedItem = items.first(where: { $0.isSelected }),
+                  let id = selectedItem.id else { return }
+            
+            self.showSnackbar(text: selectedItem.title)
+        }
+    }
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
-            filterBar
+            filterBar1
+            
+            filterBar2
         }
     })
 
