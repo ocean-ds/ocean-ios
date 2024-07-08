@@ -125,8 +125,6 @@ extension OceanSwiftUI {
                     Spacer(minLength: Ocean.size.spacingStackXxxs)
                 }
 
-                countView(chips: option.chips)
-
                 Typography.description { label in
                     label.parameters.text = option.label
                     label.parameters.textColor = option.isSelected
@@ -136,6 +134,10 @@ extension OceanSwiftUI {
                 .frame(height: Constants.itemHeight)
                 .fixedSize(horizontal: true, vertical: false)
                 .padding([.vertical], Ocean.size.spacingStackXxs)
+                
+                if option.chips.count == 1 {
+                    countView(chips: option.chips)
+                }
 
                 if option.mode == .multiple && option.chips.contains(where: { $0.isSelected }) {
                     badge(count: option.chips.filter { $0.isSelected }.count)
@@ -189,10 +191,9 @@ extension OceanSwiftUI {
             })
 
             if count > 0 {
-                Badge.highlightSm { view in
+                Badge.warningSm { view in
                     view.parameters.size = .small
                     view.parameters.count = count
-                    view.parameters.status = .highlight
                 }
             }
         }

@@ -122,7 +122,7 @@ extension OceanSwiftUI {
                             .skeleton(with: true,
                                       size: CGSize(width: geometryReader.size.width,
                                                    height: Constants.skeletonHeight),
-                                      shape: .rounded(.radius(Ocean.size.borderRadiusSm,
+                                      shape: .rounded(.radius(Ocean.size.borderRadiusTiny,
                                                               style: .circular)))
                     }
                     .frame(height: Constants.skeletonHeight)
