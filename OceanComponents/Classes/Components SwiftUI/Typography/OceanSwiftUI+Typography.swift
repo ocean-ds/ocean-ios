@@ -93,7 +93,7 @@ extension OceanSwiftUI {
                     Path()
                         .background(Color.clear)
                         .skeleton(with: self.parameters.showSkeleton,
-                                  shape: .rounded(.radius(Ocean.size.borderRadiusSm)))
+                                  shape: .rounded(.radius(Ocean.size.borderRadiusTiny)))
                 )
         }
 

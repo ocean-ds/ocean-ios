@@ -71,12 +71,12 @@ extension Ocean {
         
         private lazy var dotLegendView: UIView = {
             let view = UIView()
-            view.layer.cornerRadius = Ocean.size.borderRadiusSm
+            view.layer.cornerRadius = Ocean.size.borderRadiusTiny
             view.clipsToBounds = true
             view.isSkeletonable = true
             view.isUserInteractionDisabledWhenSkeletonIsActive = true
             
-            view.skeletonCornerRadius = Float(Ocean.size.borderRadiusSm)
+            view.skeletonCornerRadius = Float(Ocean.size.borderRadiusTiny)
             
             return view
         }()

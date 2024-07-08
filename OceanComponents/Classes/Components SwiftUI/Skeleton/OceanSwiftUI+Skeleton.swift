@@ -21,7 +21,7 @@ extension OceanSwiftUI {
 
         public init(width: CGFloat? = nil,
                     height: CGFloat? = nil,
-                    radius: CGFloat = Ocean.size.borderRadiusSm,
+                    radius: CGFloat = Ocean.size.borderRadiusTiny,
                     lines: Int = 2,
                     withImage: Bool = false) {
             self.width = width

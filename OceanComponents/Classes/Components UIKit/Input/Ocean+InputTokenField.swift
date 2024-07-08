@@ -160,7 +160,7 @@ extension Ocean {
             textField.adjustsFontSizeToFitWidth = false
             textField.font = .baseRegular(size: Ocean.font.fontSizeXs)
             textField.textColor = Ocean.color.colorInterfaceDarkDeep
-            textField.layer.cornerRadius = Ocean.size.borderRadiusSm
+            textField.layer.cornerRadius = Ocean.size.borderRadiusTiny
             textField.layer.borderWidth = Ocean.size.borderWidthHairline
             textField.layer.borderColor = inactiveFieldBorderColor.cgColor
             textField.keyboardType = .default

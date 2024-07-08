@@ -118,7 +118,7 @@ extension Ocean {
                 .make()
 
             contentStack.oceanConstraints
-                .topToTop(to: backgroundRounded, constant: Ocean.size.borderRadiusSm)
+                .topToTop(to: backgroundRounded, constant: Ocean.size.borderRadiusTiny)
                 .leadingToLeading(to: backgroundRounded, constant: Ocean.size.spacingStackXxs)
                 .trailingToTrailing(to: backgroundRounded, constant: -Ocean.size.spacingStackXxs)
                 .bottomToBottom(to: backgroundRounded, constant: -Ocean.size.spacingStackXxs)

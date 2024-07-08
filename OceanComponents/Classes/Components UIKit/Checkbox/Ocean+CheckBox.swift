@@ -29,7 +29,7 @@ extension Ocean {
         
         override var backgroundPath: CGPath {
             get {
-                return UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: size, height: size), cornerRadius: Ocean.size.borderRadiusSm).cgPath
+                return UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: size, height: size), cornerRadius: Ocean.size.borderRadiusTiny).cgPath
             }
         }
         
@@ -37,7 +37,7 @@ extension Ocean {
             get {
                 let squareSize = size * 0.9
                 let center = size * 0.5 - squareSize * 0.5
-                return UIBezierPath(roundedRect: CGRect(x: center, y: center, width: squareSize, height: squareSize), cornerRadius: Ocean.size.borderRadiusSm).cgPath
+                return UIBezierPath(roundedRect: CGRect(x: center, y: center, width: squareSize, height: squareSize), cornerRadius: Ocean.size.borderRadiusTiny).cgPath
             }
         }
         

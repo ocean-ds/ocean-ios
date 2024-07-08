@@ -90,7 +90,7 @@ extension Ocean {
             makeIcon()
             
             self.backgroundColor = Ocean.color.colorInterfaceDarkDeep
-            self.layer.cornerRadius = Ocean.size.borderRadiusSm
+            self.layer.cornerRadius = Ocean.size.borderRadiusTiny
             self.translatesAutoresizingMaskIntoConstraints = false
             
             mainStack = Ocean.StackView { stack in

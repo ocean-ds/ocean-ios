@@ -157,6 +157,7 @@ struct Borders {
         "borderRadiusNone": Ocean.size.borderRadiusNone,
         "borderRadiusPill": Ocean.size.borderRadiusPill,
         "borderRadiusSm": Ocean.size.borderRadiusSm,
+        "borderRadiusTiny": Ocean.size.borderRadiusTiny,
         "borderWidthHairline": Ocean.size.borderWidthHairline,
         "borderWidthHeavy": Ocean.size.borderWidthHeavy,
         "borderWidthNone": Ocean.size.borderWidthNone,

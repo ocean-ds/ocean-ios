@@ -91,7 +91,7 @@ extension OceanSwiftUI {
             }
             .frame(width: 8, height: 8)
             .background(Color(Ocean.color.colorHighlightPure))
-            .cornerRadius(Ocean.size.borderRadiusSm)
+            .cornerRadius(Ocean.size.borderRadiusTiny)
             .skeleton(with: self.parameters.showSkeleton)
         }
 
