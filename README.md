@@ -71,3 +71,4 @@ All packages are licensed under the terms of the [GPL-3.0 License](LICENSE).
 `sudo git clone https://github.com/kamyarelyasi/Libarclite-Files.git`
 
 `sudo chmod +x *`
+
