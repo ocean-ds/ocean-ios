@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'OceanComponents'
-  s.version          = '3.8.0-495'
+  s.version          = '3.8.1-496'
   s.summary          = 'OceanComponents are components created by theo for use in Blu applications'
 
 # This description is used to generate tags and improve search results.
@@ -31,7 +31,7 @@ Project created with the objective use components created by OceanTokens.
   s.ios.deployment_target = '13.0'
   s.swift_versions = ['5.0']
   
-  s.dependency 'OceanTokens', '3.8.0-1388'
+  s.dependency 'OceanTokens', '3.8.1-1401'
   s.dependency 'SPStorkController'
   s.dependency 'FSCalendar'
   s.dependency 'SkeletonView'
