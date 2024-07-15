@@ -171,6 +171,7 @@ extension OceanSwiftUI {
                 .padding(.all, Ocean.size.spacingStackXs)
             }
             .frame(minWidth: 0, maxWidth: .infinity)
+            .background(Color(Ocean.color.colorInterfaceLightPure))
             .border(cornerRadius: Ocean.size.borderRadiusMd,
                     width: Ocean.size.borderWidthHairline,
                     color: Ocean.color.colorInterfaceLightDown)
