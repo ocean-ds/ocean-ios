@@ -245,9 +245,9 @@ extension OceanSwiftUI {
                         .padding([.leading, .trailing], Ocean.size.spacingStackXs)
                         .padding([.top, .bottom], 2)
                         .background(
-                            RoundedRectangle(cornerRadius: Ocean.size.borderRadiusMd)
+                            RoundedRectangle(cornerRadius: Ocean.size.borderRadiusSm)
                                 .overlay(
-                                    RoundedRectangle(cornerRadius: Ocean.size.borderRadiusMd)
+                                    RoundedRectangle(cornerRadius: Ocean.size.borderRadiusSm)
                                         .strokeBorder(Color(getBorderColor()),
                                                       lineWidth: 1))
                                 .foregroundColor(Color(self.parameters.isDisabled ? Ocean.color.colorInterfaceLightUp : Ocean.color.colorInterfaceLightPure))
