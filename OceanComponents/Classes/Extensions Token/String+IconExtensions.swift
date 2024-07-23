@@ -85,6 +85,14 @@ public extension String {
         case "sortsolid": return Ocean.icon.sortSolid
         case "whatsappsolid": return Ocean.icon.whatsappSolid
         case "youtubesolid": return Ocean.icon.youtubeSolid
+        case "piggybankoutline": return Ocean.icon.piggyBankOutline
+        case "coinshandoutline": return Ocean.icon.coinsHandOutline
+        case "targetoutline": return Ocean.icon.targetOutline
+        case "coinsswapoutline": return Ocean.icon.coinsSwapOutline
+        case "contactbookoutline2": return Ocean.icon.contactBookOutline2
+        case "contactlessoutline": return Ocean.icon.contactLessOutline
+        case "scoreoutline": return Ocean.icon.scoreOutline
+        case "cardmachinesolid": return Ocean.icon.cardMachineSolid
             // HeroIcons
         case "academiccapoutline": return Ocean.icon.academicCapOutline
         case "academiccapsolid": return Ocean.icon.academicCapSolid
