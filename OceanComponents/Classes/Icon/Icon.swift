@@ -102,6 +102,14 @@ extension Ocean {
         public static let sortSolid = UIImage(named: "OceanComponents.bundle/sort-solid", in: .bundleOceanComponents, compatibleWith: .none)
         public static let whatsappSolid = UIImage(named: "OceanComponents.bundle/whatsapp-solid", in: .bundleOceanComponents, compatibleWith: .none)
         public static let youtubeSolid = UIImage(named: "OceanComponents.bundle/youtube-solid", in: .bundleOceanComponents, compatibleWith: .none)
+        public static let piggyBankOutline = UIImage(named: "OceanComponents.bundle/piggy_bank_outline", in: .bundleOceanComponents, compatibleWith: .none)
+        public static let coinsHandOutline = UIImage(named: "OceanComponents.bundle/coins_hand_outline", in: .bundleOceanComponents, compatibleWith: .none)
+        public static let targetOutline = UIImage(named: "OceanComponents.bundle/target_outline", in: .bundleOceanComponents, compatibleWith: .none)
+        public static let coinsSwapOutline = UIImage(named: "OceanComponents.bundle/coins_swap_outline", in: .bundleOceanComponents, compatibleWith: .none)
+        public static let contactBookOutline2 = UIImage(named: "OceanComponents.bundle/contact_book_outline_2", in: .bundleOceanComponents, compatibleWith: .none)
+        public static let contactLessOutline = UIImage(named: "OceanComponents.bundle/contact_less_outline", in: .bundleOceanComponents, compatibleWith: .none)
+        public static let scoreOutline = UIImage(named: "OceanComponents.bundle/score_outline", in: .bundleOceanComponents, compatibleWith: .none)
+        public static let cardMachineSolid = UIImage(named: "OceanComponents.bundle/card_machine_solid", in: .bundleOceanComponents, compatibleWith: .none)
 
         // HeroIcons
 
