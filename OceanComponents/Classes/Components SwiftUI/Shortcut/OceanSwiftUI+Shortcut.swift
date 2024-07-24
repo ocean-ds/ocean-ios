@@ -233,7 +233,7 @@ extension OceanSwiftUI {
 
         @ViewBuilder
         private func getOverlay(item: ShortcutModel) -> some View {
-            if let tagLabel = item.tagLabel {
+            if let tagLabel = item.tagLabel, parameters.size != .tiny || parameters.orientation != .horizontal {
                 OceanSwiftUI.Tag { view in
                     view.parameters.label = tagLabel
                     view.parameters.status = item.tagStatus
