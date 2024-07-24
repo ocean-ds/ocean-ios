@@ -47,6 +47,10 @@ extension OceanSwiftUI {
         @Published public var icon: UIImage?
         @Published public var badgeNumber: Int?
         @Published public var badgeStatus: BadgeParameters.Status
+        @Published public var tagLabel: String?
+        @Published public var tagIcon: UIImage?
+        @Published public var tagStatus: TagParameters.Status
+        @Published public var tagSize: TagParameters.Size
         @Published public var title: String
         @Published public var subtitle: String
         @Published public var blocked: Bool
@@ -54,12 +58,20 @@ extension OceanSwiftUI {
         public init(icon: UIImage? = nil,
                     badgeNumber: Int? = nil,
                     badgeStatus: BadgeParameters.Status = .warning,
+                    tagLabel: String? = nil,
+                    tagIcon: UIImage? = nil,
+                    tagStatus: TagParameters.Status = .highlightImportant,
+                    tagSize: TagParameters.Size = .small,
                     title: String,
                     subtitle: String = "",
                     blocked: Bool = false) {
             self.icon = icon
             self.badgeNumber = badgeNumber
             self.badgeStatus = badgeStatus
+            self.tagLabel = tagLabel
+            self.tagIcon = tagIcon
+            self.tagStatus = tagStatus
+            self.tagSize = tagSize
             self.title = title
             self.subtitle = subtitle
             self.blocked = blocked
@@ -227,7 +239,16 @@ extension OceanSwiftUI {
 
         @ViewBuilder
         private func getOverlay(item: ShortcutModel) -> some View {
-            if let badgeNumber = item.badgeNumber {
+            if let tagLabel = item.tagLabel {
+                OceanSwiftUI.Tag { view in
+                    view.parameters.label = tagLabel
+                    view.parameters.icon = item.tagIcon
+                    view.parameters.status = item.tagStatus
+                    view.parameters.size = item.tagSize
+                }
+                .padding(.top, Ocean.size.spacingStackXxs)
+                .padding(.trailing, Ocean.size.spacingStackXxs)
+            } else if let badgeNumber = item.badgeNumber {
                 OceanSwiftUI.Badge { badge in
                     badge.parameters.count = badgeNumber
                     badge.parameters.status = item.badgeStatus
