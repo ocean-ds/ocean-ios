@@ -311,7 +311,7 @@ extension OceanSwiftUI {
                     }
                 }
                 .frame(minHeight: parameters.reserveMessageHeight ? Ocean.size.spacingStackXs : 0)
-                .opacity(self.parameters.errorMessage.isEmpty && self.parameters.helperMessage.isEmpty ? 0 : 1)
+                .opacity(self.parameters.errorMessage.isEmpty && self.parameters.helperMessage.isEmpty && !self.parameters.showMaxLength ? 0 : 1)
 
                 Spacer()
                     .frame(height: Ocean.size.spacingStackXxxs)
