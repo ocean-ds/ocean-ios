@@ -107,6 +107,15 @@ final public class InputSwiftUIViewController : UIViewController {
         }
     }()
 
+    lazy var inputTextFieldWithMaxLength: OceanSwiftUI.InputTextField = {
+        OceanSwiftUI.Input.textField { input in
+            input.parameters.title = "Title"
+            input.parameters.text = "Text"
+            input.parameters.maxLength = 10
+            input.parameters.showMaxLength = true
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             inputSearchField
@@ -117,6 +126,7 @@ final public class InputSwiftUIViewController : UIViewController {
             inputTextField5
             inputSelectField
             inputTokenField
+            inputTextFieldWithMaxLength
         }
     })
 
