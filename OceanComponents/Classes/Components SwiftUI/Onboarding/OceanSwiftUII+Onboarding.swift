@@ -150,6 +150,7 @@ extension OceanSwiftUI {
                     if let image = page.image {
                         Image(uiImage: image)
                             .resizable()
+                            .scaledToFit()
                             .frame(width: 140,
                                    height: 140,
                                    alignment: .center)
