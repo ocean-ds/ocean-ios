@@ -180,10 +180,10 @@ extension OceanSwiftUI {
 
         private func getDescriptionColor() -> UIColor {
             switch parameters.type {
-            case .changedBlocked, .changedPrimary, .changedSecondary, .pending:
-                return Ocean.color.colorInterfaceDarkUp
-            default:
+            case .changedBlocked, .changedPrimary, .changedSecondary:
                 return Ocean.color.colorInterfaceDarkPure
+            default:
+                return Ocean.color.colorInterfaceDarkUp
             }
         }
 
