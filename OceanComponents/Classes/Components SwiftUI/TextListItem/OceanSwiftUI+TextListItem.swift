@@ -21,6 +21,8 @@ extension OceanSwiftUI {
         @Published public var info: String
         @Published public var infoLineLimit: Int?
         @Published public var icon: UIImage?
+        @Published public var iconColor: UIColor
+        @Published public var iconBackgroundColor: UIColor
         @Published public var tagLabel: String
         @Published public var tagIcon: UIImage?
         @Published public var tagStatus: OceanSwiftUI.TagParameters.Status
@@ -48,6 +50,8 @@ extension OceanSwiftUI {
                     info: String = "",
                     infoLineLimit: Int? = nil,
                     icon: UIImage? = nil,
+                    iconColor: UIColor = Ocean.color.colorBrandPrimaryDown,
+                    iconBackgroundColor: UIColor = Ocean.color.colorInterfaceLightUp,
                     tagLabel: String = "",
                     tagIcon: UIImage? = nil,
                     tagStatus: OceanSwiftUI.TagParameters.Status = .positive,
@@ -76,6 +80,8 @@ extension OceanSwiftUI {
             self.info = info
             self.infoLineLimit = infoLineLimit
             self.icon = icon
+            self.iconColor = iconColor
+            self.iconBackgroundColor = iconBackgroundColor
             self.tagLabel = tagLabel
             self.tagIcon = tagIcon
             self.tagStatus = tagStatus
@@ -146,6 +152,8 @@ extension OceanSwiftUI {
                     if let icon = parameters.icon {
                         RoundedIcon { image in
                             image.parameters.icon = icon
+                            image.parameters.color = parameters.iconColor
+                            image.parameters.backgroundColor = parameters.iconBackgroundColor
                         }
                     }
                     else if parameters.hasCheckbox {
