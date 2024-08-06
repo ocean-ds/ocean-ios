@@ -14,5 +14,6 @@ extension View {
                 .inset(by: width)
                 .stroke(Color(color), lineWidth: width)
         )
+        .cornerRadius(cornerRadius)
     }
 }
