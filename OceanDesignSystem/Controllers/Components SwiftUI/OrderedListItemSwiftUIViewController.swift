@@ -21,6 +21,7 @@ class OrderedListItemSwiftUIViewController: UIViewController {
     lazy var item2: OceanSwiftUI.OrderedListItem = {
         return OceanSwiftUI.OrderedListItem.orderedDefault { item in
             item.parameters.number = 2
+            item.parameters.lineType = .singleLine
             item.parameters.text = "Lorem ipsum dolor sit amet."
         }
     }()
