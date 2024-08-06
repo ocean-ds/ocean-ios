@@ -20,7 +20,9 @@ extension String {
             "<br>": "\n",
             "<br/>": "\n",
             "<p>": "",
-            "</p>": "\n\n"
+            "</p>": "\n\n",
+            "<del>": "~~",
+            "</del>": "~~"
         ]
 
         htmlToMarkdownRules.forEach { html, markdown in
