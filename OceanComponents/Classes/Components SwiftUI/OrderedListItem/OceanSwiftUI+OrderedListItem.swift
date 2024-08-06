@@ -19,6 +19,7 @@ extension OceanSwiftUI {
         @Published public var status: Status
         @Published public var number: Int?
         @Published public var icon: UIImage?
+        @Published public var lineType: LineType
         @Published public var padding: EdgeInsets
 
         public enum Style {
@@ -31,12 +32,18 @@ extension OceanSwiftUI {
             case negative
         }
 
+        public enum LineType {
+            case singleLine
+            case multiLine
+        }
+
         public init(title: String = "",
                     text: String = "",
                     style: Style = .ordered,
                     status: Status = .info,
                     number: Int? = nil,
                     icon: UIImage? = nil,
+                    lineType: LineType = .multiLine,
                     padding: EdgeInsets = .init(top: Ocean.size.spacingStackXxs,
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXxs,
@@ -47,6 +54,7 @@ extension OceanSwiftUI {
             self.status = status
             self.number = number
             self.icon = icon
+            self.lineType = lineType
             self.padding = padding
         }
     }
@@ -119,7 +127,7 @@ extension OceanSwiftUI {
         }
 
         private var defaultView: some View {
-            HStack(alignment: .top) {
+            HStack(alignment: parameters.lineType == .singleLine ? .center : .top) {
                 roundedView
                 Spacer().frame(width: Ocean.size.spacingStackXxs)
                 textView

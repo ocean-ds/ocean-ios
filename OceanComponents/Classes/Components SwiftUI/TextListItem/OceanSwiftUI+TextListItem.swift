@@ -211,7 +211,7 @@ extension OceanSwiftUI {
                             OceanSwiftUI.Typography.caption { label in
                                 label.parameters.text = parameters.caption
                                 label.parameters.lineLimit = parameters.captionLineLimit
-                                label.parameters.textColor = Ocean.color.colorInterfaceDarkUp
+                                label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
                             }
                         }
 
