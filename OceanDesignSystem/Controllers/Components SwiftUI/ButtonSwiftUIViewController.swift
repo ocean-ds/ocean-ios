@@ -39,7 +39,7 @@ class ButtonSwiftUIViewController: UIViewController {
     }()
 
     lazy var button3: OceanSwiftUI.Button = {
-        return OceanSwiftUI.Button.textMD { button in
+        return OceanSwiftUI.Button.tertiaryMD { button in
             button.parameters.text = "Avançar"
             button.parameters.icon = Ocean.icon.plusSolid
             button.parameters.onTouch = {
@@ -81,7 +81,7 @@ class ButtonSwiftUIViewController: UIViewController {
     }()
 
     lazy var button6: OceanSwiftUI.Button = {
-        return OceanSwiftUI.Button.textCriticalMD { button in
+        return OceanSwiftUI.Button.tertiaryCriticalMD { button in
             button.parameters.text = "Avançar"
             button.parameters.icon = Ocean.icon.plusSolid
             button.parameters.onTouch = {

@@ -56,25 +56,25 @@ extension OceanSwiftUI.Button {
         }
     }
 
-    public static func textSM(builder: OceanSwiftUI.Button.Builder? = nil) -> OceanSwiftUI.Button {
+    public static func tertiarySM(builder: OceanSwiftUI.Button.Builder? = nil) -> OceanSwiftUI.Button {
         return OceanSwiftUI.Button { button in
-            button.parameters.style = .text
+            button.parameters.style = .tertiary
             button.parameters.size = .small
             builder?(button)
         }
     }
 
-    public static func textMD(builder: OceanSwiftUI.Button.Builder? = nil) -> OceanSwiftUI.Button {
+    public static func tertiaryMD(builder: OceanSwiftUI.Button.Builder? = nil) -> OceanSwiftUI.Button {
         return OceanSwiftUI.Button { button in
-            button.parameters.style = .text
+            button.parameters.style = .tertiary
             button.parameters.size = .medium
             builder?(button)
         }
     }
 
-    public static func textLG(builder: OceanSwiftUI.Button.Builder? = nil) -> OceanSwiftUI.Button {
+    public static func tertiaryLG(builder: OceanSwiftUI.Button.Builder? = nil) -> OceanSwiftUI.Button {
         return OceanSwiftUI.Button { button in
-            button.parameters.style = .text
+            button.parameters.style = .tertiary
             button.parameters.size = .large
             builder?(button)
         }
@@ -128,25 +128,25 @@ extension OceanSwiftUI.Button {
         }
     }
 
-    public static func textCriticalSM(builder: OceanSwiftUI.Button.Builder? = nil) -> OceanSwiftUI.Button {
+    public static func tertiaryCriticalSM(builder: OceanSwiftUI.Button.Builder? = nil) -> OceanSwiftUI.Button {
         return OceanSwiftUI.Button { button in
-            button.parameters.style = .textCritical
+            button.parameters.style = .tertiaryCritical
             button.parameters.size = .small
             builder?(button)
         }
     }
 
-    public static func textCriticalMD(builder: OceanSwiftUI.Button.Builder? = nil) -> OceanSwiftUI.Button {
+    public static func tertiaryCriticalMD(builder: OceanSwiftUI.Button.Builder? = nil) -> OceanSwiftUI.Button {
         return OceanSwiftUI.Button { button in
-            button.parameters.style = .textCritical
+            button.parameters.style = .tertiaryCritical
             button.parameters.size = .medium
             builder?(button)
         }
     }
 
-    public static func textCriticalLG(builder: OceanSwiftUI.Button.Builder? = nil) -> OceanSwiftUI.Button {
+    public static func tertiaryCriticalLG(builder: OceanSwiftUI.Button.Builder? = nil) -> OceanSwiftUI.Button {
         return OceanSwiftUI.Button { button in
-            button.parameters.style = .textCritical
+            button.parameters.style = .tertiaryCritical
             button.parameters.size = .large
             builder?(button)
         }
