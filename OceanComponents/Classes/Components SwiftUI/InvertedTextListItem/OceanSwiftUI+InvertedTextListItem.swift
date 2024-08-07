@@ -40,9 +40,9 @@ extension OceanSwiftUI {
                     tagSize: OceanSwiftUI.TagParameters.Size = .medium,
                     status: OceanSwiftUI.InvertedTextListItemParameters.State = .normal,
                     tooltipText: String = "",
-                    padding: EdgeInsets = .init(top: Ocean.size.spacingStackXxs,
+                    padding: EdgeInsets = .init(top: Ocean.size.spacingStackXxsExtra,
                                                 leading: Ocean.size.spacingStackXs,
-                                                bottom: Ocean.size.spacingStackXxs,
+                                                bottom: Ocean.size.spacingStackXxsExtra,
                                                 trailing: Ocean.size.spacingStackXs),
                     showSkeleton: Bool = false) {
             self.title = title
