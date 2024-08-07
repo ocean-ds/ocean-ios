@@ -33,8 +33,19 @@ class SettingListItemSwiftUIViewController: UIViewController {
             view.parameters.type = .unchangedSecondary
         }
     }()
-
+    
     lazy var view3: OceanSwiftUI.SettingListItem = {
+        return OceanSwiftUI.SettingListItem { view in
+            view.parameters.title = "Unchanged Tertiary"
+            view.parameters.description = "Description"
+            view.parameters.caption = "Caption"
+            view.parameters.buttonTitle = "Label"
+            view.parameters.buttonAction = { print("Unchanged Secondary touched") }
+            view.parameters.type = .unchangedTertiary
+        }
+    }()
+
+    lazy var view4: OceanSwiftUI.SettingListItem = {
         return OceanSwiftUI.SettingListItem { view in
             view.parameters.title = "Unchanged Blocked"
             view.parameters.description = "Description"
@@ -43,7 +54,7 @@ class SettingListItemSwiftUIViewController: UIViewController {
         }
     }()
 
-    lazy var view4: OceanSwiftUI.SettingListItem = {
+    lazy var view5: OceanSwiftUI.SettingListItem = {
         return OceanSwiftUI.SettingListItem { view in
             view.parameters.title = "Pending"
             view.parameters.description = "Description"
@@ -53,7 +64,7 @@ class SettingListItemSwiftUIViewController: UIViewController {
         }
     }()
 
-    lazy var view5: OceanSwiftUI.SettingListItem = {
+    lazy var view6: OceanSwiftUI.SettingListItem = {
         return OceanSwiftUI.SettingListItem { view in
             view.parameters.title = "Changed Primary"
             view.parameters.description = "Description"
@@ -64,7 +75,7 @@ class SettingListItemSwiftUIViewController: UIViewController {
         }
     }()
 
-    lazy var view6: OceanSwiftUI.SettingListItem = {
+    lazy var view7: OceanSwiftUI.SettingListItem = {
         return OceanSwiftUI.SettingListItem { view in
             view.parameters.title = "Changed Secondary"
             view.parameters.description = "Description"
@@ -74,8 +85,19 @@ class SettingListItemSwiftUIViewController: UIViewController {
             view.parameters.type = .changedSecondary
         }
     }()
+    
+    lazy var view8: OceanSwiftUI.SettingListItem = {
+        return OceanSwiftUI.SettingListItem { view in
+            view.parameters.title = "Changed Tertiary"
+            view.parameters.description = "Description"
+            view.parameters.caption = "Caption"
+            view.parameters.buttonTitle = "Label"
+            view.parameters.buttonAction = { print("Changed Secondary touched") }
+            view.parameters.type = .changedTertiary
+        }
+    }()
 
-    lazy var view7: OceanSwiftUI.SettingListItem = {
+    lazy var view9: OceanSwiftUI.SettingListItem = {
         return OceanSwiftUI.SettingListItem { view in
             view.parameters.title = "Changed Blocked"
             view.parameters.description = "Description"
@@ -85,7 +107,7 @@ class SettingListItemSwiftUIViewController: UIViewController {
         }
     }()
 
-    lazy var view8: OceanSwiftUI.SettingListItem = {
+    lazy var view10: OceanSwiftUI.SettingListItem = {
         return OceanSwiftUI.SettingListItem { view in
             view.parameters.title = "Unchanged Primary"
             view.parameters.description = "Description"
@@ -107,6 +129,8 @@ class SettingListItemSwiftUIViewController: UIViewController {
             view6
             view7
             view8
+            view9
+            view10
         }
     })
 

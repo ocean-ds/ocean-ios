@@ -16,44 +16,55 @@ extension OceanSwiftUI {
     public class SettingListItemParameters: ObservableObject {
         @Published public var title: String
         @Published public var description: String
+        @Published public var descriptionColor: UIColor?
+        @Published public var newDescription: String
         @Published public var caption: String
         @Published public var hasDivider: Bool
         @Published public var tagTitle: String
         @Published public var tagStatus: TagParameters.Status
         @Published public var type: SettingListItemType
         @Published public var buttonTitle: String
-        public var buttonAction: () -> Void
         @Published public var showSkeleton: Bool
+        @Published public var padding: EdgeInsets
+        public var buttonAction: () -> Void
 
         public init(title: String = "",
                     description: String = "",
+                    descriptionColor: UIColor? = nil,
+                    newDescription: String = "",
                     caption: String = "",
                     hasDivider: Bool = true,
                     tagTitle: String = "",
                     tagStatus: TagParameters.Status = .warning,
                     type: SettingListItemType = .unchangedPrimary,
                     buttonTitle: String = "",
-                    buttonAction: @escaping () -> Void = { },
-                    showSkeleton: Bool = false) {
+                    showSkeleton: Bool = false,
+                    padding: EdgeInsets = .all(Ocean.size.spacingStackXs),
+                    buttonAction: @escaping () -> Void = { }) {
             self.title = title
             self.description = description
+            self.descriptionColor = descriptionColor
+            self.newDescription = newDescription
             self.caption = caption
             self.hasDivider = hasDivider
             self.tagTitle = tagTitle
             self.tagStatus = tagStatus
             self.type = type
             self.buttonTitle = buttonTitle
-            self.buttonAction = buttonAction
             self.showSkeleton = showSkeleton
+            self.padding = padding
+            self.buttonAction = buttonAction
         }
 
         public enum SettingListItemType {
             case unchangedPrimary
             case unchangedSecondary
+            case unchangedTertiary
             case unchangedBlocked
             case pending
             case changedPrimary
             case changedSecondary
+            case changedTertiary
             case changedBlocked
         }
     }
@@ -83,10 +94,26 @@ extension OceanSwiftUI {
                     }
                 }
 
-                if !parameters.description.isEmpty {
-                    Typography.paragraph { label in
-                        label.parameters.text = parameters.description
-                        label.parameters.textColor = getDescriptionColor()
+                HStack(spacing: Ocean.size.spacingStackXxxs) {
+                    if !parameters.description.isEmpty {
+                        Typography.paragraph { label in
+                            label.parameters.text = parameters.description
+                            
+                            if parameters.newDescription.isEmpty {
+                                label.parameters.textColor = getDescriptionColor()
+                            } else {
+                                label.parameters.strikethrough = true
+                                label.parameters.textColor = Ocean.color.colorInterfaceDarkPure
+                            }
+                        }
+                    }
+                    
+                    if !parameters.newDescription.isEmpty {
+                        OceanSwiftUI.Typography.paragraph { label in
+                            label.parameters.text = parameters.newDescription
+                            label.parameters.textColor = getDescriptionColor()
+                            label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXs)
+                        }
                     }
                 }
 
@@ -105,12 +132,13 @@ extension OceanSwiftUI {
         private var trailingView: some View {
             VStack(alignment: .trailing, spacing: 0) {
                 switch parameters.type {
-                case .unchangedPrimary, .unchangedSecondary, .changedPrimary, .changedSecondary:
+                case .unchangedPrimary, .unchangedSecondary, .unchangedTertiary, .changedPrimary, .changedSecondary, .changedTertiary:
                     if !parameters.buttonTitle.isEmpty {
                         Button { button in
                             button.parameters.text = parameters.buttonTitle
                             button.parameters.style = getButtonStyle()
                             button.parameters.size = .small
+                            button.parameters.hasPadding = getHasPadding()
                             button.parameters.onTouch = parameters.buttonAction
                         }
                     }
@@ -168,7 +196,7 @@ extension OceanSwiftUI {
                             .fixedSize(horizontal: true, vertical: false)
                     }
                 }
-                .padding(.all, Ocean.size.spacingStackXs)
+                .padding(parameters.padding)
 
                 if parameters.hasDivider {
                     Divider()
@@ -179,8 +207,12 @@ extension OceanSwiftUI {
         // MARK: Private Methods
 
         private func getDescriptionColor() -> UIColor {
+            if let descriptionColor = parameters.descriptionColor {
+                return descriptionColor
+            }
+            
             switch parameters.type {
-            case .changedBlocked, .changedPrimary, .changedSecondary:
+            case .changedBlocked, .changedPrimary, .changedSecondary, .changedTertiary:
                 return Ocean.color.colorInterfaceDarkPure
             default:
                 return Ocean.color.colorInterfaceDarkUp
@@ -191,8 +223,19 @@ extension OceanSwiftUI {
             switch parameters.type {
             case .unchangedPrimary, .changedPrimary:
                 return .primary
+            case .unchangedTertiary, .changedTertiary:
+                return .tertiary
             default:
                 return .secondary
+            }
+        }
+        
+        private func getHasPadding() -> Bool {
+            switch parameters.type {
+            case .unchangedTertiary, .changedTertiary:
+                return false
+            default:
+                return true
             }
         }
     }
