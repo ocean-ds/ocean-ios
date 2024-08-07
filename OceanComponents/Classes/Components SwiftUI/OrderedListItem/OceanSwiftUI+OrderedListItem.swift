@@ -87,27 +87,37 @@ extension OceanSwiftUI {
         }
 
         private var imageView: some View {
+            let hasIcon = parameters.icon != nil
             let providedIcon = parameters.icon ?? Ocean.icon.chevronRightSolid!
 
             return Image(uiImage: providedIcon)
                 .resizable()
                 .renderingMode(.template)
-                .frame(width: Ocean.size.spacingStackXs,
-                       height: Ocean.size.spacingStackXs)
+                .frame(width: hasIcon ? providedIcon.size.width : Ocean.size.spacingStackXs,
+                       height: hasIcon ? providedIcon.size.height : Ocean.size.spacingStackXs)
                 .foregroundColor(Color(getForegroundColor()))
+        }
+        
+        private var circleView: some View {
+            Circle()
+                .fill(getBackgroundColor())
+                .frame(width: self.roundedViewHeightWidthLg,
+                       height: self.roundedViewHeightWidthLg,
+                       alignment: .center)
         }
 
         private var roundedView: some View {
             ZStack {
-                Circle()
-                    .fill(getBackgroundColor())
-                    .frame(width: self.roundedViewHeightWidthLg,
-                           height: self.roundedViewHeightWidthLg,
-                           alignment: .center)
                 switch parameters.style {
                 case .ordered:
+                    circleView
+                    
                     numberLabel
                 case .unordered:
+                    if parameters.icon == nil {
+                        circleView
+                    }
+                    
                     imageView
                 }
             }
