@@ -16,7 +16,9 @@ extension Ocean {
         var maxImageHeight: CGFloat?
         var contentTitle: String?
         var contentDescription: String?
-        var contentDescriptionAttributeText: NSAttributedString?
+        var contentDescriptionAttributedText: NSAttributedString?
+        var contentCaption: String?
+        var contentCaptionAttributedText: NSAttributedString?
         var contentAdditionalInformation: String?
         var actionsAxis: NSLayoutConstraint.Axis = .vertical
         var actions: [UIControl] = []
@@ -50,6 +52,7 @@ extension Ocean {
             addImageIfExist()
             addTitleIfExist()
             addDescriptionIfExist()
+            addCaptionIfExist()
             addCustomViewIfExist()
             addActionsIfExist()
             addAdditionalInformationIfExist()
@@ -107,7 +110,7 @@ extension Ocean {
         }
 
         fileprivate func addDescriptionIfExist() {
-            if contentDescription == nil && contentDescriptionAttributeText == nil {
+            if contentDescription == nil && contentDescriptionAttributedText == nil {
                 return
             }
 
@@ -115,8 +118,8 @@ extension Ocean {
                 if let contentDescription = self.contentDescription {
                     label.setTextWithBoldTag(contentDescription)
                 }
-                if let contentDescriptionAttributeText = self.contentDescriptionAttributeText {
-                    label.attributedText = contentDescriptionAttributeText
+                if let contentDescriptionAttributedText = self.contentDescriptionAttributedText {
+                    label.attributedText = contentDescriptionAttributedText
                 }
                 label.numberOfLines = 0
                 label.textAlignment = .center
@@ -125,6 +128,29 @@ extension Ocean {
                 label.adjustsFontSizeToFitWidth = true
                 label.minimumScaleFactor = 0.82
                 label.sizeToFit()
+            }
+
+            mainStack.addArrangedSubview(label)
+        }
+
+        fileprivate func addCaptionIfExist() {
+            if contentCaption == nil && contentCaptionAttributedText == nil {
+                return
+            }
+
+            mainStack.addArrangedSubview(Ocean.Spacer(space: Ocean.size.spacingStackXs))
+
+            let label = Ocean.Typography.caption { label in
+                if let contentDescription = self.contentCaption {
+                    label.setTextWithBoldTag(contentDescription)
+                }
+                if let contentCaptionAttributedText = self.contentCaptionAttributedText {
+                    label.attributedText = contentCaptionAttributedText
+                }
+                label.numberOfLines = 0
+                label.textAlignment = .center
+                label.textColor = Ocean.color.colorInterfaceDarkUp
+                label.translatesAutoresizingMaskIntoConstraints = false
             }
 
             mainStack.addArrangedSubview(label)
