@@ -39,7 +39,17 @@ extension Ocean {
         }
 
         public func withDescription(_ description: NSAttributedString?) -> Modal {
-            modalViewController.contentDescriptionAttributeText = description
+            modalViewController.contentDescriptionAttributedText = description
+            return self
+        }
+
+        public func withCaption(_ caption: String?) -> Modal {
+            modalViewController.contentCaption = caption
+            return self
+        }
+
+        public func withCaption(_ caption: NSAttributedString?) -> Modal {
+            modalViewController.contentCaptionAttributedText = caption
             return self
         }
 
