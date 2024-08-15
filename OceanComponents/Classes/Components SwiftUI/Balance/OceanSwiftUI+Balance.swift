@@ -192,7 +192,7 @@ extension OceanSwiftUI {
                             parameters.model.action?()
                         }
                     }
-                    .frame(width: 80)
+                    .fixedSize(horizontal: true, vertical: false)
                 }
             }
         }
@@ -234,7 +234,7 @@ extension OceanSwiftUI {
                         .transform(condition: shouldAnimate) { $0.animation(.default) }
 
                     Spacer()
-                        .frame(height: Ocean.size.spacingStackXxs)
+                        .frame(height: Ocean.size.spacingStackXs)
                 }
             }
             .clipped()
