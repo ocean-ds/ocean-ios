@@ -12,32 +12,21 @@ import SwiftUI
 
 class BalanceSwiftUIViewController: UIViewController {
 
-    private var model = [
-        OceanSwiftUI.BalanceModel(title: "Saldo total na Blu",
-                                  value: 100,
-                                  item1Title: "Saldo atual",
-                                  item1Value: 50,
-                                  item2Title: "Agenda",
-                                  item2Value: 50,
-                                  description: "Confira tudo o que entrou e saiu da sua Conta Digital Blu",
-                                  actionCTA: "Extrato",
-                                  action: {
-                                      print("Extrato")
-                                  }),
-        OceanSwiftUI.BalanceModel(title: "Saldo em Outras maquininhas",
-                                  value: nil,
-                                  description: "Receba na Blu as vendas feitas nas suas outras maquininhas",
-                                  actionCTA: "Trazer saldo para a Blu",
-                                  actionCTACollapsed: "Trazer saldo",
-                                  action: {
-                                      print("Trazer saldo para a Blu")
-                                  },
-                                  cellType: .withoutValue)
-    ]
+    private var model = OceanSwiftUI.BalanceModel(title: "Saldo total na Blu",
+                                                  value: 100,
+                                                  item1Title: "Saldo atual",
+                                                  item1Value: 50,
+                                                  item2Title: "Agenda",
+                                                  item2Value: 50,
+                                                  description: "Confira tudo o que entrou e saiu da sua Conta Digital Blu",
+                                                  actionCTA: "Extrato",
+                                                  action: {
+        print("Extrato")
+    })
 
     lazy var balance: OceanSwiftUI.Balance = {
         OceanSwiftUI.Balance { balance in
-            balance.parameters.items = model
+            balance.parameters.model = model
         }
     }()
 
