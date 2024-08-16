@@ -25,6 +25,7 @@ extension OceanSwiftUI {
         @Published public var recommend: Bool
         @Published public var showProgressText: Bool
         @Published public var isLoading: Bool
+        @Published public var showSkeleton: Bool
         public var onTouch: () -> Void
 
         public init(title: String = "",
@@ -39,6 +40,7 @@ extension OceanSwiftUI {
                     recommend: Bool = false,
                     showProgressText: Bool = false,
                     isLoading: Bool = false,
+                    showSkeleton: Bool = false,
                     onTouch: @escaping () -> Void = { }) {
             self.title = title
             self.subtitle = subtitle
@@ -52,6 +54,7 @@ extension OceanSwiftUI {
             self.recommend = recommend
             self.showProgressText = showProgressText
             self.isLoading = isLoading
+            self.showSkeleton = showSkeleton
             self.onTouch = onTouch
         }
 
@@ -95,90 +98,95 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            ZStack(alignment: .topLeading) {
-                VStack(alignment: .leading, spacing: 0) {
-                    HStack(alignment: .center, spacing: Ocean.size.spacingStackXs) {
-                        if let icon = self.parameters.icon {
-                            Image(uiImage: icon)
-                                .resizable()
-                                .frame(width: 24,
-                                       height: 24,
-                                       alignment: .center)
-                                .foregroundColor(Color(Ocean.color.colorInterfaceDarkDeep))
-                        }
-
-                        VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxxs) {
-                            if !self.parameters.title.isEmpty {
-                                Typography.heading4 { label in
-                                    label.parameters.text = self.parameters.title
+            if parameters.showSkeleton {
+                Rectangle()
+                    .skeleton(with: true, size: CGSize(width: CGFloat.infinity, height: 150), shape: .rounded(.radius(Ocean.size.borderRadiusMd, style: .circular)))
+            } else {
+                ZStack(alignment: .topLeading) {
+                    VStack(alignment: .leading, spacing: 0) {
+                        HStack(alignment: .center, spacing: Ocean.size.spacingStackXs) {
+                            if let icon = self.parameters.icon {
+                                Image(uiImage: icon)
+                                    .resizable()
+                                    .frame(width: 24,
+                                           height: 24,
+                                           alignment: .center)
+                                    .foregroundColor(Color(Ocean.color.colorInterfaceDarkDeep))
+                            }
+                            
+                            VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxxs) {
+                                if !self.parameters.title.isEmpty {
+                                    Typography.heading4 { label in
+                                        label.parameters.text = self.parameters.title
+                                    }
+                                }
+                                
+                                if !self.parameters.subtitle.isEmpty {
+                                    Typography.description { label in
+                                        label.parameters.text = self.parameters.subtitle
+                                    }
                                 }
                             }
-
-                            if !self.parameters.subtitle.isEmpty {
-                                Typography.description { label in
-                                    label.parameters.text = self.parameters.subtitle
+                            
+                            Spacer()
+                            
+                            VStack(spacing: 0) {
+                                if let badgeCount = self.parameters.badgeCount {
+                                    Badge { badge in
+                                        badge.parameters.count = badgeCount
+                                        badge.parameters.status = self.parameters.badgeStatus
+                                    }
+                                    
+                                    Spacer()
                                 }
                             }
                         }
-
-                        Spacer()
-
-                        VStack(spacing: 0) {
-                            if let badgeCount = self.parameters.badgeCount {
-                                Badge { badge in
-                                    badge.parameters.count = badgeCount
-                                    badge.parameters.status = self.parameters.badgeStatus
-                                }
-
-                                Spacer()
+                        .frame(minWidth: 0, maxWidth: .infinity)
+                        .padding(.all, Ocean.size.spacingStackXs)
+                        .background(Color(Ocean.color.colorInterfaceLightPure))
+                        
+                        if let progress = parameters.progress {
+                            ProgressBar { view in
+                                view.parameters.progress = progress
+                                view.parameters.showValue = parameters.showProgressText
+                                view.parameters.padding = EdgeInsets(top: 0,
+                                                                     leading: Ocean.size.spacingStackXs,
+                                                                     bottom: Ocean.size.spacingStackXs,
+                                                                     trailing: Ocean.size.spacingStackXs)
+                            }
+                        }
+                        
+                        if let _ = self.parameters.view {
+                            Divider()
+                            
+                            self.parameters.contentView
+                        }
+                        
+                        if !self.parameters.ctaText.isEmpty {
+                            Divider()
+                            
+                            CardCTA { cardCTA in
+                                cardCTA.parameters.text = self.parameters.ctaText
+                                cardCTA.parameters.icon = self.parameters.ctaIcon
+                                cardCTA.parameters.isLoading = self.parameters.isLoading
+                                cardCTA.parameters.onTouch = self.parameters.onTouch
                             }
                         }
                     }
+                    .padding(.all, 1)
                     .frame(minWidth: 0, maxWidth: .infinity)
-                    .padding(.all, Ocean.size.spacingStackXs)
-                    .background(Color(Ocean.color.colorInterfaceLightPure))
-
-                    if let progress = parameters.progress {
-                        ProgressBar { view in
-                            view.parameters.progress = progress
-                            view.parameters.showValue = parameters.showProgressText
-                            view.parameters.padding = EdgeInsets(top: 0,
-                                                                 leading: Ocean.size.spacingStackXs,
-                                                                 bottom: Ocean.size.spacingStackXs,
-                                                                 trailing: Ocean.size.spacingStackXs)
+                    .cornerRadius(Ocean.size.borderRadiusMd)
+                    .border(cornerRadius: Ocean.size.borderRadiusMd,
+                            width: Ocean.size.borderWidthHairline,
+                            color: self.parameters.recommend ? Ocean.color.colorBrandPrimaryUp : Ocean.color.colorInterfaceLightDown)
+                    
+                    if self.parameters.recommend {
+                        Tag.highlightNeutralMD { tag in
+                            tag.parameters.label = "Recomendado"
                         }
+                        .padding(.leading, Ocean.size.spacingStackXs)
+                        .padding(.top, -Ocean.size.spacingStackXxs)
                     }
-
-                    if let _ = self.parameters.view {
-                        Divider()
-
-                        self.parameters.contentView
-                    }
-
-                    if !self.parameters.ctaText.isEmpty {
-                        Divider()
-
-                        CardCTA { cardCTA in
-                            cardCTA.parameters.text = self.parameters.ctaText
-                            cardCTA.parameters.icon = self.parameters.ctaIcon
-                            cardCTA.parameters.isLoading = self.parameters.isLoading
-                            cardCTA.parameters.onTouch = self.parameters.onTouch
-                        }
-                    }
-                }
-                .padding(.all, 1)
-                .frame(minWidth: 0, maxWidth: .infinity)
-                .cornerRadius(Ocean.size.borderRadiusMd)
-                .border(cornerRadius: Ocean.size.borderRadiusMd,
-                        width: Ocean.size.borderWidthHairline,
-                        color: self.parameters.recommend ? Ocean.color.colorBrandPrimaryUp : Ocean.color.colorInterfaceLightDown)
-
-                if self.parameters.recommend {
-                    Tag.highlightNeutralMD { tag in
-                        tag.parameters.label = "Recomendado"
-                    }
-                    .padding(.leading, Ocean.size.spacingStackXs)
-                    .padding(.top, -Ocean.size.spacingStackXxs)
                 }
             }
         }
