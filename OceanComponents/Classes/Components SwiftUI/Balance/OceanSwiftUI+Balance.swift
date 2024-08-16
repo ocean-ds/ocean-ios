@@ -83,8 +83,6 @@ extension OceanSwiftUI {
         // MARK: Private properties
 
         @State private var isValueVisible: Bool = true
-        @State private var screenHeight: CGFloat = 0
-        @State private var expandedHeight: CGFloat = 0
         @State private var shouldAnimate: Bool = false
 
         // MARK: Constructors
@@ -166,11 +164,6 @@ extension OceanSwiftUI {
                         }
                     }
                     .padding(.top, Ocean.size.spacingStackXs)
-                    .overlay(GeometryReader { geometry in
-                        Color.clear.onAppear {
-                            expandedHeight = geometry.size.height + Ocean.size.spacingStackXs
-                        }
-                    })
                 }
 
                 Divider { divider in
@@ -213,14 +206,6 @@ extension OceanSwiftUI {
                     scrollStateView
                 } else {
                     balanceCardView
-                        .background(GeometryReader { geometry in
-                            Color.clear.onAppear {
-                                let height = geometry.size.height
-                                if height > screenHeight {
-                                    screenHeight = height
-                                }
-                            }
-                        })
                         .padding(.horizontal, Ocean.size.spacingStackXs)
                         .onAppear {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.033) {
@@ -228,9 +213,6 @@ extension OceanSwiftUI {
                             }
                         }
                         .frame(maxWidth: .infinity)
-                        .transform(condition: screenHeight != 0, transform: { view in
-                            view.frame(height: parameters.state == .expanded ? screenHeight + expandedHeight : screenHeight)
-                        })
                         .transform(condition: shouldAnimate) { $0.animation(.default) }
 
                     Spacer()
