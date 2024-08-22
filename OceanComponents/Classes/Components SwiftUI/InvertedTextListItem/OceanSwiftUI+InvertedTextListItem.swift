@@ -104,9 +104,11 @@ extension OceanSwiftUI {
         public var body: some View {
             VStack(alignment: .leading, spacing: 0) {
                 HStack(spacing: Ocean.size.spacingStackXxxs) {
-                    OceanSwiftUI.Typography.description { label in
-                        label.parameters.text = parameters.title
-                        label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                    if !parameters.title.isEmpty {
+                        OceanSwiftUI.Typography.description { label in
+                            label.parameters.text = parameters.title
+                            label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                        }
                     }
 
                     if !parameters.tooltipText.isEmpty {
