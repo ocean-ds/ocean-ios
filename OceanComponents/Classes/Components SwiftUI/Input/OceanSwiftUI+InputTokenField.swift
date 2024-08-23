@@ -78,70 +78,74 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            VStack(alignment: .leading) {
-                if !self.parameters.title.isEmpty {
-                    OceanSwiftUI.Typography.description { label in
-                        label.parameters.text = self.parameters.title
-                        label.parameters.textColor = self.parameters.isDisabled ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorInterfaceDarkDown
-                        label.parameters.showSkeleton = self.parameters.showSkeleton
-                    }
-                    Spacer().frame(height: Ocean.size.spacingStackXxs)
-                }
-
-                if #available(iOS 15.0, *) {
-                    InputTokenFieldItemsFocused(text1: self.$text1,
-                                                text2: self.$text2,
-                                                text3: self.$text3,
-                                                text4: self.$text4,
-                                                errorMessage: self.$parameters.errorMessage,
-                                                isDisabled: self.$parameters.isDisabled,
-                                                showSkeleton: self.$parameters.showSkeleton) {
-                        self.tryOnValueChanged()
-                    }
-                } else {
-                    InputTokenFieldItems(text1: self.$text1,
-                                         text2: self.$text2,
-                                         text3: self.$text3,
-                                         text4: self.$text4,
-                                         errorMessage: self.$parameters.errorMessage,
-                                         isDisabled: self.$parameters.isDisabled,
-                                         showSkeleton: self.$parameters.showSkeleton) {
-                        self.tryOnValueChanged()
-                    }
-                }
-
-                HStack {
-                    if !self.parameters.errorMessage.isEmpty {
-                        OceanSwiftUI.Typography.caption { label in
-                            label.parameters.text = self.parameters.errorMessage
-                            label.parameters.textColor = Ocean.color.colorStatusNegativePure
+            //FIX: BUG KEYBOARD @FocusState
+            NavigationView(content: {
+                VStack(alignment: .leading) {
+                    if !self.parameters.title.isEmpty {
+                        OceanSwiftUI.Typography.description { label in
+                            label.parameters.text = self.parameters.title
+                            label.parameters.textColor = self.parameters.isDisabled ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorInterfaceDarkDown
                             label.parameters.showSkeleton = self.parameters.showSkeleton
                         }
-                    } else if !self.parameters.helperMessage.isEmpty {
-                        OceanSwiftUI.Typography.caption { label in
-                            label.parameters.text = self.parameters.helperMessage
-                            label.parameters.textColor = Ocean.color.colorInterfaceDarkUp
-                            label.parameters.showSkeleton = self.parameters.showSkeleton
+                        Spacer().frame(height: Ocean.size.spacingStackXxs)
+                    }
+
+                    if #available(iOS 15.0, *) {
+                        InputTokenFieldItemsFocused(text1: self.$text1,
+                                                    text2: self.$text2,
+                                                    text3: self.$text3,
+                                                    text4: self.$text4,
+                                                    errorMessage: self.$parameters.errorMessage,
+                                                    isDisabled: self.$parameters.isDisabled,
+                                                    showSkeleton: self.$parameters.showSkeleton) {
+                            self.tryOnValueChanged()
                         }
-
-                        Spacer().frame(width: Ocean.size.spacingStackXxxs)
-
-                        if let icon = self.parameters.iconHelper {
-                            Image(uiImage: icon)
-                                .resizable()
-                                .renderingMode(.template)
-                                .frame(width: 16, height: 16, alignment: .center)
-                                .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
-                                .onTapGesture {
-                                    self.parameters.onTouchIconHelper()
-                                }
-                                .skeleton(with: self.parameters.showSkeleton)
+                    } else {
+                        InputTokenFieldItems(text1: self.$text1,
+                                             text2: self.$text2,
+                                             text3: self.$text3,
+                                             text4: self.$text4,
+                                             errorMessage: self.$parameters.errorMessage,
+                                             isDisabled: self.$parameters.isDisabled,
+                                             showSkeleton: self.$parameters.showSkeleton) {
+                            self.tryOnValueChanged()
                         }
                     }
+
+                    HStack {
+                        if !self.parameters.errorMessage.isEmpty {
+                            OceanSwiftUI.Typography.caption { label in
+                                label.parameters.text = self.parameters.errorMessage
+                                label.parameters.textColor = Ocean.color.colorStatusNegativePure
+                                label.parameters.showSkeleton = self.parameters.showSkeleton
+                            }
+                        } else if !self.parameters.helperMessage.isEmpty {
+                            OceanSwiftUI.Typography.caption { label in
+                                label.parameters.text = self.parameters.helperMessage
+                                label.parameters.textColor = Ocean.color.colorInterfaceDarkUp
+                                label.parameters.showSkeleton = self.parameters.showSkeleton
+                            }
+
+                            Spacer().frame(width: Ocean.size.spacingStackXxxs)
+
+                            if let icon = self.parameters.iconHelper {
+                                Image(uiImage: icon)
+                                    .resizable()
+                                    .renderingMode(.template)
+                                    .frame(width: 16, height: 16, alignment: .center)
+                                    .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
+                                    .onTapGesture {
+                                        self.parameters.onTouchIconHelper()
+                                    }
+                                    .skeleton(with: self.parameters.showSkeleton)
+                            }
+                        }
+                    }
+                    .frame(height: 16)
+                    .opacity(self.parameters.errorMessage.isEmpty && self.parameters.helperMessage.isEmpty ? 0 : 1)
                 }
-                .frame(height: 16)
-                .opacity(self.parameters.errorMessage.isEmpty && self.parameters.helperMessage.isEmpty ? 0 : 1)
-            }
+            })
+            .frame(width: 220, height: 100, alignment: .center)
         }
 
         // MARK: Methods private
@@ -179,7 +183,7 @@ extension OceanSwiftUI {
                 InputTokenFieldItem(text: self.$text1,
                                     errorMessage: self.$errorMessage,
                                     isDisabled: self.$isDisabled,
-                                    showSkeleton: self.$showSkeleton, 
+                                    showSkeleton: self.$showSkeleton,
                                     onValueChanged: {
                     self.onValueChanged()
                     if self.focused == .one && self.text1.count == 1 {
@@ -237,8 +241,6 @@ extension OceanSwiftUI {
             .onAppear {
                 self.focused = .one
             }
-
-            // MARK: Methods private
         }
     }
 
@@ -308,8 +310,6 @@ extension OceanSwiftUI {
                     self.onValueChanged()
                 }
             })
-            .padding([.leading, .trailing], Ocean.size.spacingStackXs)
-            .padding([.top, .bottom], 2)
             .background(
                 RoundedRectangle(cornerRadius: Ocean.size.borderRadiusMd)
                     .overlay(
