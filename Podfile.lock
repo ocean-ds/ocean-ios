@@ -4,7 +4,7 @@ PODS:
   - DGCharts/Core (5.1.0)
   - EasyTipView (2.1.0)
   - FSCalendar (2.8.4)
-  - OceanComponents (3.8.1-514):
+  - OceanComponents (3.8.1-515):
     - DGCharts
     - EasyTipView
     - FSCalendar
@@ -43,7 +43,7 @@ SPEC CHECKSUMS:
   DGCharts: 1c6daf585b6cfc78807af44ea690d357c410627f
   EasyTipView: a92b6edc377b81c5ac18e9fd35d5ee78e9409488
   FSCalendar: 2d1d0d9398f12d439f55c1fe0f01525b151b8260
-  OceanComponents: 63896efc473cfdd94325a9305d6d0d20a3159a58
+  OceanComponents: 93e1f2d874edf6699dda582afec83dbba29e593b
   OceanTokens: 1a12f8e53586004781d9af5d1965543adac1df5b
   SDWebImage: 066c47b573f408f18caa467d71deace7c0f8280d
   SkeletonUI: 8312e30b21b3e5af67a3807ae7da98f500e9c61d
