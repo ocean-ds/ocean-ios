@@ -94,15 +94,15 @@ extension OceanSwiftUI {
         private var titleSubtitleCaptionView: some View {
             VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxxs) {
                 if parameters.isInverted {
-                    if !self.parameters.subtitle.isEmpty {
+                    if !self.parameters.title.isEmpty {
                         Typography.description { label in
-                            label.parameters.text = self.parameters.subtitle
+                            label.parameters.text = self.parameters.title
                         }
                     }
 
-                    if !self.parameters.title.isEmpty {
+                    if !self.parameters.subtitle.isEmpty {
                         Typography.heading4 { label in
-                            label.parameters.text = self.parameters.title
+                            label.parameters.text = self.parameters.subtitle
                         }
                     }
                 } else {
