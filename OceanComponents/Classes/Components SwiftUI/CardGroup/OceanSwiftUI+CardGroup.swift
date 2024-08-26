@@ -15,6 +15,7 @@ extension OceanSwiftUI {
     public class CardGroupParameters: ObservableObject {
         @Published public var title: String
         @Published public var subtitle: String
+        @Published public var caption: String
         @Published public var icon: UIImage?
         @Published public var badgeCount: Int?
         @Published public var badgeStatus: BadgeParameters.Status
@@ -26,10 +27,12 @@ extension OceanSwiftUI {
         @Published public var showProgressText: Bool
         @Published public var isLoading: Bool
         @Published public var showSkeleton: Bool
+        @Published public var isInverted: Bool
         public var onTouch: () -> Void
 
         public init(title: String = "",
                     subtitle: String = "",
+                    caption: String = "",
                     icon: UIImage? = nil,
                     badgeCount: Int? = nil,
                     badgeStatus: BadgeParameters.Status = .warning,
@@ -41,9 +44,11 @@ extension OceanSwiftUI {
                     showProgressText: Bool = false,
                     isLoading: Bool = false,
                     showSkeleton: Bool = false,
+                    isInverted: Bool = false,
                     onTouch: @escaping () -> Void = { }) {
             self.title = title
             self.subtitle = subtitle
+            self.caption = caption
             self.icon = icon
             self.badgeCount = badgeCount
             self.badgeStatus = badgeStatus
@@ -55,6 +60,7 @@ extension OceanSwiftUI {
             self.showProgressText = showProgressText
             self.isLoading = isLoading
             self.showSkeleton = showSkeleton
+            self.isInverted = isInverted
             self.onTouch = onTouch
         }
 
@@ -83,6 +89,44 @@ extension OceanSwiftUI {
         @ObservedObject public var parameters: CardGroupParameters
 
         // MARK: Properties private
+
+        @ViewBuilder
+        private var titleSubtitleCaptionView: some View {
+            VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxxs) {
+                if parameters.isInverted {
+                    if !self.parameters.title.isEmpty {
+                        Typography.description { label in
+                            label.parameters.text = self.parameters.title
+                        }
+                    }
+
+                    if !self.parameters.subtitle.isEmpty {
+                        Typography.heading4 { label in
+                            label.parameters.text = self.parameters.subtitle
+                        }
+                    }
+                } else {
+                    if !self.parameters.title.isEmpty {
+                        Typography.heading4 { label in
+                            label.parameters.text = self.parameters.title
+                        }
+                    }
+
+                    if !self.parameters.subtitle.isEmpty {
+                        Typography.description { label in
+                            label.parameters.text = self.parameters.subtitle
+                        }
+                    }
+                }
+
+                if !self.parameters.caption.isEmpty {
+                    Typography.caption { label in
+                        label.parameters.text = self.parameters.caption
+                    }
+                    .padding(.top, Ocean.size.spacingStackXxxs)
+                }
+            }
+        }
 
         // MARK: Constructors
 
@@ -113,21 +157,9 @@ extension OceanSwiftUI {
                                            alignment: .center)
                                     .foregroundColor(Color(Ocean.color.colorInterfaceDarkDeep))
                             }
-                            
-                            VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxxs) {
-                                if !self.parameters.title.isEmpty {
-                                    Typography.heading4 { label in
-                                        label.parameters.text = self.parameters.title
-                                    }
-                                }
-                                
-                                if !self.parameters.subtitle.isEmpty {
-                                    Typography.description { label in
-                                        label.parameters.text = self.parameters.subtitle
-                                    }
-                                }
-                            }
-                            
+
+                            titleSubtitleCaptionView
+
                             Spacer()
                             
                             VStack(spacing: 0) {

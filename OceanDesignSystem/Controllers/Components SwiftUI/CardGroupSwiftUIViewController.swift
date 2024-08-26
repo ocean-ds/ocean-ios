@@ -12,6 +12,22 @@ import OceanComponents
 import SwiftUI
 
 class CardGroupSwiftUIViewController: UIViewController {
+    lazy var cardGroup: OceanSwiftUI.CardGroup = {
+        OceanSwiftUI.CardGroup { view in
+            view.parameters.title = "Title"
+            view.parameters.subtitle = "Subtitle"
+            view.parameters.caption = "Caption"
+            view.parameters.ctaText = "Call to action"
+            view.parameters.isInverted = true
+            view.parameters.onTouch = {
+                view.parameters.isLoading = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    view.parameters.isLoading = false
+                }
+            }
+        }
+    }()
+
     lazy var cardGroup1: OceanSwiftUI.CardGroup = {
         OceanSwiftUI.CardGroup { view in
             view.parameters.title = "Title"
@@ -108,6 +124,7 @@ class CardGroupSwiftUIViewController: UIViewController {
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
+            cardGroup
             cardGroup1
             cardGroup2
             cardGroup3
