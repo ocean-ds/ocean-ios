@@ -180,10 +180,12 @@ extension OceanSwiftUI {
 
                     VStack(alignment: .leading) {
                         HStack(spacing: Ocean.size.spacingStackXxs) {
-                            OceanSwiftUI.Typography.paragraph { label in
-                                label.parameters.text = parameters.title
-                                label.parameters.lineLimit = parameters.titleLineLimit
-                                label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDeep : Ocean.color.colorInterfaceDarkUp
+                            if !parameters.title.isEmpty {
+                                OceanSwiftUI.Typography.paragraph { label in
+                                    label.parameters.text = parameters.title
+                                    label.parameters.lineLimit = parameters.titleLineLimit
+                                    label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDeep : Ocean.color.colorInterfaceDarkUp
+                                }
                             }
 
                             if !parameters.tagLabel.isEmpty && parameters.tagOrientation == .horizontal {
