@@ -75,6 +75,7 @@ struct DSComponents {
         "Carousel",
         "ChartBar",
         "CheckboxGroup",
+        "ContentList",
         "Divider",
         "Input",
         "InvertedTextListItem",
