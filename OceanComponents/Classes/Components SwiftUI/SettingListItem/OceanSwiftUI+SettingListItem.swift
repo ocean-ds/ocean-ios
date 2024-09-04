@@ -26,7 +26,7 @@ extension OceanSwiftUI {
         @Published public var tagStatus: TagParameters.Status
         @Published public var buttonTitle: String
         @Published public var buttonStyle: ButtonParameters.Style
-        @Published public var isInverted: Bool
+        @Published public var contentType: ContentListParameters.ContentListItemType
         @Published public var showSkeleton: Bool
         @Published public var padding: EdgeInsets
         public var buttonAction: () -> Void
@@ -43,7 +43,7 @@ extension OceanSwiftUI {
                     tagStatus: TagParameters.Status = .warning,
                     buttonTitle: String = "",
                     buttonStyle: ButtonParameters.Style = .primary,
-                    isInverted: Bool = false,
+                    contentType: ContentListParameters.ContentListItemType = .default,
                     showSkeleton: Bool = false,
                     padding: EdgeInsets = .all(Ocean.size.spacingStackXs),
                     buttonAction: @escaping () -> Void = { }) {
@@ -59,7 +59,7 @@ extension OceanSwiftUI {
             self.tagStatus = tagStatus
             self.buttonTitle = buttonTitle
             self.buttonStyle = buttonStyle
-            self.isInverted = isInverted
+            self.contentType = contentType
             self.showSkeleton = showSkeleton
             self.padding = padding
             self.buttonAction = buttonAction
@@ -144,9 +144,10 @@ extension OceanSwiftUI {
                             view.parameters.title = parameters.title
                             view.parameters.description = parameters.description
                             view.parameters.newDescription = parameters.newDescription
-                            view.parameters.newDescription = parameters.newDescription
+                            view.parameters.descriptionColor = parameters.descriptionColor
                             view.parameters.caption = parameters.caption
                             view.parameters.errorMessage = parameters.errorMessage
+                            view.parameters.type = parameters.contentType
                             view.parameters.padding = .all(.zero)
                         }
                         .layoutPriority(1)
@@ -173,14 +174,6 @@ extension OceanSwiftUI {
         }
 
         // MARK: Private Methods
-
-        private func getDescriptionColor() -> UIColor {
-            if let descriptionColor = parameters.descriptionColor {
-                return descriptionColor
-            }
-            
-            return parameters.isInverted ? Ocean.color.colorInterfaceDarkPure : Ocean.color.colorInterfaceDarkDown
-        }
         
         private func getHasPadding() -> Bool {
             switch parameters.buttonStyle {
