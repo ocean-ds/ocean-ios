@@ -147,6 +147,15 @@ extension OceanSwiftUI {
 
         // MARK: Private Methods
 
+        private func getTitleColor() -> UIColor {
+            switch parameters.type {
+            case .default:
+                return Ocean.color.colorInterfaceDarkPure
+            case .inverted:
+                return Ocean.color.colorInterfaceDarkDown
+            }
+        }
+
         private func getDescriptionColor() -> UIColor {
             if let descriptionColor = parameters.descriptionColor {
                 return descriptionColor
@@ -157,15 +166,6 @@ extension OceanSwiftUI {
                 return Ocean.color.colorInterfaceDarkDown
             case .inverted:
                 return Ocean.color.colorInterfaceDarkPure
-            }
-        }
-
-        private func getTitleColor() -> UIColor {
-            switch parameters.type {
-            case .default:
-                return Ocean.color.colorInterfaceDarkPure
-            case .inverted:
-                return Ocean.color.colorInterfaceDarkDown
             }
         }
     }
