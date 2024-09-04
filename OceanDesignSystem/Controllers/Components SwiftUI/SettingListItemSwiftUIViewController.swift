@@ -93,7 +93,7 @@ class SettingListItemSwiftUIViewController: UIViewController {
     }()
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
-        VStack(spacing: Ocean.size.spacingStackXs) {
+        VStack(spacing: 0) {
             view0
             view1
             view2

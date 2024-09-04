@@ -89,62 +89,6 @@ extension OceanSwiftUI {
         // MARK: Private properties
 
         @ViewBuilder
-        private var leadingView: some View {
-            VStack(alignment: .leading, spacing: 0) {
-                if !parameters.title.isEmpty {
-                    Typography.description { label in
-                        label.parameters.text = parameters.title
-                        label.parameters.textColor = parameters.isInverted 
-                            ? Ocean.color.colorInterfaceDarkDown
-                            : Ocean.color.colorInterfaceDarkPure
-                    }
-                }
-
-                HStack(spacing: Ocean.size.spacingStackXxxs) {
-                    if !parameters.description.isEmpty {
-                        Typography.paragraph { label in
-                            label.parameters.text = parameters.description
-                            
-                            if parameters.newDescription.isEmpty {
-                                label.parameters.textColor = getDescriptionColor()
-                            } else {
-                                label.parameters.strikethrough = true
-                                label.parameters.textColor = Ocean.color.colorInterfaceDarkPure
-                            }
-                        }
-                    }
-                    
-                    if !parameters.newDescription.isEmpty {
-                        OceanSwiftUI.Typography.paragraph { label in
-                            label.parameters.text = parameters.newDescription
-                            label.parameters.textColor = getDescriptionColor()
-                            label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXs)
-                        }
-                    }
-                }
-
-                if !parameters.caption.isEmpty {
-                    Spacer()
-                        .frame(height: Ocean.size.spacingStackXxs)
-
-                    Typography.caption { label in
-                        label.parameters.text = parameters.caption
-                    }
-                }
-
-                if !parameters.errorMessage.isEmpty {
-                    Spacer()
-                        .frame(height: Ocean.size.spacingStackXxs)
-
-                    Typography.caption { label in
-                        label.parameters.text = parameters.errorMessage
-                        label.parameters.textColor = Ocean.color.colorStatusNegativePure
-                    }
-                }
-            }
-        }
-
-        @ViewBuilder
         private var trailingView: some View {
             VStack(alignment: .trailing, spacing: 0) {
                 switch parameters.type {
@@ -196,8 +140,16 @@ extension OceanSwiftUI {
                             view.parameters.lines = 2
                         }
                     } else {
-                        leadingView
-                            .layoutPriority(1)
+                        ContentList { view in
+                            view.parameters.title = parameters.title
+                            view.parameters.description = parameters.description
+                            view.parameters.newDescription = parameters.newDescription
+                            view.parameters.newDescription = parameters.newDescription
+                            view.parameters.caption = parameters.caption
+                            view.parameters.errorMessage = parameters.errorMessage
+                            view.parameters.padding = .all(.zero)
+                        }
+                        .layoutPriority(1)
                     }
 
                     Spacer()
