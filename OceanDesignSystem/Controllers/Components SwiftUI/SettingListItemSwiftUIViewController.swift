@@ -12,125 +12,95 @@ import OceanTokens
 import SwiftUI
 
 class SettingListItemSwiftUIViewController: UIViewController {
+    lazy var view0: OceanSwiftUI.SettingListItem = {
+        return OceanSwiftUI.SettingListItem { view in
+            view.parameters.title = "Title"
+            view.parameters.description = "R$ 100,00"
+            view.parameters.newDescription = "Zero"
+            view.parameters.descriptionColor = Ocean.color.colorStatusPositiveDown
+            view.parameters.buttonTitle = "Label"
+            view.parameters.type = .button
+            view.parameters.buttonAction = { print("touched") }
+        }
+    }()    
+
     lazy var view1: OceanSwiftUI.SettingListItem = {
         return OceanSwiftUI.SettingListItem { view in
-            view.parameters.title = "Unchanged Primary"
+            view.parameters.title = "Title Inverted"
             view.parameters.description = "Description"
             view.parameters.caption = "Caption"
             view.parameters.buttonTitle = "Label"
-            view.parameters.buttonAction = { print("Unchanged Primary touched") }
-            view.parameters.type = .unchangedPrimary
+            view.parameters.isInverted = true
+            view.parameters.type = .button
+            view.parameters.buttonStyle = .warning
+            view.parameters.buttonAction = { print("touched") }
         }
     }()
 
     lazy var view2: OceanSwiftUI.SettingListItem = {
         return OceanSwiftUI.SettingListItem { view in
-            view.parameters.title = "Unchanged Secondary"
+            view.parameters.title = "Title"
             view.parameters.description = "Description"
             view.parameters.caption = "Caption"
             view.parameters.buttonTitle = "Label"
-            view.parameters.buttonAction = { print("Unchanged Secondary touched") }
-            view.parameters.type = .unchangedSecondary
+            view.parameters.buttonStyle = .tertiaryCritical
+            view.parameters.type = .button
+            view.parameters.buttonAction = { print("touched") }
         }
     }()
     
     lazy var view3: OceanSwiftUI.SettingListItem = {
         return OceanSwiftUI.SettingListItem { view in
-            view.parameters.title = "Unchanged Tertiary"
+            view.parameters.title = "Title"
             view.parameters.description = "Description"
             view.parameters.caption = "Caption"
+            view.parameters.errorMessage = "Error message"
             view.parameters.buttonTitle = "Label"
-            view.parameters.buttonAction = { print("Unchanged Secondary touched") }
-            view.parameters.type = .unchangedTertiary
+            view.parameters.type = .button
+            view.parameters.buttonStyle = .tertiary
+            view.parameters.buttonAction = { print("Title") }
         }
     }()
 
     lazy var view4: OceanSwiftUI.SettingListItem = {
         return OceanSwiftUI.SettingListItem { view in
-            view.parameters.title = "Unchanged Blocked"
+            view.parameters.title = "Title"
             view.parameters.description = "Description"
             view.parameters.caption = "Caption"
-            view.parameters.type = .unchangedBlocked
+            view.parameters.type = .blocked
         }
     }()
 
     lazy var view5: OceanSwiftUI.SettingListItem = {
         return OceanSwiftUI.SettingListItem { view in
-            view.parameters.title = "Pending"
+            view.parameters.title = "Title"
             view.parameters.description = "Description"
             view.parameters.caption = "Caption"
             view.parameters.tagTitle = "Label"
-            view.parameters.type = .pending
+            view.parameters.type = .tag
         }
     }()
 
     lazy var view6: OceanSwiftUI.SettingListItem = {
         return OceanSwiftUI.SettingListItem { view in
-            view.parameters.title = "Changed Primary"
+            view.parameters.title = "Title"
             view.parameters.description = "Description"
             view.parameters.caption = "Caption"
-            view.parameters.buttonTitle = "Label"
-            view.parameters.buttonAction = { print("Changed Primary touched") }
-            view.parameters.type = .changedPrimary
-        }
-    }()
-
-    lazy var view7: OceanSwiftUI.SettingListItem = {
-        return OceanSwiftUI.SettingListItem { view in
-            view.parameters.title = "Changed Secondary"
-            view.parameters.description = "Description"
-            view.parameters.caption = "Caption"
-            view.parameters.buttonTitle = "Label"
-            view.parameters.buttonAction = { print("Changed Secondary touched") }
-            view.parameters.type = .changedSecondary
-        }
-    }()
-    
-    lazy var view8: OceanSwiftUI.SettingListItem = {
-        return OceanSwiftUI.SettingListItem { view in
-            view.parameters.title = "Changed Tertiary"
-            view.parameters.description = "Description"
-            view.parameters.caption = "Caption"
-            view.parameters.buttonTitle = "Label"
-            view.parameters.buttonAction = { print("Changed Secondary touched") }
-            view.parameters.type = .changedTertiary
-        }
-    }()
-
-    lazy var view9: OceanSwiftUI.SettingListItem = {
-        return OceanSwiftUI.SettingListItem { view in
-            view.parameters.title = "Changed Blocked"
-            view.parameters.description = "Description"
-            view.parameters.caption = "Caption"
-            view.parameters.hasDivider = true
-            view.parameters.type = .changedBlocked
-        }
-    }()
-
-    lazy var view10: OceanSwiftUI.SettingListItem = {
-        return OceanSwiftUI.SettingListItem { view in
-            view.parameters.title = "Unchanged Primary"
-            view.parameters.description = "Description"
-            view.parameters.caption = "Caption"
-            view.parameters.buttonTitle = "Label"
-            view.parameters.buttonAction = { print("Unchanged Primary touched") }
-            view.parameters.type = .unchangedPrimary
-            view.parameters.showSkeleton = true
+            view.parameters.tagTitle = "Label"
+            view.parameters.tagStatus = .positive
+            view.parameters.type = .tag
         }
     }()
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
+            view0
             view1
             view2
             view3
             view4
             view5
             view6
-            view7
-            view8
-            view9
-            view10
         }
     })
 
