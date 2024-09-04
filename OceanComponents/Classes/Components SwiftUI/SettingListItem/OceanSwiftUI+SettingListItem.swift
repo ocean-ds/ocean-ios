@@ -1,6 +1,6 @@
 //
 //  OceanSwiftUI+SettingListItem.swift
-//  DGCharts
+//  OceanDesignSystem
 //
 //  Created by Acassio Mendonça on 18/06/24.
 //
