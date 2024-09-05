@@ -1,6 +1,6 @@
 //
 //  OceanSwiftUI+Tab.swift
-//  Charts
+//  OceanDesignSystem
 //
 //  Created by Acassio Mendonça on 15/01/24.
 //

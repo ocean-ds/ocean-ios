@@ -1,6 +1,6 @@
 //
 //  OceanSwiftUI+InvertedTextListItem.swift
-//  Charts
+//  OceanDesignSystem
 //
 //  Created by Renan Massaroto on 26/01/24.
 //

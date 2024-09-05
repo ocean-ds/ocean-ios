@@ -1,6 +1,6 @@
 //
-//  SwiftUI+CheckboxGroup.swift
-//  Charts
+//  OceanSwiftUI+CheckboxGroup.swift
+//  OceanDesignSystem
 //
 //  Created by Acassio Mendonça on 06/02/24.
 //

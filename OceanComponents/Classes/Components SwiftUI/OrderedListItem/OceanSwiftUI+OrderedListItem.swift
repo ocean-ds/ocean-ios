@@ -1,6 +1,6 @@
 //
 //  OceanSwiftUI+OrderedListItem.swift
-//  Charts
+//  OceanDesignSystem
 //
 //  Created by Acassio Mendonça on 29/11/23.
 //

@@ -1,6 +1,6 @@
 //
 //  OceanSwiftUI+CardListItem.swift
-//  Charts
+//  OceanDesignSystem
 //
 //  Created by Renan Massaroto on 22/12/23.
 //

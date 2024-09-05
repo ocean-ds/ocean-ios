@@ -1,6 +1,6 @@
 //
 //  Ocean+listItem.swift
-//  Charts
+//  OceanDesignSystem
 //
 //  Created by Renan Massaroto on 30/05/23.
 //

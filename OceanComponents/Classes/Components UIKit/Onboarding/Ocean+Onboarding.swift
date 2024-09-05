@@ -1,6 +1,6 @@
 //
 //  Ocean+Onboarding.swift
-//  Charts
+//  OceanDesignSystem
 //
 //  Created by Acassio Mendonça on 04/08/23.
 //
