@@ -1,6 +1,6 @@
 //
 //  OceanSwiftUI+SettingListItem.swift
-//  DGCharts
+//  OceanDesignSystem
 //
 //  Created by Acassio Mendonça on 18/06/24.
 //
@@ -26,7 +26,7 @@ extension OceanSwiftUI {
         @Published public var tagStatus: TagParameters.Status
         @Published public var buttonTitle: String
         @Published public var buttonStyle: ButtonParameters.Style
-        @Published public var isInverted: Bool
+        @Published public var contentType: ContentListParameters.ContentListItemType
         @Published public var showSkeleton: Bool
         @Published public var padding: EdgeInsets
         public var buttonAction: () -> Void
@@ -43,7 +43,7 @@ extension OceanSwiftUI {
                     tagStatus: TagParameters.Status = .warning,
                     buttonTitle: String = "",
                     buttonStyle: ButtonParameters.Style = .primary,
-                    isInverted: Bool = false,
+                    contentType: ContentListParameters.ContentListItemType = .default,
                     showSkeleton: Bool = false,
                     padding: EdgeInsets = .all(Ocean.size.spacingStackXs),
                     buttonAction: @escaping () -> Void = { }) {
@@ -59,7 +59,7 @@ extension OceanSwiftUI {
             self.tagStatus = tagStatus
             self.buttonTitle = buttonTitle
             self.buttonStyle = buttonStyle
-            self.isInverted = isInverted
+            self.contentType = contentType
             self.showSkeleton = showSkeleton
             self.padding = padding
             self.buttonAction = buttonAction
@@ -87,62 +87,6 @@ extension OceanSwiftUI {
         @ObservedObject public var parameters: SettingListItemParameters
 
         // MARK: Private properties
-
-        @ViewBuilder
-        private var leadingView: some View {
-            VStack(alignment: .leading, spacing: 0) {
-                if !parameters.title.isEmpty {
-                    Typography.description { label in
-                        label.parameters.text = parameters.title
-                        label.parameters.textColor = parameters.isInverted 
-                            ? Ocean.color.colorInterfaceDarkDown
-                            : Ocean.color.colorInterfaceDarkPure
-                    }
-                }
-
-                HStack(spacing: Ocean.size.spacingStackXxxs) {
-                    if !parameters.description.isEmpty {
-                        Typography.paragraph { label in
-                            label.parameters.text = parameters.description
-                            
-                            if parameters.newDescription.isEmpty {
-                                label.parameters.textColor = getDescriptionColor()
-                            } else {
-                                label.parameters.strikethrough = true
-                                label.parameters.textColor = Ocean.color.colorInterfaceDarkPure
-                            }
-                        }
-                    }
-                    
-                    if !parameters.newDescription.isEmpty {
-                        OceanSwiftUI.Typography.paragraph { label in
-                            label.parameters.text = parameters.newDescription
-                            label.parameters.textColor = getDescriptionColor()
-                            label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXs)
-                        }
-                    }
-                }
-
-                if !parameters.caption.isEmpty {
-                    Spacer()
-                        .frame(height: Ocean.size.spacingStackXxs)
-
-                    Typography.caption { label in
-                        label.parameters.text = parameters.caption
-                    }
-                }
-
-                if !parameters.errorMessage.isEmpty {
-                    Spacer()
-                        .frame(height: Ocean.size.spacingStackXxs)
-
-                    Typography.caption { label in
-                        label.parameters.text = parameters.errorMessage
-                        label.parameters.textColor = Ocean.color.colorStatusNegativePure
-                    }
-                }
-            }
-        }
 
         @ViewBuilder
         private var trailingView: some View {
@@ -196,8 +140,17 @@ extension OceanSwiftUI {
                             view.parameters.lines = 2
                         }
                     } else {
-                        leadingView
-                            .layoutPriority(1)
+                        ContentList { view in
+                            view.parameters.title = parameters.title
+                            view.parameters.description = parameters.description
+                            view.parameters.newDescription = parameters.newDescription
+                            view.parameters.descriptionColor = parameters.descriptionColor
+                            view.parameters.caption = parameters.caption
+                            view.parameters.errorMessage = parameters.errorMessage
+                            view.parameters.type = parameters.contentType
+                            view.parameters.padding = .all(.zero)
+                        }
+                        .layoutPriority(1)
                     }
 
                     Spacer()
@@ -221,14 +174,6 @@ extension OceanSwiftUI {
         }
 
         // MARK: Private Methods
-
-        private func getDescriptionColor() -> UIColor {
-            if let descriptionColor = parameters.descriptionColor {
-                return descriptionColor
-            }
-            
-            return parameters.isInverted ? Ocean.color.colorInterfaceDarkPure : Ocean.color.colorInterfaceDarkDown
-        }
         
         private func getHasPadding() -> Bool {
             switch parameters.buttonStyle {
