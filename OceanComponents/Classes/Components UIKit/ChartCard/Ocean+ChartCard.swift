@@ -1,6 +1,6 @@
 //
 //  Ocean+ChartCard.swift
-//  Charts
+//  OceanDesignSystem
 //
 //  Created by Acassio Mendonça on 16/05/23.
 //

@@ -1,5 +1,5 @@
 //
-//  SettingListItemSwiftUIViewController.swift
+//  SettingsListItemSwiftUIViewController.swift
 //  OceanDesignSystem
 //
 //  Created by Acassio Mendonça on 18/06/24.
@@ -11,9 +11,9 @@ import UIKit
 import OceanTokens
 import SwiftUI
 
-class SettingListItemSwiftUIViewController: UIViewController {
-    lazy var view0: OceanSwiftUI.SettingListItem = {
-        return OceanSwiftUI.SettingListItem { view in
+class SettingsListItemSwiftUIViewController: UIViewController {
+    lazy var view0: OceanSwiftUI.SettingsListItem = {
+        return OceanSwiftUI.SettingsListItem { view in
             view.parameters.title = "Title"
             view.parameters.description = "R$ 100,00"
             view.parameters.newDescription = "Zero"
@@ -24,21 +24,21 @@ class SettingListItemSwiftUIViewController: UIViewController {
         }
     }()    
 
-    lazy var view1: OceanSwiftUI.SettingListItem = {
-        return OceanSwiftUI.SettingListItem { view in
+    lazy var view1: OceanSwiftUI.SettingsListItem = {
+        return OceanSwiftUI.SettingsListItem { view in
             view.parameters.title = "Title Inverted"
             view.parameters.description = "Description"
             view.parameters.caption = "Caption"
             view.parameters.buttonTitle = "Label"
             view.parameters.contentType = .inverted
             view.parameters.type = .button
-            view.parameters.buttonStyle = .warning
+            view.parameters.buttonStyle = .secondaryCritical
             view.parameters.buttonAction = { print("touched") }
         }
     }()
 
-    lazy var view2: OceanSwiftUI.SettingListItem = {
-        return OceanSwiftUI.SettingListItem { view in
+    lazy var view2: OceanSwiftUI.SettingsListItem = {
+        return OceanSwiftUI.SettingsListItem { view in
             view.parameters.title = "Title"
             view.parameters.description = "Description"
             view.parameters.caption = "Caption"
@@ -49,8 +49,8 @@ class SettingListItemSwiftUIViewController: UIViewController {
         }
     }()
     
-    lazy var view3: OceanSwiftUI.SettingListItem = {
-        return OceanSwiftUI.SettingListItem { view in
+    lazy var view3: OceanSwiftUI.SettingsListItem = {
+        return OceanSwiftUI.SettingsListItem { view in
             view.parameters.title = "Title"
             view.parameters.description = "Description"
             view.parameters.caption = "Caption"
@@ -62,8 +62,8 @@ class SettingListItemSwiftUIViewController: UIViewController {
         }
     }()
 
-    lazy var view4: OceanSwiftUI.SettingListItem = {
-        return OceanSwiftUI.SettingListItem { view in
+    lazy var view4: OceanSwiftUI.SettingsListItem = {
+        return OceanSwiftUI.SettingsListItem { view in
             view.parameters.title = "Title"
             view.parameters.description = "Description"
             view.parameters.caption = "Caption"
@@ -71,8 +71,8 @@ class SettingListItemSwiftUIViewController: UIViewController {
         }
     }()
 
-    lazy var view5: OceanSwiftUI.SettingListItem = {
-        return OceanSwiftUI.SettingListItem { view in
+    lazy var view5: OceanSwiftUI.SettingsListItem = {
+        return OceanSwiftUI.SettingsListItem { view in
             view.parameters.title = "Title"
             view.parameters.description = "Description"
             view.parameters.caption = "Caption"
@@ -81,8 +81,8 @@ class SettingListItemSwiftUIViewController: UIViewController {
         }
     }()
 
-    lazy var view6: OceanSwiftUI.SettingListItem = {
-        return OceanSwiftUI.SettingListItem { view in
+    lazy var view6: OceanSwiftUI.SettingsListItem = {
+        return OceanSwiftUI.SettingsListItem { view in
             view.parameters.title = "Title"
             view.parameters.description = "Description"
             view.parameters.caption = "Caption"
@@ -118,10 +118,10 @@ class SettingListItemSwiftUIViewController: UIViewController {
 }
 
 @available(iOS 13.0, *)
-struct SettingListItemSwiftUIViewController_Preview: PreviewProvider {
+struct SettingsListItemSwiftUIViewController_Preview: PreviewProvider {
     static var previews: some View {
         UIViewControllerPreview {
-            SettingListItemSwiftUIViewController()
+            SettingsListItemSwiftUIViewController()
         }
     }
 }

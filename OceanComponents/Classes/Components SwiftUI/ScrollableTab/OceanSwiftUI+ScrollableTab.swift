@@ -1,6 +1,6 @@
 //
 //  OceanSwiftUI+ScrollableTab.swift
-//  Charts
+//  OceanDesignSystem
 //
 //  Created by Renan Massaroto on 05/03/24.
 //

@@ -1,6 +1,6 @@
 //
 //  Ocean+Accordion.swift
-//  Charts
+//  OceanDesignSystem
 //
 //  Created by Acassio Mendonça on 11/07/23.
 //
