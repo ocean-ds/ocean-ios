@@ -1,5 +1,5 @@
 //
-//  OceanSwiftUI+SettingListItem.swift
+//  OceanSwiftUI+SettingsListItem.swift
 //  OceanDesignSystem
 //
 //  Created by Acassio Mendonça on 18/06/24.
@@ -13,14 +13,14 @@ extension OceanSwiftUI {
 
     // MARK: Parameter
 
-    public class SettingListItemParameters: ObservableObject {
+    public class SettingsListItemParameters: ObservableObject {
         @Published public var title: String
         @Published public var description: String
         @Published public var descriptionColor: UIColor?
         @Published public var newDescription: String
         @Published public var caption: String
         @Published public var errorMessage: String
-        @Published public var type: SettingListItemType
+        @Published public var type: SettingsListItemType
         @Published public var hasDivider: Bool
         @Published public var tagTitle: String
         @Published public var tagStatus: TagParameters.Status
@@ -37,7 +37,7 @@ extension OceanSwiftUI {
                     newDescription: String = "",
                     caption: String = "",
                     errorMessage: String = "",
-                    type: SettingListItemType = .button,
+                    type: SettingsListItemType = .button,
                     hasDivider: Bool = true,
                     tagTitle: String = "",
                     tagStatus: TagParameters.Status = .warning,
@@ -65,14 +65,14 @@ extension OceanSwiftUI {
             self.buttonAction = buttonAction
         }
 
-        public enum SettingListItemType {
+        public enum SettingsListItemType {
             case button
             case tag
             case blocked
         }
     }
 
-    public struct SettingListItem: View {
+    public struct SettingsListItem: View {
         // MARK: Properties for UIKit
 
         public lazy var hostingController = UIHostingController(rootView: self)
@@ -80,11 +80,11 @@ extension OceanSwiftUI {
 
         // MARK: Builder
 
-        public typealias Builder = (SettingListItem) -> Void
+        public typealias Builder = (SettingsListItem) -> Void
 
         // MARK: Properties
 
-        @ObservedObject public var parameters: SettingListItemParameters
+        @ObservedObject public var parameters: SettingsListItemParameters
 
         // MARK: Private properties
 
@@ -121,7 +121,7 @@ extension OceanSwiftUI {
 
         // MARK: Constructors
 
-        public init(parameters: SettingListItemParameters = SettingListItemParameters()) {
+        public init(parameters: SettingsListItemParameters = SettingsListItemParameters()) {
             self.parameters = parameters
         }
 

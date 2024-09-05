@@ -122,7 +122,7 @@ class ComponentsSwiftUIViewController: UITableViewController {
         case .SimpleBalance:
             self.present(SimpleBalanceSwiftUIViewController(), animated: true, completion: nil)
         case .SettingsListItem:
-            self.present(SettingListItemSwiftUIViewController(), animated: true, completion: nil)
+            self.present(SettingsListItemSwiftUIViewController(), animated: true, completion: nil)
         case .ContentList:
             self.present(ContentListSwiftUIViewController(), animated: true, completion: nil)
         }
