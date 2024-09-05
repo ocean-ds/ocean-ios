@@ -91,6 +91,7 @@ public enum DesignSystemComponentsSwiftUIType: String {
     case Carousel
     case ChartBar
     case CheckboxGroup
+    case ContentList
     case Divider
     case Input
     case InvertedTextListItem

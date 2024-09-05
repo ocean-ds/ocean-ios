@@ -30,7 +30,7 @@ class SettingListItemSwiftUIViewController: UIViewController {
             view.parameters.description = "Description"
             view.parameters.caption = "Caption"
             view.parameters.buttonTitle = "Label"
-            view.parameters.isInverted = true
+            view.parameters.contentType = .inverted
             view.parameters.type = .button
             view.parameters.buttonStyle = .warning
             view.parameters.buttonAction = { print("touched") }
@@ -93,7 +93,7 @@ class SettingListItemSwiftUIViewController: UIViewController {
     }()
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
-        VStack(spacing: Ocean.size.spacingStackXs) {
+        VStack(spacing: 0) {
             view0
             view1
             view2
