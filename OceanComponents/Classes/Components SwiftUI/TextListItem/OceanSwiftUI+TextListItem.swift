@@ -30,9 +30,10 @@ extension OceanSwiftUI {
         @Published public var tagOrientation: OceanSwiftUI.TextListItemParameters.TagOrientation
         @Published public var padding: EdgeInsets
         @Published public var state: OceanSwiftUI.TextListItemParameters.State
+        @Published public var checkboxIcon: UIImage?
         @Published public var hasCheckbox: Bool
         @Published public var hasRadioButton: Bool
-        @Published public var checked: Bool
+        @Published public var isChecked: Bool
         @Published public var isEnabled: Bool
         @Published public var hasError: Bool
         @Published public var hasAction: Bool
@@ -62,9 +63,10 @@ extension OceanSwiftUI {
                                                 bottom: Ocean.size.spacingStackXs,
                                                 trailing: Ocean.size.spacingStackXs),
                     state: OceanSwiftUI.TextListItemParameters.State = .normal,
+                    checkboxIcon: UIImage? = nil,
                     hasCheckbox: Bool = false,
                     hasRadioButton: Bool = false,
-                    checked: Bool = false,
+                    isChecked: Bool = false,
                     isEnabled: Bool = true,
                     hasError: Bool = false,
                     hasAction: Bool = false,
@@ -89,9 +91,10 @@ extension OceanSwiftUI {
             self.tagOrientation = tagOrientation
             self.padding = padding
             self.state = state
+            self.checkboxIcon = checkboxIcon
             self.hasCheckbox = hasCheckbox
             self.hasRadioButton = hasRadioButton
-            self.checked = checked
+            self.isChecked = isChecked
             self.isEnabled = isEnabled
             self.hasError = hasError
             self.hasAction = hasAction
@@ -158,8 +161,9 @@ extension OceanSwiftUI {
                     }
                     else if parameters.hasCheckbox {
                         OceanSwiftUI.CheckboxGroup { group in
+                            group.parameters.icon = parameters.checkboxIcon
                             group.parameters.hasError = parameters.hasError
-                            group.parameters.items = [ .init(isSelected: self.parameters.checked,
+                            group.parameters.items = [ .init(isSelected: self.parameters.isChecked,
                                                              isEnabled: self.parameters.isEnabled) ]
                             group.parameters.onTouch = { items in
                                 guard let item = items.first else { return }
@@ -171,7 +175,7 @@ extension OceanSwiftUI {
                             group.parameters.hasError = parameters.hasError
                             group.parameters.items = [ .init() ]
                             group.parameters.isEnabled = self.parameters.isEnabled
-                            group.parameters.setSelectedIndex(self.parameters.checked ? 0 : -1)
+                            group.parameters.setSelectedIndex(self.parameters.isChecked ? 0 : -1)
                             group.parameters.onTouch = { _, _ in
                                 parameters.onTouch()
                             }
