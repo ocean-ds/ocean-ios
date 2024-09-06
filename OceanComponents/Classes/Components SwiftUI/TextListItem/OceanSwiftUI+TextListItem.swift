@@ -37,6 +37,7 @@ extension OceanSwiftUI {
         @Published public var isEnabled: Bool
         @Published public var hasError: Bool
         @Published public var hasAction: Bool
+        @Published public var hasLocked: Bool
         @Published public var showSkeleton: Bool
 
         public var onSelection: (Bool) -> Void
@@ -70,6 +71,7 @@ extension OceanSwiftUI {
                     isEnabled: Bool = true,
                     hasError: Bool = false,
                     hasAction: Bool = false,
+                    hasLocked: Bool = false,
                     showSkeleton: Bool = false,
                     onSelection: @escaping (Bool) -> Void = { _ in },
                     onTouch: @escaping () -> Void = { }) {
@@ -98,6 +100,7 @@ extension OceanSwiftUI {
             self.isEnabled = isEnabled
             self.hasError = hasError
             self.hasAction = hasAction
+            self.hasLocked = hasLocked
             self.showSkeleton = showSkeleton
             self.onSelection = onSelection
             self.onTouch = onTouch
@@ -250,6 +253,12 @@ extension OceanSwiftUI {
 
                     if parameters.hasAction {
                         Image(uiImage: Ocean.icon.chevronRightSolid)
+                            .resizable()
+                            .renderingMode(.template)
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
+                    } else if parameters.hasLocked {
+                        Image(uiImage: Ocean.icon.lockClosedSolid)
                             .resizable()
                             .renderingMode(.template)
                             .frame(width: 20, height: 20)
