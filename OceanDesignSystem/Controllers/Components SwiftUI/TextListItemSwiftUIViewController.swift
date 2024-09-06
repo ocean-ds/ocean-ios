@@ -158,6 +158,19 @@ class TextListItemSwiftUIViewController: UIViewController {
                                                     trailing: 0)
         }
     }()
+    
+    lazy var textListItem12: OceanSwiftUI.TextListItem = {
+        OceanSwiftUI.TextListItem { textListItem in
+            textListItem.parameters.title = "Title 3"
+            textListItem.parameters.description = "Description"
+            textListItem.parameters.caption = "Caption"
+            textListItem.parameters.hasLocked = true
+            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
+                                                    leading: 0,
+                                                    bottom: Ocean.size.spacingStackXxs,
+                                                    trailing: 0)
+        }
+    }()
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
@@ -172,6 +185,7 @@ class TextListItemSwiftUIViewController: UIViewController {
             textListItem9
             textListItem10
             textListItem11
+            textListItem12
         }
     })
 
