@@ -14,11 +14,14 @@ extension OceanSwiftUI {
 
     public class SwitchParameters: ObservableObject {
         @Published public var isOn: Bool
+        @Published public var showSkeleton: Bool
         public var onValueChanged: (Bool) -> Void
         
         public init(isOn: Bool = false,
+                    showSkeleton: Bool = false,
                     onValueChanged: @escaping (Bool) -> Void = { _ in }) {
             self.isOn = isOn
+            self.showSkeleton = showSkeleton
             self.onValueChanged = onValueChanged
         }
     }
@@ -56,6 +59,7 @@ extension OceanSwiftUI {
         public var body: some View {
             Toggle("", isOn: self.$parameters.isOn)
                 .toggleStyle(OceanSwitchStyle(onValueChanged: self.parameters.onValueChanged))
+                .skeleton(with: self.parameters.showSkeleton, size: .init(width: 40, height: 20))
         }
 
         // MARK: Methods private
