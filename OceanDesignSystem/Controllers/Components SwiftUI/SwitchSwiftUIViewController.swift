@@ -24,12 +24,20 @@ class SwitchSwiftUIViewController: UIViewController {
             label.parameters.text = "false"
         }
     }()
+    
+    private lazy var switchSkeltonView: OceanSwiftUI.Switch = {
+        OceanSwiftUI.Switch { view in
+            view.parameters.showSkeleton = true
+        }
+    }()
 
     private lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(alignment: .center, spacing: Ocean.size.spacingStackXs) {
             switchView
             
             stateLabel
+            
+            switchSkeltonView
         }
     })
 
