@@ -155,7 +155,7 @@ extension OceanSwiftUI {
         private func tryOnValueChanged() {
             let now = Date()
             let interval = now.timeIntervalSince(self.lastDateValueChange) * 1000
-            if interval > 500 {
+            if interval > 800 {
                 self.lastDateValueChange = now
                 self.parameters.errorMessage = ""
                 if !self.text1.isEmpty,
