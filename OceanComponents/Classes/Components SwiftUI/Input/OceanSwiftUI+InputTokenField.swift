@@ -64,7 +64,7 @@ extension OceanSwiftUI {
         @State private var text3: String = ""
         @State private var text4: String = ""
         
-        @State private var lastDateValueChange = Date()
+        @State private var code: String = ""
 
         // MARK: Constructors
 
@@ -99,9 +99,12 @@ extension OceanSwiftUI {
                                                     text4: self.$text4,
                                                     errorMessage: self.$parameters.errorMessage,
                                                     isDisabled: self.$parameters.isDisabled,
-                                                    showSkeleton: self.$parameters.showSkeleton) {
+                                                    showSkeleton: self.$parameters.showSkeleton,
+                                                    onValueChanged: {
                             self.tryOnValueChanged()
-                        }
+                        }, onClear: {
+                            self.code = ""
+                        })
                     } else {
                         InputTokenFieldItems(text1: self.$text1,
                                              text2: self.$text2,
@@ -109,9 +112,12 @@ extension OceanSwiftUI {
                                              text4: self.$text4,
                                              errorMessage: self.$parameters.errorMessage,
                                              isDisabled: self.$parameters.isDisabled,
-                                             showSkeleton: self.$parameters.showSkeleton) {
+                                             showSkeleton: self.$parameters.showSkeleton,
+                                             onValueChanged: {
                             self.tryOnValueChanged()
-                        }
+                        }, onClear: {
+                            self.code = ""
+                        })
                     }
 
                     HStack {
@@ -153,17 +159,15 @@ extension OceanSwiftUI {
         // MARK: Methods private
 
         private func tryOnValueChanged() {
-            let now = Date()
-            let interval = now.timeIntervalSince(self.lastDateValueChange) * 1000
-            if interval > 800 {
-                self.lastDateValueChange = now
-                self.parameters.errorMessage = ""
-                if !self.text1.isEmpty,
-                   !self.text2.isEmpty,
-                   !self.text3.isEmpty,
-                   !self.text4.isEmpty {
-                    self.parameters.onValueChanged("\(self.text1)\(self.text2)\(self.text3)\(self.text4)")
-                }
+            self.parameters.errorMessage = ""
+            let code = "\(self.text1)\(self.text2)\(self.text3)\(self.text4)"
+            if !self.text1.isEmpty,
+               !self.text2.isEmpty,
+               !self.text3.isEmpty,
+               !self.text4.isEmpty,
+               self.code != code {
+                self.code = code
+                self.parameters.onValueChanged(code)
             }
         }
     }
@@ -178,6 +182,7 @@ extension OceanSwiftUI {
         @Binding var isDisabled: Bool
         @Binding var showSkeleton: Bool
         var onValueChanged: () -> Void
+        var onClear: () -> Void
 
         enum FocusedText {
             case one, two, three, four
@@ -199,6 +204,8 @@ extension OceanSwiftUI {
                             self.focused = .two
                         }
                     }
+                }, onClear: {
+                    self.onClear()
                 })
                 .textInputAutocapitalization(.never)
                 .focused(self.$focused, equals: .one)
@@ -215,6 +222,8 @@ extension OceanSwiftUI {
                     } else if self.focused == .two && self.text2.count == 1 {
                         self.focused = .three
                     }
+                }, onClear: {
+                    self.onClear()
                 })
                 .textInputAutocapitalization(.never)
                 .focused(self.$focused, equals: .two)
@@ -231,6 +240,8 @@ extension OceanSwiftUI {
                     } else if self.focused == .three && self.text3.count == 1 {
                         self.focused = .four
                     }
+                }, onClear: {
+                    self.onClear()
                 })
                 .textInputAutocapitalization(.never)
                 .focused(self.$focused, equals: .three)
@@ -247,6 +258,8 @@ extension OceanSwiftUI {
                     } else if self.focused == .four && self.text4.count == 1 {
                         self.focused = nil
                     }
+                }, onClear: {
+                    self.onClear()
                 })
                 .textInputAutocapitalization(.never)
                 .focused(self.$focused, equals: .four)
@@ -284,42 +297,55 @@ extension OceanSwiftUI {
         @Binding var isDisabled: Bool
         @Binding var showSkeleton: Bool
         var onValueChanged: () -> Void
+        var onClear: () -> Void
 
         public var body: some View {
             HStack(alignment: .center, spacing: Ocean.size.spacingStackXxs) {
                 InputTokenFieldItem(text: self.$text1,
                                     errorMessage: self.$errorMessage,
                                     isDisabled: self.$isDisabled,
-                                    showSkeleton: self.$showSkeleton) { text in
+                                    showSkeleton: self.$showSkeleton,
+                                    onValueChanged: { text in
                     if !verifyOneTimeCode(text: text) {
                         self.text1 = String(text.prefix(1))
                         self.onValueChanged()
                     }
-                }
+                }, onClear: {
+                    self.onClear()
+                })
 
                 InputTokenFieldItem(text: self.$text2,
                                     errorMessage: self.$errorMessage,
                                     isDisabled: self.$isDisabled,
-                                    showSkeleton: self.$showSkeleton) { text in
+                                    showSkeleton: self.$showSkeleton,
+                                    onValueChanged: { text in
                     self.text2 = String(text.prefix(1))
                     self.onValueChanged()
-                }
+                }, onClear: {
+                    self.onClear()
+                })
 
                 InputTokenFieldItem(text: self.$text3,
                                     errorMessage: self.$errorMessage,
                                     isDisabled: self.$isDisabled,
-                                    showSkeleton: self.$showSkeleton) { text in
+                                    showSkeleton: self.$showSkeleton,
+                                    onValueChanged: { text in
                     self.text3 = String(text.prefix(1))
                     self.onValueChanged()
-                }
+                }, onClear: {
+                    self.onClear()
+                })
 
                 InputTokenFieldItem(text: self.$text4,
                                     errorMessage: self.$errorMessage,
                                     isDisabled: self.$isDisabled,
-                                    showSkeleton: self.$showSkeleton) { text in
+                                    showSkeleton: self.$showSkeleton,
+                                    onValueChanged: { text in
                     self.text4 = String(text.prefix(1))
                     self.onValueChanged()
-                }
+                }, onClear: {
+                    self.onClear()
+                })
             }
         }
         
@@ -347,6 +373,7 @@ extension OceanSwiftUI {
         @Binding var isDisabled: Bool
         @Binding var showSkeleton: Bool
         var onValueChanged: (String) -> Void
+        var onClear: () -> Void
 
         @State private var focused: Bool = false
         @State private var textOld: String = ""
@@ -363,6 +390,9 @@ extension OceanSwiftUI {
                 if self.textOld != self.text {
                     self.textOld = self.text
                     self.onValueChanged(self.text)
+                    if self.text.isEmpty {
+                        self.onClear()
+                    }
                 }
             })
             .background(
