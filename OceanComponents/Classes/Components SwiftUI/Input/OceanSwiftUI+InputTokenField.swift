@@ -63,6 +63,8 @@ extension OceanSwiftUI {
         @State private var text2: String = ""
         @State private var text3: String = ""
         @State private var text4: String = ""
+        
+        @State private var lastDateValueChange = Date()
 
         // MARK: Constructors
 
@@ -151,12 +153,17 @@ extension OceanSwiftUI {
         // MARK: Methods private
 
         private func tryOnValueChanged() {
-            self.parameters.errorMessage = ""
-            if !self.text1.isEmpty,
-               !self.text2.isEmpty,
-               !self.text3.isEmpty,
-               !self.text4.isEmpty {
-                self.parameters.onValueChanged("\(self.text1)\(self.text2)\(self.text3)\(self.text4)")
+            let now = Date()
+            let interval = now.timeIntervalSince(self.lastDateValueChange) * 1000
+            if interval > 500 {
+                self.lastDateValueChange = now
+                self.parameters.errorMessage = ""
+                if !self.text1.isEmpty,
+                   !self.text2.isEmpty,
+                   !self.text3.isEmpty,
+                   !self.text4.isEmpty {
+                    self.parameters.onValueChanged("\(self.text1)\(self.text2)\(self.text3)\(self.text4)")
+                }
             }
         }
     }
@@ -185,7 +192,7 @@ extension OceanSwiftUI {
                                     isDisabled: self.$isDisabled,
                                     showSkeleton: self.$showSkeleton,
                                     onValueChanged: { text in
-                    if !verifyOneTimeCode(text: text), self.text1 != text {
+                    if !verifyOneTimeCode(text: text) {
                         self.text1 = String(text.prefix(1))
                         self.onValueChanged()
                         if self.focused == .one && self.text1.count == 1 {
@@ -201,14 +208,12 @@ extension OceanSwiftUI {
                                     isDisabled: self.$isDisabled,
                                     showSkeleton: self.$showSkeleton,
                                     onValueChanged: { text in
-                    if self.text2 != text {
-                        self.text2 = String(text.prefix(1))
-                        self.onValueChanged()
-                        if self.focused == .two && self.text2.count == 0 {
-                            self.focused = .one
-                        } else if self.focused == .two && self.text2.count == 1 {
-                            self.focused = .three
-                        }
+                    self.text2 = String(text.prefix(1))
+                    self.onValueChanged()
+                    if self.focused == .two && self.text2.count == 0 {
+                        self.focused = .one
+                    } else if self.focused == .two && self.text2.count == 1 {
+                        self.focused = .three
                     }
                 })
                 .textInputAutocapitalization(.never)
@@ -219,14 +224,12 @@ extension OceanSwiftUI {
                                     isDisabled: self.$isDisabled,
                                     showSkeleton: self.$showSkeleton,
                                     onValueChanged: { text in
-                    if self.text3 != text {
-                        self.text3 = String(text.prefix(1))
-                        self.onValueChanged()
-                        if self.focused == .three && self.text3.count == 0 {
-                            self.focused = .two
-                        } else if self.focused == .three && self.text3.count == 1 {
-                            self.focused = .four
-                        }
+                    self.text3 = String(text.prefix(1))
+                    self.onValueChanged()
+                    if self.focused == .three && self.text3.count == 0 {
+                        self.focused = .two
+                    } else if self.focused == .three && self.text3.count == 1 {
+                        self.focused = .four
                     }
                 })
                 .textInputAutocapitalization(.never)
@@ -237,14 +240,12 @@ extension OceanSwiftUI {
                                     isDisabled: self.$isDisabled,
                                     showSkeleton: self.$showSkeleton,
                                     onValueChanged: { text in
-                    if self.text4 != text {
-                        self.text4 = String(text.prefix(1))
-                        self.onValueChanged()
-                        if self.focused == .four && self.text4.count == 0 {
-                            self.focused = .three
-                        } else if self.focused == .four && self.text4.count == 1 {
-                            self.focused = nil
-                        }
+                    self.text4 = String(text.prefix(1))
+                    self.onValueChanged()
+                    if self.focused == .four && self.text4.count == 0 {
+                        self.focused = .three
+                    } else if self.focused == .four && self.text4.count == 1 {
+                        self.focused = nil
                     }
                 })
                 .textInputAutocapitalization(.never)
@@ -290,7 +291,7 @@ extension OceanSwiftUI {
                                     errorMessage: self.$errorMessage,
                                     isDisabled: self.$isDisabled,
                                     showSkeleton: self.$showSkeleton) { text in
-                    if !verifyOneTimeCode(text: text), self.text1 != text {
+                    if !verifyOneTimeCode(text: text) {
                         self.text1 = String(text.prefix(1))
                         self.onValueChanged()
                     }
@@ -300,30 +301,24 @@ extension OceanSwiftUI {
                                     errorMessage: self.$errorMessage,
                                     isDisabled: self.$isDisabled,
                                     showSkeleton: self.$showSkeleton) { text in
-                    if self.text2 != text {
-                        self.text2 = String(text.prefix(1))
-                        self.onValueChanged()
-                    }
+                    self.text2 = String(text.prefix(1))
+                    self.onValueChanged()
                 }
 
                 InputTokenFieldItem(text: self.$text3,
                                     errorMessage: self.$errorMessage,
                                     isDisabled: self.$isDisabled,
                                     showSkeleton: self.$showSkeleton) { text in
-                    if self.text3 != text {
-                        self.text3 = String(text.prefix(1))
-                        self.onValueChanged()
-                    }
+                    self.text3 = String(text.prefix(1))
+                    self.onValueChanged()
                 }
 
                 InputTokenFieldItem(text: self.$text4,
                                     errorMessage: self.$errorMessage,
                                     isDisabled: self.$isDisabled,
                                     showSkeleton: self.$showSkeleton) { text in
-                    if self.text4 != text {
-                        self.text4 = String(text.prefix(1))
-                        self.onValueChanged()
-                    }
+                    self.text4 = String(text.prefix(1))
+                    self.onValueChanged()
                 }
             }
         }
