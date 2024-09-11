@@ -179,11 +179,11 @@ extension OceanSwiftUI {
         @Binding var showSkeleton: Bool
         var onValueChanged: () -> Void
 
-        enum focusedText {
+        enum FocusedText {
             case one, two, three, four
         }
 
-        @FocusState private var focused: focusedText?
+        @FocusState private var focused: FocusedText?
 
         public var body: some View {
             HStack(alignment: .center, spacing: Ocean.size.spacingStackXxs) {
