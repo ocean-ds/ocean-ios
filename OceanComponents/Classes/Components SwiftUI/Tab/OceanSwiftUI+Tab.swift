@@ -16,15 +16,18 @@ extension OceanSwiftUI {
         @Published public var tabs: [TabModel]
         @Published private(set) public var tabSelectedIndex: Int = 0
         @Published public var contentIdealHeight: CGFloat? = nil
+        @Published public var isScrollable: Bool
         public var onTouch: ((Int) -> Void)
 
         public init(tabs: [TabModel] = [],
                     tabSelectedIndex: Int = 0,
                     contentIdealHeight: CGFloat? = nil,
+                    isScrollable: Bool = false,
                     onTouch: @escaping ((Int) -> Void) = { _ in }) {
             self.tabs = tabs
             self.tabSelectedIndex = tabSelectedIndex
             self.contentIdealHeight = contentIdealHeight
+            self.isScrollable = isScrollable
             self.onTouch = onTouch
         }
 
@@ -97,10 +100,10 @@ extension OceanSwiftUI {
 
         public var body: some View {
             VStack {
-                HStack {
-                    ForEach(0..<self.parameters.tabs.count, id: \.self) { index in
-                        getTab(self.parameters.tabs[index], index: index)
-                    }
+                if parameters.isScrollable {
+                    getScrollTabs()
+                } else {
+                    getTabs()
                 }
 
                 Divider()
@@ -112,6 +115,63 @@ extension OceanSwiftUI {
         }
 
         // MARK: Methods private
+
+        @ViewBuilder
+        private func getScrollTabs() -> some View {
+            if #available(iOS 14.0, *) {
+                ScrollViewReader { scrollReader in
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+
+                            Spacer()
+                                .frame(width: Ocean.size.spacingStackMd)
+
+                            ForEach(0..<self.parameters.tabs.count, id: \.self) { index in
+                                getTab(self.parameters.tabs[index], index: index)
+                                    .onChange(of: parameters.tabSelectedIndex) { _ in
+                                        withAnimation {
+                                            scrollReader.scrollTo(parameters.tabSelectedIndex, anchor: .center)
+                                        }
+                                    }
+                                    .onAppear {
+                                        if parameters.tabSelectedIndex != 0 {
+                                            withAnimation {
+                                                scrollReader.scrollTo(parameters.tabSelectedIndex, anchor: .center)
+                                            }
+                                        }
+                                    }
+                            }
+
+                            Spacer()
+                                .frame(width: Ocean.size.spacingStackMd)
+                        }
+                    }
+                }
+            } else {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+
+                        Spacer()
+                            .frame(width: Ocean.size.spacingStackMd)
+
+                        ForEach(0..<self.parameters.tabs.count, id: \.self) { index in
+                            getTab(self.parameters.tabs[index], index: index)
+                        }
+
+                        Spacer()
+                            .frame(width: Ocean.size.spacingStackMd)
+                    }
+                }
+            }
+        }
+
+        private func getTabs() -> some View {
+            HStack {
+                ForEach(0..<self.parameters.tabs.count, id: \.self) { index in
+                    getTab(self.parameters.tabs[index], index: index)
+                }
+            }
+        }
 
         @ViewBuilder
         private func getTab(_ tab: TabModel, index: Int) -> some View {
@@ -145,7 +205,6 @@ extension OceanSwiftUI {
             .onTapGesture { parameters.selectTab(tab: tab, index: index) }
         }
 
-        
         private func getContent() -> some View {
             Group {
                 if let tab = parameters.tabs[safe: parameters.tabSelectedIndex] {
