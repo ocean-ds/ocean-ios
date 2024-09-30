@@ -24,7 +24,9 @@ public extension String {
     }
 
     func toOceanTagStatus() -> OceanSwiftUI.TagParameters.Status? {
-        switch self.lowercased() {
+        let normalizedString = self.lowercased().replacingOccurrences(of: "_", with: "")
+
+        switch normalizedString {
         case "positive": return OceanSwiftUI.TagParameters.Status.positive
         case "warning": return OceanSwiftUI.TagParameters.Status.warning
         case "negative": return OceanSwiftUI.TagParameters.Status.negative
