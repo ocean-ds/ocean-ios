@@ -128,9 +128,9 @@ extension OceanSwiftUI {
 
                             ForEach(0..<self.parameters.tabs.count, id: \.self) { index in
                                 getTab(self.parameters.tabs[index], index: index)
-                                    .onChange(of: parameters.tabSelectedIndex) { _ in
+                                    .onChange(of: parameters.tabSelectedIndex) { newValue in
                                         withAnimation {
-                                            scrollReader.scrollTo(parameters.tabSelectedIndex, anchor: .center)
+                                            scrollReader.scrollTo(newValue, anchor: .center)
                                         }
                                     }
                                     .onAppear {
