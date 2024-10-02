@@ -24,10 +24,10 @@ extension OceanSwiftUI {
     }
 
     public class CarouselModel: ObservableObject, Identifiable {
-        @Published public var image: UIImage
+        @Published public var image: UIImage?
         @Published public var url: String?
 
-        public init(image: UIImage = UIImage(),
+        public init(image: UIImage? = nil,
                     url: String? = nil) {
             self.image = image
             self.url = url
@@ -74,6 +74,7 @@ extension OceanSwiftUI {
                     skeleton.parameters.radius = Ocean.size.borderRadiusMd
                     skeleton.parameters.lines = 1
                 }
+                .padding(.horizontal, Ocean.size.spacingStackXs)
             } else {
                 VStack(spacing: Ocean.size.spacingStackXs) {
                     GeometryReader { geometry in
@@ -122,12 +123,13 @@ extension OceanSwiftUI {
         @ViewBuilder
         private func getItem(_ item: CarouselModel, index: Int) -> some View {
             VStack(spacing: 0) {
-                Image(uiImage: item.image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .onAppear {
-                        self.loadImage(item: item, index: index)
-                    }
+                if let url = item.url {
+                    OceanSwiftUI.ImageDownload(parameters: .init(url: url))
+                } else {
+                    Image(uiImage: item.image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                }
             }
             .frame(minWidth: 0, maxWidth: .infinity,
                    minHeight: 0, maxHeight: .infinity)
@@ -136,15 +138,6 @@ extension OceanSwiftUI {
             .onTapGesture {
                 self.parameters.onTouch(item, index)
             }
-        }
-
-        private func loadImage(item: CarouselModel, index: Int) {
-            item.url?.getImage(completion: { result in
-                if let image = try? result.get() {
-                    item.image = image
-                    self.parameters.items[index] = item
-                }
-            })
         }
     }
 }

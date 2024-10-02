@@ -21,7 +21,7 @@ class TabSwiftUIViewController: UIViewController {
                 OceanSwiftUI.Button.primaryMD { button in
                     button.parameters.text = "Voltar para inicio"
                     button.parameters.onTouch = {
-                        self.tab.parameters.setSelectedIndex(0)
+                        self.customTab.parameters.setSelectedIndex(0)
                     }
                 }
                 OceanSwiftUI.Button.primaryMD { button in
@@ -33,7 +33,7 @@ class TabSwiftUIViewController: UIViewController {
         }
     }()
 
-    lazy var tab: OceanSwiftUI.Tab = {
+    lazy var customTab: OceanSwiftUI.Tab = {
         OceanSwiftUI.Tab { tab in
             tab.parameters.tabs = [
                 .init(title: "Aba 1",
@@ -54,7 +54,7 @@ class TabSwiftUIViewController: UIViewController {
         }
     }()
 
-    public lazy var hostingController = UIHostingController(rootView: tab)
+    public lazy var hostingController = UIHostingController(rootView: customTab)
 
     public lazy var uiView = self.hostingController.getUIView()
 
@@ -74,7 +74,7 @@ class TabSwiftUIViewController: UIViewController {
 
     private func updateTab() {
         TabSwiftUIViewController.badgeNumber += 1
-        self.tab.parameters.updateTab(
+        self.customTab.parameters.updateTab(
             tab: .init(title: "Atualizada",
                        view: getTextview("0000"),
                        badgeNumber: TabSwiftUIViewController.badgeNumber,
