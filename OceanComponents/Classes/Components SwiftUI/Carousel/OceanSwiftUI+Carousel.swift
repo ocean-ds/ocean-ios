@@ -49,6 +49,8 @@ extension OceanSwiftUI {
         @ObservedObject public var parameters: CarouselParameters
 
         // MARK: Properties private
+        
+        private var animationTime = 0.3
 
         @State private var screenWidth: CGFloat = 0
         @State private var currentPage: Int = 0
@@ -91,7 +93,7 @@ extension OceanSwiftUI {
                         .onAppear {
                             screenWidth = geometry.size.width - (Ocean.size.spacingStackXs * 2)
                         }
-                        .animation(enableAnimation ? .linear(duration: 0.3) : .none)
+                        .animation(enableAnimation ? .linear(duration: animationTime) : .none)
                     }
                     .frame(minWidth: 0, maxWidth: .infinity,
                            minHeight: 0, idealHeight: 168, maxHeight: .infinity)
@@ -108,7 +110,7 @@ extension OceanSwiftUI {
                                 } else if value.translation.width > threshold && self.currentPage > 0 {
                                     self.currentPage -= 1
                                 }
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + animationTime) {
                                     enableAnimation = false
                                 }
                             })
