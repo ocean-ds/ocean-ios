@@ -52,6 +52,7 @@ extension OceanSwiftUI {
 
         @State private var screenWidth: CGFloat = 0
         @State private var currentPage: Int = 0
+        @State private var enableAnimation = false
         @GestureState private var dragOffset: CGSize = .zero
 
         // MARK: Constructors
@@ -90,13 +91,14 @@ extension OceanSwiftUI {
                         .onAppear {
                             screenWidth = geometry.size.width - (Ocean.size.spacingStackXs * 2)
                         }
-                        .animation(.default)
+                        .animation(enableAnimation ? .linear(duration: 0.3) : .none)
                     }
                     .frame(minWidth: 0, maxWidth: .infinity,
                            minHeight: 0, idealHeight: 168, maxHeight: .infinity)
                     .gesture(
                         DragGesture()
                             .updating(self.$dragOffset) { value, dragOffset, _ in
+                                enableAnimation = true
                                 dragOffset = value.translation
                             }
                             .onEnded { value in
@@ -105,6 +107,9 @@ extension OceanSwiftUI {
                                     self.currentPage += 1
                                 } else if value.translation.width > threshold && self.currentPage > 0 {
                                     self.currentPage -= 1
+                                }
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                    enableAnimation = false
                                 }
                             })
 
