@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'OceanTokens'
-  s.version          = '3.8.1-1401'
+  s.version          = '3.8.1-1402'
   s.summary          = 'OceanTokens are tokens created by theo for use in Blu applications'
 
 # This description is used to generate tags and improve search results.
@@ -31,7 +31,6 @@ Project created with the objective of compiling tokens created through theo (sal
   s.swift_versions = ['5.0']
 
   s.source_files = 'OceanTokens/Classes/**/*'
-  s.info_plist = { 'CFBundleIdentifier' => 'br.com.blu.OceanTokens' }
   s.pod_target_xcconfig = { 'PRODUCT_BUNDLE_IDENTIFIER': 'br.com.blu.OceanTokens' }
   s.resource_bundle = { 'OceanTokens' => 'OceanTokens/Resources/Fonts/*.ttf' }
 end
