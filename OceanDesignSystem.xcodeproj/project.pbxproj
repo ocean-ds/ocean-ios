@@ -525,7 +525,7 @@
 				24C8014B2682585600744F30 /* Sources */,
 				24C8014C2682585600744F30 /* Frameworks */,
 				24C8014D2682585600744F30 /* Resources */,
-				2F65EA8D163938C12AE2BB03 /* [CP] Embed Pods Frameworks */,
+				431A2C39D75D13437D913B6C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -617,23 +617,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2F65EA8D163938C12AE2BB03 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OceanDesignSystemTests/Pods-OceanDesignSystemTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OceanDesignSystemTests/Pods-OceanDesignSystemTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OceanDesignSystemTests/Pods-OceanDesignSystemTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		3DFE38E23909B23457DFD63B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -654,6 +637,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		431A2C39D75D13437D913B6C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OceanDesignSystemTests/Pods-OceanDesignSystemTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OceanDesignSystemTests/Pods-OceanDesignSystemTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OceanDesignSystemTests/Pods-OceanDesignSystemTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6798CA49EAEDAEA71A24822B /* [CP] Check Pods Manifest.lock */ = {
