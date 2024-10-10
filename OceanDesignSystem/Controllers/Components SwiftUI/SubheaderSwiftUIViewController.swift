@@ -26,12 +26,19 @@ class SubheaderSwiftUIViewController: UIViewController {
         subheader.parameters.title = "Title"
         subheader.parameters.size = .small
     }
+    
+    lazy var subheader4 = OceanSwiftUI.Subheader { subheader in
+        subheader.parameters.title = "Title"
+        subheader.parameters.subtitle = "Subtitle"
+        subheader.parameters.subtitleTouchAction = { print("onTouch") }
+    }
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             subheader1
             subheader2
             subheader3
+            subheader4
         }
     })
 

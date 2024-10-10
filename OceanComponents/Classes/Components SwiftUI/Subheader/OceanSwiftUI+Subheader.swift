@@ -24,15 +24,18 @@ extension OceanSwiftUI {
         @Published public var title: String
         @Published public var subtitle: String
         @Published public var size: Size
+        public var subtitleTouchAction: (() -> Void)?
 
         public init(icon: UIImage? = nil,
                     title: String = "",
                     subtitle: String = "",
-                    size: Size = .medium) {
+                    size: Size = .medium,
+                    subtitleTouchAction: (() -> Void)? = nil) {
             self.icon = icon
             self.title = title
             self.subtitle = subtitle
             self.size = size
+            self.subtitleTouchAction = subtitleTouchAction
         }
 
         public enum Size {
@@ -94,11 +97,21 @@ extension OceanSwiftUI {
 
                 Spacer(minLength: Ocean.size.spacingStackXs)
 
-                Typography.caption { label in
-                    label.parameters.text = parameters.subtitle
+                if let action = parameters.subtitleTouchAction {
+                    OceanSwiftUI.Link { link in
+                        link.parameters.text = parameters.subtitle
+                        link.parameters.onTouch = action
+                        link.parameters.size = .tiny
+                        link.parameters.style = .primary
+                    }
+                    .fixedSize(horizontal: true, vertical: false)
+                } else {
+                    Typography.caption { label in
+                        label.parameters.text = parameters.subtitle
+                    }
+                    .fixedSize(horizontal: true, vertical: false)
                 }
-                .fixedSize(horizontal: true, vertical: false)
-
+                
                 Spacer()
                     .frame(width: Ocean.size.spacingStackXs)
             }
