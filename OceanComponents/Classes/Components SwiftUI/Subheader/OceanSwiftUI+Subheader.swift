@@ -104,6 +104,7 @@ extension OceanSwiftUI {
                         link.parameters.size = .tiny
                         link.parameters.style = .primary
                     }
+                    .fixedSize(horizontal: true, vertical: false)
                 } else {
                     Typography.caption { label in
                         label.parameters.text = parameters.subtitle
