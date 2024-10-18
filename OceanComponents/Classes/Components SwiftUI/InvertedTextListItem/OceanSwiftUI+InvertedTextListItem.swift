@@ -121,11 +121,11 @@ extension OceanSwiftUI {
                 if parameters.showSkeleton {
                     GeometryReader { geometryReader in
                         Rectangle()
-                            .skeleton(with: true,
-                                      size: CGSize(width: geometryReader.size.width,
-                                                   height: Constants.skeletonHeight),
-                                      shape: .rounded(.radius(Ocean.size.borderRadiusTiny,
-                                                              style: .circular)))
+                            .oceanSkeleton(with: true,
+                                           size: CGSize(width: geometryReader.size.width,
+                                                        height: Constants.skeletonHeight),
+                                           shape: .rounded(.radius(Ocean.size.borderRadiusTiny,
+                                                                   style: .circular)))
                     }
                     .frame(height: Constants.skeletonHeight)
                 } else {

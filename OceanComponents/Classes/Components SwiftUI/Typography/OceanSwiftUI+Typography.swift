@@ -92,8 +92,8 @@ extension OceanSwiftUI {
                 .overlay(
                     Path()
                         .background(Color.clear)
-                        .skeleton(with: self.parameters.showSkeleton,
-                                  shape: .rounded(.radius(Ocean.size.borderRadiusTiny)))
+                        .oceanSkeleton(with: self.parameters.showSkeleton,
+                                       shape: .rounded(.radius(Ocean.size.borderRadiusTiny)))
                 )
         }
 

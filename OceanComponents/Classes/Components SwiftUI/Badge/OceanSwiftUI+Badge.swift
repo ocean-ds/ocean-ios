@@ -82,7 +82,9 @@ extension OceanSwiftUI {
             .frame(width: self.getWidth(), height: self.parameters.size.rawValue)
             .background(Color(self.getBackgroundColor()))
             .cornerRadius(self.parameters.size.rawValue * Ocean.size.borderRadiusCircular)
-            .skeleton(with: self.parameters.showSkeleton)
+            .oceanSkeleton(with: self.parameters.showSkeleton,
+                           size: .init(width: self.parameters.size.rawValue,
+                                       height: self.parameters.size.rawValue))
         }
 
         private var dotView: some View {
@@ -92,7 +94,7 @@ extension OceanSwiftUI {
             .frame(width: 8, height: 8)
             .background(Color(Ocean.color.colorHighlightPure))
             .cornerRadius(Ocean.size.borderRadiusTiny)
-            .skeleton(with: self.parameters.showSkeleton)
+            .oceanSkeleton(with: self.parameters.showSkeleton, size: .init(width: 8, height: 8))
         }
 
         // MARK: Constructors

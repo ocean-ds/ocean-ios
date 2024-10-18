@@ -1,5 +1,5 @@
 //
-//  View+Extensions.swift
+//  View+transform.swift
 //  OceanComponents
 //
 //  Created by Acassio Mendonça on 22/03/24.
@@ -14,7 +14,8 @@ extension View {
     ///   - condition: The condition to evaluate.
     ///   - transform: The transform to apply to the source `View`.
     /// - Returns: Either the original `View` or the modified `View` if the condition is `true`.
-    @ViewBuilder func transform<Content: View>(condition: Bool, transform: (Self) -> Content) -> some View {
+    @ViewBuilder
+    func transform<Content: View>(condition: Bool, transform: (Self) -> Content) -> some View {
         if condition {
             transform(self)
         } else {

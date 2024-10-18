@@ -100,7 +100,7 @@ extension OceanSwiftUI {
             }
             .background(Color(self.getBackgroundColor()))
             .cornerRadius(Ocean.size.borderRadiusLg)
-            .skeleton(with: self.parameters.showSkeleton)
+            .oceanSkeleton(with: self.parameters.showSkeleton)
         }
 
         // MARK: Methods private
