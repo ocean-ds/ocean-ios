@@ -70,23 +70,22 @@ extension OceanSwiftUI {
                     HStack(spacing: Ocean.size.spacingStackXs) {
                         if self.parameters.withImage {
                             Circle()
-                                .skeleton(with: true,
-                                          size: CGSize(width: 40,
-                                                       height: 40),
-                                          shape: .circle)
+                                .oceanSkeleton(with: true,
+                                               size: CGSize(width: 40, height: 40),
+                                               shape: .circle)
                         }
 
                         let width = self.parameters.withImage ? geometryReader.size.width * 0.6 : geometryReader.size.width
                         let scales: [Int: CGFloat] = self.parameters.lines == 1 ? [0: 1.0] : [0: 0.35, 1: 1.0]
 
                         Rectangle()
-                            .skeleton(with: true,
-                                      size: CGSize(width: self.parameters.width ?? width,
-                                                   height: self.parameters.height ?? 60),
-                                      shape: .rounded(.radius(self.parameters.radius,
-                                                              style: .circular)),
-                                      lines: self.parameters.lines,
-                                      scales: scales)
+                            .oceanSkeleton(with: true,
+                                           size: CGSize(width: self.parameters.width ?? width,
+                                                        height: self.parameters.height ?? 60),
+                                           shape: .rounded(.radius(self.parameters.radius,
+                                                                   style: .circular)),
+                                           lines: self.parameters.lines,
+                                           scales: scales)
                     }
                 }
 

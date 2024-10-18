@@ -131,7 +131,7 @@ extension OceanSwiftUI {
                         )
                         .font(Font(UIFont.baseRegular(size: Ocean.font.fontSizeXs)!))
                         .foregroundColor(Color(self.parameters.isDisabled ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorInterfaceDarkDeep))
-                        .skeleton(with: self.parameters.showSkeleton)
+                        .oceanSkeleton(with: self.parameters.showSkeleton)
 
 
                     Image(uiImage: Ocean.icon.chevronDownSolid!)
@@ -140,7 +140,7 @@ extension OceanSwiftUI {
                         .frame(width: 20, height: 20, alignment: .center)
                         .padding(.trailing, Ocean.size.spacingStackXs)
                         .foregroundColor(Color(Ocean.color.colorInterfaceDarkDown))
-                        .skeleton(with: self.parameters.showSkeleton)
+                        .oceanSkeleton(with: self.parameters.showSkeleton)
                 }
 
                 HStack {
@@ -168,7 +168,7 @@ extension OceanSwiftUI {
                                 .onTapGesture {
                                     self.parameters.onTouchIconHelper()
                                 }
-                                .skeleton(with: self.parameters.showSkeleton)
+                                .oceanSkeleton(with: self.parameters.showSkeleton)
                         }
                     }
                 }

@@ -254,7 +254,7 @@ extension OceanSwiftUI {
                         )
                         .font(Font(UIFont.baseRegular(size: Ocean.font.fontSizeXs)!))
                         .foregroundColor(Color(self.parameters.isDisabled ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorInterfaceDarkDeep))
-                        .skeleton(with: self.parameters.showSkeleton)
+                        .oceanSkeleton(with: self.parameters.showSkeleton)
 
                     if let icon = self.parameters.icon {
                         Image(uiImage: icon)
@@ -266,7 +266,7 @@ extension OceanSwiftUI {
                             .onTapGesture {
                                 self.parameters.onTouchIcon()
                             }
-                            .skeleton(with: self.parameters.showSkeleton)
+                            .oceanSkeleton(with: self.parameters.showSkeleton)
                     }
                 }
 
@@ -306,7 +306,7 @@ extension OceanSwiftUI {
                                 .onTapGesture {
                                     self.parameters.onTouchIconHelper()
                                 }
-                                .skeleton(with: self.parameters.showSkeleton)
+                                .oceanSkeleton(with: self.parameters.showSkeleton)
                         }
                     }
                 }

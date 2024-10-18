@@ -82,6 +82,19 @@ class CardListItemSwiftUIViewController: UIViewController {
         builder.parameters.captionLineLimit = 1
     }
 
+    lazy var card9 = OceanSwiftUI.CardListItem { builder in
+        builder.parameters.title = "title title title"
+        builder.parameters.subtitle = "subtitle subtitle subtitle"
+        builder.parameters.caption = ""
+        builder.parameters.leadingIcon = Ocean.icon.archiveOutline
+        builder.parameters.trailingIcon = nil
+        builder.parameters.onTouch = { print("card8") }
+        builder.parameters.titleLineLimit = 1
+        builder.parameters.subtitleLineLimit = 1
+        builder.parameters.captionLineLimit = 1
+        builder.parameters.showSkeleton = true
+    }
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             card1
@@ -92,6 +105,7 @@ class CardListItemSwiftUIViewController: UIViewController {
             card6
             card7
             card8
+            card9
         }
     })
 

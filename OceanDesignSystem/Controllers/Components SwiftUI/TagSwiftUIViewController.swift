@@ -76,6 +76,13 @@ class TagSwiftUIViewController: UIViewController {
         }
     }()
 
+    lazy var tag11: OceanSwiftUI.Tag = {
+        return OceanSwiftUI.Tag.negativeSM { tag in
+            tag.parameters.label = "negativeSM"
+            tag.parameters.showSkeleton = true
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             tag1
@@ -88,6 +95,7 @@ class TagSwiftUIViewController: UIViewController {
             tag8
             tag9
             tag10
+            tag11
         }
     })
 
