@@ -1,5 +1,5 @@
 //
-//  View+skeleton.swift
+//  View+oceanSkeleton.swift
 //  Pods
 //
 //  Created by Acassio Mendonça on 17/10/24.
