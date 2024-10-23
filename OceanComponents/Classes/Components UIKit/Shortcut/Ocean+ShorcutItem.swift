@@ -43,6 +43,13 @@ extension Ocean {
                 label.translatesAutoresizingMaskIntoConstraints = false
             }
         }()
+        
+        private lazy var tagLabel: Tag = {
+            Ocean.Tag { view in
+                view.status = .highlightImportant
+                view.isHidden = true
+            }
+        }()
 
         private lazy var badgeNumber: BadgeNumber = {
             let badgeNumber = Ocean.Badge.number()
@@ -69,6 +76,7 @@ extension Ocean {
                 stack.spacing = Ocean.size.spacingStackXxs
 
                 stack.add([
+                    tagLabel,
                     badgeNumber,
                     blockedImageView
                 ])
@@ -193,6 +201,7 @@ extension Ocean {
         private func updateUI() {
             iconImageView.image = (model.image ?? Ocean.icon.placeholderOutline)?.withRenderingMode(.alwaysTemplate)
             horizontalTitleLabel.text = orientation == .horizontal ? model.title : ""
+            tagLabel.title = model.tagLabel ?? ""
             badgeNumber.status = model.badgeStatus
             badgeNumber.number = model.badgeNumber ?? 0
             verticalTitleLabel.text = orientation == .vertical ? model.title : ""
@@ -201,6 +210,7 @@ extension Ocean {
             horizontalTitleLabel.isHidden = orientation != .horizontal || model.title.isEmpty
             verticalTitleLabel.isHidden = orientation != .vertical || model.title.isEmpty
             subtitleLabel.isHidden = size != .medium || model.subtitle.isEmpty
+            tagLabel.isHidden = (size == .tiny && orientation == .horizontal) || (model.tagLabel == nil || model.blocked)
             badgeNumber.isHidden = model.badgeNumber == nil || model.blocked
             blockedImageView.isHidden = !model.blocked
             spacer.isHidden = orientation != .vertical && model.subtitle.isEmpty
