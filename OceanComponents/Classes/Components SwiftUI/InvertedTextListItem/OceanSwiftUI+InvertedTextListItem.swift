@@ -27,6 +27,11 @@ extension OceanSwiftUI {
         @Published public var tooltipText: String
         @Published public var padding: EdgeInsets
         @Published public var showSkeleton: Bool
+        @Published public var linkText: String
+        @Published public var linkType: OceanSwiftUI.LinkParameters.LinkType
+        @Published public var linkSize: OceanSwiftUI.LinkParameters.Size
+        @Published public var linkStyle: OceanSwiftUI.LinkParameters.Style
+        public var linkAction: () -> Void
 
         public init(title: String = "",
                     subtitle: String = "",
@@ -44,7 +49,12 @@ extension OceanSwiftUI {
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXxsExtra,
                                                 trailing: Ocean.size.spacingStackXs),
-                    showSkeleton: Bool = false) {
+                    showSkeleton: Bool = false,
+                    linkText: String = "",
+                    linkType: OceanSwiftUI.LinkParameters.LinkType = .chevron,
+                    linkSize: OceanSwiftUI.LinkParameters.Size = .small,
+                    linkStyle: OceanSwiftUI.LinkParameters.Style = .primary,
+                    linkAction: @escaping () -> Void = { }) {
             self.title = title
             self.subtitle = subtitle
             self.subtitleColor = subtitleColor
@@ -59,6 +69,11 @@ extension OceanSwiftUI {
             self.tooltipText = tooltipText
             self.padding = padding
             self.showSkeleton = showSkeleton
+            self.linkText = linkText
+            self.linkType = linkType
+            self.linkSize = linkSize
+            self.linkStyle = linkStyle
+            self.linkAction = linkAction
         }
 
         public enum State {
@@ -143,7 +158,7 @@ extension OceanSwiftUI {
 
                         OceanSwiftUI.Typography.paragraph { label in
                             label.parameters.text = parameters.subtitle
-                            
+
                             if parameters.newSubtitle.isEmpty {
                                 label.parameters.textColor = getStatusColor()
                             } else {
@@ -189,6 +204,19 @@ extension OceanSwiftUI {
                             label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
                         }
                     }
+
+                    if !parameters.linkText.isEmpty {
+                        Spacer()
+                            .frame(height: Ocean.size.spacingStackXxsExtra)
+
+                        OceanSwiftUI.Link { link in
+                            link.parameters.text = parameters.linkText
+                            link.parameters.type = parameters.linkType
+                            link.parameters.size = parameters.linkSize
+                            link.parameters.style = parameters.linkStyle
+                            link.parameters.onTouch = parameters.linkAction
+                        }
+                    }
                 }
             }
             .padding(parameters.padding)
@@ -199,7 +227,7 @@ extension OceanSwiftUI {
             if let subtitleColor = parameters.subtitleColor {
                 return subtitleColor
             }
-            
+
             switch parameters.status {
             case .inactive:
                 return Ocean.color.colorInterfaceDarkUp
