@@ -62,6 +62,7 @@ final public class ShortcutViewController : UIViewController {
 
     private var examples: [Ocean.ShortcutModel] = [
         Ocean.ShortcutModel(image: Ocean.icon.documentOutline,
+                            tagLabel: "Novo",
                             badgeNumber: nil,
                             badgeStatus: .neutral,
                             title: "Label",

@@ -10,6 +10,7 @@ import OceanTokens
 extension Ocean {
     public struct ShortcutModel: Equatable {
         public let image: UIImage?
+        public let tagLabel: String?
         public let badgeNumber: Int?
         public let badgeStatus: BadgeNumber.Status
         public let title: String
@@ -17,12 +18,14 @@ extension Ocean {
         public let blocked: Bool
 
         public init(image: UIImage? = nil,
+                    tagLabel: String? = nil,
                     badgeNumber: Int? = nil,
                     badgeStatus: BadgeNumber.Status = .alert,
                     title: String,
                     subtitle: String = "",
                     blocked: Bool = false) {
             self.image = image
+            self.tagLabel = tagLabel
             self.badgeNumber = badgeNumber
             self.badgeStatus = badgeStatus
             self.title = title
