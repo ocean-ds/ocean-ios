@@ -27,11 +27,7 @@ extension OceanSwiftUI {
         @Published public var tooltipText: String
         @Published public var padding: EdgeInsets
         @Published public var showSkeleton: Bool
-        @Published public var linkText: String
-        @Published public var linkType: OceanSwiftUI.LinkParameters.LinkType
-        @Published public var linkSize: OceanSwiftUI.LinkParameters.Size
-        @Published public var linkStyle: OceanSwiftUI.LinkParameters.Style
-        public var linkAction: () -> Void
+        @Published public var link: OceanSwiftUI.LinkParameters
 
         public init(title: String = "",
                     subtitle: String = "",
@@ -50,11 +46,7 @@ extension OceanSwiftUI {
                                                 bottom: Ocean.size.spacingStackXxsExtra,
                                                 trailing: Ocean.size.spacingStackXs),
                     showSkeleton: Bool = false,
-                    linkText: String = "",
-                    linkType: OceanSwiftUI.LinkParameters.LinkType = .chevron,
-                    linkSize: OceanSwiftUI.LinkParameters.Size = .small,
-                    linkStyle: OceanSwiftUI.LinkParameters.Style = .primary,
-                    linkAction: @escaping () -> Void = { }) {
+                    link: OceanSwiftUI.LinkParameters = .init()) {
             self.title = title
             self.subtitle = subtitle
             self.subtitleColor = subtitleColor
@@ -69,11 +61,7 @@ extension OceanSwiftUI {
             self.tooltipText = tooltipText
             self.padding = padding
             self.showSkeleton = showSkeleton
-            self.linkText = linkText
-            self.linkType = linkType
-            self.linkSize = linkSize
-            self.linkStyle = linkStyle
-            self.linkAction = linkAction
+            self.link = link
         }
 
         public enum State {
@@ -205,17 +193,11 @@ extension OceanSwiftUI {
                         }
                     }
 
-                    if !parameters.linkText.isEmpty {
+                    if !parameters.link.text.isEmpty {
                         Spacer()
                             .frame(height: Ocean.size.spacingStackXxsExtra)
 
-                        OceanSwiftUI.Link { link in
-                            link.parameters.text = parameters.linkText
-                            link.parameters.type = parameters.linkType
-                            link.parameters.size = parameters.linkSize
-                            link.parameters.style = parameters.linkStyle
-                            link.parameters.onTouch = parameters.linkAction
-                        }
+                        OceanSwiftUI.Link(parameters: parameters.link)
                     }
                 }
             }
