@@ -27,6 +27,7 @@ extension OceanSwiftUI {
         @Published public var tooltipText: String
         @Published public var padding: EdgeInsets
         @Published public var showSkeleton: Bool
+        @Published public var link: OceanSwiftUI.LinkParameters
 
         public init(title: String = "",
                     subtitle: String = "",
@@ -44,7 +45,8 @@ extension OceanSwiftUI {
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXxsExtra,
                                                 trailing: Ocean.size.spacingStackXs),
-                    showSkeleton: Bool = false) {
+                    showSkeleton: Bool = false,
+                    link: OceanSwiftUI.LinkParameters = .init()) {
             self.title = title
             self.subtitle = subtitle
             self.subtitleColor = subtitleColor
@@ -59,6 +61,7 @@ extension OceanSwiftUI {
             self.tooltipText = tooltipText
             self.padding = padding
             self.showSkeleton = showSkeleton
+            self.link = link
         }
 
         public enum State {
@@ -143,7 +146,7 @@ extension OceanSwiftUI {
 
                         OceanSwiftUI.Typography.paragraph { label in
                             label.parameters.text = parameters.subtitle
-                            
+
                             if parameters.newSubtitle.isEmpty {
                                 label.parameters.textColor = getStatusColor()
                             } else {
@@ -189,6 +192,13 @@ extension OceanSwiftUI {
                             label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
                         }
                     }
+
+                    if !parameters.link.text.isEmpty {
+                        Spacer()
+                            .frame(height: Ocean.size.spacingStackXxsExtra)
+
+                        OceanSwiftUI.Link(parameters: parameters.link)
+                    }
                 }
             }
             .padding(parameters.padding)
@@ -199,7 +209,7 @@ extension OceanSwiftUI {
             if let subtitleColor = parameters.subtitleColor {
                 return subtitleColor
             }
-            
+
             switch parameters.status {
             case .inactive:
                 return Ocean.color.colorInterfaceDarkUp

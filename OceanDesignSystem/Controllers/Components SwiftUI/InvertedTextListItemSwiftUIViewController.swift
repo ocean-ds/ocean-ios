@@ -67,6 +67,18 @@ class InvertedTextListItemSwiftUIViewController: UIViewController {
         invertedListItem.parameters.showSkeleton = true
     }
 
+    var invertedTextListItem9: OceanSwiftUI.InvertedTextListItem {
+        OceanSwiftUI.InvertedTextListItem { invertedListItem in
+            invertedListItem.parameters.title = "Title"
+            invertedListItem.parameters.subtitle = "Text"
+            invertedListItem.parameters.link.text = "link"
+            invertedListItem.parameters.link.type = .chevron
+            invertedListItem.parameters.link.style = .primary
+            invertedListItem.parameters.link.size = .small
+            invertedListItem.parameters.link.onTouch = { print("link touched") }
+        }
+    }
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             invertedTextListItem1
@@ -77,6 +89,7 @@ class InvertedTextListItemSwiftUIViewController: UIViewController {
             invertedTextListItem6
             invertedTextListItem7
             invertedTextListItem8
+            invertedTextListItem9
         }
     })
 
