@@ -150,7 +150,8 @@ extension OceanSwiftUI {
                 }
             }
             .buttonStyle(OceanButtonStyle(parameters: self.parameters, foregroundColor: self.getForegroundColor()))
-            .skeleton(with: self.parameters.showSkeleton, size: .init(width: .infinity, height: parameters.size.rawValue))
+            .oceanSkeleton(with: self.parameters.showSkeleton,
+                           size: .init(width: .infinity, height: parameters.size.rawValue))
         }
         
         public func getLoadingView() -> OceanSwiftUI.CircularProgressIndicator {

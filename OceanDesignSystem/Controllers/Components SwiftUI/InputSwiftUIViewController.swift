@@ -47,6 +47,19 @@ final public class InputSwiftUIViewController : UIViewController {
         }
     }()
 
+    lazy var inputTextFieldWithSkeleton: OceanSwiftUI.InputTextField = {
+        OceanSwiftUI.Input.textField { input in
+            input.parameters.title = "Title"
+            input.parameters.placeholder = "Placeholder"
+            input.parameters.helperMessage = "Helper message"
+            input.parameters.iconHelper = Ocean.icon.infoSolid
+            input.parameters.showSkeleton = true
+            input.parameters.onTouchIconHelper = {
+                print("icon tapped")
+            }
+        }
+    }()
+
     lazy var inputTextField3: OceanSwiftUI.InputTextField = {
         OceanSwiftUI.Input.textField { input in
             input.parameters.title = "Title"
@@ -98,6 +111,18 @@ final public class InputSwiftUIViewController : UIViewController {
         }
     }()
 
+    lazy var inputSelectFieldWithSkeleton: OceanSwiftUI.InputSelectField = {
+        OceanSwiftUI.Input.selectField { input in
+            input.parameters.title = ""
+            input.parameters.placeholder = "Placeholder"
+            input.parameters.rootViewController = self
+            input.parameters.showSkeleton = true
+            input.parameters.onValueChanged = { value in
+                print(value)
+            }
+        }
+    }()
+
     lazy var inputTokenField: OceanSwiftUI.InputTokenField = {
         OceanSwiftUI.Input.tokenField { input in
             input.parameters.title = "Title"
@@ -121,10 +146,12 @@ final public class InputSwiftUIViewController : UIViewController {
             inputSearchField
             inputTextField1
             inputTextField2
+            inputTextFieldWithSkeleton
             inputTextField3
             inputTextField4
             inputTextField5
             inputSelectField
+            inputSelectFieldWithSkeleton
             inputTokenField
             inputTextFieldWithMaxLength
         }

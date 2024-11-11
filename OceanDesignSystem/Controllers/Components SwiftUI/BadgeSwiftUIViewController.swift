@@ -45,6 +45,27 @@ class BadgeSwiftUIViewController: UIViewController {
         }
     }()
 
+    lazy var badge7: OceanSwiftUI.Badge = {
+        return OceanSwiftUI.Badge.primaryMd { badge in
+            badge.parameters.count = 1
+            badge.parameters.showSkeleton = true
+        }
+    }()
+
+    lazy var badge8: OceanSwiftUI.Badge = {
+        return OceanSwiftUI.Badge.primarySm { badge in
+            badge.parameters.count = 1
+            badge.parameters.showSkeleton = true
+        }
+    }()
+
+    lazy var badge9: OceanSwiftUI.Badge = {
+        return OceanSwiftUI.Badge.dot { badge in
+            badge.parameters.count = 1
+            badge.parameters.showSkeleton = true
+        }
+    }()
+
     private lazy var mainStack: Ocean.StackView = {
         let stack = Ocean.StackView()
         stack.axis = .vertical
@@ -69,6 +90,9 @@ class BadgeSwiftUIViewController: UIViewController {
             badge4
             badge5
             badge6
+            badge7
+            badge8
+            badge9
         }
     })
 

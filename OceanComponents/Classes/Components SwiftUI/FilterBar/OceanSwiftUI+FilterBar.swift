@@ -90,7 +90,8 @@ extension OceanSwiftUI {
                             ForEach(0..<3, id: \.self) { _ in
                                 Rectangle()
                                     .frame(width: 72, height: Constants.itemHeight)
-                                    .skeleton(with: true, size: CGSize(width: 72, height: Constants.itemHeight))
+                                    .oceanSkeleton(with: true,
+                                                   size: CGSize(width: 72, height: Constants.itemHeight))
                             }
                         } else {
                             ForEach(parameters.groups, id: \.id) { group in

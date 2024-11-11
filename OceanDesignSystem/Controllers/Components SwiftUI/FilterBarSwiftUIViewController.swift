@@ -78,12 +78,32 @@ class FilterBarSwiftUIViewController: UIViewController {
             self.showSnackbar(text: selectedItem.title)
         }
     }
+    
+    lazy var filterBar3 = OceanSwiftUI.FilterBar { filterBar in
+        filterBar.parameters.rootViewController = self
+        filterBar.parameters.options = [
+            .init(chips: [.init(number: 2, title: "Filtro 1")]),
+            .init(chips: [.init(number: 3, title: "Filtro 2")]),
+            .init(chips: [.init(number: 4, title: "Filtro 3")])
+        ]
+        
+        filterBar.parameters.onSelectionChange = { [weak self] items, _ in
+            guard let self = self, let selectedItem = items.first(where: { $0.isSelected }),
+                  let id = selectedItem.id else { return }
+            
+            self.showSnackbar(text: selectedItem.title)
+        }
+
+        filterBar.parameters.showSkeleton = true
+    }
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             filterBar1
             
             filterBar2
+
+            filterBar3
         }
     })
 

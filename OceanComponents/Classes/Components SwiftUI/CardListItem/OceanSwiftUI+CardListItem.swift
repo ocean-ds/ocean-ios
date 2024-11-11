@@ -107,7 +107,7 @@ extension OceanSwiftUI {
                                 .foregroundColor(Color(Ocean.color.colorBrandPrimaryDown))
                                 .frame(maxWidth: Constants.leadingIconImageMaxSize,
                                        maxHeight: Constants.leadingIconImageMaxSize)
-                                .skeleton(with: parameters.showSkeleton)
+                                .oceanSkeleton(with: parameters.showSkeleton)
                         }
                         .frame(width: Constants.leadingIconSize, height: Constants.leadingIconSize)
                         .background(Color(Ocean.color.colorInterfaceLightUp))
@@ -162,7 +162,7 @@ extension OceanSwiftUI {
                             .foregroundColor(Color(Ocean.color.colorInterfaceDarkDown))
                             .frame(maxWidth: Constants.trailingIconImageMaxSize,
                                    maxHeight: Constants.trailingIconImageMaxSize)
-                            .skeleton(with: parameters.showSkeleton)
+                            .oceanSkeleton(with: parameters.showSkeleton)
 
                         Spacer().frame(width: Ocean.size.spacingInsetXxs)
                     }

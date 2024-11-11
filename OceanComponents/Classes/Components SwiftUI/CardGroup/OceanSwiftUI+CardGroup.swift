@@ -144,7 +144,9 @@ extension OceanSwiftUI {
         public var body: some View {
             if parameters.showSkeleton {
                 Rectangle()
-                    .skeleton(with: true, size: CGSize(width: CGFloat.infinity, height: 150), shape: .rounded(.radius(Ocean.size.borderRadiusMd, style: .circular)))
+                    .oceanSkeleton(with: true,
+                                   size: CGSize(width: CGFloat.infinity, height: 150),
+                                   shape: .rounded(.radius(Ocean.size.borderRadiusMd, style: .circular)))
             } else {
                 ZStack(alignment: .topLeading) {
                     VStack(alignment: .leading, spacing: 0) {

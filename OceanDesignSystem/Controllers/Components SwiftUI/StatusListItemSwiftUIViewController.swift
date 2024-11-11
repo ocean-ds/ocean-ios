@@ -105,6 +105,16 @@ class StatusListItemSwiftUIViewController: UIViewController {
         }
     }()
 
+
+    lazy var statusListItem9: OceanSwiftUI.StatusListItem = {
+        return OceanSwiftUI.StatusListItem { statusListItem in
+            statusListItem.parameters.title = "Title"
+            statusListItem.parameters.description = "Description"
+            statusListItem.parameters.caption = "Caption"
+            statusListItem.parameters.showSkeleton = true
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             statusListItem1
@@ -115,6 +125,7 @@ class StatusListItemSwiftUIViewController: UIViewController {
             statusListItem6
             statusListItem7
             statusListItem8
+            statusListItem9
         }
     })
 
