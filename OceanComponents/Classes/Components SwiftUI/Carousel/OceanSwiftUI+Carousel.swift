@@ -131,11 +131,11 @@ extension OceanSwiftUI {
         private func getItem(_ item: CarouselModel, index: Int) -> some View {
             VStack(spacing: 0) {
                 if let url = item.url {
-                    OceanSwiftUI.ImageDownload(parameters: .init(url: url))
+                    OceanSwiftUI.ImageDownload(parameters: .init(url: url, contentMode: .fit))
                 } else {
                     Image(uiImage: item.image)
                         .resizable()
-                        .aspectRatio(contentMode: .fill)
+                        .aspectRatio(contentMode: .fit)
                 }
             }
             .frame(minWidth: 0, maxWidth: .infinity,
