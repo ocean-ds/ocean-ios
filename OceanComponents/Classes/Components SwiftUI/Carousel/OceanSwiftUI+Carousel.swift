@@ -51,8 +51,10 @@ extension OceanSwiftUI {
         // MARK: Properties private
         
         private var animationTime = 0.3
+        private var imageSize = CGSize(width: 328, height: 140)
 
         @State private var screenWidth: CGFloat = 0
+        @State private var screenHeight: CGFloat = 140
         @State private var currentPage: Int = 0
         @State private var enableAnimation = false
         @GestureState private var dragOffset: CGSize = .zero
@@ -73,7 +75,7 @@ extension OceanSwiftUI {
         public var body: some View {
             if self.parameters.showSkeleton {
                 OceanSwiftUI.Skeleton { skeleton in
-                    skeleton.parameters.height = 168
+                    skeleton.parameters.height = screenHeight
                     skeleton.parameters.radius = Ocean.size.borderRadiusMd
                     skeleton.parameters.lines = 1
                 }
@@ -92,11 +94,12 @@ extension OceanSwiftUI {
                         .padding(.horizontal, Ocean.size.spacingStackXs)
                         .onAppear {
                             screenWidth = geometry.size.width - (Ocean.size.spacingStackXs * 2)
+                            calculateHeight(width: screenWidth)
                         }
                         .animation(enableAnimation ? .linear(duration: animationTime) : .none)
                     }
                     .frame(minWidth: 0, maxWidth: .infinity,
-                           minHeight: 0, idealHeight: 168, maxHeight: .infinity)
+                           minHeight: 0, idealHeight: screenHeight, maxHeight: .infinity)
                     .gesture(
                         DragGesture()
                             .updating(self.$dragOffset) { value, dragOffset, _ in
@@ -131,19 +134,30 @@ extension OceanSwiftUI {
         private func getItem(_ item: CarouselModel, index: Int) -> some View {
             VStack(spacing: 0) {
                 if let url = item.url {
-                    OceanSwiftUI.ImageDownload(parameters: .init(url: url, contentMode: .fit))
+                    OceanSwiftUI.ImageDownload(parameters: .init(url: url, contentMode: .fill))
                 } else {
                     Image(uiImage: item.image)
                         .resizable()
-                        .aspectRatio(contentMode: .fit)
+                        .aspectRatio(contentMode: .fill)
                 }
             }
             .frame(minWidth: 0, maxWidth: .infinity,
                    minHeight: 0, maxHeight: .infinity)
-            .clipped()
             .cornerRadius(Ocean.size.borderRadiusMd, corners: .allCorners)
             .onTapGesture {
                 self.parameters.onTouch(item, index)
+            }
+        }
+        
+        private func calculateHeight(width: CGFloat) {
+            let isImageLargerThanScreen = imageSize.width > width
+
+            if isImageLargerThanScreen {
+                let ratio = imageSize.width / width
+                screenHeight = imageSize.height / ratio
+            } else {
+                let ratio = width / imageSize.width
+                screenHeight = imageSize.height * ratio
             }
         }
     }
