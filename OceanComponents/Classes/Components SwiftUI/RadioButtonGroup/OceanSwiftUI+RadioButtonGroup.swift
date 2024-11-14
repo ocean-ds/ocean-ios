@@ -14,6 +14,7 @@ extension OceanSwiftUI {
 
     public class RadioButtonGroupParameters: ObservableObject {
         @Published public var items: [String]
+        @Published public var axis: Axis
         @Published private(set) var itemSelectedIndex: Int?
         @Published public var isEnabled: Bool
         @Published public var hasError: Bool
@@ -25,19 +26,21 @@ extension OceanSwiftUI {
         public var onTouch: ((Int, String) -> Void)
 
         public init(items: [String] = [],
+                    axis: Axis = .vertical,
                     itemSelectedIndex: Int? = nil,
                     isEnabled: Bool = true,
                     hasError: Bool = false,
                     errorMessage: String = "",
                     onTouch: @escaping ((Int, String) -> Void) = { _, _ in }) {
             self.items = items
+            self.axis = axis
             self.itemSelectedIndex = itemSelectedIndex
             self.isEnabled = isEnabled
             self.hasError = hasError
             self.errorMessage = errorMessage
             self.onTouch = onTouch
         }
-
+        
         public func setSelectedIndex(_ index: Int) {
             guard items.indices.contains(index) else { return }
             itemSelectedIndex = index
@@ -82,9 +85,18 @@ extension OceanSwiftUI {
 
         public var body: some View {
             VStack(alignment: .leading) {
-                VStack(spacing: Ocean.size.spacingStackXxs) {
-                    ForEach(0..<self.parameters.items.count, id: \.self) { index in
-                        getItem(self.parameters.items[index], index: index)
+                
+                if parameters.axis == .vertical {
+                    VStack(spacing: Ocean.size.spacingStackXxs) {
+                        ForEach(0..<self.parameters.items.count, id: \.self) { index in
+                            getItem(self.parameters.items[index], index: index)
+                        }
+                    }
+                } else {
+                    HStack(spacing: Ocean.size.spacingStackXxs) {
+                        ForEach(0..<self.parameters.items.count, id: \.self) { index in
+                            getItem(self.parameters.items[index], index: index)
+                        }
                     }
                 }
 
