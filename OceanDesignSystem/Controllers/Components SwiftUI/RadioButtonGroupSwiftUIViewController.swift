@@ -28,7 +28,7 @@ class RadioButtonGroupSwiftUIViewController: UIViewController {
     }
     
     lazy var radioButtonHorizontal = OceanSwiftUI.RadioButtonGroup { view in
-        view.parameters.items = ["Label 1", "Label 2", "Label 3"]
+        view.parameters.items = ["Label 1", "Label 2"]
         view.parameters.axis = .horizontal
         view.parameters.onTouch = { index, value in
             print("Index: \(index) - Value: \(value)")

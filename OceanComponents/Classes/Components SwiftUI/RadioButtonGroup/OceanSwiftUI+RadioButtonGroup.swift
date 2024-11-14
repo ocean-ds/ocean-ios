@@ -9,9 +9,9 @@ import SwiftUI
 import OceanTokens
 
 extension OceanSwiftUI {
-
+    
     // MARK: Parameters
-
+    
     public class RadioButtonGroupParameters: ObservableObject {
         @Published public var items: [String]
         @Published public var axis: Axis
@@ -24,7 +24,7 @@ extension OceanSwiftUI {
             }
         }
         public var onTouch: ((Int, String) -> Void)
-
+        
         public init(items: [String] = [],
                     axis: Axis = .vertical,
                     itemSelectedIndex: Int? = nil,
@@ -45,61 +45,65 @@ extension OceanSwiftUI {
             guard items.indices.contains(index) else { return }
             itemSelectedIndex = index
         }
-
+        
         fileprivate func selectItem(item: String, index: Int) {
             errorMessage = ""
             itemSelectedIndex = index
             onTouch(index, item)
         }
     }
-
+    
     public struct RadioButtonGroup: View {
-
+        
         // MARK: Properties for UIKit
-
+        
         public lazy var hostingController = UIHostingController(rootView: self)
         public lazy var uiView = self.hostingController.getUIView()
-
+        
         // MARK: Builder
-
+        
         public typealias Builder = (RadioButtonGroup) -> Void
-
+        
         // MARK: Properties
-
+        
         @ObservedObject public var parameters: RadioButtonGroupParameters
-
+        
         // MARK: Properties private
-
+        
         // MARK: Constructors
-
+        
         public init(parameters: RadioButtonGroupParameters = RadioButtonGroupParameters()) {
             self.parameters = parameters
         }
-
+        
         public init(builder: Builder) {
             self.init()
             builder(self)
         }
-
+        
         // MARK: View SwiftUI
-
+        
         public var body: some View {
             VStack(alignment: .leading) {
                 
-                if parameters.axis == .vertical {
-                    VStack(spacing: Ocean.size.spacingStackXxs) {
-                        ForEach(0..<self.parameters.items.count, id: \.self) { index in
-                            getItem(self.parameters.items[index], index: index)
+                HStack(spacing: 0) {
+                    if parameters.axis == .vertical {
+                        VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
+                            ForEach(0..<self.parameters.items.count, id: \.self) { index in
+                                getItem(self.parameters.items[index], index: index)
+                            }
+                        }
+                    } else {
+                        HStack(spacing: Ocean.size.spacingStackXxs) {
+                            ForEach(0..<self.parameters.items.count, id: \.self) { index in
+                                getItem(self.parameters.items[index], index: index)
+                            }
                         }
                     }
-                } else {
-                    HStack(spacing: Ocean.size.spacingStackXxs) {
-                        ForEach(0..<self.parameters.items.count, id: \.self) { index in
-                            getItem(self.parameters.items[index], index: index)
-                        }
-                    }
+                    
+                    Spacer()
                 }
-
+                
                 if !self.parameters.errorMessage.isEmpty {
                     OceanSwiftUI.Typography.caption { label in
                         label.parameters.text = self.parameters.errorMessage
@@ -108,12 +112,12 @@ extension OceanSwiftUI {
                 }
             }
         }
-
+        
         // MARK: Methods private
-
+        
         @ViewBuilder
         private func getItem(_ item: String, index: Int) -> some View {
-            VStack {
+            VStack(alignment: .leading, spacing: 0) {
                 HStack(alignment: .center, spacing: Ocean.size.spacingStackXxs) {
                     Circle()
                         .fill(Color(Ocean.color.colorInterfaceLightPure))
@@ -122,14 +126,12 @@ extension OceanSwiftUI {
                             getItemOverlay(index: index)
                         )
                         .padding(.all, 6)
-
+                    
                     if !item.isEmpty {
                         OceanSwiftUI.Typography.description { view in
                             view.parameters.text = item
                             view.parameters.lineLimit = 20
                         }
-
-                        Spacer()
                     }
                 }
             }
@@ -140,14 +142,14 @@ extension OceanSwiftUI {
                 }
             })
         }
-
+        
         private func getItemOverlay(index: Int) -> some View {
             let size: CGFloat = !self.parameters.errorMessage.isEmpty ? 20 : self.parameters.itemSelectedIndex == index ? 14 : 20
             return Group {
                 if !self.parameters.errorMessage.isEmpty || self.parameters.hasError {
                     Circle()
                         .stroke(Color(Ocean.color.colorStatusNegativePure), lineWidth: 1)
-
+                    
                 } else if !self.parameters.isEnabled {
                     Circle()
                         .stroke(Color(Ocean.color.colorInterfaceLightDeep), lineWidth: 1)
