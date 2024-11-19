@@ -99,6 +99,11 @@ public extension String {
     }
 
     func getImage(completion: @escaping (Result<UIImage?, Error>) -> Void) {
+        if let image = SDImageCache.shared.imageFromCache(forKey: self) {
+            completion(.success(image))
+            return
+        }
+        
         SDWebImageDownloader.shared.downloadImage(with: URL(string: self),
                                                   options: [.highPriority],
                                                   progress: { _, _, _ in },
@@ -107,6 +112,8 @@ public extension String {
                 completion(.failure(error))
                 return
             }
+            
+            SDImageCache.shared.store(image, forKey: self)
 
             completion(.success(image))
         })
