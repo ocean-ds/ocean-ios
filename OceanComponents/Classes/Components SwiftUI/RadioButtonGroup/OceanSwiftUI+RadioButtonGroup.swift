@@ -100,8 +100,6 @@ extension OceanSwiftUI {
                             }
                         }
                     }
-                    
-                    Spacer()
                 }
                 
                 if !self.parameters.errorMessage.isEmpty {
@@ -132,6 +130,8 @@ extension OceanSwiftUI {
                             view.parameters.text = item
                             view.parameters.lineLimit = 20
                         }
+                        
+                        Spacer()
                     }
                 }
             }
