@@ -95,6 +95,32 @@ final public class InputSwiftUIViewController : UIViewController {
         }
     }()
 
+    lazy var inputTextField6: OceanSwiftUI.InputTextField = {
+        OceanSwiftUI.Input.textField { input in
+            input.parameters.title = "Title"
+            input.parameters.placeholder = "Placeholder"
+            input.parameters.helperMessage = "Helper message"
+            input.parameters.errorMessage = "Error message colorStatusNegativeUp"
+            input.parameters.errorMessageColor = Ocean.color.colorStatusNegativeUp
+            input.parameters.onValueChanged = { _ in
+                input.parameters.errorMessage = "New error message"
+            }
+        }
+    }()
+    
+    lazy var inputTextField7: OceanSwiftUI.InputTextField = {
+        OceanSwiftUI.Input.textField { input in
+            input.parameters.title = "Title"
+            input.parameters.placeholder = "Placeholder"
+            input.parameters.helperMessage = "Helper message"
+            input.parameters.errorMessage = "Error message colorStatusNegativeUp"
+            input.parameters.errorMessageColor = Ocean.color.colorBrandPrimaryDown
+            input.parameters.onValueChanged = { _ in
+                input.parameters.errorMessage = "New error message"
+            }
+        }
+    }()
+    
     lazy var inputSelectField: OceanSwiftUI.InputSelectField = {
         OceanSwiftUI.Input.selectField { input in
             input.parameters.title = "Title"
@@ -154,6 +180,8 @@ final public class InputSwiftUIViewController : UIViewController {
             inputSelectFieldWithSkeleton
             inputTokenField
             inputTextFieldWithMaxLength
+            inputTextField6
+            inputTextField7
         }
     })
 
