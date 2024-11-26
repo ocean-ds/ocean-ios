@@ -21,6 +21,7 @@ extension OceanSwiftUI {
         @Published public var style: Style
         @Published public var icon: UIImage?
         @Published public var errorMessage: String
+        @Published public var errorMessageColor: UIColor
         @Published public var helperMessage: String
         @Published public var iconHelper: UIImage?
         @Published public var keyboardType: UIKeyboardType
@@ -44,6 +45,7 @@ extension OceanSwiftUI {
                     style: Style = .input,
                     icon: UIImage? = nil,
                     errorMessage: String = "",
+                    errorMessageColor: UIColor = Ocean.color.colorStatusNegativePure,
                     helperMessage: String = "",
                     iconHelper: UIImage? = nil,
                     keyboardType: UIKeyboardType = .default,
@@ -66,6 +68,7 @@ extension OceanSwiftUI {
             self.style = style
             self.icon = icon
             self.errorMessage = errorMessage
+            self.errorMessageColor = errorMessageColor
             self.helperMessage = helperMessage
             self.iconHelper = iconHelper
             self.keyboardType = keyboardType
@@ -277,7 +280,7 @@ extension OceanSwiftUI {
                     if !self.parameters.errorMessage.isEmpty {
                         OceanSwiftUI.Typography.caption { label in
                             label.parameters.text = self.parameters.errorMessage
-                            label.parameters.textColor = Ocean.color.colorStatusNegativePure
+                            label.parameters.textColor = self.parameters.errorMessageColor
                             label.parameters.showSkeleton = self.parameters.showSkeleton
                         }
                     } else if let maxLength = self.parameters.maxLength,
