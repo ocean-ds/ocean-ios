@@ -76,7 +76,6 @@ extension Ocean {
             calendar.rowHeight = 60
             calendar.calendarHeaderView.backgroundColor = .white
             calendar.appearance.headerMinimumDissolvedAlpha = 0
-            calendar.appearance.headerDateFormat = "MMMM YYYY"
             calendar.appearance.headerTitleOffset = CGPoint(x: 0, y: -Ocean.size.spacingStackXxs)
             calendar.appearance.headerTitleFont = UIFont(name: Ocean.font.fontFamilyHighlightWeightBold,
                                                          size: Ocean.font.fontSizeXs)
