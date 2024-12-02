@@ -70,7 +70,7 @@ extension OceanSwiftUI {
                     HStack(spacing: Ocean.size.spacingStackXs) {
                         if self.parameters.withImage {
                             Circle()
-                                .oceanSkeleton(with: true,
+                                .oceanSkeleton(isActive: true,
                                                size: CGSize(width: 40, height: 40),
                                                shape: .circle)
                         }
@@ -79,7 +79,7 @@ extension OceanSwiftUI {
                         let scales: [Int: CGFloat] = self.parameters.lines == 1 ? [0: 1.0] : [0: 0.35, 1: 1.0]
 
                         Rectangle()
-                            .oceanSkeleton(with: true,
+                            .oceanSkeleton(isActive: true,
                                            size: CGSize(width: self.parameters.width ?? width,
                                                         height: self.parameters.height ?? 60),
                                            shape: .rounded(.radius(self.parameters.radius,

@@ -20,6 +20,7 @@ class CardOptionSwiftUIViewController: UIViewController {
                 self.cardOption3.parameters.isSelected = false
                 self.cardOption4.parameters.isSelected = false
                 self.cardOption5.parameters.isSelected = false
+                self.cardOption6.parameters.isSelected = false
             }
         }
     }()
@@ -34,6 +35,7 @@ class CardOptionSwiftUIViewController: UIViewController {
                 self.cardOption3.parameters.isSelected = false
                 self.cardOption4.parameters.isSelected = false
                 self.cardOption5.parameters.isSelected = false
+                self.cardOption6.parameters.isSelected = false
             }
         }
     }()
@@ -48,6 +50,7 @@ class CardOptionSwiftUIViewController: UIViewController {
                 self.cardOption2.parameters.isSelected = false
                 self.cardOption4.parameters.isSelected = false
                 self.cardOption5.parameters.isSelected = false
+                self.cardOption6.parameters.isSelected = false
             }
         }
     }()
@@ -61,6 +64,7 @@ class CardOptionSwiftUIViewController: UIViewController {
                 self.cardOption2.parameters.isSelected = false
                 self.cardOption3.parameters.isSelected = false
                 self.cardOption5.parameters.isSelected = false
+                self.cardOption6.parameters.isSelected = false
             }
         }
     }()
@@ -73,6 +77,21 @@ class CardOptionSwiftUIViewController: UIViewController {
                 self.cardOption2.parameters.isSelected = false
                 self.cardOption3.parameters.isSelected = false
                 self.cardOption4.parameters.isSelected = false
+                self.cardOption6.parameters.isSelected = false
+            }
+        }
+    }()
+
+    lazy var cardOption6: OceanSwiftUI.CardOption = {
+        OceanSwiftUI.CardOption { option in
+            option.parameters.title = "Title"
+            option.parameters.showSkeleton = true
+            option.parameters.onTouch = {
+                self.cardOption1.parameters.isSelected = false
+                self.cardOption2.parameters.isSelected = false
+                self.cardOption3.parameters.isSelected = false
+                self.cardOption4.parameters.isSelected = false
+                self.cardOption5.parameters.isSelected = false
             }
         }
     }()
@@ -84,6 +103,7 @@ class CardOptionSwiftUIViewController: UIViewController {
             cardOption3
             cardOption4
             cardOption5
+            cardOption6
         }
     })
 

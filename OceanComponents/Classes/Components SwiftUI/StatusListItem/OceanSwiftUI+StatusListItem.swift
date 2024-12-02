@@ -178,7 +178,7 @@ extension OceanSwiftUI {
                         .renderingMode(.template)
                         .frame(width: 20, height: 20, alignment: .center)
                         .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
-                        .oceanSkeleton(with: self.parameters.showSkeleton)
+                        .oceanSkeleton(isActive: self.parameters.showSkeleton)
                 }
             }
             .background(Color(Ocean.color.colorInterfaceLightPure))

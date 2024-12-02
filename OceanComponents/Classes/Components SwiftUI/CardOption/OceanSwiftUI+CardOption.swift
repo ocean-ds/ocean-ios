@@ -124,6 +124,7 @@ extension OceanSwiftUI {
                 self.parameters.isError = false
                 self.parameters.isSelected = true
             }
+            .oceanSkeleton(isActive: parameters.showSkeleton, shape: .rounded(.radius(Ocean.size.borderRadiusMd, style: .continuous)))
         }
 
         // MARK: Methods private

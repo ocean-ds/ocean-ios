@@ -131,16 +131,18 @@ extension OceanSwiftUI {
                         )
                         .font(Font(UIFont.baseRegular(size: Ocean.font.fontSizeXs)!))
                         .foregroundColor(Color(self.parameters.isDisabled ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorInterfaceDarkDeep))
-                        .oceanSkeleton(with: self.parameters.showSkeleton)
+                        .oceanSkeleton(isActive: self.parameters.showSkeleton,
+                                       shape: .rounded(.radius(Ocean.size.borderRadiusMd,
+                                                               style: .continuous)))
 
-
-                    Image(uiImage: Ocean.icon.chevronDownSolid!)
-                        .resizable()
-                        .renderingMode(.template)
-                        .frame(width: 20, height: 20, alignment: .center)
-                        .padding(.trailing, Ocean.size.spacingStackXs)
-                        .foregroundColor(Color(Ocean.color.colorInterfaceDarkDown))
-                        .oceanSkeleton(with: self.parameters.showSkeleton)
+                    if !parameters.showSkeleton {
+                        Image(uiImage: Ocean.icon.chevronDownSolid!)
+                            .resizable()
+                            .renderingMode(.template)
+                            .frame(width: 20, height: 20, alignment: .center)
+                            .padding(.trailing, Ocean.size.spacingStackXs)
+                            .foregroundColor(Color(Ocean.color.colorInterfaceDarkDown))
+                    }
                 }
 
                 HStack {
@@ -168,7 +170,7 @@ extension OceanSwiftUI {
                                 .onTapGesture {
                                     self.parameters.onTouchIconHelper()
                                 }
-                                .oceanSkeleton(with: self.parameters.showSkeleton)
+                                .oceanSkeleton(isActive: self.parameters.showSkeleton)
                         }
                     }
                 }

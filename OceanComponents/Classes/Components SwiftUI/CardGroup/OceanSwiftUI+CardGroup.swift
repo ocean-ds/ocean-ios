@@ -142,12 +142,6 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            if parameters.showSkeleton {
-                Rectangle()
-                    .oceanSkeleton(with: true,
-                                   size: CGSize(width: CGFloat.infinity, height: 150),
-                                   shape: .rounded(.radius(Ocean.size.borderRadiusMd, style: .circular)))
-            } else {
                 ZStack(alignment: .topLeading) {
                     VStack(alignment: .leading, spacing: 0) {
                         HStack(alignment: .center, spacing: Ocean.size.spacingStackXs) {
@@ -222,7 +216,8 @@ extension OceanSwiftUI {
                         .padding(.top, -Ocean.size.spacingStackXxs)
                     }
                 }
-            }
+                .oceanSkeleton(isActive: self.parameters.showSkeleton,
+                               shape: .rounded(.radius(Ocean.size.borderRadiusMd, style: .continuous)))
         }
 
         // MARK: Methods private

@@ -90,7 +90,7 @@ extension OceanSwiftUI {
                             ForEach(0..<3, id: \.self) { _ in
                                 Rectangle()
                                     .frame(width: 72, height: Constants.itemHeight)
-                                    .oceanSkeleton(with: true,
+                                    .oceanSkeleton(isActive: true,
                                                    size: CGSize(width: 72, height: Constants.itemHeight))
                             }
                         } else {

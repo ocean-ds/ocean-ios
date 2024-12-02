@@ -18,10 +18,12 @@ class TextListItemSwiftUIViewController: UIViewController {
                                                     leading: 0,
                                                     bottom: Ocean.size.spacingStackXxs,
                                                     trailing: 0)
+            textListItem.parameters.showSkeleton = true
         }
     }()
 
-    lazy var textListItem2: OceanSwiftUI.TextListItem = {
+    @available(iOS 14.0, *)
+    var textListItem2: some View {
         OceanSwiftUI.TextListItem { textListItem in
             textListItem.parameters.title = "Title 2"
             textListItem.parameters.description = "Description"
@@ -31,7 +33,8 @@ class TextListItemSwiftUIViewController: UIViewController {
                                                     bottom: Ocean.size.spacingStackXxs,
                                                     trailing: 0)
         }
-    }()
+        .redacted(reason: .placeholder)
+    }
 
     lazy var textListItem3: OceanSwiftUI.TextListItem = {
         OceanSwiftUI.TextListItem { textListItem in
@@ -173,9 +176,13 @@ class TextListItemSwiftUIViewController: UIViewController {
     }()
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
+
         VStack(spacing: Ocean.size.spacingStackXs) {
             textListItem1
-            textListItem2
+
+            if #available(iOS 14.0, *) {
+                textListItem2
+            }
             textListItem3
             textListItem4
             textListItem5

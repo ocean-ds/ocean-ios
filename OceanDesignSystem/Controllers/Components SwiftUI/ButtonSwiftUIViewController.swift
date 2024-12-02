@@ -124,7 +124,37 @@ class ButtonSwiftUIViewController: UIViewController {
     }()
 
     lazy var button9: OceanSwiftUI.Button = {
+        return OceanSwiftUI.Button.primarySM { button in
+            button.parameters.text = "Avançar"
+            button.parameters.icon = Ocean.icon.plusSolid
+            button.parameters.showSkeleton = true
+            button.parameters.onTouch = {
+                button.parameters.isLoading.toggle()
+                print("Tap")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    button.parameters.isLoading.toggle()
+                }
+            }
+        }
+    }()
+
+    lazy var button10: OceanSwiftUI.Button = {
         return OceanSwiftUI.Button.primaryMD { button in
+            button.parameters.text = "Avançar"
+            button.parameters.icon = Ocean.icon.plusSolid
+            button.parameters.showSkeleton = true
+            button.parameters.onTouch = {
+                button.parameters.isLoading.toggle()
+                print("Tap")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    button.parameters.isLoading.toggle()
+                }
+            }
+        }
+    }()
+
+    lazy var button11: OceanSwiftUI.Button = {
+        return OceanSwiftUI.Button.primaryLG { button in
             button.parameters.text = "Avançar"
             button.parameters.icon = Ocean.icon.plusSolid
             button.parameters.showSkeleton = true
@@ -149,6 +179,8 @@ class ButtonSwiftUIViewController: UIViewController {
             button7
             button8
             button9
+            button10
+            button11
         }
     })
 

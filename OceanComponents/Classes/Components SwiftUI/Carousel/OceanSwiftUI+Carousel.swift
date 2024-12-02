@@ -10,7 +10,7 @@ import OceanTokens
 
 extension OceanSwiftUI {
     public class CarouselParameters: ObservableObject {
-        @Published public var items: [CarouselModel]
+        @Published public var items: [CarouselModel] 
         @Published public var showSkeleton: Bool
         public var onTouch: (CarouselModel, Int) -> Void = { _, _ in }
 

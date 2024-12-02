@@ -59,7 +59,7 @@ extension OceanSwiftUI {
         public var body: some View {
             Toggle("", isOn: self.$parameters.isOn)
                 .toggleStyle(OceanSwitchStyle(onValueChanged: self.parameters.onValueChanged))
-                .oceanSkeleton(with: self.parameters.showSkeleton, size: .init(width: 40, height: 20))
+                .oceanSkeleton(isActive: self.parameters.showSkeleton, size: .init(width: 40, height: 20))
         }
 
         // MARK: Methods private
