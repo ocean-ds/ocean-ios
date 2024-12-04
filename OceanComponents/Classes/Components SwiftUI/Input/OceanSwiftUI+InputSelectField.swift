@@ -99,10 +99,9 @@ extension OceanSwiftUI {
                 self.openModal()
             }, label: {
                 HStack(spacing: Ocean.size.spacingStackXxs) {
-                    OceanSwiftUI.Typography.description { label in
-                        label.parameters.font = .baseRegular(size: Ocean.font.fontSizeXs)!
+                    OceanSwiftUI.Typography.paragraph { label in
                         label.parameters.text = self.parameters.text.isEmpty ? self.parameters.placeholder : self.parameters.text
-                        label.parameters.textColor = self.parameters.isDisabled ? Ocean.color.colorInterfaceLightDeep : self.parameters.text.isEmpty ? Ocean.color.colorInterfaceDarkUp : Ocean.color.colorInterfaceDarkDeep
+                        label.parameters.textColor = self.getTextColor()
                     }
 
                     Spacer()
@@ -139,8 +138,6 @@ extension OceanSwiftUI {
                         .foregroundColor(Color(self.parameters.isDisabled ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorInterfaceDarkDeep))
                         .oceanSkeleton(with: self.parameters.showSkeleton)
                     
-
-
                     Image(uiImage: Ocean.icon.chevronDownSolid!)
                         .resizable()
                         .renderingMode(.template)
@@ -185,6 +182,16 @@ extension OceanSwiftUI {
         }
 
         // MARK: Methods private
+        
+        private func getTextColor() -> UIColor {
+            if self.parameters.isDisabled {
+                return Ocean.color.colorInterfaceLightDeep
+            } else if self.parameters.text.isEmpty {
+                return Ocean.color.colorInterfaceLightDeep
+            } else {
+                return Ocean.color.colorInterfaceDarkDeep
+            }
+        }
 
         private func getBorderColor() -> UIColor {
             if self.parameters.isDisabled {
