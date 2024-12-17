@@ -19,6 +19,8 @@ extension OceanSwiftUI {
         @Published public var icon: UIImage?
         @Published public var badgeCount: Int?
         @Published public var badgeStatus: BadgeParameters.Status
+        @Published public var tagLabel: String?
+        @Published public var tagStatus: TagParameters.Status
         @Published public var progress: Float?
         @Published public var view: (any View)?
         @Published public var ctaText: String
@@ -36,6 +38,8 @@ extension OceanSwiftUI {
                     icon: UIImage? = nil,
                     badgeCount: Int? = nil,
                     badgeStatus: BadgeParameters.Status = .warning,
+                    tagLabel: String? = nil,
+                    tagStatus: TagParameters.Status = .warning,
                     progress: Float? = nil,
                     view: (any View)? = nil,
                     ctaText: String = "",
@@ -52,6 +56,8 @@ extension OceanSwiftUI {
             self.icon = icon
             self.badgeCount = badgeCount
             self.badgeStatus = badgeStatus
+            self.tagLabel = tagLabel
+            self.tagStatus = tagStatus
             self.progress = progress
             self.view = view
             self.ctaText = ctaText
@@ -160,7 +166,16 @@ extension OceanSwiftUI {
                                     .foregroundColor(Color(Ocean.color.colorInterfaceDarkDeep))
                             }
 
-                            titleSubtitleCaptionView
+                            VStack(alignment: .leading, spacing: Ocean.size.spacingStackXs) {
+                                titleSubtitleCaptionView
+                                
+                                if let tagLabel = self.parameters.tagLabel {
+                                    Tag { tag in
+                                        tag.parameters.label = tagLabel
+                                        tag.parameters.status = self.parameters.tagStatus
+                                    }
+                                }
+                            }
 
                             Spacer()
                             
