@@ -25,6 +25,9 @@ extension View {
 }
 
 struct OceanSkeletonView: ViewModifier {
+
+    // MARK: Properties
+
     var isActive: Bool
     var isAnimated: Bool
     var size: CGSize?
@@ -32,12 +35,16 @@ struct OceanSkeletonView: ViewModifier {
     var lines: Int
     var scales: [Int: CGFloat]?
 
+    // MARK: Properties private
+
     private var gradientColor = [Color(Ocean.color.colorInterfaceLightDown),
                                  Color(Ocean.color.colorInterfaceLightUp),
                                  Color(Ocean.color.colorInterfaceLightDown)]
 
     @State private var startPoint: UnitPoint = .init(x: -1.8, y: -1.2)
     @State private var endPoint: UnitPoint = .init(x: 0, y: -0.2)
+
+    // MARK: View SwiftUI
 
     @ViewBuilder
     private var skeletonView: some View {
@@ -75,6 +82,8 @@ struct OceanSkeletonView: ViewModifier {
             }
     }
 
+    // MARK: Constructors
+
     public init(isActive: Bool,
                 isAnimated: Bool = true,
                 size: CGSize? = nil,
@@ -105,12 +114,29 @@ struct OceanSkeletonView: ViewModifier {
     func body(content: Content) -> some View {
         ZStack {
             if isActive {
-                content
-                    .hidden()
-                    .overlay(skeletonView)
+                if let size = size {
+                    VStack(spacing: 8) {
+                        ForEach(0..<lines, id: \.self) { index in
+                            let lineScale = scales?[index] ?? 1.0
+                            skeletonView
+                                .frame(width: size.width * lineScale, height: size.height)
+                        }
+                    }
+                } else {
+                    content
+                        .hidden()
+                        .overlay(skeletonView)
+                }
             } else {
                 content
             }
         }
+    }
+
+    // MARK: Private functions
+
+    private func validateDimension(_ dimension: CGFloat) -> CGFloat? {
+        guard dimension.isFinite, dimension > 0 else { return nil }
+        return dimension
     }
 }

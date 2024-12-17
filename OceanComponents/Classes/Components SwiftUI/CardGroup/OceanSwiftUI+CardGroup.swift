@@ -216,8 +216,8 @@ extension OceanSwiftUI {
                         .padding(.top, -Ocean.size.spacingStackXxs)
                     }
                 }
-                .oceanSkeleton(isActive: self.parameters.showSkeleton,
-                               shape: .rounded(.radius(Ocean.size.borderRadiusMd, style: .continuous)))
+//                .oceanSkeleton(isActive: self.parameters.showSkeleton,
+//                               shape: .rounded(.radius(Ocean.size.borderRadiusMd, style: .continuous)))
         }
 
         // MARK: Methods private

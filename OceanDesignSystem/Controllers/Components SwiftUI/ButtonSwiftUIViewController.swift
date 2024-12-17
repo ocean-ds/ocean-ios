@@ -178,9 +178,9 @@ class ButtonSwiftUIViewController: UIViewController {
             button6
             button7
             button8
-            button9
+//            button9
             button10
-            button11
+//            button11
         }
     })
 
