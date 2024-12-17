@@ -20,10 +20,21 @@ class CarouselSwiftUIViewController: UIViewController {
             }
         }
     }()
+    
+    lazy var carousel2: OceanSwiftUI.Carousel = {
+        OceanSwiftUI.Carousel { view in
+            view.parameters.items = [.init(image: UIImage(named: "banner1")!)]
+            view.parameters.onTouch = { item, index in
+                print(index)
+            }
+        }
+    }()
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             carousel1
+            
+            carousel2
         }
     })
 
