@@ -17,6 +17,7 @@ extension OceanSwiftUI {
         @Published public var title: String
         @Published public var description: String
         @Published public var descriptionColor: UIColor?
+        @Published public var descriptionFont: UIFont?
         @Published public var newDescription: String
         @Published public var caption: String
         @Published public var errorMessage: String
@@ -34,6 +35,7 @@ extension OceanSwiftUI {
         public init(title: String = "",
                     description: String = "",
                     descriptionColor: UIColor? = nil,
+                    descriptionFont: UIFont? = nil,
                     newDescription: String = "",
                     caption: String = "",
                     errorMessage: String = "",
@@ -50,6 +52,7 @@ extension OceanSwiftUI {
             self.title = title
             self.description = description
             self.descriptionColor = descriptionColor
+            self.descriptionFont = descriptionFont
             self.newDescription = newDescription
             self.caption = caption
             self.errorMessage = errorMessage
@@ -145,6 +148,7 @@ extension OceanSwiftUI {
                             view.parameters.description = parameters.description
                             view.parameters.newDescription = parameters.newDescription
                             view.parameters.descriptionColor = parameters.descriptionColor
+                            view.parameters.descriptionFont = parameters.descriptionFont
                             view.parameters.caption = parameters.caption
                             view.parameters.errorMessage = parameters.errorMessage
                             view.parameters.type = parameters.contentType
@@ -174,7 +178,7 @@ extension OceanSwiftUI {
         }
 
         // MARK: Private Methods
-        
+
         private func getHasPadding() -> Bool {
             switch parameters.buttonStyle {
             case .tertiary, .tertiaryCritical:
