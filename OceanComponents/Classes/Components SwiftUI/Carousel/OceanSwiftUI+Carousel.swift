@@ -13,7 +13,7 @@ extension OceanSwiftUI {
         @Published public var items: [CarouselModel]
         @Published public var showSkeleton: Bool
         public var onTouch: (CarouselModel, Int) -> Void = { _, _ in }
-
+        
         public init(items: [CarouselModel] = [],
                     showSkeleton: Bool = false,
                     onTouch: @escaping (CarouselModel, Int) -> Void = { _, _ in }) {
@@ -22,56 +22,56 @@ extension OceanSwiftUI {
             self.onTouch = onTouch
         }
     }
-
+    
     public class CarouselModel: ObservableObject, Identifiable {
         @Published public var image: UIImage?
         @Published public var url: String?
-
+        
         public init(image: UIImage? = nil,
                     url: String? = nil) {
             self.image = image
             self.url = url
         }
     }
-
+    
     public struct Carousel: View {
         // MARK: Properties for UIKit
-
+        
         public lazy var hostingController = UIHostingController(rootView: self)
         public lazy var uiView = self.hostingController.getUIView()
-
+        
         // MARK: Builder
-
+        
         public typealias Builder = (Carousel) -> Void
-
+        
         // MARK: Properties
-
+        
         @ObservedObject public var parameters: CarouselParameters
-
+        
         // MARK: Properties private
         
         private var animationTime = 0.3
         private var imageSize = CGSize(width: 328, height: 140)
-
+        
         @State private var screenWidth: CGFloat = 0
         @State private var screenHeight: CGFloat = 140
         @State private var currentPage: Int = 0
         @State private var enableAnimation = false
         @GestureState private var dragOffset: CGSize = .zero
-
+        
         // MARK: Constructors
-
+        
         public init(parameters: CarouselParameters = CarouselParameters()) {
             self.parameters = parameters
         }
-
+        
         public init(builder: Builder) {
             self.init()
             builder(self)
         }
-
+        
         // MARK: View SwiftUI
-
+        
         public var body: some View {
             if self.parameters.showSkeleton {
                 OceanSwiftUI.Skeleton { skeleton in
@@ -91,9 +91,10 @@ extension OceanSwiftUI {
                             }
                         }
                         .offset(x: -CGFloat(currentPage) * screenWidth + dragOffset.width)
-                        .padding(.horizontal, Ocean.size.spacingStackXs)
+                        .padding(.horizontal, self.parameters.items.count > 1 ? Ocean.size.spacingStackXs : Ocean.size.spacingStackXxs)
                         .onAppear {
-                            screenWidth = geometry.size.width - (Ocean.size.spacingStackXs * 2)
+                            let spacing = self.parameters.items.count > 1 ? (Ocean.size.spacingStackXs * 2) : Ocean.size.spacingStackXs
+                            screenWidth = geometry.size.width - spacing
                             calculateHeight(width: screenWidth)
                         }
                         .animation(enableAnimation ? .linear(duration: animationTime) : .none)
@@ -117,7 +118,7 @@ extension OceanSwiftUI {
                                     enableAnimation = false
                                 }
                             })
-
+                    
                     if self.parameters.items.count > 1 {
                         OceanSwiftUI.PageIndicator { pageIndicator in
                             pageIndicator.parameters.currentPage = self.currentPage
@@ -127,9 +128,9 @@ extension OceanSwiftUI {
                 }
             }
         }
-
+        
         // MARK: Methods private
-
+        
         @ViewBuilder
         private func getItem(_ item: CarouselModel, index: Int) -> some View {
             VStack(spacing: 0) {
@@ -151,7 +152,7 @@ extension OceanSwiftUI {
         
         private func calculateHeight(width: CGFloat) {
             let isImageLargerThanScreen = imageSize.width > width
-
+            
             if isImageLargerThanScreen {
                 let ratio = imageSize.width / width
                 screenHeight = imageSize.height / ratio
