@@ -1,40 +1,26 @@
 //
-//  OceanSwiftUI+Carousel.swift
-//  OceanComponents
+//  OceanSwiftUI+CarouselWithComponents.swift
+//  Pods
 //
-//  Created by Vinicius Romeiro on 09/05/24.
+//  Created by Vinicius Romeiro on 17/12/24.
 //
 
 import SwiftUI
 import OceanTokens
 
 extension OceanSwiftUI {
-    public class CarouselParameters: ObservableObject {
-        @Published public var items: [CarouselModel]
+    public class CarouselWithComponentsParameters<Content>: ObservableObject where Content: View {
+        @Published public var items: [Content]
         @Published public var showSkeleton: Bool
-        public var onTouch: (CarouselModel, Int) -> Void = { _, _ in }
         
-        public init(items: [CarouselModel] = [],
-                    showSkeleton: Bool = false,
-                    onTouch: @escaping (CarouselModel, Int) -> Void = { _, _ in }) {
+        public init(items: [Content] = [],
+                    showSkeleton: Bool = false) {
             self.items = items
             self.showSkeleton = showSkeleton
-            self.onTouch = onTouch
         }
     }
     
-    public class CarouselModel: ObservableObject, Identifiable {
-        @Published public var image: UIImage?
-        @Published public var url: String?
-        
-        public init(image: UIImage? = nil,
-                    url: String? = nil) {
-            self.image = image
-            self.url = url
-        }
-    }
-    
-    public struct Carousel: View {
+    public struct CarouselWithComponents<Content>: View where Content: View {
         // MARK: Properties for UIKit
         
         public lazy var hostingController = UIHostingController(rootView: self)
@@ -42,16 +28,15 @@ extension OceanSwiftUI {
         
         // MARK: Builder
         
-        public typealias Builder = (Carousel) -> Void
+        public typealias Builder = (CarouselWithComponents) -> Void
         
         // MARK: Properties
         
-        @ObservedObject public var parameters: CarouselParameters
+        @ObservedObject public var parameters: CarouselWithComponentsParameters<Content>
         
         // MARK: Properties private
         
         private var animationTime = 0.3
-        private var imageSize = CGSize(width: 328, height: 140)
         
         @State private var screenWidth: CGFloat = 0
         @State private var screenHeight: CGFloat = 140
@@ -61,7 +46,7 @@ extension OceanSwiftUI {
         
         // MARK: Constructors
         
-        public init(parameters: CarouselParameters = CarouselParameters()) {
+        public init(parameters: CarouselWithComponentsParameters<Content> = CarouselWithComponentsParameters<Content>()) {
             self.parameters = parameters
         }
         
@@ -81,11 +66,11 @@ extension OceanSwiftUI {
                 }
                 .padding(.horizontal, Ocean.size.spacingStackXs)
             } else {
-                VStack(spacing: Ocean.size.spacingStackXs) {
+                VStack(spacing: Ocean.size.spacingStackSm) {
                     GeometryReader { geometry in
                         HStack(spacing: 0) {
                             ForEach(0..<self.parameters.items.count, id: \.self) { index in
-                                self.getItem(self.parameters.items[index], index: index)
+                                self.parameters.items[index]
                                     .padding(.horizontal, Ocean.size.spacingStackXxs)
                                     .frame(width: screenWidth)
                             }
@@ -95,7 +80,7 @@ extension OceanSwiftUI {
                         .onAppear {
                             let spacing = self.parameters.items.count > 1 ? (Ocean.size.spacingStackXs * 2) : Ocean.size.spacingStackXs
                             screenWidth = geometry.size.width - spacing
-                            calculateHeight(width: screenWidth)
+                            screenHeight = geometry.size.height
                         }
                         .animation(enableAnimation ? .linear(duration: animationTime) : .none)
                     }
@@ -130,36 +115,5 @@ extension OceanSwiftUI {
         }
         
         // MARK: Methods private
-        
-        @ViewBuilder
-        private func getItem(_ item: CarouselModel, index: Int) -> some View {
-            VStack(spacing: 0) {
-                if let url = item.url {
-                    OceanSwiftUI.ImageDownload(parameters: .init(url: url, contentMode: .fill))
-                } else {
-                    Image(uiImage: item.image)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                }
-            }
-            .frame(minWidth: 0, maxWidth: .infinity,
-                   minHeight: 0, maxHeight: .infinity)
-            .cornerRadius(Ocean.size.borderRadiusMd, corners: .allCorners)
-            .onTapGesture {
-                self.parameters.onTouch(item, index)
-            }
-        }
-        
-        private func calculateHeight(width: CGFloat) {
-            let isImageLargerThanScreen = imageSize.width > width
-            
-            if isImageLargerThanScreen {
-                let ratio = imageSize.width / width
-                screenHeight = imageSize.height / ratio
-            } else {
-                let ratio = width / imageSize.width
-                screenHeight = imageSize.height * ratio
-            }
-        }
     }
 }
