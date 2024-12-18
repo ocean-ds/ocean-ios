@@ -11,8 +11,8 @@ import OceanComponents
 import SwiftUI
 
 class CarouselSwiftUIViewController: UIViewController {
-    lazy var carousel1: OceanSwiftUI.Carousel = {
-        OceanSwiftUI.Carousel { view in
+    lazy var carousel1: OceanSwiftUI.CarouselWithImages = {
+        OceanSwiftUI.Carousel.withImages { view in
             view.parameters.items = [.init(image: UIImage(named: "banner1")!),
                                      .init(image: UIImage(named: "banner2")!)]
             view.parameters.onTouch = { item, index in
@@ -21,12 +21,41 @@ class CarouselSwiftUIViewController: UIViewController {
         }
     }()
     
-    lazy var carousel2: OceanSwiftUI.Carousel = {
-        OceanSwiftUI.Carousel { view in
+    lazy var carousel2: OceanSwiftUI.CarouselWithImages = {
+        OceanSwiftUI.Carousel.withImages { view in
             view.parameters.items = [.init(image: UIImage(named: "banner1")!)]
             view.parameters.onTouch = { item, index in
                 print(index)
             }
+        }
+    }()
+    
+    lazy var carousel3: OceanSwiftUI.CarouselWithComponents = {
+        OceanSwiftUI.Carousel.withComponents { view in
+            view.parameters.items = [
+                OceanSwiftUI.CardGroup(parameters: .init(title: "Title",
+                                                         subtitle: "Subtitle",
+                                                         caption: "Caption",
+                                                         ctaText: "Selecionar",
+                                                         onTouch: { print("tapped") })),
+                OceanSwiftUI.CardGroup(parameters: .init(title: "Title",
+                                                         subtitle: "Subtitle",
+                                                         caption: "Caption",
+                                                         ctaText: "Selecionar",
+                                                         onTouch: { print("tapped") }))
+            ]
+        }
+    }()
+    
+    lazy var carousel4: OceanSwiftUI.CarouselWithComponents = {
+        OceanSwiftUI.Carousel.withComponents { view in
+            view.parameters.items = [
+                OceanSwiftUI.CardGroup(parameters: .init(title: "Title",
+                                                         subtitle: "Subtitle",
+                                                         caption: "Caption",
+                                                         ctaText: "Selecionar",
+                                                         onTouch: { print("tapped") }))
+            ]
         }
     }()
 
@@ -35,6 +64,10 @@ class CarouselSwiftUIViewController: UIViewController {
             carousel1
             
             carousel2
+            
+            carousel3
+            
+            carousel4
         }
     })
 
