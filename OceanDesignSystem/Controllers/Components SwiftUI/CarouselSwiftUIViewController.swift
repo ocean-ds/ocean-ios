@@ -34,7 +34,7 @@ class CarouselSwiftUIViewController: UIViewController {
         OceanSwiftUI.Carousel.withComponents { view in
             view.parameters.items = [
                 OceanSwiftUI.CardGroup(parameters: .init(title: "Title",
-                                                         subtitle: "Subtitle",
+                                                         subtitle: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
                                                          caption: "Caption",
                                                          ctaText: "Selecionar",
                                                          onTouch: { print("tapped") })),
@@ -51,7 +51,7 @@ class CarouselSwiftUIViewController: UIViewController {
         OceanSwiftUI.Carousel.withComponents { view in
             view.parameters.items = [
                 OceanSwiftUI.CardGroup(parameters: .init(title: "Title",
-                                                         subtitle: "Subtitle",
+                                                         subtitle: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
                                                          caption: "Caption",
                                                          ctaText: "Selecionar",
                                                          onTouch: { print("tapped") }))
