@@ -74,7 +74,7 @@ extension OceanSwiftUI {
                                height: index == Int(parameters.currentPage)
                                ? selectedIndicatorSize.height
                                : indicatorSize.height)
-                        .animation(self.showAnimation ? .default : .none)
+                        .animation(parameters.showAnimation ? .default : .none)
                 }
             }
             .frame(height: indicatorSize.height)
