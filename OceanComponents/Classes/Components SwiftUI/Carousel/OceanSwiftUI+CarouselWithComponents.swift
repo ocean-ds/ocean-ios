@@ -78,6 +78,7 @@ extension OceanSwiftUI {
                             screenWidth = UIScreen.main.bounds.width - spacing
                         }
                     }
+                    .animation(.none)
                     .simultaneousGesture(
                         DragGesture()
                             .onEnded { value in
@@ -94,6 +95,7 @@ extension OceanSwiftUI {
                         OceanSwiftUI.PageIndicator { pageIndicator in
                             pageIndicator.parameters.currentPage = self.currentPage
                             pageIndicator.parameters.numberOfPages = self.parameters.items.count
+                            pageIndicator.parameters.showAnimation = false
                         }
                     }
                 }

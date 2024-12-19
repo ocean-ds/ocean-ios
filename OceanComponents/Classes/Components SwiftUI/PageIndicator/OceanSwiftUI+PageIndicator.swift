@@ -15,15 +15,18 @@ extension OceanSwiftUI {
         @Published public var currentPage: Int
         @Published public var currentPageIndicatorColor: UIColor
         @Published public var pageIndicatorColor: UIColor
+        @Published public var showAnimation: Bool
 
         public init(numberOfPages: Int = 0,
                     currentPage: Int = 0,
                     currentPageIndicatorColor: UIColor = Ocean.color.colorBrandPrimaryPure,
-                    pageIndicatorColor: UIColor = Ocean.color.colorInterfaceLightDeep) {
+                    pageIndicatorColor: UIColor = Ocean.color.colorInterfaceLightDeep,
+                    showAnimation: Bool = true) {
             self.numberOfPages = numberOfPages
             self.currentPage = currentPage
             self.currentPageIndicatorColor = currentPageIndicatorColor
             self.pageIndicatorColor = pageIndicatorColor
+            self.showAnimation = showAnimation
         }
     }
 
@@ -71,7 +74,7 @@ extension OceanSwiftUI {
                                height: index == Int(parameters.currentPage)
                                ? selectedIndicatorSize.height
                                : indicatorSize.height)
-                        .animation(.default)
+                        .animation(parameters.showAnimation ? .default : .none)
                 }
             }
             .frame(height: indicatorSize.height)
