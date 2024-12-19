@@ -36,13 +36,8 @@ extension OceanSwiftUI {
         
         // MARK: Properties private
         
-        private var animationTime = 0.3
-        
         @State private var screenWidth: CGFloat = 0
-        @State private var screenHeight: CGFloat = 140
         @State private var currentPage: Int = 0
-        @State private var enableAnimation = false
-        @GestureState private var dragOffset: CGSize = .zero
         
         // MARK: Constructors
         
@@ -60,38 +55,31 @@ extension OceanSwiftUI {
         public var body: some View {
             if self.parameters.showSkeleton {
                 OceanSwiftUI.Skeleton { skeleton in
-                    skeleton.parameters.height = screenHeight
+                    skeleton.parameters.height = 140
                     skeleton.parameters.radius = Ocean.size.borderRadiusMd
                     skeleton.parameters.lines = 1
                 }
                 .padding(.horizontal, Ocean.size.spacingStackXs)
             } else {
                 VStack(spacing: Ocean.size.spacingStackSm) {
-                    GeometryReader { geometry in
-                        HStack(spacing: 0) {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(alignment: .top, spacing: 0) {
                             ForEach(0..<self.parameters.items.count, id: \.self) { index in
                                 self.parameters.items[index]
                                     .padding(.horizontal, Ocean.size.spacingStackXxs)
                                     .frame(width: screenWidth)
                             }
                         }
-                        .offset(x: -CGFloat(currentPage) * screenWidth + dragOffset.width)
-                        .padding(.horizontal, self.parameters.items.count > 1 ? Ocean.size.spacingStackXs : Ocean.size.spacingStackXxs)
+                        .padding(.horizontal, self.parameters.items.count > 1 ?
+                                 Ocean.size.spacingStackXs : Ocean.size.spacingStackXxs)
                         .onAppear {
-                            let spacing = self.parameters.items.count > 1 ? (Ocean.size.spacingStackXs * 2) : Ocean.size.spacingStackXs
-                            screenWidth = geometry.size.width - spacing
-                            screenHeight = geometry.size.height
+                            let spacing = self.parameters.items.count > 1 ?
+                                (Ocean.size.spacingStackXs * 2) : Ocean.size.spacingStackXs
+                            screenWidth = UIScreen.main.bounds.width - spacing
                         }
-                        .animation(enableAnimation ? .linear(duration: animationTime) : .none)
                     }
-                    .frame(minWidth: 0, maxWidth: .infinity,
-                           minHeight: 0, idealHeight: screenHeight, maxHeight: .infinity)
-                    .gesture(
+                    .simultaneousGesture(
                         DragGesture()
-                            .updating(self.$dragOffset) { value, dragOffset, _ in
-                                enableAnimation = true
-                                dragOffset = value.translation
-                            }
                             .onEnded { value in
                                 let threshold = screenWidth * 0.2
                                 if value.translation.width < -threshold && self.currentPage < parameters.items.count - 1 {
@@ -99,10 +87,8 @@ extension OceanSwiftUI {
                                 } else if value.translation.width > threshold && self.currentPage > 0 {
                                     self.currentPage -= 1
                                 }
-                                DispatchQueue.main.asyncAfter(deadline: .now() + animationTime) {
-                                    enableAnimation = false
-                                }
-                            })
+                            }
+                    )
                     
                     if self.parameters.items.count > 1 {
                         OceanSwiftUI.PageIndicator { pageIndicator in
