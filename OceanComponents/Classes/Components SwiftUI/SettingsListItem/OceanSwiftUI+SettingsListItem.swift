@@ -27,6 +27,7 @@ extension OceanSwiftUI {
         @Published public var tagStatus: TagParameters.Status
         @Published public var buttonTitle: String
         @Published public var buttonStyle: ButtonParameters.Style
+        @Published public var buttonIsLoading: Bool
         @Published public var contentType: ContentListParameters.ContentListItemType
         @Published public var showSkeleton: Bool
         @Published public var padding: EdgeInsets
@@ -45,6 +46,7 @@ extension OceanSwiftUI {
                     tagStatus: TagParameters.Status = .warning,
                     buttonTitle: String = "",
                     buttonStyle: ButtonParameters.Style = .primary,
+                    buttonIsLoading: Bool = false,
                     contentType: ContentListParameters.ContentListItemType = .default,
                     showSkeleton: Bool = false,
                     padding: EdgeInsets = .all(Ocean.size.spacingStackXs),
@@ -62,6 +64,7 @@ extension OceanSwiftUI {
             self.tagStatus = tagStatus
             self.buttonTitle = buttonTitle
             self.buttonStyle = buttonStyle
+            self.buttonIsLoading = buttonIsLoading
             self.contentType = contentType
             self.showSkeleton = showSkeleton
             self.padding = padding
@@ -101,6 +104,7 @@ extension OceanSwiftUI {
                             button.parameters.text = parameters.buttonTitle
                             button.parameters.style = parameters.buttonStyle
                             button.parameters.size = .small
+                            button.parameters.isLoading = parameters.buttonIsLoading
                             button.parameters.hasPadding = getHasPadding()
                             button.parameters.onTouch = parameters.buttonAction
                         }

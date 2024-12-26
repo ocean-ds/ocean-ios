@@ -20,6 +20,7 @@ extension OceanSwiftUI {
         @Published public var font: UIFont?
         @Published public var lineLimit: Int?
         @Published public var lineSpacing: CGFloat
+        @Published public var kerning: CGFloat
         @Published public var multilineTextAlignment: TextAlignment
         @Published public var showSkeleton: Bool
 
@@ -36,6 +37,7 @@ extension OceanSwiftUI {
                     font: UIFont? = .baseRegular(size: Ocean.font.fontSizeXs),
                     lineLimit: Int? = nil,
                     lineSpacing: CGFloat = Ocean.font.lineHeightComfy,
+                    kerning: CGFloat = 0,
                     multilineTextAlignment: TextAlignment = .leading,
                     showSkeleton: Bool = false) {
             self.text = text
@@ -46,6 +48,7 @@ extension OceanSwiftUI {
             self.font = font
             self.lineLimit = lineLimit
             self.lineSpacing = lineSpacing
+            self.kerning = kerning
             self.multilineTextAlignment = multilineTextAlignment
             self.showSkeleton = showSkeleton
         }
@@ -102,6 +105,7 @@ extension OceanSwiftUI {
                 if #available(iOS 16.0, *) {
                     text
                         .tint(Color(self.parameters.tintColor ?? self.parameters.textColor))
+                        .kerning(self.parameters.kerning)
                 } else {
                     text
                 }
