@@ -97,6 +97,12 @@ class TypographySwiftUIViewController: UIViewController {
         }
     }()
 
+    lazy var typography15: OceanSwiftUI.Typography = {
+        OceanSwiftUI.Typography.eyebrow { view in
+            view.parameters.text = "EYEBROW EYEGREEN"
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             Group {
@@ -116,6 +122,7 @@ class TypographySwiftUIViewController: UIViewController {
                 typography12
                 typography13
                 typography14
+                typography15
             }
         }
     })
