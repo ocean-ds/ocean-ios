@@ -70,9 +70,13 @@ public extension OceanNavigationBar {
         navBarAppearance.shadowColor = nil
         navBarAppearance.setBackIndicatorImage(navigationBackImage, transitionMaskImage: navigationBackImage)
 
+        if navigationShadow {
+            navigationController?.navigationBar.ocean.shadow.applyLevel1()
+            navigationController?.navigationBar.layer.shadowOpacity = 0
+        }
+
         let backButtonAppearance = UIBarButtonItemAppearance()
         backButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.clear]
-        backButtonAppearance.normal.titlePositionAdjustment = UIOffset(horizontal: -1000, vertical: 0)
         navBarAppearance.backButtonAppearance = backButtonAppearance
 
         navigationController?.navigationBar.tintColor = navigationTintColor
