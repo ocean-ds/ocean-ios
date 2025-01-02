@@ -82,6 +82,7 @@ class CardGroupSwiftUIViewController: UIViewController {
         OceanSwiftUI.CardGroup { view in
             view.parameters.title = "Title"
             view.parameters.ctaText = "Call to action"
+            view.parameters.tagLabel = "Label"
             view.parameters.onTouch = {
                 view.parameters.isLoading = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {

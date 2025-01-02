@@ -94,6 +94,15 @@ class SettingsListItemSwiftUIViewController: UIViewController {
 
     lazy var view7: OceanSwiftUI.SettingsListItem = {
         return OceanSwiftUI.SettingsListItem { view in
+            view.parameters.title = "Title"
+            view.parameters.description = "Description"
+            view.parameters.type = .button
+            view.parameters.contentType = .highlight
+        }
+    }()
+
+    lazy var view8: OceanSwiftUI.SettingsListItem = {
+        return OceanSwiftUI.SettingsListItem { view in
             view.parameters.showSkeleton = true
         }
     }()
@@ -108,6 +117,7 @@ class SettingsListItemSwiftUIViewController: UIViewController {
             view5
             view6
             view7
+            view8
         }
     })
 

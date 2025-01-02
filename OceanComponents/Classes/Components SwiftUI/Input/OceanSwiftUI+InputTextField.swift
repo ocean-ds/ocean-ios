@@ -21,6 +21,7 @@ extension OceanSwiftUI {
         @Published public var style: Style
         @Published public var icon: UIImage?
         @Published public var errorMessage: String
+        @Published public var errorMessageColor: UIColor
         @Published public var helperMessage: String
         @Published public var iconHelper: UIImage?
         @Published public var keyboardType: UIKeyboardType
@@ -34,6 +35,7 @@ extension OceanSwiftUI {
         @Published public var reserveMessageHeight: Bool
         public var onMask: ((String) -> String)?
         public var onValueChanged: (String) -> Void
+        public var onEditingChanged: (Bool) -> Void
         public var onTouchIcon: () -> Void
         public var onTouchIconHelper: () -> Void
 
@@ -44,6 +46,7 @@ extension OceanSwiftUI {
                     style: Style = .input,
                     icon: UIImage? = nil,
                     errorMessage: String = "",
+                    errorMessageColor: UIColor = Ocean.color.colorStatusNegativePure,
                     helperMessage: String = "",
                     iconHelper: UIImage? = nil,
                     keyboardType: UIKeyboardType = .default,
@@ -57,6 +60,7 @@ extension OceanSwiftUI {
                     reserveMessageHeight: Bool = true,
                     onMask: ((String) -> String)? = nil,
                     onValueChanged: @escaping (String) -> Void = { _ in },
+                    onEditingChanged: @escaping (Bool) -> Void = { _ in },
                     onTouchIcon: @escaping () -> Void = { },
                     onTouchIconHelper: @escaping () -> Void = { }) {
             self.title = title
@@ -66,6 +70,7 @@ extension OceanSwiftUI {
             self.style = style
             self.icon = icon
             self.errorMessage = errorMessage
+            self.errorMessageColor = errorMessageColor
             self.helperMessage = helperMessage
             self.iconHelper = iconHelper
             self.keyboardType = keyboardType
@@ -79,6 +84,7 @@ extension OceanSwiftUI {
             self.reserveMessageHeight = reserveMessageHeight
             self.onMask = onMask
             self.onValueChanged = onValueChanged
+            self.onEditingChanged = onEditingChanged
             self.onTouchIcon = onTouchIcon
             self.onTouchIconHelper = onTouchIconHelper
         }
@@ -134,6 +140,7 @@ extension OceanSwiftUI {
                 case .input:
                     TextField(self.parameters.placeholder, text: self.$parameters.text, onEditingChanged: { edit in
                         self.focused = edit
+                        self.parameters.onEditingChanged(edit)
                     })
                 case .inputSearch:
                     HStack {
@@ -145,6 +152,7 @@ extension OceanSwiftUI {
 
                         TextField(self.parameters.placeholder, text: self.$parameters.text, onEditingChanged: { edit in
                             self.focused = edit
+                            self.parameters.onEditingChanged(edit)
                         })
 
                         Spacer()
@@ -185,9 +193,11 @@ extension OceanSwiftUI {
                                     .frame(height: 88)
                                     .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
                                         self.focused = true
+                                        self.parameters.onEditingChanged(true)
                                     }
                                     .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
                                         self.focused = false
+                                        self.parameters.onEditingChanged(false)
                                     }
                             } else {
                                 TextEditor(text: self.$parameters.text)
@@ -195,15 +205,18 @@ extension OceanSwiftUI {
                                     .background(Color.clear)
                                     .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
                                         self.focused = true
+                                        self.parameters.onEditingChanged(true)
                                     }
                                     .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
                                         self.focused = false
+                                        self.parameters.onEditingChanged(false)
                                     }
                             }
                         }
                     } else {
                         TextField(self.parameters.placeholder, text: self.$parameters.text, onEditingChanged: { edit in
                             self.focused = edit
+                            self.parameters.onEditingChanged(edit)
                         })
                     }
                 }
@@ -278,7 +291,8 @@ extension OceanSwiftUI {
                     if !self.parameters.errorMessage.isEmpty {
                         OceanSwiftUI.Typography.caption { label in
                             label.parameters.text = self.parameters.errorMessage
-                            label.parameters.textColor = Ocean.color.colorStatusNegativePure
+                            label.parameters.textColor = self.parameters.errorMessageColor
+                            label.parameters.showSkeleton = self.parameters.showSkeleton
                         }
                     } else if let maxLength = self.parameters.maxLength,
                               self.parameters.showMaxLength,

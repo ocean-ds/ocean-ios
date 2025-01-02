@@ -17,6 +17,7 @@ extension OceanSwiftUI {
         @Published public var title: String
         @Published public var description: String
         @Published public var descriptionColor: UIColor?
+        @Published public var descriptionFont: UIFont?
         @Published public var newDescription: String
         @Published public var caption: String
         @Published public var errorMessage: String
@@ -26,6 +27,7 @@ extension OceanSwiftUI {
         @Published public var tagStatus: TagParameters.Status
         @Published public var buttonTitle: String
         @Published public var buttonStyle: ButtonParameters.Style
+        @Published public var buttonIsLoading: Bool
         @Published public var contentType: ContentListParameters.ContentListItemType
         @Published public var showSkeleton: Bool
         @Published public var padding: EdgeInsets
@@ -34,6 +36,7 @@ extension OceanSwiftUI {
         public init(title: String = "",
                     description: String = "",
                     descriptionColor: UIColor? = nil,
+                    descriptionFont: UIFont? = nil,
                     newDescription: String = "",
                     caption: String = "",
                     errorMessage: String = "",
@@ -43,6 +46,7 @@ extension OceanSwiftUI {
                     tagStatus: TagParameters.Status = .warning,
                     buttonTitle: String = "",
                     buttonStyle: ButtonParameters.Style = .primary,
+                    buttonIsLoading: Bool = false,
                     contentType: ContentListParameters.ContentListItemType = .default,
                     showSkeleton: Bool = false,
                     padding: EdgeInsets = .all(Ocean.size.spacingStackXs),
@@ -50,6 +54,7 @@ extension OceanSwiftUI {
             self.title = title
             self.description = description
             self.descriptionColor = descriptionColor
+            self.descriptionFont = descriptionFont
             self.newDescription = newDescription
             self.caption = caption
             self.errorMessage = errorMessage
@@ -59,6 +64,7 @@ extension OceanSwiftUI {
             self.tagStatus = tagStatus
             self.buttonTitle = buttonTitle
             self.buttonStyle = buttonStyle
+            self.buttonIsLoading = buttonIsLoading
             self.contentType = contentType
             self.showSkeleton = showSkeleton
             self.padding = padding
@@ -98,6 +104,7 @@ extension OceanSwiftUI {
                             button.parameters.text = parameters.buttonTitle
                             button.parameters.style = parameters.buttonStyle
                             button.parameters.size = .small
+                            button.parameters.isLoading = parameters.buttonIsLoading
                             button.parameters.hasPadding = getHasPadding()
                             button.parameters.onTouch = parameters.buttonAction
                         }
@@ -145,6 +152,7 @@ extension OceanSwiftUI {
                             view.parameters.description = parameters.description
                             view.parameters.newDescription = parameters.newDescription
                             view.parameters.descriptionColor = parameters.descriptionColor
+                            view.parameters.descriptionFont = parameters.descriptionFont
                             view.parameters.caption = parameters.caption
                             view.parameters.errorMessage = parameters.errorMessage
                             view.parameters.type = parameters.contentType
@@ -174,7 +182,7 @@ extension OceanSwiftUI {
         }
 
         // MARK: Private Methods
-        
+
         private func getHasPadding() -> Bool {
             switch parameters.buttonStyle {
             case .tertiary, .tertiaryCritical:

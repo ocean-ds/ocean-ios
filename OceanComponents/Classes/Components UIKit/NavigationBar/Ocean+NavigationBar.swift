@@ -49,9 +49,6 @@ public extension OceanNavigationBar {
     }
     
     func setupNavigation() {
-        navigationController?.navigationBar.tintColor = navigationTintColor
-        
-        updateTitle(newTitle: navigationTitle)
         
         let titleAttr = [
             NSAttributedString.Key.foregroundColor: navigationTintColor,
@@ -77,20 +74,21 @@ public extension OceanNavigationBar {
             navigationController?.navigationBar.ocean.shadow.applyLevel1()
             navigationController?.navigationBar.layer.shadowOpacity = 0
         }
+
+        let backButtonAppearance = UIBarButtonItemAppearance()
+        backButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.clear]
+        navBarAppearance.backButtonAppearance = backButtonAppearance
+
+        navigationController?.navigationBar.tintColor = navigationTintColor
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.compactAppearance = navBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
         navigationController?.navigationBar.prefersLargeTitles = navigationLargeTitle
-        navigationItem.backButtonTitle = navigationBackButtonTitle
-        self.navigationController?.navigationBar.topItem?.backButtonTitle = navigationBackButtonTitle
-        
-        self.navigationController?.navigationBar.setNeedsLayout()
-        self.navigationController?.navigationBar.layoutIfNeeded()
-        self.navigationController?.navigationBar.setNeedsDisplay()
+
+        updateTitle(newTitle: navigationTitle)
     }
     
     func updateTitle(newTitle: String) {
-        navigationController?.title = newTitle
         title = newTitle
         navigationItem.title = newTitle
     }
@@ -112,7 +110,6 @@ public extension OceanNavigationBar {
     }
     
     func showBackButton(animated: Bool = true) {
-        navigationItem.leftBarButtonItem = nil
         navigationItem.setHidesBackButton(false, animated: animated)
     }
     

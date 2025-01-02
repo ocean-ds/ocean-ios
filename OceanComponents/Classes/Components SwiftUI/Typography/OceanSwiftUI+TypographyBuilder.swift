@@ -183,4 +183,13 @@ extension OceanSwiftUI.Typography {
             label.parameters.textColor = Ocean.color.colorBrandPrimaryUp
         }
     }
+
+    public static func eyebrow(builder: OceanSwiftUI.Typography.Builder? = nil) -> OceanSwiftUI.Typography {
+        return OceanSwiftUI.Typography { label in
+            label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxxs)
+            label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+            label.parameters.kerning = 2.16
+            builder?(label)
+        }
+    }
 }

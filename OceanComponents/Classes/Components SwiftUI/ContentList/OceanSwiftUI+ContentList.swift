@@ -99,7 +99,7 @@ extension OceanSwiftUI {
                                 label.parameters.textColor = getTitleColor()
                             }
                         }
-                        
+
                         HStack(spacing: Ocean.size.spacingStackXxxs) {
                             if !parameters.description.isEmpty {
                                 Typography.paragraph { label in
@@ -114,7 +114,7 @@ extension OceanSwiftUI {
                                     }
                                 }
                             }
-                            
+
                             if !parameters.newDescription.isEmpty {
                                 OceanSwiftUI.Typography.paragraph { label in
                                     label.parameters.text = parameters.newDescription
@@ -123,20 +123,20 @@ extension OceanSwiftUI {
                                 }
                             }
                         }
-                        
+
                         if !parameters.caption.isEmpty {
                             Spacer()
                                 .frame(height: Ocean.size.spacingStackXxs)
-                            
+
                             Typography.caption { label in
                                 label.parameters.text = parameters.caption
                             }
                         }
-                        
+
                         if !parameters.errorMessage.isEmpty {
                             Spacer()
                                 .frame(height: Ocean.size.spacingStackXxs)
-                            
+
                             Typography.caption { label in
                                 label.parameters.text = parameters.errorMessage
                                 label.parameters.textColor = Ocean.color.colorStatusNegativePure

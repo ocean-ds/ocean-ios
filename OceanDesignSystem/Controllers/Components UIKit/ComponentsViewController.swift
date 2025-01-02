@@ -56,7 +56,7 @@ class ComponentsViewController: UITableViewController {
             let datePicker = Ocean.DatePicker()
             datePicker.navigationTitle = "Agendar para"
             datePicker.minimumDate = Calendar.current.date(byAdding: .day, value: -10, to: Date())!
-            datePicker.maximumDate = Calendar.current.date(byAdding: .day, value: 10, to: Date())!
+            datePicker.maximumDate = Calendar.current.date(byAdding: .year, value: 2, to: Date())!
             datePicker.datesToHide = [Calendar.current.date(byAdding: .day, value: 1, to: Date())!]
             datePicker.selectedDate = Calendar.current.date(byAdding: .day, value: -12, to: Date())!
             datePicker.onCancel = {

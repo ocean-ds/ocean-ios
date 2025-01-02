@@ -95,11 +95,16 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         private var textFieldView: some View {
-            TextField(self.parameters.placeholder, text: self.$parameters.text, onEditingChanged: { edit in
-                self.focused = edit
+            SwiftUI.Button(action: {
+                self.openModal()
+            }, label: {
+                HStack(spacing: Ocean.size.spacingStackXxs) {
+                    OceanSwiftUI.Typography.paragraph { label in
+                        label.parameters.text = self.parameters.text.isEmpty ? self.parameters.placeholder : self.parameters.text
+                        label.parameters.textColor = self.getTextColor()
+                    }
 
-                if edit {
-                    self.openModal()
+                    Spacer()
                 }
             })
             .disabled(self.parameters.isDisabled)
@@ -180,6 +185,16 @@ extension OceanSwiftUI {
         }
 
         // MARK: Methods private
+        
+        private func getTextColor() -> UIColor {
+            if self.parameters.isDisabled {
+                return Ocean.color.colorInterfaceLightDeep
+            } else if self.parameters.text.isEmpty {
+                return Ocean.color.colorInterfaceLightDeep
+            } else {
+                return Ocean.color.colorInterfaceDarkDeep
+            }
+        }
 
         private func getBorderColor() -> UIColor {
             if self.parameters.isDisabled {
@@ -194,13 +209,13 @@ extension OceanSwiftUI {
                 return Ocean.color.colorInterfaceLightDeep
             }
         }
-
+        
         private func openModal() {
             if let rootViewController = self.parameters.rootViewController {
                 rootViewController.view.endEditing(true)
-
+                
                 var model: [Ocean.CellModel]
-
+                
                 if let maxValues = self.parameters.maxValues {
                     model = self.parameters.values.prefix(maxValues).compactMap { value in
                         Ocean.CellModel(title: value, isSelected: self.parameters.text == value)
@@ -211,12 +226,12 @@ extension OceanSwiftUI {
                         Ocean.CellModel(title: value, isSelected: self.parameters.text == value)
                     }
                 }
-
+                
                 let modalList = Ocean.ModalList(rootViewController)
                     .withTitle(self.parameters.titleModal)
                     .withValues(model)
                     .build()
-
+                
                 modalList.onValueSelected = { _, value in
                     if value.title == "Ver todos" {
                         let values = self.parameters.values.compactMap { value in
@@ -227,6 +242,7 @@ extension OceanSwiftUI {
                                                                               values: values)
                         filterViewController.onValueSelected = { filterValue in
                             self.parameters.text = filterValue.title
+                            self.parameters.errorMessage = ""
                             self.parameters.onValueChanged(self.parameters.text)
                         }
                         let navigationController = UINavigationController(rootViewController: filterViewController)
@@ -235,10 +251,11 @@ extension OceanSwiftUI {
                         rootViewController.present(navigationController, animated: true, completion: nil)
                     } else {
                         self.parameters.text = value.title
+                        self.parameters.errorMessage = ""
                         self.parameters.onValueChanged(self.parameters.text)
                     }
                 }
-
+                
                 modalList.show()
             }
         }

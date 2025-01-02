@@ -84,43 +84,21 @@ class TypographySwiftUIViewController: UIViewController {
     }()
 
     lazy var typography13: OceanSwiftUI.Typography = {
+        OceanSwiftUI.Typography.eyebrow { view in
+            view.parameters.text = "EYEBROW EYEGREEN"
+        }
+    }()
+
+    lazy var typography14: OceanSwiftUI.Typography = {
         OceanSwiftUI.Typography.caption { view in
             view.parameters.skeletonSize = .small
             view.parameters.showSkeleton = true
         }
     }()
 
-    lazy var typography14: OceanSwiftUI.Typography = {
+    lazy var typography15: OceanSwiftUI.Typography = {
         OceanSwiftUI.Typography.description { view in
             view.parameters.skeletonSize = .medium
-            view.parameters.showSkeleton = true
-        }
-    }()
-
-    lazy var typography15: OceanSwiftUI.Typography = {
-        OceanSwiftUI.Typography.heading4 { view in
-            view.parameters.skeletonSize = .large
-            view.parameters.showSkeleton = true
-        }
-    }()
-
-    lazy var typography16: OceanSwiftUI.Typography = {
-        OceanSwiftUI.Typography.heading3 { view in
-            view.parameters.skeletonSize = .large2x
-            view.parameters.showSkeleton = true
-        }
-    }()
-
-    lazy var typography17: OceanSwiftUI.Typography = {
-        OceanSwiftUI.Typography.heading2 { view in
-            view.parameters.skeletonSize = .large3x
-            view.parameters.showSkeleton = true
-        }
-    }()
-
-    lazy var typography18: OceanSwiftUI.Typography = {
-        OceanSwiftUI.Typography.heading1 { view in
-            view.parameters.skeletonSize = .large3x
             view.parameters.showSkeleton = true
         }
     }()
@@ -142,9 +120,6 @@ class TypographySwiftUIViewController: UIViewController {
             typography13
             typography14
             typography15
-            typography16
-            typography17
-            typography18
         }
     })
 
