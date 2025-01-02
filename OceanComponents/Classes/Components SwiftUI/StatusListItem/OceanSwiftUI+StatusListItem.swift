@@ -106,85 +106,86 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            HStack {
-                VStack(alignment: .leading) {
-                    OceanSwiftUI.Typography.paragraph { label in
-                        label.parameters.textColor = Ocean.color.colorInterfaceDarkPure
-                        label.parameters.text = self.parameters.title
-                        label.parameters.lineLimit = self.parameters.titleLineLimit
-                        label.parameters.showSkeleton = self.parameters.showSkeleton
-                    }
-                    if !self.parameters.description.isEmpty {
-                        OceanSwiftUI.Typography.description { label in
-                            label.parameters.text = self.parameters.description
-                            label.parameters.lineLimit = self.parameters.descriptionLineLimit
-                            label.parameters.showSkeleton = self.parameters.showSkeleton
+            if parameters.showSkeleton {
+                Rectangle()
+                    .oceanSkeleton(isActive: true,
+                                   size: .init(width: CGFloat.infinity, height: 104),
+                                   shape: .rounded(.radius(Ocean.size.borderRadiusTiny, style: .circular)),
+                                   lines: 3,
+                                   scales: [0: 0.3, 1: 1, 2: 0.5])
+            } else {
+                HStack {
+                    VStack(alignment: .leading) {
+                        OceanSwiftUI.Typography.paragraph { label in
+                            label.parameters.textColor = Ocean.color.colorInterfaceDarkPure
+                            label.parameters.text = self.parameters.title
+                            label.parameters.lineLimit = self.parameters.titleLineLimit
                         }
-                    }
-                    if !self.parameters.caption.isEmpty {
-                        Spacer().frame(height: Ocean.size.spacingStackXxxs)
-                        OceanSwiftUI.Typography.caption { label in
-                            label.parameters.text = self.parameters.caption
-                            label.parameters.textColor = self.parameters.captionColor ?? Ocean.color.colorInterfaceDarkDown
-                            label.parameters.lineLimit = self.parameters.captionLineLimit
-                            label.parameters.showSkeleton = self.parameters.showSkeleton
+                        if !self.parameters.description.isEmpty {
+                            OceanSwiftUI.Typography.description { label in
+                                label.parameters.text = self.parameters.description
+                                label.parameters.lineLimit = self.parameters.descriptionLineLimit
+                            }
+                        }
+                        if !self.parameters.caption.isEmpty {
+                            Spacer().frame(height: Ocean.size.spacingStackXxxs)
+                            OceanSwiftUI.Typography.caption { label in
+                                label.parameters.text = self.parameters.caption
+                                label.parameters.textColor = self.parameters.captionColor ?? Ocean.color.colorInterfaceDarkDown
+                                label.parameters.lineLimit = self.parameters.captionLineLimit
+                            }
+                        }
+
+                        if !self.parameters.tagLabel.isEmpty && self.parameters.tagPosition == .below {
+                            Spacer().frame(height: Ocean.size.spacingStackXxs)
+                            OceanSwiftUI.Tag { tag in
+                                tag.parameters.label = self.parameters.tagLabel
+                                tag.parameters.status = self.parameters.tagStatus
+                            }
+                        }
+                        if self.parameters.badgeCount != nil && self.parameters.badgePosition == .below {
+                            Spacer().frame(height: Ocean.size.spacingStackXxs)
+                            OceanSwiftUI.Badge { badge in
+                                badge.parameters.count = self.parameters.badgeCount ?? 0
+                                badge.parameters.status = self.parameters.badgeStatus
+                                badge.parameters.size = .small
+                            }
                         }
                     }
 
-                    if !self.parameters.tagLabel.isEmpty && self.parameters.tagPosition == .below {
-                        Spacer().frame(height: Ocean.size.spacingStackXxs)
+                    Spacer().frame(width: Ocean.size.spacingStackXs)
+
+                    Spacer()
+
+                    if !self.parameters.tagLabel.isEmpty && self.parameters.tagPosition == .right {
                         OceanSwiftUI.Tag { tag in
                             tag.parameters.label = self.parameters.tagLabel
                             tag.parameters.status = self.parameters.tagStatus
-                            tag.parameters.showSkeleton = self.parameters.showSkeleton
                         }
+                        Spacer().frame(width: Ocean.size.spacingStackXxs)
                     }
-                    if self.parameters.badgeCount != nil && self.parameters.badgePosition == .below {
-                        Spacer().frame(height: Ocean.size.spacingStackXxs)
+                    if self.parameters.badgeCount != nil && self.parameters.badgePosition == .right {
+                        Spacer().frame(width: Ocean.size.spacingStackXxs)
                         OceanSwiftUI.Badge { badge in
                             badge.parameters.count = self.parameters.badgeCount ?? 0
                             badge.parameters.status = self.parameters.badgeStatus
                             badge.parameters.size = .small
-                            badge.parameters.showSkeleton = self.parameters.showSkeleton
                         }
                     }
-                }
 
-                Spacer().frame(width: Ocean.size.spacingStackXs)
-
-                Spacer()
-
-                if !self.parameters.tagLabel.isEmpty && self.parameters.tagPosition == .right {
-                    OceanSwiftUI.Tag { tag in
-                        tag.parameters.label = self.parameters.tagLabel
-                        tag.parameters.status = self.parameters.tagStatus
-                        tag.parameters.showSkeleton = self.parameters.showSkeleton
-                    }
-                    Spacer().frame(width: Ocean.size.spacingStackXxs)
-                }
-                if self.parameters.badgeCount != nil && self.parameters.badgePosition == .right {
-                    Spacer().frame(width: Ocean.size.spacingStackXxs)
-                    OceanSwiftUI.Badge { badge in
-                        badge.parameters.count = self.parameters.badgeCount ?? 0
-                        badge.parameters.status = self.parameters.badgeStatus
-                        badge.parameters.size = .small
-                        badge.parameters.showSkeleton = self.parameters.showSkeleton
+                    if let icon = getIconImage() {
+                        Image(uiImage: icon)
+                            .resizable()
+                            .renderingMode(.template)
+                            .frame(width: 20, height: 20, alignment: .center)
+                            .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
                     }
                 }
-
-                if let icon = getIconImage() {
-                    Image(uiImage: icon)
-                        .resizable()
-                        .renderingMode(.template)
-                        .frame(width: 20, height: 20, alignment: .center)
-                        .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
-                        .oceanSkeleton(isActive: self.parameters.showSkeleton)
+                .background(Color(Ocean.color.colorInterfaceLightPure))
+                .padding(.all, Ocean.size.spacingStackXs)
+                .onTapGesture {
+                    self.parameters.onTouch()
                 }
-            }
-            .background(Color(Ocean.color.colorInterfaceLightPure))
-            .padding(.all, Ocean.size.spacingStackXs)
-            .onTapGesture {
-                self.parameters.onTouch()
             }
         }
 

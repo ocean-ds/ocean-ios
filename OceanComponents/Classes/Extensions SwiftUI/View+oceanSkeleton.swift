@@ -15,12 +15,14 @@ extension View {
                        size: CGSize? = .none,
                        shape: OceanSkeletonView.ShapeType = .capsule,
                        lines: Int = 1,
-                       scales: [Int: CGFloat]? = .none) -> some View {
+                       scales: [Int: CGFloat]? = .none,
+                       alignment: HorizontalAlignment = .leading) -> some View {
         self.modifier(OceanSkeletonView(isActive: isActive,
                                         size: size,
                                         shape: shape,
                                         lines: lines,
-                                        scales: scales))
+                                        scales: scales,
+                                        alignment: alignment))
     }
 }
 
@@ -34,6 +36,7 @@ struct OceanSkeletonView: ViewModifier {
     var shape: ShapeType
     var lines: Int
     var scales: [Int: CGFloat]?
+    var alignment: HorizontalAlignment
 
     // MARK: Properties private
 
@@ -89,13 +92,15 @@ struct OceanSkeletonView: ViewModifier {
                 size: CGSize? = nil,
                 shape: ShapeType = .capsule,
                 lines: Int = 1,
-                scales: [Int : CGFloat]? = nil) {
+                scales: [Int : CGFloat]? = nil,
+                alignment: HorizontalAlignment = .leading) {
         self.isActive = isActive
         self.isAnimated = isAnimated
         self.size = size
         self.shape = shape
         self.lines = lines
         self.scales = scales
+        self.alignment = alignment
     }
 
     public enum RoundedType: Equatable {
@@ -115,13 +120,15 @@ struct OceanSkeletonView: ViewModifier {
         ZStack {
             if isActive {
                 if let size = size {
-                    VStack(spacing: 8) {
+                    VStack(alignment: alignment) {
                         ForEach(0..<lines, id: \.self) { index in
-                            let lineScale = scales?[index] ?? 1.0
-                            skeletonView
-                                .frame(width: size.width * lineScale, height: size.height)
+                            GeometryReader { geometry in
+                                skeletonView
+                                    .frame(width: (scales?[index] ?? 1) * geometry.size.width, height: geometry.size.height)
+                            }
                         }
                     }
+                    .frame(width: size.width.isFinite ? size.width : nil, height: size.height.isFinite ? size.height : nil)
                 } else {
                     content
                         .hidden()

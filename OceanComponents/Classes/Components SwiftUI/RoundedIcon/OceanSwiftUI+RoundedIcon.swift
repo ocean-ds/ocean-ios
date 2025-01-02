@@ -16,13 +16,16 @@ extension OceanSwiftUI {
         @Published public var icon: UIImage
         @Published public var color: UIColor
         @Published public var backgroundColor: UIColor
+        @Published public var showSkeleton: Bool
 
         public init(icon: UIImage = Ocean.icon.placeholderOutline!,
                     color: UIColor = Ocean.color.colorBrandPrimaryDown,
-                    backgroundColor: UIColor = Ocean.color.colorInterfaceLightUp) {
+                    backgroundColor: UIColor = Ocean.color.colorInterfaceLightUp,
+                    showSkeleton: Bool = false) {
             self.icon = icon
             self.color = color
             self.backgroundColor = backgroundColor
+            self.showSkeleton = showSkeleton
         }
     }
 
@@ -68,6 +71,7 @@ extension OceanSwiftUI {
             .frame(width: 40, height: 40, alignment: .center)
             .background(Color(self.parameters.backgroundColor))
             .cornerRadius(40 * Ocean.size.borderRadiusCircular)
+            .oceanSkeleton(isActive: self.parameters.showSkeleton)
         }
 
         // MARK: Methods private

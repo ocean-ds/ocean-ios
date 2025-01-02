@@ -91,28 +91,28 @@ class TypographySwiftUIViewController: UIViewController {
     }()
 
     lazy var typography14: OceanSwiftUI.Typography = {
-        OceanSwiftUI.Typography.caption { view in
+        OceanSwiftUI.Typography.description { view in
             view.parameters.skeletonSize = .medium
             view.parameters.showSkeleton = true
         }
     }()
 
     lazy var typography15: OceanSwiftUI.Typography = {
-        OceanSwiftUI.Typography.caption { view in
+        OceanSwiftUI.Typography.heading4 { view in
             view.parameters.skeletonSize = .large
             view.parameters.showSkeleton = true
         }
     }()
 
     lazy var typography16: OceanSwiftUI.Typography = {
-        OceanSwiftUI.Typography.caption { view in
+        OceanSwiftUI.Typography.heading3 { view in
             view.parameters.skeletonSize = .large2x
             view.parameters.showSkeleton = true
         }
     }()
 
     lazy var typography17: OceanSwiftUI.Typography = {
-        OceanSwiftUI.Typography.caption { view in
+        OceanSwiftUI.Typography.heading2 { view in
             view.parameters.skeletonSize = .large3x
             view.parameters.showSkeleton = true
         }
@@ -120,6 +120,7 @@ class TypographySwiftUIViewController: UIViewController {
 
     lazy var typography18: OceanSwiftUI.Typography = {
         OceanSwiftUI.Typography.heading1 { view in
+            view.parameters.skeletonSize = .large3x
             view.parameters.showSkeleton = true
         }
     }()

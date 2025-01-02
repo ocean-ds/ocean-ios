@@ -92,6 +92,12 @@ class SettingsListItemSwiftUIViewController: UIViewController {
         }
     }()
 
+    lazy var view7: OceanSwiftUI.SettingsListItem = {
+        return OceanSwiftUI.SettingsListItem { view in
+            view.parameters.showSkeleton = true
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: 0) {
             view0
@@ -101,6 +107,7 @@ class SettingsListItemSwiftUIViewController: UIViewController {
             view4
             view5
             view6
+            view7
         }
     })
 

@@ -1,5 +1,5 @@
 //
-//  ModalSwiftUIViewController.swift
+//  TextListItemSwiftUIViewController.swift
 //  OceanDesignSystem
 //
 //  Created by Renan Massaroto on 15/02/24.
@@ -10,20 +10,7 @@ import OceanTokens
 import SwiftUI
 
 class TextListItemSwiftUIViewController: UIViewController {
-    lazy var textListItem1: OceanSwiftUI.TextListItem = {
-        OceanSwiftUI.TextListItem { textListItem in
-            textListItem.parameters.title = "Title 1"
-            textListItem.parameters.description = "Description"
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
-            textListItem.parameters.showSkeleton = true
-        }
-    }()
-
-    @available(iOS 14.0, *)
-    var textListItem2: some View {
+    lazy var textListItem2: OceanSwiftUI.TextListItem = {
         OceanSwiftUI.TextListItem { textListItem in
             textListItem.parameters.title = "Title 2"
             textListItem.parameters.description = "Description"
@@ -33,8 +20,7 @@ class TextListItemSwiftUIViewController: UIViewController {
                                                     bottom: Ocean.size.spacingStackXxs,
                                                     trailing: 0)
         }
-        .redacted(reason: .placeholder)
-    }
+    }()
 
     lazy var textListItem3: OceanSwiftUI.TextListItem = {
         OceanSwiftUI.TextListItem { textListItem in
@@ -178,11 +164,7 @@ class TextListItemSwiftUIViewController: UIViewController {
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
 
         VStack(spacing: Ocean.size.spacingStackXs) {
-            textListItem1
-
-            if #available(iOS 14.0, *) {
-                textListItem2
-            }
+            textListItem2
             textListItem3
             textListItem4
             textListItem5

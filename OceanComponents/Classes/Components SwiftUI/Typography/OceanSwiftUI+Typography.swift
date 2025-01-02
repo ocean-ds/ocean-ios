@@ -93,12 +93,8 @@ extension OceanSwiftUI {
             case .large3x:
                 blank = String(repeating: blank, count: 9)
             }
-
+            
             return blank.htmlToMarkdown()
-        }
-
-        private func repeate(_ string: String, count: Int) -> String {
-            String(repeating: string, count: 3)
         }
 
         // MARK: Constructors

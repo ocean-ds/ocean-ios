@@ -149,48 +149,96 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            HStack(spacing: Ocean.size.spacingStackXs) {
-                if let icon = parameters.icon {
-                    RoundedIcon { image in
-                        image.parameters.icon = icon
-                        image.parameters.color = parameters.iconColor
-                        image.parameters.backgroundColor = parameters.iconBackgroundColor
-                    }
-                }
-                else if parameters.hasCheckbox {
-                    OceanSwiftUI.CheckboxGroup { group in
-                        group.parameters.icon = parameters.checkboxIcon
-                        group.parameters.hasError = parameters.hasError
-                        group.parameters.items = [ .init(isSelected: self.parameters.isChecked,
-                                                         isEnabled: self.parameters.isEnabled) ]
-                        group.parameters.onTouch = { items in
-                            guard let item = items.first else { return }
-                            parameters.onSelection(item.isSelected)
+            if parameters.showSkeleton {
+                OceanSwiftUI.Skeleton()
+            } else {
+                HStack(spacing: Ocean.size.spacingStackXs) {
+                    if let icon = parameters.icon {
+                        RoundedIcon { image in
+                            image.parameters.icon = icon
+                            image.parameters.color = parameters.iconColor
+                            image.parameters.backgroundColor = parameters.iconBackgroundColor
                         }
                     }
-                } else if parameters.hasRadioButton {
-                    OceanSwiftUI.RadioButtonGroup { group in
-                        group.parameters.hasError = parameters.hasError
-                        group.parameters.items = [ .init() ]
-                        group.parameters.isEnabled = self.parameters.isEnabled
-                        group.parameters.setSelectedIndex(self.parameters.isChecked ? 0 : -1)
-                        group.parameters.onTouch = { _, _ in
-                            parameters.onTouch()
+                    else if parameters.hasCheckbox {
+                        OceanSwiftUI.CheckboxGroup { group in
+                            group.parameters.icon = parameters.checkboxIcon
+                            group.parameters.hasError = parameters.hasError
+                            group.parameters.items = [ .init(isSelected: self.parameters.isChecked,
+                                                             isEnabled: self.parameters.isEnabled) ]
+                            group.parameters.onTouch = { items in
+                                guard let item = items.first else { return }
+                                parameters.onSelection(item.isSelected)
+                            }
+                        }
+                    } else if parameters.hasRadioButton {
+                        OceanSwiftUI.RadioButtonGroup { group in
+                            group.parameters.hasError = parameters.hasError
+                            group.parameters.items = [ .init() ]
+                            group.parameters.isEnabled = self.parameters.isEnabled
+                            group.parameters.setSelectedIndex(self.parameters.isChecked ? 0 : -1)
+                            group.parameters.onTouch = { _, _ in
+                                parameters.onTouch()
+                            }
                         }
                     }
-                }
 
-                VStack(alignment: .leading) {
-                    HStack(spacing: Ocean.size.spacingStackXxs) {
-                        if !parameters.title.isEmpty {
-                            OceanSwiftUI.Typography.paragraph { label in
-                                label.parameters.text = parameters.title
-                                label.parameters.lineLimit = parameters.titleLineLimit
-                                label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDeep : Ocean.color.colorInterfaceDarkUp
+                    VStack(alignment: .leading) {
+                        HStack(spacing: Ocean.size.spacingStackXxs) {
+                            if !parameters.title.isEmpty {
+                                OceanSwiftUI.Typography.paragraph { label in
+                                    label.parameters.text = parameters.title
+                                    label.parameters.lineLimit = parameters.titleLineLimit
+                                    label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDeep : Ocean.color.colorInterfaceDarkUp
+                                }
+                            }
+
+                            if !parameters.tagLabel.isEmpty && parameters.tagOrientation == .horizontal {
+                                OceanSwiftUI.Tag { tag in
+                                    tag.parameters.label = parameters.tagLabel
+                                    tag.parameters.icon = parameters.tagIcon
+                                    tag.parameters.status = parameters.tagStatus
+                                    tag.parameters.size = parameters.tagSize
+                                }
                             }
                         }
 
-                        if !parameters.tagLabel.isEmpty && parameters.tagOrientation == .horizontal {
+                        if !parameters.description.isEmpty {
+                            OceanSwiftUI.Typography.description { label in
+                                label.parameters.text = parameters.description
+                                label.parameters.lineLimit = parameters.descriptionLineLimit
+                                label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDown : Ocean.color.colorInterfaceLightDeep
+                            }
+                        }
+
+                        if !parameters.caption.isEmpty {
+                            Spacer()
+                                .frame(height: Ocean.size.spacingStackXxxs)
+
+                            OceanSwiftUI.Typography.caption { label in
+                                label.parameters.text = parameters.caption
+                                label.parameters.lineLimit = parameters.captionLineLimit
+                                label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                            }
+                        }
+
+                        if parameters.state != .normal && !parameters.info.isEmpty {
+                            Spacer()
+                                .frame(height: Ocean.size.spacingStackXxs)
+
+                            OceanSwiftUI.Typography.description { label in
+                                label.parameters.text = parameters.info
+                                label.parameters.lineLimit = parameters.infoLineLimit
+                                label.parameters.textColor = parameters.state == .neutral
+                                ? Ocean.color.colorInterfaceDarkDeep
+                                : Ocean.color.colorStatusPositiveDeep
+                            }
+                        }
+
+                        if !parameters.tagLabel.isEmpty && parameters.tagOrientation == .vertical {
+                            Spacer()
+                                .frame(height: Ocean.size.spacingStackXxs)
+
                             OceanSwiftUI.Tag { tag in
                                 tag.parameters.label = parameters.tagLabel
                                 tag.parameters.icon = parameters.tagIcon
@@ -199,75 +247,31 @@ extension OceanSwiftUI {
                             }
                         }
                     }
+                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
 
-                    if !parameters.description.isEmpty {
-                        OceanSwiftUI.Typography.description { label in
-                            label.parameters.text = parameters.description
-                            label.parameters.lineLimit = parameters.descriptionLineLimit
-                            label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDown : Ocean.color.colorInterfaceLightDeep
-                        }
-                    }
-
-                    if !parameters.caption.isEmpty {
-                        Spacer()
-                            .frame(height: Ocean.size.spacingStackXxxs)
-
-                        OceanSwiftUI.Typography.caption { label in
-                            label.parameters.text = parameters.caption
-                            label.parameters.lineLimit = parameters.captionLineLimit
-                            label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
-                        }
-                    }
-
-                    if parameters.state != .normal && !parameters.info.isEmpty {
-                        Spacer()
-                            .frame(height: Ocean.size.spacingStackXxs)
-
-                        OceanSwiftUI.Typography.description { label in
-                            label.parameters.text = parameters.info
-                            label.parameters.lineLimit = parameters.infoLineLimit
-                            label.parameters.textColor = parameters.state == .neutral
-                            ? Ocean.color.colorInterfaceDarkDeep
-                            : Ocean.color.colorStatusPositiveDeep
-                        }
-                    }
-
-                    if !parameters.tagLabel.isEmpty && parameters.tagOrientation == .vertical {
-                        Spacer()
-                            .frame(height: Ocean.size.spacingStackXxs)
-
-                        OceanSwiftUI.Tag { tag in
-                            tag.parameters.label = parameters.tagLabel
-                            tag.parameters.icon = parameters.tagIcon
-                            tag.parameters.status = parameters.tagStatus
-                            tag.parameters.size = parameters.tagSize
-                        }
+                    if parameters.hasAction {
+                        Image(uiImage: Ocean.icon.chevronRightSolid)
+                            .resizable()
+                            .renderingMode(.template)
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
+                    } else if parameters.hasLocked {
+                        Image(uiImage: Ocean.icon.lockClosedSolid)
+                            .resizable()
+                            .renderingMode(.template)
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
                     }
                 }
                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-
-                if parameters.hasAction {
-                    Image(uiImage: Ocean.icon.chevronRightSolid)
-                        .resizable()
-                        .renderingMode(.template)
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
-                } else if parameters.hasLocked {
-                    Image(uiImage: Ocean.icon.lockClosedSolid)
-                        .resizable()
-                        .renderingMode(.template)
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
-                }
+                .padding(parameters.padding)
+                .background(Color(Ocean.color.colorInterfaceLightPure))
+                .transform(condition: parameters.isEnabled, transform: { view in
+                    view.onTapGesture {
+                        parameters.onTouch()
+                    }
+                })
             }
-            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-            .padding(parameters.padding)
-            .background(Color(Ocean.color.colorInterfaceLightPure))
-            .transform(condition: parameters.isEnabled, transform: { view in
-                view.onTapGesture {
-                    parameters.onTouch()
-                }
-            })
         }
 
         private struct Constants {

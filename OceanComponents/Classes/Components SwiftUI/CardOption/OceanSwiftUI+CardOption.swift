@@ -83,12 +83,15 @@ extension OceanSwiftUI {
                     roundedIcon.parameters.icon = self.parameters.icon
                     roundedIcon.parameters.color = self.getIconColor()
                     roundedIcon.parameters.backgroundColor = self.getIconBackgroundColor()
+                    roundedIcon.parameters.showSkeleton = parameters.showSkeleton
                 }
 
                 VStack(alignment: .leading) {
                     OceanSwiftUI.Typography.heading4 { label in
                         label.parameters.text = self.parameters.title
                         label.parameters.textColor = self.parameters.isDisabled ? Ocean.color.colorInterfaceDarkDown : Ocean.color.colorBrandPrimaryDown
+                        label.parameters.showSkeleton = parameters.showSkeleton
+                        label.parameters.skeletonSize = .large3x
                     }
 
                     if !self.parameters.subtitle.isEmpty {
@@ -124,7 +127,6 @@ extension OceanSwiftUI {
                 self.parameters.isError = false
                 self.parameters.isSelected = true
             }
-            .oceanSkeleton(isActive: parameters.showSkeleton, shape: .rounded(.radius(Ocean.size.borderRadiusMd, style: .continuous)))
         }
 
         // MARK: Methods private
