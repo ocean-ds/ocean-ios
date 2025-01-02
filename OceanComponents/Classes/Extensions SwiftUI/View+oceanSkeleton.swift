@@ -141,9 +141,4 @@ struct OceanSkeletonView: ViewModifier {
     }
 
     // MARK: Private functions
-
-    private func validateDimension(_ dimension: CGFloat) -> CGFloat? {
-        guard dimension.isFinite, dimension > 0 else { return nil }
-        return dimension
-    }
 }
