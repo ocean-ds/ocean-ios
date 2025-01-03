@@ -37,7 +37,6 @@ Project created with the objective use components created by OceanTokens.
   s.dependency 'SkeletonView'
   s.dependency 'SDWebImage'
   s.dependency 'DGCharts'
-  s.dependency 'SkeletonUI'
   s.dependency 'EasyTipView'
 
   s.source_files = 'OceanComponents/Classes/**/*'

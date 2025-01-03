@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SkeletonUI
 import OceanTokens
 
 extension View {

@@ -8,7 +8,6 @@
 
 import SwiftUI
 import OceanTokens
-import SkeletonUI
 
 extension OceanSwiftUI {
     // MARK: Parameters
