@@ -30,7 +30,7 @@ class TypographySwiftUIViewController: UIViewController {
 
     lazy var typography4: OceanSwiftUI.Typography = {
         OceanSwiftUI.Typography.heading4 { view in
-            view.parameters.text = "heading4"
+            view.parameters.text = "heading4 <b>heading4</b>"
         }
     }()
 
@@ -84,46 +84,42 @@ class TypographySwiftUIViewController: UIViewController {
     }()
 
     lazy var typography13: OceanSwiftUI.Typography = {
-        OceanSwiftUI.Typography.caption { view in
-            view.parameters.text = "                              "
-            view.parameters.showSkeleton = true
-        }
-    }()
-
-    lazy var typography14: OceanSwiftUI.Typography = {
-        OceanSwiftUI.Typography.heading1 { view in
-            view.parameters.text = "                                               "
-            view.parameters.showSkeleton = true
-        }
-    }()
-
-    lazy var typography15: OceanSwiftUI.Typography = {
         OceanSwiftUI.Typography.eyebrow { view in
             view.parameters.text = "EYEBROW EYEGREEN"
         }
     }()
 
+    lazy var typography14: OceanSwiftUI.Typography = {
+        OceanSwiftUI.Typography.caption { view in
+            view.parameters.skeletonSize = .small
+            view.parameters.showSkeleton = true
+        }
+    }()
+
+    lazy var typography15: OceanSwiftUI.Typography = {
+        OceanSwiftUI.Typography.description { view in
+            view.parameters.skeletonSize = .medium
+            view.parameters.showSkeleton = true
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
-            Group {
-                typography1
-                typography2
-                typography3
-                typography4
-                typography5
-                typography6
-                typography7
-            }
-            Group {
-                typography8
-                typography9
-                typography10
-                typography11
-                typography12
-                typography13
-                typography14
-                typography15
-            }
+            typography1
+            typography2
+            typography3
+            typography4
+            typography5
+            typography6
+            typography7
+            typography8
+            typography9
+            typography10
+            typography11
+            typography12
+            typography13
+            typography14
+            typography15
         }
     })
 

@@ -7,7 +7,6 @@
 
 import SwiftUI
 import OceanTokens
-import SkeletonUI
 
 extension OceanSwiftUI {
     // MARK: Parameters
@@ -83,12 +82,15 @@ extension OceanSwiftUI {
                     roundedIcon.parameters.icon = self.parameters.icon
                     roundedIcon.parameters.color = self.getIconColor()
                     roundedIcon.parameters.backgroundColor = self.getIconBackgroundColor()
+                    roundedIcon.parameters.showSkeleton = parameters.showSkeleton
                 }
 
                 VStack(alignment: .leading) {
                     OceanSwiftUI.Typography.heading4 { label in
                         label.parameters.text = self.parameters.title
                         label.parameters.textColor = self.parameters.isDisabled ? Ocean.color.colorInterfaceDarkDown : Ocean.color.colorBrandPrimaryDown
+                        label.parameters.showSkeleton = parameters.showSkeleton
+                        label.parameters.skeletonSize = .large3x
                     }
 
                     if !self.parameters.subtitle.isEmpty {
@@ -110,7 +112,7 @@ extension OceanSwiftUI {
             .overlay(self.parameters.recommend ? self.getRecommend() : nil, alignment: .topTrailing)
             .offset(x: self.disableAnimation ? 0 : -3)
             .animation(self.parameters.isDisabled ? .interpolatingSpring(stiffness: 350, damping: 5, initialVelocity: 25) : nil)
-            .onTapGesture {
+            .onTapGesture {                
                 self.parameters.onTouch()
 
                 if self.parameters.isDisabled {

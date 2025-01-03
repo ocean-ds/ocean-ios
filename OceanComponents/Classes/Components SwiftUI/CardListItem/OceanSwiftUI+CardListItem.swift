@@ -7,7 +7,6 @@
 
 import SwiftUI
 import OceanTokens
-import SkeletonUI
 
 extension OceanSwiftUI {
     // MARK: Parameters
@@ -97,85 +96,94 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            HStack {
-                HStack {
-                    if let image = parameters.leadingIcon {
-                        ZStack {
-                            Image(uiImage: image)
-                                .resizable()
-                                .renderingMode(.template)
-                                .foregroundColor(Color(Ocean.color.colorBrandPrimaryDown))
-                                .frame(maxWidth: Constants.leadingIconImageMaxSize,
-                                       maxHeight: Constants.leadingIconImageMaxSize)
-                                .oceanSkeleton(with: parameters.showSkeleton)
-                        }
-                        .frame(width: Constants.leadingIconSize, height: Constants.leadingIconSize)
-                        .background(Color(Ocean.color.colorInterfaceLightUp))
-                        .cornerRadius(Constants.leadingIconSize / 2)
-
-                        Spacer().frame(width: Ocean.size.spacingInsetSm)
+            if parameters.showSkeleton {
+                VStack(spacing: 0) {
+                    OceanSwiftUI.Skeleton { view in
+                        view.parameters.withImage = true
+                        view.parameters.lines = 2
                     }
+                    .padding(.horizontal, Ocean.size.spacingStackXs)
+                    .padding(.vertical, Ocean.size.spacingStackXxs)
+                }
+                .border(cornerRadius: Ocean.size.borderRadiusMd,
+                        width: Ocean.size.borderWidthHairline,
+                        color: Ocean.color.colorInterfaceLightDown)
+            } else {
+                HStack {
+                    HStack {
+                        if let image = parameters.leadingIcon {
+                            ZStack {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .renderingMode(.template)
+                                    .foregroundColor(Color(Ocean.color.colorBrandPrimaryDown))
+                                    .frame(maxWidth: Constants.leadingIconImageMaxSize,
+                                           maxHeight: Constants.leadingIconImageMaxSize)
+                            }
+                            .frame(width: Constants.leadingIconSize, height: Constants.leadingIconSize)
+                            .background(Color(Ocean.color.colorInterfaceLightUp))
+                            .cornerRadius(Constants.leadingIconSize / 2)
 
-                    VStack(alignment: .leading) {
-                        HStack {
-                            OceanSwiftUI.Typography.heading4 { label in
-                                label.parameters.text = parameters.title
-                                label.parameters.lineLimit = parameters.titleLineLimit
-                                label.parameters.showSkeleton = parameters.showSkeleton
+                            Spacer().frame(width: Ocean.size.spacingInsetSm)
+                        }
+
+                        VStack(alignment: .leading) {
+                            HStack {
+                                OceanSwiftUI.Typography.heading4 { label in
+                                    label.parameters.text = parameters.title
+                                    label.parameters.lineLimit = parameters.titleLineLimit
+                                }
+
+                                if !parameters.tagLabel.isEmpty {
+                                    OceanSwiftUI.Tag { tag in
+                                        tag.parameters.icon = parameters.tagIcon
+                                        tag.parameters.label = parameters.tagLabel
+                                        tag.parameters.status = parameters.tagStatus
+                                        tag.parameters.size = parameters.tagSize
+                                    }
+                                }
                             }
 
-                            if !parameters.tagLabel.isEmpty {
-                                OceanSwiftUI.Tag { tag in
-                                    tag.parameters.icon = parameters.tagIcon
-                                    tag.parameters.label = parameters.tagLabel
-                                    tag.parameters.status = parameters.tagStatus
-                                    tag.parameters.size = parameters.tagSize
+                            if !parameters.subtitle.isEmpty {
+                                OceanSwiftUI.Typography.description { label in
+                                    label.parameters.text = parameters.subtitle
+                                    label.parameters.lineLimit = parameters.subtitleLineLimit
+                                }
+                            }
+
+                            if !parameters.caption.isEmpty {
+                                Spacer().frame(height: Ocean.size.spacingInsetXxs)
+
+                                OceanSwiftUI.Typography.caption { label in
+                                    label.parameters.text = parameters.caption
+                                    label.parameters.lineLimit = parameters.captionLineLimit
                                 }
                             }
                         }
 
-                        if !parameters.subtitle.isEmpty {
-                            OceanSwiftUI.Typography.description { label in
-                                label.parameters.text = parameters.subtitle
-                                label.parameters.lineLimit = parameters.subtitleLineLimit
-                                label.parameters.showSkeleton = parameters.showSkeleton
-                            }
-                        }
+                        Spacer()
 
-                        if !parameters.caption.isEmpty {
-                            Spacer().frame(height: Ocean.size.spacingInsetXxs)
+                        if let image = parameters.trailingIcon {
+                            Image(uiImage: image)
+                                .resizable()
+                                .renderingMode(.template)
+                                .foregroundColor(Color(Ocean.color.colorInterfaceDarkDown))
+                                .frame(maxWidth: Constants.trailingIconImageMaxSize,
+                                       maxHeight: Constants.trailingIconImageMaxSize)
 
-                            OceanSwiftUI.Typography.caption { label in
-                                label.parameters.text = parameters.caption
-                                label.parameters.lineLimit = parameters.captionLineLimit
-                                label.parameters.showSkeleton = parameters.showSkeleton
-                            }
+                            Spacer().frame(width: Ocean.size.spacingInsetXxs)
                         }
                     }
-
-                    Spacer()
-
-                    if let image = parameters.trailingIcon {
-                        Image(uiImage: image)
-                            .resizable()
-                            .renderingMode(.template)
-                            .foregroundColor(Color(Ocean.color.colorInterfaceDarkDown))
-                            .frame(maxWidth: Constants.trailingIconImageMaxSize,
-                                   maxHeight: Constants.trailingIconImageMaxSize)
-                            .oceanSkeleton(with: parameters.showSkeleton)
-
-                        Spacer().frame(width: Ocean.size.spacingInsetXxs)
-                    }
+                    .frame(minWidth: 0, maxWidth: .infinity)
+                    .padding(.all, Ocean.size.spacingStackXs)
                 }
                 .frame(minWidth: 0, maxWidth: .infinity)
-                .padding(.all, Ocean.size.spacingStackXs)
+                .background(Color(Ocean.color.colorInterfaceLightPure))
+                .border(cornerRadius: Ocean.size.borderRadiusMd,
+                        width: Ocean.size.borderWidthHairline,
+                        color: Ocean.color.colorInterfaceLightDown)
+                .onTapGesture { parameters.onTouch() }
             }
-            .frame(minWidth: 0, maxWidth: .infinity)
-            .background(Color(Ocean.color.colorInterfaceLightPure))
-            .border(cornerRadius: Ocean.size.borderRadiusMd,
-                    width: Ocean.size.borderWidthHairline,
-                    color: Ocean.color.colorInterfaceLightDown)
-            .onTapGesture { parameters.onTouch() }
         }
     }
 }

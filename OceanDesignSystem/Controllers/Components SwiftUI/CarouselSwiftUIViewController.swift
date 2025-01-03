@@ -59,6 +59,19 @@ class CarouselSwiftUIViewController: UIViewController {
         }
     }()
 
+    lazy var carousel5: OceanSwiftUI.CarouselWithComponents = {
+        OceanSwiftUI.Carousel.withComponents { view in
+            view.parameters.items = [
+                OceanSwiftUI.CardGroup(parameters: .init(title: "Title",
+                                                         subtitle: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                                                         caption: "Caption",
+                                                         ctaText: "Selecionar",
+                                                         onTouch: { print("tapped") }))
+            ]
+            view.parameters.showSkeleton = true
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             carousel1
@@ -68,6 +81,8 @@ class CarouselSwiftUIViewController: UIViewController {
             carousel3
             
             carousel4
+
+            carousel5
         }
     })
 

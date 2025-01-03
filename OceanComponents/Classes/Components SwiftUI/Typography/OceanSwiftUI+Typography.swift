@@ -22,11 +22,20 @@ extension OceanSwiftUI {
         @Published public var lineSpacing: CGFloat
         @Published public var kerning: CGFloat
         @Published public var multilineTextAlignment: TextAlignment
+        @Published public var skeletonSize: SkeletonSize
         @Published public var showSkeleton: Bool
 
         public enum Style {
             case normal
             case primary
+        }
+
+        public enum SkeletonSize {
+            case small
+            case medium
+            case large
+            case large2x
+            case large3x
         }
 
         public init(text: String = "",
@@ -39,6 +48,7 @@ extension OceanSwiftUI {
                     lineSpacing: CGFloat = Ocean.font.lineHeightComfy,
                     kerning: CGFloat = 0,
                     multilineTextAlignment: TextAlignment = .leading,
+                    skeletonSize: SkeletonSize = .large,
                     showSkeleton: Bool = false) {
             self.text = text
             self.textColor = textColor
@@ -50,6 +60,7 @@ extension OceanSwiftUI {
             self.lineSpacing = lineSpacing
             self.kerning = kerning
             self.multilineTextAlignment = multilineTextAlignment
+            self.skeletonSize = skeletonSize
             self.showSkeleton = showSkeleton
         }
     }
@@ -70,6 +81,25 @@ extension OceanSwiftUI {
 
         // MARK: Properties private
 
+        private var skeletonPlaceholder: LocalizedStringKey {
+            var blank = "            "
+
+            switch parameters.skeletonSize {
+            case .small:
+                blank = String(repeating: blank, count: 1)
+            case .medium:
+                blank = String(repeating: blank, count: 2)
+            case .large:
+                blank = String(repeating: blank, count: 3)
+            case .large2x:
+                blank = String(repeating: blank, count: 6)
+            case .large3x:
+                blank = String(repeating: blank, count: 9)
+            }
+            
+            return blank.htmlToMarkdown()
+        }
+
         // MARK: Constructors
 
         public init(parameters: TypographyParameters = TypographyParameters()) {
@@ -84,7 +114,7 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         private var text: some View {
-            Text(self.parameters.text.htmlToMarkdown())
+            Text(self.parameters.showSkeleton ? self.skeletonPlaceholder : self.parameters.text.htmlToMarkdown())
                 .strikethrough(self.parameters.strikethrough, color: Color(self.parameters.strikethroughColor))
                 .font(Font(self.parameters.font ?? .systemFont(ofSize: Ocean.font.fontSizeXs)))
                 .foregroundColor(Color(self.parameters.textColor))
@@ -92,12 +122,7 @@ extension OceanSwiftUI {
                 .lineSpacing(self.parameters.lineSpacing)
                 .multilineTextAlignment(self.parameters.multilineTextAlignment)
                 .fixedSize(horizontal: false, vertical: true)
-                .overlay(
-                    Path()
-                        .background(Color.clear)
-                        .oceanSkeleton(with: self.parameters.showSkeleton,
-                                       shape: .rounded(.radius(Ocean.size.borderRadiusTiny)))
-                )
+                .oceanSkeleton(isActive: self.parameters.showSkeleton, shape: .capsule)
         }
 
         public var body: some View {

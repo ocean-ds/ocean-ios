@@ -23,8 +23,6 @@ class SnackbarView: UIView {
     var symbol : String = "" {
         didSet { messageIcon.image = Ocean.icon.informationCircleOutline }
     }
-    
-    
 }
 
 extension UIView {

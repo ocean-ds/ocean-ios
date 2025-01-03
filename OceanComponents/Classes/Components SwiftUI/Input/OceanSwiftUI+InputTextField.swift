@@ -267,9 +267,11 @@ extension OceanSwiftUI {
                         )
                         .font(Font(UIFont.baseRegular(size: Ocean.font.fontSizeXs)!))
                         .foregroundColor(Color(self.parameters.isDisabled ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorInterfaceDarkDeep))
-                        .oceanSkeleton(with: self.parameters.showSkeleton)
+                        .oceanSkeleton(isActive: self.parameters.showSkeleton,
+                                       shape: .rounded(.radius(Ocean.size.borderRadiusMd,
+                                                               style: .continuous)))
 
-                    if let icon = self.parameters.icon {
+                    if let icon = self.parameters.icon, !parameters.showSkeleton {
                         Image(uiImage: icon)
                             .resizable()
                             .renderingMode(.template)
@@ -279,7 +281,6 @@ extension OceanSwiftUI {
                             .onTapGesture {
                                 self.parameters.onTouchIcon()
                             }
-                            .oceanSkeleton(with: self.parameters.showSkeleton)
                     }
                 }
 
@@ -319,7 +320,7 @@ extension OceanSwiftUI {
                                 .onTapGesture {
                                     self.parameters.onTouchIconHelper()
                                 }
-                                .oceanSkeleton(with: self.parameters.showSkeleton)
+                                .oceanSkeleton(isActive: self.parameters.showSkeleton)
                         }
                     }
                 }

@@ -149,12 +149,10 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            HStack(spacing: Ocean.size.spacingStackXs) {
-                if parameters.showSkeleton {
-                    Skeleton { skeleton in
-                        skeleton.parameters.withImage = parameters.icon != nil
-                    }
-                } else {
+            if parameters.showSkeleton {
+                OceanSwiftUI.Skeleton()
+            } else {
+                HStack(spacing: Ocean.size.spacingStackXs) {
                     if let icon = parameters.icon {
                         RoundedIcon { image in
                             image.parameters.icon = icon
@@ -265,16 +263,15 @@ extension OceanSwiftUI {
                             .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
                     }
                 }
-
+                .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                .padding(parameters.padding)
+                .background(Color(Ocean.color.colorInterfaceLightPure))
+                .transform(condition: parameters.isEnabled, transform: { view in
+                    view.onTapGesture {
+                        parameters.onTouch()
+                    }
+                })
             }
-            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-            .padding(parameters.padding)
-            .background(Color(Ocean.color.colorInterfaceLightPure))
-            .transform(condition: parameters.isEnabled, transform: { view in
-                view.onTapGesture {
-                    parameters.onTouch()
-                }
-            })
         }
 
         private struct Constants {

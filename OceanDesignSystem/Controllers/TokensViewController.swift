@@ -9,9 +9,6 @@
 import UIKit
 import OceanTokens
 
-
-
-
 class TokensViewController: UITableViewController {
 
     var categoryTypeSelected : CategoryType!
@@ -34,14 +31,15 @@ class TokensViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return Categories.loadCategories().count
     }
+
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         self.categoryTypeSelected = CategoryType.init(rawValue: indexPath.row)
         return indexPath
     }
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -50,7 +48,6 @@ class TokensViewController: UITableViewController {
         // Create a new variable to store the instance of PlayerTableViewController
         let destinationVC = segue.destination as! TokensByCategoryViewController
         destinationVC.categoryType = self.categoryTypeSelected
-        
     }
 }
 

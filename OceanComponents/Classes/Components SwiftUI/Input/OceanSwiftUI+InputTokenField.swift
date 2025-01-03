@@ -145,7 +145,7 @@ extension OceanSwiftUI {
                                     .onTapGesture {
                                         self.parameters.onTouchIconHelper()
                                     }
-                                    .oceanSkeleton(with: self.parameters.showSkeleton)
+                                    .oceanSkeleton(isActive: self.parameters.showSkeleton)
                             }
                         }
                     }
@@ -407,7 +407,7 @@ extension OceanSwiftUI {
             .font(Font(UIFont.baseRegular(size: Ocean.font.fontSizeXs)!))
             .foregroundColor(Color(Ocean.color.colorInterfaceDarkDeep))
             .frame(width: 48, height: 48)
-            .oceanSkeleton(with: self.showSkeleton)
+            .oceanSkeleton(isActive: self.showSkeleton)
         }
 
         // MARK: Methods private

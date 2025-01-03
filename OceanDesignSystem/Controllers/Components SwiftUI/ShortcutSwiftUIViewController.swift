@@ -102,6 +102,12 @@ class ShortcutSwiftUIViewController: UIViewController {
         }
     }()
 
+    lazy var shortcut6: OceanSwiftUI.Shortcut = {
+        OceanSwiftUI.Shortcut { view in
+            view.parameters.showSkeleton = true
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackSm) {
             VStack(spacing: Ocean.size.spacingStackXs) {
@@ -142,6 +148,14 @@ class ShortcutSwiftUIViewController: UIViewController {
                 }
 
                 shortcut5
+            }
+
+            VStack(spacing: Ocean.size.spacingStackXs) {
+                OceanSwiftUI.Typography.description { label in
+                    label.parameters.text = "Medium - Horizontal"
+                }
+
+                shortcut6
             }
         }
     })

@@ -10,8 +10,6 @@ import Foundation
 import UIKit
 import OceanTokens
 
-
-
 class TokensByCategoryViewController: UITableViewController {
 
     var categoryType : CategoryType!

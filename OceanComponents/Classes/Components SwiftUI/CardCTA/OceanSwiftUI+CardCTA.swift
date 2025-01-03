@@ -69,6 +69,7 @@ extension OceanSwiftUI {
                     skeleton.parameters.lines = 1
                 }
                 .frame(height: 48)
+                .padding(.horizontal, Ocean.size.spacingStackXs)
             } else {
                 HStack(alignment: .center, spacing: 0) {
                     if self.parameters.isLoading {

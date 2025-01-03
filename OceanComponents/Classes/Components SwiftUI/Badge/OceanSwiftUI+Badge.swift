@@ -82,7 +82,7 @@ extension OceanSwiftUI {
             .frame(width: self.getWidth(), height: self.parameters.size.rawValue)
             .background(Color(self.getBackgroundColor()))
             .cornerRadius(self.parameters.size.rawValue * Ocean.size.borderRadiusCircular)
-            .oceanSkeleton(with: self.parameters.showSkeleton,
+            .oceanSkeleton(isActive: self.parameters.showSkeleton,
                            size: .init(width: self.parameters.size.rawValue,
                                        height: self.parameters.size.rawValue))
         }
@@ -94,7 +94,7 @@ extension OceanSwiftUI {
             .frame(width: 8, height: 8)
             .background(Color(Ocean.color.colorHighlightPure))
             .cornerRadius(Ocean.size.borderRadiusTiny)
-            .oceanSkeleton(with: self.parameters.showSkeleton, size: .init(width: 8, height: 8))
+            .oceanSkeleton(isActive: self.parameters.showSkeleton, size: .init(width: 8, height: 8))
         }
 
         // MARK: Constructors

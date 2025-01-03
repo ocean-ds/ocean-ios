@@ -149,10 +149,19 @@ extension OceanSwiftUI {
 
         public var body: some View {
             if parameters.showSkeleton {
-                Rectangle()
-                    .oceanSkeleton(with: true,
-                                   size: CGSize(width: CGFloat.infinity, height: 150),
-                                   shape: .rounded(.radius(Ocean.size.borderRadiusMd, style: .circular)))
+                VStack(spacing: 0) {
+                    Rectangle()
+                        .oceanSkeleton(isActive: true,
+                                       size: CGSize(width: CGFloat.infinity, height: 100),
+                                       shape: .rounded(.radius(Ocean.size.borderRadiusSm, style: .circular)),
+                                       lines: 3,
+                                       scales: [0: 0.5, 1: 1, 2: 1, 3: 1])
+                        .padding(.all, Ocean.size.spacingStackXs)
+                }
+                .border(cornerRadius: Ocean.size.borderRadiusMd,
+                    width: Ocean.size.borderWidthHairline,
+                    color: Ocean.color.colorInterfaceLightDown)
+
             } else {
                 ZStack(alignment: .topLeading) {
                     VStack(alignment: .leading, spacing: 0) {
@@ -193,7 +202,7 @@ extension OceanSwiftUI {
                         .frame(minWidth: 0, maxWidth: .infinity)
                         .padding(.all, Ocean.size.spacingStackXs)
                         .background(Color(Ocean.color.colorInterfaceLightPure))
-                        
+
                         if let progress = parameters.progress {
                             ProgressBar { view in
                                 view.parameters.progress = progress
@@ -204,16 +213,16 @@ extension OceanSwiftUI {
                                                                      trailing: Ocean.size.spacingStackXs)
                             }
                         }
-                        
+
                         if let _ = self.parameters.view {
                             Divider()
-                            
+
                             self.parameters.contentView
                         }
-                        
+
                         if !self.parameters.ctaText.isEmpty {
                             Divider()
-                            
+
                             CardCTA { cardCTA in
                                 cardCTA.parameters.text = self.parameters.ctaText
                                 cardCTA.parameters.icon = self.parameters.ctaIcon
@@ -228,7 +237,7 @@ extension OceanSwiftUI {
                     .border(cornerRadius: Ocean.size.borderRadiusMd,
                             width: Ocean.size.borderWidthHairline,
                             color: self.parameters.recommend ? Ocean.color.colorBrandPrimaryUp : Ocean.color.colorInterfaceLightDown)
-                    
+
                     if self.parameters.recommend {
                         Tag.highlightNeutralMD { tag in
                             tag.parameters.label = "Recomendado"

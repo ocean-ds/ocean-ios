@@ -1,5 +1,5 @@
 //
-//  ModalSwiftUIViewController.swift
+//  TextListItemSwiftUIViewController.swift
 //  OceanDesignSystem
 //
 //  Created by Renan Massaroto on 15/02/24.
@@ -10,17 +10,6 @@ import OceanTokens
 import SwiftUI
 
 class TextListItemSwiftUIViewController: UIViewController {
-    lazy var textListItem1: OceanSwiftUI.TextListItem = {
-        OceanSwiftUI.TextListItem { textListItem in
-            textListItem.parameters.title = "Title 1"
-            textListItem.parameters.description = "Description"
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
-        }
-    }()
-
     lazy var textListItem2: OceanSwiftUI.TextListItem = {
         OceanSwiftUI.TextListItem { textListItem in
             textListItem.parameters.title = "Title 2"
@@ -173,8 +162,8 @@ class TextListItemSwiftUIViewController: UIViewController {
     }()
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
+
         VStack(spacing: Ocean.size.spacingStackXs) {
-            textListItem1
             textListItem2
             textListItem3
             textListItem4
