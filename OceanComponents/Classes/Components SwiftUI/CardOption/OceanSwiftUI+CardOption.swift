@@ -114,6 +114,8 @@ extension OceanSwiftUI {
             .offset(x: self.disableAnimation ? 0 : -3)
             .animation(self.parameters.isDisabled ? .interpolatingSpring(stiffness: 350, damping: 5, initialVelocity: 25) : nil)
             .onTapGesture {
+                guard !self.parameters.showSkeleton else { return }
+                
                 self.parameters.onTouch()
 
                 if self.parameters.isDisabled {
