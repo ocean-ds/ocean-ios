@@ -9,7 +9,7 @@ import SwiftUI
 import OceanTokens
 
 extension View {
-    func oceanSkeleton(isActive: Bool,
+    public func oceanSkeleton(isActive: Bool,
                        isAnimated: Bool = true,
                        size: CGSize? = .none,
                        shape: OceanSkeletonView.ShapeType = .capsule,
@@ -25,7 +25,7 @@ extension View {
     }
 }
 
-struct OceanSkeletonView: ViewModifier {
+public struct OceanSkeletonView: ViewModifier {
 
     // MARK: Properties
 
@@ -116,7 +116,7 @@ struct OceanSkeletonView: ViewModifier {
         case capsule
     }
 
-    func body(content: Content) -> some View {
+    public func body(content: Content) -> some View {
         ZStack {
             if isActive {
                 if let size = size {
