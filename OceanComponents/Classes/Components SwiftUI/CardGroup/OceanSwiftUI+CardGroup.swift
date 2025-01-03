@@ -149,12 +149,19 @@ extension OceanSwiftUI {
 
         public var body: some View {
             if parameters.showSkeleton {
-                Rectangle()
-                    .oceanSkeleton(isActive: true,
-                                   size: CGSize(width: CGFloat.infinity, height: 100),
-                                   shape: .rounded(.radius(Ocean.size.borderRadiusSm, style: .circular)),
-                                   lines: 3,
-                                   scales: [0: 0.5, 1: 1, 2: 1, 3: 1])
+                VStack(spacing: 0) {
+                    Rectangle()
+                        .oceanSkeleton(isActive: true,
+                                       size: CGSize(width: CGFloat.infinity, height: 100),
+                                       shape: .rounded(.radius(Ocean.size.borderRadiusSm, style: .circular)),
+                                       lines: 3,
+                                       scales: [0: 0.5, 1: 1, 2: 1, 3: 1])
+                        .padding(.all, Ocean.size.spacingStackXs)
+                }
+                .border(cornerRadius: Ocean.size.borderRadiusMd,
+                    width: Ocean.size.borderWidthHairline,
+                    color: Ocean.color.colorInterfaceLightDown)
+
             } else {
                 ZStack(alignment: .topLeading) {
                     VStack(alignment: .leading, spacing: 0) {
