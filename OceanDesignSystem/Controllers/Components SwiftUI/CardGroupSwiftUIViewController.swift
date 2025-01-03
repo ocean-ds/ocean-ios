@@ -120,6 +120,12 @@ class CardGroupSwiftUIViewController: UIViewController {
             view.parameters.progress = 0.5
             view.parameters.ctaText = "Call to action"
             view.parameters.showSkeleton = true
+            view.parameters.onTouch = {
+                view.parameters.isLoading = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    view.parameters.isLoading = false
+                }
+            }
         }
     }()
 

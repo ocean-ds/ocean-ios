@@ -183,11 +183,7 @@ extension OceanSwiftUI {
                 .border(cornerRadius: Ocean.size.borderRadiusMd,
                         width: Ocean.size.borderWidthHairline,
                         color: Ocean.color.colorInterfaceLightDown)
-                .onTapGesture {
-                    guard !parameters.showSkeleton else { return }
-
-                    parameters.onTouch()
-                }
+                .onTapGesture { parameters.onTouch() }
             }
         }
     }

@@ -113,9 +113,7 @@ extension OceanSwiftUI {
             .overlay(self.parameters.recommend ? self.getRecommend() : nil, alignment: .topTrailing)
             .offset(x: self.disableAnimation ? 0 : -3)
             .animation(self.parameters.isDisabled ? .interpolatingSpring(stiffness: 350, damping: 5, initialVelocity: 25) : nil)
-            .onTapGesture {
-                guard !self.parameters.showSkeleton else { return }
-                
+            .onTapGesture {                
                 self.parameters.onTouch()
 
                 if self.parameters.isDisabled {

@@ -75,6 +75,7 @@ struct OceanSkeletonView: ViewModifier {
         }
 
         baseView
+            .disabled(isActive)
             .onAppear {
                 if isAnimated {
                     withAnimation(Animation.easeInOut(duration: 1.5).repeatForever(autoreverses: false)) {
