@@ -15,7 +15,7 @@ extension View {
     ///   - transform: The transform to apply to the source `View`.
     /// - Returns: Either the original `View` or the modified `View` if the condition is `true`.
     @ViewBuilder
-    func transform<Content: View>(condition: Bool, transform: (Self) -> Content) -> some View {
+    public func transform<Content: View>(condition: Bool, transform: (Self) -> Content) -> some View {
         if condition {
             transform(self)
         } else {
