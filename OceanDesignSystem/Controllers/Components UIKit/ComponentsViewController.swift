@@ -59,6 +59,7 @@ class ComponentsViewController: UITableViewController {
             datePicker.maximumDate = Calendar.current.date(byAdding: .year, value: 2, to: Date())!
             datePicker.datesToHide = [Calendar.current.date(byAdding: .day, value: 1, to: Date())!]
             datePicker.selectedDate = Calendar.current.date(byAdding: .day, value: -12, to: Date())!
+            datePicker.isTodaySelectable = false
             datePicker.onCancel = {
                 print("DatePicker cancel")
             }

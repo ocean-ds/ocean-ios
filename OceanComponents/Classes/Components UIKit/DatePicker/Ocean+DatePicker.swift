@@ -130,6 +130,7 @@ extension Ocean {
         }
 
         public var disableWeekend: Bool = true
+        public var isTodaySelectable: Bool = true
         public var onReleaseCalendar: ((Date) -> Void)?
         public var onCancel: (() -> Void)?
 
@@ -269,7 +270,7 @@ extension Ocean {
         }
 
         private func isDateEnabled(date: Date) -> Bool {
-            if dateIsToday(date: date) {
+            if !isTodaySelectable, dateIsToday(date: date) {
                 return false
             }
 
