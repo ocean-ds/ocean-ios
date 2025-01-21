@@ -195,6 +195,79 @@ class TransactionListItemSwiftUIViewController: UIViewController {
         }
     }()
 
+    public lazy var transactionListItem12: OceanSwiftUI.TransactionListItem = {
+        OceanSwiftUI.TransactionListItem { view in
+            view.parameters.level1 = "Crédito parcelado"
+            view.parameters.level2 = "Maquininha Blu"
+            view.parameters.level3 = "Valor dividido com Pascon Empreendimentos e Participações S/A"
+            view.parameters.tagTitle = "Processando"
+            view.parameters.tagStatus = .neutralInterface
+            view.parameters.value1 = 1452.00
+            view.parameters.value3 = "08:30"
+            view.parameters.value1Status = .processing
+            view.parameters.hasDivider = false
+            view.parameters.hasChevron = true
+            view.parameters.lineLimitLevel3 = 2
+            view.parameters.onTouch = {
+                print("Touched!")
+            }
+        }
+    }()
+
+    public lazy var transactionListItem13: OceanSwiftUI.TransactionListItem = {
+        OceanSwiftUI.TransactionListItem { view in
+            view.parameters.level1 = "Crédito à vista"
+            view.parameters.level2 = "Blu Tap"
+            view.parameters.tagTitle = "Confirmada"
+            view.parameters.tagStatus = .positive
+            view.parameters.value1 = 2240
+            view.parameters.value3 = "08:30"
+            view.parameters.value1Status = .neutral
+            view.parameters.hasDivider = false
+            view.parameters.hasChevron = true
+            view.parameters.lineLimitLevel3 = 2
+            view.parameters.onTouch = {
+                print("Touched!")
+            }
+        }
+    }()
+
+    public lazy var transactionListItem14: OceanSwiftUI.TransactionListItem = {
+        OceanSwiftUI.TransactionListItem { view in
+            view.parameters.level1 = "Débito"
+            view.parameters.level2 = "Blu Tap"
+            view.parameters.tagTitle = "Cancelada"
+            view.parameters.tagStatus = .negative
+            view.parameters.value1 = 1120
+            view.parameters.value3 = "08:30"
+            view.parameters.value1Status = .cancelled
+            view.parameters.hasDivider = false
+            view.parameters.hasChevron = true
+            view.parameters.lineLimitLevel3 = 2
+            view.parameters.onTouch = {
+                print("Touched!")
+            }
+        }
+    }()
+
+    public lazy var transactionListItem15: OceanSwiftUI.TransactionListItem = {
+        OceanSwiftUI.TransactionListItem { view in
+            view.parameters.level1 = "Débito"
+            view.parameters.level2 = "Blu Tap"
+            view.parameters.tagTitle = "Contestada"
+            view.parameters.tagStatus = .warning
+            view.parameters.value1 = 942
+            view.parameters.value3 = "08:30"
+            view.parameters.value1Status = .cancelled
+            view.parameters.hasDivider = false
+            view.parameters.hasChevron = true
+            view.parameters.lineLimitLevel3 = 2
+            view.parameters.onTouch = {
+                print("Touched!")
+            }
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             Spacer(minLength: 40)
@@ -208,6 +281,10 @@ class TransactionListItemSwiftUIViewController: UIViewController {
             transactionListItem9
             transactionListItem10
             transactionListItem11
+            transactionListItem12
+            transactionListItem13
+            transactionListItem14
+            transactionListItem15
         }
     })
 
