@@ -22,6 +22,7 @@ extension OceanSwiftUI {
         @Published public var value1Text: String?
         @Published public var value2: Double?
         @Published public var value3: String
+        @Published public var textColorLevel3: UIColor
         @Published public var value1Status: ValueStatus
         @Published public var tagIcon: UIImage?
         @Published public var tagTitle: String
@@ -33,6 +34,7 @@ extension OceanSwiftUI {
         @Published public var isEnabled: Bool
         @Published public var isSelected: Bool
         @Published public var padding: EdgeInsets
+        @Published public var lineLimitLevel3: Int?
         public var onSelection: (Bool) -> Void
         public var onTouch: () -> Void
 
@@ -54,6 +56,7 @@ extension OceanSwiftUI {
                     value1: Double = 0.0,
                     value2: Double? = nil,
                     value3: String = "",
+                    textColorLevel3: UIColor = Ocean.color.colorInterfaceDarkUp,
                     value1Status: ValueStatus = .neutral,
                     tagIcon: UIImage? = nil,
                     tagTitle: String = "",
@@ -68,6 +71,7 @@ extension OceanSwiftUI {
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXs,
                                                 trailing: Ocean.size.spacingStackXs),
+                    lineLimitLevel3: Int? = nil,
                     onSelection: @escaping (Bool) -> Void = { _ in },
                     onTouch: @escaping () -> Void = { }) {
             self.level1 = level1
@@ -77,6 +81,7 @@ extension OceanSwiftUI {
             self.value1 = value1
             self.value2 = value2
             self.value3 = value3
+            self.textColorLevel3 = textColorLevel3
             self.value1Status = value1Status
             self.tagIcon = tagIcon
             self.tagTitle = tagTitle
@@ -87,6 +92,7 @@ extension OceanSwiftUI {
             self.isEnabled = isEnabled
             self.isSelected = isSelected
             self.padding = padding
+            self.lineLimitLevel3 = lineLimitLevel3
             self.hasChevron = hasChevron
             self.onSelection = onSelection
             self.onTouch = onTouch
@@ -221,8 +227,8 @@ extension OceanSwiftUI {
 
                     OceanSwiftUI.Typography.description { label in
                         label.parameters.text = parameters.level3
-                        label.parameters.textColor = Ocean.color.colorInterfaceDarkUp
-                        label.parameters.lineLimit = 1
+                        label.parameters.textColor = parameters.textColorLevel3
+                        label.parameters.lineLimit = parameters.lineLimitLevel3 ?? 1
                         label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
                     }
                 }

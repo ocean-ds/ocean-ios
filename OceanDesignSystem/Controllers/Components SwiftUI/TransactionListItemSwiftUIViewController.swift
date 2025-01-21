@@ -195,6 +195,52 @@ class TransactionListItemSwiftUIViewController: UIViewController {
         }
     }()
 
+    public lazy var transactionListItem12: OceanSwiftUI.TransactionListItem = {
+        OceanSwiftUI.TransactionListItem { view in
+            view.parameters.level1 = "Transferência recebida"
+            view.parameters.level2 = "Digilab Laboratório Óptico Digital Ltda"
+            view.parameters.level3 = "Lente de contato Mônica com lentes CarlZeiss e outras coisas mais"
+            view.parameters.level4 = "Lojista 2"
+            view.parameters.value1 = 2500
+            view.parameters.value3 = "09:00"
+            view.parameters.textColorLevel3 = Ocean.color.colorBrandPrimaryDeep
+            view.parameters.value1Status = .positive
+            view.parameters.tagTitle = "Pago"
+            view.parameters.tagStatus = .positive
+            view.parameters.hasChevron = true
+            view.parameters.hasCheckbox = true
+            view.parameters.isSelected = true
+            view.parameters.lineLimitLevel3 = 3
+            view.parameters.isEnabled = false
+            view.parameters.onTouch = {
+                print("Touched!")
+            }
+        }
+    }()
+
+    public lazy var transactionListItem13: OceanSwiftUI.TransactionListItem = {
+        OceanSwiftUI.TransactionListItem { view in
+            view.parameters.level1 = "Transferência recebida"
+            view.parameters.level2 = "Digilab Laboratório Óptico Digital Ltda"
+            view.parameters.level3 = "Lente"
+            view.parameters.level4 = "Lojista 2"
+            view.parameters.value1 = 2500
+            view.parameters.value3 = "09:00"
+            view.parameters.textColorLevel3 = Ocean.color.colorInterfaceDarkDown
+            view.parameters.value1Status = .positive
+            view.parameters.tagTitle = "Pago"
+            view.parameters.tagStatus = .positive
+            view.parameters.hasChevron = true
+            view.parameters.hasCheckbox = true
+            view.parameters.isSelected = true
+            view.parameters.lineLimitLevel3 = 7
+            view.parameters.isEnabled = false
+            view.parameters.onTouch = {
+                print("Touched!")
+            }
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             Spacer(minLength: 40)
@@ -208,6 +254,8 @@ class TransactionListItemSwiftUIViewController: UIViewController {
             transactionListItem9
             transactionListItem10
             transactionListItem11
+            transactionListItem12
+            transactionListItem13
         }
     })
 
