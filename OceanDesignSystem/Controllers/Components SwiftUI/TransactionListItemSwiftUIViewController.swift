@@ -239,7 +239,7 @@ class TransactionListItemSwiftUIViewController: UIViewController {
             view.parameters.tagTitle = "Cancelada"
             view.parameters.tagStatus = .negative
             view.parameters.value1 = 1120
-            view.parameters.value3 = "08:30"
+            view.parameters.value3 = "08:33"
             view.parameters.value1Status = .cancelled
             view.parameters.hasDivider = false
             view.parameters.hasChevron = true
