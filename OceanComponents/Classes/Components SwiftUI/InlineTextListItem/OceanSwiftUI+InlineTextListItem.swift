@@ -126,34 +126,32 @@ extension OceanSwiftUI {
                 OceanSwiftUI.Skeleton()
             } else {
                 HStack(spacing: Ocean.size.spacingStackXs) {
-                    if let icon = parameters.icon {
-                        RoundedIcon { image in
-                            image.parameters.icon = icon
-                            image.parameters.color = parameters.iconColor
-                            image.parameters.backgroundColor = parameters.iconBackgroundColor
+                    OceanSwiftUI.Typography.paragraph { label in
+                        label.parameters.text = parameters.title
+                        label.parameters.lineLimit = parameters.titleLineLimit
+                        label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDeep : Ocean.color.colorInterfaceDarkUp
+                    }
+
+                    if !parameters.tagLabel.isEmpty && parameters.tagOrientation == .horizontal {
+                        OceanSwiftUI.Tag { tag in
+                            tag.parameters.label = parameters.tagLabel
+                            tag.parameters.icon = parameters.tagIcon
+                            tag.parameters.status = parameters.tagStatus
+                            tag.parameters.size = parameters.tagSize
                         }
                     }
 
-                    VStack(alignment: .leading) {
-                        HStack(spacing: Ocean.size.spacingStackXxs) {
-                            if !parameters.title.isEmpty {
-                                OceanSwiftUI.Typography.paragraph { label in
-                                    label.parameters.text = parameters.title
-                                    label.parameters.lineLimit = parameters.titleLineLimit
-                                    label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDeep : Ocean.color.colorInterfaceDarkUp
-                                }
-                            }
+                    Spacer()
 
-                            if !parameters.tagLabel.isEmpty && parameters.tagOrientation == .horizontal {
-                                OceanSwiftUI.Tag { tag in
-                                    tag.parameters.label = parameters.tagLabel
-                                    tag.parameters.icon = parameters.tagIcon
-                                    tag.parameters.status = parameters.tagStatus
-                                    tag.parameters.size = parameters.tagSize
-                                }
+                    HStack(spacing: Ocean.size.spacingStackXxs) {
+                        if let icon = parameters.icon {
+                            RoundedIcon { image in
+                                image.parameters.icon = icon
+                                image.parameters.color = parameters.iconColor
+                                image.parameters.backgroundColor = parameters.iconBackgroundColor
                             }
                         }
-
+                        
                         if !parameters.description.isEmpty {
                             OceanSwiftUI.Typography.description { label in
                                 label.parameters.text = parameters.description
@@ -161,46 +159,6 @@ extension OceanSwiftUI {
                                 label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDown : Ocean.color.colorInterfaceLightDeep
                             }
                         }
-
-                        if parameters.state != .normal {
-                            Spacer()
-                                .frame(height: Ocean.size.spacingStackXxs)
-
-                            OceanSwiftUI.Typography.description { label in
-                                label.parameters.text = parameters.title
-                               // label.parameters.lineLimit = parameters.infoLineLimit
-                                label.parameters.textColor = parameters.state == .neutral
-                                ? Ocean.color.colorInterfaceDarkDeep
-                                : Ocean.color.colorStatusPositiveDeep
-                            }
-                        }
-
-                        if !parameters.tagLabel.isEmpty && parameters.tagOrientation == .vertical {
-                            Spacer()
-                                .frame(height: Ocean.size.spacingStackXxs)
-
-                            OceanSwiftUI.Tag { tag in
-                                tag.parameters.label = parameters.tagLabel
-                                tag.parameters.icon = parameters.tagIcon
-                                tag.parameters.status = parameters.tagStatus
-                                tag.parameters.size = parameters.tagSize
-                            }
-                        }
-                    }
-                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-
-                    if parameters.hasAction {
-                        Image(uiImage: Ocean.icon.chevronRightSolid)
-                            .resizable()
-                            .renderingMode(.template)
-                            .frame(width: 20, height: 20)
-                            .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
-                    } else if parameters.hasLocked {
-                        Image(uiImage: Ocean.icon.lockClosedSolid)
-                            .resizable()
-                            .renderingMode(.template)
-                            .frame(width: 20, height: 20)
-                            .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
                     }
                 }
                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
