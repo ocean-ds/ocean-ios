@@ -26,12 +26,12 @@ extension OceanSwiftUI {
         @Published public var tagOrientation: OceanSwiftUI.InlineTextListItemParameters.TagOrientation
         @Published public var padding: EdgeInsets
         @Published public var state: OceanSwiftUI.InlineTextListItemParameters.State
+        @Published public var buttonTitle: String
+        @Published public var buttonStyle: ButtonParameters.Style
+        @Published public var buttonIsLoading: Bool
         @Published public var isEnabled: Bool
-        @Published public var hasAction: Bool
         @Published public var hasLocked: Bool
         @Published public var showSkeleton: Bool
-
-        public var onSelection: (Bool) -> Void
         public var onTouch: () -> Void
 
         public init(title: String = "",
@@ -51,11 +51,12 @@ extension OceanSwiftUI {
                                                 bottom: Ocean.size.spacingStackXs,
                                                 trailing: Ocean.size.spacingStackXs),
                     state: OceanSwiftUI.InlineTextListItemParameters.State = .normal,
+                    buttonTitle: String = "",
+                    buttonStyle: ButtonParameters.Style = .primary,
+                    buttonIsLoading: Bool = false,
                     isEnabled: Bool = true,
-                    hasAction: Bool = false,
                     hasLocked: Bool = false,
                     showSkeleton: Bool = false,
-                    onSelection: @escaping (Bool) -> Void = { _ in },
                     onTouch: @escaping () -> Void = { }) {
             self.title = title
             self.titleLineLimit = titleLineLimit
@@ -71,11 +72,12 @@ extension OceanSwiftUI {
             self.tagOrientation = tagOrientation
             self.padding = padding
             self.state = state
+            self.buttonTitle = buttonTitle
+            self.buttonStyle = buttonStyle
+            self.buttonIsLoading = buttonIsLoading
             self.isEnabled = isEnabled
-            self.hasAction = hasAction
             self.hasLocked = hasLocked
             self.showSkeleton = showSkeleton
-            self.onSelection = onSelection
             self.onTouch = onTouch
         }
 
@@ -125,25 +127,28 @@ extension OceanSwiftUI {
             if parameters.showSkeleton {
                 OceanSwiftUI.Skeleton()
             } else {
-                HStack(spacing: Ocean.size.spacingStackXs) {
-                    OceanSwiftUI.Typography.paragraph { label in
-                        label.parameters.text = parameters.title
-                        label.parameters.lineLimit = parameters.titleLineLimit
-                        label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDeep : Ocean.color.colorInterfaceDarkUp
-                    }
+                HStack(alignment: .center, spacing: 0) {
+                    HStack(alignment: .center, spacing: 0) {
+                        OceanSwiftUI.Typography.paragraph { label in
+                            label.parameters.text = parameters.title
+                            label.parameters.lineLimit = parameters.titleLineLimit
+                            label.parameters.multilineTextAlignment = .leading
+                            label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDeep : Ocean.color.colorInterfaceDarkUp
+                        }
 
-                    if !parameters.tagLabel.isEmpty && parameters.tagOrientation == .horizontal {
-                        OceanSwiftUI.Tag { tag in
-                            tag.parameters.label = parameters.tagLabel
-                            tag.parameters.icon = parameters.tagIcon
-                            tag.parameters.status = parameters.tagStatus
-                            tag.parameters.size = parameters.tagSize
+                        if !parameters.tagLabel.isEmpty && parameters.tagOrientation == .horizontal {
+                            OceanSwiftUI.Tag { tag in
+                                tag.parameters.label = parameters.tagLabel
+                                tag.parameters.icon = parameters.tagIcon
+                                tag.parameters.status = parameters.tagStatus
+                                tag.parameters.size = parameters.tagSize
+                            }
                         }
                     }
 
                     Spacer()
 
-                    HStack(spacing: Ocean.size.spacingStackXxs) {
+                    HStack(alignment: .center, spacing: 0) {
                         if let icon = parameters.icon {
                             RoundedIcon { image in
                                 image.parameters.icon = icon
@@ -151,7 +156,17 @@ extension OceanSwiftUI {
                                 image.parameters.backgroundColor = parameters.iconBackgroundColor
                             }
                         }
-                        
+
+                        if !parameters.buttonTitle.isEmpty {
+                            Button { button in
+                                button.parameters.text = parameters.buttonTitle
+                                button.parameters.style = parameters.buttonStyle
+                                button.parameters.size = .small
+                                button.parameters.isLoading = parameters.buttonIsLoading
+                                button.parameters.onTouch = parameters.onTouch
+                            }
+                        }
+
                         if !parameters.description.isEmpty {
                             OceanSwiftUI.Typography.description { label in
                                 label.parameters.text = parameters.description
@@ -160,15 +175,10 @@ extension OceanSwiftUI {
                             }
                         }
                     }
+                    .fixedSize(horizontal: true, vertical: false)
                 }
-                .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                 .padding(parameters.padding)
                 .background(Color(Ocean.color.colorInterfaceLightPure))
-                .transform(condition: parameters.isEnabled, transform: { view in
-                    view.onTapGesture {
-                        parameters.onTouch()
-                    }
-                })
             }
         }
 

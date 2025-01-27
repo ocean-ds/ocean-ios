@@ -13,7 +13,6 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
     lazy var inlineTextListItem: OceanSwiftUI.InlineTextListItem = {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Title"
-            textListItem.parameters.description = "Description"
             textListItem.parameters.showSkeleton = true
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
                                                     leading: 0,
@@ -31,28 +30,6 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.tagIcon = Ocean.icon.fireSolid
             textListItem.parameters.tagSize = .medium
             textListItem.parameters.tagOrientation = .horizontal
-            textListItem.parameters.hasAction = true
-            textListItem.parameters.onTouch = {
-                print("Touched!")
-            }
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
-        }
-    }()
-
-    lazy var inlineTextListItem12: OceanSwiftUI.InlineTextListItem = {
-        OceanSwiftUI.InlineTextListItem { textListItem in
-            textListItem.parameters.title = "Recebimentos futuros"
-            textListItem.parameters.description = "RS 2.300,00"
-            textListItem.parameters.icon = Ocean.icon.placeholderSolid
-            textListItem.parameters.tagLabel = "Oferta"
-            textListItem.parameters.tagStatus = .warning
-            textListItem.parameters.tagIcon = Ocean.icon.fireSolid
-            textListItem.parameters.tagSize = .medium
-            textListItem.parameters.tagOrientation = .horizontal
-            textListItem.parameters.hasAction = true
             textListItem.parameters.onTouch = {
                 print("Touched!")
             }
@@ -161,11 +138,44 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
                                                     trailing: 0)
         }
     }()
-    
+
     lazy var inlineTextListItem11: OceanSwiftUI.InlineTextListItem = {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Title"
             textListItem.parameters.description = "Description"
+            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
+                                                    leading: 0,
+                                                    bottom: Ocean.size.spacingStackXxs,
+                                                    trailing: 0)
+        }
+    }()
+
+    lazy var inlineTextListItem12: OceanSwiftUI.InlineTextListItem = {
+        OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.title = "Recebimentos futuros"
+            textListItem.parameters.description = "RS 2.300,00"
+            textListItem.parameters.icon = Ocean.icon.placeholderSolid
+            textListItem.parameters.tagLabel = "Oferta"
+            textListItem.parameters.tagStatus = .warning
+            textListItem.parameters.tagIcon = Ocean.icon.fireSolid
+            textListItem.parameters.tagSize = .medium
+            textListItem.parameters.tagOrientation = .horizontal
+            textListItem.parameters.onTouch = {
+                print("Touched!")
+            }
+            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
+                                                    leading: 0,
+                                                    bottom: Ocean.size.spacingStackXxs,
+                                                    trailing: 0)
+        }
+    }()
+
+    lazy var inlineTextListItem13: OceanSwiftUI.InlineTextListItem = {
+        OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.title = "Title"
+            textListItem.parameters.buttonTitle = "Saiba mais - Click"
+            textListItem.parameters.buttonStyle = .primary
+            textListItem.parameters.onTouch = { print("touched") }
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
                                                     leading: 0,
                                                     bottom: Ocean.size.spacingStackXxs,
@@ -188,6 +198,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             inlineTextListItem10
             inlineTextListItem11
             inlineTextListItem12
+            inlineTextListItem13
         }
     })
 
@@ -195,7 +206,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
 
     public override func viewDidLoad() {
         self.view.backgroundColor = .white
-        
+
         self.view.addSubview(uiView)
 
         uiView.oceanConstraints
