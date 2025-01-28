@@ -15,6 +15,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.title = "Title"
             textListItem.parameters.description = "Description - Default"
             textListItem.parameters.state = .normal
+            textListItem.parameters.size = .normal
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
                                                     leading: 0,
                                                     bottom: Ocean.size.spacingStackXxs,
@@ -27,6 +28,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.title = "Title"
             textListItem.parameters.description = "Description - Default"
             textListItem.parameters.state = .normal
+            textListItem.parameters.size = .small
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
                                                     leading: 0,
                                                     bottom: Ocean.size.spacingStackXxs,
@@ -39,6 +41,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.title = "Title"
             textListItem.parameters.description = "Description - Innactive"
             textListItem.parameters.state = .innactive
+            textListItem.parameters.size = .normal
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
                                                     leading: 0,
                                                     bottom: Ocean.size.spacingStackXxs,
@@ -51,6 +54,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.title = "Title"
             textListItem.parameters.description = "Description - Innactive"
             textListItem.parameters.state = .innactive
+            textListItem.parameters.size = .small
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
                                                     leading: 0,
                                                     bottom: Ocean.size.spacingStackXxs,
@@ -63,6 +67,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.title = "Title"
             textListItem.parameters.description = "Description - Positive"
             textListItem.parameters.state = .positive
+            textListItem.parameters.size = .normal
             textListItem.parameters.icon = Ocean.icon.placeholderSolid
             textListItem.parameters.tagOrientation = .horizontal
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
@@ -78,6 +83,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.description = "Description - Positive"
             textListItem.parameters.icon = Ocean.icon.placeholderSolid
             textListItem.parameters.state = .positive
+            textListItem.parameters.size = .small
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
                                                     leading: 0,
                                                     bottom: Ocean.size.spacingStackXxs,
@@ -91,6 +97,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.description = "Description - Warning"
             textListItem.parameters.icon = Ocean.icon.placeholderSolid
             textListItem.parameters.state = .warning
+            textListItem.parameters.size = .normal
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
                                                     leading: 0,
                                                     bottom: Ocean.size.spacingStackXxs,
@@ -104,6 +111,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.description = "Description - Warning"
             textListItem.parameters.icon = Ocean.icon.placeholderSolid
             textListItem.parameters.state = .warning
+            textListItem.parameters.size = .small
             textListItem.parameters.tagLabel = "Tag"
             textListItem.parameters.tagStatus = .warning
             textListItem.parameters.tagIcon = Ocean.icon.fingerPrintSolid
@@ -120,6 +128,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.title = "Title"
             textListItem.parameters.description = "Description - Highlight"
             textListItem.parameters.state = .highlight
+            textListItem.parameters.size = .normal
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
                                                     leading: 0,
                                                     bottom: Ocean.size.spacingStackXxs,
@@ -132,6 +141,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.title = "Title"
             textListItem.parameters.description = "Description - Highlight"
             textListItem.parameters.state = .highlight
+            textListItem.parameters.size = .small
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
                                                     leading: 0,
                                                     bottom: Ocean.size.spacingStackXxs,
@@ -144,6 +154,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.title = "Title"
             textListItem.parameters.description = "Description - Strikethrough"
             textListItem.parameters.state = .strikethrough
+            textListItem.parameters.size = .normal
             textListItem.parameters.onTouch = {
                 print("Touched!")
             }
@@ -159,6 +170,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.title = "Title"
             textListItem.parameters.description = "Description - Strikethrough "
             textListItem.parameters.state = .strikethrough
+            textListItem.parameters.size = .small
             textListItem.parameters.onTouch = { print("touched") }
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
                                                     leading: 0,
@@ -171,6 +183,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Title"
             textListItem.parameters.state = .withAction
+            textListItem.parameters.size = .normal
             textListItem.parameters.buttonTitle = "Saiba mais"
             textListItem.parameters.buttonStyle = .primary
             textListItem.parameters.onTouch = { print("touched") }
@@ -185,6 +198,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Title"
             textListItem.parameters.state = .withAction
+            textListItem.parameters.size = .small
             textListItem.parameters.buttonTitle = "Saiba mais"
             textListItem.parameters.buttonStyle = .primary
             textListItem.parameters.onTouch = { print("touched") }

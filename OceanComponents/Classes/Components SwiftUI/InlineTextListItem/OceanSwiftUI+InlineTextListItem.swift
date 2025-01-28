@@ -27,6 +27,7 @@ extension OceanSwiftUI {
         @Published public var tagOrientation: OceanSwiftUI.InlineTextListItemParameters.TagOrientation
         @Published public var padding: EdgeInsets
         @Published public var state: OceanSwiftUI.InlineTextListItemParameters.State
+        @Published public var size: OceanSwiftUI.InlineTextListItemParameters.Size
         @Published public var buttonTitle: String
         @Published public var buttonStyle: ButtonParameters.Style
         @Published public var buttonIsLoading: Bool
@@ -53,6 +54,7 @@ extension OceanSwiftUI {
                                                 bottom: Ocean.size.spacingStackXs,
                                                 trailing: Ocean.size.spacingStackXs),
                     state: OceanSwiftUI.InlineTextListItemParameters.State = .normal,
+                    size: OceanSwiftUI.InlineTextListItemParameters.Size = .normal,
                     buttonTitle: String = "",
                     buttonStyle: ButtonParameters.Style = .primary,
                     buttonIsLoading: Bool = false,
@@ -75,6 +77,7 @@ extension OceanSwiftUI {
             self.tagOrientation = tagOrientation
             self.padding = padding
             self.state = state
+            self.size = size
             self.buttonTitle = buttonTitle
             self.buttonStyle = buttonStyle
             self.buttonIsLoading = buttonIsLoading
@@ -95,7 +98,7 @@ extension OceanSwiftUI {
         }
 
         public enum Size {
-            case standard
+            case normal
             case small
         }
 
@@ -141,11 +144,20 @@ extension OceanSwiftUI {
             } else {
                 HStack(alignment: .center, spacing: 0) {
                     HStack(alignment: .center, spacing: 0) {
-                        OceanSwiftUI.Typography.paragraph { label in
-                            label.parameters.text = parameters.title
-                            label.parameters.lineLimit = parameters.titleLineLimit
-                            label.parameters.multilineTextAlignment = .leading
-                            label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDeep : Ocean.color.colorInterfaceDarkUp
+                        if parameters.size == .normal {
+                            OceanSwiftUI.Typography.paragraph { label in
+                                label.parameters.text = parameters.title
+                                label.parameters.lineLimit = parameters.titleLineLimit
+                                label.parameters.multilineTextAlignment = .leading
+                                label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDeep : Ocean.color.colorInterfaceDarkUp
+                            }
+                        } else {
+                            OceanSwiftUI.Typography.caption { label in
+                                label.parameters.text = parameters.title
+                                label.parameters.lineLimit = parameters.titleLineLimit
+                                label.parameters.multilineTextAlignment = .leading
+                                label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDeep : Ocean.color.colorInterfaceDarkUp
+                            }
                         }
 
                         if !parameters.tagLabel.isEmpty && parameters.tagOrientation == .horizontal {
@@ -180,10 +192,18 @@ extension OceanSwiftUI {
                         }
 
                         if !parameters.description.isEmpty {
-                            OceanSwiftUI.Typography.description { label in
-                                label.parameters.text = parameters.description
-                                label.parameters.lineLimit = parameters.descriptionLineLimit
-                                label.parameters.textColor = getStatusColor()
+                            if parameters.size == .normal {
+                                OceanSwiftUI.Typography.paragraph { label in
+                                    label.parameters.text = parameters.description
+                                    label.parameters.lineLimit = parameters.descriptionLineLimit
+                                    label.parameters.textColor = getStatusColor()
+                                }
+                            } else {
+                                OceanSwiftUI.Typography.description { label in
+                                    label.parameters.text = parameters.description
+                                    label.parameters.lineLimit = parameters.descriptionLineLimit
+                                    label.parameters.textColor = getStatusColor()
+                                }
                             }
                         }
                     }
