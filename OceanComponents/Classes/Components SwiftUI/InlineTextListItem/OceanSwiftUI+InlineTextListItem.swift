@@ -25,15 +25,12 @@ extension OceanSwiftUI {
         @Published public var tagIcon: UIImage?
         @Published public var tagStatus: OceanSwiftUI.TagParameters.Status
         @Published public var tagSize: OceanSwiftUI.TagParameters.Size
-        @Published public var tagOrientation: OceanSwiftUI.InlineTextListItemParameters.TagOrientation
         @Published public var padding: EdgeInsets
         @Published public var state: OceanSwiftUI.InlineTextListItemParameters.State
         @Published public var size: OceanSwiftUI.InlineTextListItemParameters.Size
         @Published public var buttonTitle: String
         @Published public var buttonStyle: ButtonParameters.Style
         @Published public var buttonIsLoading: Bool
-        @Published public var isEnabled: Bool
-        @Published public var hasLocked: Bool
         @Published public var showSkeleton: Bool
         public var onTouch: () -> Void
 
@@ -50,7 +47,6 @@ extension OceanSwiftUI {
                     tagIcon: UIImage? = nil,
                     tagStatus: OceanSwiftUI.TagParameters.Status = .positive,
                     tagSize: OceanSwiftUI.TagParameters.Size = .small,
-                    tagOrientation: OceanSwiftUI.InlineTextListItemParameters.TagOrientation = .vertical,
                     padding: EdgeInsets = .init(top: Ocean.size.spacingStackXs,
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXs,
@@ -60,8 +56,6 @@ extension OceanSwiftUI {
                     buttonTitle: String = "",
                     buttonStyle: ButtonParameters.Style = .primary,
                     buttonIsLoading: Bool = false,
-                    isEnabled: Bool = true,
-                    hasLocked: Bool = false,
                     showSkeleton: Bool = false,
                     onTouch: @escaping () -> Void = { }) {
             self.title = title
@@ -77,15 +71,12 @@ extension OceanSwiftUI {
             self.tagIcon = tagIcon
             self.tagStatus = tagStatus
             self.tagSize = tagSize
-            self.tagOrientation = tagOrientation
             self.padding = padding
             self.state = state
             self.size = size
             self.buttonTitle = buttonTitle
             self.buttonStyle = buttonStyle
             self.buttonIsLoading = buttonIsLoading
-            self.isEnabled = isEnabled
-            self.hasLocked = hasLocked
             self.showSkeleton = showSkeleton
             self.onTouch = onTouch
         }
@@ -103,11 +94,6 @@ extension OceanSwiftUI {
         public enum Size {
             case normal
             case small
-        }
-
-        public enum TagOrientation {
-            case vertical
-            case horizontal
         }
     }
 
@@ -161,18 +147,16 @@ extension OceanSwiftUI {
                                 label.parameters.text = parameters.title
                                 label.parameters.lineLimit = parameters.titleLineLimit
                                 label.parameters.multilineTextAlignment = .leading
-                                label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDeep : Ocean.color.colorInterfaceDarkUp
                             }
                         } else {
                             OceanSwiftUI.Typography.caption { label in
                                 label.parameters.text = parameters.title
                                 label.parameters.lineLimit = parameters.titleLineLimit
                                 label.parameters.multilineTextAlignment = .leading
-                                label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDeep : Ocean.color.colorInterfaceDarkUp
                             }
                         }
 
-                        if !parameters.tagLabel.isEmpty && parameters.tagOrientation == .horizontal {
+                        if !parameters.tagLabel.isEmpty {
                             OceanSwiftUI.Tag { tag in
                                 tag.parameters.label = parameters.tagLabel
                                 tag.parameters.icon = parameters.tagIcon

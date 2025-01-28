@@ -69,7 +69,6 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.state = .positive
             textListItem.parameters.size = .normal
             textListItem.parameters.icon = Ocean.icon.placeholderSolid
-            textListItem.parameters.tagOrientation = .horizontal
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
                                                     leading: 0,
                                                     bottom: Ocean.size.spacingStackXxs,
@@ -230,7 +229,6 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.tagStatus = .warning
             textListItem.parameters.tagIcon = Ocean.icon.fireSolid
             textListItem.parameters.tagSize = .medium
-            textListItem.parameters.tagOrientation = .horizontal
             textListItem.parameters.onTouch = {
                 print("Touched!")
             }
@@ -251,7 +249,6 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.tagStatus = .warning
             textListItem.parameters.tagIcon = Ocean.icon.fireSolid
             textListItem.parameters.tagSize = .medium
-            textListItem.parameters.tagOrientation = .horizontal
             textListItem.parameters.onTouch = {
                 print("Touched!")
             }
