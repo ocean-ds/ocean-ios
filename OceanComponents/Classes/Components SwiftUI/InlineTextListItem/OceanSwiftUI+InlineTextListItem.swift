@@ -164,7 +164,7 @@ extension OceanSwiftUI {
                         if let icon = parameters.icon {
                             RoundedIcon { image in
                                 image.parameters.icon = icon
-                                image.parameters.color = parameters.iconColor
+                                image.parameters.color = getStatusColor()
                                 image.parameters.backgroundColor = parameters.iconBackgroundColor
                             }
                         }

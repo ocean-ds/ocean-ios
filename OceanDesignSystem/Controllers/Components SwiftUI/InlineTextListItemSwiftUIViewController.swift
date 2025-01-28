@@ -10,10 +10,11 @@ import OceanTokens
 import SwiftUI
 
 class InlineTextListItemSwiftUIViewController: UIViewController {
-    lazy var inlineTextListItem: OceanSwiftUI.InlineTextListItem = {
+    lazy var inlineTextListItem1: OceanSwiftUI.InlineTextListItem = {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Title"
-            textListItem.parameters.showSkeleton = true
+            textListItem.parameters.description = "Description - Default"
+            textListItem.parameters.state = .normal
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
                                                     leading: 0,
                                                     bottom: Ocean.size.spacingStackXxs,
@@ -23,16 +24,9 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
 
     lazy var inlineTextListItem2: OceanSwiftUI.InlineTextListItem = {
         OceanSwiftUI.InlineTextListItem { textListItem in
-            textListItem.parameters.title = "Recebimentos futuros"
-            textListItem.parameters.description = "RS 2.300,00"
-            textListItem.parameters.tagLabel = "Oferta"
-            textListItem.parameters.tagStatus = .warning
-            textListItem.parameters.tagIcon = Ocean.icon.fireSolid
-            textListItem.parameters.tagSize = .medium
-            textListItem.parameters.tagOrientation = .horizontal
-            textListItem.parameters.onTouch = {
-                print("Touched!")
-            }
+            textListItem.parameters.title = "Title"
+            textListItem.parameters.description = "Description - Default"
+            textListItem.parameters.state = .normal
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
                                                     leading: 0,
                                                     bottom: Ocean.size.spacingStackXxs,
@@ -43,8 +37,8 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
     lazy var inlineTextListItem3: OceanSwiftUI.InlineTextListItem = {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Title"
-            textListItem.parameters.description = "Description"
-            textListItem.parameters.state = .neutral
+            textListItem.parameters.description = "Description - Innactive"
+            textListItem.parameters.state = .innactive
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
                                                     leading: 0,
                                                     bottom: Ocean.size.spacingStackXxs,
@@ -55,8 +49,8 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
     lazy var inlineTextListItem4: OceanSwiftUI.InlineTextListItem = {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Title"
-            textListItem.parameters.description = "Description"
-            textListItem.parameters.state = .positive
+            textListItem.parameters.description = "Description - Innactive"
+            textListItem.parameters.state = .innactive
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
                                                     leading: 0,
                                                     bottom: Ocean.size.spacingStackXxs,
@@ -67,7 +61,10 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
     lazy var inlineTextListItem5: OceanSwiftUI.InlineTextListItem = {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Title"
-            textListItem.parameters.description = "Description"
+            textListItem.parameters.description = "Description - Positive"
+            textListItem.parameters.state = .positive
+            textListItem.parameters.icon = Ocean.icon.placeholderSolid
+            textListItem.parameters.tagOrientation = .horizontal
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
                                                     leading: 0,
                                                     bottom: Ocean.size.spacingStackXxs,
@@ -78,7 +75,9 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
     lazy var inlineTextListItem6: OceanSwiftUI.InlineTextListItem = {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Title"
-            textListItem.parameters.description = "Description"
+            textListItem.parameters.description = "Description - Positive"
+            textListItem.parameters.icon = Ocean.icon.placeholderSolid
+            textListItem.parameters.state = .positive
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
                                                     leading: 0,
                                                     bottom: Ocean.size.spacingStackXxs,
@@ -89,7 +88,8 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
     lazy var inlineTextListItem7: OceanSwiftUI.InlineTextListItem = {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Title"
-            textListItem.parameters.description = "Description"
+            textListItem.parameters.description = "Description - Warning"
+            textListItem.parameters.state = .warning
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
                                                     leading: 0,
                                                     bottom: Ocean.size.spacingStackXxs,
@@ -100,18 +100,8 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
     lazy var inlineTextListItem8: OceanSwiftUI.InlineTextListItem = {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Title"
-            textListItem.parameters.description = "Description"
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
-        }
-    }()
-
-    lazy var inlineTextListItem9: OceanSwiftUI.InlineTextListItem = {
-        OceanSwiftUI.InlineTextListItem { textListItem in
-            textListItem.parameters.title = "Title"
-            textListItem.parameters.description = "Description"
+            textListItem.parameters.description = "Description - Warning"
+            textListItem.parameters.state = .warning
             textListItem.parameters.tagLabel = "Tag"
             textListItem.parameters.tagStatus = .warning
             textListItem.parameters.tagIcon = Ocean.icon.fingerPrintSolid
@@ -123,10 +113,11 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         }
     }()
 
-    lazy var inlineTextListItem10: OceanSwiftUI.InlineTextListItem = {
+    lazy var inlineTextListItem9: OceanSwiftUI.InlineTextListItem = {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Title"
-            textListItem.parameters.description = "Description"
+            textListItem.parameters.description = "Description - Warning"
+            textListItem.parameters.state = .highlight
             textListItem.parameters.tagLabel = "Tag"
             textListItem.parameters.tagStatus = .warning
             textListItem.parameters.tagIcon = Ocean.icon.fingerPrintSolid
@@ -139,10 +130,11 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         }
     }()
 
-    lazy var inlineTextListItem11: OceanSwiftUI.InlineTextListItem = {
+    lazy var inlineTextListItem10: OceanSwiftUI.InlineTextListItem = {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Title"
-            textListItem.parameters.description = "Description"
+            textListItem.parameters.description = "Description - Highlight"
+            textListItem.parameters.state = .highlight
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
                                                     leading: 0,
                                                     bottom: Ocean.size.spacingStackXxs,
@@ -150,10 +142,11 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         }
     }()
 
-    lazy var inlineTextListItem12: OceanSwiftUI.InlineTextListItem = {
+    lazy var inlineTextListItem11: OceanSwiftUI.InlineTextListItem = {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Recebimentos futuros"
             textListItem.parameters.description = "RS 2.300,00"
+            textListItem.parameters.state = .strikethrough
             textListItem.parameters.icon = Ocean.icon.placeholderSolid
             textListItem.parameters.tagLabel = "Oferta"
             textListItem.parameters.tagStatus = .warning
@@ -170,9 +163,11 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         }
     }()
 
-    lazy var inlineTextListItem13: OceanSwiftUI.InlineTextListItem = {
+    lazy var inlineTextListItem12: OceanSwiftUI.InlineTextListItem = {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Title"
+            textListItem.parameters.description = "Description"
+            textListItem.parameters.state = .strikethrough
             textListItem.parameters.buttonTitle = "Saiba mais - Click"
             textListItem.parameters.buttonStyle = .primary
             textListItem.parameters.onTouch = { print("touched") }
@@ -183,10 +178,40 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         }
     }()
 
+    lazy var inlineTextListItem13: OceanSwiftUI.InlineTextListItem = {
+        OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.title = "Recebimentos futuros"
+            textListItem.parameters.description = "RS 2.300,00"
+            textListItem.parameters.tagLabel = "Oferta"
+            textListItem.parameters.tagStatus = .warning
+            textListItem.parameters.tagIcon = Ocean.icon.fireSolid
+            textListItem.parameters.tagSize = .medium
+            textListItem.parameters.tagOrientation = .horizontal
+            textListItem.parameters.onTouch = {
+                print("Touched!")
+            }
+            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
+                                                    leading: 0,
+                                                    bottom: Ocean.size.spacingStackXxs,
+                                                    trailing: 0)
+        }
+    }()
+
+    lazy var inlineTextListItem14: OceanSwiftUI.InlineTextListItem = {
+        OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.title = "Title"
+            textListItem.parameters.showSkeleton = true
+            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
+                                                    leading: 0,
+                                                    bottom: Ocean.size.spacingStackXxs,
+                                                    trailing: 0)
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
 
         VStack(spacing: Ocean.size.spacingStackXs) {
-            inlineTextListItem
+            inlineTextListItem1
             inlineTextListItem2
             inlineTextListItem3
             inlineTextListItem4
@@ -199,6 +224,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             inlineTextListItem11
             inlineTextListItem12
             inlineTextListItem13
+            inlineTextListItem14
         }
     })
 
