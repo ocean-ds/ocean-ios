@@ -89,6 +89,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Title"
             textListItem.parameters.description = "Description - Warning"
+            textListItem.parameters.icon = Ocean.icon.placeholderSolid
             textListItem.parameters.state = .warning
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
                                                     leading: 0,
@@ -101,6 +102,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Title"
             textListItem.parameters.description = "Description - Warning"
+            textListItem.parameters.icon = Ocean.icon.placeholderSolid
             textListItem.parameters.state = .warning
             textListItem.parameters.tagLabel = "Tag"
             textListItem.parameters.tagStatus = .warning
@@ -116,13 +118,8 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
     lazy var inlineTextListItem9: OceanSwiftUI.InlineTextListItem = {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Title"
-            textListItem.parameters.description = "Description - Warning"
+            textListItem.parameters.description = "Description - highlight"
             textListItem.parameters.state = .highlight
-            textListItem.parameters.tagLabel = "Tag"
-            textListItem.parameters.tagStatus = .warning
-            textListItem.parameters.tagIcon = Ocean.icon.fingerPrintSolid
-            textListItem.parameters.tagSize = .medium
-            textListItem.parameters.tagOrientation = .horizontal
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
                                                     leading: 0,
                                                     bottom: Ocean.size.spacingStackXxs,

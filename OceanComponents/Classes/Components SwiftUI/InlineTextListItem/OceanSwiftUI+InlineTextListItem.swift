@@ -42,7 +42,7 @@ extension OceanSwiftUI {
                     descriptionLineLimit: Int? = nil,
                     icon: UIImage? = nil,
                     iconColor: UIColor = Ocean.color.colorBrandPrimaryDown,
-                    iconBackgroundColor: UIColor = Ocean.color.colorInterfaceLightUp,
+                    iconBackgroundColor: UIColor = Ocean.color.colorInterfaceLightPure,
                     tagLabel: String = "",
                     tagIcon: UIImage? = nil,
                     tagStatus: OceanSwiftUI.TagParameters.Status = .positive,
