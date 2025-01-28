@@ -151,8 +151,9 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
 
     lazy var inlineTextListItem11: OceanSwiftUI.InlineTextListItem = {
         OceanSwiftUI.InlineTextListItem { textListItem in
-            textListItem.parameters.title = "Title"
-            textListItem.parameters.description = "Description - Strikethrough"
+            textListItem.parameters.title = "Title - Strikethrough"
+            textListItem.parameters.description = "Valor novo"
+            textListItem.parameters.strikethroughText = "Valor Antigo"
             textListItem.parameters.state = .strikethrough
             textListItem.parameters.size = .normal
             textListItem.parameters.onTouch = {
@@ -167,8 +168,9 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
 
     lazy var inlineTextListItem12: OceanSwiftUI.InlineTextListItem = {
         OceanSwiftUI.InlineTextListItem { textListItem in
-            textListItem.parameters.title = "Title"
-            textListItem.parameters.description = "Description - Strikethrough "
+            textListItem.parameters.title = "Title - Strikethrough"
+            textListItem.parameters.description = "Valor novo"
+            textListItem.parameters.strikethroughText = "Valor Antigo"
             textListItem.parameters.state = .strikethrough
             textListItem.parameters.size = .small
             textListItem.parameters.onTouch = { print("touched") }

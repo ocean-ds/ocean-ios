@@ -17,6 +17,7 @@ extension OceanSwiftUI {
         @Published public var description: String
         @Published public var descriptionColor: UIColor?
         @Published public var descriptionLineLimit: Int?
+        @Published public var strikethroughText: String
         @Published public var icon: UIImage?
         @Published public var iconColor: UIColor
         @Published public var iconBackgroundColor: UIColor
@@ -41,6 +42,7 @@ extension OceanSwiftUI {
                     description: String = "",
                     descriptionColor: UIColor? = nil,
                     descriptionLineLimit: Int? = nil,
+                    strikethroughText: String = "",
                     icon: UIImage? = nil,
                     iconColor: UIColor = Ocean.color.colorBrandPrimaryDown,
                     iconBackgroundColor: UIColor = Ocean.color.colorInterfaceLightPure,
@@ -67,6 +69,7 @@ extension OceanSwiftUI {
             self.description = description
             self.descriptionColor = descriptionColor
             self.descriptionLineLimit = descriptionLineLimit
+            self.strikethroughText = strikethroughText
             self.icon = icon
             self.iconColor = iconColor
             self.iconBackgroundColor = iconBackgroundColor
@@ -191,18 +194,35 @@ extension OceanSwiftUI {
                             }
                         }
 
+                        if parameters.state == .strikethrough {
+                            OceanSwiftUI.Typography.paragraph { label in
+                                label.parameters.text = parameters.strikethroughText
+                                label.parameters.textColor = Ocean.color.colorInterfaceDarkPure
+                                label.parameters.strikethrough = true
+                                label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXs)
+                            }
+                            Spacer()
+                                .frame(width: Ocean.size.spacingInsetXxs)
+                        }
+
                         if !parameters.description.isEmpty {
                             if parameters.size == .normal {
                                 OceanSwiftUI.Typography.paragraph { label in
                                     label.parameters.text = parameters.description
                                     label.parameters.lineLimit = parameters.descriptionLineLimit
                                     label.parameters.textColor = getStatusColor()
+                                    if parameters.state == .highlight {
+                                        label.parameters.font = .baseBold(size: Ocean.font.fontSizeXs)
+                                    }
                                 }
                             } else {
                                 OceanSwiftUI.Typography.description { label in
                                     label.parameters.text = parameters.description
                                     label.parameters.lineLimit = parameters.descriptionLineLimit
                                     label.parameters.textColor = getStatusColor()
+                                    if parameters.state == .highlight {
+                                        label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
+                                    }
                                 }
                             }
                         }
