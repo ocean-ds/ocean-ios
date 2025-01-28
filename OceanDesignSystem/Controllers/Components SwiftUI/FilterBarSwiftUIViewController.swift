@@ -73,7 +73,7 @@ class FilterBarSwiftUIViewController: UIViewController {
                 self.beginDate = beginDate
                 self.endDate = endDate
                 
-                self.showSnackbar(text: "Dates selected \(beginDate?.shortDateFormatss()) a \(endDate?.shortDateFormatss())")
+                self.showSnackbar(text: "Dates selected \(beginDate?.shortDateFormat()) a \(endDate?.shortDateFormat())")
             }
         }
     }
