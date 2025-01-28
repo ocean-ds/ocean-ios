@@ -20,12 +20,10 @@ extension OceanSwiftUI {
         @Published public var strikethroughText: String
         @Published public var icon: RoundedIcon?
         @Published public var tag: Tag?
+        @Published public var button: Button?
         @Published public var padding: EdgeInsets
         @Published public var state: OceanSwiftUI.InlineTextListItemParameters.State
         @Published public var size: OceanSwiftUI.InlineTextListItemParameters.Size
-        @Published public var buttonTitle: String
-        @Published public var buttonStyle: ButtonParameters.Style
-        @Published public var buttonIsLoading: Bool
         @Published public var showSkeleton: Bool
         public var onTouch: () -> Void
 
@@ -37,6 +35,7 @@ extension OceanSwiftUI {
                     strikethroughText: String = "",
                     icon: RoundedIcon? = nil,
                     tag: Tag? = nil,
+                    button: Button? = nil,
                     padding: EdgeInsets = .init(top: Ocean.size.spacingStackXs,
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXs,
@@ -56,12 +55,10 @@ extension OceanSwiftUI {
             self.strikethroughText = strikethroughText
             self.icon = icon
             self.tag = tag
+            self.button = button
             self.padding = padding
             self.state = state
             self.size = size
-            self.buttonTitle = buttonTitle
-            self.buttonStyle = buttonStyle
-            self.buttonIsLoading = buttonIsLoading
             self.showSkeleton = showSkeleton
             self.onTouch = onTouch
         }
@@ -162,13 +159,11 @@ extension OceanSwiftUI {
                             }
                         }
 
-                        if !parameters.buttonTitle.isEmpty {
-                            Button { button in
-                                button.parameters.text = parameters.buttonTitle
-                                button.parameters.style = parameters.buttonStyle
-                                button.parameters.size = .small
-                                button.parameters.isLoading = parameters.buttonIsLoading
-                                button.parameters.onTouch = parameters.onTouch
+                        if let hasButton = parameters.button {
+                            OceanSwiftUI.Button.primarySM { button in
+                                button.parameters.text = hasButton.parameters.text
+                                button.parameters.isLoading = hasButton.parameters.isLoading
+                                button.parameters.onTouch = hasButton.parameters.onTouch
                             }
                         }
 

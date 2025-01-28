@@ -195,8 +195,11 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.title = "Title"
             textListItem.parameters.state = .withAction
             textListItem.parameters.size = .normal
-            textListItem.parameters.buttonTitle = "Saiba mais"
-            textListItem.parameters.buttonStyle = .primary
+            textListItem.parameters.button = OceanSwiftUI.Button.primarySM { button in
+                button.parameters.text = "Saiba mais"
+                button.parameters.isLoading = button.parameters.isLoading
+                button.parameters.onTouch = button.parameters.onTouch
+            }
             textListItem.parameters.onTouch = { print("touched") }
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
                                                     leading: 0,
@@ -210,8 +213,11 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.title = "Title"
             textListItem.parameters.state = .withAction
             textListItem.parameters.size = .small
-            textListItem.parameters.buttonTitle = "Saiba mais"
-            textListItem.parameters.buttonStyle = .primary
+            textListItem.parameters.button = OceanSwiftUI.Button.primarySM { button in
+                button.parameters.text = "Saiba mais"
+                button.parameters.isLoading = button.parameters.isLoading
+                button.parameters.onTouch = button.parameters.onTouch
+            }
             textListItem.parameters.onTouch = { print("touched") }
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
                                                     leading: 0,
