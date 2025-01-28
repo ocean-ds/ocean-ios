@@ -85,6 +85,7 @@ extension OceanSwiftUI {
         }
 
         public enum State {
+            case normal
             case innactive
             case positive
             case warning
@@ -182,7 +183,7 @@ extension OceanSwiftUI {
                             OceanSwiftUI.Typography.description { label in
                                 label.parameters.text = parameters.description
                                 label.parameters.lineLimit = parameters.descriptionLineLimit
-                                label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDown : Ocean.color.colorInterfaceLightDeep
+                                label.parameters.textColor = getStatusColor()
                             }
                         }
                     }
@@ -199,20 +200,20 @@ extension OceanSwiftUI {
             }
 
             switch parameters.state {
+            case .normal:
+                return Ocean.color.colorInterfaceDarkDeep
             case .innactive:
-                return Ocean.color.colorStatusPositiveDeep
+                return Ocean.color.colorInterfaceDarkUp
             case .positive:
+                return Ocean.color.colorStatusPositiveDeep
+            case .warning:
                 return Ocean.color.colorStatusWarningDeep
-            case .warning:
-                return Ocean.color.colorStatusPositiveDeep
-            case .warning:
-                return Ocean.color.colorStatusPositiveDeep
-            case .warning:
-                return Ocean.color.colorStatusPositiveDeep
-            case .warning:
+            case .highlight:
+                return Ocean.color.colorInterfaceDarkDeep
+            case .strikethrough:
                 return Ocean.color.colorStatusPositiveDeep
             default:
-                return Ocean.color.colorInterfaceDarkDeep
+                return Ocean.color.colorInterfaceDarkDown
             }
         }
 
