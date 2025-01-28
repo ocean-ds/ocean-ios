@@ -68,7 +68,9 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.description = "Description - Positive"
             textListItem.parameters.state = .positive
             textListItem.parameters.size = .normal
-            textListItem.parameters.icon = Ocean.icon.placeholderSolid
+            textListItem.parameters.icon = OceanSwiftUI.RoundedIcon { icon in
+                icon.parameters.icon = Ocean.icon.BluLogoSolid!
+            }
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
                                                     leading: 0,
                                                     bottom: Ocean.size.spacingStackXxs,
@@ -80,7 +82,9 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Title"
             textListItem.parameters.description = "Description - Positive"
-            textListItem.parameters.icon = Ocean.icon.placeholderSolid
+            textListItem.parameters.icon = OceanSwiftUI.RoundedIcon { icon in
+                icon.parameters.icon = Ocean.icon.placeholderSolid!
+            }
             textListItem.parameters.state = .positive
             textListItem.parameters.size = .small
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
@@ -94,7 +98,9 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Title"
             textListItem.parameters.description = "Description - Warning"
-            textListItem.parameters.icon = Ocean.icon.placeholderSolid
+            textListItem.parameters.icon = OceanSwiftUI.RoundedIcon { icon in
+                icon.parameters.icon = Ocean.icon.placeholderSolid!
+            }
             textListItem.parameters.state = .warning
             textListItem.parameters.size = .normal
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
@@ -108,7 +114,9 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Title"
             textListItem.parameters.description = "Description - Warning"
-            textListItem.parameters.icon = Ocean.icon.placeholderSolid
+            textListItem.parameters.icon = OceanSwiftUI.RoundedIcon { icon in
+                icon.parameters.icon = Ocean.icon.placeholderSolid!
+            }
             textListItem.parameters.state = .warning
             textListItem.parameters.size = .small
             textListItem.parameters.tagLabel = "Tag"
@@ -244,7 +252,9 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.title = "Recebimentos futuros"
             textListItem.parameters.description = "RS 2.300,00"
             textListItem.parameters.state = .strikethrough
-            textListItem.parameters.icon = Ocean.icon.placeholderSolid
+            textListItem.parameters.icon = OceanSwiftUI.RoundedIcon { icon in
+                icon.parameters.icon = Ocean.icon.placeholderSolid!
+            }
             textListItem.parameters.tagLabel = "Oferta"
             textListItem.parameters.tagStatus = .warning
             textListItem.parameters.tagIcon = Ocean.icon.fireSolid

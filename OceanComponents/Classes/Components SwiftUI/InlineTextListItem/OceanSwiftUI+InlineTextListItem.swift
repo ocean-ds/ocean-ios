@@ -18,9 +18,7 @@ extension OceanSwiftUI {
         @Published public var descriptionColor: UIColor?
         @Published public var descriptionLineLimit: Int?
         @Published public var strikethroughText: String
-        @Published public var icon: UIImage?
-        @Published public var iconColor: UIColor
-        @Published public var iconBackgroundColor: UIColor
+        @Published public var icon: RoundedIcon?
         @Published public var tagLabel: String
         @Published public var tagIcon: UIImage?
         @Published public var tagStatus: OceanSwiftUI.TagParameters.Status
@@ -40,9 +38,7 @@ extension OceanSwiftUI {
                     descriptionColor: UIColor? = nil,
                     descriptionLineLimit: Int? = nil,
                     strikethroughText: String = "",
-                    icon: UIImage? = nil,
-                    iconColor: UIColor = Ocean.color.colorBrandPrimaryDown,
-                    iconBackgroundColor: UIColor = Ocean.color.colorInterfaceLightPure,
+                    icon: RoundedIcon? = nil,
                     tagLabel: String = "",
                     tagIcon: UIImage? = nil,
                     tagStatus: OceanSwiftUI.TagParameters.Status = .positive,
@@ -65,8 +61,6 @@ extension OceanSwiftUI {
             self.descriptionLineLimit = descriptionLineLimit
             self.strikethroughText = strikethroughText
             self.icon = icon
-            self.iconColor = iconColor
-            self.iconBackgroundColor = iconBackgroundColor
             self.tagLabel = tagLabel
             self.tagIcon = tagIcon
             self.tagStatus = tagStatus
@@ -169,11 +163,11 @@ extension OceanSwiftUI {
                     Spacer()
 
                     HStack(alignment: .center, spacing: 0) {
-                        if let icon = parameters.icon {
-                            RoundedIcon { image in
-                                image.parameters.icon = icon
-                                image.parameters.color = getStatusColor()
-                                image.parameters.backgroundColor = parameters.iconBackgroundColor
+                        if let roundedIcon = parameters.icon {
+                            OceanSwiftUI.RoundedIcon { icon in
+                                icon.parameters.icon = roundedIcon.parameters.icon
+                                icon.parameters.color = getStatusColor()
+                                icon.parameters.backgroundColor = Ocean.color.colorInterfaceLightPure
                             }
                         }
 
