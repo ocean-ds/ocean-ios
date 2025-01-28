@@ -13,10 +13,8 @@ extension OceanSwiftUI {
 
     public class InlineTextListItemParameters: ObservableObject {
         @Published public var title: String
-        @Published public var titleLineLimit: Int?
         @Published public var description: String
         @Published public var descriptionColor: UIColor?
-        @Published public var descriptionLineLimit: Int?
         @Published public var strikethroughText: String
         @Published public var icon: RoundedIcon?
         @Published public var tag: Tag?
@@ -48,10 +46,8 @@ extension OceanSwiftUI {
                     showSkeleton: Bool = false,
                     onTouch: @escaping () -> Void = { }) {
             self.title = title
-            self.titleLineLimit = titleLineLimit
             self.description = description
             self.descriptionColor = descriptionColor
-            self.descriptionLineLimit = descriptionLineLimit
             self.strikethroughText = strikethroughText
             self.icon = icon
             self.tag = tag
@@ -127,13 +123,11 @@ extension OceanSwiftUI {
                         if parameters.size == .normal {
                             OceanSwiftUI.Typography.paragraph { label in
                                 label.parameters.text = parameters.title
-                                label.parameters.lineLimit = parameters.titleLineLimit
                                 label.parameters.multilineTextAlignment = .leading
                             }
                         } else {
                             OceanSwiftUI.Typography.caption { label in
                                 label.parameters.text = parameters.title
-                                label.parameters.lineLimit = parameters.titleLineLimit
                                 label.parameters.multilineTextAlignment = .leading
                             }
                         }
@@ -181,7 +175,6 @@ extension OceanSwiftUI {
                             if parameters.size == .normal {
                                 OceanSwiftUI.Typography.paragraph { label in
                                     label.parameters.text = parameters.description
-                                    label.parameters.lineLimit = parameters.descriptionLineLimit
                                     label.parameters.textColor = getStatusColor()
                                     if parameters.state == .highlight {
                                         label.parameters.font = .baseBold(size: Ocean.font.fontSizeXs)
@@ -190,7 +183,6 @@ extension OceanSwiftUI {
                             } else {
                                 OceanSwiftUI.Typography.description { label in
                                     label.parameters.text = parameters.description
-                                    label.parameters.lineLimit = parameters.descriptionLineLimit
                                     label.parameters.textColor = getStatusColor()
                                     if parameters.state == .highlight {
                                         label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
