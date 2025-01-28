@@ -143,7 +143,16 @@ extension OceanSwiftUI {
 
         public var body: some View {
             if parameters.showSkeleton {
-                OceanSwiftUI.Skeleton()
+                HStack(alignment: .center, spacing: Ocean.size.spacingStackXs) {
+                    OceanSwiftUI.Skeleton { skeleton in
+                        skeleton.parameters.lines = 1
+                        skeleton.parameters.height = Ocean.size.spacingStackSm
+                    }
+                    OceanSwiftUI.Skeleton { skeleton in
+                        skeleton.parameters.lines = 1
+                        skeleton.parameters.height = Ocean.size.spacingStackSm
+                    }
+                }
             } else {
                 HStack(alignment: .center, spacing: 0) {
                     HStack(alignment: .center, spacing: 0) {
@@ -199,7 +208,6 @@ extension OceanSwiftUI {
                                 label.parameters.text = parameters.strikethroughText
                                 label.parameters.textColor = Ocean.color.colorInterfaceDarkPure
                                 label.parameters.strikethrough = true
-                                label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXs)
                             }
                             Spacer()
                                 .frame(width: Ocean.size.spacingInsetXxs)
