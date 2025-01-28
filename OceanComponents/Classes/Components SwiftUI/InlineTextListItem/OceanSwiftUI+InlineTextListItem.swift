@@ -15,6 +15,7 @@ extension OceanSwiftUI {
         @Published public var title: String
         @Published public var titleLineLimit: Int?
         @Published public var description: String
+        @Published public var descriptionColor: UIColor?
         @Published public var descriptionLineLimit: Int?
         @Published public var icon: UIImage?
         @Published public var iconColor: UIColor
@@ -37,6 +38,7 @@ extension OceanSwiftUI {
         public init(title: String = "",
                     titleLineLimit: Int? = nil,
                     description: String = "",
+                    descriptionColor: UIColor? = nil,
                     descriptionLineLimit: Int? = nil,
                     icon: UIImage? = nil,
                     iconColor: UIColor = Ocean.color.colorBrandPrimaryDown,
@@ -61,6 +63,7 @@ extension OceanSwiftUI {
             self.title = title
             self.titleLineLimit = titleLineLimit
             self.description = description
+            self.descriptionColor = descriptionColor
             self.descriptionLineLimit = descriptionLineLimit
             self.icon = icon
             self.iconColor = iconColor
@@ -82,9 +85,17 @@ extension OceanSwiftUI {
         }
 
         public enum State {
-            case normal
-            case neutral
+            case innactive
             case positive
+            case warning
+            case highlight
+            case strikethrough
+            case withAction
+        }
+
+        public enum Size {
+            case standard
+            case small
         }
 
         public enum TagOrientation {
@@ -179,6 +190,29 @@ extension OceanSwiftUI {
                 }
                 .padding(parameters.padding)
                 .background(Color(Ocean.color.colorInterfaceLightPure))
+            }
+        }
+
+        private func getStatusColor() -> UIColor {
+            if let subtitleColor = parameters.descriptionColor {
+                return subtitleColor
+            }
+
+            switch parameters.state {
+            case .innactive:
+                return Ocean.color.colorStatusPositiveDeep
+            case .positive:
+                return Ocean.color.colorStatusWarningDeep
+            case .warning:
+                return Ocean.color.colorStatusPositiveDeep
+            case .warning:
+                return Ocean.color.colorStatusPositiveDeep
+            case .warning:
+                return Ocean.color.colorStatusPositiveDeep
+            case .warning:
+                return Ocean.color.colorStatusPositiveDeep
+            default:
+                return Ocean.color.colorInterfaceDarkDeep
             }
         }
 
