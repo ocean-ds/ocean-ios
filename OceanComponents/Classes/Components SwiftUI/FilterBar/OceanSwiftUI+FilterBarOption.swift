@@ -26,7 +26,7 @@ extension OceanSwiftUI {
             if chips.count == 1 || !isSelected || mode == .multiple {
                 return title
             } else if let beginDate = beginDate, let endDate = endDate, mode == .dateRange {
-                return "\(beginDate.shortDateFormatss()) a \(endDate.shortDateFormatss())"
+                return "\(beginDate.shortDateFormat()) a \(endDate.shortDateFormat())"
             } else {
                 return chips.first { $0.isSelected }!.title
             }

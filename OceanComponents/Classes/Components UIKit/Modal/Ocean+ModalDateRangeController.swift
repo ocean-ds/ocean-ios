@@ -43,7 +43,7 @@ extension Ocean {
                 input.translatesAutoresizingMaskIntoConstraints = false
                 input.title = "Data inicial"
                 input.placeholder = "dd/mm/aaaa"
-                input.text = beginDate?.shortDateFormatss() ?? ""
+                input.text = beginDate?.shortDateFormat() ?? ""
                 input.keyboardType = .numberPad
                 input.rightButton = showDatePickerBeginDateButton
                 input.onValueChanged = { [weak self]  value in
@@ -54,7 +54,7 @@ extension Ocean {
                     beginDate = nil
                     guard value.count >= 10 else { return }
 
-                    if let date = value.shortDateNullabless() {
+                    if let date = value.shortDateNullable() {
                         beginDate = date
                     } else {
                         input.errorMessage = "A data informada não é válida."
@@ -79,7 +79,7 @@ extension Ocean {
                 input.translatesAutoresizingMaskIntoConstraints = false
                 input.title = "Data final"
                 input.placeholder = "dd/mm/aaaa"
-                input.text = endDate?.shortDateFormatss() ?? ""
+                input.text = endDate?.shortDateFormat() ?? ""
                 input.keyboardType = .numberPad
                 input.rightButton = showDatePickerEndDateButton
                 input.onValueChanged = { [weak self]  value in
@@ -90,7 +90,7 @@ extension Ocean {
                     endDate = nil
                     guard value.count >= 10 else { return }
 
-                    if let date = value.shortDateNullabless() {
+                    if let date = value.shortDateNullable() {
                         endDate = date
                     } else {
                         input.errorMessage = "A data informada não é válida."
@@ -209,8 +209,8 @@ extension Ocean {
         // MARK: - Private methods
 
         private func updateUI() {
-            beginDateInput.text = beginDate?.shortDateFormatss() ?? ""
-            endDateInput.text = endDate?.shortDateFormatss() ?? ""
+            beginDateInput.text = beginDate?.shortDateFormat() ?? ""
+            endDateInput.text = endDate?.shortDateFormat() ?? ""
         }
 
         private func isValidate() -> Bool {
@@ -238,7 +238,6 @@ extension Ocean {
         }
 
         private func filter() {
-            //Validar data
             guard isValidate(), let beginDate = beginDate, let endDate = endDate else {
                 updateErrorStates()
                 return
@@ -264,6 +263,8 @@ extension Ocean {
                            selectedDate: beginDate ?? endDate) { [weak self] date in
                 guard let self = self else { return }
                 self.beginDate = date
+                self.validationErrors.removeValue(forKey: "beginDate")
+                self.updateErrorStates()
                 self.updateUI()
             }
         }
@@ -276,6 +277,8 @@ extension Ocean {
                            selectedDate: endDate) { [weak self] date in
                 guard let self = self else { return }
                 self.endDate = date
+                self.validationErrors.removeValue(forKey: "endDate")
+                self.updateErrorStates()
                 self.updateUI()
             }
         }
@@ -295,52 +298,5 @@ extension Ocean {
             datePicker.onReleaseCalendar = completion
             datePicker.show(rootViewController: self)
         }
-    }
-}
-
-extension Date {
-    public func shortDateFormatss() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yyyy"
-        formatter.locale = Locale.init(identifier: "pt-br")
-        return formatter.string(from: self)
-    }
-}
-
-extension String {
-    public func shortDatess() -> Date {
-        return self.shortDateNullabless() ?? Date()
-    }
-
-    public func shortDateNullabless() -> Date? {
-        if self.isEmpty {
-            return nil
-        }
-
-        let type1 = DateFormatter()
-        type1.dateFormat = "yyyy-MM-dd"
-
-        let type2 = DateFormatter()
-        type2.dateFormat = "dd/MM/yyyy"
-
-        return type2.date(from: self) ?? type1.date(from: self)
-    }
-}
-
-extension String {
-    func applyDateMask() -> String {
-        let numbers = self.filter { "0"..."9" ~= $0 }
-        var maskedString = ""
-
-        let limitedNumbers = String(numbers.prefix(8))
-
-        for (index, character) in limitedNumbers.enumerated() {
-            if index == 2 || index == 4 {
-                maskedString.append("/")
-            }
-            maskedString.append(character)
-        }
-
-        return maskedString
     }
 }
