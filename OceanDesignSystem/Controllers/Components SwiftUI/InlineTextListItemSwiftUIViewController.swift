@@ -119,10 +119,12 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             }
             textListItem.parameters.state = .warning
             textListItem.parameters.size = .small
-            textListItem.parameters.tagLabel = "Tag"
-            textListItem.parameters.tagStatus = .warning
-            textListItem.parameters.tagIcon = Ocean.icon.fingerPrintSolid
-            textListItem.parameters.tagSize = .medium
+            textListItem.parameters.tag = OceanSwiftUI.Tag { tag in
+                tag.parameters.label = "Oferta"
+                tag.parameters.icon = Ocean.icon.fireSolid
+                tag.parameters.status = .warning
+                tag.parameters.size = .medium
+            }
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
                                                     leading: 0,
                                                     bottom: Ocean.size.spacingStackXxs,
@@ -233,10 +235,12 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Recebimentos futuros"
             textListItem.parameters.description = "RS 2.300,00"
-            textListItem.parameters.tagLabel = "Oferta"
-            textListItem.parameters.tagStatus = .warning
-            textListItem.parameters.tagIcon = Ocean.icon.fireSolid
-            textListItem.parameters.tagSize = .medium
+            textListItem.parameters.tag = OceanSwiftUI.Tag { tag in
+                tag.parameters.label = "Oferta"
+                tag.parameters.icon = Ocean.icon.fireSolid
+                tag.parameters.status = .warning
+                tag.parameters.size = .medium
+            }
             textListItem.parameters.onTouch = {
                 print("Touched!")
             }
@@ -255,10 +259,12 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.icon = OceanSwiftUI.RoundedIcon { icon in
                 icon.parameters.icon = Ocean.icon.placeholderSolid!
             }
-            textListItem.parameters.tagLabel = "Oferta"
-            textListItem.parameters.tagStatus = .warning
-            textListItem.parameters.tagIcon = Ocean.icon.fireSolid
-            textListItem.parameters.tagSize = .medium
+            textListItem.parameters.tag = OceanSwiftUI.Tag { tag in
+                tag.parameters.label = "Oferta"
+                tag.parameters.icon = Ocean.icon.fireSolid
+                tag.parameters.status = .warning
+                tag.parameters.size = .medium
+            }
             textListItem.parameters.onTouch = {
                 print("Touched!")
             }

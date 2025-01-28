@@ -19,10 +19,7 @@ extension OceanSwiftUI {
         @Published public var descriptionLineLimit: Int?
         @Published public var strikethroughText: String
         @Published public var icon: RoundedIcon?
-        @Published public var tagLabel: String
-        @Published public var tagIcon: UIImage?
-        @Published public var tagStatus: OceanSwiftUI.TagParameters.Status
-        @Published public var tagSize: OceanSwiftUI.TagParameters.Size
+        @Published public var tag: Tag?
         @Published public var padding: EdgeInsets
         @Published public var state: OceanSwiftUI.InlineTextListItemParameters.State
         @Published public var size: OceanSwiftUI.InlineTextListItemParameters.Size
@@ -39,10 +36,7 @@ extension OceanSwiftUI {
                     descriptionLineLimit: Int? = nil,
                     strikethroughText: String = "",
                     icon: RoundedIcon? = nil,
-                    tagLabel: String = "",
-                    tagIcon: UIImage? = nil,
-                    tagStatus: OceanSwiftUI.TagParameters.Status = .positive,
-                    tagSize: OceanSwiftUI.TagParameters.Size = .small,
+                    tag: Tag? = nil,
                     padding: EdgeInsets = .init(top: Ocean.size.spacingStackXs,
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXs,
@@ -61,10 +55,7 @@ extension OceanSwiftUI {
             self.descriptionLineLimit = descriptionLineLimit
             self.strikethroughText = strikethroughText
             self.icon = icon
-            self.tagLabel = tagLabel
-            self.tagIcon = tagIcon
-            self.tagStatus = tagStatus
-            self.tagSize = tagSize
+            self.tag = tag
             self.padding = padding
             self.state = state
             self.size = size
@@ -150,12 +141,12 @@ extension OceanSwiftUI {
                             }
                         }
 
-                        if !parameters.tagLabel.isEmpty {
-                            OceanSwiftUI.Tag { tag in
-                                tag.parameters.label = parameters.tagLabel
-                                tag.parameters.icon = parameters.tagIcon
-                                tag.parameters.status = parameters.tagStatus
-                                tag.parameters.size = parameters.tagSize
+                        if let tag = parameters.tag {
+                            OceanSwiftUI.Tag { tagView in
+                                tagView.parameters.label = tag.parameters.label
+                                tagView.parameters.icon = tag.parameters.icon
+                                tagView.parameters.status = tag.parameters.status
+                                tagView.parameters.size = tag.parameters.size
                             }
                         }
                     }
