@@ -20,6 +20,7 @@ extension OceanSwiftUI {
         @Published public var showSkeleton: Bool
         @Published public var onTouch: (([Ocean.ChipModel], FilterBarOption) -> Bool)
         @Published public var onSelectionChange: (([Ocean.ChipModel], [FilterBarGroup]) -> Void)
+        @Published public var onDateRangeChange: ((Date?, Date?, [FilterBarGroup]) -> Void)
 
         weak public var rootViewController: UIViewController?
 
@@ -35,11 +36,13 @@ extension OceanSwiftUI {
         public init(groups: [FilterBarGroup] = [],
                     showSkeleton: Bool = false,
                     onTouch: @escaping ([Ocean.ChipModel], FilterBarOption) -> Bool = { _, _ in return false },
-                    onSelectionChange: @escaping ([Ocean.ChipModel], [FilterBarGroup]) -> Void = { _, _ in }) {
+                    onSelectionChange: @escaping ([Ocean.ChipModel], [FilterBarGroup]) -> Void = { _, _  in },
+                    onDateRangeChange: @escaping ((Date?, Date?, [FilterBarGroup]) -> Void) = { _, _, _ in }) {
             self.groups = groups
             self.showSkeleton = showSkeleton
             self.onTouch = onTouch
             self.onSelectionChange = onSelectionChange
+            self.onDateRangeChange = onDateRangeChange
         }
     }
 
@@ -134,7 +137,7 @@ extension OceanSwiftUI {
                 .frame(height: Constants.itemHeight)
                 .fixedSize(horizontal: true, vertical: false)
                 .padding([.vertical], Ocean.size.spacingStackXxs)
-                
+
                 if option.chips.count == 1 {
                     countView(chips: option.chips)
                 }
@@ -146,7 +149,9 @@ extension OceanSwiftUI {
                 if let icon = option.trailingIcon {
                     imageView(icon: icon, option: option)
                         .padding(.trailing, Ocean.size.spacingStackXxs)
-                } else if option.chips.count > 1 {
+                } else if !option.shouldShowTrailingIcon {
+                    Spacer(minLength: Ocean.size.spacingStackXs)
+                } else if option.chips.count > 1 || option.mode == .dateRange {
                     imageView(icon: Ocean.icon.chevronDownSolid!, option: option)
                         .padding(.trailing, Ocean.size.spacingStackXxs)
                 } else {
@@ -215,7 +220,8 @@ extension OceanSwiftUI {
                 return
             }
 
-            if touchedOption.mode == .single {
+            switch touchedOption.mode {
+            case .single:
                 let modal = Ocean.ModalList(rootViewController)
                     .withTitle(touchedOption.title)
                     .withValues(touchedOption.chips.map { Ocean.CellModel(title: $0.title,
@@ -231,7 +237,8 @@ extension OceanSwiftUI {
                 }
 
                 modal.show()
-            } else {
+
+            case .multiple:
                 Ocean.ModalMultipleChoice(rootViewController)
                     .withTitle(touchedOption.title)
                     .withDismiss(true)
@@ -248,6 +255,20 @@ extension OceanSwiftUI {
 
                         updateSelection(chips: chips, option: touchedOption, group: touchedGroup)
                     })
+                    .build()
+                    .show()
+
+            case .dateRange:
+                Ocean.ModalDateRange(rootViewController)
+                    .withTitle(touchedOption.title)
+                    .withBeginDate(touchedOption.beginDate)
+                    .withEndDate(touchedOption.endDate)
+                    .withCompletion { beginDate, endDate in
+                        updateSelection(beginDate: beginDate,
+                                        endDate: endDate,
+                                        option: touchedOption,
+                                        group: touchedGroup)
+                    }
                     .build()
                     .show()
             }
@@ -284,6 +305,30 @@ extension OceanSwiftUI {
             )
         }
 
+        private func updateSelection(beginDate: Date?,
+                                     endDate: Date?,
+                                     option touchedOption: FilterBarOption,
+                                     group touchedGroup: FilterBarGroup) {
+            parameters.groups = parameters.groups.map { group in
+                let isSameGroup = isSame(group, touchedGroup)
+
+                return getFilterBarGroup(original: group, options: group.options.map { option in
+                    let isSameOption = isSame(option, touchedOption)
+
+                    if let beginDate = beginDate, let endDate = endDate, isSameOption && isSameOption {
+                        return getFilterBarOption(original: option, beginDate: beginDate, endDate: endDate)
+                    } else {
+                        return clearDateRange(original: option, chips: option.chips.map { chip in
+                            return getChipModel(original: chip,
+                                                isSelected: isSameGroup && group.mode == .single ? false : chip.isSelected)
+                        })
+                    }
+                })
+            }
+
+            parameters.onDateRangeChange(beginDate, endDate, parameters.groups)
+        }
+
         private func isSame(_ left: FilterBarGroup, _ right: FilterBarGroup) -> Bool {
             return left.id == right.id
         }
@@ -309,12 +354,26 @@ extension OceanSwiftUI {
                                    isSelected: isSelected)
         }
 
+        private func clearDateRange(original: FilterBarOption, chips: [Ocean.ChipModel]) -> FilterBarOption {
+            var option = original
+            option.beginDate = nil
+            option.endDate = nil
+
+            return getFilterBarOption(original: option, chips: chips)
+        }
+
         private func getFilterBarOption(original: FilterBarOption, chips: [Ocean.ChipModel]) -> FilterBarOption {
             return FilterBarOption(leadingIcon: original.leadingIcon,
                                    title: original.title,
                                    trailingIcon: original.trailingIcon,
                                    mode: original.mode,
-                                   chips: chips)
+                                   chips: chips,
+                                   beginDate: original.beginDate,
+                                   endDate: original.endDate)
+        }
+
+        private func getFilterBarOption(original: FilterBarOption, beginDate: Date?, endDate: Date?) -> FilterBarOption {
+            return FilterBarOption(title: original.title, beginDate: beginDate, endDate: endDate)
         }
 
         private func getFilterBarGroup(original: FilterBarGroup, options: [FilterBarOption]) -> FilterBarGroup {
