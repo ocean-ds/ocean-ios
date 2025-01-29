@@ -72,7 +72,9 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Title"
             textListItem.parameters.description = "Description - Warning"
-            textListItem.parameters.icon = .init(icon: Ocean.icon.placeholderSolid!)
+            textListItem.parameters.icon = .init(icon: Ocean.icon.placeholderSolid!,
+                                                 color: Ocean.color.colorStatusPositiveDeep,
+                                                 backgroundColor: Ocean.color.colorInterfaceLightPure)
             textListItem.parameters.state = .warning
             textListItem.parameters.size = .normal
         }
@@ -82,7 +84,9 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Title"
             textListItem.parameters.description = "Description - Warning"
-            textListItem.parameters.icon = .init(icon: Ocean.icon.placeholderSolid!)
+            textListItem.parameters.icon = .init(icon: Ocean.icon.placeholderSolid!,
+                                                 color: Ocean.color.colorStatusPositiveDeep,
+                                                 backgroundColor: Ocean.color.colorInterfaceLightPure)
             textListItem.parameters.state = .warning
             textListItem.parameters.size = .small
             textListItem.parameters.tag = .init(label: "Oferta",
@@ -184,7 +188,9 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.title = "Recebimentos futuros"
             textListItem.parameters.description = "RS 2.300,00"
             textListItem.parameters.state = .strikethrough
-            textListItem.parameters.icon = .init(icon: Ocean.icon.placeholderSolid!)
+            textListItem.parameters.icon = .init(icon: Ocean.icon.placeholderSolid!,
+                                                 color: Ocean.color.colorStatusPositiveDeep,
+                                                 backgroundColor: Ocean.color.colorInterfaceLightPure)
             textListItem.parameters.tag = .init(label: "Oferta",
                                                 icon: Ocean.icon.fireSolid!,
                                                 status: .warning,
