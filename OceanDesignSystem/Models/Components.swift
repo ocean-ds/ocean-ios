@@ -100,6 +100,7 @@ struct DSComponents {
         "Tab",
         "Tag",
         "TextListItem",
+        "InlineTextListItem",
         "Tooltip",
         "TransactionFooter",
         "TransactionListItem",
