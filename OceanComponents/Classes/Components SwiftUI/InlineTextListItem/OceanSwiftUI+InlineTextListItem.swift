@@ -26,10 +26,8 @@ extension OceanSwiftUI {
         public var onTouch: () -> Void
 
         public init(title: String = "",
-                    titleLineLimit: Int? = nil,
                     description: String = "",
                     descriptionColor: UIColor? = nil,
-                    descriptionLineLimit: Int? = nil,
                     strikethroughText: String = "",
                     icon: RoundedIcon? = nil,
                     tag: Tag? = nil,
@@ -40,9 +38,6 @@ extension OceanSwiftUI {
                                                 trailing: Ocean.size.spacingStackXs),
                     state: OceanSwiftUI.InlineTextListItemParameters.State = .normal,
                     size: OceanSwiftUI.InlineTextListItemParameters.Size = .normal,
-                    buttonTitle: String = "",
-                    buttonStyle: ButtonParameters.Style = .primary,
-                    buttonIsLoading: Bool = false,
                     showSkeleton: Bool = false,
                     onTouch: @escaping () -> Void = { }) {
             self.title = title
