@@ -52,7 +52,9 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.description = "Description - Positive"
             textListItem.parameters.state = .positive
             textListItem.parameters.size = .normal
-            textListItem.parameters.icon = .init(icon: Ocean.icon.placeholderSolid!)
+            textListItem.parameters.icon = .init(icon: Ocean.icon.placeholderSolid!,
+                                                 color: Ocean.color.colorStatusPositiveDeep,
+                                                 backgroundColor: Ocean.color.colorInterfaceLightPure)
         }
     }()
 
@@ -84,7 +86,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.state = .warning
             textListItem.parameters.size = .small
             textListItem.parameters.tag = .init(label: "Oferta",
-                                                icon: Ocean.icon.placeholderSolid!,
+                                                icon: Ocean.icon.fireSolid!,
                                                 status: .warning,
                                                 size: .medium)
         }
@@ -168,7 +170,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.title = "Recebimentos futuros"
             textListItem.parameters.description = "RS 2.300,00"
             textListItem.parameters.tag = .init(label: "Oferta",
-                                                icon: Ocean.icon.placeholderSolid!,
+                                                icon: Ocean.icon.fireSolid!,
                                                 status: .warning,
                                                 size: .medium)
             textListItem.parameters.onTouch = {
@@ -184,7 +186,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.state = .strikethrough
             textListItem.parameters.icon = .init(icon: Ocean.icon.placeholderSolid!)
             textListItem.parameters.tag = .init(label: "Oferta",
-                                                icon: Ocean.icon.placeholderSolid!,
+                                                icon: Ocean.icon.fireSolid!,
                                                 status: .warning,
                                                 size: .medium)
             textListItem.parameters.onTouch = {
