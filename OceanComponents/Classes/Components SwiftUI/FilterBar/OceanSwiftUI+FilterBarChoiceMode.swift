@@ -12,5 +12,6 @@ extension OceanSwiftUI {
     public enum FilterBarChoiceMode {
         case single
         case multiple
+        case dateRange
     }
 }

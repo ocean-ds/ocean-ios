@@ -119,3 +119,46 @@ public extension String {
         })
     }
 }
+
+
+// MARK: Mask
+
+extension String {
+    public func applyDateMask() -> String {
+        let numbers = self.filter { "0"..."9" ~= $0 }
+        var maskedString = ""
+
+        let limitedNumbers = String(numbers.prefix(8))
+
+        for (index, character) in limitedNumbers.enumerated() {
+            if index == 2 || index == 4 {
+                maskedString.append("/")
+            }
+            maskedString.append(character)
+        }
+
+        return maskedString
+    }
+}
+
+// MARK: Date
+
+extension String {
+    public func shortDate() -> Date {
+        return self.shortDateNullable() ?? Date()
+    }
+
+    public func shortDateNullable() -> Date? {
+        if self.isEmpty {
+            return nil
+        }
+
+        let type1 = DateFormatter()
+        type1.dateFormat = "yyyy-MM-dd"
+
+        let type2 = DateFormatter()
+        type2.dateFormat = "dd/MM/yyyy"
+
+        return type2.date(from: self) ?? type1.date(from: self)
+    }
+}
