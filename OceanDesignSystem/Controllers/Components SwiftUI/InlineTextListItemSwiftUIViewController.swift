@@ -62,7 +62,9 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Title"
             textListItem.parameters.description = "Description - Positive"
-            textListItem.parameters.icon = .init(icon: Ocean.icon.placeholderSolid!)
+            textListItem.parameters.icon = .init(icon: Ocean.icon.placeholderSolid!,
+                                                  color: Ocean.color.colorStatusPositiveDeep,
+                                                  backgroundColor: Ocean.color.colorInterfaceLightPure)
             textListItem.parameters.state = .positive
             textListItem.parameters.size = .small
         }
@@ -73,7 +75,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.title = "Title"
             textListItem.parameters.description = "Description - Warning"
             textListItem.parameters.icon = .init(icon: Ocean.icon.placeholderSolid!,
-                                                 color: Ocean.color.colorStatusPositiveDeep,
+                                                 color: Ocean.color.colorStatusWarningDeep,
                                                  backgroundColor: Ocean.color.colorInterfaceLightPure)
             textListItem.parameters.state = .warning
             textListItem.parameters.size = .normal
@@ -85,7 +87,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.title = "Title"
             textListItem.parameters.description = "Description - Warning"
             textListItem.parameters.icon = .init(icon: Ocean.icon.placeholderSolid!,
-                                                 color: Ocean.color.colorStatusPositiveDeep,
+                                                 color: Ocean.color.colorStatusWarningDeep,
                                                  backgroundColor: Ocean.color.colorInterfaceLightPure)
             textListItem.parameters.state = .warning
             textListItem.parameters.size = .small
@@ -145,6 +147,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.size = .normal
             textListItem.parameters.button = .init(text: "Saiba mais",
                                                    style: .primary,
+                                                   size: .small,
                                                    onTouch: { print("Oieee") })
             textListItem.parameters.onTouch = { print("touched") }
         }
@@ -157,6 +160,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.size = .small
             textListItem.parameters.button = .init(text: "Saiba mais",
                                                    style: .primary,
+                                                   size: .small,
                                                    onTouch: { print("Oieee") })
             textListItem.parameters.onTouch = { print("touched") }
         }
