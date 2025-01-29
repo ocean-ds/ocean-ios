@@ -10,7 +10,7 @@ import OceanTokens
 
 extension OceanSwiftUI {
     // MARK: Parameter
-    
+
     public class InlineTextListItemParameters: ObservableObject {
         @Published public var title: String
         @Published public var description: String
@@ -32,11 +32,10 @@ extension OceanSwiftUI {
                     icon: RoundedIconParameters? = nil,
                     tag: TagParameters? = nil,
                     button: ButtonParameters? = nil,
-                    padding: EdgeInsets =
-            .init(top: Ocean.size.spacingStackXxs,
-                  leading: 0,
-                  bottom: Ocean.size.spacingStackXxs,
-                  trailing: 0),
+                    padding: EdgeInsets = .init(top: Ocean.size.spacingStackXxs,
+                                                leading: 0,
+                                                bottom: Ocean.size.spacingStackXxs,
+                                                trailing: 0),
                     state: State = .normal,
                     size: Size = .normal,
                     showSkeleton: Bool = false,
@@ -136,25 +135,10 @@ extension OceanSwiftUI {
                     HStack(alignment: .center, spacing: 0) {
                         if let roundedIcon = parameters.icon {
                             RoundedIcon.init(parameters: roundedIcon)
-                            /*
-                            OceanSwiftUI.RoundedIcon { icon in
-                                icon.parameters.icon = roundedIcon.parameters.icon
-                                icon.parameters.color = getStatusColor()
-                                icon.parameters.backgroundColor = Ocean.color.colorInterfaceLightPure
-                            }
-                             */
                         }
 
                         if let button = parameters.button {
                             Button.init(parameters: button)
-
-                            /*
-                            OceanSwiftUI.Button.primarySM { button in
-                                button.parameters.text = hasButton.parameters.text
-                                button.parameters.isLoading = hasButton.parameters.isLoading
-                                button.parameters.onTouch = hasButton.parameters.onTouch
-                            }
-                            */
                         }
 
                         if parameters.state == .strikethrough {
