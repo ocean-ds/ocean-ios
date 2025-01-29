@@ -20,8 +20,8 @@ extension OceanSwiftUI {
         @Published public var tag: Tag?
         @Published public var button: Button?
         @Published public var padding: EdgeInsets
-        @Published public var state: OceanSwiftUI.InlineTextListItemParameters.State
-        @Published public var size: OceanSwiftUI.InlineTextListItemParameters.Size
+        @Published public var state: State
+        @Published public var size: Size
         @Published public var showSkeleton: Bool
         public var onTouch: () -> Void
 
@@ -118,12 +118,10 @@ extension OceanSwiftUI {
                         if parameters.size == .normal {
                             OceanSwiftUI.Typography.paragraph { label in
                                 label.parameters.text = parameters.title
-                                label.parameters.multilineTextAlignment = .leading
                             }
                         } else {
                             OceanSwiftUI.Typography.caption { label in
                                 label.parameters.text = parameters.title
-                                label.parameters.multilineTextAlignment = .leading
                             }
                         }
 
