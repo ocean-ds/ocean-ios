@@ -315,7 +315,7 @@ extension OceanSwiftUI {
                 return getFilterBarGroup(original: group, options: group.options.map { option in
                     let isSameOption = isSame(option, touchedOption)
 
-                    if let beginDate = beginDate, let endDate = endDate, isSameOption && isSameOption {
+                    if let beginDate = beginDate, let endDate = endDate, isSameGroup, isSameOption {
                         return getFilterBarOption(original: option, beginDate: beginDate, endDate: endDate)
                     } else {
                         return clearDateRange(original: option, chips: option.chips.map { chip in
