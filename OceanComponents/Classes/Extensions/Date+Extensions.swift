@@ -14,4 +14,11 @@ extension Date {
         dateComponents.timeZone = NSTimeZone.system
         return calender.date(from: dateComponents) ?? self
     }
+
+    public func shortDateFormat() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy"
+        formatter.locale = Locale.init(identifier: "pt-br")
+        return formatter.string(from: self)
+    }
 }
