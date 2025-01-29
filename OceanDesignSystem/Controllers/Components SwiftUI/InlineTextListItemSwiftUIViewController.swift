@@ -16,10 +16,6 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.description = "Description - Default"
             textListItem.parameters.state = .normal
             textListItem.parameters.size = .normal
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
 
@@ -29,10 +25,6 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.description = "Description - Default"
             textListItem.parameters.state = .normal
             textListItem.parameters.size = .small
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
 
@@ -42,10 +34,6 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.description = "Description - Innactive"
             textListItem.parameters.state = .innactive
             textListItem.parameters.size = .normal
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
 
@@ -55,10 +43,6 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.description = "Description - Innactive"
             textListItem.parameters.state = .innactive
             textListItem.parameters.size = .small
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
 
@@ -71,10 +55,6 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.icon = OceanSwiftUI.RoundedIcon { icon in
                 icon.parameters.icon = Ocean.icon.BluLogoSolid!
             }
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
 
@@ -87,10 +67,6 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             }
             textListItem.parameters.state = .positive
             textListItem.parameters.size = .small
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
 
@@ -103,10 +79,6 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             }
             textListItem.parameters.state = .warning
             textListItem.parameters.size = .normal
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
 
@@ -125,10 +97,6 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
                 tag.parameters.status = .warning
                 tag.parameters.size = .medium
             }
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
 
@@ -138,10 +106,6 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.description = "Description - Highlight"
             textListItem.parameters.state = .highlight
             textListItem.parameters.size = .normal
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
 
@@ -151,10 +115,6 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.description = "Description - Highlight"
             textListItem.parameters.state = .highlight
             textListItem.parameters.size = .small
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
 
@@ -168,10 +128,6 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.onTouch = {
                 print("Touched!")
             }
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
 
@@ -183,10 +139,6 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.state = .strikethrough
             textListItem.parameters.size = .small
             textListItem.parameters.onTouch = { print("touched") }
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
 
@@ -201,10 +153,6 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
                 button.parameters.onTouch = button.parameters.onTouch
             }
             textListItem.parameters.onTouch = { print("touched") }
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
 
@@ -219,10 +167,6 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
                 button.parameters.onTouch = button.parameters.onTouch
             }
             textListItem.parameters.onTouch = { print("touched") }
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
 
@@ -230,10 +174,6 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Title"
             textListItem.parameters.showSkeleton = true
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
 
@@ -250,10 +190,6 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.onTouch = {
                 print("Touched!")
             }
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
 
@@ -274,10 +210,6 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.onTouch = {
                 print("Touched!")
             }
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
 

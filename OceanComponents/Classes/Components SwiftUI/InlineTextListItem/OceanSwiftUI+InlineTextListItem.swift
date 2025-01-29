@@ -10,7 +10,7 @@ import OceanTokens
 
 extension OceanSwiftUI {
     // MARK: Parameter
-
+    
     public class InlineTextListItemParameters: ObservableObject {
         @Published public var title: String
         @Published public var description: String
@@ -32,10 +32,11 @@ extension OceanSwiftUI {
                     icon: RoundedIcon? = nil,
                     tag: Tag? = nil,
                     button: Button? = nil,
-                    padding: EdgeInsets = .init(top: Ocean.size.spacingStackXs,
-                                                leading: Ocean.size.spacingStackXs,
-                                                bottom: Ocean.size.spacingStackXs,
-                                                trailing: Ocean.size.spacingStackXs),
+                    padding: EdgeInsets =
+            .init(top: Ocean.size.spacingStackXxs,
+                  leading: 0,
+                  bottom: Ocean.size.spacingStackXxs,
+                  trailing: 0),
                     state: OceanSwiftUI.InlineTextListItemParameters.State = .normal,
                     size: OceanSwiftUI.InlineTextListItemParameters.Size = .normal,
                     showSkeleton: Bool = false,
@@ -126,12 +127,7 @@ extension OceanSwiftUI {
                         }
 
                         if let tag = parameters.tag {
-                            OceanSwiftUI.Tag { tagView in
-                                tagView.parameters.label = tag.parameters.label
-                                tagView.parameters.icon = tag.parameters.icon
-                                tagView.parameters.status = tag.parameters.status
-                                tagView.parameters.size = tag.parameters.size
-                            }
+                            tag
                         }
                     }
 
@@ -212,11 +208,6 @@ extension OceanSwiftUI {
             default:
                 return Ocean.color.colorInterfaceDarkDown
             }
-        }
-
-        private struct Constants {
-            static let iconSize: CGFloat = 20
-            static let skeletonHeight: CGFloat = 24
         }
     }
 }
