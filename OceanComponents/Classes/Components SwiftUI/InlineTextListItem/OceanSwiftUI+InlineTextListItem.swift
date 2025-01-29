@@ -16,9 +16,9 @@ extension OceanSwiftUI {
         @Published public var description: String
         @Published public var descriptionColor: UIColor?
         @Published public var strikethroughText: String
-        @Published public var icon: RoundedIcon?
-        @Published public var tag: Tag?
-        @Published public var button: Button?
+        @Published public var icon: RoundedIconParameters?
+        @Published public var tag: TagParameters?
+        @Published public var button: ButtonParameters?
         @Published public var padding: EdgeInsets
         @Published public var state: State
         @Published public var size: Size
@@ -29,16 +29,16 @@ extension OceanSwiftUI {
                     description: String = "",
                     descriptionColor: UIColor? = nil,
                     strikethroughText: String = "",
-                    icon: RoundedIcon? = nil,
-                    tag: Tag? = nil,
-                    button: Button? = nil,
+                    icon: RoundedIconParameters? = nil,
+                    tag: TagParameters? = nil,
+                    button: ButtonParameters? = nil,
                     padding: EdgeInsets =
             .init(top: Ocean.size.spacingStackXxs,
                   leading: 0,
                   bottom: Ocean.size.spacingStackXxs,
                   trailing: 0),
-                    state: OceanSwiftUI.InlineTextListItemParameters.State = .normal,
-                    size: OceanSwiftUI.InlineTextListItemParameters.Size = .normal,
+                    state: State = .normal,
+                    size: Size = .normal,
                     showSkeleton: Bool = false,
                     onTouch: @escaping () -> Void = { }) {
             self.title = title
@@ -127,7 +127,7 @@ extension OceanSwiftUI {
                         }
 
                         if let tag = parameters.tag {
-                            tag
+                            Tag.init(parameters: tag)
                         }
                     }
 
@@ -135,19 +135,26 @@ extension OceanSwiftUI {
 
                     HStack(alignment: .center, spacing: 0) {
                         if let roundedIcon = parameters.icon {
+                            RoundedIcon.init(parameters: roundedIcon)
+                            /*
                             OceanSwiftUI.RoundedIcon { icon in
                                 icon.parameters.icon = roundedIcon.parameters.icon
                                 icon.parameters.color = getStatusColor()
                                 icon.parameters.backgroundColor = Ocean.color.colorInterfaceLightPure
                             }
+                             */
                         }
 
-                        if let hasButton = parameters.button {
+                        if let button = parameters.button {
+                            Button.init(parameters: button)
+
+                            /*
                             OceanSwiftUI.Button.primarySM { button in
                                 button.parameters.text = hasButton.parameters.text
                                 button.parameters.isLoading = hasButton.parameters.isLoading
                                 button.parameters.onTouch = hasButton.parameters.onTouch
                             }
+                            */
                         }
 
                         if parameters.state == .strikethrough {

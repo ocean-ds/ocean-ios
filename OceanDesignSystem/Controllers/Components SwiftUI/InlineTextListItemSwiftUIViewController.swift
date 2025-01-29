@@ -52,9 +52,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.description = "Description - Positive"
             textListItem.parameters.state = .positive
             textListItem.parameters.size = .normal
-            textListItem.parameters.icon = OceanSwiftUI.RoundedIcon { icon in
-                icon.parameters.icon = Ocean.icon.BluLogoSolid!
-            }
+            textListItem.parameters.icon = .init(icon: Ocean.icon.placeholderSolid!)
         }
     }()
 
@@ -62,9 +60,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Title"
             textListItem.parameters.description = "Description - Positive"
-            textListItem.parameters.icon = OceanSwiftUI.RoundedIcon { icon in
-                icon.parameters.icon = Ocean.icon.placeholderSolid!
-            }
+            textListItem.parameters.icon = .init(icon: Ocean.icon.placeholderSolid!)
             textListItem.parameters.state = .positive
             textListItem.parameters.size = .small
         }
@@ -74,9 +70,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Title"
             textListItem.parameters.description = "Description - Warning"
-            textListItem.parameters.icon = OceanSwiftUI.RoundedIcon { icon in
-                icon.parameters.icon = Ocean.icon.placeholderSolid!
-            }
+            textListItem.parameters.icon = .init(icon: Ocean.icon.placeholderSolid!)
             textListItem.parameters.state = .warning
             textListItem.parameters.size = .normal
         }
@@ -86,17 +80,13 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Title"
             textListItem.parameters.description = "Description - Warning"
-            textListItem.parameters.icon = OceanSwiftUI.RoundedIcon { icon in
-                icon.parameters.icon = Ocean.icon.placeholderSolid!
-            }
+            textListItem.parameters.icon = .init(icon: Ocean.icon.placeholderSolid!)
             textListItem.parameters.state = .warning
             textListItem.parameters.size = .small
-            textListItem.parameters.tag = OceanSwiftUI.Tag { tag in
-                tag.parameters.label = "Oferta"
-                tag.parameters.icon = Ocean.icon.fireSolid
-                tag.parameters.status = .warning
-                tag.parameters.size = .medium
-            }
+            textListItem.parameters.tag = .init(label: "Oferta",
+                                                icon: Ocean.icon.placeholderSolid!,
+                                                status: .warning,
+                                                size: .medium)
         }
     }()
 
@@ -147,11 +137,9 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.title = "Title"
             textListItem.parameters.state = .withAction
             textListItem.parameters.size = .normal
-            textListItem.parameters.button = OceanSwiftUI.Button.primarySM { button in
-                button.parameters.text = "Saiba mais"
-                button.parameters.isLoading = button.parameters.isLoading
-                button.parameters.onTouch = button.parameters.onTouch
-            }
+            textListItem.parameters.button = .init(text: "Saiba mais",
+                                                   style: .primary,
+                                                   onTouch: { print("Oieee") })
             textListItem.parameters.onTouch = { print("touched") }
         }
     }()
@@ -161,11 +149,9 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.title = "Title"
             textListItem.parameters.state = .withAction
             textListItem.parameters.size = .small
-            textListItem.parameters.button = OceanSwiftUI.Button.primarySM { button in
-                button.parameters.text = "Saiba mais"
-                button.parameters.isLoading = button.parameters.isLoading
-                button.parameters.onTouch = button.parameters.onTouch
-            }
+            textListItem.parameters.button = .init(text: "Saiba mais",
+                                                   style: .primary,
+                                                   onTouch: { print("Oieee") })
             textListItem.parameters.onTouch = { print("touched") }
         }
     }()
@@ -181,12 +167,10 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.title = "Recebimentos futuros"
             textListItem.parameters.description = "RS 2.300,00"
-            textListItem.parameters.tag = OceanSwiftUI.Tag { tag in
-                tag.parameters.label = "Oferta"
-                tag.parameters.icon = Ocean.icon.fireSolid
-                tag.parameters.status = .warning
-                tag.parameters.size = .medium
-            }
+            textListItem.parameters.tag = .init(label: "Oferta",
+                                                icon: Ocean.icon.placeholderSolid!,
+                                                status: .warning,
+                                                size: .medium)
             textListItem.parameters.onTouch = {
                 print("Touched!")
             }
@@ -198,15 +182,11 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.title = "Recebimentos futuros"
             textListItem.parameters.description = "RS 2.300,00"
             textListItem.parameters.state = .strikethrough
-            textListItem.parameters.icon = OceanSwiftUI.RoundedIcon { icon in
-                icon.parameters.icon = Ocean.icon.placeholderSolid!
-            }
-            textListItem.parameters.tag = OceanSwiftUI.Tag { tag in
-                tag.parameters.label = "Oferta"
-                tag.parameters.icon = Ocean.icon.fireSolid
-                tag.parameters.status = .warning
-                tag.parameters.size = .medium
-            }
+            textListItem.parameters.icon = .init(icon: Ocean.icon.placeholderSolid!)
+            textListItem.parameters.tag = .init(label: "Oferta",
+                                                icon: Ocean.icon.placeholderSolid!,
+                                                status: .warning,
+                                                size: .medium)
             textListItem.parameters.onTouch = {
                 print("Touched!")
             }
