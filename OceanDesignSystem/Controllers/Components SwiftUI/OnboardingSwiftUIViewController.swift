@@ -16,7 +16,8 @@ class OnboardingSwiftUIViewController: UIViewController {
         OceanSwiftUI.OnboardingParameters.PageModel(
             image: Ocean.icon.placeholderOutline,
             title: "Titile 1 Lorem Ipsum is simply dummy text of the",
-            subtitle: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+            subtitle: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+            caption: "Cada convidado terá um acesso exclusivo apenas para vender pela sua loja."
         )
     }()
 
@@ -24,7 +25,8 @@ class OnboardingSwiftUIViewController: UIViewController {
         OceanSwiftUI.OnboardingParameters.PageModel(
             image: Ocean.icon.placeholderOutline,
             title: "Titile 2 Lorem Ipsum is simply dummy text of the",
-            subtitle: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+            subtitle: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+            caption: "Cada convidado terá um acesso exclusivo apenas para vender pela sua loja."
         )
     }()
 
@@ -32,7 +34,8 @@ class OnboardingSwiftUIViewController: UIViewController {
         OceanSwiftUI.OnboardingParameters.PageModel(
             image: Ocean.icon.placeholderOutline,
             title: "Titile 3 Lorem Ipsum is simply dummy text of the",
-            subtitle: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+            subtitle: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+            caption: "Cada convidado terá um acesso exclusivo apenas para vender pela sua loja."
         )
     }()
 

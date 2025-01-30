@@ -30,6 +30,7 @@ extension OceanSwiftUI {
             @Published public var image: UIImage?
             @Published public var title: String
             @Published public var subtitle: String
+            @Published public var caption: String
             @Published public var backgroundColor: UIColor
             @Published public var linkText: String
             @Published public var linkAction: (() -> Void)?
@@ -37,12 +38,14 @@ extension OceanSwiftUI {
             public init(image: UIImage? = nil,
                         title: String = "",
                         subtitle: String = "",
+                        caption: String = "",
                         backgroundColor: UIColor = .white,
                         linkText: String = "",
                         linkAction: (() -> Void)? = nil) {
                 self.image = image
                 self.title = title
                 self.subtitle = subtitle
+                self.caption = caption
                 self.backgroundColor = backgroundColor
                 self.linkText = linkText
                 self.linkAction = linkAction
@@ -172,6 +175,17 @@ extension OceanSwiftUI {
                         Typography.description { label in
                             label.parameters.text = page.subtitle
                             label.parameters.multilineTextAlignment = .center
+                        }
+
+                        Spacer()
+                            .frame(height: Ocean.size.spacingStackXs)
+                    }
+
+                    if !page.caption.isEmpty {
+                        Typography.caption { label in
+                            label.parameters.text = page.caption
+                            label.parameters.multilineTextAlignment = .center
+                            label.parameters.textColor = Ocean.color.colorInterfaceDarkUp
                         }
 
                         Spacer()
