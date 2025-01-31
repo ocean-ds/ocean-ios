@@ -22,7 +22,7 @@ extension OceanSwiftUI {
         @Published public var actionText: String
         @Published public var actionType: ActionType
         @Published public var tooltipText: String
-        @Published public var hasBorderRadius: Bool
+        @Published public var hasCornerRadius: Bool
         public var actionOnTouch: () -> Void
 
         public enum Status {
