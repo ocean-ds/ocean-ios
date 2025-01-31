@@ -53,7 +53,7 @@ extension OceanSwiftUI {
                     actionText: String = "",
                     actionType: ActionType = .link,
                     tooltipText: String = "",
-                    hasBorderRadius: Bool = true,
+                    hasCornerRadius: Bool = true,
                     actionOnTouch: @escaping () -> Void = { }) {
             self.title = title
             self.text = text
@@ -64,7 +64,7 @@ extension OceanSwiftUI {
             self.actionText = actionText
             self.actionType = actionType
             self.tooltipText = tooltipText
-            self.hasBorderRadius = hasBorderRadius
+            self.hasCornerRadius = hasCornerRadius
             self.actionOnTouch = actionOnTouch
         }
     }
@@ -87,7 +87,7 @@ extension OceanSwiftUI {
         private var iconWidth: CGFloat = 24
         private var iconHeight: CGFloat = 24
         private let coordinateSpaceName = UUID()
-        private var cornerRadius: CGFloat { parameters.hasBorderRadius ? Ocean.size.borderRadiusMd : 0 }
+        private var cornerRadius: CGFloat { parameters.hasCornerRadius ? Ocean.size.borderRadiusMd : 0 }
 
         // MARK: Properties private
 
