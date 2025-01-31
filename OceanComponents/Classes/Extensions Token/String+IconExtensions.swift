@@ -335,7 +335,6 @@ public extension String {
         case "librarysolid": return Ocean.icon.librarySolid
         case "lightbulboutline": return Ocean.icon.lightBulbOutline
         case "lightbulbsolid": return Ocean.icon.lightBulbSolid
-        case "lighthouseoutline": return Ocean.icon.lighthouseOutline
         case "lightningboltoutline": return Ocean.icon.lightningBoltOutline
         case "lightningboltsolid": return Ocean.icon.lightningBoltSolid
         case "linkoutline": return Ocean.icon.linkOutline
