@@ -9,9 +9,9 @@ import SwiftUI
 import OceanTokens
 
 extension OceanSwiftUI {
-    
+
     // MARK: Parameters
-    
+
     public class AlertParameters: ObservableObject {
         @Published public var title: String
         @Published public var text: String
@@ -22,6 +22,7 @@ extension OceanSwiftUI {
         @Published public var actionText: String
         @Published public var actionType: ActionType
         @Published public var tooltipText: String
+        @Published public var hasCornerRadius: Bool
         public var actionOnTouch: () -> Void
 
         public enum Status {
@@ -30,7 +31,7 @@ extension OceanSwiftUI {
             case warning
             case negative
         }
-        
+
         public enum Style {
             case none
             case longDescription
@@ -52,6 +53,7 @@ extension OceanSwiftUI {
                     actionText: String = "",
                     actionType: ActionType = .link,
                     tooltipText: String = "",
+                    hasCornerRadius: Bool = true,
                     actionOnTouch: @escaping () -> Void = { }) {
             self.title = title
             self.text = text
@@ -62,28 +64,30 @@ extension OceanSwiftUI {
             self.actionText = actionText
             self.actionType = actionType
             self.tooltipText = tooltipText
+            self.hasCornerRadius = hasCornerRadius
             self.actionOnTouch = actionOnTouch
         }
     }
-    
+
     public struct Alert: View {
-        
+
         // MARK: Properties for UIKit
-        
+
         public lazy var hostingController = UIHostingController(rootView: self)
         public lazy var uiView = self.hostingController.getUIView()
-        
+
         // MARK: Builder
-        
+
         public typealias Builder = (Alert) -> Void
-        
+
         // MARK: Properties
-        
+
         @ObservedObject public var parameters: AlertParameters
         @State var position: CGPoint = .zero
         private var iconWidth: CGFloat = 24
         private var iconHeight: CGFloat = 24
         private let coordinateSpaceName = UUID()
+        private var cornerRadius: CGFloat { parameters.hasCornerRadius ? Ocean.size.borderRadiusMd : 0 }
 
         // MARK: Properties private
 
@@ -93,154 +97,169 @@ extension OceanSwiftUI {
             }
             return getIconImage()
         }
-        
+
+        @ViewBuilder
         private var iconImage: some View {
-            Group {
-                if self.parameters.withIcon {
-                    Image(uiImage: icon)
-                        .resizable()
-                        .renderingMode(.template)
-                        .frame(width: iconWidth, height: iconHeight, alignment: .center)
-                        .foregroundColor(Color(getForegroundColor()))
-                    Spacer().frame(width: Ocean.size.spacingStackXxs)
-                }
+            if self.parameters.withIcon {
+                Image(uiImage: icon)
+                    .resizable()
+                    .renderingMode(.template)
+                    .frame(width: iconWidth, height: iconHeight, alignment: .center)
+                    .foregroundColor(Color(getForegroundColor()))
+                Spacer().frame(width: Ocean.size.spacingStackXxs)
             }
         }
 
         @ViewBuilder
         private var titleView: some View {
-            HStack(spacing: Ocean.size.spacingStackXxxs) {
-                if parameters.style == .inverted {
-                    OceanSwiftUI.Typography.description { label in
-                        label.parameters.text = parameters.title
-                        label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+            if !parameters.title.isEmpty {
+                HStack(spacing: Ocean.size.spacingStackXxxs) {
+                    if parameters.style == .inverted {
+                        OceanSwiftUI.Typography.description { label in
+                            label.parameters.text = parameters.title
+                            label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                        }
+                    } else {
+                        OceanSwiftUI.Typography.heading5 { label in
+                            label.parameters.text = parameters.title
+                            label.parameters.textColor = getForegroundColor()
+                        }
                     }
-                } else {
-                    OceanSwiftUI.Typography.heading5 { label in
-                        label.parameters.text = parameters.title
-                        label.parameters.textColor = getForegroundColor()
-                    }
-                }
 
-                if !parameters.tooltipText.isEmpty {
-                    OceanSwiftUI.Tooltip { tooltip in
-                        tooltip.parameters.text = parameters.tooltipText
+                    if !parameters.tooltipText.isEmpty {
+                        OceanSwiftUI.Tooltip { tooltip in
+                            tooltip.parameters.text = parameters.tooltipText
+                        }
                     }
                 }
             }
         }
-        
+
         @ViewBuilder
         private var textView: some View {
-            if parameters.style == .inverted {
-                OceanSwiftUI.Typography.paragraph { label in
-                    label.parameters.text = parameters.text
-                    label.parameters.textColor = Ocean.color.colorInterfaceDarkPure
-                }
-            } else {
-                OceanSwiftUI.Typography.caption { label in
-                    label.parameters.text = parameters.text
+            if !parameters.text.isEmpty {
+                if parameters.style == .inverted {
+                    OceanSwiftUI.Typography.paragraph { label in
+                        label.parameters.text = parameters.text
+                        label.parameters.textColor = Ocean.color.colorInterfaceDarkPure
+                    }
+                } else {
+                    OceanSwiftUI.Typography.caption { label in
+                        label.parameters.text = parameters.text
+                    }
                 }
             }
         }
-        
+
+        @ViewBuilder
         private var withActionLink: some View {
-            Group {
-                if self.parameters.actionType == .link && !self.parameters.actionText.isEmpty {
-                    Spacer().frame(width: Ocean.size.spacingStackXxxs + Ocean.size.spacingStackXxs)
-                    OceanSwiftUI.Link.primaryTiny { link in
-                        link.parameters.text = self.parameters.actionText
-                        link.parameters.type = .chevron
-                        link.parameters.textColor = getForegroundColor()
-                        link.parameters.onTouch = parameters.actionOnTouch
-                    }
+            if self.parameters.actionType == .link && !self.parameters.actionText.isEmpty {
+                OceanSwiftUI.Link.primaryTiny { link in
+                    link.parameters.text = self.parameters.actionText
+                    link.parameters.type = .chevron
+                    link.parameters.textColor = getForegroundColor()
+                    link.parameters.onTouch = parameters.actionOnTouch
                 }
             }
         }
 
+        @ViewBuilder
         private var withActionButton: some View {
-            Group {
-                if self.parameters.actionType == .button && !self.parameters.actionText.isEmpty {
-                    Spacer().frame(width: Ocean.size.spacingStackXxs)
-                    OceanSwiftUI.Button { button in
-                        button.parameters.text = self.parameters.actionText
-                        button.parameters.onTouch = self.parameters.actionOnTouch
-                        button.parameters.size = .small
-                        button.parameters.style = self.getButtonStyle()
-                    }
-                    .frame(width: 80)
+            if self.parameters.actionType == .button && !self.parameters.actionText.isEmpty {
+                OceanSwiftUI.Button { button in
+                    button.parameters.text = self.parameters.actionText
+                    button.parameters.onTouch = self.parameters.actionOnTouch
+                    button.parameters.size = .small
+                    button.parameters.style = self.getButtonStyle()
                 }
+                .fixedSize(horizontal: true, vertical: false)
             }
         }
 
+        @ViewBuilder
         private var defaultView: some View {
-            HStack {
+            HStack(alignment: .center, spacing: 0) {
                 iconImage
+
                 textView
+
                 Spacer()
             }
-            .padding(.all, Ocean.size.spacingStackXs)
         }
-        
+
+        @ViewBuilder
         private var longDescriptionView: some View {
-            HStack {
-                VStack(alignment: .leading, spacing: 0) {
-                    HStack {
+            HStack(alignment: .center, spacing: Ocean.size.spacingStackXxs) {
+                VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxxs) {
+                    HStack(alignment: .center, spacing: 0) {
                         iconImage
+
                         titleView
+
                         Spacer()
                     }
-                    Spacer().frame(width: Ocean.size.spacingStackXxs)
+                    .padding(.bottom, Ocean.size.spacingStackXxs)
+
                     textView
+
                     withActionLink
                 }
                 Spacer()
+
                 withActionButton
             }
-            .padding(.all, Ocean.size.spacingStackXs)
-        }
-        
-        private var shortDescriptionView: some View {
-            HStack {
-                iconImage
-                VStack(alignment: .leading, spacing: 0) {
-                    titleView
-                    textView
-                    withActionLink
-                }
-                Spacer()
-                withActionButton
-            }
-            .padding(.all, Ocean.size.spacingStackXs)
         }
 
-        private var invertedView: some View {
-            HStack {
+        @ViewBuilder
+        private var shortDescriptionView: some View {
+            HStack(alignment: .center, spacing: Ocean.size.spacingStackXxs) {
                 iconImage
+
                 VStack(alignment: .leading, spacing: 0) {
                     titleView
+
                     textView
+
+                    withActionLink
+                }
+
+                Spacer()
+
+                withActionButton
+            }
+        }
+
+        @ViewBuilder
+        private var invertedView: some View {
+            HStack(alignment: .center, spacing: Ocean.size.spacingStackXxs) {
+                iconImage
+
+                VStack(alignment: .leading, spacing: 0) {
+                    titleView
+
+                    textView
+
                     withActionLink
                 }
                 Spacer()
+
                 withActionButton
             }
-            .padding(.all, Ocean.size.spacingStackXs)
         }
 
         // MARK: Constructors
-        
+
         public init(parameters: AlertParameters = AlertParameters()) {
             self.parameters = parameters
         }
-        
+
         public init(builder: Builder) {
             self.init()
             builder(self)
         }
-        
+
         // MARK: View SwiftUI
-        
+
         public var body: some View {
             VStack {
                 switch parameters.style {
@@ -254,12 +273,13 @@ extension OceanSwiftUI {
                     invertedView
                 }
             }
+            .padding(Ocean.size.spacingStackXs)
             .background(getBackgroundColor())
-            .cornerRadius(Ocean.size.borderRadiusMd)
+            .cornerRadius(cornerRadius)
         }
-        
+
         // MARK: Methods private
-        
+
         private func getIconImage() -> UIImage {
             switch parameters.status {
             case .info:
@@ -272,7 +292,7 @@ extension OceanSwiftUI {
                 return Ocean.icon.xCircleOutline!
             }
         }
-        
+
         private func getForegroundColor() -> UIColor {
             switch parameters.status {
             case .info:
@@ -285,7 +305,7 @@ extension OceanSwiftUI {
                 return Ocean.color.colorStatusNegativePure
             }
         }
-        
+
         private func getBackgroundColor() -> Color {
             switch parameters.status {
             case .info:
