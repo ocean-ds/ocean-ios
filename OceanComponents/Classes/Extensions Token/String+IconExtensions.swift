@@ -10,7 +10,7 @@ import OceanTokens
 
 public extension String {
     func toOceanIcon() -> UIImage? {
-        switch self.lowercased() {
+        switch self.lowercased().trimmingCharacters(in: .whitespacesAndNewlines) {
             // BluIcons
         case "appareloutline": return Ocean.icon.apparelOutline
         case "appliancesoutline": return Ocean.icon.appliancesOutline
@@ -93,6 +93,7 @@ public extension String {
         case "contactlessoutline": return Ocean.icon.contactLessOutline
         case "scoreoutline": return Ocean.icon.scoreOutline
         case "cardmachinesolid": return Ocean.icon.cardMachineSolid
+        case "lighthouseoutline": return Ocean.icon.lighthouseOutline
             // HeroIcons
         case "academiccapoutline": return Ocean.icon.academicCapOutline
         case "academiccapsolid": return Ocean.icon.academicCapSolid
@@ -334,6 +335,7 @@ public extension String {
         case "librarysolid": return Ocean.icon.librarySolid
         case "lightbulboutline": return Ocean.icon.lightBulbOutline
         case "lightbulbsolid": return Ocean.icon.lightBulbSolid
+        case "lighthouseoutline": return Ocean.icon.lighthouseOutline
         case "lightningboltoutline": return Ocean.icon.lightningBoltOutline
         case "lightningboltsolid": return Ocean.icon.lightningBoltSolid
         case "linkoutline": return Ocean.icon.linkOutline
@@ -552,7 +554,6 @@ public extension String {
         case "zoominsolid": return Ocean.icon.zoomInSolid
         case "zoomoutoutline": return Ocean.icon.zoomOutOutline
         case "zoomoutsolid": return Ocean.icon.zoomOutSolid
-        case "lighthouseoutline": return Ocean.icon.lighthouseOutline
         default: return nil
         }
     }
