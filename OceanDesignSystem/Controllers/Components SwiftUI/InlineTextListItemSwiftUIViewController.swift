@@ -205,6 +205,19 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         }
     }()
 
+    lazy var inlineTextListItem18: OceanSwiftUI.InlineTextListItem = {
+        OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.title = "Ícone do lighthouse"
+            textListItem.parameters.tag = .init(label: "New",
+                                                icon: Ocean.icon.lighthouseOutline!,
+                                                status: .warning,
+                                                size: .medium)
+            textListItem.parameters.onTouch = {
+                print("Touched!")
+            }
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
 
         VStack(spacing: Ocean.size.spacingStackXs) {
@@ -225,6 +238,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             inlineTextListItem15
             inlineTextListItem16
             inlineTextListItem17
+            inlineTextListItem18
         }
     })
 

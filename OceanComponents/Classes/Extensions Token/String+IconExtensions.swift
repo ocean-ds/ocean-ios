@@ -552,6 +552,7 @@ public extension String {
         case "zoominsolid": return Ocean.icon.zoomInSolid
         case "zoomoutoutline": return Ocean.icon.zoomOutOutline
         case "zoomoutsolid": return Ocean.icon.zoomOutSolid
+        case "lighthouseoutline": return Ocean.icon.lighthouseOutline
         default: return nil
         }
     }
