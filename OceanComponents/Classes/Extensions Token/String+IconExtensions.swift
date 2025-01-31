@@ -10,7 +10,7 @@ import OceanTokens
 
 public extension String {
     func toOceanIcon() -> UIImage? {
-        switch self.lowercased() {
+        switch self.lowercased().trimmingCharacters(in: .whitespacesAndNewlines) {
             // BluIcons
         case "appareloutline": return Ocean.icon.apparelOutline
         case "appliancesoutline": return Ocean.icon.appliancesOutline
@@ -93,6 +93,7 @@ public extension String {
         case "contactlessoutline": return Ocean.icon.contactLessOutline
         case "scoreoutline": return Ocean.icon.scoreOutline
         case "cardmachinesolid": return Ocean.icon.cardMachineSolid
+        case "lighthouseoutline": return Ocean.icon.lighthouseOutline
             // HeroIcons
         case "academiccapoutline": return Ocean.icon.academicCapOutline
         case "academiccapsolid": return Ocean.icon.academicCapSolid
