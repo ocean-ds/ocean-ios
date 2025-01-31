@@ -110,6 +110,7 @@ extension Ocean {
         public static let contactLessOutline = UIImage(named: "OceanComponents.bundle/contact_less_outline", in: .bundleOceanComponents, compatibleWith: .none)
         public static let scoreOutline = UIImage(named: "OceanComponents.bundle/score_outline", in: .bundleOceanComponents, compatibleWith: .none)
         public static let cardMachineSolid = UIImage(named: "OceanComponents.bundle/card_machine_solid", in: .bundleOceanComponents, compatibleWith: .none)
+        public static let lighthouseOutline = UIImage(named: "OceanComponents.bundle/lighthouse-outline", in: .bundleOceanComponents, compatibleWith: .none)
 
         // HeroIcons
 
