@@ -22,15 +22,8 @@ extension Ocean {
         var actions: [UIControl] = []
         
         public func getMultipleOptions() -> [CellModel] {
-                return contenteMultipleOptions
-            }
-        
-        private lazy var divider: Ocean.Divider = {
-            let divider = Ocean.Divider()
-            divider.translatesAutoresizingMaskIntoConstraints = true
-            divider.isHidden = true
-            return divider
-        }()
+            return contenteMultipleOptions
+        }
         
         private lazy var optionsListCheckBox: [Ocean.CheckBox] = []
         
@@ -126,7 +119,6 @@ extension Ocean {
             let topSpacing = bottomStack.layoutMargins.top
             let bottomSpacing = bottomStack.layoutMargins.bottom
 
-            divider.isHidden = actions.isEmpty
             actions.forEach { control in
                 bottomStack.addArrangedSubview(control)
             }
@@ -141,11 +133,9 @@ extension Ocean {
             setupUI()
             view.addSubview(contentStack)
             view.addSubview(bottomStack)
-            view.addSubview(divider)
             addConstraintMainStack()
             addConstraintContentStack()
             addConstraintBottomStack()
-            addConstraintDivider()
         }
         
         private func addConstraintMainStack() {
@@ -171,14 +161,6 @@ extension Ocean {
                 .bottomToBottom(to: view, safeArea: true)
                 .leadingToLeading(to: view, constant: Ocean.size.spacingStackSm, safeArea: true)
                 .trailingToTrailing(to: view, constant: -Ocean.size.spacingStackSm, safeArea: true)
-                .make()
-        }
-        
-        private func addConstraintDivider() {
-            divider.oceanConstraints
-                .topToTop(to: bottomStack)
-                .leadingToLeading(to: view, safeArea: true)
-                .trailingToTrailing(to: view, safeArea: true)
                 .make()
         }
         

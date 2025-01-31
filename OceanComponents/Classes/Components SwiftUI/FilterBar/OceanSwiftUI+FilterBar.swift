@@ -244,15 +244,17 @@ extension OceanSwiftUI {
                     .withDismiss(true)
                     .withMultipleOptions(touchedOption.chips.map { Ocean.CellModel(title: $0.title,
                                                                                    isSelected: $0.isSelected) })
-                    .withAction(textNegative: "Cancelar",
-                                actionNegative: nil,
+                    .withAction(textNegative: "Limpar",
+                                actionNegative: {
+                        updateSelection(chips: [], option: touchedOption, group: touchedGroup)
+                    },
                                 textPositive: "Filtrar",
                                 actionPositive: { allOptions in
                         let selectedOptions = allOptions.filter { $0.isSelected }
                         let chips = touchedOption.chips.map { chip in
                             getChipModel(original: chip, isSelected: selectedOptions.contains { $0.title == chip.title })
                         }.filter { $0.isSelected }
-
+                        
                         updateSelection(chips: chips, option: touchedOption, group: touchedGroup)
                     })
                     .build()
