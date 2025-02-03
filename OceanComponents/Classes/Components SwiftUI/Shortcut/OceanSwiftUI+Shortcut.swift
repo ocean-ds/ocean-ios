@@ -208,7 +208,6 @@ extension OceanSwiftUI {
             }
         }
 
-
         @ViewBuilder
         private func getViewVertical(item: ShortcutModel) -> some View {
             VStack(alignment: .leading, spacing: 0) {
