@@ -13,6 +13,7 @@ extension OceanSwiftUI {
         @Published public var items: [ShortcutModel]
         @Published public var cols: Int
         @Published public var size: Size
+        @Published public var displayMode: DisplayMode
         @Published public var orientation: Orientation
         @Published public var showSkeleton: Bool
         public var onTouch: (Int, ShortcutModel) -> Void = { _, _ in }
@@ -28,15 +29,22 @@ extension OceanSwiftUI {
             case vertical
         }
 
+        public enum DisplayMode {
+            case inline
+            case grid
+        }
+
         public init(items: [ShortcutModel] = [],
                     cols: Int = 2,
                     size: Size = .small,
+                    displayMode: DisplayMode = .grid,
                     orientation: Orientation = .vertical,
                     showSkeleton: Bool = false,
                     onTouch: @escaping (Int, ShortcutModel) -> Void = { _, _ in }) {
             self.items = items
             self.cols = cols
             self.size = size
+            self.displayMode = displayMode
             self.orientation = orientation
             self.showSkeleton = showSkeleton
             self.onTouch = onTouch
@@ -103,58 +111,49 @@ extension OceanSwiftUI {
 
         public var body: some View {
             if self.parameters.showSkeleton {
-                VStack(spacing: Ocean.size.spacingStackXxs) {
-                    HStack(spacing: Ocean.size.spacingStackXxs) {
-                        getSkeletonItem()
-
-                        getSkeletonItem()
-                    }
-
-                    HStack(spacing: Ocean.size.spacingStackXxs) {
-                        getSkeletonItem()
-                            .layoutPriority(0.5)
-
-                        Spacer()
-                            .layoutPriority(0.5)
-                    }
-                }
+                getSkeletonView()
             } else {
-                VStack(spacing: Ocean.size.spacingStackXxs) {
-                    let chunks = self.parameters.items.chunked(into: self.parameters.cols)
-
-                    ForEach(0..<chunks.count, id: \.self) { chunksIndex in
+                switch parameters.displayMode {
+                case .inline:
+                    ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: Ocean.size.spacingStackXxs) {
-                            ForEach(0..<chunks[chunksIndex].count, id: \.self) { index in
-                                let item = chunks[chunksIndex][index]
+                            ForEach(0..<self.parameters.items.count, id: \.self) { index in
+                                let item = self.parameters.items[index]
 
                                 SwiftUI.Button(action: {
-                                    self.parameters.onTouch((parameters.cols * chunksIndex) + index, item)
+                                    self.parameters.onTouch(index, item)
                                 }, label: {
-                                    HStack(spacing: 0) {
-                                        if self.parameters.orientation == .vertical {
-                                            self.getViewVertical(item: item)
-                                        } else {
-                                            self.getViewHorizontal(item: item)
-                                        }
-
-                                        Spacer()
-                                    }
-                                    .padding(.all, Ocean.size.spacingStackXs)
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                                    .overlay(self.getOverlay(item: item), alignment: .topTrailing)
-                                    .border(cornerRadius: Ocean.size.borderRadiusMd,
-                                            width: Ocean.size.borderWidthHairline,
-                                            color: Ocean.color.colorInterfaceLightDown)
+                                    getContentView(item: item)
                                 })
                                 .buttonStyle(OceanShortcutStyle())
                                 .disabled(item.blocked)
-                                .layoutPriority(1.0)
                             }
+                        }
+                    }
+                case .grid:
+                    VStack(spacing: Ocean.size.spacingStackXxs) {
+                        let chunks = self.parameters.items.chunked(into: self.parameters.cols)
 
-                            let quantityEmpty = self.parameters.cols - chunks[chunksIndex].count
-                            ForEach(0..<quantityEmpty, id: \.self) { _ in
-                                Spacer()
+                        ForEach(0..<chunks.count, id: \.self) { chunksIndex in
+                            HStack(spacing: Ocean.size.spacingStackXxs) {
+                                ForEach(0..<chunks[chunksIndex].count, id: \.self) { index in
+                                    let item = chunks[chunksIndex][index]
+
+                                    SwiftUI.Button(action: {
+                                        self.parameters.onTouch((parameters.cols * chunksIndex) + index, item)
+                                    }, label: {
+                                        getContentView(item: item)
+                                    })
+                                    .buttonStyle(OceanShortcutStyle())
+                                    .disabled(item.blocked)
                                     .layoutPriority(1.0)
+                                }
+
+                                let quantityEmpty = self.parameters.cols - chunks[chunksIndex].count
+                                ForEach(0..<quantityEmpty, id: \.self) { _ in
+                                    Spacer()
+                                        .layoutPriority(1.0)
+                                }
                             }
                         }
                     }
@@ -164,14 +163,59 @@ extension OceanSwiftUI {
 
         // MARK: Methods private
 
+        private func getContentView(item: ShortcutModel) -> some View {
+            HStack(spacing: 0) {
+                if self.parameters.orientation == .vertical || parameters.size == .small {
+                    self.getViewVertical(item: item)
+                } else {
+                    self.getViewHorizontal(item: item)
+                }
+
+                Spacer()
+            }
+            .padding(.all, Ocean.size.spacingStackXs)
+            .transform(condition: parameters.displayMode == .inline) { view in
+                view.frame(width: getMaxWidth(), height: getMaxHeight(), alignment: .top)
+            }
+            .transform(condition: parameters.displayMode == .grid) { view in
+                view.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            }
+            .overlay(self.getOverlay(item: item), alignment: .topTrailing)
+            .border(cornerRadius: Ocean.size.borderRadiusMd,
+                    width: Ocean.size.borderWidthHairline,
+                    color: Ocean.color.colorInterfaceLightDown)
+        }
+
+        private func getMaxWidth() -> CGFloat {
+            switch parameters.size {
+            case .tiny:
+                return parameters.orientation == .horizontal ? 117 : 80
+            case .small:
+                return 130
+            case .medium:
+                return parameters.orientation == .horizontal ? 200 : 156
+            }
+        }
+
+        private func getMaxHeight() -> CGFloat {
+            switch parameters.size {
+            case .tiny:
+                return parameters.orientation == .horizontal ? 56 : 80
+            case .small:
+                return 105
+            case .medium:
+                return parameters.orientation == .horizontal ? 100 : 134
+            }
+        }
+
+
         @ViewBuilder
         private func getViewVertical(item: ShortcutModel) -> some View {
             VStack(alignment: .leading, spacing: 0) {
                 if let icon = item.icon {
                     getImage(icon: icon)
 
-                    Spacer()
-                        .frame(height: Ocean.size.spacingStackXs)
+                    Spacer(minLength: Ocean.size.spacingStackXxs)
                 }
 
                 getTitle(title: item.title)
@@ -220,7 +264,7 @@ extension OceanSwiftUI {
         private func getTitle(title: String) -> some View {
             OceanSwiftUI.Typography.heading5 { label in
                 label.parameters.text = title
-                label.parameters.lineLimit = self.parameters.size == .medium ? 2 : 1
+                label.parameters.lineLimit = self.parameters.size == .tiny ? 1 : 2
             }
         }
 
@@ -259,6 +303,26 @@ extension OceanSwiftUI {
                     .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
                     .padding(.top, Ocean.size.spacingStackXxs)
                     .padding(.trailing, Ocean.size.spacingStackXxs)
+            }
+        }
+
+        @ViewBuilder
+        private func getSkeletonView() -> some View {
+            VStack(spacing: Ocean.size.spacingStackXxs) {
+                HStack(spacing: Ocean.size.spacingStackXxs) {
+                    getSkeletonItem()
+
+                    getSkeletonItem()
+                }
+                if parameters.displayMode == .grid {
+                    HStack(spacing: Ocean.size.spacingStackXxs) {
+                        getSkeletonItem()
+                            .layoutPriority(0.5)
+
+                        Spacer()
+                            .layoutPriority(0.5)
+                    }
+                }
             }
         }
 
