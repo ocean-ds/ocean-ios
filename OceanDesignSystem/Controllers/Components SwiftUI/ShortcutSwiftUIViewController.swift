@@ -15,7 +15,7 @@ class ShortcutSwiftUIViewController: UIViewController {
         OceanSwiftUI.ShortcutModel(icon: Ocean.icon.documentOutline,
                                    badgeNumber: nil,
                                    badgeStatus: .disabled,
-                                   title: "Label",
+                                   title: "Label Label Label",
                                    subtitle: "Lorem ipsum dolor sit amet, consectetur. Lorem ipsum dolor sit amet, consectetur.",
                                    blocked: false),
         OceanSwiftUI.ShortcutModel(icon: Ocean.icon.documentOutline,
@@ -108,6 +108,86 @@ class ShortcutSwiftUIViewController: UIViewController {
         }
     }()
 
+    lazy var shortcut7: OceanSwiftUI.Shortcut = {
+        OceanSwiftUI.Shortcut { view in
+            view.parameters.items = examples
+            view.parameters.displayMode = .inline
+            view.parameters.size = .medium
+            view.parameters.orientation = .horizontal
+            view.parameters.onTouch = { index, item in
+                print("\(index): \(item.title)")
+            }
+        }
+    }()
+
+    lazy var shortcut8: OceanSwiftUI.Shortcut = {
+        OceanSwiftUI.Shortcut { view in
+            view.parameters.items = examples
+            view.parameters.displayMode = .inline
+            view.parameters.size = .small
+            view.parameters.orientation = .horizontal
+            view.parameters.onTouch = { index, item in
+                print("\(index): \(item.title)")
+            }
+        }
+    }()
+
+    lazy var shortcut9: OceanSwiftUI.Shortcut = {
+        OceanSwiftUI.Shortcut { view in
+            view.parameters.items = examples
+            view.parameters.displayMode = .inline
+            view.parameters.size = .tiny
+            view.parameters.orientation = .horizontal
+            view.parameters.onTouch = { index, item in
+                print("\(index): \(item.title)")
+            }
+        }
+    }()
+
+    lazy var shortcut10: OceanSwiftUI.Shortcut = {
+        OceanSwiftUI.Shortcut { view in
+            view.parameters.items = examples
+            view.parameters.displayMode = .inline
+            view.parameters.size = .medium
+            view.parameters.orientation = .vertical
+            view.parameters.onTouch = { index, item in
+                print("\(index): \(item.title)")
+            }
+        }
+    }()
+
+
+    lazy var shortcut11: OceanSwiftUI.Shortcut = {
+        OceanSwiftUI.Shortcut { view in
+            view.parameters.items = examples
+            view.parameters.displayMode = .inline
+            view.parameters.size = .small
+            view.parameters.orientation = .vertical
+            view.parameters.onTouch = { index, item in
+                print("\(index): \(item.title)")
+            }
+        }
+    }()
+
+    lazy var shortcut12: OceanSwiftUI.Shortcut = {
+        OceanSwiftUI.Shortcut { view in
+            view.parameters.items = examples
+            view.parameters.displayMode = .inline
+            view.parameters.size = .tiny
+            view.parameters.orientation = .vertical
+            view.parameters.onTouch = { index, item in
+                print("\(index): \(item.title)")
+            }
+        }
+    }()
+
+    lazy var shortcut13: OceanSwiftUI.Shortcut = {
+        OceanSwiftUI.Shortcut { view in
+            view.parameters.displayMode = .inline
+            view.parameters.showSkeleton = true
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackSm) {
             VStack(spacing: Ocean.size.spacingStackXs) {
@@ -152,10 +232,66 @@ class ShortcutSwiftUIViewController: UIViewController {
 
             VStack(spacing: Ocean.size.spacingStackXs) {
                 OceanSwiftUI.Typography.description { label in
-                    label.parameters.text = "Medium - Horizontal"
+                    label.parameters.text = "Skeleton"
                 }
 
                 shortcut6
+            }
+
+            VStack(spacing: Ocean.size.spacingStackXs) {
+                OceanSwiftUI.Typography.description { label in
+                    label.parameters.text = "Medium - Horizontal - Display Inline"
+                }
+
+                shortcut7
+            }
+
+            VStack(spacing: Ocean.size.spacingStackXs) {
+                OceanSwiftUI.Typography.description { label in
+                    label.parameters.text = "Small - Horizontal - Display Inline"
+                }
+
+                shortcut8
+            }
+
+            VStack(spacing: Ocean.size.spacingStackXs) {
+                OceanSwiftUI.Typography.description { label in
+                    label.parameters.text = "Tiny - Horizontal - Display Inline"
+                }
+
+                shortcut9
+            }
+
+            VStack(spacing: Ocean.size.spacingStackXs) {
+                OceanSwiftUI.Typography.description { label in
+                    label.parameters.text = "Medium - Vertical - Display Inline"
+                }
+
+                shortcut10
+            }
+
+            VStack(spacing: Ocean.size.spacingStackXs) {
+                OceanSwiftUI.Typography.description { label in
+                    label.parameters.text = "Small - Vertical - Display Inline"
+                }
+
+                shortcut11
+            }
+
+            VStack(spacing: Ocean.size.spacingStackXs) {
+                OceanSwiftUI.Typography.description { label in
+                    label.parameters.text = "Tiny - Vertical - Display Inline"
+                }
+
+                shortcut12
+            }
+
+            VStack(spacing: Ocean.size.spacingStackXs) {
+                OceanSwiftUI.Typography.description { label in
+                    label.parameters.text = "Skeleton - Display Inline"
+                }
+
+                shortcut13
             }
         }
     })
