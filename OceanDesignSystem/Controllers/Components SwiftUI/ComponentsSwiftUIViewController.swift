@@ -127,6 +127,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(SettingsListItemSwiftUIViewController(), animated: true, completion: nil)
         case .ContentList:
             self.present(ContentListSwiftUIViewController(), animated: true, completion: nil)
+        case .ChartCard:
+            self.present(ChartCardSwiftUIViewController(), animated: true, completion: nil)
         }
     }
 }

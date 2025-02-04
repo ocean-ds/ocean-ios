@@ -98,6 +98,5 @@ struct OceanBarChartView: UIViewRepresentable {
         let formatterNumber = NumberFormatter()
         formatterNumber.numberStyle = .none
         dataSet.valueFormatter = DefaultValueFormatter(formatter: formatterNumber)
-
     }
 }

@@ -74,6 +74,7 @@ struct DSComponents {
         "CardOption",
         "Carousel",
         "ChartBar",
+        "ChartCard",
         "CheckboxGroup",
         "ContentList",
         "Divider",
