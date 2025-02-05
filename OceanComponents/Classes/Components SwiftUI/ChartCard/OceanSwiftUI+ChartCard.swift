@@ -17,10 +17,10 @@ extension OceanSwiftUI {
         @Published public var labelCenterDonut: String
         @Published public var items: [ChartCardItemParameters]
         @Published public var showLegend: Bool
-        @Published public var bottomTitle: String
+        @Published public var buttonTitle: String
         @Published public var buttonIsLoading: Bool
         @Published public var showSkeleton: Bool
-        public var onSelect: ((ChartCardItemParameters?) -> Void)?
+
         public var buttonAction: (() -> Void)?
 
         public init(title: String = "",
@@ -29,10 +29,10 @@ extension OceanSwiftUI {
                     labelCenterDonut: String = "",
                     items: [ChartCardItemParameters] = [],
                     showLegend: Bool = true,
-                    bottomTitle: String = "",
+                    buttonTitle: String = "",
                     buttonIsLoading: Bool = false,
                     showSkeleton: Bool = false,
-                    onSelect: ((ChartCardItemParameters?) -> Void)? = nil,
+                    padding: EdgeInsets = .all(Ocean.size.spacingStackXs),
                     buttonAction: (() -> Void)? = nil) {
             self.title = title
             self.subtitle = subtitle
@@ -40,10 +40,9 @@ extension OceanSwiftUI {
             self.labelCenterDonut = labelCenterDonut
             self.items = items
             self.showLegend = showLegend
-            self.bottomTitle = bottomTitle
+            self.buttonTitle = buttonTitle
             self.buttonIsLoading = buttonIsLoading
             self.showSkeleton = showSkeleton
-            self.onSelect = onSelect
             self.buttonAction = buttonAction
         }
     }
@@ -65,25 +64,6 @@ extension OceanSwiftUI {
 
         // MARK: Properties private
 
-        private var headerView: some View {
-            VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxxs) {
-                if !parameters.title.isEmpty {
-                    OceanSwiftUI.Typography.heading4 { label in
-                        label.parameters.text = parameters.title
-                    }
-                }
-
-                if !parameters.subtitle.isEmpty {
-                    OceanSwiftUI.Typography.description { label in
-                        label.parameters.text = parameters.subtitle
-                    }
-                }
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, Ocean.size.spacingStackSm)
-            .padding(.top, Ocean.size.spacingStackSm)
-        }
-
         // MARK: Constructors
 
         public init(parameters: ChartCardParameters = ChartCardParameters()) {
@@ -98,36 +78,58 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            VStack(spacing: 0) {
-                headerView
+            if parameters.showSkeleton {
+                skeletonView
+            } else {
+                VStack(spacing: 0) {
+                    headerView
 
-                ChartCardView(items: parameters.items,
-                              valueCenterDonut: parameters.valueCenterDonut,
-                              labelCenterDonut: parameters.labelCenterDonut,
-                              onSelect: parameters.onSelect)
-                .frame(height: 300)
-                .allowsHitTesting(false)
+                    ChartCardView(items: parameters.items,
+                                  valueCenterDonut: parameters.valueCenterDonut,
+                                  labelCenterDonut: parameters.labelCenterDonut)
+                    .frame(height: 300)
+                    .allowsHitTesting(false)
 
-                if parameters.showLegend {
-                    legendView
-                }
+                    if parameters.showLegend {
+                        legendView
+                    }
 
-                if !parameters.bottomTitle.isEmpty {
-                    ctaView
+                    if !parameters.buttonTitle.isEmpty, !parameters.showSkeleton {
+                        Divider()
+                            .padding(.top, Ocean.size.spacingStackSm)
+
+                        ctaView
+                    }
                 }
             }
-//            .background(Color(Ocean.color.colorInterfaceLightPure))
-//            .clipShape(RoundedRectangle(cornerRadius: Ocean.size.borderRadiusMd))
-//            .overlay(
-//                RoundedRectangle(cornerRadius: Ocean.size.borderRadiusMd)
-//                    .stroke(Color(Ocean.color.colorInterfaceLightDown), lineWidth: 1)
-//            )
         }
 
+        @ViewBuilder
+        private var headerView: some View {
+            VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxxs) {
+                if !parameters.title.isEmpty {
+                    OceanSwiftUI.Typography.heading4 { label in
+                        label.parameters.text = parameters.title
+                        label.parameters.showSkeleton = parameters.showSkeleton
+                    }
+                }
+
+                if !parameters.subtitle.isEmpty {
+                    OceanSwiftUI.Typography.description { label in
+                        label.parameters.text = parameters.subtitle
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, Ocean.size.spacingStackSm)
+            .padding(.top, Ocean.size.spacingStackSm)
+        }
+
+        @ViewBuilder
         private var legendView: some View {
             VStack(spacing: Ocean.size.spacingStackXxs) {
                 ForEach(0..<parameters.items.count, id: \.self) { index in
-                        ChartCardItem(parameters: parameters.items[index])
+                    ChartCardItem(parameters: parameters.items[index])
 
                         if index < parameters.items.count - 1 {
                             Divider()
@@ -141,11 +143,46 @@ extension OceanSwiftUI {
         @ViewBuilder
         private var ctaView: some View {
             CardCTA { view in
-                view.parameters.text = parameters.bottomTitle
+                view.parameters.text = parameters.buttonTitle
                 view.parameters.onTouch = parameters.buttonAction ?? {}
                 view.parameters.isLoading = parameters.buttonIsLoading
             }
         }
 
+        @ViewBuilder
+        private var legendSkeletonView: some View {
+            VStack(spacing: Ocean.size.spacingStackXxs) {
+                ForEach(0..<3, id: \.self) { index in
+                    Skeleton()
+
+                    if index < parameters.items.count - 1 {
+                        Divider()
+                    }
+                }
+            }
+            .padding(.horizontal, Ocean.size.spacingStackXs)
+        }
+
+        @ViewBuilder
+        private var donutSkeletonView: some View {
+            Circle()
+                .frame(width: 300, height: 300)
+                .oceanSkeleton(isActive: true)
+                .overlay(
+                    Circle()
+                        .frame(width: 200, height: 200)
+                        .foregroundColor(Color(Ocean.color.colorInterfaceLightPure))
+                )
+        }
+
+        @ViewBuilder
+        private var skeletonView: some View {
+            VStack(alignment: .center, spacing: Ocean.size.spacingStackXs) {
+                donutSkeletonView
+
+                legendSkeletonView
+            }
+            .padding(.vertical, Ocean.size.spacingStackXs)
+        }
     }
 }

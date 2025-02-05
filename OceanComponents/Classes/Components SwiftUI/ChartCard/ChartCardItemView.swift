@@ -17,20 +17,17 @@ extension OceanSwiftUI {
         @Published public var value: Double
         @Published public var color: UIColor
         @Published public var valueRepresentationType: ValueRepresentationType
-        @Published public var showSkeleton: Bool
 
         public init(title: String = "",
                     subtitle: String = "",
                     value: Double = 0,
                     color: UIColor = Ocean.color.colorBrandPrimaryPure,
-                    valueRepresentationType: ValueRepresentationType = .percent,
-                    showSkeleton: Bool = true) {
+                    valueRepresentationType: ValueRepresentationType = .percent) {
             self.title = title
             self.subtitle = subtitle
             self.value = value
             self.color = color
             self.valueRepresentationType = valueRepresentationType
-            self.showSkeleton = showSkeleton
         }
     }
 
@@ -81,48 +78,34 @@ extension OceanSwiftUI {
         // MARK: - View
         
         public var body: some View {
-            GeometryReader { geometry in
-                HStack(alignment: .center, spacing: Ocean.size.spacingStackXxs) {
+            HStack(alignment: .center, spacing: Ocean.size.spacingStackXxs) {
+                VStack(alignment: .leading, spacing: Ocean.size.spacingInlineXxxs) {
+                    titleRow
 
-                    VStack(alignment: .leading, spacing: Ocean.size.spacingInlineXxxs) {
-
-                        HStack(alignment: .center, spacing: Ocean.size.spacingInlineXxs) {
-                            indicatorView
-
-                            titleRow
-                        }
-
-                        subtitleView
-                            .padding(.leading, Ocean.size.spacingInlineXs)
-                    }
-
-                    Spacer()
-
-                    valueView
+                    subtitleView
+                        .padding(.leading, Ocean.size.spacingInlineXs)
                 }
-                .oceanSkeleton(isActive: parameters.showSkeleton,
-                               size: .init(width: geometry.size.width, height: 30),
-                               shape: .rounded(.radius(8, style: .continuous)),
-                               lines: 2,
-                               scales: [0: 0.7, 1: 1])
+
+                Spacer()
+
+                valueView
             }
         }
 
         // MARK: - Subviews
 
         @ViewBuilder
-        private var indicatorView: some View {
-            Circle()
-                .fill(Color(self.parameters.color))
-                .frame(width: Ocean.size.spacingStackXxs,
-                       height: Ocean.size.spacingStackXxs)
-        }
-
-        @ViewBuilder
         private var titleRow: some View {
-            OceanSwiftUI.Typography.description { label in
-                label.parameters.text = parameters.title
-                label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
+            HStack(alignment: .center, spacing: Ocean.size.spacingInlineXxs) {
+                OceanSwiftUI.Typography.description { label in
+                    label.parameters.text = parameters.title
+                    label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
+                }
+
+                Circle()
+                    .fill(Color(self.parameters.color))
+                    .frame(width: Ocean.size.spacingStackXxs,
+                           height: Ocean.size.spacingStackXxs)
             }
         }
 

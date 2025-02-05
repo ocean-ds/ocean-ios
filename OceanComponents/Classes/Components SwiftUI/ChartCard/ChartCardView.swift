@@ -19,16 +19,13 @@ extension OceanSwiftUI {
         public let items: [ChartCardItemParameters]
         public let valueCenterDonut: String
         public let labelCenterDonut: String
-        public var onSelect: ((ChartCardItemParameters?) -> Void)?
 
         public init(items: [ChartCardItemParameters],
                     valueCenterDonut: String,
-                    labelCenterDonut: String,
-                    onSelect: ( (ChartCardItemParameters?) -> Void)? = nil) {
+                    labelCenterDonut: String) {
             self.items = items
             self.valueCenterDonut = valueCenterDonut
             self.labelCenterDonut = labelCenterDonut
-            self.onSelect = onSelect
         }
 
         // MARK: UIViewRepresentable
@@ -46,7 +43,6 @@ extension OceanSwiftUI {
 
         private func setupChartView(_ chartView: PieChartView, context: Context) {
             chartView.configurePieChartViewAppearance()
-            chartView.delegate = context.coordinator
         }
 
         private func updateChartData(_ chartView: PieChartView) {
@@ -85,29 +81,6 @@ extension OceanSwiftUI {
                     ]))
 
             chartView.centerAttributedText = attributedString
-        }
-
-        func makeCoordinator() -> Coordinator {
-            Coordinator(onSelect: onSelect)
-        }
-
-        class Coordinator: NSObject, ChartViewDelegate {
-            var onSelect: ((ChartCardItemParameters?) -> Void)?
-
-            init(onSelect: ((ChartCardItemParameters?) -> Void)?) {
-                self.onSelect = onSelect
-            }
-
-            public func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-                // Implement chart selection handling
-                print(chartView)
-                print(entry)
-                print(highlight)
-            }
-
-            func chartValueNothingSelected(_ chartView: ChartViewBase) {
-                onSelect?(nil)
-            }
         }
     }
 }
