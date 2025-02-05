@@ -19,6 +19,8 @@ class ChartCardSwiftUIViewController: UIViewController {
             view.parameters.subtitle = ""
             view.parameters.valueCenterDonut = "4"
             view.parameters.labelCenterDonut = "Vendas"
+            view.parameters.buttonAction = { print("cta touched") }
+            view.parameters.buttonTitle = "Cta Title"
             view.parameters.items = [
                 OceanSwiftUI.ChartCardItemParameters(title: "Crédito parcelado",
                                                      subtitle: "1 venda",
@@ -36,10 +38,6 @@ class ChartCardSwiftUIViewController: UIViewController {
                                                      color: Ocean.color.colorComplementaryPure,
                                                      valueRepresentationType: .monetary)
             ]
-            view.parameters.onSelect = { model in
-                print("Touched!")
-                print(model)
-            }
             view.parameters.showSkeleton = true
         }
     }()
