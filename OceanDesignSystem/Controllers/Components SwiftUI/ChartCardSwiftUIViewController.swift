@@ -85,5 +85,3 @@ struct ChartCardSwiftUIViewController_Preview: PreviewProvider {
         }
     }
 }
-
-
