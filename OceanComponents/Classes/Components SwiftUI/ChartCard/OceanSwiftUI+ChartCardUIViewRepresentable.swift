@@ -1,5 +1,5 @@
 //
-//  ChartCardView.swift
+//  OceanSwiftUI+ChartCardUIViewRepresentable.swift
 //  DGCharts
 //
 //  Created by Acassio Mendonça on 04/02/25.
@@ -12,7 +12,8 @@ import OceanTokens
 import DGCharts
 
 extension OceanSwiftUI {
-    struct ChartCardView: UIViewRepresentable {
+
+    struct ChartCardUIViewRepresentable: UIViewRepresentable {
 
         // MARK: Properties
 
@@ -40,6 +41,8 @@ extension OceanSwiftUI {
             updateChartData(chartView)
             updateCenterText(chartView)
         }
+
+        // MARK: Private methods
 
         private func setupChartView(_ chartView: PieChartView, context: Context) {
             chartView.configurePieChartViewAppearance()

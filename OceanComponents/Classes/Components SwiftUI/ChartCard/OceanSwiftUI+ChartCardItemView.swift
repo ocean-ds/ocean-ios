@@ -1,5 +1,5 @@
 //
-//  ChartCardItemView.swift
+//  OceanSwiftUI+ChartCardItemView.swift
 //  DGCharts
 //
 //  Created by Acassio Mendonça on 04/02/25.
@@ -29,12 +29,12 @@ extension OceanSwiftUI {
             self.color = color
             self.valueRepresentationType = valueRepresentationType
         }
-    }
 
-    public enum ValueRepresentationType {
-        case percent
-        case decimal
-        case monetary
+        public enum ValueRepresentationType {
+            case percent
+            case decimal
+            case monetary
+        }
     }
 
     public struct ChartCardItem: View {
@@ -51,48 +51,8 @@ extension OceanSwiftUI {
         // MARK: Properties
 
         @ObservedObject public var parameters: ChartCardItemParameters
-        @State private var isActive: Bool = true
 
-        private var formattedValue: String {
-            switch parameters.valueRepresentationType {
-            case .decimal:
-                return String(format: "%.2f", parameters.value)
-            case .percent:
-                return String(format: "%.1f%%", parameters.value)
-            case .monetary:
-                return String(format: "R$ %.2f", parameters.value)
-            }
-        }
-
-        // MARK: Constructors
-
-        public init(parameters: ChartCardItemParameters = ChartCardItemParameters()) {
-            self.parameters = parameters
-        }
-
-        public init(builder: Builder) {
-            self.init()
-            builder(self)
-        }
-
-        // MARK: - View
-        
-        public var body: some View {
-            HStack(alignment: .center, spacing: Ocean.size.spacingStackXxs) {
-                VStack(alignment: .leading, spacing: Ocean.size.spacingInlineXxxs) {
-                    titleRow
-
-                    subtitleView
-                        .padding(.leading, Ocean.size.spacingInlineXs)
-                }
-
-                Spacer()
-
-                valueView
-            }
-        }
-
-        // MARK: - Subviews
+        // MARK: Properties private
 
         @ViewBuilder
         private var titleRow: some View {
@@ -124,6 +84,45 @@ extension OceanSwiftUI {
             OceanSwiftUI.Typography.description { label in
                 label.parameters.text = formattedValue
                 label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
+            }
+        }
+
+        private var formattedValue: String {
+            switch parameters.valueRepresentationType {
+            case .decimal:
+                return parameters.value.toDecimal()
+            case .percent:
+                return "\(parameters.value.toPercent())"
+            case .monetary:
+                return parameters.value.toCurrency(symbolSpace: true) ?? ""
+            }
+        }
+
+        // MARK: Constructors
+
+        public init(parameters: ChartCardItemParameters = ChartCardItemParameters()) {
+            self.parameters = parameters
+        }
+
+        public init(builder: Builder) {
+            self.init()
+            builder(self)
+        }
+
+        // MARK: View SwiftUI
+
+        public var body: some View {
+            HStack(alignment: .center, spacing: Ocean.size.spacingStackXxs) {
+                VStack(alignment: .leading, spacing: Ocean.size.spacingInlineXxxs) {
+                    titleRow
+
+                    subtitleView
+                        .padding(.leading, Ocean.size.spacingInlineXs)
+                }
+
+                Spacer()
+
+                valueView
             }
         }
     }

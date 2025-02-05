@@ -64,46 +64,6 @@ extension OceanSwiftUI {
 
         // MARK: Properties private
 
-        // MARK: Constructors
-
-        public init(parameters: ChartCardParameters = ChartCardParameters()) {
-            self.parameters = parameters
-        }
-
-        public init(builder: Builder) {
-            self.init()
-            builder(self)
-        }
-
-        // MARK: View SwiftUI
-
-        public var body: some View {
-            if parameters.showSkeleton {
-                skeletonView
-            } else {
-                VStack(spacing: 0) {
-                    headerView
-
-                    ChartCardView(items: parameters.items,
-                                  valueCenterDonut: parameters.valueCenterDonut,
-                                  labelCenterDonut: parameters.labelCenterDonut)
-                    .frame(height: 300)
-                    .allowsHitTesting(false)
-
-                    if parameters.showLegend {
-                        legendView
-                    }
-
-                    if !parameters.buttonTitle.isEmpty, !parameters.showSkeleton {
-                        Divider()
-                            .padding(.top, Ocean.size.spacingStackSm)
-
-                        ctaView
-                    }
-                }
-            }
-        }
-
         @ViewBuilder
         private var headerView: some View {
             VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxxs) {
@@ -131,9 +91,9 @@ extension OceanSwiftUI {
                 ForEach(0..<parameters.items.count, id: \.self) { index in
                     ChartCardItem(parameters: parameters.items[index])
 
-                        if index < parameters.items.count - 1 {
-                            Divider()
-                        }
+                    if index < parameters.items.count - 1 {
+                        Divider()
+                    }
 
                 }
             }
@@ -183,6 +143,46 @@ extension OceanSwiftUI {
                 legendSkeletonView
             }
             .padding(.vertical, Ocean.size.spacingStackXs)
+        }
+
+        // MARK: Constructors
+
+        public init(parameters: ChartCardParameters = ChartCardParameters()) {
+            self.parameters = parameters
+        }
+
+        public init(builder: Builder) {
+            self.init()
+            builder(self)
+        }
+
+        // MARK: View SwiftUI
+
+        public var body: some View {
+            if parameters.showSkeleton {
+                skeletonView
+            } else {
+                VStack(spacing: 0) {
+                    headerView
+
+                    ChartCardUIViewRepresentable(items: parameters.items,
+                                                 valueCenterDonut: parameters.valueCenterDonut,
+                                                 labelCenterDonut: parameters.labelCenterDonut)
+                    .frame(height: 300)
+                    .allowsHitTesting(false)
+
+                    if parameters.showLegend {
+                        legendView
+                    }
+
+                    if !parameters.buttonTitle.isEmpty, !parameters.showSkeleton {
+                        Divider()
+                            .padding(.top, Ocean.size.spacingStackSm)
+
+                        ctaView
+                    }
+                }
+            }
         }
     }
 }
