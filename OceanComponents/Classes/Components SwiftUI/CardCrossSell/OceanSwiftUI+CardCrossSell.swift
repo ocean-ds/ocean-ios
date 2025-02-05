@@ -117,13 +117,12 @@ extension OceanSwiftUI {
                 .background(Color(self.parameters.backgroundColor))
                 .cornerRadius(Ocean.size.borderRadiusMd, corners: [.topLeft, .topRight])
 
-                if !parameters.showSkeleton {
-                    CardCTA { cardCTA in
-                        cardCTA.parameters.text = self.parameters.ctaText
-                        cardCTA.parameters.icon = self.parameters.ctaIcon
-                        cardCTA.parameters.isLoading = self.parameters.isLoading
-                        cardCTA.parameters.onTouch = self.parameters.onTouch
-                    }
+                CardCTA { cardCTA in
+                    cardCTA.parameters.text = self.parameters.ctaText
+                    cardCTA.parameters.icon = self.parameters.ctaIcon
+                    cardCTA.parameters.isLoading = self.parameters.isLoading
+                    cardCTA.parameters.onTouch = self.parameters.onTouch
+                    cardCTA.parameters.showSkeleton = self.parameters.showSkeleton
                 }
             }
             .padding(.all, 1)

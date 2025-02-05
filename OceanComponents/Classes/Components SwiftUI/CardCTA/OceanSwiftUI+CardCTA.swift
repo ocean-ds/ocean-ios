@@ -16,15 +16,18 @@ extension OceanSwiftUI {
         @Published public var text: String
         @Published public var icon: UIImage?
         @Published public var isLoading: Bool
+        @Published public var showSkeleton: Bool
         public var onTouch: () -> Void
 
         public init(text: String = "",
                     icon: UIImage? = Ocean.icon.chevronRightSolid,
                     isLoading: Bool = false,
+                    showSkeleton: Bool = false,
                     onTouch: @escaping () -> Void = { }) {
             self.text = text
             self.icon = icon
             self.isLoading = isLoading
+            self.showSkeleton = showSkeleton
             self.onTouch = onTouch
         }
     }
@@ -75,6 +78,7 @@ extension OceanSwiftUI {
                             Typography.heading5 { label in
                                 label.parameters.text = self.parameters.text
                                 label.parameters.textColor = Ocean.color.colorBrandPrimaryPure
+                                label.parameters.showSkeleton = self.parameters.showSkeleton
                             }
 
                             Spacer()
@@ -83,9 +87,11 @@ extension OceanSwiftUI {
                                 Image(uiImage: icon)
                                     .renderingMode(.template)
                                     .foregroundColor(Color(Ocean.color.colorBrandPrimaryPure))
+                                    .oceanSkeleton(isActive: parameters.showSkeleton)
                             }
                         }
                     })
+                    .disabled(parameters.showSkeleton)
                 }
             }
             .frame(height: 48)
