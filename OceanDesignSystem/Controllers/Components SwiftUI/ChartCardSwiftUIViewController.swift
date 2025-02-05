@@ -41,7 +41,6 @@ class ChartCardSwiftUIViewController: UIViewController {
         }
     }()
 
-
     lazy var view2: OceanSwiftUI.ChartCard = {
         return OceanSwiftUI.ChartCard { view in
             view.parameters.title = "Total do período: R$ 4.302,00"
@@ -54,8 +53,6 @@ class ChartCardSwiftUIViewController: UIViewController {
             view.parameters.showSkeleton = true
         }
     }()
-
-
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
