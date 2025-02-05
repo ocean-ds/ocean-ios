@@ -97,15 +97,15 @@ extension OceanSwiftUI {
         @ViewBuilder
         private var titleRow: some View {
             HStack(alignment: .center, spacing: Ocean.size.spacingInlineXxs) {
-                OceanSwiftUI.Typography.description { label in
-                    label.parameters.text = parameters.title
-                    label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
-                }
-
                 Circle()
                     .fill(Color(self.parameters.color))
                     .frame(width: Ocean.size.spacingStackXxs,
                            height: Ocean.size.spacingStackXxs)
+
+                OceanSwiftUI.Typography.description { label in
+                    label.parameters.text = parameters.title
+                    label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
+                }
             }
         }
 
