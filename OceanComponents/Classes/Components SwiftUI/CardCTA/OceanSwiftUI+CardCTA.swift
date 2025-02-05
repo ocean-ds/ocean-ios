@@ -63,47 +63,41 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            if self.parameters.showSkeleton {
-                OceanSwiftUI.Skeleton { skeleton in
-                    skeleton.parameters.radius = Ocean.size.borderRadiusMd
-                    skeleton.parameters.lines = 1
-                }
-                .frame(height: 48)
-                .padding(.horizontal, Ocean.size.spacingStackXs)
-            } else {
-                HStack(alignment: .center, spacing: 0) {
-                    if self.parameters.isLoading {
-                        Spacer()
+            HStack(alignment: .center, spacing: 0) {
+                if self.parameters.isLoading {
+                    Spacer()
 
-                        CircularProgressIndicator(parameters: .init(style: .primary))
+                    CircularProgressIndicator(parameters: .init(style: .primary))
 
-                        Spacer()
-                    } else {
-                        SwiftUI.Button(action: {
-                            self.parameters.onTouch()
-                        }, label: {
-                            HStack(spacing: Ocean.size.spacingStackXxs) {
-                                Typography.heading5 { label in
-                                    label.parameters.text = self.parameters.text
-                                    label.parameters.textColor = Ocean.color.colorBrandPrimaryPure
-                                }
-
-                                Spacer()
-
-                                if let icon = self.parameters.icon {
-                                    Image(uiImage: icon)
-                                        .renderingMode(.template)
-                                        .foregroundColor(Color(Ocean.color.colorBrandPrimaryPure))
-                                }
+                    Spacer()
+                } else {
+                    SwiftUI.Button(action: {
+                        self.parameters.onTouch()
+                    }, label: {
+                        HStack(spacing: Ocean.size.spacingStackXxs) {
+                            Typography.heading5 { label in
+                                label.parameters.text = self.parameters.text
+                                label.parameters.textColor = Ocean.color.colorBrandPrimaryPure
+                                label.parameters.showSkeleton = self.parameters.showSkeleton
                             }
-                        })
-                    }
+
+                            Spacer()
+
+                            if let icon = self.parameters.icon {
+                                Image(uiImage: icon)
+                                    .renderingMode(.template)
+                                    .foregroundColor(Color(Ocean.color.colorBrandPrimaryPure))
+                                    .oceanSkeleton(isActive: parameters.showSkeleton)
+                            }
+                        }
+                    })
+                    .disabled(parameters.showSkeleton)
                 }
-                .frame(height: 48)
-                .padding(.horizontal, Ocean.size.spacingStackXs)
-                .cornerRadius(Ocean.size.borderRadiusMd)
-                .background(Color(Ocean.color.colorInterfaceLightPure))
             }
+            .frame(height: 48)
+            .padding(.horizontal, Ocean.size.spacingStackXs)
+            .cornerRadius(Ocean.size.borderRadiusMd)
+            .background(Color(Ocean.color.colorInterfaceLightPure))
         }
 
         // MARK: Methods private

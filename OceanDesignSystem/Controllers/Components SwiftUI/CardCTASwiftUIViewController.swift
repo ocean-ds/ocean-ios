@@ -24,17 +24,9 @@ class CardCTASwiftUIViewController: UIViewController {
         }
     }()
 
-    lazy var cardCTAWithSkeleton: OceanSwiftUI.CardCTA = {
-        OceanSwiftUI.CardCTA { view in
-            view.parameters.showSkeleton = true
-        }
-    }()
-
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             cardCTA
-
-            cardCTAWithSkeleton
         }
     })
 

@@ -438,32 +438,3 @@ extension Ocean {
         }
     }
 }
-
-// MARK: PieChartDataSet
-
-extension PieChartDataSet {
-    func configureDataSetAppearance() {
-        drawValuesEnabled = false
-        drawIconsEnabled = false
-        selectionShift = 0.0
-    }
-}
-
-// MARK: PieChartView
-
-extension PieChartView {
-    func configurePieChartViewAppearance() {
-        holeRadiusPercent = 0.65
-        transparentCircleRadiusPercent = 0.5
-        chartDescription.enabled = false
-        setExtraOffsets(left: 5, top: 10, right: 5, bottom: 5)
-        drawHoleEnabled = true
-        rotationAngle = 0
-        rotationEnabled = false
-        highlightPerTapEnabled = true
-        drawEntryLabelsEnabled = false
-        drawCenterTextEnabled = true
-        legend.enabled = false
-        rotationAngle = 270
-    }
-}

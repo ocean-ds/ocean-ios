@@ -28,9 +28,28 @@ class CardCrossSellSwiftUIViewController: UIViewController {
         }
     }()
 
+    lazy var cardCrossSell1: OceanSwiftUI.CardCrossSell = {
+        OceanSwiftUI.CardCrossSell { view in
+            view.parameters.title = "Mais saldo para seus pagamentos"
+            view.parameters.subtitle = "Aproveite os recebíveis de outras maquininhas para pagar os boletos deste fornecedor."
+            view.parameters.image = UIImage(named: "calendar-coin")
+            view.parameters.ctaText = "Incluir no contrato"
+            view.parameters.ctaIcon = Ocean.icon.plusOutline
+            view.parameters.onTouch = {
+                view.parameters.isLoading = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    view.parameters.isLoading = false
+                }
+            }
+            view.parameters.showSkeleton = true
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             cardCrossSell
+
+            cardCrossSell1
         }
     })
 
