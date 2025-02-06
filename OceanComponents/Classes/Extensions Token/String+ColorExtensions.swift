@@ -9,7 +9,7 @@ import Foundation
 import OceanTokens
 
 public extension String {
-    func toOceanColor() -> UIColor {
+    func toOceanColor(altColor: UIColor = Ocean.color.colorInterfaceDarkDown) -> UIColor {
         switch self.lowercased() {
         case "colorbrandprimarydeep": return Ocean.color.colorBrandPrimaryDeep
         case "colorbrandprimarydown": return Ocean.color.colorBrandPrimaryDown
@@ -43,7 +43,7 @@ public extension String {
         case "colorstatuspositivedown": return Ocean.color.colorStatusPositiveDown
         case "colorstatuspositivepure": return Ocean.color.colorStatusPositivePure
         case "colorstatuspositiveup": return Ocean.color.colorStatusPositiveUp
-        default: return Ocean.color.colorInterfaceDarkDown
+        default: return altColor
         }
     }
 }

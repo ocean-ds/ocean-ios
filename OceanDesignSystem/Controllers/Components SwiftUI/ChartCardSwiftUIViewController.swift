@@ -43,13 +43,16 @@ class ChartCardSwiftUIViewController: UIViewController {
 
     lazy var view2: OceanSwiftUI.ChartCard = {
         return OceanSwiftUI.ChartCard { view in
-            view.parameters.title = "Total do período: R$ 4.302,00"
+            view.parameters.title = "Total do período: R$ 0,00"
             view.parameters.subtitle = ""
-            view.parameters.valueCenterDonut = "4"
+            view.parameters.valueCenterDonut = "0"
             view.parameters.labelCenterDonut = "Vendas"
-            view.parameters.buttonAction = { print("cta touched") }
-            view.parameters.buttonTitle = "Cta Title"
             view.parameters.items = []
+        }
+    }()
+
+    lazy var view3: OceanSwiftUI.ChartCard = {
+        return OceanSwiftUI.ChartCard { view in
             view.parameters.showSkeleton = true
         }
     }()
@@ -58,9 +61,9 @@ class ChartCardSwiftUIViewController: UIViewController {
         VStack(spacing: Ocean.size.spacingStackXs) {
             view1
 
-            OceanSwiftUI.Divider()
-
             view2
+
+            view3
         }
     })
 
