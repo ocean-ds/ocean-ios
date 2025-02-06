@@ -21,7 +21,7 @@ extension OceanSwiftUI {
         public init(title: String = "",
                     subtitle: String = "",
                     value: Double = 0,
-                    color: UIColor = Ocean.color.colorBrandPrimaryPure,
+                    color: UIColor = Ocean.color.colorInterfaceLightDeep,
                     valueRepresentationType: ValueRepresentationType = .percent) {
             self.title = title
             self.subtitle = subtitle

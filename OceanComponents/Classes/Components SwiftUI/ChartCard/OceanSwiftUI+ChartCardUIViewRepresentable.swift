@@ -46,9 +46,19 @@ extension OceanSwiftUI {
 
         private func setupChartView(_ chartView: PieChartView, context: Context) {
             chartView.configurePieChartViewAppearance()
+            chartView.animate(xAxisDuration: 1, yAxisDuration: 1.5)
         }
 
         private func updateChartData(_ chartView: PieChartView) {
+            let dataSet = createDataSet()
+            chartView.data = PieChartData(dataSet: dataSet)
+        }
+
+        private func createDataSet() -> PieChartDataSet {
+            if items.allSatisfy({ $0.value == 0 }) {
+                return createEmptyDataSet()
+            }
+
             let entries = items.map { PieChartDataEntry(value: $0.value, data: $0.value) }
             let colors = items.map { $0.color }
 
@@ -56,8 +66,15 @@ extension OceanSwiftUI {
             dataSet.configureDataSetAppearance()
             dataSet.colors = colors
 
-            chartView.data = PieChartData(dataSet: dataSet)
-            chartView.animate(xAxisDuration: 1, yAxisDuration: 1.5)
+            return dataSet
+        }
+
+        private func createEmptyDataSet() -> PieChartDataSet {
+            let emptyEntry = PieChartDataEntry(value: 1, data: 0)
+            let dataSet = PieChartDataSet(entries: [emptyEntry])
+            dataSet.configureDataSetAppearance()
+            dataSet.colors = [Ocean.color.colorInterfaceLightDeep]
+            return dataSet
         }
 
         private func updateCenterText(_ chartView: PieChartView) {
