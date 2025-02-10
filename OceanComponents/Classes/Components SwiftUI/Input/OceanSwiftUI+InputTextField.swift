@@ -33,9 +33,11 @@ extension OceanSwiftUI {
         @Published public var isDisabled: Bool
         @Published public var showSkeleton: Bool
         @Published public var reserveMessageHeight: Bool
+        @Published public var isFocused: Bool
         public var onMask: ((String) -> String)?
         public var onValueChanged: (String) -> Void
         public var onEditingChanged: (Bool) -> Void
+        public var onFocusChanged: (Bool) -> Void
         public var onTouchIcon: () -> Void
         public var onTouchIconHelper: () -> Void
 
@@ -58,9 +60,11 @@ extension OceanSwiftUI {
                     isDisabled: Bool = false,
                     showSkeleton: Bool = false,
                     reserveMessageHeight: Bool = true,
+                    isFocused: Bool = true,
                     onMask: ((String) -> String)? = nil,
                     onValueChanged: @escaping (String) -> Void = { _ in },
                     onEditingChanged: @escaping (Bool) -> Void = { _ in },
+                    onFocusChanged: @escaping (Bool) -> Void = { _ in },
                     onTouchIcon: @escaping () -> Void = { },
                     onTouchIconHelper: @escaping () -> Void = { }) {
             self.title = title
@@ -82,9 +86,11 @@ extension OceanSwiftUI {
             self.isDisabled = isDisabled
             self.showSkeleton = showSkeleton
             self.reserveMessageHeight = reserveMessageHeight
+            self.isFocused = isFocused
             self.onMask = onMask
             self.onValueChanged = onValueChanged
             self.onEditingChanged = onEditingChanged
+            self.onFocusChanged = onFocusChanged
             self.onTouchIcon = onTouchIcon
             self.onTouchIconHelper = onTouchIconHelper
         }
@@ -135,6 +141,28 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         private var textFieldView: some View {
+            Group {
+                if #available(iOS 15.0, *) {
+                    FocusWrapper(
+                        requestFocus: Binding(
+                            get: { self.parameters.isFocused },
+                            set: { self.parameters.isFocused = $0 }
+                        ),
+                        onFocusChanged: { newValue in
+                            self.focused = newValue
+                            self.parameters.onFocusChanged(newValue)
+                        }
+                    ) { focusBinding in
+                        baseTextFieldView
+                            .focused(focusBinding)
+                    }
+                } else {
+                    baseTextFieldView
+                }
+            }
+        }
+
+        private var baseTextFieldView: some View {
             Group {
                 switch self.parameters.style {
                 case .input:
