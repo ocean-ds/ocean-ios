@@ -94,6 +94,7 @@ public extension String {
         case "scoreoutline": return Ocean.icon.scoreOutline
         case "cardmachinesolid": return Ocean.icon.cardMachineSolid
         case "lighthouseoutline": return Ocean.icon.lighthouseOutline
+        case "chatalt3outline": return Ocean.icon.chatAlt3Outline
             // HeroIcons
         case "academiccapoutline": return Ocean.icon.academicCapOutline
         case "academiccapsolid": return Ocean.icon.academicCapSolid
