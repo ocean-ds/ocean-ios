@@ -10,11 +10,29 @@ import OceanTokens
 import SwiftUI
 
 class TextListItemSwiftUIViewController: UIViewController {
+    lazy var textListItem1: OceanSwiftUI.TextListItem = {
+        OceanSwiftUI.TextListItem { textListItem in
+            textListItem.parameters.title = "Title 1"
+            textListItem.parameters.description = "Description"
+            textListItem.parameters.showSkeleton = true
+            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
+                                                    leading: 0,
+                                                    bottom: Ocean.size.spacingStackXxs,
+                                                    trailing: 0)
+        }
+    }()
+
     lazy var textListItem2: OceanSwiftUI.TextListItem = {
         OceanSwiftUI.TextListItem { textListItem in
             textListItem.parameters.title = "Title 2"
             textListItem.parameters.description = "Description"
-            textListItem.parameters.showSkeleton = true
+            textListItem.parameters.caption = "Caption"
+            textListItem.parameters.icon = Ocean.icon.chatAlt3Outline
+            textListItem.parameters.actionIcon = Ocean.icon.externalLinkSolid
+            textListItem.parameters.hasAction = true
+            textListItem.parameters.onTouch = {
+                print("Touched!")
+            }
             textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
                                                     leading: 0,
                                                     bottom: Ocean.size.spacingStackXxs,
@@ -164,6 +182,7 @@ class TextListItemSwiftUIViewController: UIViewController {
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
 
         VStack(spacing: Ocean.size.spacingStackXs) {
+            textListItem1
             textListItem2
             textListItem3
             textListItem4
