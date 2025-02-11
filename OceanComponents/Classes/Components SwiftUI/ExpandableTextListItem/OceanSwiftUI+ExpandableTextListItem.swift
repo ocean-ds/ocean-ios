@@ -79,6 +79,8 @@ extension OceanSwiftUI {
 
         @State private var rotation: Double = 0.0
 
+        private let animationDuration: Double = 0.3
+
         // MARK: Constructors
 
         public init(parameters: ExpandableTextListItemParameters = ExpandableTextListItemParameters()) {
@@ -136,12 +138,12 @@ extension OceanSwiftUI {
                     view.onTapGesture {
                         parameters.status = parameters.status == .collapsed ? .expanded : .collapsed
                         parameters.onTouchAction()
-                        withAnimation(.linear(duration: 1)) {
+                        withAnimation(.linear(duration: animationDuration)) {
                             rotation = parameters.status == .collapsed ? 0 : -180
                         }
                     }
                 })
-                .animation(.easeInOut(duration: 0.8), value: parameters.status)
+                .animation(.easeInOut(duration: animationDuration), value: parameters.status)
 
                 if parameters.status == .expanded {
                     ForEach(parameters.content.indices, id: \.self) { index in
