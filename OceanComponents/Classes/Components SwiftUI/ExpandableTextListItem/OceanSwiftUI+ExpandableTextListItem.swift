@@ -17,7 +17,6 @@ extension OceanSwiftUI {
         @Published public var icon: UIImage?
         @Published public var iconColor: UIColor
         @Published public var iconBackgroundColor: UIColor
-        @Published public var actionText: String
         @Published public var status: Status
         @Published public var items: [TextListItemParameters]
         @Published public var hasDivider: Bool
@@ -32,7 +31,6 @@ extension OceanSwiftUI {
                     icon: UIImage? = nil,
                     iconColor: UIColor = Ocean.color.colorBrandPrimaryDown,
                     iconBackgroundColor: UIColor = Ocean.color.colorInterfaceLightUp,
-                    actionText: String = "",
                     status: Status = .collapsed,
                     items: [TextListItemParameters] = [],
                     hasDivider: Bool = true,
@@ -45,7 +43,6 @@ extension OceanSwiftUI {
             self.icon = icon
             self.iconColor = iconColor
             self.iconBackgroundColor = iconBackgroundColor
-            self.actionText = actionText
             self.status = status
             self.items = items
             self.hasDivider = hasDivider
