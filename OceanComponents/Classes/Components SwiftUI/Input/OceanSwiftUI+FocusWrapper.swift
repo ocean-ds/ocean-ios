@@ -32,11 +32,6 @@ extension OceanSwiftUI {
             content($isFocused)
                 .onChange(of: requestFocus) { newValue in
                     isFocused = newValue
-                }
-                .onChange(of: isFocused) { newValue in
-                    if requestFocus != newValue {
-                        requestFocus = newValue
-                    }
                     onFocusChanged(newValue)
                 }
                 .onChange(of: isFocused) { focus in

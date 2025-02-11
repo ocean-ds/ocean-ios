@@ -155,6 +155,10 @@ extension OceanSwiftUI {
                         onFocusChanged: { newValue in
                             self.focused = newValue
                             self.parameters.onFocusChanged(newValue)
+
+                            if parameters.selectAllFocusedText, newValue {
+                                selectAllText()
+                            }
                         }
                     ) { focusBinding in
                         baseTextFieldView
@@ -389,6 +393,12 @@ extension OceanSwiftUI {
                 return Ocean.color.colorBrandPrimaryDown
             } else {
                 return Ocean.color.colorInterfaceLightDeep
+            }
+        }
+
+        private func selectAllText() {
+            DispatchQueue.main.async {
+                UIApplication.shared.sendAction(#selector(UIResponder.selectAll(_:)), to: nil, from: nil, for: nil)
             }
         }
     }
