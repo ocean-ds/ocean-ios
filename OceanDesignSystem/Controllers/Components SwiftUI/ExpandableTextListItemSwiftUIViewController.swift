@@ -16,7 +16,7 @@ class ExpandableTextListItemSwiftUIViewController: UIViewController {
             item.parameters.subtitle = "Description"
             item.parameters.icon = Ocean.icon.chatAlt3Outline
             item.parameters.iconBackgroundColor = Ocean.color.colorInterfaceLightPure
-            item.parameters.content = [
+            item.parameters.items = [
                 createTextListItemParameters(title: "Title", description: "Caption"),
                 createTextListItemParameters(title: "Title", description: "Caption")
             ]
@@ -28,7 +28,7 @@ class ExpandableTextListItemSwiftUIViewController: UIViewController {
             item.parameters.title = "Ligar"
             item.parameters.icon = Ocean.icon.deviceMobileOutline
             item.parameters.iconBackgroundColor = Ocean.color.colorInterfaceLightPure
-            item.parameters.content = [
+            item.parameters.items = [
                 createTextListItemParameters(title: "3003 0807", description: "Capitais e Regiões Metropolitanas", hasAction: true),
                 createTextListItemParameters(title: "0800 326 0807", description: "0800 326 0807", hasAction: true),
                 createTextListItemParameters(title: "0800 326 0969", description: "Ouvidoria", hasAction: true)

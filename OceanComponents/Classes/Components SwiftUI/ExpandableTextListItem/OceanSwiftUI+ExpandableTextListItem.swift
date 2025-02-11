@@ -19,7 +19,7 @@ extension OceanSwiftUI {
         @Published public var iconBackgroundColor: UIColor
         @Published public var actionText: String
         @Published public var status: Status
-        @Published public var content: [TextListItemParameters]
+        @Published public var items: [TextListItemParameters]
         @Published public var hasDivider: Bool
         @Published public var showSkeleton: Bool
         @Published public var isEnabled: Bool
@@ -34,7 +34,7 @@ extension OceanSwiftUI {
                     iconBackgroundColor: UIColor = Ocean.color.colorInterfaceLightUp,
                     actionText: String = "",
                     status: Status = .collapsed,
-                    content: [TextListItemParameters] = [],
+                    items: [TextListItemParameters] = [],
                     hasDivider: Bool = true,
                     showSkeleton: Bool = false,
                     isEnabled: Bool = true,
@@ -47,7 +47,7 @@ extension OceanSwiftUI {
             self.iconBackgroundColor = iconBackgroundColor
             self.actionText = actionText
             self.status = status
-            self.content = content
+            self.items = items
             self.hasDivider = hasDivider
             self.showSkeleton = showSkeleton
             self.isEnabled = isEnabled
@@ -146,8 +146,8 @@ extension OceanSwiftUI {
                 .animation(.easeInOut(duration: animationDuration), value: parameters.status)
 
                 if parameters.status == .expanded {
-                    ForEach(parameters.content.indices, id: \.self) { index in
-                        OceanSwiftUI.TextListItem(parameters: parameters.content[index])
+                    ForEach(parameters.items.indices, id: \.self) { index in
+                        OceanSwiftUI.TextListItem(parameters: parameters.items[index])
                     }
                 }
             }
