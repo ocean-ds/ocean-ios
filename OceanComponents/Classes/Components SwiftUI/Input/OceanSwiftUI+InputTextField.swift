@@ -34,6 +34,7 @@ extension OceanSwiftUI {
         @Published public var showSkeleton: Bool
         @Published public var reserveMessageHeight: Bool
         @Published public var isFocused: Bool
+        @Published public var selectAllFocusedText: Bool
         public var onMask: ((String) -> String)?
         public var onValueChanged: (String) -> Void
         public var onEditingChanged: (Bool) -> Void
@@ -61,6 +62,7 @@ extension OceanSwiftUI {
                     showSkeleton: Bool = false,
                     reserveMessageHeight: Bool = true,
                     isFocused: Bool = true,
+                    selectAllFocusedText: Bool = false,
                     onMask: ((String) -> String)? = nil,
                     onValueChanged: @escaping (String) -> Void = { _ in },
                     onEditingChanged: @escaping (Bool) -> Void = { _ in },
@@ -87,6 +89,7 @@ extension OceanSwiftUI {
             self.showSkeleton = showSkeleton
             self.reserveMessageHeight = reserveMessageHeight
             self.isFocused = isFocused
+            self.selectAllFocusedText = selectAllFocusedText
             self.onMask = onMask
             self.onValueChanged = onValueChanged
             self.onEditingChanged = onEditingChanged
@@ -148,6 +151,7 @@ extension OceanSwiftUI {
                             get: { self.parameters.isFocused },
                             set: { self.parameters.isFocused = $0 }
                         ),
+                        selectAllFocusedText: self.parameters.selectAllFocusedText,
                         onFocusChanged: { newValue in
                             self.focused = newValue
                             self.parameters.onFocusChanged(newValue)
