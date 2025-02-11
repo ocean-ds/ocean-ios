@@ -129,6 +129,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(ContentListSwiftUIViewController(), animated: true, completion: nil)
         case .ChartCard:
             self.present(ChartCardSwiftUIViewController(), animated: true, completion: nil)
+        case .ExpandableTextListItem:
+            self.present(ExpandableTextListItemSwiftUIViewController(), animated: true, completion: nil)
         }
     }
 }

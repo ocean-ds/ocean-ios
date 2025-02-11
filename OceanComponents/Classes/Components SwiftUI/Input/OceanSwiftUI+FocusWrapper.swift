@@ -16,11 +16,14 @@ extension OceanSwiftUI {
         @Binding var requestFocus: Bool
         let content: (FocusState<Bool>.Binding) -> Content
         let onFocusChanged: (Bool) -> Void
+        let selectAllFocusedText: Bool
 
         public init(requestFocus: Binding<Bool>,
+                    selectAllFocusedText: Bool = false,
                     onFocusChanged: @escaping (Bool) -> Void,
                     content: @escaping (FocusState<Bool>.Binding) -> Content) {
             self._requestFocus = requestFocus
+            self.selectAllFocusedText = selectAllFocusedText
             self.onFocusChanged = onFocusChanged
             self.content = content
         }
@@ -31,6 +34,14 @@ extension OceanSwiftUI {
                     isFocused = newValue
                     onFocusChanged(newValue)
                 }
+                .onChange(of: isFocused) { focus in
+                    if focus, selectAllFocusedText {
+                        DispatchQueue.main.async {
+                            UIApplication.shared.sendAction(#selector(UIResponder.selectAll(_:)), to: nil, from: nil, for: nil)
+                        }
+                    }
+                }
+
         }
     }
 }

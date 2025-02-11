@@ -97,6 +97,7 @@ public enum DesignSystemComponentsSwiftUIType: String {
     case Input
     case InvertedTextListItem
     case InlineTextListItem
+    case ExpandableTextListItem
     case FileUploader
     case FilterBar
     case Link

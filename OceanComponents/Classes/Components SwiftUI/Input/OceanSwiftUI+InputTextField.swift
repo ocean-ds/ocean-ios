@@ -151,6 +151,7 @@ extension OceanSwiftUI {
                             get: { self.parameters.isFocused },
                             set: { self.parameters.isFocused = $0 }
                         ),
+                        selectAllFocusedText: self.parameters.selectAllFocusedText,
                         onFocusChanged: { newValue in
                             self.focused = newValue
                             self.parameters.onFocusChanged(newValue)
