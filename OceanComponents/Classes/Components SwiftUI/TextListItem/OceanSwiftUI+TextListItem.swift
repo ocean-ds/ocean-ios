@@ -31,6 +31,7 @@ extension OceanSwiftUI {
         @Published public var padding: EdgeInsets
         @Published public var state: OceanSwiftUI.TextListItemParameters.State
         @Published public var checkboxIcon: UIImage?
+        @Published public var actionIcon: UIImage?
         @Published public var hasCheckbox: Bool
         @Published public var hasRadioButton: Bool
         @Published public var isChecked: Bool
@@ -65,6 +66,7 @@ extension OceanSwiftUI {
                                                 trailing: Ocean.size.spacingStackXs),
                     state: OceanSwiftUI.TextListItemParameters.State = .normal,
                     checkboxIcon: UIImage? = nil,
+                    actionIcon: UIImage? = nil,
                     hasCheckbox: Bool = false,
                     hasRadioButton: Bool = false,
                     isChecked: Bool = false,
@@ -94,6 +96,7 @@ extension OceanSwiftUI {
             self.padding = padding
             self.state = state
             self.checkboxIcon = checkboxIcon
+            self.actionIcon = actionIcon
             self.hasCheckbox = hasCheckbox
             self.hasRadioButton = hasRadioButton
             self.isChecked = isChecked
@@ -250,7 +253,7 @@ extension OceanSwiftUI {
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
 
                     if parameters.hasAction {
-                        Image(uiImage: Ocean.icon.chevronRightSolid)
+                        Image(uiImage: parameters.actionIcon ?? Ocean.icon.chevronRightSolid)
                             .resizable()
                             .renderingMode(.template)
                             .frame(width: 20, height: 20)
