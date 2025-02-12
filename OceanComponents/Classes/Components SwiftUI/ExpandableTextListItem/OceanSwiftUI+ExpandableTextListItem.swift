@@ -57,7 +57,7 @@ extension OceanSwiftUI {
         }
     }
 
-    public struct ExpandableTextListItemTextListItem: View {
+    public struct ExpandableTextListItem: View {
 
         // MARK: Properties for UIKit
 
@@ -66,7 +66,7 @@ extension OceanSwiftUI {
 
         // MARK: Builder
 
-        public typealias Builder = (ExpandableTextListItemTextListItem) -> Void
+        public typealias Builder = (ExpandableTextListItem) -> Void
 
         // MARK: Properties
 
