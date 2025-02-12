@@ -10,8 +10,8 @@ import OceanTokens
 import SwiftUI
 
 class ExpandableTextListItemSwiftUIViewController: UIViewController {
-    lazy var expandableTextListItem1: OceanSwiftUI.ExpandableTextListItemTextListItem = {
-        OceanSwiftUI.ExpandableTextListItemTextListItem { item in
+    lazy var expandableTextListItem1: OceanSwiftUI.ExpandableTextListItem = {
+        OceanSwiftUI.ExpandableTextListItem { item in
             item.parameters.title = "Title "
             item.parameters.subtitle = "Description"
             item.parameters.icon = Ocean.icon.chatAlt3Outline
@@ -23,8 +23,8 @@ class ExpandableTextListItemSwiftUIViewController: UIViewController {
         }
     }()
 
-    lazy var expandableTextListItem2: OceanSwiftUI.ExpandableTextListItemTextListItem = {
-        OceanSwiftUI.ExpandableTextListItemTextListItem { item in
+    lazy var expandableTextListItem2: OceanSwiftUI.ExpandableTextListItem = {
+        OceanSwiftUI.ExpandableTextListItem { item in
             item.parameters.title = "Ligar"
             item.parameters.icon = Ocean.icon.deviceMobileOutline
             item.parameters.iconBackgroundColor = Ocean.color.colorInterfaceLightPure

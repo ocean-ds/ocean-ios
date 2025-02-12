@@ -57,7 +57,7 @@ extension OceanSwiftUI {
         }
     }
 
-    public struct ExpandableTextListItemTextListItem: View {
+    public struct ExpandableTextListItem: View {
 
         // MARK: Properties for UIKit
 
@@ -66,7 +66,7 @@ extension OceanSwiftUI {
 
         // MARK: Builder
 
-        public typealias Builder = (ExpandableTextListItemTextListItem) -> Void
+        public typealias Builder = (ExpandableTextListItem) -> Void
 
         // MARK: Properties
 
@@ -95,11 +95,11 @@ extension OceanSwiftUI {
             VStack(alignment: .leading, spacing: Ocean.size.spacingStackXs) {
                 HStack(spacing: Ocean.size.spacingStackXs) {
                     if let icon = parameters.icon {
-                        OceanSwiftUI.RoundedIcon { image in
-                            image.parameters.icon = icon
-                            image.parameters.color = parameters.iconColor
-                            image.parameters.backgroundColor = parameters.iconBackgroundColor
-                        }
+                        Image(uiImage: icon)
+                            .resizable()
+                            .renderingMode(.template)
+                            .frame(width: 24, height: 24)
+                            .foregroundColor(Color(parameters.iconColor))
                     }
 
                     VStack(alignment: .leading, spacing: 0) {
