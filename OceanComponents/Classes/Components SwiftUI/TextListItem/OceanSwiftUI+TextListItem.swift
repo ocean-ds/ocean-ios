@@ -22,7 +22,6 @@ extension OceanSwiftUI {
         @Published public var infoLineLimit: Int?
         @Published public var icon: UIImage?
         @Published public var iconColor: UIColor
-        @Published public var iconBackgroundColor: UIColor
         @Published public var tagLabel: String
         @Published public var tagIcon: UIImage?
         @Published public var tagStatus: OceanSwiftUI.TagParameters.Status
@@ -54,7 +53,6 @@ extension OceanSwiftUI {
                     infoLineLimit: Int? = nil,
                     icon: UIImage? = nil,
                     iconColor: UIColor = Ocean.color.colorBrandPrimaryDown,
-                    iconBackgroundColor: UIColor = Ocean.color.colorInterfaceLightUp,
                     tagLabel: String = "",
                     tagIcon: UIImage? = nil,
                     tagStatus: OceanSwiftUI.TagParameters.Status = .positive,
@@ -87,7 +85,6 @@ extension OceanSwiftUI {
             self.infoLineLimit = infoLineLimit
             self.icon = icon
             self.iconColor = iconColor
-            self.iconBackgroundColor = iconBackgroundColor
             self.tagLabel = tagLabel
             self.tagIcon = tagIcon
             self.tagStatus = tagStatus
@@ -157,11 +154,11 @@ extension OceanSwiftUI {
             } else {
                 HStack(spacing: Ocean.size.spacingStackXs) {
                     if let icon = parameters.icon {
-                        RoundedIcon { image in
-                            image.parameters.icon = icon
-                            image.parameters.color = parameters.iconColor
-                            image.parameters.backgroundColor = parameters.iconBackgroundColor
-                        }
+                        Image(uiImage: icon)
+                            .resizable()
+                            .renderingMode(.template)
+                            .frame(width: 24, height: 24)
+                            .foregroundColor(Color(parameters.iconColor))
                     }
                     else if parameters.hasCheckbox {
                         OceanSwiftUI.CheckboxGroup { group in
