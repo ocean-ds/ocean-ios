@@ -17,7 +17,7 @@ class ExpandableTextListItemSwiftUIViewController: UIViewController {
             item.parameters.icon = Ocean.icon.chatAlt3Outline
             item.parameters.iconBackgroundColor = Ocean.color.colorInterfaceLightPure
             item.parameters.items = [
-                createTextListItemParameters(title: "Title", description: "Caption"),
+                createTextListItemParameters(title: "Title 01", description: "Caption"),
                 createTextListItemParameters(title: "Title", description: "Caption")
             ]
         }
