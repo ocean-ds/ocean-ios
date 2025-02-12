@@ -30,7 +30,7 @@ class ExpandableTextListItemSwiftUIViewController: UIViewController {
             item.parameters.iconBackgroundColor = Ocean.color.colorInterfaceLightPure
             item.parameters.items = [
                 createTextListItemParameters(title: "3003 0807", description: "Capitais e Regiões Metropolitanas", hasAction: true),
-                createTextListItemParameters(title: "0800 326 0807", description: "0800 326 0807", hasAction: true),
+                createTextListItemParameters(title: "0800 326 0877", description: "0800 326 0807", hasAction: true),
                 createTextListItemParameters(title: "0800 326 0969", description: "Ouvidoria", hasAction: true)
             ]
         }
