@@ -143,8 +143,10 @@ extension OceanSwiftUI {
                 .animation(.easeInOut(duration: animationDuration), value: parameters.status)
 
                 if parameters.status == .expanded {
-                    ForEach(parameters.items.indices, id: \.self) { index in
-                        OceanSwiftUI.TextListItem(parameters: parameters.items[index])
+                    VStack(alignment: .leading, spacing: 0) {
+                        ForEach(parameters.items.indices, id: \.self) { index in
+                            OceanSwiftUI.TextListItem(parameters: parameters.items[index])
+                        }
                     }
                 }
             }
