@@ -92,7 +92,7 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            VStack(alignment: .leading, spacing: Ocean.size.spacingStackXs) {
+            VStack(alignment: .leading, spacing: 0) {
                 HStack(spacing: Ocean.size.spacingStackXs) {
                     if let icon = parameters.icon {
                         Image(uiImage: icon)
@@ -143,9 +143,12 @@ extension OceanSwiftUI {
                 .animation(.easeInOut(duration: animationDuration), value: parameters.status)
 
                 if parameters.status == .expanded {
-                    ForEach(parameters.items.indices, id: \.self) { index in
-                        OceanSwiftUI.TextListItem(parameters: parameters.items[index])
+                    VStack(alignment: .leading, spacing: 0) {
+                        ForEach(parameters.items.indices, id: \.self) { index in
+                            OceanSwiftUI.TextListItem(parameters: parameters.items[index])
+                        }
                     }
+                    .padding(.bottom, Ocean.size.spacingStackXxs)
                 }
             }
         }
