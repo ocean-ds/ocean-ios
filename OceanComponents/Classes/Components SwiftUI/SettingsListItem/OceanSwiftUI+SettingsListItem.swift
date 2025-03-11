@@ -23,6 +23,7 @@ extension OceanSwiftUI {
         @Published public var errorMessage: String
         @Published public var type: SettingsListItemType
         @Published public var hasDivider: Bool
+        @Published public var hasNewTag: Bool
         @Published public var tagTitle: String
         @Published public var tagStatus: TagParameters.Status
         @Published public var buttonTitle: String
@@ -42,6 +43,7 @@ extension OceanSwiftUI {
                     errorMessage: String = "",
                     type: SettingsListItemType = .button,
                     hasDivider: Bool = true,
+                    hasNewTag: Bool = false,
                     tagTitle: String = "",
                     tagStatus: TagParameters.Status = .warning,
                     buttonTitle: String = "",
@@ -60,6 +62,7 @@ extension OceanSwiftUI {
             self.errorMessage = errorMessage
             self.type = type
             self.hasDivider = hasDivider
+            self.hasNewTag = hasNewTag
             self.tagTitle = tagTitle
             self.tagStatus = tagStatus
             self.buttonTitle = buttonTitle
@@ -154,6 +157,8 @@ extension OceanSwiftUI {
                             view.parameters.descriptionColor = parameters.descriptionColor
                             view.parameters.descriptionFont = parameters.descriptionFont
                             view.parameters.caption = parameters.caption
+                            view.parameters.tagTitle = parameters.hasNewTag ? "Novo" : ""
+                            view.parameters.tagStatus = .highlightImportant
                             view.parameters.errorMessage = parameters.errorMessage
                             view.parameters.type = parameters.contentType
                             view.parameters.padding = .all(.zero)

@@ -21,6 +21,8 @@ extension OceanSwiftUI {
         @Published public var descriptionFont: UIFont?
         @Published public var newDescription: String
         @Published public var caption: String
+        @Published public var tagTitle: String
+        @Published public var tagStatus: TagParameters.Status
         @Published public var errorMessage: String
         @Published public var type: ContentListItemType
         @Published public var showSkeleton: Bool
@@ -32,6 +34,8 @@ extension OceanSwiftUI {
                     descriptionFont: UIFont? = nil,
                     newDescription: String = "",
                     caption: String = "",
+                    tagTitle: String = "",
+                    tagStatus: TagParameters.Status = .warning,
                     errorMessage: String = "",
                     type: ContentListItemType = .default,
                     showSkeleton: Bool = false,
@@ -42,6 +46,8 @@ extension OceanSwiftUI {
             self.descriptionFont = descriptionFont
             self.newDescription = newDescription
             self.caption = caption
+            self.tagTitle = tagTitle
+            self.tagStatus = tagStatus
             self.errorMessage = errorMessage
             self.type = type
             self.showSkeleton = showSkeleton
@@ -93,10 +99,19 @@ extension OceanSwiftUI {
                     }
                 } else {
                     VStack(alignment: .leading, spacing: 0) {
-                        if !parameters.title.isEmpty {
-                            Typography.description { label in
-                                label.parameters.text = parameters.title
-                                label.parameters.textColor = getTitleColor()
+                        HStack(spacing: Ocean.size.spacingStackXxxs) {
+                            if !parameters.title.isEmpty {
+                                Typography.description { label in
+                                    label.parameters.text = parameters.title
+                                    label.parameters.textColor = getTitleColor()
+                                }
+                            }
+                            
+                            if !parameters.tagTitle.isEmpty {
+                                Tag { tag in
+                                    tag.parameters.label = parameters.tagTitle
+                                    tag.parameters.status = parameters.tagStatus
+                                }
                             }
                         }
 
