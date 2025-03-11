@@ -103,7 +103,6 @@
 		E13578B729F07252003A2B9D /* FilterBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13578B629F07252003A2B9D /* FilterBarViewController.swift */; };
 		E13FE2282B9671C900AA82B1 /* ScoreChartSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13FE2272B9671C900AA82B1 /* ScoreChartSwiftUIViewController.swift */; };
 		E149D4072AB8D4A8009B7BE2 /* CheckBoxGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E149D4062AB8D4A8009B7BE2 /* CheckBoxGroupViewController.swift */; };
-		E14CBF562D710BA7000598DE /* Ocean in Frameworks */ = {isa = PBXBuildFile; productRef = E14CBF552D710BA7000598DE /* Ocean */; };
 		E14CBF5A2D710BA7000598DE /* OceanTokens in Frameworks */ = {isa = PBXBuildFile; productRef = E14CBF592D710BA7000598DE /* OceanTokens */; };
 		E14CBF5E2D710D4B000598DE /* OceanComponents in Frameworks */ = {isa = PBXBuildFile; productRef = E14CBF5D2D710D4B000598DE /* OceanComponents */; };
 		E14EBEBD2D526AB300543CC1 /* ChartCardSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14EBEBC2D526AB300543CC1 /* ChartCardSwiftUIViewController.swift */; };
@@ -279,7 +278,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E14CBF5E2D710D4B000598DE /* OceanComponents in Frameworks */,
-				E14CBF562D710BA7000598DE /* Ocean in Frameworks */,
 				E14CBF5A2D710BA7000598DE /* OceanTokens in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1037,10 +1035,6 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E14CBF552D710BA7000598DE /* Ocean */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Ocean;
-		};
 		E14CBF592D710BA7000598DE /* OceanTokens */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = OceanTokens;

@@ -10,9 +10,9 @@ import OceanTokens
 import SwiftUI
 
 extension OceanSwiftUI {
-
+    
     // MARK: Parameter
-
+    
     public class SettingsListItemParameters: ObservableObject {
         @Published public var title: String
         @Published public var description: String
@@ -23,6 +23,7 @@ extension OceanSwiftUI {
         @Published public var errorMessage: String
         @Published public var type: SettingsListItemType
         @Published public var hasDivider: Bool
+        @Published public var hasNewTag: Bool
         @Published public var tagTitle: String
         @Published public var tagStatus: TagParameters.Status
         @Published public var buttonTitle: String
@@ -32,7 +33,7 @@ extension OceanSwiftUI {
         @Published public var showSkeleton: Bool
         @Published public var padding: EdgeInsets
         public var buttonAction: () -> Void
-
+        
         public init(title: String = "",
                     description: String = "",
                     descriptionColor: UIColor? = nil,
@@ -42,6 +43,7 @@ extension OceanSwiftUI {
                     errorMessage: String = "",
                     type: SettingsListItemType = .button,
                     hasDivider: Bool = true,
+                    hasNewTag: Bool = false,
                     tagTitle: String = "",
                     tagStatus: TagParameters.Status = .warning,
                     buttonTitle: String = "",
@@ -60,6 +62,7 @@ extension OceanSwiftUI {
             self.errorMessage = errorMessage
             self.type = type
             self.hasDivider = hasDivider
+            self.hasNewTag = hasNewTag
             self.tagTitle = tagTitle
             self.tagStatus = tagStatus
             self.buttonTitle = buttonTitle
@@ -70,30 +73,30 @@ extension OceanSwiftUI {
             self.padding = padding
             self.buttonAction = buttonAction
         }
-
+        
         public enum SettingsListItemType {
             case button
             case tag
             case blocked
         }
     }
-
+    
     public struct SettingsListItem: View {
         // MARK: Properties for UIKit
-
+        
         public lazy var hostingController = UIHostingController(rootView: self)
         public lazy var uiView = hostingController.getUIView()
-
+        
         // MARK: Builder
-
+        
         public typealias Builder = (SettingsListItem) -> Void
-
+        
         // MARK: Properties
-
+        
         @ObservedObject public var parameters: SettingsListItemParameters
-
+        
         // MARK: Private properties
-
+        
         @ViewBuilder
         private var trailingView: some View {
             VStack(alignment: .trailing, spacing: 0) {
@@ -125,20 +128,20 @@ extension OceanSwiftUI {
                 }
             }
         }
-
+        
         // MARK: Constructors
-
+        
         public init(parameters: SettingsListItemParameters = SettingsListItemParameters()) {
             self.parameters = parameters
         }
-
+        
         public init(builder: Builder) {
             self.init()
             builder(self)
         }
-
+        
         // MARK: View SwiftUI
-
+        
         public var body: some View {
             VStack(alignment: .leading, spacing: 0) {
                 HStack(alignment: .center, spacing: 0) {
@@ -154,16 +157,18 @@ extension OceanSwiftUI {
                             view.parameters.descriptionColor = parameters.descriptionColor
                             view.parameters.descriptionFont = parameters.descriptionFont
                             view.parameters.caption = parameters.caption
+                            view.parameters.tagTitle = parameters.hasNewTag ? "Novo" : ""
+                            view.parameters.tagStatus = .highlightImportant
                             view.parameters.errorMessage = parameters.errorMessage
                             view.parameters.type = parameters.contentType
                             view.parameters.padding = .all(.zero)
                         }
                         .layoutPriority(1)
                     }
-
+                    
                     Spacer()
                         .frame(minWidth: Ocean.size.spacingStackXxs)
-
+                    
                     if parameters.showSkeleton {
                         Button.primarySM { view in
                             view.parameters.showSkeleton = true
@@ -174,15 +179,15 @@ extension OceanSwiftUI {
                     }
                 }
                 .padding(parameters.padding)
-
+                
                 if parameters.hasDivider {
                     Divider()
                 }
             }
         }
-
+        
         // MARK: Private Methods
-
+        
         private func getHasPadding() -> Bool {
             switch parameters.buttonStyle {
             case .tertiary, .tertiaryCritical:
