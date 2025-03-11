@@ -31,6 +31,7 @@ class SettingsListItemSwiftUIViewController: UIViewController {
             view.parameters.caption = "Caption"
             view.parameters.buttonTitle = "Label"
             view.parameters.contentType = .inverted
+            view.parameters.hasNewTag = true
             view.parameters.type = .button
             view.parameters.buttonStyle = .secondaryCritical
             view.parameters.buttonAction = { print("touched") }
