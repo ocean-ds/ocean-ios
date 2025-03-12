@@ -31,6 +31,6 @@ Project created with the objective of compiling tokens created through theo (sal
   s.swift_versions = ['5.0']
 
   s.source_files = 'OceanTokens/Classes/**/*'
-  s.pod_target_xcconfig = { 'PRODUCT_BUNDLE_IDENTIFIER': 'br.com.blu.OceanTokens' }
+  s.pod_target_xcconfig = { 'PRODUCT_BUNDLE_IDENTIFIER' => 'br.com.blu.OceanTokens' }
   s.resource_bundle = { 'OceanTokens' => 'OceanTokens/Resources/Fonts/*.ttf' }
 end
