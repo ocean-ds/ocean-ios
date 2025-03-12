@@ -40,7 +40,7 @@ Project created with the objective use components created by OceanTokens.
   s.dependency 'EasyTipView'
 
   s.source_files = 'OceanComponents/Classes/**/*'
-  s.pod_target_xcconfig = { 'PRODUCT_BUNDLE_IDENTIFIER': 'br.com.blu.OceanComponents' }
+  s.pod_target_xcconfig = { 'PRODUCT_BUNDLE_IDENTIFIER' => 'br.com.blu.OceanComponents' }
   s.resource_bundles = {
     'OceanComponents' => ['OceanComponents/Resources/**/*']
   }
