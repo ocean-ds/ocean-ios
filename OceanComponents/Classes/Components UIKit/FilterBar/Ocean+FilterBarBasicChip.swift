@@ -21,7 +21,7 @@ extension Ocean {
         
         var onValueChange: ((Ocean.ChipModel?) -> Void)?
         
-        private (set) public var isSelected: Bool = false
+        private(set) public var isSelected: Bool = false
         
         private lazy var mainStack: Ocean.StackView = {
             let stack = Ocean.StackView()

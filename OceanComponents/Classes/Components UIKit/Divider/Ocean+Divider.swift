@@ -18,8 +18,8 @@ extension Ocean {
         
         private var widthConstraint: NSLayoutDimension?
         private var heightConstraint: NSLayoutDimension?
-        private (set) var width: CGFloat?
-        private (set) var height: CGFloat?
+        private(set) var width: CGFloat?
+        private(set) var height: CGFloat?
         private var axisDivider: AxisDivider = .horizontal
         private var color = Ocean.color.colorInterfaceLightDown
         

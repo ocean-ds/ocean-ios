@@ -32,7 +32,7 @@ extension Ocean {
             return collectionView.heightAnchor.constraint(equalToConstant: Constants.heightContent)
         }()
 
-        private (set) public var state: BalanceState = .collapsed
+        private(set) public var state: BalanceState = .collapsed
 
         private var data: [BalanceModel] = []
 

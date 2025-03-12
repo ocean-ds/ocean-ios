@@ -63,7 +63,7 @@ extension Ocean {
         
         private var iconSize: CGSize = .init(width: 24, height: 24)
         private var minWidth: CGFloat = 108
-        private (set) var height: CGFloat = 48
+        private(set) var height: CGFloat = 48
         private var fontSize: CGFloat = Ocean.font.fontSizeXs
         private var padding: CGFloat = Ocean.size.spacingInlineSm
         private var stack: Ocean.StackView!
