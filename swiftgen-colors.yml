@@ -3,4 +3,4 @@ colors:
       - node_modules/@useblu/ocean-tokens/ios/tokens-color.json
     outputs:
       - templatePath: templates/ocean-colors.stencil
-        output: OceanTokens/Classes/OceanExtensionColor.swift
+        output: Sources/OceanTokens/OceanExtensionColor.swift

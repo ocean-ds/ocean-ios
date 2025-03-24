@@ -5,4 +5,4 @@ json:
       - node_modules/@useblu/ocean-tokens/ios/tokens-fontNames.json
     outputs:
       - templatePath: templates/ocean-installer-fonts.stencil
-        output: OceanTokens/Classes/OceanExtensionInstallerFonts.swift
+        output: Sources/OceanTokens/OceanExtensionInstallerFonts.swift
