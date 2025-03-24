@@ -26,16 +26,49 @@
 
 This project provides a toolkit for ios that implements the [Ocean](https://zeroheight.com/9c9b2b3aa/p/257272-ocean-ds/t/968532) design system.
 
+---
+
 ## Installation
 
+To integrate **Ocean iOS** into your project using Swift Package Manager, follow these steps:
+
+1. Open your project in **Xcode**.
+2. Go to **File > Add Packages...**.
+3. Enter the repository URL:
+   ```
+   https://github.com/ocean-ds/ocean-ios.git
+   ```
+4. Choose the **version rule** (e.g., Up to Next Major Version).
+5. Select **Add Package** to include it in your project.
+
+Alternatively, add the following dependency to your `Package.swift` file:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/ocean-ds/ocean-ios.git", from: "1.0.0")
+]
 ```
-TODO: add how can install the package.
+
+Then, import the package where needed:
+
+```swift
+import OceanComponents
 ```
 
 ## Usage
 
-```
-TODO: add an example of usage
+```swift
+import SwiftUI
+import OceanComponents
+
+...
+
+var textListItem: OceanSwiftUI.TextListItem = {
+    OceanSwiftUI.TextListItem { textListItem in
+        textListItem.parameters.title = "Title 1"
+        textListItem.parameters.description = "Description"
+    }
+}
 ```
 
 ## Contributing
@@ -61,13 +94,3 @@ Join our [discord server](https://discord.gg/hDWzGPKuG2) to get the latest updat
 ## License
 
 All packages are licensed under the terms of the [GPL-3.0 License](LICENSE).
-
-## Pod trunk fix Xcode 15
-
-`cd /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/`
-
-`sudo mkdir arc`
-`cd  arc`
-`sudo git clone https://github.com/kamyarelyasi/Libarclite-Files.git`
-
-`sudo chmod +x *`
