@@ -30,13 +30,16 @@ jobs:
       - name: Bundle install
         run: bundle install
         
-      - name: Install Mint and SwiftGen
-        run: |
-          brew install mint
-          mint install SwiftGen/SwiftGen
-        
       - name: Update tokens from NPM
         run: |
+
+          echo "Install SwiftGen."
+          brew install mint
+          mint install SwiftGen/SwiftGen
+
+          echo "SwiftGen version"
+          swiftgen --version
+
           LATEST_VERSION_TOKENS_LIB_NPM=`npm show @useblu/ocean-tokens version`
           echo "Updating OceanTokens to version $LATEST_VERSION_TOKENS_LIB_NPM"
 
