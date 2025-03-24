@@ -54,9 +54,17 @@ jobs:
 
       - name: Increment version SPM
         run: |
-          LATEST_VERSION_TOKENS_LIB_NPM=`npm show @useblu/ocean-tokens version`
-          git tag -a "v-$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" -m "Release of version OceanComponents $LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER"
-          git push origin "v-$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER"
+          LATEST_VERSION_TOKENS_LIB_NPM=$(npm show @useblu/ocean-tokens version)
+          SPM_TAG="v$LATEST_VERSION_TOKENS_LIB_NPM"
+          BUILD_TAG="v$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER"
+          
+          echo "Creating SPM tag: $SPM_TAG"
+          git tag -a "$SPM_TAG" -m "Release of version OceanComponents $LATEST_VERSION_TOKENS_LIB_NPM"
+          git push origin "$SPM_TAG"
+          
+          echo "Creating build tag: $BUILD_TAG"
+          git tag -a "$BUILD_TAG" -m "Build version OceanComponents $LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER"
+          git push origin "$BUILD_TAG"
 
       - name: Update SPM dependencies
         run: |
