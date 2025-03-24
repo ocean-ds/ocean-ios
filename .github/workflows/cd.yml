@@ -29,34 +29,35 @@ jobs:
 
       - name: Bundle install
         run: bundle install
-      
-      - name: Increment version cocoapod
+        
+      - name: Install Mint and SwiftGen
+        run: |
+          brew install mint
+          mint install SwiftGen/SwiftGen
+        
+      - name: Update tokens from NPM
         run: |
           LATEST_VERSION_TOKENS_LIB_NPM=`npm show @useblu/ocean-tokens version`
-          rm OceanComponents.podspec
-          cp -fR OceanComponents.template OceanComponents.podspec
-          sed -i '' "s/#VERSION_NAME#/'$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER'/g" OceanComponents.podspec
 
-      - name: Commit changes
+            echo "Updating OceanTokens to version $LATEST_VERSION_TOKENS_LIB_NPM"
+
+            sh update_tokens.sh
+
+            cp -R OceanTokens/* Sources/OceanTokens/Resources/
+
+            git add .
+            git commit -m "chore: update OceanTokens to v$LATEST_VERSION_TOKENS_LIB_NPM [skip ci]"
+            git push origin $BRANCH_NAME
+
+      - name: Increment version SPM
         run: |
           LATEST_VERSION_TOKENS_LIB_NPM=`npm show @useblu/ocean-tokens version`
-          git add . && git commit -am "chore: update tokens v$LATEST_VERSION_TOKENS_LIB_NPM [skip ci]" && git push
-          git tag -a "OceanComponents-$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" -m "Release of version OceanComponents $LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" && git push --tags
+          git tag -a "v-$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" -m "Release of version OceanComponents $LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER"
+          git push origin "v-$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER"
 
-      - name: Fix cocoapod Xcode 16
+      - name: Update SPM dependencies
         run: |
-          cd /Applications/Xcode_16.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/
-          sudo git clone https://github.com/kamyarelyasi/Libarclite-Files.git
-          sudo mv Libarclite-Files arc
-
-      - name: Deploy libary cocoapod OceanComponents
-        run: |
-          pod trunk push OceanComponents.podspec
-        env:
-          COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
-
-      - name: Install pods
-        run: pod install --repo-update
+          swift package update
 
       - name: Increment version app sample
         run: bundle exec fastlane prepare_new_version
