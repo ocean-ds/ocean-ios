@@ -42,7 +42,6 @@ jobs:
 
           sh update_tokens.sh
 
-          # Verificar se houve modificações após a geração dos arquivos
           if [ -n "$(git status --porcelain)" ]; then
               echo "Changes detected, committing updates..."
               cp -R OceanTokens/* Sources/OceanTokens/Resources/
