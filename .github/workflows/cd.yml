@@ -30,13 +30,16 @@ jobs:
       - name: Bundle install
         run: bundle install
         
-      - name: Install Mint and SwiftGen
-        run: |
-          brew install mint
-          mint install SwiftGen/SwiftGen
-        
       - name: Update tokens from NPM
         run: |
+
+          echo "Install SwiftGen."
+          brew install mint
+          mint install SwiftGen/SwiftGen
+
+          echo "SwiftGen version"
+          swiftgen --version
+
           LATEST_VERSION_TOKENS_LIB_NPM=`npm show @useblu/ocean-tokens version`
           echo "Updating OceanTokens to version $LATEST_VERSION_TOKENS_LIB_NPM"
 
@@ -55,8 +58,8 @@ jobs:
       - name: Increment version SPM
         run: |
           LATEST_VERSION_TOKENS_LIB_NPM=`npm show @useblu/ocean-tokens version`
-          git tag -a "v-$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER" -m "Release of version OceanComponents $LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER"
-          git push origin "v-$LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER"
+          git tag -a "v$LATEST_VERSION_TOKENS_LIB_NPM$GITHUB_RUN_NUMBER" -m "Release of version OceanComponents $LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER"
+          git push origin "v$LATEST_VERSION_TOKENS_LIB_NPM$GITHUB_RUN_NUMBER"
 
       - name: Update SPM dependencies
         run: |
