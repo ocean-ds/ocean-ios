@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import UIKit
 import OceanTokens
 import SwiftUI
 
@@ -22,8 +21,8 @@ class SettingsListItemSwiftUIViewController: UIViewController {
             view.parameters.type = .button
             view.parameters.buttonAction = { print("touched") }
         }
-    }()    
-
+    }()
+    
     lazy var view1: OceanSwiftUI.SettingsListItem = {
         return OceanSwiftUI.SettingsListItem { view in
             view.parameters.title = "Title Inverted"
@@ -37,7 +36,7 @@ class SettingsListItemSwiftUIViewController: UIViewController {
             view.parameters.buttonAction = { print("touched") }
         }
     }()
-
+    
     lazy var view2: OceanSwiftUI.SettingsListItem = {
         return OceanSwiftUI.SettingsListItem { view in
             view.parameters.title = "Title"
@@ -62,7 +61,7 @@ class SettingsListItemSwiftUIViewController: UIViewController {
             view.parameters.buttonAction = { print("Title") }
         }
     }()
-
+    
     lazy var view4: OceanSwiftUI.SettingsListItem = {
         return OceanSwiftUI.SettingsListItem { view in
             view.parameters.title = "Title"
@@ -71,7 +70,7 @@ class SettingsListItemSwiftUIViewController: UIViewController {
             view.parameters.type = .blocked
         }
     }()
-
+    
     lazy var view5: OceanSwiftUI.SettingsListItem = {
         return OceanSwiftUI.SettingsListItem { view in
             view.parameters.title = "Title"
@@ -81,7 +80,7 @@ class SettingsListItemSwiftUIViewController: UIViewController {
             view.parameters.type = .tag
         }
     }()
-
+    
     lazy var view6: OceanSwiftUI.SettingsListItem = {
         return OceanSwiftUI.SettingsListItem { view in
             view.parameters.title = "Title"
@@ -92,7 +91,7 @@ class SettingsListItemSwiftUIViewController: UIViewController {
             view.parameters.type = .tag
         }
     }()
-
+    
     lazy var view7: OceanSwiftUI.SettingsListItem = {
         return OceanSwiftUI.SettingsListItem { view in
             view.parameters.title = "Title"
@@ -101,13 +100,13 @@ class SettingsListItemSwiftUIViewController: UIViewController {
             view.parameters.contentType = .highlight
         }
     }()
-
+    
     lazy var view8: OceanSwiftUI.SettingsListItem = {
         return OceanSwiftUI.SettingsListItem { view in
             view.parameters.showSkeleton = true
         }
     }()
-
+    
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: 0) {
             view0
@@ -121,14 +120,14 @@ class SettingsListItemSwiftUIViewController: UIViewController {
             view8
         }
     })
-
+    
     public lazy var uiView = self.hostingController.getUIView()
-
+    
     public override func viewDidLoad() {
         self.view.backgroundColor = .white
-
+        
         self.view.addSubview(uiView)
-
+        
         uiView.oceanConstraints
             .fill(to: self.view)
             .make()

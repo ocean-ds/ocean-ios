@@ -1,0 +1,61 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "DGCharts",
+        "repositoryURL": "https://github.com/danielgindi/Charts",
+        "state": {
+          "branch": null,
+          "revision": "dd9c72e3d7e751e769971092a6bd72d39198ae63",
+          "version": "5.1.0"
+        }
+      },
+      {
+        "package": "EasyTipView",
+        "repositoryURL": "https://github.com/teodorpatras/EasyTipView",
+        "state": {
+          "branch": null,
+          "revision": "1cba0e75f745da03773cd7092480c5fa8cde4a72",
+          "version": "2.1.0"
+        }
+      },
+      {
+        "package": "FSCalendar",
+        "repositoryURL": "https://github.com/WenchaoD/FSCalendar",
+        "state": {
+          "branch": null,
+          "revision": "0fbdec5172fccb90f707472eeaea4ffe095278f6",
+          "version": "2.8.4"
+        }
+      },
+      {
+        "package": "SDWebImage",
+        "repositoryURL": "https://github.com/SDWebImage/SDWebImage",
+        "state": {
+          "branch": null,
+          "revision": "cac9a55a3ae92478a2c95042dcc8d9695d2129ca",
+          "version": "5.21.0"
+        }
+      },
+      {
+        "package": "SkeletonView",
+        "repositoryURL": "https://github.com/Juanpe/SkeletonView",
+        "state": {
+          "branch": null,
+          "revision": "2f5274827d310e32c09325dd3e0007120940988e",
+          "version": "1.31.0"
+        }
+      },
+      {
+        "package": "SPStorkController",
+        "repositoryURL": "https://github.com/ivanvorobei/SPStorkController",
+        "state": {
+          "branch": null,
+          "revision": "9eea2c3259420c278fcd2dbbab242ef5fcf54dc9",
+          "version": "1.8.5"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

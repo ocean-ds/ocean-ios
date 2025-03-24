@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -29,7 +29,6 @@
 		24E301B526EF911400D2296C /* SubheaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E301B426EF911400D2296C /* SubheaderViewController.swift */; };
 		24E39BA326DE5BCE006B6A02 /* BalanceSimpleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E39BA226DE5BCE006B6A02 /* BalanceSimpleViewController.swift */; };
 		24FEEBC12744282E00211FEC /* StepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FEEBC02744282E00211FEC /* StepViewController.swift */; };
-		3EEB79A6C99E336F4C015596 /* Pods_OceanDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEEF48CF3C110AD83031D802 /* Pods_OceanDesignSystem.framework */; };
 		421C21C52B8F9A7900EBD703 /* StepSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421C21C42B8F9A7900EBD703 /* StepSwiftUIViewController.swift */; };
 		4223DDA2293F894C00257DBC /* OrderedListItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4223DDA1293F894C00257DBC /* OrderedListItemViewController.swift */; };
 		42256BA62B0FEE410055C034 /* StatusListItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42256BA52B0FEE410055C034 /* StatusListItemViewController.swift */; };
@@ -59,7 +58,6 @@
 		8EB41BED27E42D1800F18CC7 /* FloatVerticalMenuListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB41BEC27E42D1800F18CC7 /* FloatVerticalMenuListViewController.swift */; };
 		8ECB029F283319340037DC25 /* CardCrossSellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB029E283319340037DC25 /* CardCrossSellViewController.swift */; };
 		8ED08AE727EE075500ACDCB4 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED08AE627EE075500ACDCB4 /* TabViewController.swift */; };
-		9E1558009CE8D898C7FD634D /* Pods_OceanDesignSystemTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E926B522695D9CD71ED3E1CF /* Pods_OceanDesignSystemTests.framework */; };
 		9F6980542D5B98D600A09646 /* ExpandableTextListItemSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6980532D5B98D600A09646 /* ExpandableTextListItemSwiftUIViewController.swift */; };
 		9F84CB2A2D47D48800F6E22D /* InlineTextListItemSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F84CB292D47D48800F6E22D /* InlineTextListItemSwiftUIViewController.swift */; };
 		AF833AAE2890764F0012AE58 /* TransactionFooterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF833AAD2890764F0012AE58 /* TransactionFooterViewController.swift */; };
@@ -105,6 +103,8 @@
 		E13578B729F07252003A2B9D /* FilterBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13578B629F07252003A2B9D /* FilterBarViewController.swift */; };
 		E13FE2282B9671C900AA82B1 /* ScoreChartSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13FE2272B9671C900AA82B1 /* ScoreChartSwiftUIViewController.swift */; };
 		E149D4072AB8D4A8009B7BE2 /* CheckBoxGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E149D4062AB8D4A8009B7BE2 /* CheckBoxGroupViewController.swift */; };
+		E14CBF5A2D710BA7000598DE /* OceanTokens in Frameworks */ = {isa = PBXBuildFile; productRef = E14CBF592D710BA7000598DE /* OceanTokens */; };
+		E14CBF5E2D710D4B000598DE /* OceanComponents in Frameworks */ = {isa = PBXBuildFile; productRef = E14CBF5D2D710D4B000598DE /* OceanComponents */; };
 		E14EBEBD2D526AB300543CC1 /* ChartCardSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14EBEBC2D526AB300543CC1 /* ChartCardSwiftUIViewController.swift */; };
 		E152E3342BBB5AB4007133E1 /* OnboardingSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E152E3332BBB5AB4007133E1 /* OnboardingSwiftUIViewController.swift */; };
 		E16A24F12BC9B188004D6A1D /* BalanceSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16A24F02BC9B188004D6A1D /* BalanceSwiftUIViewController.swift */; };
@@ -165,13 +165,11 @@
 		249DC93F2672AD2600012411 /* SwitchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchViewController.swift; sourceTree = "<group>"; };
 		24B70BB726E7D0B400C9CE1E /* TransactionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListViewController.swift; sourceTree = "<group>"; };
 		24B70BBC26E91F0F00C9CE1E /* CardGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGroupViewController.swift; sourceTree = "<group>"; };
-		24C8014F2682585600744F30 /* OceanDesignSystemTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OceanDesignSystemTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		24C801512682585600744F30 /* OceanDesignSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanDesignSystemTests.swift; sourceTree = "<group>"; };
 		24C801532682585600744F30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		24E301B426EF911400D2296C /* SubheaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubheaderViewController.swift; sourceTree = "<group>"; };
 		24E39BA226DE5BCE006B6A02 /* BalanceSimpleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceSimpleViewController.swift; sourceTree = "<group>"; };
 		24FEEBC02744282E00211FEC /* StepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepViewController.swift; sourceTree = "<group>"; };
-		37A867A88A418FAB4959BE9B /* Pods-OceanDesignSystemTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OceanDesignSystemTests.release.xcconfig"; path = "Target Support Files/Pods-OceanDesignSystemTests/Pods-OceanDesignSystemTests.release.xcconfig"; sourceTree = "<group>"; };
 		421C21C42B8F9A7900EBD703 /* StepSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepSwiftUIViewController.swift; sourceTree = "<group>"; };
 		4223DDA1293F894C00257DBC /* OrderedListItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedListItemViewController.swift; sourceTree = "<group>"; };
 		42256BA52B0FEE410055C034 /* StatusListItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusListItemViewController.swift; sourceTree = "<group>"; };
@@ -198,14 +196,11 @@
 		42DF5BD82A8FFDBA00A77CE1 /* ComponentsSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsSwiftUIViewController.swift; sourceTree = "<group>"; };
 		42DF5BDA2A8FFECB00A77CE1 /* ButtonSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonSwiftUIViewController.swift; sourceTree = "<group>"; };
 		42E695722B2A53A100E5AB11 /* BadgeSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeSwiftUIViewController.swift; sourceTree = "<group>"; };
-		487BB48FF775BB7289867E61 /* Pods-OceanDesignSystem.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OceanDesignSystem.debug.xcconfig"; path = "Target Support Files/Pods-OceanDesignSystem/Pods-OceanDesignSystem.debug.xcconfig"; sourceTree = "<group>"; };
 		8EB41BEC27E42D1800F18CC7 /* FloatVerticalMenuListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatVerticalMenuListViewController.swift; sourceTree = "<group>"; };
 		8ECB029E283319340037DC25 /* CardCrossSellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCrossSellViewController.swift; sourceTree = "<group>"; };
 		8ED08AE627EE075500ACDCB4 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
-		963811236FAC147DAAE78C17 /* Pods-OceanDesignSystem.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OceanDesignSystem.release.xcconfig"; path = "Target Support Files/Pods-OceanDesignSystem/Pods-OceanDesignSystem.release.xcconfig"; sourceTree = "<group>"; };
 		9F6980532D5B98D600A09646 /* ExpandableTextListItemSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableTextListItemSwiftUIViewController.swift; sourceTree = "<group>"; };
 		9F84CB292D47D48800F6E22D /* InlineTextListItemSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineTextListItemSwiftUIViewController.swift; sourceTree = "<group>"; };
-		AC73A6FA4F89623E979FB26F /* Pods-OceanDesignSystemTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OceanDesignSystemTests.debug.xcconfig"; path = "Target Support Files/Pods-OceanDesignSystemTests/Pods-OceanDesignSystemTests.debug.xcconfig"; sourceTree = "<group>"; };
 		AF833AAD2890764F0012AE58 /* TransactionFooterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionFooterViewController.swift; sourceTree = "<group>"; };
 		B71D65C724C8F28100C3938C /* TokensByCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensByCategoryViewController.swift; sourceTree = "<group>"; };
 		B71D65DB24CA038B00C3938C /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
@@ -223,7 +218,6 @@
 		B7BB722124EEEB6F007F8848 /* NibWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibWrapperView.swift; sourceTree = "<group>"; };
 		B7CA694D24CB4C940051CA6A /* ComponentTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentTypeViewController.swift; sourceTree = "<group>"; };
 		B7CA694F24CB56B90051CA6A /* RenderComponentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderComponentsViewController.swift; sourceTree = "<group>"; };
-		B833D03124A6796100587FDE /* OceanDesignSystem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OceanDesignSystem.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B833D03424A6796100587FDE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B833D03624A6796100587FDE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		B833D03824A6796100587FDE /* TokensViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensViewController.swift; sourceTree = "<group>"; };
@@ -231,7 +225,6 @@
 		B833D03D24A6796300587FDE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B833D04024A6796300587FDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B833D04224A6796300587FDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CEEF48CF3C110AD83031D802 /* Pods_OceanDesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OceanDesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D50896052A156A1E00ED3968 /* InformativeCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformativeCardViewController.swift; sourceTree = "<group>"; };
 		D50D86362B5996040075262C /* TransactionListItemSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListItemSwiftUIViewController.swift; sourceTree = "<group>"; };
 		D5376B032B7E577E00B23B3E /* TextListItemSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextListItemSwiftUIViewController.swift; sourceTree = "<group>"; };
@@ -266,8 +259,9 @@
 		E1DE74F22A12C18500C9361F /* ChartCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartCardViewController.swift; sourceTree = "<group>"; };
 		E1E384A32C220F2A00E149CC /* SettingsListItemSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsListItemSwiftUIViewController.swift; sourceTree = "<group>"; };
 		E1E8B8722C88F837003B7927 /* ContentListSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentListSwiftUIViewController.swift; sourceTree = "<group>"; };
+		E1EDB5B22D71042000A430FA /* OceanDesignSystem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OceanDesignSystem.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1EDB5B32D71042000A430FA /* OceanDesignSystemTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OceanDesignSystemTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1EDBC8F2A6044AE00A39762 /* LinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkViewController.swift; sourceTree = "<group>"; };
-		E926B522695D9CD71ED3E1CF /* Pods_OceanDesignSystemTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OceanDesignSystemTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E985454D275EA0EF0010B9EC /* ChipsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -276,7 +270,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E1558009CE8D898C7FD634D /* Pods_OceanDesignSystemTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,7 +277,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EEB79A6C99E336F4C015596 /* Pods_OceanDesignSystem.framework in Frameworks */,
+				E14CBF5E2D710D4B000598DE /* OceanComponents in Frameworks */,
+				E14CBF5A2D710BA7000598DE /* OceanTokens in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,15 +402,6 @@
 			path = "Components SwiftUI";
 			sourceTree = "<group>";
 		};
-		8CB2BAB84719B0FB67951059 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				CEEF48CF3C110AD83031D802 /* Pods_OceanDesignSystem.framework */,
-				E926B522695D9CD71ED3E1CF /* Pods_OceanDesignSystemTests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		B71D65DA24CA037500C3938C /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -471,19 +456,9 @@
 			children = (
 				B833D03324A6796100587FDE /* OceanDesignSystem */,
 				24C801502682585600744F30 /* OceanDesignSystemTests */,
-				B833D03224A6796100587FDE /* Products */,
-				DE43E9D2BE865C23C41C8096 /* Pods */,
-				8CB2BAB84719B0FB67951059 /* Frameworks */,
+				E1EDB5B22D71042000A430FA /* OceanDesignSystem.app */,
+				E1EDB5B32D71042000A430FA /* OceanDesignSystemTests.xctest */,
 			);
-			sourceTree = "<group>";
-		};
-		B833D03224A6796100587FDE /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				B833D03124A6796100587FDE /* OceanDesignSystem.app */,
-				24C8014F2682585600744F30 /* OceanDesignSystemTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		B833D03324A6796100587FDE /* OceanDesignSystem */ = {
@@ -504,17 +479,6 @@
 			path = OceanDesignSystem;
 			sourceTree = "<group>";
 		};
-		DE43E9D2BE865C23C41C8096 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				487BB48FF775BB7289867E61 /* Pods-OceanDesignSystem.debug.xcconfig */,
-				963811236FAC147DAAE78C17 /* Pods-OceanDesignSystem.release.xcconfig */,
-				AC73A6FA4F89623E979FB26F /* Pods-OceanDesignSystemTests.debug.xcconfig */,
-				37A867A88A418FAB4959BE9B /* Pods-OceanDesignSystemTests.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		E129C2B32B56E5B6003A82DE /* Preview */ = {
 			isa = PBXGroup;
 			children = (
@@ -530,11 +494,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 24C801582682585600744F30 /* Build configuration list for PBXNativeTarget "OceanDesignSystemTests" */;
 			buildPhases = (
-				DF5380ACD4803A9D590FEC53 /* [CP] Check Pods Manifest.lock */,
 				24C8014B2682585600744F30 /* Sources */,
 				24C8014C2682585600744F30 /* Frameworks */,
 				24C8014D2682585600744F30 /* Resources */,
-				4D432C367EB180397D6500A9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -543,19 +505,17 @@
 			);
 			name = OceanDesignSystemTests;
 			productName = OceanDesignSystemTests;
-			productReference = 24C8014F2682585600744F30 /* OceanDesignSystemTests.xctest */;
+			productReference = E1EDB5B32D71042000A430FA /* OceanDesignSystemTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		B833D03024A6796100587FDE /* OceanDesignSystem */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B833D04524A6796300587FDE /* Build configuration list for PBXNativeTarget "OceanDesignSystem" */;
 			buildPhases = (
-				2DE3922D4A3F9BD8077A7ED5 /* [CP] Check Pods Manifest.lock */,
 				B833D02D24A6796100587FDE /* Sources */,
 				B833D02E24A6796100587FDE /* Frameworks */,
 				B833D02F24A6796100587FDE /* Resources */,
 				B833D12A24A9839F00587FDE /* Embed Frameworks */,
-				4DF3D84C34F8FA841CBFA660 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -563,7 +523,7 @@
 			);
 			name = OceanDesignSystem;
 			productName = OceanDesignSystem;
-			productReference = B833D03124A6796100587FDE /* OceanDesignSystem.app */;
+			productReference = E1EDB5B22D71042000A430FA /* OceanDesignSystem.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -594,7 +554,10 @@
 				Base,
 			);
 			mainGroup = B833D02824A6796100587FDE;
-			productRefGroup = B833D03224A6796100587FDE /* Products */;
+			packageReferences = (
+				E14CBF542D710BA7000598DE /* XCLocalSwiftPackageReference "../ocean-ios" */,
+			);
+			productRefGroup = B833D02824A6796100587FDE;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -624,87 +587,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		2DE3922D4A3F9BD8077A7ED5 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-OceanDesignSystem-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4D432C367EB180397D6500A9 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OceanDesignSystemTests/Pods-OceanDesignSystemTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OceanDesignSystemTests/Pods-OceanDesignSystemTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OceanDesignSystemTests/Pods-OceanDesignSystemTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4DF3D84C34F8FA841CBFA660 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OceanDesignSystem/Pods-OceanDesignSystem-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OceanDesignSystem/Pods-OceanDesignSystem-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OceanDesignSystem/Pods-OceanDesignSystem-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DF5380ACD4803A9D590FEC53 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-OceanDesignSystemTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		24C8014B2682585600744F30 /* Sources */ = {
@@ -861,7 +743,6 @@
 /* Begin XCBuildConfiguration section */
 		24C801562682585600744F30 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AC73A6FA4F89623E979FB26F /* Pods-OceanDesignSystemTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Manual;
@@ -884,7 +765,6 @@
 		};
 		24C801572682585600744F30 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 37A867A88A418FAB4959BE9B /* Pods-OceanDesignSystemTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Manual;
@@ -1023,7 +903,6 @@
 		};
 		B833D04624A6796300587FDE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 487BB48FF775BB7289867E61 /* Pods-OceanDesignSystem.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
@@ -1049,7 +928,6 @@
 		};
 		B833D04724A6796300587FDE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 963811236FAC147DAAE78C17 /* Pods-OceanDesignSystem.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
@@ -1104,6 +982,24 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		E14CBF542D710BA7000598DE /* XCLocalSwiftPackageReference "../ocean-ios" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../ocean-ios";
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E14CBF592D710BA7000598DE /* OceanTokens */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = OceanTokens;
+		};
+		E14CBF5D2D710D4B000598DE /* OceanComponents */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = OceanComponents;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B833D02924A6796100587FDE /* Project object */;
 }
