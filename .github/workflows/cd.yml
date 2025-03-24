@@ -30,15 +30,19 @@ jobs:
       - name: Bundle install
         run: bundle install
         
+      - name: Install Mint and SwiftGen
+        run: |
+          brew install mint
+          mint install SwiftGen/SwiftGen
+          export PATH="$HOME/.mint/bin:$PATH"
+          echo 'export PATH="$HOME/.mint/bin:$PATH"' >> $GITHUB_ENV
+        
       - name: Update tokens from NPM
         run: |
 
           echo "Install SwiftGen."
           brew install mint
           mint install SwiftGen/SwiftGen
-
-          export PATH="$HOME/.mint/bin:$PATH"
-          echo 'export PATH="$HOME/.mint/bin:$PATH"' >> $GITHUB_ENV
 
           echo "SwiftGen version"
           swiftgen --version
