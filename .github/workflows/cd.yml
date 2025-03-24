@@ -38,16 +38,20 @@ jobs:
       - name: Update tokens from NPM
         run: |
           LATEST_VERSION_TOKENS_LIB_NPM=`npm show @useblu/ocean-tokens version`
+          echo "Updating OceanTokens to version $LATEST_VERSION_TOKENS_LIB_NPM"
 
-            echo "Updating OceanTokens to version $LATEST_VERSION_TOKENS_LIB_NPM"
+          sh update_tokens.sh
 
-            sh update_tokens.sh
-
-            cp -R OceanTokens/* Sources/OceanTokens/Resources/
-
-            git add .
-            git commit -m "chore: update OceanTokens to v$LATEST_VERSION_TOKENS_LIB_NPM [skip ci]"
-            git push origin $BRANCH_NAME
+          # Verificar se houve modificações após a geração dos arquivos
+          if [ -n "$(git status --porcelain)" ]; then
+              echo "Changes detected, committing updates..."
+              cp -R OceanTokens/* Sources/OceanTokens/Resources/
+              git add .
+              git commit -m "chore: update OceanTokens to v$LATEST_VERSION_TOKENS_LIB_NPM [skip ci]"
+              git push origin $BRANCH_NAME
+          else
+              echo "No changes detected, skipping commit."
+          fi
 
       - name: Increment version SPM
         run: |
