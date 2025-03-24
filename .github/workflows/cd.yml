@@ -44,6 +44,9 @@ jobs:
           brew install mint
           mint install SwiftGen/SwiftGen
 
+          export PATH="$HOME/.mint/bin:$PATH"
+          echo 'export PATH="$HOME/.mint/bin:$PATH"' >> $GITHUB_ENV
+
           echo "SwiftGen version"
           swiftgen --version
 
