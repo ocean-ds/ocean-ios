@@ -94,6 +94,21 @@ class CardListItemSwiftUIViewController: UIViewController {
         builder.parameters.showSkeleton = true
     }
 
+    lazy var card10 = OceanSwiftUI.CardListItem { view in
+        view.parameters.title = "title title title"
+        view.parameters.caption = "caption caption caption"
+        view.parameters.hasCheckbox = true
+        view.parameters.onCheckboxSelect = { $0 ? print("Checked") : print("Unchecked") }
+        view.parameters.onTouch = { print("card10") }
+    }
+
+    lazy var card11 = OceanSwiftUI.CardListItem { view in
+        view.parameters.title = "title title title"
+        view.parameters.caption = "caption caption caption"
+        view.parameters.hasRadioButton = true
+        view.parameters.onTouch = { print("Checked") }
+    }
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             card1
@@ -105,6 +120,8 @@ class CardListItemSwiftUIViewController: UIViewController {
             card7
             card8
             card9
+            card10
+            card11
         }
     })
 

@@ -24,8 +24,14 @@ extension OceanSwiftUI {
         @Published public var tagIcon: UIImage?
         @Published public var tagStatus: OceanSwiftUI.TagParameters.Status
         @Published public var tagSize: OceanSwiftUI.TagParameters.Size
+        @Published public var hasCheckbox: Bool
+        @Published public var hasRadioButton: Bool
+        @Published public var isChecked: Bool
+        @Published public var isEnabled: Bool
+        @Published public var hasError: Bool
         @Published public var showSkeleton: Bool
 
+        public var onCheckboxSelect: (Bool) -> Void
         public var onTouch: (() -> Void)
 
         public init(title: String = "",
@@ -40,7 +46,13 @@ extension OceanSwiftUI {
                     tagIcon: UIImage? = nil,
                     tagStatus: OceanSwiftUI.TagParameters.Status = .neutralPrimary,
                     tagSize: OceanSwiftUI.TagParameters.Size = .small,
+                    hasCheckbox: Bool = false,
+                    hasRadioButton: Bool = false,
+                    isChecked: Bool = false,
+                    isEnabled: Bool = true,
+                    hasError: Bool = false,
                     showSkeleton: Bool = false,
+                    onCheckboxSelect: @escaping (Bool) -> Void = { _ in },
                     onTouch: @escaping (() -> Void) = {}) {
             self.title = title
             self.subtitle = subtitle
@@ -54,7 +66,13 @@ extension OceanSwiftUI {
             self.tagIcon = tagIcon
             self.tagStatus = tagStatus
             self.tagSize = tagSize
+            self.hasCheckbox = hasCheckbox
+            self.hasRadioButton = hasRadioButton
+            self.isChecked = isChecked
+            self.isEnabled = isEnabled
+            self.hasError = hasError
             self.showSkeleton = showSkeleton
+            self.onCheckboxSelect = onCheckboxSelect
             self.onTouch = onTouch
         }
     }
@@ -125,6 +143,26 @@ extension OceanSwiftUI {
                             .cornerRadius(Constants.leadingIconSize / 2)
 
                             Spacer().frame(width: Ocean.size.spacingInsetSm)
+                        } else if parameters.hasCheckbox {
+                            OceanSwiftUI.CheckboxGroup { group in
+                                group.parameters.hasError = parameters.hasError
+                                group.parameters.items = [ .init(isSelected: self.parameters.isChecked,
+                                                                 isEnabled: self.parameters.isEnabled) ]
+                                group.parameters.onTouch = { items in
+                                    guard let item = items.first else { return }
+                                    parameters.onCheckboxSelect(item.isSelected)
+                                }
+                            }
+                        } else if parameters.hasRadioButton {
+                            OceanSwiftUI.RadioButtonGroup { group in
+                                group.parameters.hasError = parameters.hasError
+                                group.parameters.items = [ .init() ]
+                                group.parameters.isEnabled = self.parameters.isEnabled
+                                group.parameters.setSelectedIndex(self.parameters.isChecked ? 0 : -1)
+                                group.parameters.onTouch = { _, _ in
+                                    parameters.onTouch()
+                                }
+                            }
                         }
 
                         VStack(alignment: .leading) {
@@ -182,8 +220,15 @@ extension OceanSwiftUI {
                 .border(cornerRadius: Ocean.size.borderRadiusMd,
                         width: Ocean.size.borderWidthHairline,
                         color: Ocean.color.colorInterfaceLightDown)
-                .onTapGesture { parameters.onTouch() }
+                .transform(condition: parameters.isEnabled, transform: { view in
+                    view.onTapGesture {
+                        parameters.onTouch()
+                        self.parameters.isChecked = self.parameters.hasCheckbox ? !self.parameters.isChecked : self.parameters.isChecked
+                    }
+                })
             }
         }
+
+        // MARK: Private methods
     }
 }
