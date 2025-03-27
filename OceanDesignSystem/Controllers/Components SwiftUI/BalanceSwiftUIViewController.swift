@@ -13,13 +13,35 @@ import SwiftUI
 class BalanceSwiftUIViewController: UIViewController {
 
     private var model = OceanSwiftUI.BalanceModel(title: "Saldo total na Blu",
-                                                  value: 100,
+                                                  value: 1000000.0,
                                                   item1Title: "Saldo atual",
-                                                  item1Value: 50,
+                                                  item1Value: 500000.0,
                                                   item2Title: "Agenda",
-                                                  item2Value: 50,
+                                                  item2Value: 500000.0,
+                                                  item3Value: 1000000.0,
                                                   description: "Saldo em outras maquininhas",
+                                                  pendingTitle: "Aguardando recebimento",
+                                                  pendingValue: 1000000.0,
                                                   actionCTA: "Extrato",
+                                                  actionCTA2: "Receber",
+                                                  showAmountMachines: true,
+                                                  action: {
+        print("Extrato")
+    })
+
+    private var model2 = OceanSwiftUI.BalanceModel(title: "Saldo total na Blu",
+                                                  value: 1000000.0,
+                                                  item1Title: "Saldo atual",
+                                                  item1Value: 500000.0,
+                                                  item2Title: "Agenda",
+                                                  item2Value: 500000.0,
+                                                  item3Value: 1000000.0,
+                                                  description: "Saldo em outras maquininhas",
+                                                  pendingTitle: "Aguardando recebimento",
+                                                  pendingValue: 1000000.0,
+                                                  actionCTA: "Extrato",
+                                                  actionCTA2: "Receber ",
+                                                  showAmountMachines: false,
                                                   action: {
         print("Extrato")
     })
@@ -27,6 +49,12 @@ class BalanceSwiftUIViewController: UIViewController {
     lazy var balance: OceanSwiftUI.Balance = {
         OceanSwiftUI.Balance { balance in
             balance.parameters.model = model
+        }
+    }()
+
+    lazy var balance2: OceanSwiftUI.Balance = {
+        OceanSwiftUI.Balance { balance in
+            balance.parameters.model = model2
         }
     }()
 
@@ -43,11 +71,25 @@ class BalanceSwiftUIViewController: UIViewController {
         }
     }()
 
+    lazy var showBalance: OceanSwiftUI.Button = {
+        OceanSwiftUI.Button.secondarySM { button in
+            button.parameters.text = self.balance.parameters.isVisibleBalance ? "Esconder Saldo" : "Mostrar Saldo"
+            button.parameters.onTouch = {
+                self.balance.parameters.isVisibleBalance.toggle()
+                self.balance2.parameters.isVisibleBalance.toggle()
+            }
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackMd) {
             balance
 
+            balance2
+
             toogleButton
+
+            showBalance
         }
     })
 

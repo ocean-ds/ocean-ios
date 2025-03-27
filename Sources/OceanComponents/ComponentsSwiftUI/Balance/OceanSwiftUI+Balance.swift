@@ -13,6 +13,7 @@ extension OceanSwiftUI {
 
     public class BalanceParameters: ObservableObject {
         @Published public var model: BalanceModel
+        @Published public var isVisibleBalance: Bool
         @Published public var state: BalanceState
         @Published public var showSkeleton: Bool
 
@@ -21,9 +22,11 @@ extension OceanSwiftUI {
         }
 
         public init(model: BalanceModel = .init(),
+                    isVisibleBalance: Bool = true,
                     state: BalanceState = .collapsed,
                     showSkeleton: Bool = false) {
             self.model = model
+            self.isVisibleBalance = isVisibleBalance
             self.state = state
             self.showSkeleton = showSkeleton
         }
@@ -36,9 +39,13 @@ extension OceanSwiftUI {
         @Published public var item1Value: Double
         @Published public var item2Title: String
         @Published public var item2Value: Double
+        @Published public var item3Value: Double
         @Published public var description: String
+        @Published public var pendingTitle: String
+        @Published public var pendingValue: Double
         @Published public var actionCTA: String
-        @Published public var actionCTACollapsed: String
+        @Published public var actionCTA2: String
+        @Published public var showAmountMachines: Bool
         @Published public var action: (() -> Void)?
 
         public init(title: String = "",
@@ -47,9 +54,13 @@ extension OceanSwiftUI {
                     item1Value: Double = 0.0,
                     item2Title: String = "",
                     item2Value: Double = 0.0,
+                    item3Value: Double = 0.0,
                     description: String = "",
+                    pendingTitle: String = "",
+                    pendingValue: Double = 0.0,
                     actionCTA: String = "",
-                    actionCTACollapsed: String = "",
+                    actionCTA2: String = "",
+                    showAmountMachines: Bool = false,
                     action: (() -> Void)? = nil) {
             self.title = title
             self.value = value
@@ -57,9 +68,13 @@ extension OceanSwiftUI {
             self.item1Value = item1Value
             self.item2Title = item2Title
             self.item2Value = item2Value
+            self.item3Value = item3Value
             self.description = description
+            self.pendingTitle = pendingTitle
+            self.pendingValue = pendingValue
             self.actionCTA = actionCTA
-            self.actionCTACollapsed = actionCTACollapsed
+            self.actionCTA2 = actionCTA2
+            self.showAmountMachines = showAmountMachines
             self.action = action
         }
     }
@@ -81,7 +96,6 @@ extension OceanSwiftUI {
 
         // MARK: Private properties
 
-        @State private var isValueVisible: Bool = true
         @State private var shouldAnimate: Bool = false
 
         // MARK: Constructors
@@ -106,22 +120,8 @@ extension OceanSwiftUI {
             .background(Color(Ocean.color.colorBrandPrimaryDown.withAlphaComponent(0.4)))
         }
 
-        private var eyesIconView: some View {
-            Image(uiImage: isValueVisible
-                  ? Ocean.icon.eyeOutline?.withRenderingMode(.alwaysTemplate)
-                  : Ocean.icon.eyeOffOutline?.withRenderingMode(.alwaysTemplate))
-            .resizable()
-            .renderingMode(.template)
-            .frame(width: 24, height: 24)
-            .foregroundColor(Color(Ocean.color.colorBrandPrimaryUp))
-            .padding(.trailing, 16)
-            .onTapGesture {
-                isValueVisible.toggle()
-            }
-        }
-
         private var balanceView: some View {
-            VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
+            VStack(alignment: .leading, spacing: Ocean.size.spacingStackXs) {
                 getBalanceHeaderView(parameters.model, fontLarge: true)
 
                 if self.parameters.state == .expanded {
@@ -136,7 +136,7 @@ extension OceanSwiftUI {
                             Spacer()
 
                             Typography { label in
-                                label.parameters.text = isValueVisible ? parameters.model.item1Value.toCurrency() ?? "" : "R$ ••••••"
+                                label.parameters.text = parameters.isVisibleBalance ? parameters.model.item1Value.toCurrency() ?? "" : "R$ ••••••"
                                 label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXxs)
                                 label.parameters.textColor = Ocean.color.colorInterfaceLightPure
                             }
@@ -156,7 +156,7 @@ extension OceanSwiftUI {
                             Spacer()
 
                             Typography { label in
-                                label.parameters.text = isValueVisible ? parameters.model.item2Value.toCurrency() ?? "" : "R$ ••••••"
+                                label.parameters.text = parameters.isVisibleBalance ? parameters.model.item2Value.toCurrency() ?? "" : "R$ ••••••"
                                 label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXxs)
                                 label.parameters.textColor = Ocean.color.colorInterfaceLightPure
                             }
@@ -169,22 +169,68 @@ extension OceanSwiftUI {
                     divider.parameters.color = Ocean.color.colorBrandPrimaryUp.withAlphaComponent(0.4)
                 }
 
-                HStack(spacing: Ocean.size.spacingStackXxs) {
-                    Typography.description { label in
-                        label.parameters.text = parameters.model.description
-                        label.parameters.textColor = Ocean.color.colorInterfaceLightDown
-                    }
-                    .fixedSize(horizontal: false, vertical: true)
+                if (parameters.model.showAmountMachines) {
+                    HStack(spacing: Ocean.size.spacingStackXs) {
+                        VStack(alignment: .leading, spacing: 0) {
+                            Typography { label in
+                                label.parameters.text = parameters.model.description
+                                label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
+                                label.parameters.textColor = Ocean.color.colorInterfaceLightPure
+                            }
 
-                    Spacer()
-
-                    Button.secondarySM { button in
-                        button.parameters.text = parameters.model.actionCTA
-                        button.parameters.onTouch = {
-                            parameters.model.action?()
+                            Typography { label in
+                                label.parameters.text = parameters.isVisibleBalance ? parameters.model.item3Value.toCurrency() ?? "" : "R$ ••••••"
+                                label.parameters.font =  .baseBold(size: Ocean.font.fontSizeSm)
+                                label.parameters.textColor = Ocean.color.colorInterfaceLightPure
+                            }
                         }
+
+                        Spacer()
+
+                        HStack(spacing: -Ocean.size.spacingStackXxs) {
+                            Circle()
+                                .fill(Color.white )
+                                .frame(width: 24, height: 24)
+                            Circle()
+                                .fill(Color.red)
+                                .frame(width: 24, height: 24)
+                            Circle()
+                                .fill(Color.blue)
+                                .frame(width: 24, height: 24)
+                        }
+
+                        Image(uiImage: Ocean.icon.chevronRightSolid?.withRenderingMode(.alwaysTemplate))
+                            .resizable()
+                            .renderingMode(.template)
+                            .frame(width: 16, height: 16, alignment: .center)
+                            .foregroundColor(Color(Ocean.color.colorInterfaceLightPure))
                     }
-                    .fixedSize(horizontal: true, vertical: false)
+                } else {
+                    HStack(spacing: Ocean.size.spacingStackXs) {
+                        VStack(alignment: .leading, spacing: 0) {
+                            Typography { label in
+                                label.parameters.text = parameters.model.pendingTitle
+                                label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
+                                label.parameters.textColor = Ocean.color.colorInterfaceLightPure
+                            }
+
+                            Typography { label in
+                                label.parameters.text = parameters.isVisibleBalance ? parameters.model.pendingValue.toCurrency() ?? "" : "R$ ••••••"
+                                label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXs)
+                                label.parameters.textColor = Ocean.color.colorInterfaceLightPure
+                            }
+                        }
+
+                        Spacer()
+
+                        Button.secondarySM { button in
+                            button.parameters.text = parameters.model.actionCTA2
+                            button.parameters.onTouch = {
+                                parameters.model.action?()
+                            }
+                        }
+                        .fixedSize(horizontal: true, vertical: false)
+                    }
                 }
             }
         }
@@ -236,7 +282,7 @@ extension OceanSwiftUI {
                     }
 
                     Typography { label in
-                        label.parameters.text = isValueVisible ? item.value?.toCurrency() ?? "" : "R$ ••••••"
+                        label.parameters.text = parameters.isVisibleBalance ? item.value?.toCurrency() ?? "" : "R$ ••••••"
                         label.parameters.font = fontLarge ? .baseBold(size: Ocean.font.fontSizeSm) : .baseBold(size: Ocean.font.fontSizeXs)
                         label.parameters.textColor = Ocean.color.colorInterfaceLightPure
                         label.parameters.showSkeleton = parameters.showSkeleton
