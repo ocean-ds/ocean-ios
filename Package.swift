@@ -30,7 +30,7 @@ let package = Package(
             dependencies: [],
             path: "Sources/OceanTokens",
             resources: [
-                .copy("Resources/Fonts")
+                .process("Resources")
             ]
         ),
         .target(
@@ -44,8 +44,7 @@ let package = Package(
                            .product(name: "EasyTipView", package: "EasyTipView")],
             path: "Sources/OceanComponents",
             resources: [
-                .copy("Icon"),
-                .copy("Resources/Icons")
+                .process("Resources")
             ]
         )
     ]
