@@ -226,7 +226,7 @@ extension OceanSwiftUI {
         @ViewBuilder
         private func getBalanceHeaderView(_ item: BalanceModel, fontLarge: Bool) -> some View {
             HStack(spacing: Ocean.size.spacingStackXxs) {
-                eyesIconView
+                //eyesIconView
 
                 VStack(alignment: .leading, spacing: 0) {
                     Typography { label in
@@ -245,7 +245,7 @@ extension OceanSwiftUI {
 
                 Spacer()
 
-                Image(uiImage: Ocean.icon.chevronDownSolid?.withRenderingMode(.alwaysTemplate))
+                Image(uiImage: Ocean.icon.chevronUpSolid?.withRenderingMode(.alwaysTemplate))
                     .resizable()
                     .renderingMode(.template)
                     .frame(width: 16, height: 16, alignment: .center)

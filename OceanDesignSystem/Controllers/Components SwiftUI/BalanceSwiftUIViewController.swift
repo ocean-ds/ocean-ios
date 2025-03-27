@@ -18,7 +18,7 @@ class BalanceSwiftUIViewController: UIViewController {
                                                   item1Value: 50,
                                                   item2Title: "Agenda",
                                                   item2Value: 50,
-                                                  description: "Confira tudo o que entrou e saiu da sua Conta Digital Blu",
+                                                  description: "Saldo em outras maquininhas",
                                                   actionCTA: "Extrato",
                                                   action: {
         print("Extrato")
