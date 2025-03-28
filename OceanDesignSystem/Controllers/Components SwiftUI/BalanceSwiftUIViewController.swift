@@ -24,29 +24,63 @@ class BalanceSwiftUIViewController: UIViewController {
                                                   pendingValue: 1000000.0,
                                                   actionCTA: "Extrato",
                                                   actionCTA2: "Receber",
-                                                  showAmountMachines: true,
+                                                  displayMode: .amountMachines,
                                                   action: {
         print("Extrato")
     })
 
     private var model2 = OceanSwiftUI.BalanceModel(title: "Saldo total na Blu",
-                                                  value: 1000000.0,
-                                                  item1Title: "Saldo atual",
-                                                  item1Value: 500000.0,
-                                                  item2Title: "Agenda",
-                                                  item2Value: 500000.0,
-                                                  item3Value: 1000000.0,
-                                                  description: "Saldo em outras maquininhas",
-                                                  pendingTitle: "Aguardando recebimento",
-                                                  pendingValue: 1000000.0,
-                                                  actionCTA: "Extrato",
-                                                  actionCTA2: "Receber ",
-                                                  showAmountMachines: false,
-                                                  action: {
+                                                   value: 1000000.0,
+                                                   item1Title: "Saldo atual",
+                                                   item1Value: 500000.0,
+                                                   item2Title: "Agenda",
+                                                   item2Value: 500000.0,
+                                                   item3Value: 1000000.0,
+                                                   description: "Saldo em outras maquininhas",
+                                                   pendingTitle: "Aguardando recebimento",
+                                                   pendingValue: 1000000.0,
+                                                   actionCTA: "Extrato",
+                                                   actionCTA2: "Receber ",
+                                                   displayMode: .awaitPayment,
+                                                   action: {
         print("Extrato")
     })
 
-    lazy var balance: OceanSwiftUI.Balance = {
+    private var model3 = OceanSwiftUI.BalanceModel(title: "Saldo total na Blu",
+                                                   value: 1000000.0,
+                                                   item1Title: "Saldo atual",
+                                                   item1Value: 500000.0,
+                                                   item2Title: "Agenda",
+                                                   item2Value: 500000.0,
+                                                   item3Value: 1000000.0,
+                                                   description: "Saldo em outras maquininhas",
+                                                   pendingTitle: "Suas vendas valem muito mais com  a Blu",
+                                                   pendingValue: 1000000.0,
+                                                   actionCTA: "Extrato",
+                                                   actionCTA2: "Saiba mais",
+                                                   displayMode: .knowMore,
+                                                   action: {
+        print("Extrato")
+    })
+
+    private var model4 = OceanSwiftUI.BalanceModel(title: "Saldo total na Blu",
+                                                   value: 1000000.0,
+                                                   item1Title: "Saldo atual",
+                                                   item1Value: 500000.0,
+                                                   item2Title: "Agenda",
+                                                   item2Value: 500000.0,
+                                                   item3Value: 1000000.0,
+                                                   description: "Saldo em outras maquininhas",
+                                                   pendingTitle: "Adicione saldo do seu jeito e economize mais!",
+                                                   pendingValue: 1000000.0,
+                                                   actionCTA: "Extrato",
+                                                   actionCTA2: "Adicione saldo",
+                                                   displayMode: .addBalance,
+                                                   action: {
+        print("Extrato")
+    })
+
+    lazy var balance1: OceanSwiftUI.Balance = {
         OceanSwiftUI.Balance { balance in
             balance.parameters.model = model
         }
@@ -58,14 +92,35 @@ class BalanceSwiftUIViewController: UIViewController {
         }
     }()
 
+    lazy var balance3: OceanSwiftUI.Balance = {
+        OceanSwiftUI.Balance { balance in
+            balance.parameters.model = model3
+        }
+    }()
+
+    lazy var balance4: OceanSwiftUI.Balance = {
+        OceanSwiftUI.Balance { balance in
+            balance.parameters.model = model4
+        }
+    }()
+
     lazy var toogleButton: OceanSwiftUI.Button = {
         OceanSwiftUI.Button.secondarySM { button in
             button.parameters.text = "Toggle Scroll"
             button.parameters.onTouch = {
-                if self.balance.parameters.state == .scroll {
-                    self.balance.parameters.state = .collapsed
+                if (self.balance1.parameters.state == .scroll &&
+                    self.balance2.parameters.state == .scroll &&
+                    self.balance3.parameters.state == .scroll &&
+                    self.balance4.parameters.state == .scroll) {
+                    self.balance1.parameters.state = .collapsed
+                    self.balance2.parameters.state = .collapsed
+                    self.balance3.parameters.state = .collapsed
+                    self.balance4.parameters.state = .collapsed
                 } else {
-                    self.balance.parameters.state = .scroll
+                    self.balance1.parameters.state = .scroll
+                    self.balance2.parameters.state = .scroll
+                    self.balance3.parameters.state = .scroll
+                    self.balance4.parameters.state = .scroll
                 }
             }
         }
@@ -73,22 +128,29 @@ class BalanceSwiftUIViewController: UIViewController {
 
     lazy var showBalance: OceanSwiftUI.Button = {
         OceanSwiftUI.Button.secondarySM { button in
-            button.parameters.text = self.balance.parameters.isVisibleBalance ? "Esconder Saldo" : "Mostrar Saldo"
+            button.parameters.text = self.balance1.parameters.isVisibleBalance ? "Esconder Saldo" : "Mostrar Saldo"
             button.parameters.onTouch = {
-                self.balance.parameters.isVisibleBalance.toggle()
+                self.balance1.parameters.isVisibleBalance.toggle()
                 self.balance2.parameters.isVisibleBalance.toggle()
+                self.balance3.parameters.isVisibleBalance.toggle()
+                self.balance4.parameters.isVisibleBalance.toggle()
             }
         }
     }()
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
-        VStack(spacing: Ocean.size.spacingStackMd) {
-            balance
+        VStack(spacing: Ocean.size.spacingStackXs) {
+            balance1
 
             balance2
 
-            toogleButton
+            balance3
 
+            balance4
+        }
+
+        HStack {
+            toogleButton
             showBalance
         }
     })
@@ -101,10 +163,7 @@ class BalanceSwiftUIViewController: UIViewController {
         self.view.addSubview(uiView)
 
         uiView.oceanConstraints
-            .topToTop(to: self.view, constant: Ocean.size.spacingStackXs)
-            .leadingToLeading(to: self.view)
-            .trailingToTrailing(to: self.view)
-            .bottomToBottom(to: self.view)
+            .fill(to: self.view, constant: Ocean.size.spacingStackXs)
             .make()
     }
 }
@@ -117,4 +176,3 @@ struct BalanceSwiftUIViewController_Preview: PreviewProvider {
         }
     }
 }
-

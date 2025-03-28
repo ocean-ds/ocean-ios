@@ -1,10 +1,3 @@
-//
-//  OceanSwiftUI+Balance.swift
-//  OceanComponents
-//
-//  Created by Acassio Mendonça on 12/04/24.
-//
-
 import SwiftUI
 import OceanTokens
 
@@ -32,6 +25,14 @@ extension OceanSwiftUI {
         }
     }
 
+    public enum BalanceDisplayMode {
+        case amountMachines
+        case awaitPayment
+        case knowMore
+        case addBalance
+        case none
+    }
+
     public class BalanceModel: ObservableObject, Identifiable {
         @Published public var title: String
         @Published public var value: Double?
@@ -45,7 +46,7 @@ extension OceanSwiftUI {
         @Published public var pendingValue: Double
         @Published public var actionCTA: String
         @Published public var actionCTA2: String
-        @Published public var showAmountMachines: Bool
+        @Published public var displayMode: BalanceDisplayMode
         @Published public var action: (() -> Void)?
 
         public init(title: String = "",
@@ -60,7 +61,7 @@ extension OceanSwiftUI {
                     pendingValue: Double = 0.0,
                     actionCTA: String = "",
                     actionCTA2: String = "",
-                    showAmountMachines: Bool = false,
+                    displayMode: BalanceDisplayMode = .none,
                     action: (() -> Void)? = nil) {
             self.title = title
             self.value = value
@@ -74,7 +75,7 @@ extension OceanSwiftUI {
             self.pendingValue = pendingValue
             self.actionCTA = actionCTA
             self.actionCTA2 = actionCTA2
-            self.showAmountMachines = showAmountMachines
+            self.displayMode = displayMode
             self.action = action
         }
     }
@@ -169,69 +170,7 @@ extension OceanSwiftUI {
                     divider.parameters.color = Ocean.color.colorBrandPrimaryUp.withAlphaComponent(0.4)
                 }
 
-                if (parameters.model.showAmountMachines) {
-                    HStack(spacing: Ocean.size.spacingStackXs) {
-                        VStack(alignment: .leading, spacing: 0) {
-                            Typography { label in
-                                label.parameters.text = parameters.model.description
-                                label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
-                                label.parameters.textColor = Ocean.color.colorInterfaceLightPure
-                            }
-
-                            Typography { label in
-                                label.parameters.text = parameters.isVisibleBalance ? parameters.model.item3Value.toCurrency() ?? "" : "R$ ••••••"
-                                label.parameters.font =  .baseBold(size: Ocean.font.fontSizeSm)
-                                label.parameters.textColor = Ocean.color.colorInterfaceLightPure
-                            }
-                        }
-
-                        Spacer()
-
-                        HStack(spacing: -Ocean.size.spacingStackXxs) {
-                            Circle()
-                                .fill(Color.white )
-                                .frame(width: 24, height: 24)
-                            Circle()
-                                .fill(Color.red)
-                                .frame(width: 24, height: 24)
-                            Circle()
-                                .fill(Color.blue)
-                                .frame(width: 24, height: 24)
-                        }
-
-                        Image(uiImage: Ocean.icon.chevronRightSolid?.withRenderingMode(.alwaysTemplate))
-                            .resizable()
-                            .renderingMode(.template)
-                            .frame(width: 16, height: 16, alignment: .center)
-                            .foregroundColor(Color(Ocean.color.colorInterfaceLightPure))
-                    }
-                } else {
-                    HStack(spacing: Ocean.size.spacingStackXs) {
-                        VStack(alignment: .leading, spacing: 0) {
-                            Typography { label in
-                                label.parameters.text = parameters.model.pendingTitle
-                                label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
-                                label.parameters.textColor = Ocean.color.colorInterfaceLightPure
-                            }
-
-                            Typography { label in
-                                label.parameters.text = parameters.isVisibleBalance ? parameters.model.pendingValue.toCurrency() ?? "" : "R$ ••••••"
-                                label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXs)
-                                label.parameters.textColor = Ocean.color.colorInterfaceLightPure
-                            }
-                        }
-
-                        Spacer()
-
-                        Button.secondarySM { button in
-                            button.parameters.text = parameters.model.actionCTA2
-                            button.parameters.onTouch = {
-                                parameters.model.action?()
-                            }
-                        }
-                        .fixedSize(horizontal: true, vertical: false)
-                    }
-                }
+                balanceFooterView()
             }
         }
 
@@ -243,6 +182,88 @@ extension OceanSwiftUI {
             }
             .background(Color(Ocean.color.colorBrandPrimaryDown.withAlphaComponent(0.4)))
             .cornerRadius(Ocean.size.borderRadiusMd)
+        }
+
+        @ViewBuilder
+        private func balanceFooterView() -> some View {
+            switch parameters.model.displayMode {
+            case .amountMachines:
+                HStack(spacing: Ocean.size.spacingStackXs) {
+                    VStack(alignment: .leading, spacing: 0) {
+                        Typography { label in
+                            label.parameters.text = parameters.model.description
+                            label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxxs)
+                            label.parameters.textColor = Ocean.color.colorBrandPrimaryUp
+                        }
+
+                        Typography { label in
+                            label.parameters.text = parameters.isVisibleBalance ? parameters.model.item3Value.toCurrency() ?? "" : "R$ ••••••"
+                            label.parameters.font =  .baseBold(size: Ocean.font.fontSizeSm)
+                            label.parameters.textColor = Ocean.color.colorInterfaceLightPure
+                        }
+                    }
+
+                    Spacer()
+
+                    HStack(spacing: -Ocean.size.spacingStackXxs) {
+                        Circle()
+                            .fill(Color.white)
+                            .frame(width: 24, height: 24)
+                        Circle()
+                            .fill(Color.red)
+                            .frame(width: 24, height: 24)
+                        Circle()
+                            .fill(Color.blue)
+                            .frame(width: 24, height: 24)
+                    }
+
+                    Image(uiImage: Ocean.icon.chevronRightSolid?.withRenderingMode(.alwaysTemplate))
+                        .resizable()
+                        .renderingMode(.template)
+                        .frame(width: 16, height: 16, alignment: .center)
+                        .foregroundColor(Color(Ocean.color.colorInterfaceLightPure))
+                }
+
+            case .awaitPayment:
+                balanceActionRow(showValue: true)
+
+            case .knowMore, .addBalance:
+                balanceActionRow(showValue: false)
+
+            case .none:
+                EmptyView()
+            }
+        }
+
+        @ViewBuilder
+        private func balanceActionRow(showValue: Bool) -> some View {
+            HStack(spacing: Ocean.size.spacingStackXs) {
+                VStack(alignment: .leading, spacing: 0) {
+                    Typography { label in
+                        label.parameters.text = parameters.model.pendingTitle
+                        label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxxs)
+                        label.parameters.textColor = Ocean.color.colorBrandPrimaryUp
+                    }
+
+                    if showValue {
+                        Typography { label in
+                            label.parameters.text = parameters.isVisibleBalance ? parameters.model.pendingValue.toCurrency() ?? "" : "R$ ••••••"
+                            label.parameters.font = .baseBold(size: Ocean.font.fontSizeSm)
+                            label.parameters.textColor = Ocean.color.colorInterfaceLightPure
+                        }
+                    }
+                }
+
+                Spacer()
+
+                Button.secondarySM { button in
+                    button.parameters.text = parameters.model.actionCTA2
+                    button.parameters.onTouch = {
+                        parameters.model.action?()
+                    }
+                }
+                .fixedSize(horizontal: true, vertical: false)
+            }
         }
 
         public var body: some View {
@@ -272,8 +293,6 @@ extension OceanSwiftUI {
         @ViewBuilder
         private func getBalanceHeaderView(_ item: BalanceModel, fontLarge: Bool) -> some View {
             HStack(spacing: Ocean.size.spacingStackXxs) {
-                //eyesIconView
-
                 VStack(alignment: .leading, spacing: 0) {
                     Typography { label in
                         label.parameters.text = item.title
