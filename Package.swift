@@ -47,5 +47,6 @@ let package = Package(
                 .copy("Resources/Icon.xcassets")
             ]
         )
-    ]
+    ],
+    swiftLanguageVersions: [.v5]
 )
