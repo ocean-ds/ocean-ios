@@ -115,7 +115,7 @@ class CardListItemSwiftUIViewController: UIViewController {
         view.parameters.title = "À vista"
         view.parameters.subtitle = "Receba R$ 927,10 (Taxa 7,99%)"
         view.parameters.tagLabel = "Mais econômico"
-        view.parameters.tagStatus = .highlightPositive
+        view.parameters.tagStatus = .positive
         view.parameters.highlightCaption = "Receber à vista agora é mais barato do que antecipar depois!"
         view.parameters.hasRadioButton = true
         view.parameters.onTouch = { print("Checked") }

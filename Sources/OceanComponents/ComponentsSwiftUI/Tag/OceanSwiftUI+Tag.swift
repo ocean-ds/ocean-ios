@@ -27,7 +27,6 @@ extension OceanSwiftUI {
             case neutralPrimary
             case highlightImportant
             case highlightNeutral
-            case highlightPositive
         }
 
         public enum Size {
@@ -94,7 +93,6 @@ extension OceanSwiftUI {
                     OceanSwiftUI.Typography.caption { label in
                         label.parameters.textColor = self.getColor()
                         label.parameters.text = self.parameters.label
-                        label.parameters.font = self.getFont()
                         label.parameters.lineLimit = 1
                     }
                 }
@@ -109,7 +107,7 @@ extension OceanSwiftUI {
 
         private func getColor() -> UIColor {
             switch parameters.status {
-            case .positive, .highlightPositive:
+            case .positive:
                 return Ocean.color.colorStatusPositiveDeep
             case .warning:
                 return Ocean.color.colorStatusWarningDeep
@@ -128,7 +126,7 @@ extension OceanSwiftUI {
 
         private func getBackgroundColor() -> UIColor {
             switch parameters.status {
-            case .positive, .highlightPositive:
+            case .positive:
                 return Ocean.color.colorStatusPositiveUp
             case .warning:
                 return Ocean.color.colorStatusWarningUp
@@ -144,15 +142,6 @@ extension OceanSwiftUI {
                 return Ocean.color.colorHighlightPure
             case .highlightNeutral:
                 return Ocean.color.colorBrandPrimaryDown
-            }
-        }
-
-        private func getFont() -> UIFont? {
-            switch parameters.status {
-            case .highlightImportant, .highlightNeutral, .highlightPositive:
-                    .baseBold(size: Ocean.font.fontSizeXxxs)
-            default:
-                    .baseRegular(size: Ocean.font.fontSizeXxxs)
             }
         }
     }
