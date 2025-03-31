@@ -96,6 +96,7 @@ class CardListItemSwiftUIViewController: UIViewController {
 
     lazy var card10 = OceanSwiftUI.CardListItem { view in
         view.parameters.title = "title title title"
+        view.parameters.subtitle = "subtitle subtitle subtitle"
         view.parameters.caption = "caption caption caption"
         view.parameters.hasCheckbox = true
         view.parameters.onCheckboxSelect = { $0 ? print("Checked") : print("Unchecked") }
@@ -104,7 +105,18 @@ class CardListItemSwiftUIViewController: UIViewController {
 
     lazy var card11 = OceanSwiftUI.CardListItem { view in
         view.parameters.title = "title title title"
+        view.parameters.subtitle = "subtitle subtitle subtitle"
         view.parameters.caption = "caption caption caption"
+        view.parameters.hasRadioButton = true
+        view.parameters.onTouch = { print("Checked") }
+    }
+
+    lazy var card12 = OceanSwiftUI.CardListItem { view in
+        view.parameters.title = "À vista"
+        view.parameters.subtitle = "Receba R$ 927,10 (Taxa 7,99%)"
+        view.parameters.tagLabel = "Mais econômico"
+        view.parameters.tagStatus = .positive
+        view.parameters.highlightCaption = "Receber à vista agora é mais barato do que antecipar depois!"
         view.parameters.hasRadioButton = true
         view.parameters.onTouch = { print("Checked") }
     }
@@ -122,6 +134,7 @@ class CardListItemSwiftUIViewController: UIViewController {
             card9
             card10
             card11
+            card12
         }
     })
 

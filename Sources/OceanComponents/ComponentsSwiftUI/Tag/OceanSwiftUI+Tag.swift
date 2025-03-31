@@ -119,9 +119,7 @@ extension OceanSwiftUI {
                 return Ocean.color.colorInterfaceDarkUp
             case .neutralPrimary:
                 return Ocean.color.colorBrandPrimaryDown
-            case .highlightImportant:
-                return Ocean.color.colorInterfaceLightPure
-            case .highlightNeutral:
+            case .highlightImportant, .highlightNeutral:
                 return Ocean.color.colorInterfaceLightPure
             }
         }
