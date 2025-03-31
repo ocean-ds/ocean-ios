@@ -117,6 +117,11 @@ extension Ocean {
         public static let acquirerMercadoPago = UIImage(named: "acquirer-mercado-pago", in: Bundle.module, with: .none)
         public static let acquirerPagBank = UIImage(named: "acquirer-pag-bank", in: Bundle.module, with: .none)
         public static let acquirerPagarMe = UIImage(named: "acquirer-pagar-me", in: Bundle.module, with: .none)
+        public static let acquirerRede = UIImage(named: "acquirer-rede", in: Bundle.module, with: .none)
+        public static let acquirerSafra = UIImage(named: "acquirer-safra", in: Bundle.module, with: .none)
+        public static let acquirerSicoob = UIImage(named: "acquirer-sicoob", in: Bundle.module, with: .none)
+        public static let acquirerStone = UIImage(named: "acquirer-stone", in: Bundle.module, with: .none)
+        public static let acquirerSumup = UIImage(named: "acquirer-stone", in: Bundle.module, with: .none)
 
         // HeroIcons
 
