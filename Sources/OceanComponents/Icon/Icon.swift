@@ -110,6 +110,7 @@ extension Ocean {
         public static let cardMachineSolid = UIImage(named: "card_machine_solid", in: Bundle.module, with: .none)
         public static let lighthouseOutline = UIImage(named: "lighthouse-outline", in: Bundle.module, with: .none)
         public static let chatAlt3Outline = UIImage(named: "chat-alt-3-outline", in: Bundle.module, with: .none)
+        public static let sparklesAltSolid = UIImage(named: "sparkles-alt-solid", in: Bundle.module, with: .none)
         public static let acquirerAsaas = UIImage(named: "acquirer-asaas", in: Bundle.module, with: .none)
         public static let acquirerCielo = UIImage(named: "acquirer-cielo", in: Bundle.module, with: .none)
         public static let acquirerGetnet = UIImage(named: "acquirer-getnet", in: Bundle.module, with: .none)

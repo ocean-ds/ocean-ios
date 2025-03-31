@@ -20,6 +20,10 @@ extension OceanSwiftUI {
         @Published public var caption: String
         @Published public var captionLineLimit: Int?
         @Published public var trailingIcon: UIImage?
+        @Published public var highlightCaption: String
+        @Published public var highlightIcon: UIImage?
+        @Published public var highlightIconColor: UIColor
+        @Published public var highlightBackgroundColor: UIColor
         @Published public var tagLabel: String
         @Published public var tagIcon: UIImage?
         @Published public var tagStatus: OceanSwiftUI.TagParameters.Status
@@ -42,6 +46,10 @@ extension OceanSwiftUI {
                     titleLineLimit: Int? = nil,
                     subtitleLineLimit: Int? = nil,
                     captionLineLimit: Int? = nil,
+                    highlightCaption: String = "",
+                    highlightIcon: UIImage? = Ocean.icon.sparklesAltSolid,
+                    highlightIconColor: UIColor = Ocean.color.colorStatusPositiveDeep,
+                    highlightBackgroundColor: UIColor = Ocean.color.colorStatusPositiveUp,
                     tagLabel: String = "",
                     tagIcon: UIImage? = nil,
                     tagStatus: OceanSwiftUI.TagParameters.Status = .neutralPrimary,
@@ -62,6 +70,10 @@ extension OceanSwiftUI {
             self.titleLineLimit = titleLineLimit
             self.subtitleLineLimit = subtitleLineLimit
             self.captionLineLimit = captionLineLimit
+            self.highlightCaption = highlightCaption
+            self.highlightIcon = highlightIcon
+            self.highlightIconColor = highlightIconColor
+            self.highlightBackgroundColor = highlightBackgroundColor
             self.tagLabel = tagLabel
             self.tagIcon = tagIcon
             self.tagStatus = tagStatus
@@ -100,6 +112,24 @@ extension OceanSwiftUI {
 
         // MARK: Properties private
 
+        private var captionHighlightView: some View {
+            HStack(spacing: Ocean.size.spacingStackXxs) {
+                Image(uiImage: parameters.highlightIcon)
+                    .resizable()
+                    .renderingMode(.template)
+                    .foregroundColor(Color(parameters.highlightIconColor))
+                    .frame(maxWidth: 24,
+                           maxHeight: 24)
+
+                OceanSwiftUI.Typography.caption { label in
+                    label.parameters.text = parameters.highlightCaption
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(Ocean.size.spacingStackXs)
+            .background(Color(parameters.highlightBackgroundColor))
+        }
+
         // MARK: Constructors
 
         public init(parameters: CardListItemParameters = CardListItemParameters()) {
@@ -127,8 +157,8 @@ extension OceanSwiftUI {
                         width: Ocean.size.borderWidthHairline,
                         color: Ocean.color.colorInterfaceLightDown)
             } else {
-                HStack {
-                    HStack {
+                VStack(alignment: .leading, spacing: 0) {
+                    HStack(spacing: Ocean.size.spacingStackXs) {
                         if let image = parameters.leadingIcon {
                             ZStack {
                                 Image(uiImage: image)
@@ -142,7 +172,6 @@ extension OceanSwiftUI {
                             .background(Color(Ocean.color.colorInterfaceLightUp))
                             .cornerRadius(Constants.leadingIconSize / 2)
 
-                            Spacer().frame(width: Ocean.size.spacingInsetSm)
                         } else if parameters.hasCheckbox {
                             OceanSwiftUI.CheckboxGroup { group in
                                 group.parameters.hasError = parameters.hasError
@@ -158,9 +187,9 @@ extension OceanSwiftUI {
                             }
                         }
 
-                        VStack(alignment: .leading) {
-                            HStack {
-                                OceanSwiftUI.Typography.heading4 { label in
+                        VStack(alignment: .leading, spacing: 0) {
+                            HStack(spacing: Ocean.size.spacingStackXxxs) {
+                                OceanSwiftUI.Typography.paragraph { label in
                                     label.parameters.text = parameters.title
                                     label.parameters.lineLimit = parameters.titleLineLimit
                                 }
@@ -183,12 +212,11 @@ extension OceanSwiftUI {
                             }
 
                             if !parameters.caption.isEmpty {
-                                Spacer().frame(height: Ocean.size.spacingInsetXxs)
-
                                 OceanSwiftUI.Typography.caption { label in
                                     label.parameters.text = parameters.caption
                                     label.parameters.lineLimit = parameters.captionLineLimit
                                 }
+                                .padding(.top, Ocean.size.spacingStackXxs)
                             }
                         }
 
@@ -201,12 +229,14 @@ extension OceanSwiftUI {
                                 .foregroundColor(Color(Ocean.color.colorInterfaceDarkDown))
                                 .frame(maxWidth: Constants.trailingIconImageMaxSize,
                                        maxHeight: Constants.trailingIconImageMaxSize)
-
-                            Spacer().frame(width: Ocean.size.spacingInsetXxs)
                         }
                     }
-                    .frame(minWidth: 0, maxWidth: .infinity)
-                    .padding(.all, Ocean.size.spacingStackXs)
+                    .padding([.vertical, .leading], Ocean.size.spacingStackXs)
+                    .padding(.trailing, Ocean.size.spacingStackXxsExtra)
+
+                    if !parameters.highlightCaption.isEmpty {
+                        captionHighlightView
+                    }
                 }
                 .frame(minWidth: 0, maxWidth: .infinity)
                 .background(Color(Ocean.color.colorInterfaceLightPure))
@@ -229,7 +259,7 @@ extension OceanSwiftUI {
                             parameters.onTouch()
                             return
                         }
-
+                        
                         parameters.onTouch()
                     }
                 })
