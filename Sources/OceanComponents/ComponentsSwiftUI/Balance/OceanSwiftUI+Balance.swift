@@ -177,7 +177,7 @@ extension OceanSwiftUI {
         private var balanceCardView: some View {
             VStack {
                 balanceView
-                    .padding(.vertical, 12)
+                    .padding(.vertical, Ocean.size.spacingStackXxsExtra)
                     .padding(.horizontal, Ocean.size.spacingStackXs)
             }
             .background(Color(Ocean.color.colorBrandPrimaryDown.withAlphaComponent(0.4)))
