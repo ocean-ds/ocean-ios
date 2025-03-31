@@ -148,10 +148,6 @@ extension OceanSwiftUI {
                                 group.parameters.hasError = parameters.hasError
                                 group.parameters.items = [ .init(isSelected: self.parameters.isChecked,
                                                                  isEnabled: self.parameters.isEnabled) ]
-                                group.parameters.onTouch = { items in
-                                    guard let item = items.first else { return }
-                                    parameters.onCheckboxSelect(item.isSelected)
-                                }
                             }
                         } else if parameters.hasRadioButton {
                             OceanSwiftUI.RadioButtonGroup { group in
@@ -159,9 +155,6 @@ extension OceanSwiftUI {
                                 group.parameters.items = [ .init() ]
                                 group.parameters.isEnabled = self.parameters.isEnabled
                                 group.parameters.setSelectedIndex(self.parameters.isChecked ? 0 : -1)
-                                group.parameters.onTouch = { _, _ in
-                                    parameters.onTouch()
-                                }
                             }
                         }
 
@@ -222,8 +215,22 @@ extension OceanSwiftUI {
                         color: Ocean.color.colorInterfaceLightDown)
                 .transform(condition: parameters.isEnabled, transform: { view in
                     view.onTapGesture {
+
+                        if parameters.hasCheckbox {
+                            parameters.isChecked.toggle()
+                            parameters.onCheckboxSelect(parameters.isChecked)
+                            parameters.onTouch()
+                            return
+                        }
+
+                        if parameters.hasRadioButton {
+                            guard !parameters.isChecked else { return }
+                            parameters.isChecked = true
+                            parameters.onTouch()
+                            return
+                        }
+
                         parameters.onTouch()
-                        self.parameters.isChecked = self.parameters.hasCheckbox ? !self.parameters.isChecked : self.parameters.isChecked
                     }
                 })
             }
