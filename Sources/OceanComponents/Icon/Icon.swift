@@ -110,7 +110,7 @@ extension Ocean {
         public static let cardMachineSolid = UIImage(named: "card_machine_solid", in: Bundle.module, with: .none)
         public static let lighthouseOutline = UIImage(named: "lighthouse-outline", in: Bundle.module, with: .none)
         public static let chatAlt3Outline = UIImage(named: "chat-alt-3-outline", in: Bundle.module, with: .none)
-        public static let acquirerAsaas = UIImage(named: "acquirer_asaas", in: Bundle.module, with: .none)
+        public static let acquirerAsaas = UIImage(named: "acquirer-asaas", in: Bundle.module, with: .none)
         public static let acquirerCielo = UIImage(named: "acquirer-cielo", in: Bundle.module, with: .none)
         public static let acquirerGetnet = UIImage(named: "acquirer-getnet", in: Bundle.module, with: .none)
         public static let acquirerInfinitePay = UIImage(named: "acquirer-infinite-pay", in: Bundle.module, with: .none)
@@ -121,7 +121,7 @@ extension Ocean {
         public static let acquirerSafra = UIImage(named: "acquirer-safra", in: Bundle.module, with: .none)
         public static let acquirerSicoob = UIImage(named: "acquirer-sicoob", in: Bundle.module, with: .none)
         public static let acquirerStone = UIImage(named: "acquirer-stone", in: Bundle.module, with: .none)
-        public static let acquirerSumup = UIImage(named: "acquirer-stone", in: Bundle.module, with: .none)
+        public static let acquirerSumup = UIImage(named: "acquirer-sumup", in: Bundle.module, with: .none)
 
         // HeroIcons
 
