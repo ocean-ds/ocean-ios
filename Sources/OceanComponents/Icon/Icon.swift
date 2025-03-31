@@ -110,6 +110,8 @@ extension Ocean {
         public static let cardMachineSolid = UIImage(named: "card_machine_solid", in: Bundle.module, with: .none)
         public static let lighthouseOutline = UIImage(named: "lighthouse-outline", in: Bundle.module, with: .none)
         public static let chatAlt3Outline = UIImage(named: "chat-alt-3-outline", in: Bundle.module, with: .none)
+        public static let acquirerAsaas = UIImage(named: "acquirer_asaas", in: Bundle.module, with: .none)
+        public static let acquirerCiel = UIImage(named: "acquirer-cielo", in: Bundle.module, with: .none)
 
         // HeroIcons
 
