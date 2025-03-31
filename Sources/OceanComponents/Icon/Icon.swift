@@ -112,7 +112,10 @@ extension Ocean {
         public static let chatAlt3Outline = UIImage(named: "chat-alt-3-outline", in: Bundle.module, with: .none)
         public static let acquirerAsaas = UIImage(named: "acquirer_asaas", in: Bundle.module, with: .none)
         public static let acquirerCielo = UIImage(named: "acquirer-cielo", in: Bundle.module, with: .none)
-        public static let acquirerCielo = UIImage(named: "acquirer-getnet", in: Bundle.module, with: .none)
+        public static let acquirerGetnet = UIImage(named: "acquirer-getnet", in: Bundle.module, with: .none)
+        public static let acquirerInfinitePay = UIImage(named: "acquirer-infinite-pay", in: Bundle.module, with: .none)
+        public static let acquirerMercadoPago = UIImage(named: "acquirer-mercado-pago", in: Bundle.module, with: .none)
+        public static let acquirerPagBank = UIImage(named: "acquirer-pag-bank", in: Bundle.module, with: .none)
 
         // HeroIcons
 
