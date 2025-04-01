@@ -191,108 +191,6 @@ extension OceanSwiftUI {
             .cornerRadius(Ocean.size.borderRadiusMd)
         }
 
-        @ViewBuilder
-        private func balanceFooterView() -> some View {
-            switch parameters.model.displayMode {
-            case .amountMachines:
-                HStack(spacing: Ocean.size.spacingStackXxs) {
-                    VStack(alignment: .leading, spacing: 0) {
-                        Typography { label in
-                            label.parameters.text = parameters.model.description
-                            label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxxs)
-                            label.parameters.textColor = Ocean.color.colorBrandPrimaryUp
-                        }
-
-                        Typography { label in
-                            label.parameters.text = parameters.isVisibleBalance ? parameters.model.item3Value.toCurrency() ?? "" : "R$ ••••••"
-                            label.parameters.font =  .baseBold(size: Ocean.font.fontSizeSm)
-                            label.parameters.textColor = Ocean.color.colorInterfaceLightPure
-                        }
-                    }
-
-                    Spacer()
-
-                    HStack(spacing: -Ocean.size.spacingStackXxs) {
-                        let acquires = parameters.model.acquires
-                        let limitShowAcquirers = 2
-
-                        if acquires.count > 0 {
-                            ForEach(acquires.prefix(min(limitShowAcquirers, acquires.count)), id: \.self) { acquirer in
-                                ZStack {
-                                    Circle()
-                                        .fill(Color.white)
-                                        .frame(width: 24, height: 24)
-
-                                    Image(uiImage: acquirer.toOceanIcon() ?? UIImage())
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 22, height: 22)
-                                }
-                            }
-
-                            if acquires.count > limitShowAcquirers {
-                                ZStack {
-                                    Badge { badge in
-                                        badge.parameters.count = acquires.count - limitShowAcquirers
-                                        badge.parameters.status = .primaryInverted
-                                        badge.parameters.size = .small
-                                        badge.parameters.style = .count
-                                        badge.parameters.valuePrefix = "+"
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    Image(uiImage: Ocean.icon.chevronRightSolid?.withRenderingMode(.alwaysTemplate))
-                        .resizable()
-                        .renderingMode(.template)
-                        .frame(width: 16, height: 16, alignment: .center)
-                        .foregroundColor(Color(Ocean.color.colorInterfaceLightPure))
-                }
-
-            case .awaitPayment:
-                balanceActionRow(showValue: true)
-
-            case .knowMore, .addBalance:
-                balanceActionRow(showValue: false)
-
-            case .none:
-                EmptyView()
-            }
-        }
-
-        @ViewBuilder
-        private func balanceActionRow(showValue: Bool) -> some View {
-            HStack(spacing: Ocean.size.spacingStackXs) {
-                VStack(alignment: .leading, spacing: 0) {
-                    Typography { label in
-                        label.parameters.text = parameters.model.pendingTitle
-                        label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxxs)
-                        label.parameters.textColor = Ocean.color.colorBrandPrimaryUp
-                    }
-
-                    if showValue {
-                        Typography { label in
-                            label.parameters.text = parameters.isVisibleBalance ? parameters.model.pendingValue.toCurrency() ?? "" : "R$ ••••••"
-                            label.parameters.font = .baseBold(size: Ocean.font.fontSizeSm)
-                            label.parameters.textColor = Ocean.color.colorInterfaceLightPure
-                        }
-                    }
-                }
-
-                Spacer()
-
-                Button.secondarySM { button in
-                    button.parameters.text = parameters.model.actionCTA
-                    button.parameters.onTouch = {
-                        parameters.model.action?()
-                    }
-                }
-                .fixedSize(horizontal: true, vertical: false)
-            }
-        }
-
         public var body: some View {
             VStack(spacing: 0) {
                 Group {
@@ -342,7 +240,7 @@ extension OceanSwiftUI {
 
                 Spacer()
 
-                Image(uiImage: Ocean.icon.chevronDownSolid?.withRenderingMode(.alwaysTemplate))
+                Image(uiImage: Ocean.icon.chevronDownSolid!)
                     .resizable()
                     .renderingMode(.template)
                     .frame(width: 16, height: 16, alignment: .center)
@@ -356,6 +254,104 @@ extension OceanSwiftUI {
                 } else {
                     self.parameters.state = .collapsed
                 }
+            }
+        }
+
+        @ViewBuilder
+        private func balanceFooterView() -> some View {
+            switch parameters.model.displayMode {
+            case .amountMachines:
+                HStack(spacing: Ocean.size.spacingStackXxs) {
+                    VStack(alignment: .leading, spacing: 0) {
+                        Typography { label in
+                            label.parameters.text = parameters.model.description
+                            label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxxs)
+                            label.parameters.textColor = Ocean.color.colorBrandPrimaryUp
+                        }
+
+                        Typography { label in
+                            label.parameters.text = parameters.isVisibleBalance ? parameters.model.item3Value.toCurrency() ?? "" : "R$ ••••••"
+                            label.parameters.font =  .baseBold(size: Ocean.font.fontSizeSm)
+                            label.parameters.textColor = Ocean.color.colorInterfaceLightPure
+                        }
+                    }
+
+                    Spacer()
+
+                    HStack(spacing: -Ocean.size.spacingStackXxs) {
+                        let acquires = parameters.model.acquires
+                        let limitShowAcquirers = 2
+
+                        ForEach(acquires.prefix(min(limitShowAcquirers, acquires.count)), id: \.self) { acquirer in
+                            ZStack {
+                                Circle()
+                                    .fill(Color.white)
+                                    .frame(width: 24, height: 24)
+
+                                Image(uiImage: acquirer.toOceanIcon() ?? UIImage())
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 22, height: 22)
+                            }
+                        }
+
+                        if acquires.count > limitShowAcquirers {
+                            Badge { badge in
+                                badge.parameters.count = acquires.count - limitShowAcquirers
+                                badge.parameters.status = .primaryInverted
+                                badge.parameters.size = .small
+                                badge.parameters.style = .count
+                                badge.parameters.valuePrefix = "+"
+                            }
+                        }
+                    }
+
+                    Image(uiImage: Ocean.icon.chevronRightSolid!)
+                        .resizable()
+                        .renderingMode(.template)
+                        .frame(width: 16, height: 16, alignment: .center)
+                        .foregroundColor(Color(Ocean.color.colorInterfaceLightPure))
+                }
+
+            case .awaitPayment:
+                balanceActionRow(showValue: true)
+
+            case .knowMore, .addBalance:
+                balanceActionRow(showValue: false)
+
+            case .none:
+                EmptyView()
+            }
+        }
+
+        @ViewBuilder
+        private func balanceActionRow(showValue: Bool) -> some View {
+            HStack(spacing: Ocean.size.spacingStackXs) {
+                VStack(alignment: .leading, spacing: 0) {
+                    Typography { label in
+                        label.parameters.text = parameters.model.pendingTitle
+                        label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxxs)
+                        label.parameters.textColor = Ocean.color.colorBrandPrimaryUp
+                    }
+
+                    if showValue {
+                        Typography { label in
+                            label.parameters.text = parameters.isVisibleBalance ? parameters.model.pendingValue.toCurrency() ?? "" : "R$ ••••••"
+                            label.parameters.font = .baseBold(size: Ocean.font.fontSizeSm)
+                            label.parameters.textColor = Ocean.color.colorInterfaceLightPure
+                        }
+                    }
+                }
+
+                Spacer()
+
+                Button.secondarySM { button in
+                    button.parameters.text = parameters.model.actionCTA
+                    button.parameters.onTouch = {
+                        parameters.model.action?()
+                    }
+                }
+                .fixedSize(horizontal: true, vertical: false)
             }
         }
     }
