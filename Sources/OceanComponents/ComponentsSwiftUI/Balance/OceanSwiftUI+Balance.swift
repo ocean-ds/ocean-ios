@@ -210,9 +210,10 @@ extension OceanSwiftUI {
 
                     HStack(spacing: -Ocean.size.spacingStackXxs) {
                         let acquires = parameters.model.acquires
+                        let limitShowAcquirers = 2
 
                         if acquires.count > 0 {
-                            ForEach(acquires.prefix(min(3, acquires.count)), id: \.self) { acquirer in
+                            ForEach(acquires.prefix(min(limitShowAcquirers, acquires.count)), id: \.self) { acquirer in
                                 ZStack {
                                     Circle()
                                         .fill(Color.white)
@@ -225,10 +226,10 @@ extension OceanSwiftUI {
                                 }
                             }
 
-                            if acquires.count > 3 {
+                            if acquires.count > limitShowAcquirers {
                                 ZStack {
                                     Badge { badge in
-                                        badge.parameters.count = acquires.count - 3
+                                        badge.parameters.count = acquires.count - limitShowAcquirers
                                         badge.parameters.status = .primaryInvertedWithSymbol
                                         badge.parameters.size = .small
                                         badge.parameters.style = .count
