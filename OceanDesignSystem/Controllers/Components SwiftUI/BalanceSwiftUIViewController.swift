@@ -145,16 +145,19 @@ class BalanceSwiftUIViewController: UIViewController {
                 if (self.balance1.parameters.state == .scroll &&
                     self.balance2.parameters.state == .scroll &&
                     self.balance3.parameters.state == .scroll &&
-                    self.balance4.parameters.state == .scroll) {
+                    self.balance4.parameters.state == .scroll &&
+                    self.balance5.parameters.state == .scroll) {
                     self.balance1.parameters.state = .collapsed
                     self.balance2.parameters.state = .collapsed
                     self.balance3.parameters.state = .collapsed
                     self.balance4.parameters.state = .collapsed
+                    self.balance5.parameters.state = .collapsed
                 } else {
                     self.balance1.parameters.state = .scroll
                     self.balance2.parameters.state = .scroll
                     self.balance3.parameters.state = .scroll
                     self.balance4.parameters.state = .scroll
+                    self.balance5.parameters.state = .scroll
                 }
             }
         }
@@ -168,6 +171,7 @@ class BalanceSwiftUIViewController: UIViewController {
                 self.balance2.parameters.isVisibleBalance.toggle()
                 self.balance3.parameters.isVisibleBalance.toggle()
                 self.balance4.parameters.isVisibleBalance.toggle()
+                self.balance5.parameters.isVisibleBalance.toggle()
             }
         }
     }()
@@ -214,7 +218,10 @@ class BalanceSwiftUIViewController: UIViewController {
         self.view.addSubview(uiView)
 
         uiView.oceanConstraints
-            .fill(to: self.view, constant: Ocean.size.spacingStackXs)
+            .topToTop(to: self.view, constant: Ocean.size.spacingStackXs)
+            .leadingToLeading(to: self.view)
+            .trailingToTrailing(to: self.view)
+            .bottomToBottom(to: self.view)
             .make()
     }
 }
