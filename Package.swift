@@ -31,6 +31,13 @@ let package = Package(
             path: "Sources/OceanTokens",
             resources: [
                 .process("Resources")
+            ],
+            exclude: [
+                "OceanDesignSystem.xcodeproj",
+                "OceanDesignSystem",
+                "OceanDesignSystemTests",
+                "fastlane",
+                "templates"
             ]
         ),
         .target(
@@ -45,6 +52,13 @@ let package = Package(
             path: "Sources/OceanComponents",
             resources: [
                 .copy("Resources/Icon.xcassets")
+            ],
+            exclude: [
+                "OceanDesignSystem.xcodeproj",
+                "OceanDesignSystem",
+                "OceanDesignSystemTests",
+                "fastlane",
+                "templates"
             ]
         )
     ],
