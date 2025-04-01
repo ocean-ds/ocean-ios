@@ -96,6 +96,19 @@ public extension String {
         case "cardmachinesolid": return Ocean.icon.cardMachineSolid
         case "lighthouseoutline": return Ocean.icon.lighthouseOutline
         case "chatalt3outline": return Ocean.icon.chatAlt3Outline
+        case "acquirer-asaas": return Ocean.icon.acquirerAsaas
+        case "acquirer-cielo": return Ocean.icon.acquirerCielo
+        case "acquirer-getnet": return Ocean.icon.acquirerGetnet
+        case "acquirer-infinite-pay": return Ocean.icon.acquirerInfinitePay
+        case "acquirer-mercado-pago": return Ocean.icon.acquirerMercadoPago
+        case "acquirer-pag-bank": return Ocean.icon.acquirerPagBank
+        case "acquirer-pagar-me": return Ocean.icon.acquirerPagarMe
+        case "acquirer-rede": return Ocean.icon.acquirerRede
+        case "acquirer-safra": return Ocean.icon.acquirerSafra
+        case "acquirer-sicoob": return Ocean.icon.acquirerSicoob
+        case "acquirer-stone": return Ocean.icon.acquirerStone
+        case "acquirer-sumup": return Ocean.icon.acquirerSumup
+
             // HeroIcons
         case "academiccapoutline": return Ocean.icon.academicCapOutline
         case "academiccapsolid": return Ocean.icon.academicCapSolid
