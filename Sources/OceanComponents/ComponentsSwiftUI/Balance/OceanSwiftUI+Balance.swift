@@ -46,6 +46,7 @@ extension OceanSwiftUI {
         @Published public var pendingValue: Double
         @Published public var actionCTA: String
         @Published public var actionCTA2: String
+        @Published public var acquires: [String]
         @Published public var displayMode: BalanceDisplayMode
         @Published public var action: (() -> Void)?
 
@@ -61,6 +62,7 @@ extension OceanSwiftUI {
                     pendingValue: Double = 0.0,
                     actionCTA: String = "",
                     actionCTA2: String = "",
+                    acquires: [String] = [],
                     displayMode: BalanceDisplayMode = .none,
                     action: (() -> Void)? = nil) {
             self.title = title
@@ -75,6 +77,7 @@ extension OceanSwiftUI {
             self.pendingValue = pendingValue
             self.actionCTA = actionCTA
             self.actionCTA2 = actionCTA2
+            self.acquires = acquires
             self.displayMode = displayMode
             self.action = action
         }
@@ -206,15 +209,33 @@ extension OceanSwiftUI {
                     Spacer()
 
                     HStack(spacing: -Ocean.size.spacingStackXxs) {
-                        Circle()
-                            .fill(Color.white)
-                            .frame(width: 24, height: 24)
-                        Circle()
-                            .fill(Color.red)
-                            .frame(width: 24, height: 24)
-                        Circle()
-                            .fill(Color.blue)
-                            .frame(width: 24, height: 24)
+                        let acquires = parameters.model.acquires
+
+                        if acquires.count > 0 {
+                            ForEach(acquires.prefix(min(3, acquires.count)), id: \.self) { acquirer in
+                                ZStack {
+                                    Circle()
+                                        .fill(Color.white)
+                                        .frame(width: 24, height: 24)
+
+                                    Image(uiImage: acquirer.toOceanIcon() ?? UIImage())
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 22, height: 22)
+                                }
+                            }
+
+                            if acquires.count > 3 {
+                                ZStack {
+                                    Badge { badge in
+                                        badge.parameters.count = acquires.count - 3
+                                        badge.parameters.status = .primaryInvertedWithSymbol
+                                        badge.parameters.size = .small
+                                        badge.parameters.style = .count
+                                    }
+                                }
+                            }
+                        }
                     }
 
                     Image(uiImage: Ocean.icon.chevronRightSolid?.withRenderingMode(.alwaysTemplate))

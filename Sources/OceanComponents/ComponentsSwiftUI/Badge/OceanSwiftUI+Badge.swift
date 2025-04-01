@@ -22,6 +22,7 @@ extension OceanSwiftUI {
         public enum Status {
             case primary
             case primaryInverted
+            case primaryInvertedWithSymbol
             case warning
             case highlight
             case disabled
@@ -38,7 +39,11 @@ extension OceanSwiftUI {
         }
 
         public var value: String {
-            return self.count < 100 ? self.count.description : "99+"
+            if self.status == .primaryInvertedWithSymbol {
+                return "+" + (self.count < 100 ? self.count.description : "99")
+            } else {
+                return self.count < 100 ? self.count.description : "99+"
+            }
         }
 
         public init(count: Int = 0,
@@ -123,7 +128,7 @@ extension OceanSwiftUI {
 
         private func getForegroundColor() -> UIColor {
             switch parameters.status {
-            case .primaryInverted:
+            case .primaryInverted, .primaryInvertedWithSymbol:
                 return Ocean.color.colorBrandPrimaryPure
             case .disabled:
                 return Ocean.color.colorInterfaceLightUp
@@ -136,6 +141,8 @@ extension OceanSwiftUI {
             switch parameters.status {
             case .primary:
                 return Ocean.color.colorBrandPrimaryPure
+            case .primaryInverted, .primaryInvertedWithSymbol:
+                return Ocean.color.colorInterfaceLightPure
             case .primaryInverted:
                 return Ocean.color.colorInterfaceLightPure
             case .warning:
