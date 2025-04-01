@@ -151,6 +151,7 @@ extension OceanSwiftUI {
                         Divider { divider in
                             divider.parameters.color = Ocean.color.colorBrandPrimaryUp.withAlphaComponent(0.4)
                         }
+                        .padding(.horizontal, -Ocean.size.spacingStackXs)
 
                         HStack(spacing: Ocean.size.spacingStackXs) {
                             Typography { label in
@@ -174,6 +175,7 @@ extension OceanSwiftUI {
                 Divider { divider in
                     divider.parameters.color = Ocean.color.colorBrandPrimaryUp.withAlphaComponent(0.4)
                 }
+                .padding(.horizontal, -Ocean.size.spacingStackXs)
 
                 balanceFooterView()
             }
