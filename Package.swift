@@ -27,28 +27,19 @@ let package = Package(
     targets: [
         .target(
             name: "OceanTokens",
-            exclude: [
-                "OceanDesignSystem.xcodeproj",
-                "OceanDesignSystem",
-                "OceanDesignSystemTests",
-                "fastlane",
-                "templates"
-            ],
             dependencies: [],
             path: "Sources/OceanTokens",
             resources: [
-                .process("Resources")
-            ]
-        ),
-        .target(
-            name: "OceanComponents",
+                .process("Resources")],
             exclude: [
                 "OceanDesignSystem.xcodeproj",
                 "OceanDesignSystem",
                 "OceanDesignSystemTests",
                 "fastlane",
-                "templates"
-            ],
+                "templates"]
+        ),
+        .target(
+            name: "OceanComponents",
             dependencies: ["OceanTokens",
                            .product(name: "SPStorkController", package: "SPStorkController"),
                            .product(name: "FSCalendar", package: "FSCalendar"),
@@ -58,8 +49,13 @@ let package = Package(
                            .product(name: "EasyTipView", package: "EasyTipView")],
             path: "Sources/OceanComponents",
             resources: [
-                .copy("Resources/Icon.xcassets")
-            ]
+                .copy("Resources/Icon.xcassets")],
+            exclude: [
+                "OceanDesignSystem.xcodeproj",
+                "OceanDesignSystem",
+                "OceanDesignSystemTests",
+                "fastlane",
+                "templates"]
         )
     ],
     swiftLanguageVersions: [.v5]
