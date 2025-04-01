@@ -27,21 +27,28 @@ let package = Package(
     targets: [
         .target(
             name: "OceanTokens",
-            dependencies: [],
-            path: "Sources/OceanTokens",
-            resources: [
-                .process("Resources")
-            ],
             exclude: [
                 "OceanDesignSystem.xcodeproj",
                 "OceanDesignSystem",
                 "OceanDesignSystemTests",
                 "fastlane",
                 "templates"
+            ],
+            dependencies: [],
+            path: "Sources/OceanTokens",
+            resources: [
+                .process("Resources")
             ]
         ),
         .target(
             name: "OceanComponents",
+            exclude: [
+                "OceanDesignSystem.xcodeproj",
+                "OceanDesignSystem",
+                "OceanDesignSystemTests",
+                "fastlane",
+                "templates"
+            ],
             dependencies: ["OceanTokens",
                            .product(name: "SPStorkController", package: "SPStorkController"),
                            .product(name: "FSCalendar", package: "FSCalendar"),
@@ -52,13 +59,6 @@ let package = Package(
             path: "Sources/OceanComponents",
             resources: [
                 .copy("Resources/Icon.xcassets")
-            ],
-            exclude: [
-                "OceanDesignSystem.xcodeproj",
-                "OceanDesignSystem",
-                "OceanDesignSystemTests",
-                "fastlane",
-                "templates"
             ]
         )
     ],
