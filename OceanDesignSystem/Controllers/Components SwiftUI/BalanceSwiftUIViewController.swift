@@ -22,8 +22,7 @@ class BalanceSwiftUIViewController: UIViewController {
                                                   description: "Saldo em outras maquininhas",
                                                   pendingTitle: "Aguardando recebimento",
                                                   pendingValue: 1000000.0,
-                                                  actionCTA: "Extrato",
-                                                  actionCTA2: "Receber",
+                                                  actionCTA: "Receber",
                                                   acquires: ["acquirer-cielo", "acquirer-getnet", "acquirer-stone"],
                                                   displayMode: .amountMachines,
                                                   action: {
@@ -40,8 +39,7 @@ class BalanceSwiftUIViewController: UIViewController {
                                                    description: "Saldo em outras maquininhas",
                                                    pendingTitle: "Aguardando recebimento",
                                                    pendingValue: 1000000.0,
-                                                   actionCTA: "Extrato",
-                                                   actionCTA2: "Receber ",
+                                                   actionCTA: "Receber",
                                                    displayMode: .awaitPayment,
                                                    action: {
         print("Extrato")
@@ -57,8 +55,7 @@ class BalanceSwiftUIViewController: UIViewController {
                                                    description: "Saldo em outras maquininhas",
                                                    pendingTitle: "Suas vendas valem muito mais com  a Blu",
                                                    pendingValue: 1000000.0,
-                                                   actionCTA: "Extrato",
-                                                   actionCTA2: "Saiba mais",
+                                                   actionCTA: "Saiba mais",
                                                    displayMode: .knowMore,
                                                    action: {
         print("Extrato")
@@ -74,8 +71,7 @@ class BalanceSwiftUIViewController: UIViewController {
                                                    description: "Saldo em outras maquininhas",
                                                    pendingTitle: "Adicione saldo do seu jeito e economize mais!",
                                                    pendingValue: 1000000.0,
-                                                   actionCTA: "Extrato",
-                                                   actionCTA2: "Adicione saldo",
+                                                   actionCTA: "Adicione saldo",
                                                    displayMode: .addBalance,
                                                    action: {
         print("Extrato")
@@ -91,8 +87,7 @@ class BalanceSwiftUIViewController: UIViewController {
                                                   description: "Saldo em outras maquininhas",
                                                   pendingTitle: "Aguardando recebimento",
                                                   pendingValue: 1000000.0,
-                                                  actionCTA: "Extrato",
-                                                  actionCTA2: "Receber",
+                                                  actionCTA: "Receber",
                                                   acquires: ["acquirer-safra", "acquirer-mercado-pago", "acquirer-cielo", "acquirer-getnet", "acquirer-stone"],
                                                   displayMode: .amountMachines,
                                                   action: {

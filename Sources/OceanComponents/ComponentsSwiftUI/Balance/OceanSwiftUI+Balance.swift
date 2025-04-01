@@ -50,7 +50,6 @@ extension OceanSwiftUI {
         @Published public var pendingTitle: String
         @Published public var pendingValue: Double
         @Published public var actionCTA: String
-        @Published public var actionCTA2: String
         @Published public var acquires: [String]
         @Published public var displayMode: BalanceDisplayMode
         @Published public var action: (() -> Void)?
@@ -66,7 +65,6 @@ extension OceanSwiftUI {
                     pendingTitle: String = "",
                     pendingValue: Double = 0.0,
                     actionCTA: String = "",
-                    actionCTA2: String = "",
                     acquires: [String] = [],
                     displayMode: BalanceDisplayMode = .none,
                     action: (() -> Void)? = nil) {
@@ -81,7 +79,6 @@ extension OceanSwiftUI {
             self.pendingTitle = pendingTitle
             self.pendingValue = pendingValue
             self.actionCTA = actionCTA
-            self.actionCTA2 = actionCTA2
             self.acquires = acquires
             self.displayMode = displayMode
             self.action = action
@@ -285,7 +282,7 @@ extension OceanSwiftUI {
                 Spacer()
 
                 Button.secondarySM { button in
-                    button.parameters.text = parameters.model.actionCTA2
+                    button.parameters.text = parameters.model.actionCTA
                     button.parameters.onTouch = {
                         parameters.model.action?()
                     }
