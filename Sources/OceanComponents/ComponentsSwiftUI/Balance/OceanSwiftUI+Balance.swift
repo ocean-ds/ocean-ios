@@ -295,22 +295,27 @@ extension OceanSwiftUI {
 
         public var body: some View {
             VStack(spacing: 0) {
-                if parameters.state == .scroll {
-                    scrollStateView
-                } else {
-                    balanceCardView
-                        .padding(.horizontal, Ocean.size.spacingStackXs)
-                        .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.033) {
-                                self.shouldAnimate = true
+                Group {
+                    if parameters.state == .scroll {
+                        scrollStateView
+                            .transition(AnyTransition.opacity.combined(with: .move(edge: .bottom)))
+                    } else {
+                        balanceCardView
+                            .padding(.horizontal, Ocean.size.spacingStackXs)
+                            .onAppear {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.033) {
+                                    self.shouldAnimate = true
+                                }
                             }
-                        }
-                        .frame(maxWidth: .infinity)
-                        .transform(condition: shouldAnimate) { $0.animation(.default) }
+                            .frame(maxWidth: .infinity)
+                            .transform(condition: shouldAnimate) { $0.animation(.default) }
+                            .transition(AnyTransition.opacity.combined(with: .move(edge: .top)))
 
-                    Spacer()
-                        .frame(height: Ocean.size.spacingStackXs)
+                        Spacer()
+                            .frame(height: Ocean.size.spacingStackXs)
+                    }
                 }
+                .animation(.easeInOut(duration: 0.3), value: parameters.state)
             }
             .clipped()
         }
