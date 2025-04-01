@@ -1,3 +1,8 @@
+//  OceanSwiftUI+Balance.swift
+//  OceanComponents
+//
+//  Created by Acassio Mendonça on 12/04/24.
+
 import SwiftUI
 import OceanTokens
 
