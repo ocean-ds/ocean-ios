@@ -195,7 +195,7 @@ extension OceanSwiftUI {
         private func balanceFooterView() -> some View {
             switch parameters.model.displayMode {
             case .amountMachines:
-                HStack(spacing: Ocean.size.spacingStackXs) {
+                HStack(spacing: Ocean.size.spacingStackXxs) {
                     VStack(alignment: .leading, spacing: 0) {
                         Typography { label in
                             label.parameters.text = parameters.model.description
