@@ -24,6 +24,7 @@ class BalanceSwiftUIViewController: UIViewController {
                                                   pendingValue: 1000000.0,
                                                   actionCTA: "Extrato",
                                                   actionCTA2: "Receber",
+                                                  acquires: ["acquirer-cielo", "acquirer-getnet", "acquirer-stone"],
                                                   displayMode: .amountMachines,
                                                   action: {
         print("Extrato")
@@ -80,6 +81,24 @@ class BalanceSwiftUIViewController: UIViewController {
         print("Extrato")
     })
 
+    private var model5 = OceanSwiftUI.BalanceModel(title: "Saldo total na Blu",
+                                                  value: 1000000.0,
+                                                  item1Title: "Saldo atual",
+                                                  item1Value: 500000.0,
+                                                  item2Title: "Agenda",
+                                                  item2Value: 500000.0,
+                                                  item3Value: 1000000.0,
+                                                  description: "Saldo em outras maquininhas",
+                                                  pendingTitle: "Aguardando recebimento",
+                                                  pendingValue: 1000000.0,
+                                                  actionCTA: "Extrato",
+                                                  actionCTA2: "Receber",
+                                                  acquires: ["acquirer-safra", "acquirer-mercado-pago", "acquirer-cielo", "acquirer-getnet", "acquirer-stone"],
+                                                  displayMode: .amountMachines,
+                                                  action: {
+        print("Extrato")
+    })
+
     lazy var balance1: OceanSwiftUI.Balance = {
         OceanSwiftUI.Balance { balance in
             balance.parameters.model = model
@@ -101,6 +120,13 @@ class BalanceSwiftUIViewController: UIViewController {
     lazy var balance4: OceanSwiftUI.Balance = {
         OceanSwiftUI.Balance { balance in
             balance.parameters.model = model4
+        }
+    }()
+
+
+    lazy var balance5: OceanSwiftUI.Balance = {
+        OceanSwiftUI.Balance { balance in
+            balance.parameters.model = model5
         }
     }()
 
@@ -155,6 +181,8 @@ class BalanceSwiftUIViewController: UIViewController {
         VStack(spacing: Ocean.size.spacingStackXs) {
             balance1
 
+            balance5
+
             balance2
 
             balance3
@@ -167,7 +195,7 @@ class BalanceSwiftUIViewController: UIViewController {
             showBalance
         }
 
-        VStack(spacing: Ocean.size.spacingStackXxxs) {
+        HStack(spacing: Ocean.size.spacingStackXxxs) {
             acquirerAsaas
             acquirerCielo
             acquirerGetnet
