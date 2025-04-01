@@ -1,9 +1,7 @@
-//
 //  OceanSwiftUI+Balance.swift
 //  OceanComponents
 //
 //  Created by Acassio Mendonça on 12/04/24.
-//
 
 import SwiftUI
 import OceanTokens
@@ -13,6 +11,7 @@ extension OceanSwiftUI {
 
     public class BalanceParameters: ObservableObject {
         @Published public var model: BalanceModel
+        @Published public var isVisibleBalance: Bool
         @Published public var state: BalanceState
         @Published public var showSkeleton: Bool
 
@@ -21,12 +20,22 @@ extension OceanSwiftUI {
         }
 
         public init(model: BalanceModel = .init(),
+                    isVisibleBalance: Bool = true,
                     state: BalanceState = .collapsed,
                     showSkeleton: Bool = false) {
             self.model = model
+            self.isVisibleBalance = isVisibleBalance
             self.state = state
             self.showSkeleton = showSkeleton
         }
+    }
+
+    public enum BalanceDisplayMode {
+        case amountMachines
+        case awaitPayment
+        case knowMore
+        case addBalance
+        case none
     }
 
     public class BalanceModel: ObservableObject, Identifiable {
@@ -36,9 +45,13 @@ extension OceanSwiftUI {
         @Published public var item1Value: Double
         @Published public var item2Title: String
         @Published public var item2Value: Double
+        @Published public var item3Value: Double
         @Published public var description: String
+        @Published public var pendingTitle: String
+        @Published public var pendingValue: Double
         @Published public var actionCTA: String
-        @Published public var actionCTACollapsed: String
+        @Published public var acquires: [String]
+        @Published public var displayMode: BalanceDisplayMode
         @Published public var action: (() -> Void)?
 
         public init(title: String = "",
@@ -47,9 +60,13 @@ extension OceanSwiftUI {
                     item1Value: Double = 0.0,
                     item2Title: String = "",
                     item2Value: Double = 0.0,
+                    item3Value: Double = 0.0,
                     description: String = "",
+                    pendingTitle: String = "",
+                    pendingValue: Double = 0.0,
                     actionCTA: String = "",
-                    actionCTACollapsed: String = "",
+                    acquires: [String] = [],
+                    displayMode: BalanceDisplayMode = .none,
                     action: (() -> Void)? = nil) {
             self.title = title
             self.value = value
@@ -57,9 +74,13 @@ extension OceanSwiftUI {
             self.item1Value = item1Value
             self.item2Title = item2Title
             self.item2Value = item2Value
+            self.item3Value = item3Value
             self.description = description
+            self.pendingTitle = pendingTitle
+            self.pendingValue = pendingValue
             self.actionCTA = actionCTA
-            self.actionCTACollapsed = actionCTACollapsed
+            self.acquires = acquires
+            self.displayMode = displayMode
             self.action = action
         }
     }
@@ -81,7 +102,6 @@ extension OceanSwiftUI {
 
         // MARK: Private properties
 
-        @State private var isValueVisible: Bool = true
         @State private var shouldAnimate: Bool = false
 
         // MARK: Constructors
@@ -106,22 +126,8 @@ extension OceanSwiftUI {
             .background(Color(Ocean.color.colorBrandPrimaryDown.withAlphaComponent(0.4)))
         }
 
-        private var eyesIconView: some View {
-            Image(uiImage: isValueVisible
-                  ? Ocean.icon.eyeOutline?.withRenderingMode(.alwaysTemplate)
-                  : Ocean.icon.eyeOffOutline?.withRenderingMode(.alwaysTemplate))
-            .resizable()
-            .renderingMode(.template)
-            .frame(width: 24, height: 24)
-            .foregroundColor(Color(Ocean.color.colorBrandPrimaryUp))
-            .padding(.trailing, 16)
-            .onTapGesture {
-                isValueVisible.toggle()
-            }
-        }
-
         private var balanceView: some View {
-            VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
+            VStack(alignment: .leading, spacing: Ocean.size.spacingStackXs) {
                 getBalanceHeaderView(parameters.model, fontLarge: true)
 
                 if self.parameters.state == .expanded {
@@ -136,7 +142,7 @@ extension OceanSwiftUI {
                             Spacer()
 
                             Typography { label in
-                                label.parameters.text = isValueVisible ? parameters.model.item1Value.toCurrency() ?? "" : "R$ ••••••"
+                                label.parameters.text = parameters.isVisibleBalance ? parameters.model.item1Value.toCurrency() ?? "" : "R$ ••••••"
                                 label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXxs)
                                 label.parameters.textColor = Ocean.color.colorInterfaceLightPure
                             }
@@ -145,6 +151,7 @@ extension OceanSwiftUI {
                         Divider { divider in
                             divider.parameters.color = Ocean.color.colorBrandPrimaryUp.withAlphaComponent(0.4)
                         }
+                        .padding(.horizontal, -Ocean.size.spacingStackXs)
 
                         HStack(spacing: Ocean.size.spacingStackXs) {
                             Typography { label in
@@ -156,7 +163,7 @@ extension OceanSwiftUI {
                             Spacer()
 
                             Typography { label in
-                                label.parameters.text = isValueVisible ? parameters.model.item2Value.toCurrency() ?? "" : "R$ ••••••"
+                                label.parameters.text = parameters.isVisibleBalance ? parameters.model.item2Value.toCurrency() ?? "" : "R$ ••••••"
                                 label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXxs)
                                 label.parameters.textColor = Ocean.color.colorInterfaceLightPure
                             }
@@ -168,31 +175,16 @@ extension OceanSwiftUI {
                 Divider { divider in
                     divider.parameters.color = Ocean.color.colorBrandPrimaryUp.withAlphaComponent(0.4)
                 }
+                .padding(.horizontal, -Ocean.size.spacingStackXs)
 
-                HStack(spacing: Ocean.size.spacingStackXxs) {
-                    Typography.description { label in
-                        label.parameters.text = parameters.model.description
-                        label.parameters.textColor = Ocean.color.colorInterfaceLightDown
-                    }
-                    .fixedSize(horizontal: false, vertical: true)
-
-                    Spacer()
-
-                    Button.secondarySM { button in
-                        button.parameters.text = parameters.model.actionCTA
-                        button.parameters.onTouch = {
-                            parameters.model.action?()
-                        }
-                    }
-                    .fixedSize(horizontal: true, vertical: false)
-                }
+                balanceFooterView()
             }
         }
 
         private var balanceCardView: some View {
             VStack {
                 balanceView
-                    .padding(.vertical, 12)
+                    .padding(.vertical, Ocean.size.spacingStackXxsExtra)
                     .padding(.horizontal, Ocean.size.spacingStackXs)
             }
             .background(Color(Ocean.color.colorBrandPrimaryDown.withAlphaComponent(0.4)))
@@ -201,22 +193,22 @@ extension OceanSwiftUI {
 
         public var body: some View {
             VStack(spacing: 0) {
-                if parameters.state == .scroll {
-                    scrollStateView
-                } else {
-                    balanceCardView
-                        .padding(.horizontal, Ocean.size.spacingStackXs)
-                        .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.033) {
-                                self.shouldAnimate = true
+                    if parameters.state == .scroll {
+                        scrollStateView
+                    } else {
+                        balanceCardView
+                            .padding(.horizontal, Ocean.size.spacingStackXs)
+                            .onAppear {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.033) {
+                                    self.shouldAnimate = true
+                                }
                             }
-                        }
-                        .frame(maxWidth: .infinity)
-                        .transform(condition: shouldAnimate) { $0.animation(.default) }
+                            .frame(maxWidth: .infinity)
+                            .transform(condition: shouldAnimate) { $0.animation(.default) }
 
-                    Spacer()
-                        .frame(height: Ocean.size.spacingStackXs)
-                }
+                        Spacer()
+                            .frame(height: Ocean.size.spacingStackXs)
+                    }
             }
             .clipped()
         }
@@ -226,8 +218,6 @@ extension OceanSwiftUI {
         @ViewBuilder
         private func getBalanceHeaderView(_ item: BalanceModel, fontLarge: Bool) -> some View {
             HStack(spacing: Ocean.size.spacingStackXxs) {
-                eyesIconView
-
                 VStack(alignment: .leading, spacing: 0) {
                     Typography { label in
                         label.parameters.text = item.title
@@ -236,7 +226,7 @@ extension OceanSwiftUI {
                     }
 
                     Typography { label in
-                        label.parameters.text = isValueVisible ? item.value?.toCurrency() ?? "" : "R$ ••••••"
+                        label.parameters.text = parameters.isVisibleBalance ? item.value?.toCurrency() ?? "" : "R$ ••••••"
                         label.parameters.font = fontLarge ? .baseBold(size: Ocean.font.fontSizeSm) : .baseBold(size: Ocean.font.fontSizeXs)
                         label.parameters.textColor = Ocean.color.colorInterfaceLightPure
                         label.parameters.showSkeleton = parameters.showSkeleton
@@ -245,7 +235,7 @@ extension OceanSwiftUI {
 
                 Spacer()
 
-                Image(uiImage: Ocean.icon.chevronDownSolid?.withRenderingMode(.alwaysTemplate))
+                Image(uiImage: Ocean.icon.chevronDownSolid!)
                     .resizable()
                     .renderingMode(.template)
                     .frame(width: 16, height: 16, alignment: .center)
@@ -259,6 +249,104 @@ extension OceanSwiftUI {
                 } else {
                     self.parameters.state = .collapsed
                 }
+            }
+        }
+
+        @ViewBuilder
+        private func balanceFooterView() -> some View {
+            switch parameters.model.displayMode {
+            case .amountMachines:
+                HStack(spacing: Ocean.size.spacingStackXxs) {
+                    VStack(alignment: .leading, spacing: 0) {
+                        Typography { label in
+                            label.parameters.text = parameters.model.description
+                            label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxxs)
+                            label.parameters.textColor = Ocean.color.colorBrandPrimaryUp
+                        }
+
+                        Typography { label in
+                            label.parameters.text = parameters.isVisibleBalance ? parameters.model.item3Value.toCurrency() ?? "" : "R$ ••••••"
+                            label.parameters.font =  .baseBold(size: Ocean.font.fontSizeSm)
+                            label.parameters.textColor = Ocean.color.colorInterfaceLightPure
+                        }
+                    }
+
+                    Spacer()
+
+                    HStack(spacing: -Ocean.size.spacingStackXxs) {
+                        let acquires = parameters.model.acquires
+                        let limitShowAcquirers = 2
+
+                        ForEach(acquires.prefix(min(limitShowAcquirers, acquires.count)), id: \.self) { acquirer in
+                            ZStack {
+                                Circle()
+                                    .fill(Color.white)
+                                    .frame(width: 24, height: 24)
+
+                                Image(uiImage: acquirer.toOceanIcon() ?? UIImage())
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 22, height: 22)
+                            }
+                        }
+
+                        if acquires.count > limitShowAcquirers {
+                            Badge { badge in
+                                badge.parameters.count = acquires.count - limitShowAcquirers
+                                badge.parameters.status = .primaryInverted
+                                badge.parameters.size = .small
+                                badge.parameters.style = .count
+                                badge.parameters.valuePrefix = "+"
+                            }
+                        }
+                    }
+
+                    Image(uiImage: Ocean.icon.chevronRightSolid!)
+                        .resizable()
+                        .renderingMode(.template)
+                        .frame(width: 16, height: 16, alignment: .center)
+                        .foregroundColor(Color(Ocean.color.colorInterfaceLightPure))
+                }
+
+            case .awaitPayment:
+                balanceActionRow(showValue: true)
+
+            case .knowMore, .addBalance:
+                balanceActionRow(showValue: false)
+
+            case .none:
+                EmptyView()
+            }
+        }
+
+        @ViewBuilder
+        private func balanceActionRow(showValue: Bool) -> some View {
+            HStack(spacing: Ocean.size.spacingStackXs) {
+                VStack(alignment: .leading, spacing: 0) {
+                    Typography { label in
+                        label.parameters.text = parameters.model.pendingTitle
+                        label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxxs)
+                        label.parameters.textColor = Ocean.color.colorBrandPrimaryUp
+                    }
+
+                    if showValue {
+                        Typography { label in
+                            label.parameters.text = parameters.isVisibleBalance ? parameters.model.pendingValue.toCurrency() ?? "" : "R$ ••••••"
+                            label.parameters.font = .baseBold(size: Ocean.font.fontSizeSm)
+                            label.parameters.textColor = Ocean.color.colorInterfaceLightPure
+                        }
+                    }
+                }
+
+                Spacer()
+
+                Button.secondarySM { button in
+                    button.parameters.text = parameters.model.actionCTA
+                    button.parameters.onTouch = {
+                        parameters.model.action?()
+                    }
+                }
+                .fixedSize(horizontal: true, vertical: false)
             }
         }
     }

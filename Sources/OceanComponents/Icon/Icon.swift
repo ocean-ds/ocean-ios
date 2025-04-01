@@ -111,6 +111,18 @@ extension Ocean {
         public static let lighthouseOutline = UIImage(named: "lighthouse-outline", in: Bundle.module, with: .none)
         public static let chatAlt3Outline = UIImage(named: "chat-alt-3-outline", in: Bundle.module, with: .none)
         public static let sparklesAltSolid = UIImage(named: "sparkles-alt-solid", in: Bundle.module, with: .none)
+        public static let acquirerAsaas = UIImage(named: "acquirer-asaas", in: Bundle.module, with: .none)
+        public static let acquirerCielo = UIImage(named: "acquirer-cielo", in: Bundle.module, with: .none)
+        public static let acquirerGetnet = UIImage(named: "acquirer-getnet", in: Bundle.module, with: .none)
+        public static let acquirerInfinitePay = UIImage(named: "acquirer-infinite-pay", in: Bundle.module, with: .none)
+        public static let acquirerMercadoPago = UIImage(named: "acquirer-mercado-pago", in: Bundle.module, with: .none)
+        public static let acquirerPagBank = UIImage(named: "acquirer-pag-bank", in: Bundle.module, with: .none)
+        public static let acquirerPagarMe = UIImage(named: "acquirer-pagar-me", in: Bundle.module, with: .none)
+        public static let acquirerRede = UIImage(named: "acquirer-rede", in: Bundle.module, with: .none)
+        public static let acquirerSafra = UIImage(named: "acquirer-safra", in: Bundle.module, with: .none)
+        public static let acquirerSicoob = UIImage(named: "acquirer-sicoob", in: Bundle.module, with: .none)
+        public static let acquirerStone = UIImage(named: "acquirer-stone", in: Bundle.module, with: .none)
+        public static let acquirerSumup = UIImage(named: "acquirer-sumup", in: Bundle.module, with: .none)
 
         // HeroIcons
 

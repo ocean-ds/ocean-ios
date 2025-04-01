@@ -14,6 +14,7 @@ extension OceanSwiftUI {
 
     public class BadgeParameters: ObservableObject {
         @Published public var count: Int
+        @Published public var valuePrefix: String
         @Published public var status: Status
         @Published public var size: Size
         @Published public var style: Style
@@ -38,15 +39,18 @@ extension OceanSwiftUI {
         }
 
         public var value: String {
-            return self.count < 100 ? self.count.description : "99+"
+            let countValue = self.count < 100 ? self.count.description : "99+"
+            return valuePrefix + countValue
         }
 
         public init(count: Int = 0,
+                    valuePrefix: String = "",
                     status: Status = .primary,
                     size: Size = .medium,
                     style: Style = .count,
                     showSkeleton: Bool = false) {
             self.count = count
+            self.valuePrefix = valuePrefix
             self.status = status
             self.size = size
             self.style = style
