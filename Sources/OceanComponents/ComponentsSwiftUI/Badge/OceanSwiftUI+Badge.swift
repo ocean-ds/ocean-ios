@@ -14,6 +14,7 @@ extension OceanSwiftUI {
 
     public class BadgeParameters: ObservableObject {
         @Published public var count: Int
+        @Published public var valuePrefix: String
         @Published public var status: Status
         @Published public var size: Size
         @Published public var style: Style
@@ -22,7 +23,6 @@ extension OceanSwiftUI {
         public enum Status {
             case primary
             case primaryInverted
-            case primaryInvertedWithSymbol
             case warning
             case highlight
             case disabled
@@ -39,19 +39,18 @@ extension OceanSwiftUI {
         }
 
         public var value: String {
-            if self.status == .primaryInvertedWithSymbol {
-                return "+" + (self.count < 100 ? self.count.description : "99")
-            } else {
-                return self.count < 100 ? self.count.description : "99+"
-            }
+            let countValue = self.count < 100 ? self.count.description : "99+"
+            return valuePrefix + countValue
         }
 
         public init(count: Int = 0,
+                    valuePrefix: String = "",
                     status: Status = .primary,
                     size: Size = .medium,
                     style: Style = .count,
                     showSkeleton: Bool = false) {
             self.count = count
+            self.valuePrefix = valuePrefix
             self.status = status
             self.size = size
             self.style = style
@@ -128,7 +127,7 @@ extension OceanSwiftUI {
 
         private func getForegroundColor() -> UIColor {
             switch parameters.status {
-            case .primaryInverted, .primaryInvertedWithSymbol:
+            case .primaryInverted:
                 return Ocean.color.colorBrandPrimaryPure
             case .disabled:
                 return Ocean.color.colorInterfaceLightUp
@@ -141,7 +140,7 @@ extension OceanSwiftUI {
             switch parameters.status {
             case .primary:
                 return Ocean.color.colorBrandPrimaryPure
-            case .primaryInverted, .primaryInvertedWithSymbol:
+            case .primaryInverted:
                 return Ocean.color.colorInterfaceLightPure
             case .warning:
                 return Ocean.color.colorStatusWarningDeep

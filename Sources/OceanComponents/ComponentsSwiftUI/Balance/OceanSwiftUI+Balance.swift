@@ -235,9 +235,10 @@ extension OceanSwiftUI {
                                 ZStack {
                                     Badge { badge in
                                         badge.parameters.count = acquires.count - limitShowAcquirers
-                                        badge.parameters.status = .primaryInvertedWithSymbol
+                                        badge.parameters.status = .primaryInverted
                                         badge.parameters.size = .small
                                         badge.parameters.style = .count
+                                        badge.parameters.valuePrefix = "+"
                                     }
                                 }
                             }
