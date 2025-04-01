@@ -335,7 +335,7 @@ extension OceanSwiftUI {
 
                 Spacer()
 
-                Image(uiImage: Ocean.icon.chevronUpSolid?.withRenderingMode(.alwaysTemplate))
+                Image(uiImage: Ocean.icon.chevronDownSolid?.withRenderingMode(.alwaysTemplate))
                     .resizable()
                     .renderingMode(.template)
                     .frame(width: 16, height: 16, alignment: .center)
