@@ -29,14 +29,16 @@ let package = Package(
             name: "OceanTokens",
             dependencies: [],
             path: "Sources/OceanTokens",
-            resources: [
-                .process("Resources")],
             exclude: [
                 "OceanDesignSystem.xcodeproj",
                 "OceanDesignSystem",
                 "OceanDesignSystemTests",
                 "fastlane",
-                "templates"]
+                "templates"
+            ],
+            resources: [
+                .process("Resources")
+            ]
         ),
         .target(
             name: "OceanComponents",
@@ -48,14 +50,16 @@ let package = Package(
                            .product(name: "DGCharts", package: "Charts"),
                            .product(name: "EasyTipView", package: "EasyTipView")],
             path: "Sources/OceanComponents",
-            resources: [
-                .copy("Resources/Icon.xcassets")],
             exclude: [
                 "OceanDesignSystem.xcodeproj",
                 "OceanDesignSystem",
                 "OceanDesignSystemTests",
                 "fastlane",
-                "templates"]
+                "templates"
+            ],
+            resources: [
+                .copy("Resources/Icon.xcassets")
+            ]
         )
     ],
     swiftLanguageVersions: [.v5]
