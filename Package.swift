@@ -40,7 +40,7 @@ let package = Package(
                            .product(name: "FSCalendar", package: "FSCalendar"),
                            .product(name: "SkeletonView", package: "SkeletonView"),
                            .product(name: "SDWebImage", package: "SDWebImage"),
-                           .product(name: "DGCharts", package: "Charts"),
+                           .product(name: "DGChartsDynamic", package: "Charts"),
                            .product(name: "EasyTipView", package: "EasyTipView")],
             path: "Sources/OceanComponents",
             resources: [
