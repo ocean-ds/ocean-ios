@@ -24,6 +24,8 @@ extension OceanSwiftUI {
         @Published public var highlightIcon: UIImage?
         @Published public var highlightIconColor: UIColor
         @Published public var highlightBackgroundColor: UIColor
+        @Published public var highlightBorderColor: UIColor
+        @Published public var highlightShadowColor: UIColor
         @Published public var tagLabel: String
         @Published public var tagIcon: UIImage?
         @Published public var tagStatus: OceanSwiftUI.TagParameters.Status
@@ -50,6 +52,8 @@ extension OceanSwiftUI {
                     highlightIcon: UIImage? = Ocean.icon.sparklesAltSolid,
                     highlightIconColor: UIColor = Ocean.color.colorStatusPositiveDeep,
                     highlightBackgroundColor: UIColor = Ocean.color.colorStatusPositiveUp,
+                    highlightBorderColor: UIColor = Ocean.color.colorStatusPositiveDeep,
+                    highlightShadowColor: UIColor = Ocean.color.colorStatusPositiveDeep,
                     tagLabel: String = "",
                     tagIcon: UIImage? = nil,
                     tagStatus: OceanSwiftUI.TagParameters.Status = .neutralPrimary,
@@ -74,6 +78,8 @@ extension OceanSwiftUI {
             self.highlightIcon = highlightIcon
             self.highlightIconColor = highlightIconColor
             self.highlightBackgroundColor = highlightBackgroundColor
+            self.highlightBorderColor = highlightBorderColor
+            self.highlightShadowColor = highlightShadowColor
             self.tagLabel = tagLabel
             self.tagIcon = tagIcon
             self.tagStatus = tagStatus
@@ -111,6 +117,9 @@ extension OceanSwiftUI {
         @ObservedObject public var parameters: CardListItemParameters
 
         // MARK: Properties private
+
+        @State private var borderColor: UIColor = Ocean.color.colorInterfaceLightDown
+        @State private var shadowColor: UIColor = .clear
 
         private var captionHighlightView: some View {
             HStack(spacing: Ocean.size.spacingStackXxs) {
@@ -242,7 +251,8 @@ extension OceanSwiftUI {
                 .background(Color(Ocean.color.colorInterfaceLightPure))
                 .border(cornerRadius: Ocean.size.borderRadiusMd,
                         width: Ocean.size.borderWidthHairline,
-                        color: Ocean.color.colorInterfaceLightDown)
+                        color: borderColor)
+                .shadow(color: Color(shadowColor), radius: 32, x: 0, y: 16)
                 .transform(condition: parameters.isEnabled, transform: { view in
                     view.onTapGesture {
 
@@ -263,6 +273,23 @@ extension OceanSwiftUI {
                         parameters.onTouch()
                     }
                 })
+                .onAppear {
+                    guard !parameters.highlightCaption.isEmpty else { return }
+
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                        withAnimation(.easeInOut(duration: 0.6)) {
+                            borderColor = parameters.highlightBorderColor
+                            shadowColor = parameters.highlightShadowColor.withAlphaComponent(0.08)
+                        }
+
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                            withAnimation(.easeInOut(duration: 0.6)) {
+                                borderColor = Ocean.color.colorInterfaceLightDown
+                                shadowColor = .clear
+                            }
+                        }
+                    }
+                }
             }
         }
 
