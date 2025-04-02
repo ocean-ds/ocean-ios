@@ -132,8 +132,8 @@ class CardListItemSwiftUIViewController: UIViewController {
             card6
             card7
             card8
-            card9
             card10
+            card9
             card11
         }
     })
