@@ -40,14 +40,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		9FEF76072D96F518007D0451 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		429FC45B2D9D898D00DB33AD /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
 			target = B833D03024A6796100587FDE /* OceanDesignSystem */;
 		};
-		9FEF76082D96F518007D0451 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		429FC45C2D9D898D00DB33AD /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				OceanDesignSystemTests.swift,
@@ -57,8 +57,8 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		9FEF75922D96F517007D0451 /* OceanDesignSystem */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (9FEF76072D96F518007D0451 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = OceanDesignSystem; sourceTree = "<group>"; };
-		9FEF76052D96F517007D0451 /* OceanDesignSystemTests */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (9FEF76082D96F518007D0451 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = OceanDesignSystemTests; sourceTree = "<group>"; };
+		429FC3E62D9D898D00DB33AD /* OceanDesignSystem */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (429FC45B2D9D898D00DB33AD /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = OceanDesignSystem; sourceTree = "<group>"; };
+		429FC4592D9D898D00DB33AD /* OceanDesignSystemTests */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (429FC45C2D9D898D00DB33AD /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = OceanDesignSystemTests; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,8 +84,8 @@
 		B833D02824A6796100587FDE = {
 			isa = PBXGroup;
 			children = (
-				9FEF75922D96F517007D0451 /* OceanDesignSystem */,
-				9FEF76052D96F517007D0451 /* OceanDesignSystemTests */,
+				429FC3E62D9D898D00DB33AD /* OceanDesignSystem */,
+				429FC4592D9D898D00DB33AD /* OceanDesignSystemTests */,
 				E1EDB5B22D71042000A430FA /* OceanDesignSystem.app */,
 				E1EDB5B32D71042000A430FA /* OceanDesignSystemTests.xctest */,
 			);
@@ -126,7 +126,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				9FEF75922D96F517007D0451 /* OceanDesignSystem */,
+				429FC3E62D9D898D00DB33AD /* OceanDesignSystem */,
 			);
 			name = OceanDesignSystem;
 			productName = OceanDesignSystem;
@@ -384,7 +384,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 550;
+				CURRENT_PROJECT_VERSION = 552;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 57KSFR5UHN;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 57KSFR5UHN;
@@ -409,7 +409,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 550;
+				CURRENT_PROJECT_VERSION = 552;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 57KSFR5UHN;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 57KSFR5UHN;
