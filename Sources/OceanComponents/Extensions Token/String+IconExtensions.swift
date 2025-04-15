@@ -97,18 +97,19 @@ public extension String {
         case "lighthouseoutline": return Ocean.icon.lighthouseOutline
         case "chatalt3outline": return Ocean.icon.chatAlt3Outline
         case "sparklesaltsolid": return Ocean.icon.sparklesAltSolid
-        case "acquirer-asaas": return Ocean.icon.acquirerAsaas
-        case "acquirer-cielo": return Ocean.icon.acquirerCielo
-        case "acquirer-getnet": return Ocean.icon.acquirerGetnet
-        case "acquirer-infinite-pay": return Ocean.icon.acquirerInfinitePay
-        case "acquirer-mercado-pago": return Ocean.icon.acquirerMercadoPago
-        case "acquirer-pag-bank": return Ocean.icon.acquirerPagBank
-        case "acquirer-pagar-me": return Ocean.icon.acquirerPagarMe
-        case "acquirer-rede": return Ocean.icon.acquirerRede
-        case "acquirer-safra": return Ocean.icon.acquirerSafra
-        case "acquirer-sicoob": return Ocean.icon.acquirerSicoob
-        case "acquirer-stone": return Ocean.icon.acquirerStone
-        case "acquirer-sumup": return Ocean.icon.acquirerSumup
+        case "acquirerasaas": return Ocean.icon.acquirerAsaas
+        case "acquirercielo": return Ocean.icon.acquirerCielo
+        case "acquirergetnet": return Ocean.icon.acquirerGetnet
+        case "acquirerinfinitepay": return Ocean.icon.acquirerInfinitePay
+        case "acquirermercadopago": return Ocean.icon.acquirerMercadoPago
+        case "acquirerpagbank": return Ocean.icon.acquirerPagBank
+        case "acquirerpagarme": return Ocean.icon.acquirerPagarMe
+        case "acquirerrede": return Ocean.icon.acquirerRede
+        case "acquirersafra": return Ocean.icon.acquirerSafra
+        case "acquirersicoob": return Ocean.icon.acquirerSicoob
+        case "acquirerstone": return Ocean.icon.acquirerStone
+        case "acquirersumup": return Ocean.icon.acquirerSumup
+        case "eyeoffaltoutline": return Ocean.icon.eyeOffAltOutline
 
             // HeroIcons
         case "academiccapoutline": return Ocean.icon.academicCapOutline
