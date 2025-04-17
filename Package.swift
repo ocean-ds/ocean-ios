@@ -13,7 +13,6 @@ let package = Package(
         ),
         .library(
             name: "OceanComponents",
-            type: .dynamic,
             targets: ["OceanComponents"]
         )
     ],
@@ -41,7 +40,7 @@ let package = Package(
                            .product(name: "FSCalendar", package: "FSCalendar"),
                            .product(name: "SkeletonView", package: "SkeletonView"),
                            .product(name: "SDWebImage", package: "SDWebImage"),
-                           .product(name: "DGChartsDynamic", package: "Charts"),
+                           .product(name: "DGCharts", package: "Charts"),
                            .product(name: "EasyTipView", package: "EasyTipView")],
             path: "Sources/OceanComponents",
             resources: [
