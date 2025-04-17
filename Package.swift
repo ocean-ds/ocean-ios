@@ -13,6 +13,7 @@ let package = Package(
         ),
         .library(
             name: "OceanComponents",
+            type: .dynamic,
             targets: ["OceanComponents"]
         )
     ],
