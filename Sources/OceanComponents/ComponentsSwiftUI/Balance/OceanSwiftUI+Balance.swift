@@ -10,23 +10,35 @@ extension OceanSwiftUI {
     // MARK: Parameters
 
     public class BalanceParameters: ObservableObject {
+
         @Published public var model: BalanceModel
         @Published public var isVisibleBalance: Bool
-        @Published private(set) var state: BalanceState
         @Published public var showSkeleton: Bool
 
-        public enum BalanceState {
+        fileprivate enum BalanceState {
             case expanded, collapsed, scroll
         }
 
+        @Published fileprivate var state: BalanceState = .collapsed
+
         public init(model: BalanceModel = .init(),
                     isVisibleBalance: Bool = true,
-                    state: BalanceState = .collapsed,
                     showSkeleton: Bool = false) {
             self.model = model
             self.isVisibleBalance = isVisibleBalance
-            self.state = state
             self.showSkeleton = showSkeleton
+        }
+
+        public func setScrollState() {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                state = .scroll
+            }
+        }
+
+        public func setCollapsedState() {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                state = .collapsed
+            }
         }
 
         public func toggleScrollState() {
