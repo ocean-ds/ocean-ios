@@ -22,7 +22,7 @@ extension OceanSwiftUI {
             case expanded, collapsed, scroll
         }
 
-        @Published private var state: BalanceState = .collapsed
+        @Published fileprivate var state: BalanceState = .collapsed
 
         public init(model: BalanceModel = .init(),
                     isVisibleBalance: Bool = true,
