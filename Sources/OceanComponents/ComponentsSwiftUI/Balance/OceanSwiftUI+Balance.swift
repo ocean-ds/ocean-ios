@@ -14,12 +14,15 @@ extension OceanSwiftUI {
         @Published public var model: BalanceModel
         @Published public var isVisibleBalance: Bool
         @Published public var showSkeleton: Bool
+        public var currentState: BalanceState {
+            state
+        }
 
-        fileprivate enum BalanceState {
+        public enum BalanceState {
             case expanded, collapsed, scroll
         }
 
-        @Published fileprivate var state: BalanceState = .collapsed
+        @Published private var state: BalanceState = .collapsed
 
         public init(model: BalanceModel = .init(),
                     isVisibleBalance: Bool = true,
