@@ -9,11 +9,11 @@ import Foundation
 import OceanTokens
 
 public extension String {
-    func toOceanSettingsListItemType() -> OceanSwiftUI.SettingsListItem.type? {
+    func toOceanSettingsListItemType() -> OceanSwiftUI.SettingsListItemParameters.SettingsListItemType? {
         switch self.lowercased() {
-        case "button": return OceanSwiftUI.SettingsListItem.type.button
-        case "tag": return OceanSwiftUI.SettingsListItem.type.tag
-        case "blocked": return OceanSwiftUI.SettingsListItem.type.blocked
+        case "button": return OceanSwiftUI.SettingsListItemParameters.SettingsListItemType.button
+        case "tag": return OceanSwiftUI.SettingsListItemParameters.SettingsListItemType.tag
+        case "blocked": return OceanSwiftUI.SettingsListItemParameters.SettingsListItemType.blocked
         default: return nil
         }
     }
