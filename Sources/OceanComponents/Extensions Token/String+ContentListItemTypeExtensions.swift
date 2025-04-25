@@ -9,7 +9,7 @@ import Foundation
 import OceanTokens
 
 public extension String {
-    func toOceanContentType() -> OceanSwiftUI.SettingsListItemParameters.ContentListItemType? {
+    func toOceanContentType() -> OceanSwiftUI.ContentListParameters.ContentListItemType? {
         switch self.lowercased() {
         case "inverted": return OceanSwiftUI.ContentListParameters.ContentListItemType.inverted
         case "inactive": return OceanSwiftUI.ContentListParameters.ContentListItemType.inactive
