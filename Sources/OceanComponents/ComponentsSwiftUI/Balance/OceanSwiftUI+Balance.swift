@@ -274,25 +274,27 @@ extension OceanSwiftUI {
                     Spacer()
 
                     HStack(spacing: -Ocean.size.spacingStackXxs) {
-                        let acquires = parameters.model.acquires
-                        let limitShowAcquirers = 2
+                        let acquirers = parameters.model.acquires
+                        let limitShowAcquirers = 3
+                        let exceededLimit = acquirers.count > limitShowAcquirers
+                        let acquiresToShow = exceededLimit ? 2 : acquirers.count
 
-                        ForEach(acquires.prefix(min(limitShowAcquirers, acquires.count)), id: \.self) { acquirer in
+                        ForEach(0..<acquiresToShow, id: \.self) { index in
                             ZStack {
                                 Circle()
                                     .fill(Color.white)
                                     .frame(width: 24, height: 24)
 
-                                Image(uiImage: acquirer.toOceanIcon() ?? UIImage())
+                                Image(uiImage: acquirers[index].toOceanIcon() ?? UIImage())
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 22, height: 22)
                             }
                         }
 
-                        if acquires.count > limitShowAcquirers {
+                        if exceededLimit {
                             Badge { badge in
-                                badge.parameters.count = acquires.count - limitShowAcquirers
+                                badge.parameters.count = acquirers.count - limitShowAcquirers
                                 badge.parameters.status = .primaryInverted
                                 badge.parameters.size = .small
                                 badge.parameters.style = .count
