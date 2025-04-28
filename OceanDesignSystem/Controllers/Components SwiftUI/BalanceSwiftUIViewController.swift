@@ -142,11 +142,23 @@ class BalanceSwiftUIViewController: UIViewController {
         OceanSwiftUI.Button.secondarySM { button in
             button.parameters.text = "Toggle Scroll"
             button.parameters.onTouch = {
-                self.balance1.parameters.toggleScrollState()
-                self.balance2.parameters.toggleScrollState()
-                self.balance3.parameters.toggleScrollState()
-                self.balance4.parameters.toggleScrollState()
-                self.balance5.parameters.toggleScrollState()
+                if (self.balance1.parameters.state == .scroll &&
+                    self.balance2.parameters.state == .scroll &&
+                    self.balance3.parameters.state == .scroll &&
+                    self.balance4.parameters.state == .scroll &&
+                    self.balance5.parameters.state == .scroll) {
+                    self.balance1.parameters.setStateWithAnimation(.collapsed)
+                    self.balance2.parameters.setStateWithAnimation(.collapsed)
+                    self.balance3.parameters.setStateWithAnimation(.collapsed)
+                    self.balance4.parameters.setStateWithAnimation(.collapsed)
+                    self.balance5.parameters.setStateWithAnimation(.collapsed)
+                } else {
+                    self.balance1.parameters.setStateWithAnimation(.scroll)
+                    self.balance2.parameters.setStateWithAnimation(.scroll)
+                    self.balance3.parameters.setStateWithAnimation(.scroll)
+                    self.balance4.parameters.setStateWithAnimation(.scroll)
+                    self.balance5.parameters.setStateWithAnimation(.scroll)
+                }
             }
         }
     }()

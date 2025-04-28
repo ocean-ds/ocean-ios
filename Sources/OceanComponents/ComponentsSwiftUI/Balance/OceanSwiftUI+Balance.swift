@@ -14,53 +14,25 @@ extension OceanSwiftUI {
         @Published public var model: BalanceModel
         @Published public var isVisibleBalance: Bool
         @Published public var showSkeleton: Bool
-        public var currentState: BalanceState {
-            state
-        }
+        @Published public var state: BalanceState
 
         public enum BalanceState {
             case expanded, collapsed, scroll
         }
 
-        @Published fileprivate var state: BalanceState = .collapsed
-
         public init(model: BalanceModel = .init(),
                     isVisibleBalance: Bool = true,
-                    showSkeleton: Bool = false) {
+                    showSkeleton: Bool = false,
+                    state: BalanceState = .collapsed) {
             self.model = model
             self.isVisibleBalance = isVisibleBalance
             self.showSkeleton = showSkeleton
+            self.state = state
         }
 
-        public func setScrollState() {
+        public func setStateWithAnimation(_ state: BalanceState) {
             withAnimation(.easeInOut(duration: 0.3)) {
-                state = .scroll
-            }
-        }
-
-        public func setCollapsedState() {
-            withAnimation(.easeInOut(duration: 0.3)) {
-                state = .collapsed
-            }
-        }
-
-        public func toggleScrollState() {
-            withAnimation(.easeInOut(duration: 0.3)) {
-                if state == .scroll {
-                    state = .collapsed
-                } else {
-                    state = .scroll
-                }
-            }
-        }
-
-        public func toggleCollapsedState() {
-            withAnimation(.easeInOut(duration: 0.3)) {
-                if state == .collapsed {
-                    state = .expanded
-                } else {
-                    state = .collapsed
-                }
+                self.state = state
             }
         }
     }
@@ -140,7 +112,7 @@ extension OceanSwiftUI {
         @State private var shouldAnimate: Bool = false
 
         private var chevronIconView: some View {
-            Image(uiImage: Ocean.icon.chevronRightSolid!)
+            Image(uiImage: Ocean.icon.chevronRightSolid)
                 .resizable()
                 .renderingMode(.template)
                 .frame(width: 16, height: 16, alignment: .center)
@@ -348,14 +320,21 @@ extension OceanSwiftUI {
                 Spacer()
 
                 chevronIconView
-                    .rotationEffect(Angle(degrees: self.parameters.state == .expanded ? 180.0 : 0.0))
+                    .rotationEffect(Angle(degrees: 90))
+                    .rotationEffect(Angle(degrees: self.parameters.state == .expanded ? -180.0 : 0.0))
                     .animation(.easeInOut, value: parameters.state)
             }
             .padding(.vertical, Ocean.size.spacingStackXxsExtra)
             .padding(.horizontal, Ocean.size.spacingStackXs)
             .contentShape(Rectangle())
             .onTapGesture {
-                parameters.toggleCollapsedState()
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    if parameters.state == .collapsed {
+                        parameters.state = .expanded
+                    } else {
+                        parameters.state = .collapsed
+                    }
+                }
             }
         }
 
