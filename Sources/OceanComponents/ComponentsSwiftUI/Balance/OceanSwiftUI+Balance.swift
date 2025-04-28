@@ -50,7 +50,7 @@ extension OceanSwiftUI {
         @Published public var pendingTitle: String
         @Published public var pendingValue: Double
         @Published public var actionCTA: String
-        @Published public var acquires: [String]
+        @Published public var acquirers: [String]
         @Published public var displayMode: BalanceDisplayMode
         @Published public var action: (() -> Void)?
 
@@ -65,7 +65,7 @@ extension OceanSwiftUI {
                     pendingTitle: String = "",
                     pendingValue: Double = 0.0,
                     actionCTA: String = "",
-                    acquires: [String] = [],
+                    acquirers: [String] = [],
                     displayMode: BalanceDisplayMode = .none,
                     action: (() -> Void)? = nil) {
             self.title = title
@@ -79,7 +79,7 @@ extension OceanSwiftUI {
             self.pendingTitle = pendingTitle
             self.pendingValue = pendingValue
             self.actionCTA = actionCTA
-            self.acquires = acquires
+            self.acquirers = acquirers
             self.displayMode = displayMode
             self.action = action
         }
@@ -256,60 +256,63 @@ extension OceanSwiftUI {
         private func balanceFooterView() -> some View {
             switch parameters.model.displayMode {
             case .amountMachines:
-                HStack(spacing: Ocean.size.spacingStackXxs) {
-                    VStack(alignment: .leading, spacing: 0) {
-                        Typography { label in
-                            label.parameters.text = parameters.model.description
-                            label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxxs)
-                            label.parameters.textColor = Ocean.color.colorBrandPrimaryUp
-                        }
-
-                        Typography { label in
-                            label.parameters.text = parameters.isVisibleBalance ? parameters.model.item3Value.toCurrency() ?? "" : "R$ ••••••"
-                            label.parameters.font =  .baseBold(size: Ocean.font.fontSizeSm)
-                            label.parameters.textColor = Ocean.color.colorInterfaceLightPure
-                        }
-                    }
-
-                    Spacer()
-
-                    HStack(spacing: -Ocean.size.spacingStackXxs) {
-                        let acquirers = parameters.model.acquires
-                        let limitShowAcquirers = 3
-                        let exceededLimit = acquirers.count > limitShowAcquirers
-                        let acquiresToShow = exceededLimit ? 2 : acquirers.count
-
-                        ForEach(0..<acquiresToShow, id: \.self) { index in
-                            ZStack {
-                                Circle()
-                                    .fill(Color.white)
-                                    .frame(width: 24, height: 24)
-
-                                Image(uiImage: acquirers[index].toOceanIcon() ?? UIImage())
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 22, height: 22)
+                SwiftUI.Button {
+                    parameters.model.action?()
+                } label: {
+                    HStack(spacing: Ocean.size.spacingStackXxs) {
+                        VStack(alignment: .leading, spacing: 0) {
+                            Typography { label in
+                                label.parameters.text = parameters.model.description
+                                label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxxs)
+                                label.parameters.textColor = Ocean.color.colorBrandPrimaryUp
+                            }
+                            
+                            Typography { label in
+                                label.parameters.text = parameters.isVisibleBalance ? parameters.model.item3Value.toCurrency() ?? "" : "R$ ••••••"
+                                label.parameters.font =  .baseBold(size: Ocean.font.fontSizeSm)
+                                label.parameters.textColor = Ocean.color.colorInterfaceLightPure
                             }
                         }
-
-                        if exceededLimit {
-                            Badge { badge in
-                                badge.parameters.count = acquirers.count - limitShowAcquirers
-                                badge.parameters.status = .primaryInverted
-                                badge.parameters.size = .small
-                                badge.parameters.style = .count
-                                badge.parameters.valuePrefix = "+"
+                        
+                        Spacer()
+                        
+                        HStack(spacing: -Ocean.size.spacingStackXxs) {
+                            let acquirers = parameters.model.acquirers
+                            let limitShowAcquirers = 3
+                            let exceededLimit = acquirers.count > limitShowAcquirers
+                            let acquiresToShow = exceededLimit ? 2 : acquirers.count
+                            
+                            ForEach(0..<acquiresToShow, id: \.self) { index in
+                                ZStack {
+                                    Circle()
+                                        .fill(Color.white)
+                                        .frame(width: 24, height: 24)
+                                    
+                                    Image(uiImage: acquirers[index].toOceanIcon() ?? UIImage())
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 22, height: 22)
+                                }
+                            }
+                            
+                            if exceededLimit {
+                                Badge { badge in
+                                    badge.parameters.count = acquirers.count - limitShowAcquirers
+                                    badge.parameters.status = .primaryInverted
+                                    badge.parameters.size = .small
+                                    badge.parameters.style = .count
+                                    badge.parameters.valuePrefix = "+"
+                                }
                             }
                         }
+                        
+                        Image(uiImage: Ocean.icon.chevronRightSolid!)
+                            .resizable()
+                            .renderingMode(.template)
+                            .frame(width: 16, height: 16, alignment: .center)
+                            .foregroundColor(Color(Ocean.color.colorInterfaceLightPure))
                     }
-
-                    Image(uiImage: Ocean.icon.chevronRightSolid!)
-                        .resizable()
-                        .renderingMode(.template)
-                        .frame(width: 16, height: 16, alignment: .center)
-                        .foregroundColor(Color(Ocean.color.colorInterfaceLightPure))
                 }
-
             case .awaitPayment:
                 balanceActionRow(showValue: true)
 
