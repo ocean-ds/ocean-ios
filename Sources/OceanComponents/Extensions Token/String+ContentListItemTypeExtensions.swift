@@ -7,6 +7,7 @@
 
 import Foundation
 import OceanTokens
+import OceanComponents
 
 public extension String {
     func toOceanContentType() -> OceanSwiftUI.ContentListParameters.ContentListItemType? {
