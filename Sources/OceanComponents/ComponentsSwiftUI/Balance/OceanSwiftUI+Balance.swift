@@ -298,7 +298,7 @@ extension OceanSwiftUI {
                 balanceView
                     .background(Color(Ocean.color.colorBrandPrimaryDown.withAlphaComponent(0.4)))
                     .cornerRadius(backgroundViewCornerRadius)
-                    .padding(.horizontal, backgroundViewPadding)
+                    .padding(backgroundViewPadding)
                     .animation(.easeInOut, value: parameters.state)
             }
         }
