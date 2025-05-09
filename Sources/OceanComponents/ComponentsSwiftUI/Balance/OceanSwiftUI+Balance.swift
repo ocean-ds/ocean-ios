@@ -57,7 +57,7 @@ extension OceanSwiftUI {
         @Published public var pendingTitle: String
         @Published public var pendingValue: Double
         @Published public var actionCTA: String
-        @Published public var acquires: [String]
+        @Published public var acquirers: [String]
         @Published public var displayMode: BalanceDisplayMode
         @Published public var action: (() -> Void)?
 
@@ -72,7 +72,7 @@ extension OceanSwiftUI {
                     pendingTitle: String = "",
                     pendingValue: Double = 0.0,
                     actionCTA: String = "",
-                    acquires: [String] = [],
+                    acquirers: [String] = [],
                     displayMode: BalanceDisplayMode = .none,
                     action: (() -> Void)? = nil) {
             self.title = title
@@ -86,7 +86,7 @@ extension OceanSwiftUI {
             self.pendingTitle = pendingTitle
             self.pendingValue = pendingValue
             self.actionCTA = actionCTA
-            self.acquires = acquires
+            self.acquirers = acquirers
             self.displayMode = displayMode
             self.action = action
         }
@@ -247,24 +247,27 @@ extension OceanSwiftUI {
         }
 
         @ViewBuilder
-        private func getAcquirersView(acquires: [String], limitShowAcquirers: Int) -> some View {
+        private func getAcquirersView(acquirers: [String], limitShowAcquirers: Int = 3) -> some View {
+            let exceededLimit = acquirers.count > limitShowAcquirers
+            let acquiresToShow = exceededLimit ? 2 : acquirers.count
+
             HStack(spacing: -Ocean.size.spacingStackXxs) {
-                ForEach(acquires.prefix(min(limitShowAcquirers, acquires.count)), id: \.self) { acquirer in
+                ForEach(0..<acquiresToShow) { index in
                     ZStack {
                         Circle()
                             .fill(Color.white)
                             .frame(width: 24, height: 24)
 
-                        Image(uiImage: acquirer.toOceanIcon() ?? UIImage())
+                        Image(uiImage: acquirers[index].toOceanIcon() ?? UIImage())
                             .resizable()
                             .scaledToFit()
                             .frame(width: 22, height: 22)
                     }
                 }
 
-                if acquires.count > limitShowAcquirers {
+                if acquirers.count > limitShowAcquirers {
                     Badge { badge in
-                        badge.parameters.count = acquires.count - limitShowAcquirers
+                        badge.parameters.count = acquirers.count - limitShowAcquirers
                         badge.parameters.status = .primaryInverted
                         badge.parameters.size = .small
                         badge.parameters.style = .count
@@ -323,19 +326,23 @@ extension OceanSwiftUI {
 
         @ViewBuilder
         private func balanceAcquirerRow() -> some View {
-            HStack(spacing: Ocean.size.spacingStackXxs) {
-                getBalanceWithDescriptionVStackView(
-                    description: parameters.model.description,
-                    balance: parameters.model.item3Value,
-                    isVisibleBalance: parameters.isVisibleBalance,
-                    showSkeleton: parameters.showSkeleton
-                )
+            SwiftUI.Button {
+                parameters.model.action?()
+            } label: {
+                HStack(spacing: Ocean.size.spacingStackXxs) {
+                    getBalanceWithDescriptionVStackView(
+                        description: parameters.model.description,
+                        balance: parameters.model.item3Value,
+                        isVisibleBalance: parameters.isVisibleBalance,
+                        showSkeleton: parameters.showSkeleton
+                    )
 
-                Spacer()
+                    Spacer()
 
-                getAcquirersView(acquires: parameters.model.acquires, limitShowAcquirers: 2)
+                    getAcquirersView(acquirers: parameters.model.acquirers)
 
-                chevronIconView
+                    chevronIconView
+                }
             }
             .padding(.vertical, Ocean.size.spacingStackXxsExtra)
             .padding(.horizontal, Ocean.size.spacingStackXs)
