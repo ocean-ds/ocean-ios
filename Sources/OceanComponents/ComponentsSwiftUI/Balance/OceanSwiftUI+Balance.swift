@@ -236,8 +236,10 @@ extension OceanSwiftUI {
             parameters.state == .scroll ? 0 : Ocean.size.borderRadiusMd
         }
 
-        private var backgroundViewPadding: CGFloat {
-            parameters.state == .scroll ? 0 : Ocean.size.spacingStackXs
+        private var backgroundViewPadding: EdgeInsets {
+            parameters.state == .scroll
+            ? .all(0)
+            : .init(top: 0, leading: Ocean.size.spacingStackXs, bottom: Ocean.size.spacingStackXs, trailing: Ocean.size.spacingStackXs)
         }
 
         private var balanceFooterView: some View {
