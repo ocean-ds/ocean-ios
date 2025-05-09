@@ -14,7 +14,13 @@ extension OceanSwiftUI {
         @Published public var model: BalanceModel
         @Published public var isVisibleBalance: Bool
         @Published public var showSkeleton: Bool
-        @Published public var state: BalanceState
+        @Published public var state: BalanceState {
+            willSet {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    self.state = newValue
+                }
+            }
+        }
 
         public enum BalanceState {
             case expanded, collapsed, scroll
@@ -28,12 +34,6 @@ extension OceanSwiftUI {
             self.isVisibleBalance = isVisibleBalance
             self.showSkeleton = showSkeleton
             self.state = state
-        }
-
-        public func setStateWithAnimation(_ state: BalanceState) {
-            withAnimation(.easeInOut(duration: 0.3)) {
-                self.state = state
-            }
         }
     }
 

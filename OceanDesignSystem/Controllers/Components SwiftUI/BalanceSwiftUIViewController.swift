@@ -147,17 +147,17 @@ class BalanceSwiftUIViewController: UIViewController {
                     self.balance3.parameters.state == .scroll &&
                     self.balance4.parameters.state == .scroll &&
                     self.balance5.parameters.state == .scroll) {
-                    self.balance1.parameters.setStateWithAnimation(.collapsed)
-                    self.balance2.parameters.setStateWithAnimation(.collapsed)
-                    self.balance3.parameters.setStateWithAnimation(.collapsed)
-                    self.balance4.parameters.setStateWithAnimation(.collapsed)
-                    self.balance5.parameters.setStateWithAnimation(.collapsed)
+                    self.balance1.parameters.state = .collapsed
+                    self.balance2.parameters.state = .collapsed
+                    self.balance3.parameters.state = .collapsed
+                    self.balance4.parameters.state = .collapsed
+                    self.balance5.parameters.state = .collapsed
                 } else {
-                    self.balance1.parameters.setStateWithAnimation(.scroll)
-                    self.balance2.parameters.setStateWithAnimation(.scroll)
-                    self.balance3.parameters.setStateWithAnimation(.scroll)
-                    self.balance4.parameters.setStateWithAnimation(.scroll)
-                    self.balance5.parameters.setStateWithAnimation(.scroll)
+                    self.balance1.parameters.state = .scroll
+                    self.balance2.parameters.state = .scroll
+                    self.balance3.parameters.state = .scroll
+                    self.balance4.parameters.state = .scroll
+                    self.balance5.parameters.state = .scroll
                 }
             }
         }
