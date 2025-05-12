@@ -125,18 +125,10 @@ class BalanceSwiftUIViewController: UIViewController {
         }
     }()
 
-    lazy var acquirerAsaas = Image(uiImage: Ocean.icon.acquirerAsaas!)
-    lazy var acquirerCielo = Image(uiImage: Ocean.icon.acquirerCielo!)
-    lazy var acquirerGetnet = Image(uiImage: Ocean.icon.acquirerGetnet!)
-    lazy var acquirerInfinitePay = Image(uiImage: Ocean.icon.acquirerInfinitePay!)
-    lazy var acquirerMercadoPago = Image(uiImage: Ocean.icon.acquirerMercadoPago!)
-    lazy var acquirerPagBank = Image(uiImage: Ocean.icon.acquirerPagBank!)
-    lazy var acquirerPagarMe = Image(uiImage: Ocean.icon.acquirerPagarMe!)
-    lazy var acquirerRede = Image(uiImage: Ocean.icon.acquirerRede!)
-    lazy var acquirerSafra = Image(uiImage: Ocean.icon.acquirerSafra!)
-    lazy var acquirerSicoob = Image(uiImage: Ocean.icon.acquirerSicoob!)
-    lazy var acquirerStone = Image(uiImage: Ocean.icon.acquirerStone!)
-    lazy var acquirerSumup = Image(uiImage: Ocean.icon.acquirerSumup!)
+    lazy var acquirerInfinitePay = Image(uiImage: "acquirer-infinite-pay".toOceanIcon())
+    lazy var acquirerMercadoPago = Image(uiImage: "acquirer_mercado_pago".toOceanIcon())
+    lazy var acquirerPagBank = Image(uiImage: "AcquirerPagBank".toOceanIcon())
+    lazy var acquirerPagarMe = Image(uiImage: "acquirer-pagar-me".toOceanIcon())
 
     lazy var toogleButton: OceanSwiftUI.Button = {
         OceanSwiftUI.Button.secondarySM { button in
@@ -147,17 +139,17 @@ class BalanceSwiftUIViewController: UIViewController {
                     self.balance3.parameters.state == .scroll &&
                     self.balance4.parameters.state == .scroll &&
                     self.balance5.parameters.state == .scroll) {
-                    self.balance1.parameters.state = .collapsed
-                    self.balance2.parameters.state = .collapsed
-                    self.balance3.parameters.state = .collapsed
-                    self.balance4.parameters.state = .collapsed
-                    self.balance5.parameters.state = .collapsed
+                    self.balance1.parameters.setStateWithAnimation(state: .collapsed)
+                    self.balance2.parameters.setStateWithAnimation(state: .collapsed)
+                    self.balance3.parameters.setStateWithAnimation(state: .collapsed)
+                    self.balance4.parameters.setStateWithAnimation(state: .collapsed)
+                    self.balance5.parameters.setStateWithAnimation(state: .collapsed)
                 } else {
-                    self.balance1.parameters.state = .scroll
-                    self.balance2.parameters.state = .scroll
-                    self.balance3.parameters.state = .scroll
-                    self.balance4.parameters.state = .scroll
-                    self.balance5.parameters.state = .scroll
+                    self.balance1.parameters.setStateWithAnimation(state: .scroll)
+                    self.balance2.parameters.setStateWithAnimation(state: .scroll)
+                    self.balance3.parameters.setStateWithAnimation(state: .scroll)
+                    self.balance4.parameters.setStateWithAnimation(state: .scroll)
+                    self.balance5.parameters.setStateWithAnimation(state: .scroll)
                 }
             }
         }
@@ -195,18 +187,10 @@ class BalanceSwiftUIViewController: UIViewController {
         }
 
         HStack(spacing: Ocean.size.spacingStackXxxs) {
-            acquirerAsaas
-            acquirerCielo
-            acquirerGetnet
             acquirerInfinitePay
             acquirerMercadoPago
             acquirerPagBank
             acquirerPagarMe
-            acquirerRede
-            acquirerSafra
-            acquirerSicoob
-            acquirerStone
-            acquirerSumup
         }
     })
 

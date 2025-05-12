@@ -11,7 +11,13 @@ import UIKit
 
 public extension String {
     func toOceanIcon() -> UIImage? {
-        switch self.lowercased().trimmingCharacters(in: .whitespacesAndNewlines) {
+        let cleaned = self
+            .lowercased()
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .replacingOccurrences(of: "-", with: "")
+            .replacingOccurrences(of: "_", with: "")
+
+        switch cleaned {
             // BluIcons
         case "appareloutline": return Ocean.icon.apparelOutline
         case "appliancesoutline": return Ocean.icon.appliancesOutline
