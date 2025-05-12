@@ -109,8 +109,7 @@ extension OceanSwiftUI {
 
         // MARK: Private properties
 
-        @State private var shouldAnimate: Bool = false
-
+        @ViewBuilder
         private var chevronIconView: some View {
             Image(uiImage: Ocean.icon.chevronRightSolid)
                 .resizable()
@@ -129,6 +128,7 @@ extension OceanSwiftUI {
             : .init(top: 0, leading: Ocean.size.spacingStackXs, bottom: Ocean.size.spacingStackXs, trailing: Ocean.size.spacingStackXs)
         }
 
+        @ViewBuilder
         private var balanceFooterView: some View {
             VStack(alignment: .leading, spacing: 0) {
                 Divider { $0.parameters.color = Ocean.color.colorBrandPrimaryUp.withAlphaComponent(0.4) }
@@ -153,6 +153,7 @@ extension OceanSwiftUI {
 
         // MARK: View SwiftUI
 
+        @ViewBuilder
         private var balanceView: some View {
             VStack(alignment: .leading, spacing: 0) {
                 getBalanceHeaderView(parameters.model, fontLarge: parameters.state != .scroll)
@@ -249,7 +250,7 @@ extension OceanSwiftUI {
         @ViewBuilder
         private func getAcquirersView(acquirers: [String], limitShowAcquirers: Int = 3) -> some View {
             let exceededLimit = acquirers.count > limitShowAcquirers
-            let acquiresToShow = exceededLimit ? 2 : acquirers.count
+            let acquiresToShow = exceededLimit ? 3 : acquirers.count
 
             HStack(spacing: -Ocean.size.spacingStackXxs) {
                 ForEach(0..<acquiresToShow) { index in
