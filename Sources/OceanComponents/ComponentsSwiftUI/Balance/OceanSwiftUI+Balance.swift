@@ -266,7 +266,7 @@ extension OceanSwiftUI {
                     }
                 }
 
-                if acquirers.count > limitShowAcquirers {
+                if exceededLimit {
                     Badge { badge in
                         badge.parameters.count = acquirers.count - limitShowAcquirers
                         badge.parameters.status = .primaryInverted
