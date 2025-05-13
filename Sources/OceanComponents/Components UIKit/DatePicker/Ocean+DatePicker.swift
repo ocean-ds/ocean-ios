@@ -16,44 +16,115 @@ extension Ocean {
         FSCalendarDelegate,
         FSCalendarDelegateAppearance,
         OceanNavigationBar {
+        
+        // MARK: Properties
+        
         public var navigationTitle: String = ""
         public var navigationBackgroundColor: UIColor? = Ocean.color.colorInterfaceLightPure
         public var navigationTintColor: UIColor = Ocean.color.colorBrandPrimaryPure
 
+        public var selectedDate = Date() {
+            didSet {
+                selectedDate = selectedDate.onlyDate
+            }
+        }
+
+        public var minimumDate = Date() {
+            didSet {
+                minimumDate = minimumDate.onlyDate
+            }
+        }
+
+        public var maximumDate = Date() {
+            didSet {
+                maximumDate = maximumDate.onlyDate
+            }
+        }
+
+        public var datesToHide: [Date] = [] {
+            didSet {
+                datesToHide = datesToHide.map { $0.onlyDate }
+            }
+        }
+
+        public var subtitle: String = ""
+        public var disableWeekend: Bool = true
+        public var isTodaySelectable: Bool = true
+        public var onReleaseCalendar: ((Date) -> Void)?
+        public var onCancel: (() -> Void)?
+        
+        // MARK: Main View
+        
+        private lazy var titleLabel: UILabel = {
+            let label = Ocean.Typography.heading3()
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.text = title
+            label.numberOfLines = 2
+            label.isHidden = title?.isEmpty == true
+            return label
+        }()
+        
+        private lazy var subtitleLabel: UILabel = {
+            let label = Ocean.Typography.description()
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.text = subtitle
+            label.numberOfLines = 2
+            label.isHidden = subtitle.isEmpty
+            return label
+        }()
+        
         private lazy var backView: UIImageView = {
-            let view = UIImageView(image: Ocean.icon.chevronLeftSolid)
+            let view = UIImageView(image: Ocean.icon.chevronLeftSolid?.withRenderingMode(.alwaysTemplate))
             view.contentMode = .scaleAspectFit
             view.widthAnchor.constraint(equalToConstant: Ocean.size.spacingStackSm).isActive = true
             view.heightAnchor.constraint(equalToConstant: Ocean.size.spacingStackSm).isActive = true
-            view.tintColor = Ocean.color.colorInterfaceDarkDeep
+            view.tintColor = Ocean.color.colorBrandPrimaryPure
             view.addTapGesture(target: self, selector: #selector(backMonth))
             return view
         }()
-
+        
         private lazy var nextView: UIImageView = {
-            let view = UIImageView(image: Ocean.icon.chevronRightSolid)
+            let view = UIImageView(image: Ocean.icon.chevronRightSolid?.withRenderingMode(.alwaysTemplate))
             view.contentMode = .scaleAspectFit
             view.widthAnchor.constraint(equalToConstant: Ocean.size.spacingStackSm).isActive = true
             view.heightAnchor.constraint(equalToConstant: Ocean.size.spacingStackSm).isActive = true
-            view.tintColor = Ocean.color.colorInterfaceDarkDeep
+            view.tintColor = Ocean.color.colorBrandPrimaryPure
             view.addTapGesture(target: self, selector: #selector(nextMonth))
             return view
         }()
-
+        
         private lazy var navigateButtonsStack: Ocean.StackView = {
             Ocean.StackView { stack in
                 stack.axis = .horizontal
                 stack.alignment = .fill
                 stack.translatesAutoresizingMaskIntoConstraints = false
-
+                
                 stack.add([
                     backView,
                     UIView(),
                     nextView
                 ])
+                
+                stack.setMargins(horizontal: Ocean.size.spacingStackXs)
             }
         }()
-
+        
+        private lazy var headerStack: Ocean.StackView = {
+            Ocean.StackView { stack in
+                stack.axis = .vertical
+                stack.alignment = .fill
+                stack.translatesAutoresizingMaskIntoConstraints = false
+                stack.spacing = Ocean.size.spacingStackXxs
+                
+                stack.add([
+                    titleLabel,
+                    subtitleLabel,
+                    Ocean.Spacer(space: Ocean.size.spacingStackXxs),
+                    navigateButtonsStack
+                ])
+            }
+        }()
+        
         private lazy var calendar: FSCalendar = {
             let calendar = FSCalendar()
             calendar.locale = Locale(identifier: "pt_BR")
@@ -94,7 +165,9 @@ extension Ocean {
             calendar.calendarWeekdayView.weekdayLabels[6].text = "Sáb"
             return calendar
         }()
-
+        
+        // MARK: Bottom View
+        
         private lazy var confirmButton: Ocean.ButtonPrimary = {
             Ocean.Button.primaryMD { button in
                 button.text = "Confirmar"
@@ -104,35 +177,8 @@ extension Ocean {
                 }
             }
         }()
-
-        public var selectedDate = Date() {
-            didSet {
-                selectedDate = selectedDate.onlyDate
-            }
-        }
-
-        public var minimumDate = Date() {
-            didSet {
-                minimumDate = minimumDate.onlyDate
-            }
-        }
-
-        public var maximumDate = Date() {
-            didSet {
-                maximumDate = maximumDate.onlyDate
-            }
-        }
-
-        public var datesToHide: [Date] = [] {
-            didSet {
-                datesToHide = datesToHide.map { $0.onlyDate }
-            }
-        }
-
-        public var disableWeekend: Bool = true
-        public var isTodaySelectable: Bool = true
-        public var onReleaseCalendar: ((Date) -> Void)?
-        public var onCancel: (() -> Void)?
+        
+        // MARK: Lifecycle View
 
         public override func viewDidLoad() {
             super.viewDidLoad()
@@ -145,19 +191,28 @@ extension Ocean {
             super.viewWillAppear(animated)
             setupNavigation()
         }
-
-        @objc func closeClick() {
-            self.dismiss(animated: true, completion: nil)
-            self.onCancel?()
+        
+        // MARK: Setup
+        
+        private func setupUI() {
+            self.view.backgroundColor = Ocean.color.colorInterfaceLightPure
+            self.view.addSubviews(calendar, confirmButton, headerStack)
+            
+            NSLayoutConstraint.activate([
+                headerStack.topAnchor.constraint(equalTo: self.view.layoutMarginsGuide.topAnchor, constant: Ocean.size.spacingStackXxxs),
+                headerStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Ocean.size.spacingStackXs),
+                headerStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -Ocean.size.spacingStackXs),
+                calendar.topAnchor.constraint(equalTo: self.headerStack.bottomAnchor, constant: -Ocean.size.spacingStackSm),
+                calendar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Ocean.size.spacingStackXs),
+                calendar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -Ocean.size.spacingStackXs),
+                calendar.heightAnchor.constraint(equalToConstant: 328),
+                confirmButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Ocean.size.spacingStackXs),
+                confirmButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -Ocean.size.spacingStackXs),
+                confirmButton.bottomAnchor.constraint(equalTo: self.view.layoutMarginsGuide.bottomAnchor, constant: -Ocean.size.spacingStackXs)
+            ])
         }
-
-        @objc func backMonth() {
-            calendar.setCurrentPage(getPreviousMonth(date: calendar.currentPage), animated: true)
-        }
-
-        @objc func nextMonth() {
-            calendar.setCurrentPage(getNextMonth(date: calendar.currentPage), animated: true)
-        }
+        
+        // MARK: Public functions
 
         public func show(rootViewController: UIViewController) {
             DispatchQueue.main.async { [weak rootViewController] in
@@ -214,25 +269,8 @@ extension Ocean {
 
             return color
         }
-
-        private func setupUI() {
-            self.view.backgroundColor = Ocean.color.colorInterfaceLightPure
-            self.view.addSubviews(calendar, confirmButton, navigateButtonsStack)
-
-            NSLayoutConstraint.activate([
-                navigateButtonsStack.topAnchor.constraint(equalTo: self.view.layoutMarginsGuide.topAnchor, constant: Ocean.size.spacingStackSm),
-                navigateButtonsStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Ocean.size.spacingStackXs),
-                navigateButtonsStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -Ocean.size.spacingStackXs),
-                navigateButtonsStack.heightAnchor.constraint(equalToConstant: 40),
-                calendar.topAnchor.constraint(equalTo: self.navigateButtonsStack.topAnchor, constant: Ocean.size.spacingStackXxs),
-                calendar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Ocean.size.spacingStackXs),
-                calendar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -Ocean.size.spacingStackXs),
-                calendar.heightAnchor.constraint(equalToConstant: 328),
-                confirmButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Ocean.size.spacingStackXs),
-                confirmButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -Ocean.size.spacingStackXs),
-                confirmButton.bottomAnchor.constraint(equalTo: self.view.layoutMarginsGuide.bottomAnchor, constant: -Ocean.size.spacingStackXs)
-            ])
-        }
+        
+        // MARK: Private functions
 
         private func formatter(format: String? = nil) -> DateFormatter {
             let formatter = DateFormatter()
@@ -291,6 +329,19 @@ extension Ocean {
 
         private func isInRange(date: Date, minDate: Date, maxDate: Date) -> Bool {
             return date >= minDate && date <= maxDate
+        }
+        
+        @objc private func closeClick() {
+            self.dismiss(animated: true, completion: nil)
+            self.onCancel?()
+        }
+        
+        @objc private func backMonth() {
+            calendar.setCurrentPage(getPreviousMonth(date: calendar.currentPage), animated: true)
+        }
+        
+        @objc private func nextMonth() {
+            calendar.setCurrentPage(getNextMonth(date: calendar.currentPage), animated: true)
         }
     }
 }
