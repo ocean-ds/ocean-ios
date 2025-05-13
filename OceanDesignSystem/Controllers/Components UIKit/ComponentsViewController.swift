@@ -55,6 +55,8 @@ class ComponentsViewController: UITableViewController {
         case .DatePicker:
             let datePicker = Ocean.DatePicker()
             datePicker.navigationTitle = "Agendar para"
+            datePicker.title = "Para qual dia você quer agendar?"
+            datePicker.subtitle = "Você precisa ter saldo disponível no dia escolhido para que a transferência seja realizada."
             datePicker.minimumDate = Calendar.current.date(byAdding: .day, value: -10, to: Date())!
             datePicker.maximumDate = Calendar.current.date(byAdding: .year, value: 2, to: Date())!
             datePicker.datesToHide = [Calendar.current.date(byAdding: .day, value: 1, to: Date())!]
