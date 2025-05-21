@@ -150,6 +150,7 @@ extension OceanSwiftUI {
                 }
             }
             .buttonStyle(OceanButtonStyle(parameters: self.parameters, foregroundColor: self.getForegroundColor()))
+            .frame(height: parameters.size.rawValue)
             .oceanSkeleton(isActive: self.parameters.showSkeleton,
                            size: .init(width: .infinity, height: parameters.size.rawValue))
         }
