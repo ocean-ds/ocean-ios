@@ -259,10 +259,17 @@ extension OceanSwiftUI {
                             .fill(Color.white)
                             .frame(width: 24, height: 24)
 
-                        Image(uiImage: acquirers[index].toOceanIcon() ?? UIImage())
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 22, height: 22)
+                        if let icon = acquirers[index].toOceanIcon() {
+                            Image(uiImage: icon)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 22, height: 22)
+                        } else {
+                            OceanSwiftUI.Typography.eyebrow { label in
+                                label.parameters.text = acquirers[index].prefix(1).uppercased()
+                                label.parameters.textColor = Ocean.color.colorBrandPrimaryDown
+                            }
+                        }
                     }
                 }
 
