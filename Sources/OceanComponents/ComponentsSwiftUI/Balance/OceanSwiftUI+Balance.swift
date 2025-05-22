@@ -265,9 +265,8 @@ extension OceanSwiftUI {
                                 .scaledToFit()
                                 .frame(width: 22, height: 22)
                         } else {
-                            Typography { label in
+                            OceanSwiftUI.Typography.eyebrow { label in
                                 label.parameters.text = acquirers[index].prefix(1).uppercased()
-                                label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
                                 label.parameters.textColor = Ocean.color.colorBrandPrimaryDown
                             }
                         }
