@@ -94,6 +94,40 @@ class BalanceSwiftUIViewController: UIViewController {
         print("Extrato")
     })
 
+    private var model6 = OceanSwiftUI.BalanceModel(title: "Saldo total na Blu",
+                                                  value: 1000000.0,
+                                                  item1Title: "Saldo atual",
+                                                  item1Value: 500000.0,
+                                                  item2Title: "Agenda",
+                                                  item2Value: 500000.0,
+                                                  item3Value: 1000000.0,
+                                                  description: "Saldo em outras maquininhas",
+                                                  pendingTitle: "Aguardando recebimento",
+                                                  pendingValue: 1000000.0,
+                                                  actionCTA: "Receber",
+                                                   acquirers: ["acquirerpagseguro", "acquirersafra", "acquirermercadopago", "acquirercielo", "acquirergetnet", "acquirerstone"],
+                                                  displayMode: .amountMachines,
+                                                  action: {
+        print("Extrato")
+    })
+
+    private var model7 = OceanSwiftUI.BalanceModel(title: "Saldo total na Blu",
+                                                  value: 1000000.0,
+                                                  item1Title: "Saldo atual",
+                                                  item1Value: 500000.0,
+                                                  item2Title: "Agenda",
+                                                  item2Value: 500000.0,
+                                                  item3Value: 1000000.0,
+                                                  description: "Saldo em outras maquininhas",
+                                                  pendingTitle: "Aguardando recebimento",
+                                                  pendingValue: 1000000.0,
+                                                  actionCTA: "Receber",
+                                                   acquirers: ["acquirerpagbank", "acquirerbancosafra", "acquirermercadopago", "acquirercielo", "acquirergetnet", "acquirerstone"],
+                                                  displayMode: .amountMachines,
+                                                  action: {
+        print("Extrato")
+    })
+
     lazy var balance1: OceanSwiftUI.Balance = {
         OceanSwiftUI.Balance { balance in
             balance.parameters.model = model
@@ -122,6 +156,18 @@ class BalanceSwiftUIViewController: UIViewController {
     lazy var balance5: OceanSwiftUI.Balance = {
         OceanSwiftUI.Balance { balance in
             balance.parameters.model = model5
+        }
+    }()
+
+    lazy var balance6: OceanSwiftUI.Balance = {
+        OceanSwiftUI.Balance { balance in
+            balance.parameters.model = model6
+        }
+    }()
+
+    lazy var balance7: OceanSwiftUI.Balance = {
+        OceanSwiftUI.Balance { balance in
+            balance.parameters.model = model7
         }
     }()
 
@@ -170,6 +216,11 @@ class BalanceSwiftUIViewController: UIViewController {
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
+
+            balance6
+
+            balance7
+
             balance1
 
             balance5

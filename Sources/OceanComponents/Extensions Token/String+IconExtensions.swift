@@ -109,9 +109,10 @@ public extension String {
         case "acquirerinfinitepay": return Ocean.icon.acquirerInfinitePay
         case "acquirermercadopago": return Ocean.icon.acquirerMercadoPago
         case "acquirerpagbank": return Ocean.icon.acquirerPagBank
+        case "acquirerpagseguro": return Ocean.icon.acquirerPagBank
         case "acquirerpagarme": return Ocean.icon.acquirerPagarMe
         case "acquirerrede": return Ocean.icon.acquirerRede
-        case "acquirersafra": return Ocean.icon.acquirerSafra
+        case "acquirerbancosafra": return Ocean.icon.acquirerSafra
         case "acquirersicoob": return Ocean.icon.acquirerSicoob
         case "acquirerstone": return Ocean.icon.acquirerStone
         case "acquirersumup": return Ocean.icon.acquirerSumup
