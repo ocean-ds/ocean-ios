@@ -23,7 +23,7 @@ class BalanceSwiftUIViewController: UIViewController {
                                                   pendingTitle: "Aguardando recebimento",
                                                   pendingValue: 1000000.0,
                                                   actionCTA: "Receber",
-                                                  acquirers: ["spaceX", "acquirercielo", "acquirergetnet", "acquirerstone"],
+                                                  acquirers: ["spaceX", "cielo", "getnet", "stone"],
                                                   displayMode: .amountMachines,
                                                   action: {
         print("Extrato")
@@ -88,7 +88,7 @@ class BalanceSwiftUIViewController: UIViewController {
                                                   pendingTitle: "Aguardando recebimento",
                                                   pendingValue: 1000000.0,
                                                   actionCTA: "Receber",
-                                                   acquirers: ["teste", "acquirersafra", "acquirermercadopago", "acquirercielo", "acquirergetnet", "acquirerstone"],
+                                                   acquirers: ["teste", "safra", "mercadopago", "cielo", "getnet", "stone"],
                                                   displayMode: .amountMachines,
                                                   action: {
         print("Extrato")
@@ -105,7 +105,7 @@ class BalanceSwiftUIViewController: UIViewController {
                                                   pendingTitle: "Aguardando recebimento",
                                                   pendingValue: 1000000.0,
                                                   actionCTA: "Receber",
-                                                   acquirers: ["acquirerpagseguro", "acquirersafra", "acquirermercadopago", "acquirercielo", "acquirergetnet", "acquirerstone"],
+                                                   acquirers: ["pagseguro", "safra", "mercadopago", "cielo", "getnet", "stone"],
                                                   displayMode: .amountMachines,
                                                   action: {
         print("Extrato")
@@ -122,7 +122,7 @@ class BalanceSwiftUIViewController: UIViewController {
                                                   pendingTitle: "Aguardando recebimento",
                                                   pendingValue: 1000000.0,
                                                   actionCTA: "Receber",
-                                                   acquirers: ["acquirerpagbank", "acquirerbancosafra", "acquirermercadopago", "acquirercielo", "acquirergetnet", "acquirerstone"],
+                                                   acquirers: ["pagbank", "bancosafra", "mercadopago", "cielo", "getnet", "stone"],
                                                   displayMode: .amountMachines,
                                                   action: {
         print("Extrato")
