@@ -78,7 +78,6 @@ extension OceanSwiftUI {
             @Published public var newValueColor: UIColor
             @Published public var imageIcon: UIImage?
             @Published public var imageColor: UIColor
-            @Published public var tag: TagParameters?
 
             public init(text: String = "",
                         value: String = "",
@@ -87,8 +86,7 @@ extension OceanSwiftUI {
                         newValue: String = "",
                         newValueColor: UIColor = Ocean.color.colorStatusPositiveDeep,
                         imageIcon: UIImage? = nil,
-                        imageColor: UIColor = Ocean.color.colorStatusPositiveDeep,
-                        tag: TagParameters? = nil) {
+                        imageColor: UIColor = Ocean.color.colorStatusPositiveDeep) {
                 self.text = text
                 self.value = value
                 self.valueColor = valueColor
@@ -97,7 +95,6 @@ extension OceanSwiftUI {
                 self.newValueColor = newValueColor
                 self.imageIcon = imageIcon
                 self.imageColor = imageColor
-                self.tag = tag
             }
         }
     }
@@ -164,7 +161,7 @@ extension OceanSwiftUI {
                         .foregroundColor(Color(item.imageColor))
                 }
 
-                if let tag = item.tag {
+                if let tag = parameters.tag {
                     Tag.init(parameters: tag)
                 }
 
