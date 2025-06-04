@@ -122,15 +122,14 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         let item = OceanSwiftUI.InlineTextListItemParameters.ItemModel(
             text: "Title",
             value: "Description - Warning",
-            valueColor: Ocean.color.colorStatusWarningDeep,
-            tag: .init(label: "Oferta",
-                       icon: Ocean.icon.fireSolid!,
-                       status: .warning,
-                       size: .medium)
-        )
+            valueColor: Ocean.color.colorStatusWarningDeep)
 
         return OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.items = [item]
+            textListItem.parameters.tag = .init(label: "Oferta",
+                                                icon: Ocean.icon.fireSolid!,
+                                                status: .warning,
+                                                size: .medium)
             textListItem.parameters.icon = .init(icon: Ocean.icon.placeholderSolid!,
                                                  color: Ocean.color.colorStatusWarningDeep,
                                                  backgroundColor: Ocean.color.colorInterfaceLightPure)
@@ -251,15 +250,14 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         let item = OceanSwiftUI.InlineTextListItemParameters.ItemModel(
             text: "Recebimentos futuros",
             value: "RS 2.300,00",
-            valueColor: Ocean.color.colorInterfaceDarkDeep,
-            tag: .init(label: "Oferta",
-                       icon: Ocean.icon.fireSolid!,
-                       status: .warning,
-                       size: .medium)
-        )
+            valueColor: Ocean.color.colorInterfaceDarkDeep)
 
         return OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.items = [item]
+            textListItem.parameters.tag = .init(label: "Oferta",
+                                                icon: Ocean.icon.fireSolid!,
+                                                status: .warning,
+                                                size: .medium)
             textListItem.parameters.onTouch = {
                 print("Touched!")
             }
@@ -270,16 +268,16 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         let item = OceanSwiftUI.InlineTextListItemParameters.ItemModel(
             text: "Recebimentos futuros",
             value: "RS 2.300,00",
-            valueColor: Ocean.color.colorInterfaceDarkDeep,
-            tag: .init(label: "Oferta",
-                       icon: Ocean.icon.fireSolid!,
-                       status: .warning,
-                       size: .medium)
+            valueColor: Ocean.color.colorInterfaceDarkDeep
         )
 
         return OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.items = [item]
             textListItem.parameters.state = .strikethrough
+            textListItem.parameters.tag = .init(label: "Oferta",
+                                                icon: Ocean.icon.fireSolid!,
+                                                status: .warning,
+                                                size: .medium)
             textListItem.parameters.icon = .init(icon: Ocean.icon.placeholderSolid!,
                                                  color: Ocean.color.colorStatusPositiveDeep,
                                                  backgroundColor: Ocean.color.colorInterfaceLightPure)
@@ -293,15 +291,15 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         let item = OceanSwiftUI.InlineTextListItemParameters.ItemModel(
             text: "Ícone do lighthouse",
             value: "",
-            valueColor: Ocean.color.colorInterfaceDarkDeep,
-            tag: .init(label: "New",
-                       icon: Ocean.icon.lighthouseOutline!,
-                       status: .warning,
-                       size: .medium)
+            valueColor: Ocean.color.colorInterfaceDarkDeep
         )
 
         return OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.items = [item]
+            textListItem.parameters.tag = .init(label: "New",
+                                                icon: Ocean.icon.lighthouseOutline!,
+                                                status: .warning,
+                                                size: .medium)
             textListItem.parameters.onTouch = {
                 print("Touched!")
             }
@@ -312,15 +310,14 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         let item = OceanSwiftUI.InlineTextListItemParameters.ItemModel(
             text: "Ícone do lighthouse",
             value: "",
-            valueColor: Ocean.color.colorInterfaceDarkDeep,
-            tag: .init(label: "New",
-                       icon: " lighthouseOutline ".toOceanIcon()!,
-                       status: .positive,
-                       size: .medium)
-        )
+            valueColor: Ocean.color.colorInterfaceDarkDeep)
 
         return OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.items = [item]
+            textListItem.parameters.tag = .init(label: "New",
+                                                icon: " lighthouseOutline ".toOceanIcon()!,
+                                                status: .positive,
+                                                size: .medium)
             textListItem.parameters.onTouch = {
                 print("Touched!")
             }
