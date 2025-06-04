@@ -19,7 +19,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         )
 
         return OceanSwiftUI.InlineTextListItem { textListItem in
-            textListItem.parameters.items = item
+            textListItem.parameters.item = item
             textListItem.parameters.state = .normal
             textListItem.parameters.size = .normal
         }
@@ -33,7 +33,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         )
 
         return OceanSwiftUI.InlineTextListItem { textListItem in
-            textListItem.parameters.items = item
+            textListItem.parameters.item = item
             textListItem.parameters.state = .normal
             textListItem.parameters.size = .small
         }
@@ -47,7 +47,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         )
 
         return OceanSwiftUI.InlineTextListItem { textListItem in
-            textListItem.parameters.items = item
+            textListItem.parameters.item = item
             textListItem.parameters.state = .innactive
             textListItem.parameters.size = .normal
         }
@@ -61,7 +61,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         )
 
         return OceanSwiftUI.InlineTextListItem { textListItem in
-            textListItem.parameters.items = item
+            textListItem.parameters.item = item
             textListItem.parameters.state = .innactive
             textListItem.parameters.size = .small
         }
@@ -75,7 +75,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         )
 
         return OceanSwiftUI.InlineTextListItem { textListItem in
-            textListItem.parameters.items = item
+            textListItem.parameters.item = item
             textListItem.parameters.state = .positive
             textListItem.parameters.size = .normal
             textListItem.parameters.icon = .init(icon: Ocean.icon.placeholderSolid!,
@@ -92,7 +92,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         )
 
         return OceanSwiftUI.InlineTextListItem { textListItem in
-            textListItem.parameters.items = item
+            textListItem.parameters.item = item
             textListItem.parameters.icon = .init(icon: Ocean.icon.placeholderSolid!,
                                                  color: Ocean.color.colorStatusPositiveDeep,
                                                  backgroundColor: Ocean.color.colorInterfaceLightPure)
@@ -109,7 +109,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         )
 
         return OceanSwiftUI.InlineTextListItem { textListItem in
-            textListItem.parameters.items = item
+            textListItem.parameters.item = item
             textListItem.parameters.icon = .init(icon: Ocean.icon.placeholderSolid!,
                                                  color: Ocean.color.colorStatusWarningDeep,
                                                  backgroundColor: Ocean.color.colorInterfaceLightPure)
@@ -125,7 +125,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             valueColor: Ocean.color.colorStatusWarningDeep)
 
         return OceanSwiftUI.InlineTextListItem { textListItem in
-            textListItem.parameters.items = item
+            textListItem.parameters.item = item
             textListItem.parameters.tag = .init(label: "Oferta",
                                                 icon: Ocean.icon.fireSolid!,
                                                 status: .warning,
@@ -147,7 +147,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         )
 
         return OceanSwiftUI.InlineTextListItem { textListItem in
-            textListItem.parameters.items = item
+            textListItem.parameters.item = item
             textListItem.parameters.state = .highlight
             textListItem.parameters.size = .normal
         }
@@ -162,7 +162,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         )
 
         return OceanSwiftUI.InlineTextListItem { textListItem in
-            textListItem.parameters.items = item
+            textListItem.parameters.item = item
             textListItem.parameters.state = .highlight
             textListItem.parameters.size = .small
         }
@@ -178,7 +178,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         )
 
         return OceanSwiftUI.InlineTextListItem { textListItem in
-            textListItem.parameters.items = item
+            textListItem.parameters.item = item
             textListItem.parameters.state = .strikethrough
             textListItem.parameters.size = .normal
             textListItem.parameters.onTouch = {
@@ -197,7 +197,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         )
 
         return OceanSwiftUI.InlineTextListItem { textListItem in
-            textListItem.parameters.items = item
+            textListItem.parameters.item = item
             textListItem.parameters.state = .strikethrough
             textListItem.parameters.size = .small
             textListItem.parameters.onTouch = { print("touched") }
@@ -212,7 +212,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         )
 
         return OceanSwiftUI.InlineTextListItem { textListItem in
-            textListItem.parameters.items = item
+            textListItem.parameters.item = item
             textListItem.parameters.state = .withAction
             textListItem.parameters.size = .normal
             textListItem.parameters.button = .init(text: "Saiba mais",
@@ -231,7 +231,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         )
 
         return OceanSwiftUI.InlineTextListItem { textListItem in
-            textListItem.parameters.items = item
+            textListItem.parameters.item = item
             textListItem.parameters.state = .withAction
             textListItem.parameters.size = .small
             textListItem.parameters.button = .init(text: "Saiba mais",
@@ -255,7 +255,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             valueColor: Ocean.color.colorInterfaceDarkDeep)
 
         return OceanSwiftUI.InlineTextListItem { textListItem in
-            textListItem.parameters.items = item
+            textListItem.parameters.item = item
             textListItem.parameters.tag = .init(label: "Oferta",
                                                 icon: Ocean.icon.fireSolid!,
                                                 status: .warning,
@@ -274,7 +274,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         )
 
         return OceanSwiftUI.InlineTextListItem { textListItem in
-            textListItem.parameters.items = item
+            textListItem.parameters.item = item
             textListItem.parameters.state = .strikethrough
             textListItem.parameters.tag = .init(label: "Oferta",
                                                 icon: Ocean.icon.fireSolid!,
@@ -297,7 +297,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         )
 
         return OceanSwiftUI.InlineTextListItem { textListItem in
-            textListItem.parameters.items = item
+            textListItem.parameters.item = item
             textListItem.parameters.tag = .init(label: "New",
                                                 icon: Ocean.icon.lighthouseOutline!,
                                                 status: .warning,
@@ -315,7 +315,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             valueColor: Ocean.color.colorInterfaceDarkDeep)
 
         return OceanSwiftUI.InlineTextListItem { textListItem in
-            textListItem.parameters.items = item
+            textListItem.parameters.item = item
             textListItem.parameters.tag = .init(label: "New",
                                                 icon: " lighthouseOutline ".toOceanIcon()!,
                                                 status: .positive,

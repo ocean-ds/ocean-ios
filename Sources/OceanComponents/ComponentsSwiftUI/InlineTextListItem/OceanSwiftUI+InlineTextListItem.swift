@@ -12,7 +12,7 @@ extension OceanSwiftUI {
     // MARK: Parameter
 
     public class InlineTextListItemParameters: ObservableObject {
-        @Published public var items: ItemModel?
+        @Published public var item: ItemModel?
         @Published public var title: String
         @Published public var description: String
         @Published public var descriptionColor: UIColor?
@@ -26,7 +26,7 @@ extension OceanSwiftUI {
         @Published public var showSkeleton: Bool
         public var onTouch: () -> Void
 
-        public init(items: ItemModel? = nil,
+        public init(item: ItemModel? = nil,
                     title: String = "",
                     description: String = "",
                     descriptionColor: UIColor? = nil,
@@ -42,7 +42,7 @@ extension OceanSwiftUI {
                     size: Size = .normal,
                     showSkeleton: Bool = false,
                     onTouch: @escaping () -> Void = { }) {
-            self.items = items
+            self.item = item
             self.title = title
             self.description = description
             self.descriptionColor = descriptionColor
@@ -138,7 +138,7 @@ extension OceanSwiftUI {
                 if parameters.showSkeleton {
                     getSkeletonView()
                 } else {
-                    if let item = parameters.items {
+                    if let item = parameters.item {
                         getItemView(item: item)
                     } else {
                         getItemView()
