@@ -326,6 +326,228 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         }
     }()
 
+
+    lazy var inlineTextListItem1Direct: OceanSwiftUI.InlineTextListItem = {
+        OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.title = "Title"
+            textListItem.parameters.description = "Description - Default"
+            textListItem.parameters.state = .normal
+            textListItem.parameters.size = .normal
+        }
+    }()
+
+    lazy var inlineTextListItem2Direct: OceanSwiftUI.InlineTextListItem = {
+        OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.title = "Title"
+            textListItem.parameters.description = "Description - Default"
+            textListItem.parameters.state = .normal
+            textListItem.parameters.size = .small
+        }
+    }()
+
+    lazy var inlineTextListItem3Direct: OceanSwiftUI.InlineTextListItem = {
+        OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.title = "Title"
+            textListItem.parameters.description = "Description - Innactive"
+            textListItem.parameters.state = .innactive
+            textListItem.parameters.size = .normal
+        }
+    }()
+
+    lazy var inlineTextListItem4Direct: OceanSwiftUI.InlineTextListItem = {
+        OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.title = "Title"
+            textListItem.parameters.description = "Description - Innactive"
+            textListItem.parameters.state = .innactive
+            textListItem.parameters.size = .small
+        }
+    }()
+
+    lazy var inlineTextListItem5Direct: OceanSwiftUI.InlineTextListItem = {
+        OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.title = "Title"
+            textListItem.parameters.description = "Description - Positive"
+            textListItem.parameters.state = .positive
+            textListItem.parameters.size = .normal
+            textListItem.parameters.icon = .init(icon: Ocean.icon.placeholderSolid!,
+                                                 color: Ocean.color.colorStatusPositiveDeep,
+                                                 backgroundColor: Ocean.color.colorInterfaceLightPure)
+        }
+    }()
+
+    lazy var inlineTextListItem6Direct: OceanSwiftUI.InlineTextListItem = {
+        OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.title = "Title"
+            textListItem.parameters.description = "Description - Positive"
+            textListItem.parameters.icon = .init(icon: Ocean.icon.placeholderSolid!,
+                                                 color: Ocean.color.colorStatusPositiveDeep,
+                                                 backgroundColor: Ocean.color.colorInterfaceLightPure)
+            textListItem.parameters.state = .positive
+            textListItem.parameters.size = .small
+        }
+    }()
+
+    lazy var inlineTextListItem7Direct: OceanSwiftUI.InlineTextListItem = {
+        OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.title = "Title"
+            textListItem.parameters.description = "Description - Warning"
+            textListItem.parameters.icon = .init(icon: Ocean.icon.placeholderSolid!,
+                                                 color: Ocean.color.colorStatusWarningDeep,
+                                                 backgroundColor: Ocean.color.colorInterfaceLightPure)
+            textListItem.parameters.state = .warning
+            textListItem.parameters.size = .normal
+        }
+    }()
+
+    lazy var inlineTextListItem8Direct: OceanSwiftUI.InlineTextListItem = {
+        OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.title = "Title"
+            textListItem.parameters.description = "Description - Warning"
+            textListItem.parameters.icon = .init(icon: Ocean.icon.placeholderSolid!,
+                                                 color: Ocean.color.colorStatusWarningDeep,
+                                                 backgroundColor: Ocean.color.colorInterfaceLightPure)
+            textListItem.parameters.state = .warning
+            textListItem.parameters.size = .small
+            textListItem.parameters.tag = .init(label: "Oferta",
+                                                icon: Ocean.icon.fireSolid!,
+                                                status: .warning,
+                                                size: .medium)
+        }
+    }()
+
+    lazy var inlineTextListItem9Direct: OceanSwiftUI.InlineTextListItem = {
+        OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.title = "Title"
+            textListItem.parameters.description = "Description - Highlight"
+            textListItem.parameters.state = .highlight
+            textListItem.parameters.size = .normal
+        }
+    }()
+
+    lazy var inlineTextListItem10Direct: OceanSwiftUI.InlineTextListItem = {
+        OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.title = "Title"
+            textListItem.parameters.description = "Description - Highlight"
+            textListItem.parameters.state = .highlight
+            textListItem.parameters.size = .small
+        }
+    }()
+
+    lazy var inlineTextListItem11Direct: OceanSwiftUI.InlineTextListItem = {
+        OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.title = "Title - Strikethrough"
+            textListItem.parameters.description = "Valor novo"
+            textListItem.parameters.strikethroughText = "Valor Antigo"
+            textListItem.parameters.state = .strikethrough
+            textListItem.parameters.size = .normal
+            textListItem.parameters.onTouch = {
+                print("Touched!")
+            }
+        }
+    }()
+
+    lazy var inlineTextListItem12Direct: OceanSwiftUI.InlineTextListItem = {
+        OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.title = "Title - Strikethrough"
+            textListItem.parameters.description = "Valor novo"
+            textListItem.parameters.strikethroughText = "Valor Antigo"
+            textListItem.parameters.state = .strikethrough
+            textListItem.parameters.size = .small
+            textListItem.parameters.onTouch = { print("touched") }
+        }
+    }()
+
+    lazy var inlineTextListItem13Direct: OceanSwiftUI.InlineTextListItem = {
+        OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.title = "Title"
+            textListItem.parameters.state = .withAction
+            textListItem.parameters.size = .normal
+            textListItem.parameters.button = .init(text: "Saiba mais",
+                                                   style: .primary,
+                                                   size: .small,
+                                                   onTouch: { print("Oieee") })
+            textListItem.parameters.onTouch = { print("touched") }
+        }
+    }()
+
+    lazy var inlineTextListItem14Direct: OceanSwiftUI.InlineTextListItem = {
+        OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.title = "Title"
+            textListItem.parameters.state = .withAction
+            textListItem.parameters.size = .small
+            textListItem.parameters.button = .init(text: "Saiba mais",
+                                                   style: .primary,
+                                                   size: .small,
+                                                   onTouch: { print("Oieee") })
+            textListItem.parameters.onTouch = { print("touched") }
+        }
+    }()
+
+    lazy var inlineTextListItem15Direct: OceanSwiftUI.InlineTextListItem = {
+        OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.title = "Title"
+            textListItem.parameters.showSkeleton = true
+        }
+    }()
+
+    lazy var inlineTextListItem16Direct: OceanSwiftUI.InlineTextListItem = {
+        OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.title = "Recebimentos futuros"
+            textListItem.parameters.description = "RS 2.300,00"
+            textListItem.parameters.tag = .init(label: "Oferta",
+                                                icon: Ocean.icon.fireSolid!,
+                                                status: .warning,
+                                                size: .medium)
+            textListItem.parameters.onTouch = {
+                print("Touched!")
+            }
+        }
+    }()
+
+    lazy var inlineTextListItem17Direct: OceanSwiftUI.InlineTextListItem = {
+        OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.title = "Recebimentos futuros"
+            textListItem.parameters.description = "RS 2.300,00"
+            textListItem.parameters.state = .strikethrough
+            textListItem.parameters.icon = .init(icon: Ocean.icon.placeholderSolid!,
+                                                 color: Ocean.color.colorStatusPositiveDeep,
+                                                 backgroundColor: Ocean.color.colorInterfaceLightPure)
+            textListItem.parameters.tag = .init(label: "Oferta",
+                                                icon: Ocean.icon.fireSolid!,
+                                                status: .warning,
+                                                size: .medium)
+            textListItem.parameters.onTouch = {
+                print("Touched!")
+            }
+        }
+    }()
+
+    lazy var inlineTextListItem18Direct: OceanSwiftUI.InlineTextListItem = {
+        OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.title = "Ícone do lighthouse"
+            textListItem.parameters.tag = .init(label: "New",
+                                                icon: Ocean.icon.lighthouseOutline!,
+                                                status: .warning,
+                                                size: .medium)
+            textListItem.parameters.onTouch = {
+                print("Touched!")
+            }
+        }
+    }()
+
+    lazy var inlineTextListItem19Direct: OceanSwiftUI.InlineTextListItem = {
+        OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.title = "Ícone do lighthouse"
+            textListItem.parameters.tag = .init(label: "New",
+                                                icon: " lighthouseOutline ".toOceanIcon()!,
+                                                status: .positive,
+                                                size: .medium)
+            textListItem.parameters.onTouch = {
+                print("Touched!")
+            }
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             inlineTextListItem1
@@ -347,6 +569,32 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             inlineTextListItem17
             inlineTextListItem18
             inlineTextListItem19
+        }
+
+        VStack(spacing: Ocean.size.spacingStackXs) {
+            OceanSwiftUI.Typography.heading1 { label in
+                label.parameters.text = "Passando os itens direto"
+            }
+
+            inlineTextListItem1Direct
+            inlineTextListItem2Direct
+            inlineTextListItem3Direct
+            inlineTextListItem4Direct
+            inlineTextListItem5Direct
+            inlineTextListItem6Direct
+            inlineTextListItem7Direct
+            inlineTextListItem8Direct
+            inlineTextListItem9Direct
+            inlineTextListItem10Direct
+            inlineTextListItem11Direct
+            inlineTextListItem12Direct
+            inlineTextListItem13Direct
+            inlineTextListItem14Direct
+            inlineTextListItem15Direct
+            inlineTextListItem16Direct
+            inlineTextListItem17Direct
+            inlineTextListItem18Direct
+            inlineTextListItem19Direct
         }
     })
 
