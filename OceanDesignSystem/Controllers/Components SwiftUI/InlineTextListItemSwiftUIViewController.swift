@@ -171,13 +171,14 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
     lazy var inlineTextListItem11: OceanSwiftUI.InlineTextListItem = {
         let item = OceanSwiftUI.InlineTextListItemParameters.ItemModel(
             text: "Title - Strikethrough",
-            value: "Valor novo",
-            valueColor: Ocean.color.colorStatusPositiveDeep
+            value: "Valor antigo",
+            valueColor: Ocean.color.colorInterfaceDarkDeep,
+            newValue: "Valor novo",
+            newValueColor: Ocean.color.colorStatusPositiveDeep
         )
 
         return OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.items = [item]
-            textListItem.parameters.strikethroughText = "Valor Antigo"
             textListItem.parameters.state = .strikethrough
             textListItem.parameters.size = .normal
             textListItem.parameters.onTouch = {
@@ -189,13 +190,14 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
     lazy var inlineTextListItem12: OceanSwiftUI.InlineTextListItem = {
         let item = OceanSwiftUI.InlineTextListItemParameters.ItemModel(
             text: "Title - Strikethrough",
-            value: "Valor novo",
-            valueColor: Ocean.color.colorStatusPositiveDeep
+            value: "Valor antigo",
+            valueColor: Ocean.color.colorInterfaceDarkDeep,
+            newValue: "Valor novo",
+            newValueColor: Ocean.color.colorStatusPositiveDeep
         )
 
         return OceanSwiftUI.InlineTextListItem { textListItem in
             textListItem.parameters.items = [item]
-            textListItem.parameters.strikethroughText = "Valor Antigo"
             textListItem.parameters.state = .strikethrough
             textListItem.parameters.size = .small
             textListItem.parameters.onTouch = { print("touched") }

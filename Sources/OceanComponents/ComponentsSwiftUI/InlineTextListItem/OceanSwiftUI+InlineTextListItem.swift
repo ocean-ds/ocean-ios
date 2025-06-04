@@ -16,9 +16,6 @@ extension OceanSwiftUI {
         @Published public var tag: TagParameters?
         @Published public var button: ButtonParameters?
         @Published public var icon: RoundedIconParameters?
-        @Published public var description: String
-        @Published public var descriptionColor: UIColor?
-        @Published public var strikethroughText: String
         @Published public var padding: EdgeInsets
         @Published public var state: State
         @Published public var size: Size
@@ -26,9 +23,6 @@ extension OceanSwiftUI {
         public var onTouch: () -> Void
 
         public init(items: [ItemModel] = [],
-                    description: String = "",
-                    descriptionColor: UIColor? = nil,
-                    strikethroughText: String = "",
                     icon: RoundedIconParameters? = nil,
                     tag: TagParameters? = nil,
                     button: ButtonParameters? = nil,
@@ -41,9 +35,6 @@ extension OceanSwiftUI {
                     showSkeleton: Bool = false,
                     onTouch: @escaping () -> Void = { }) {
             self.items = items
-            self.description = description
-            self.descriptionColor = descriptionColor
-            self.strikethroughText = strikethroughText
             self.icon = icon
             self.tag = tag
             self.button = button
@@ -207,29 +198,6 @@ extension OceanSwiftUI {
                     skeleton.parameters.lines = 1
                     skeleton.parameters.height = Ocean.size.spacingStackSm
                 }
-            }
-        }
-
-        private func getStatusColor() -> UIColor {
-            if let customColor = parameters.descriptionColor {
-                return customColor
-            }
-
-            switch parameters.state {
-            case .normal:
-                return Ocean.color.colorInterfaceDarkDeep
-            case .innactive:
-                return Ocean.color.colorInterfaceDarkUp
-            case .positive:
-                return Ocean.color.colorStatusPositiveDeep
-            case .warning:
-                return Ocean.color.colorStatusWarningDeep
-            case .highlight:
-                return Ocean.color.colorInterfaceDarkDeep
-            case .strikethrough:
-                return Ocean.color.colorStatusPositiveDeep
-            case .withAction:
-                return Ocean.color.colorInterfaceDarkDown
             }
         }
     }
