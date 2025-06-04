@@ -12,20 +12,20 @@ extension OceanSwiftUI {
     // MARK: Parameter
 
     public class InlineTextListItemParameters: ObservableObject {
-        @Published public var title: String
+        @Published public var items: [ItemModel]
+        @Published public var tag: TagParameters?
+        @Published public var button: ButtonParameters?
+        @Published public var icon: RoundedIconParameters?
         @Published public var description: String
         @Published public var descriptionColor: UIColor?
         @Published public var strikethroughText: String
-        @Published public var icon: RoundedIconParameters?
-        @Published public var tag: TagParameters?
-        @Published public var button: ButtonParameters?
         @Published public var padding: EdgeInsets
         @Published public var state: State
         @Published public var size: Size
         @Published public var showSkeleton: Bool
         public var onTouch: () -> Void
 
-        public init(title: String = "",
+        public init(items: [ItemModel] = [],
                     description: String = "",
                     descriptionColor: UIColor? = nil,
                     strikethroughText: String = "",
@@ -40,7 +40,7 @@ extension OceanSwiftUI {
                     size: Size = .normal,
                     showSkeleton: Bool = false,
                     onTouch: @escaping () -> Void = { }) {
-            self.title = title
+            self.items = items
             self.description = description
             self.descriptionColor = descriptionColor
             self.strikethroughText = strikethroughText
@@ -68,6 +68,38 @@ extension OceanSwiftUI {
             case normal
             case small
         }
+
+        public class ItemModel: ObservableObject, Identifiable {
+            @Published public var text: String
+            @Published public var value: String
+            @Published public var valueColor: UIColor
+            @Published public var isBoldValue: Bool
+            @Published public var newValue: String
+            @Published public var newValueColor: UIColor
+            @Published public var imageIcon: UIImage?
+            @Published public var imageColor: UIColor
+            @Published public var tag: TagParameters?
+
+            public init(text: String = "",
+                        value: String = "",
+                        valueColor: UIColor = Ocean.color.colorInterfaceDarkDeep,
+                        isBoldValue: Bool = false,
+                        newValue: String = "",
+                        newValueColor: UIColor = Ocean.color.colorStatusPositiveDeep,
+                        imageIcon: UIImage? = nil,
+                        imageColor: UIColor = Ocean.color.colorStatusPositiveDeep,
+                        tag: TagParameters? = nil) {
+                self.text = text
+                self.value = value
+                self.valueColor = valueColor
+                self.isBoldValue = isBoldValue
+                self.newValue = newValue
+                self.newValueColor = newValueColor
+                self.imageIcon = imageIcon
+                self.imageColor = imageColor
+                self.tag = tag
+            }
+        }
     }
 
     public struct InlineTextListItem: View {
@@ -85,8 +117,6 @@ extension OceanSwiftUI {
 
         @ObservedObject public var parameters: InlineTextListItemParameters
 
-        // MARK: Private properties
-
         // MARK: Constructors
 
         public init(parameters: InlineTextListItemParameters = InlineTextListItemParameters()) {
@@ -101,86 +131,91 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            if parameters.showSkeleton {
-                HStack(alignment: .center, spacing: Ocean.size.spacingStackXs) {
-                    OceanSwiftUI.Skeleton { skeleton in
-                        skeleton.parameters.lines = 1
-                        skeleton.parameters.height = Ocean.size.spacingStackSm
-                    }
-                    OceanSwiftUI.Skeleton { skeleton in
-                        skeleton.parameters.lines = 1
-                        skeleton.parameters.height = Ocean.size.spacingStackSm
+            VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
+
+                if parameters.showSkeleton {
+                    getSkeletonView()
+                } else {
+                    ForEach(parameters.items.indices, id: \.self) { index in
+                        getItemView(item: parameters.items[index])
                     }
                 }
-            } else {
-                HStack(alignment: .center, spacing: 0) {
-                    HStack(alignment: .center, spacing: 0) {
-                        if parameters.size == .normal {
-                            OceanSwiftUI.Typography.paragraph { label in
-                                label.parameters.text = parameters.title
-                            }
-                        } else {
-                            OceanSwiftUI.Typography.caption { label in
-                                label.parameters.text = parameters.title
-                            }
-                        }
+            }
+            .padding(parameters.padding)
+            .background(Color(Ocean.color.colorInterfaceLightPure))
+        }
 
-                        if let tag = parameters.tag {
-                            Tag.init(parameters: tag)
-                        }
-                    }
+        // MARK: Private Methods
 
-                    Spacer()
-
-                    HStack(alignment: .center, spacing: 0) {
-                        if let roundedIcon = parameters.icon {
-                            RoundedIcon.init(parameters: roundedIcon)
-                        }
-
-                        if let button = parameters.button {
-                            Button.init(parameters: button)
-                        }
-
-                        if parameters.state == .strikethrough {
-                            OceanSwiftUI.Typography.paragraph { label in
-                                label.parameters.text = parameters.strikethroughText
-                                label.parameters.textColor = Ocean.color.colorInterfaceDarkPure
-                                label.parameters.strikethrough = true
-                            }
-                            Spacer()
-                                .frame(width: Ocean.size.spacingInsetXxs)
-                        }
-
-                        if !parameters.description.isEmpty {
-                            if parameters.size == .normal {
-                                OceanSwiftUI.Typography.paragraph { label in
-                                    label.parameters.text = parameters.description
-                                    label.parameters.textColor = getStatusColor()
-                                    if parameters.state == .highlight {
-                                        label.parameters.font = .baseBold(size: Ocean.font.fontSizeXs)
-                                    }
-                                }
-                            } else {
-                                OceanSwiftUI.Typography.description { label in
-                                    label.parameters.text = parameters.description
-                                    label.parameters.textColor = getStatusColor()
-                                    if parameters.state == .highlight {
-                                        label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    .fixedSize(horizontal: true, vertical: false)
+        @ViewBuilder
+        private func getItemView(item: InlineTextListItemParameters.ItemModel) -> some View {
+            HStack {
+                Typography.paragraph { label in
+                    label.parameters.text = item.text
                 }
-                .padding(parameters.padding)
-                .background(Color(Ocean.color.colorInterfaceLightPure))
+
+                Spacer()
+
+                if let icon = item.imageIcon {
+                    Image(uiImage: icon.withRenderingMode(.alwaysTemplate))
+                        .resizable()
+                        .renderingMode(.template)
+                        .frame(width: 20, height: 20)
+                        .foregroundColor(Color(item.imageColor))
+                }
+
+                if let tag = item.tag {
+                    Tag.init(parameters: tag)
+                }
+
+                if !item.newValue.isEmpty, !item.value.isEmpty {
+                    Typography.paragraph { label in
+                        label.parameters.text = item.value
+                        label.parameters.textColor = item.valueColor
+                        label.parameters.strikethrough = true
+                    }
+                    Typography.paragraph { label in
+                        label.parameters.text = item.newValue
+                        label.parameters.textColor = item.newValueColor
+                    }
+                } else {
+                    Typography.paragraph { label in
+                        label.parameters.text = item.value
+                        label.parameters.textColor = item.valueColor
+                        label.parameters.font = item.isBoldValue
+                        ? .baseBold(size: Ocean.font.fontSizeXs)
+                        : .baseRegular(size: Ocean.font.fontSizeXs)
+                    }
+                }
+
+                if let roundedIcon = parameters.icon {
+                    RoundedIcon.init(parameters: roundedIcon)
+                }
+
+                if let button = parameters.button {
+                    Button.init(parameters: button)
+                        .fixedSize(horizontal: true, vertical: false)
+                }
+            }
+        }
+
+        private func getSkeletonView() -> some View {
+            HStack(alignment: .center, spacing: Ocean.size.spacingStackXs) {
+                OceanSwiftUI.Skeleton { skeleton in
+                    skeleton.parameters.lines = 1
+                    skeleton.parameters.height = Ocean.size.spacingStackSm
+                }
+                Spacer()
+                OceanSwiftUI.Skeleton { skeleton in
+                    skeleton.parameters.lines = 1
+                    skeleton.parameters.height = Ocean.size.spacingStackSm
+                }
             }
         }
 
         private func getStatusColor() -> UIColor {
-            if let subtitleColor = parameters.descriptionColor {
-                return subtitleColor
+            if let customColor = parameters.descriptionColor {
+                return customColor
             }
 
             switch parameters.state {
@@ -196,7 +231,7 @@ extension OceanSwiftUI {
                 return Ocean.color.colorInterfaceDarkDeep
             case .strikethrough:
                 return Ocean.color.colorStatusPositiveDeep
-            default:
+            case .withAction:
                 return Ocean.color.colorInterfaceDarkDown
             }
         }
