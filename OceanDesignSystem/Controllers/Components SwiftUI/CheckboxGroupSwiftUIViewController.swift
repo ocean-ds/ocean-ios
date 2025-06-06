@@ -40,7 +40,7 @@ class CheckboxGroupSwiftUIViewController: UIViewController {
     private lazy var checkboxGroup3: OceanSwiftUI.CheckboxGroup = OceanSwiftUI.CheckboxGroup { view in
         view.parameters.items = [
             .init(id: "labe1", title: "Label 1"),
-            .init(id: "labe2", title: "Label 2"),
+            .init(id: "labe2", title: "Label 2", linkText: "Aceito os termos", linkAction: { print("aceito") }),
             .init(id: "labe3", title: "Label 3"),
             .init(id: "labe4", title: "Label 4"),
             .init(id: "labe5", title: "Label 5")

@@ -49,15 +49,21 @@ extension OceanSwiftUI {
             public var title: String
             public var isSelected: Bool
             public var isEnabled: Bool
+            public var linkText: String
+            public var linkAction: () -> Void
 
             public init(id: String = "",
                         title: String = "",
                         isSelected: Bool = false,
-                        isEnabled: Bool = true) {
+                        isEnabled: Bool = true,
+                        linkText: String = "",
+                        linkAction: @escaping () -> Void = { }) {
                 self.id = id
                 self.title = title
                 self.isSelected = isSelected
                 self.isEnabled = isEnabled
+                self.linkText = linkText
+                self.linkAction = linkAction
             }
         }
 
@@ -173,6 +179,13 @@ extension OceanSwiftUI {
                             : Ocean.color.colorInterfaceLightDeep
                         }
 
+                        if !item.linkText.isEmpty {
+                            OceanSwiftUI.Link.primarySmall { view in
+                                view.parameters.text = item.linkText
+                                view.parameters.onTouch = item.linkAction
+                            }
+                        }
+                        
                         Spacer()
                     }
                 }
