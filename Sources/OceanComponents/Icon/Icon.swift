@@ -124,6 +124,7 @@ extension Ocean {
         public static let acquirerSicoob = UIImage(named: "acquirer-sicoob", in: Bundle.module, with: .none)
         public static let acquirerStone = UIImage(named: "acquirer-stone", in: Bundle.module, with: .none)
         public static let acquirerSumup = UIImage(named: "acquirer-sumup", in: Bundle.module, with: .none)
+        public static let acquirerBlu = UIImage(named: "acquirer-blu", in: Bundle.module, with: .none)
         public static let eyeOffAltOutline = UIImage(named: "eye-off-alt-outline", in: Bundle.module, with: .none)
 
         // HeroIcons
