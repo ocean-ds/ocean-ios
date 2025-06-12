@@ -213,8 +213,6 @@ extension OceanSwiftUI {
                 }
                 .fixedSize(horizontal: true, vertical: false)
             }
-            .padding(parameters.padding)
-            .background(Color(Ocean.color.colorInterfaceLightPure))
         }
 
         @ViewBuilder
