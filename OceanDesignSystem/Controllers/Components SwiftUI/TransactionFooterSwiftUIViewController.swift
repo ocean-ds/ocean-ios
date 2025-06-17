@@ -12,43 +12,13 @@ import OceanTokens
 
 class TransactionFooterSwiftUIViewController: UIViewController {
 
-    private lazy var transactionFooterWithButton = OceanSwiftUI.TransactionFooter { view in
-        view.parameters.primaryButton = .init(text: "Avançar", style: .primary, onTouch: { print("primaryButton") })
-        view.parameters.skeletonLines = 2
-        view.parameters.showSkeleton = true
-        view.parameters.items = [
-            .init(text: "Desconto à vista",
-                  value: "R$ 100.000,00", 
-                  valueColor: Ocean.color.colorStatusPositiveDeep,
-                  imageIcon: Ocean.icon.tagSolid),
-            .init(text: "Valor cobrado", 
-                  value: "R$ 100.000,00")
-        ]
-    }
-
-    private lazy var transactionFooterWithButtons = OceanSwiftUI.TransactionFooter { view in
-        view.parameters.primaryButton = .init(text: "Recusar", style: .secondaryCritical, onTouch: { print("primaryButton") })
-        view.parameters.secondaryButton = .init(text: "Avançar", style: .primary, onTouch: { print("secondaryButton") })
-        view.parameters.skeletonLines = 3
-        view.parameters.showSkeleton = true
-        view.parameters.items = [
-            .init(text: "Valor cobrado", 
-                  value: "R$ 100.000,00"),
-            .init(text: "Custo de antecipação", 
-                  value: "R$ 10,00",
-                  newValue: "Zero"),
-            .init(text: "Pague", 
-                  value: "R$ 10,00",
-                  isBoldValue: true)
-        ]
-    }
-
     private lazy var transactionFooterWithButtonsVertical = OceanSwiftUI.TransactionFooter { view in
         view.parameters.primaryButton = .init(text: "Avançar", style: .primary, onTouch: { print("primaryButton") })
         view.parameters.secondaryButton = .init(text: "Cancelar",  style: .secondary, onTouch: { print("secondaryButton") })
         view.parameters.buttonOrientation = .vertical
         view.parameters.skeletonLines = 4
         view.parameters.showSkeleton = true
+        view.parameters.interlineSpacing = Ocean.size.spacingStackXxsExtra
         view.parameters.items = [
             .init(text: "Desconto à vista",
                   value: "R$ 100.000,00",
@@ -67,9 +37,6 @@ class TransactionFooterSwiftUIViewController: UIViewController {
 
     private lazy var hostingController = UIHostingController(rootView: VStack {
         Spacer()
-        transactionFooterWithButton
-        Divider()
-        transactionFooterWithButtons
         Divider()
         transactionFooterWithButtonsVertical
     })
@@ -86,8 +53,6 @@ class TransactionFooterSwiftUIViewController: UIViewController {
             .make()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.transactionFooterWithButton.parameters.showSkeleton = false
-            self.transactionFooterWithButtons.parameters.showSkeleton = false
             self.transactionFooterWithButtonsVertical.parameters.showSkeleton = false
         }
     }
