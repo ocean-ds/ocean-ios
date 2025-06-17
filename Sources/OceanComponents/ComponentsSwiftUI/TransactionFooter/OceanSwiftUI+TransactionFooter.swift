@@ -19,6 +19,7 @@ extension OceanSwiftUI {
         @Published public var buttonOrientation: ButtonOrientation
         @Published public var showSkeleton: Bool
         @Published public var skeletonLines: Int
+        @Published public var interlineSpacing: CGFloat
         @Published public var padding: EdgeInsets
 
         public init(items: [ItemModel] = [],
@@ -27,6 +28,7 @@ extension OceanSwiftUI {
                     buttonOrientation: ButtonOrientation = .horizontal,
                     showSkeleton: Bool = false,
                     skeletonLines: Int = 3,
+                    interlineSpacing: CGFloat = Ocean.size.spacingStackXxs,
                     padding: EdgeInsets = .init(top: 0,
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXs,
@@ -37,6 +39,7 @@ extension OceanSwiftUI {
             self.buttonOrientation = buttonOrientation
             self.showSkeleton = showSkeleton
             self.skeletonLines = skeletonLines
+            self.interlineSpacing = interlineSpacing
             self.padding = padding
         }
 
@@ -105,13 +108,14 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
-
+            VStack(alignment: .leading, spacing: 0) {
                 if parameters.showSkeleton {
                     getSkeletonView(skeletonLines: parameters.skeletonLines)
+                        .padding(.vertical, Ocean.size.spacingStackXs)
                 } else {
                     ForEach(parameters.items.indices, id: \.self) { index in
                         getItemView(item: parameters.items[index])
+                            .padding(.vertical, parameters.interlineSpacing)
                     }
 
                     if parameters.buttonOrientation == .horizontal {
