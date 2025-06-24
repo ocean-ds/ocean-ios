@@ -194,7 +194,7 @@ extension OceanSwiftUI {
                                 group.parameters.isEnabled = self.parameters.isEnabled
                                 group.parameters.setSelectedIndex(self.parameters.isChecked ? 0 : -1)
                                 group.parameters.onTouch = { index, _ in
-                                    self.parameters.isChecked = index == 0
+                                    self.parameters.isChecked = group.parameters.itemSelectedIndex == 0
                                 }
                             }
                         }
