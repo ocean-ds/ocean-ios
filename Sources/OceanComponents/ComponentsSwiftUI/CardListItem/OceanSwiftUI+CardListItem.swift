@@ -193,6 +193,10 @@ extension OceanSwiftUI {
                                 group.parameters.items = [ .init() ]
                                 group.parameters.isEnabled = self.parameters.isEnabled
                                 group.parameters.setSelectedIndex(self.parameters.isChecked ? 0 : -1)
+                                group.parameters.onTouch = { _, _ in
+                                    self.parameters.isChecked = group.parameters.itemSelectedIndex == 0
+                                    self.parameters.onTouch()
+                                }
                             }
                         }
 
