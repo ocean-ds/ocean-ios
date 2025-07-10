@@ -110,6 +110,7 @@ public extension OceanNavigationBar {
     }
     
     func showBackButton(animated: Bool = true) {
+        navigationItem.leftBarButtonItem = nil
         navigationItem.setHidesBackButton(false, animated: animated)
     }
     
