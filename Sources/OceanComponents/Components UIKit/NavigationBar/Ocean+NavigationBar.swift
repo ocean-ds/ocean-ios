@@ -116,7 +116,11 @@ public extension OceanNavigationBar {
     func hideBackButton(animated: Bool = true) {
         navigationItem.setHidesBackButton(true, animated: animated)
     }
-    
+
+    func removeLeftButton() {
+        navigationItem.leftBarButtonItem = nil
+    }
+
     func addCloseButton(action: Selector?) {
         let image = Ocean.icon.xOutline?.tinted(with: navigationTintColor)
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: image,
