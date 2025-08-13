@@ -202,11 +202,19 @@ extension Ocean {
         }
 
         private func setupConstraints() {
-            mainStack.oceanConstraints
-                .topToTop(to: view)
-                .centerX(to: view)
-                .width(constant: UIScreen.main.bounds.width - Ocean.size.spacingStackSm * 2)
-                .make()
+            if #available(iOS 11.0, *) {
+                mainStack.oceanConstraints
+                    .topToTop(to: view.safeAreaLayoutGuide, constant: Ocean.size.spacingStackXs)
+                    .centerX(to: view)
+                    .width(constant: UIScreen.main.bounds.width - Ocean.size.spacingStackSm * 2)
+                    .make()
+            } else {
+                mainStack.oceanConstraints
+                    .topToTop(to: view, constant: heightSpacing)
+                    .centerX(to: view)
+                    .width(constant: UIScreen.main.bounds.width - Ocean.size.spacingStackSm * 2)
+                    .make()
+            }
         }
     }
 }
