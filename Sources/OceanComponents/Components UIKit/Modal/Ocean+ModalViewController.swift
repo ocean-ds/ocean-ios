@@ -202,8 +202,6 @@ extension Ocean {
         }
 
         private func setupConstraints() {
-            let topSpacing = hasTopNotch ? 25.0 : 10.0
-
             mainStack.oceanConstraints
                 .topToTop(to: view, safeArea: true)
                 .centerX(to: view)
