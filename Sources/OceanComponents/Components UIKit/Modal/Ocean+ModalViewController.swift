@@ -205,7 +205,7 @@ extension Ocean {
             let topSpacing = hasTopNotch ? 25.0 : 10.0
 
             mainStack.oceanConstraints
-                .topToTop(to: view, constant: 16.0, safeArea: true)
+                .topToTop(to: view, safeArea: true)
                 .centerX(to: view)
                 .width(constant: UIScreen.main.bounds.width - Ocean.size.spacingStackSm * 2)
                 .make()
