@@ -202,11 +202,7 @@ extension Ocean {
         }
 
         private func setupConstraints() {
-            let baseSpacing: CGFloat = hasTopNotch ? 85.0 : 55.0
-
-            let topSpacing = customContent != nil ?
-            (hasTopNotch ? baseSpacing + 10.0 : baseSpacing + 5.0) :
-            baseSpacing
+            let topSpacing = hasTopNotch ? heightSpacing + 20 : heightSpacing + 10
 
             mainStack.oceanConstraints
                 .topToTop(to: view, constant: topSpacing)
