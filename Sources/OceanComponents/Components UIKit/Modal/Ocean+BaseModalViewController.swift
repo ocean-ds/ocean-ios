@@ -43,7 +43,7 @@ extension Ocean {
 
             closeImageView.oceanConstraints
                 .centerY(to: view)
-                .trailingToTrailing(to: view)
+                .leadingToLeading(to: view)
                 .make()
 
             view.oceanConstraints
