@@ -203,7 +203,7 @@ extension Ocean {
 
         private func setupConstraints() {
             mainStack.oceanConstraints
-                .topToTop(to: view)
+                .topToTop(to: view, safeArea: true)
                 .centerX(to: view)
                 .width(constant: UIScreen.main.bounds.width - Ocean.size.spacingStackSm * 2)
                 .make()
