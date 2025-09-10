@@ -18,10 +18,8 @@ extension OceanSwiftUI {
         @Published public var titleColor: UIColor
         @Published public var subtitle: String
         @Published public var subtitleLineLimit: Int?
-        @Published public var tertiaryText: String
-        @Published public var tertiaryLineLimitText: Int?
-        @Published public var tertiaryColorText: UIColor
         @Published public var caption: String
+        @Published public var captionColor: UIColor
         @Published public var captionLineLimit: Int?
         @Published public var trailingIcon: UIImage?
         @Published public var highlightCaption: String
@@ -47,9 +45,8 @@ extension OceanSwiftUI {
         public init(title: String = "",
                     titleColor: UIColor = Ocean.color.colorInterfaceDarkDeep,
                     subtitle: String = "",
-                    tertiaryText: String = "",
-                    tertiaryColorText: UIColor = Ocean.color.colorBrandPrimaryPure,
                     caption: String = "",
+                    captionColor: UIColor = Ocean.color.colorInterfaceDarkDown,
                     leadingIcon: UIImage? = nil,
                     trailingIcon: UIImage? = nil,
                     titleLineLimit: Int? = nil,
@@ -76,9 +73,8 @@ extension OceanSwiftUI {
             self.title = title
             self.titleColor = titleColor
             self.subtitle = subtitle
-            self.tertiaryText = tertiaryText
-            self.tertiaryColorText = tertiaryColorText
             self.caption = caption
+            self.captionColor = captionColor
             self.leadingIcon = leadingIcon
             self.trailingIcon = trailingIcon
             self.titleLineLimit = titleLineLimit
@@ -235,18 +231,10 @@ extension OceanSwiftUI {
                                 }
                             }
 
-                            if !parameters.tertiaryText.isEmpty {
-                                OceanSwiftUI.Typography.caption { label in
-                                    label.parameters.text = parameters.tertiaryText
-                                    label.parameters.textColor = parameters.tertiaryColorText
-                                    label.parameters.lineLimit = parameters.tertiaryLineLimitText
-                                }
-                                .padding(.top, Ocean.size.spacingStackXxs)
-                            }
-
                             if !parameters.caption.isEmpty {
                                 OceanSwiftUI.Typography.caption { label in
                                     label.parameters.text = parameters.caption
+                                    label.parameters.textColor = parameters.captionColor
                                     label.parameters.lineLimit = parameters.captionLineLimit
                                 }
                                 .padding(.top, Ocean.size.spacingStackXxs)

@@ -125,8 +125,8 @@ class CardListItemSwiftUIViewController: UIViewController {
         view.parameters.title = "Crédito parcelado"
         view.parameters.titleColor = Ocean.color.colorInterfaceDarkDeep
         view.parameters.subtitle = "Parcele tudo em até 12 vezes com a 1ª parcela para 30 dias"
-        view.parameters.tertiaryText = "Crédito aprovado: R$ 9.000,00"
-        view.parameters.tertiaryColorText = Ocean.color.colorBrandPrimaryPure
+        view.parameters.caption = "Crédito aprovado: R$ 9.000,00"
+        view.parameters.captionColor = Ocean.color.colorBrandPrimaryPure
         view.parameters.highlightCaption = "Melhor escolha para o caixa da sua loja."
         view.parameters.hasRadioButton = true
         view.parameters.onTouch = { print("Checked") }
