@@ -15,9 +15,11 @@ extension OceanSwiftUI {
         @Published public var leadingIcon: UIImage?
         @Published public var title: String
         @Published public var titleLineLimit: Int?
+        @Published public var titleColor: UIColor
         @Published public var subtitle: String
         @Published public var subtitleLineLimit: Int?
         @Published public var caption: String
+        @Published public var captionColor: UIColor
         @Published public var captionLineLimit: Int?
         @Published public var trailingIcon: UIImage?
         @Published public var highlightCaption: String
@@ -41,8 +43,10 @@ extension OceanSwiftUI {
         public var onTouch: (() -> Void)
 
         public init(title: String = "",
+                    titleColor: UIColor = Ocean.color.colorInterfaceDarkDeep,
                     subtitle: String = "",
                     caption: String = "",
+                    captionColor: UIColor = Ocean.color.colorInterfaceDarkDown,
                     leadingIcon: UIImage? = nil,
                     trailingIcon: UIImage? = nil,
                     titleLineLimit: Int? = nil,
@@ -67,8 +71,10 @@ extension OceanSwiftUI {
                     onCheckboxSelect: @escaping (Bool) -> Void = { _ in },
                     onTouch: @escaping (() -> Void) = {}) {
             self.title = title
+            self.titleColor = titleColor
             self.subtitle = subtitle
             self.caption = caption
+            self.captionColor = captionColor
             self.leadingIcon = leadingIcon
             self.trailingIcon = trailingIcon
             self.titleLineLimit = titleLineLimit
@@ -204,6 +210,7 @@ extension OceanSwiftUI {
                             HStack(spacing: Ocean.size.spacingStackXxxs) {
                                 OceanSwiftUI.Typography.paragraph { label in
                                     label.parameters.text = parameters.title
+                                    label.parameters.textColor = parameters.titleColor
                                     label.parameters.lineLimit = parameters.titleLineLimit
                                 }
 
@@ -227,6 +234,7 @@ extension OceanSwiftUI {
                             if !parameters.caption.isEmpty {
                                 OceanSwiftUI.Typography.caption { label in
                                     label.parameters.text = parameters.caption
+                                    label.parameters.textColor = parameters.captionColor
                                     label.parameters.lineLimit = parameters.captionLineLimit
                                 }
                                 .padding(.top, Ocean.size.spacingStackXxs)
