@@ -1,5 +1,5 @@
 # app_identifier("[[APP_IDENTIFIER]]") # The bundle identifier of your app
-apple_id("mobile@useblu.com.br")
+apple_id("app.mobile.useblu@gmail.com")
 app_identifier("br.com.blu.ocean.DesignSystem")
 
 # For more information about the Appfile, see:
