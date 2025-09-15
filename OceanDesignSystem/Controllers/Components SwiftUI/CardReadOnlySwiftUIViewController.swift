@@ -74,7 +74,7 @@ class CardReadOnlySwiftUIViewController: UIViewController {
             view.parameters.contentList.descriptionColor = Ocean.color.colorInterfaceDarkDeep
             view.parameters.contentList.caption = "Crédito restante: R$ 6.008,48"
             view.parameters.contentList.captionColor = Ocean.color.colorBrandPrimaryPure
-            view.parameters.backgroundColor = Ocean.color.colorInterfaceDarkDeep
+            view.parameters.backgroundColor = Ocean.color.colorStatusPositiveUp
             view.parameters.contentList.type = .inverted
         }
     }()
