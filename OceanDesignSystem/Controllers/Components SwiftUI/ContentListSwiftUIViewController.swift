@@ -70,6 +70,18 @@ class ContentListSwiftUIViewController: UIViewController {
         }
     }()
 
+    lazy var view6: OceanSwiftUI.ContentList = {
+        return OceanSwiftUI.ContentList { view in
+            view.parameters.title = "Title"
+            view.parameters.description = "Description"
+            view.parameters.caption = "Caption"
+            view.parameters.captionColor = Ocean.color.colorBrandPrimaryPure
+            view.parameters.errorMessage = "Error message"
+            view.parameters.type = .default
+            view.parameters.showSkeleton = true
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: 0) {
             view0
