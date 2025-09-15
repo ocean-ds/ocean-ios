@@ -67,6 +67,18 @@ class CardReadOnlySwiftUIViewController: UIViewController {
         }
     }()
 
+    lazy var view6: OceanSwiftUI.CardReadOnly = {
+        return OceanSwiftUI.CardReadOnly { view in
+            view.parameters.contentList.title = "Parcelamento"
+            view.parameters.contentList.description = "R$ 2.991,52"
+            view.parameters.contentList.descriptionColor = Ocean.color.colorInterfaceDarkDeep
+            view.parameters.contentList.caption = "Crédito restante: R$ 6.008,48"
+            view.parameters.contentList.captionColor = Ocean.color.colorBrandPrimaryPure
+            view.parameters.backgroundColor = Ocean.color.colorInterfaceDarkDeep
+            view.parameters.contentList.type = .inverted
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             view0
@@ -75,6 +87,7 @@ class CardReadOnlySwiftUIViewController: UIViewController {
             view3
             view4
             view5
+            view6
         }
     })
 

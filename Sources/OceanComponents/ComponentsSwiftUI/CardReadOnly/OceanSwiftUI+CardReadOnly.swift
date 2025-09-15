@@ -16,14 +16,14 @@ extension OceanSwiftUI {
         @Published public var contentList: OceanSwiftUI.ContentListParameters
         @Published public var backgroundColor: UIColor
         @Published public var cornerRadius: CGFloat
-        @Published public var borderColor: UIColor?
+        @Published public var borderColor: UIColor
         @Published public var borderWidth: CGFloat
         @Published public var cardPadding: EdgeInsets
 
         public init(contentList: OceanSwiftUI.ContentListParameters = OceanSwiftUI.ContentListParameters(),
                     backgroundColor: UIColor = Ocean.color.colorInterfaceLightPure,
                     cornerRadius: CGFloat = Ocean.size.borderRadiusMd,
-                    borderColor: UIColor? = nil,
+                    borderColor: UIColor = Ocean.color.colorInterfaceLightDown,
                     borderWidth: CGFloat = Ocean.size.borderWidthHairline,
                     cardPadding: EdgeInsets = .all(0)) {
             self.contentList = contentList
@@ -72,7 +72,7 @@ extension OceanSwiftUI {
             .background(Color(parameters.backgroundColor))
             .border(cornerRadius: parameters.cornerRadius,
                     width: parameters.borderWidth,
-                    color: parameters.borderColor ?? Ocean.color.colorInterfaceLightDown)
+                    color: parameters.borderColor)
             .padding(parameters.cardPadding)
         }
     }
