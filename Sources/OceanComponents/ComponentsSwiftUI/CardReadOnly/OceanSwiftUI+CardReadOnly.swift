@@ -22,7 +22,7 @@ extension OceanSwiftUI {
 
         public init(contentList: OceanSwiftUI.ContentListParameters = OceanSwiftUI.ContentListParameters(),
                     backgroundColor: UIColor = Ocean.color.colorInterfaceLightPure,
-                    cornerRadius: CGFloat = Ocean.size.borderRadiusMd,
+                    cornerRadius: CGFloat = Ocean.size.borderRadiusSm,
                     borderColor: UIColor = Ocean.color.colorInterfaceLightDown,
                     borderWidth: CGFloat = Ocean.size.borderWidthHairline,
                     padding: EdgeInsets = .all(0)) {
