@@ -3,7 +3,7 @@
 //  OceanDesignSystem
 //
 //  Created by Celso Farias on 15/09/25.
-//  Copyright © 2023 Blu Pagamentos. All rights reserved.
+//  Copyright © 2025 Blu Pagamentos. All rights reserved.
 //
 
 import OceanTokens
