@@ -131,6 +131,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(ChartCardSwiftUIViewController(), animated: true, completion: nil)
         case .ExpandableTextListItem:
             self.present(ExpandableTextListItemSwiftUIViewController(), animated: true, completion: nil)
+        case .CardReadOnly:
+            self.present(CardReadOnlySwiftUIViewController(), animated: true, completion: nil)
         }
     }
 }

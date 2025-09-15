@@ -12,11 +12,12 @@ import SwiftUI
 class CardReadOnlySwiftUIViewController: UIViewController {
     lazy var view0: OceanSwiftUI.CardReadOnly = {
         return OceanSwiftUI.CardReadOnly { view in
-            view.parameters.title = "Title"
-            view.parameters.description = "R$ 100,00"
-            view.parameters.newDescription = "Zero"
-            view.parameters.descriptionColor = Ocean.color.colorStatusPositiveDown
-            view.parameters.type = .default
+            view.parameters.title = "Parcelamento"
+            view.parameters.description = "R$ 2.991,52"
+            view.parameters.descriptionColor = Ocean.color.colorInterfaceDarkDeep
+            view.parameters.caption = "Crédito restante: R$ 6.008,48"
+            view.parameters.captionColor = Ocean.color.colorBrandPrimaryPure
+            view.parameters.type = .inverted
         }
     }()
 
@@ -69,7 +70,7 @@ class CardReadOnlySwiftUIViewController: UIViewController {
     }()
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
-        VStack(spacing: 0) {
+        VStack(spacing: Ocean.size.spacingStackXs) {
             view0
             view1
             view2
@@ -87,7 +88,10 @@ class CardReadOnlySwiftUIViewController: UIViewController {
         self.view.addSubview(uiView)
 
         uiView.oceanConstraints
-            .fill(to: self.view)
+            .topToTop(to: self.view, constant: Ocean.size.spacingStackXs)
+            .bottomToBottom(to: self.view)
+            .leadingToLeading(to: self.view, constant: Ocean.size.spacingStackXs)
+            .trailingToTrailing(to: self.view, constant: -Ocean.size.spacingStackXs)
             .make()
     }
 }
