@@ -20,6 +20,7 @@ extension OceanSwiftUI {
         @Published public var descriptionFont: UIFont?
         @Published public var newDescription: String
         @Published public var caption: String
+        @Published public var captionColor: UIColor
         @Published public var tagTitle: String
         @Published public var tagStatus: TagParameters.Status
         @Published public var errorMessage: String
@@ -33,6 +34,7 @@ extension OceanSwiftUI {
                     descriptionFont: UIFont? = nil,
                     newDescription: String = "",
                     caption: String = "",
+                    captionColor: UIColor = Ocean.color.colorInterfaceDarkDown,
                     tagTitle: String = "",
                     tagStatus: TagParameters.Status = .warning,
                     errorMessage: String = "",
@@ -45,6 +47,7 @@ extension OceanSwiftUI {
             self.descriptionFont = descriptionFont
             self.newDescription = newDescription
             self.caption = caption
+            self.captionColor = captionColor
             self.tagTitle = tagTitle
             self.tagStatus = tagStatus
             self.errorMessage = errorMessage
@@ -144,6 +147,7 @@ extension OceanSwiftUI {
                             
                             Typography.caption { label in
                                 label.parameters.text = parameters.caption
+                                label.parameters.textColor = parameters.captionColor
                             }
                         }
                         
