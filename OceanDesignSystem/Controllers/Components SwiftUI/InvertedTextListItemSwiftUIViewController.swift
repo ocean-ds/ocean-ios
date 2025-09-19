@@ -82,7 +82,7 @@ class InvertedTextListItemSwiftUIViewController: UIViewController {
         OceanSwiftUI.InvertedTextListItem { invertedListItem in
             invertedListItem.parameters.title = "Valor do boleto"
             invertedListItem.parameters.subtitle = "R$ 5.200,00"
-            invertedListItem.parameters.status = .highlightLeading
+            invertedListItem.parameters.status = .highlightLead
         }
     }
 
