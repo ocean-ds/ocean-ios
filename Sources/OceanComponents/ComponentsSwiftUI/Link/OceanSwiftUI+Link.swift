@@ -111,7 +111,7 @@ extension OceanSwiftUI {
         
         private var titleView: some View {
             Text(parameters.text)
-                .font(Font(UIFont.baseBold(size: parameters.size.getFontSize())!))
+                .font(Font(UIFont.baseSemiBold(size: parameters.size.getFontSize())!))
                 .foregroundColor(getForegroundColor())
                 .underline()
         }

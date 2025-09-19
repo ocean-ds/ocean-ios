@@ -78,9 +78,17 @@ class InvertedTextListItemSwiftUIViewController: UIViewController {
             invertedListItem.parameters.link.onTouch = { print("link touched") }
         }
     }
+    var invertedTextListItem10: OceanSwiftUI.InvertedTextListItem {
+        OceanSwiftUI.InvertedTextListItem { invertedListItem in
+            invertedListItem.parameters.title = "Valor do boleto"
+            invertedListItem.parameters.subtitle = "R$ 5.200,00"
+            invertedListItem.parameters.status = .highlightLead
+        }
+    }
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
+            invertedTextListItem10
             invertedTextListItem1
             invertedTextListItem2
             invertedTextListItem3

@@ -70,6 +70,7 @@ extension OceanSwiftUI {
             case positive
             case warning
             case highlight
+            case highlightLead
             case strikethrough
         }
     }
@@ -156,6 +157,10 @@ extension OceanSwiftUI {
 
                             if parameters.status == .highlight {
                                 label.parameters.font = .baseBold(size: Ocean.font.fontSizeXs)
+                            }
+
+                            if parameters.status == .highlightLead {
+                                label.parameters.font = .baseBold(size: Ocean.font.fontSizeMd)
                             }
                         }
 
