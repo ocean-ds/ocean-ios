@@ -210,7 +210,7 @@ extension OceanSwiftUI {
                             HStack(spacing: Ocean.size.spacingStackXxxs) {
                                 OceanSwiftUI.Typography.paragraph { label in
                                     label.parameters.text = parameters.title
-                                    label.parameters.textColor = parameters.titleColor
+                                    label.parameters.textColor = parameters.isEnabled ? parameters.titleColor : Ocean.color.colorInterfaceDarkUp
                                     label.parameters.lineLimit = parameters.titleLineLimit
                                 }
 
@@ -227,6 +227,7 @@ extension OceanSwiftUI {
                             if !parameters.subtitle.isEmpty {
                                 OceanSwiftUI.Typography.description { label in
                                     label.parameters.text = parameters.subtitle
+                                    label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDown : Ocean.color.colorInterfaceDarkUp
                                     label.parameters.lineLimit = parameters.subtitleLineLimit
                                 }
                             }
@@ -234,7 +235,7 @@ extension OceanSwiftUI {
                             if !parameters.caption.isEmpty {
                                 OceanSwiftUI.Typography.caption { label in
                                     label.parameters.text = parameters.caption
-                                    label.parameters.textColor = parameters.captionColor
+                                    label.parameters.textColor = parameters.isEnabled ? parameters.captionColor : Ocean.color.colorInterfaceDarkUp
                                     label.parameters.lineLimit = parameters.captionLineLimit
                                 }
                                 .padding(.top, Ocean.size.spacingStackXxs)
