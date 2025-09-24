@@ -104,6 +104,7 @@ struct DSComponents {
         "TextListItem",
         "InlineTextListItem",
         "CardReadOnly",
+        "CardListExpandable",
         "ExpandableTextListItem",
         "Tooltip",
         "TransactionFooter",
