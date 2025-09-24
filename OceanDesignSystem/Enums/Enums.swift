@@ -85,6 +85,7 @@ public enum DesignSystemComponentsSwiftUIType: String {
     case Button
     case CardCrossSell
     case CardCTA
+    case CardListExpandable
     case CardGroup
     case CardListItem
     case CardOption
