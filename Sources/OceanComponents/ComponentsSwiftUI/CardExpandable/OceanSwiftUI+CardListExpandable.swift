@@ -94,11 +94,9 @@ extension OceanSwiftUI {
                             .resizable()
                             .renderingMode(.template)
                             .frame(width: 16, height: 16, alignment: .center)
-                            .rotation3DEffect(
-                                Angle(degrees: parameters.status == .collapsed ? 0 : 180),
-                                axis: (x: 1, y: 0, z: 0)
-                            )
-                            .foregroundColor(Color(Ocean.color.colorInterfaceDarkDown))
+                            .rotationEffect(Angle(degrees: self.parameters.status == .expanded ? -180.0 : 0.0))
+                            .animation(.easeInOut, value: parameters.status)
+                            .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
                     }
                 }
                 .padding(.trailing, Ocean.size.spacingStackXs)
