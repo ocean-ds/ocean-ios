@@ -179,9 +179,22 @@ class TextListItemSwiftUIViewController: UIViewController {
         }
     }()
 
+    lazy var textListItem13: OceanSwiftUI.TextListItem = {
+        OceanSwiftUI.TextListItem { view in
+            view.parameters.title = "Indústria do Conforto e Sono Ltda"
+            view.parameters.description = "R$ 5.180,00"
+            view.parameters.titleLineLimit = 1
+            view.parameters.tagLabel = "Pague em 12x"
+            view.parameters.tagStatus = .positive
+            view.parameters.tagOrientation = .horizontal
+            view.parameters.hasAction = true
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
 
         VStack(spacing: Ocean.size.spacingStackXs) {
+            textListItem13
             textListItem1
             textListItem2
             textListItem3
