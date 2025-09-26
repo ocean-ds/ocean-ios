@@ -184,30 +184,36 @@ extension OceanSwiftUI {
                     }
 
                     VStack(alignment: .leading) {
-                        HStack(spacing: Ocean.size.spacingStackXxs) {
-                            if !parameters.title.isEmpty {
-                                OceanSwiftUI.Typography.paragraph { label in
-                                    label.parameters.text = parameters.title
-                                    label.parameters.lineLimit = parameters.titleLineLimit
-                                    label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDeep : Ocean.color.colorInterfaceDarkUp
+                        HStack {
+                            VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxxs) {
+                                if !parameters.title.isEmpty {
+                                    OceanSwiftUI.Typography.paragraph { label in
+                                        label.parameters.text = parameters.title
+                                        label.parameters.lineLimit = parameters.titleLineLimit
+                                        label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDeep : Ocean.color.colorInterfaceDarkUp
+                                    }
+                                }
+
+                                if !parameters.description.isEmpty {
+                                    OceanSwiftUI.Typography.description { label in
+                                        label.parameters.text = parameters.description
+                                        label.parameters.lineLimit = parameters.descriptionLineLimit
+                                        label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDown : Ocean.color.colorInterfaceLightDeep
+                                    }
                                 }
                             }
 
                             if !parameters.tagLabel.isEmpty && parameters.tagOrientation == .horizontal {
-                                OceanSwiftUI.Tag { tag in
-                                    tag.parameters.label = parameters.tagLabel
-                                    tag.parameters.icon = parameters.tagIcon
-                                    tag.parameters.status = parameters.tagStatus
-                                    tag.parameters.size = parameters.tagSize
+                                VStack {
+                                    Spacer()
+                                    OceanSwiftUI.Tag { tag in
+                                        tag.parameters.label = parameters.tagLabel
+                                        tag.parameters.icon = parameters.tagIcon
+                                        tag.parameters.status = parameters.tagStatus
+                                        tag.parameters.size = parameters.tagSize
+                                    }
+                                    Spacer()
                                 }
-                            }
-                        }
-
-                        if !parameters.description.isEmpty {
-                            OceanSwiftUI.Typography.description { label in
-                                label.parameters.text = parameters.description
-                                label.parameters.lineLimit = parameters.descriptionLineLimit
-                                label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDown : Ocean.color.colorInterfaceLightDeep
                             }
                         }
 
