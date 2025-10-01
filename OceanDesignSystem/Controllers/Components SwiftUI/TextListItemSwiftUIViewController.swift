@@ -207,6 +207,7 @@ class TextListItemSwiftUIViewController: UIViewController {
 
         VStack(spacing: Ocean.size.spacingStackXs) {
             textListItem13
+            textListItem14
             textListItem1
             textListItem2
             textListItem3
@@ -219,8 +220,6 @@ class TextListItemSwiftUIViewController: UIViewController {
             textListItem10
             textListItem11
             textListItem12
-            textListItem13
-            textListItem14
         }
     })
 
