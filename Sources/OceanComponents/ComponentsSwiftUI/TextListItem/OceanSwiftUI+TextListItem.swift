@@ -202,7 +202,7 @@ extension OceanSwiftUI {
                                     }
                                 }
                             }
-                            Spacer(minLength: 0)
+                            Spacer()
                         }
 
                         if !parameters.caption.isEmpty {
