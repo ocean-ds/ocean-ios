@@ -191,6 +191,18 @@ class TextListItemSwiftUIViewController: UIViewController {
         }
     }()
 
+    lazy var textListItem14: OceanSwiftUI.TextListItem = {
+        OceanSwiftUI.TextListItem { view in
+            view.parameters.title = "BANCO C6 S.A."
+            view.parameters.description = "R$ 5.180,00"
+            view.parameters.titleLineLimit = 1
+            view.parameters.tagLabel = "Pague em 12x"
+            view.parameters.tagStatus = .positive
+            view.parameters.tagOrientation = .horizontal
+            view.parameters.hasAction = true
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
 
         VStack(spacing: Ocean.size.spacingStackXs) {
@@ -207,6 +219,8 @@ class TextListItemSwiftUIViewController: UIViewController {
             textListItem10
             textListItem11
             textListItem12
+            textListItem13
+            textListItem14
         }
     })
 

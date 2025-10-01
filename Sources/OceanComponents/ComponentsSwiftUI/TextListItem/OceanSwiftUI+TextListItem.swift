@@ -202,19 +202,7 @@ extension OceanSwiftUI {
                                     }
                                 }
                             }
-
-                            if !parameters.tagLabel.isEmpty && parameters.tagOrientation == .horizontal {
-                                VStack {
-                                    Spacer()
-                                    OceanSwiftUI.Tag { tag in
-                                        tag.parameters.label = parameters.tagLabel
-                                        tag.parameters.icon = parameters.tagIcon
-                                        tag.parameters.status = parameters.tagStatus
-                                        tag.parameters.size = parameters.tagSize
-                                    }
-                                    Spacer()
-                                }
-                            }
+                            Spacer(minLength: 0)
                         }
 
                         if !parameters.caption.isEmpty {
@@ -254,6 +242,16 @@ extension OceanSwiftUI {
                         }
                     }
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+
+                    if !parameters.tagLabel.isEmpty && parameters.tagOrientation == .horizontal {
+                        OceanSwiftUI.Tag { tag in
+                            tag.parameters.label = parameters.tagLabel
+                            tag.parameters.icon = parameters.tagIcon
+                            tag.parameters.status = parameters.tagStatus
+                            tag.parameters.size = parameters.tagSize
+                        }
+                        .fixedSize()
+                    }
 
                     if parameters.hasAction {
                         Image(uiImage: parameters.actionIcon ?? Ocean.icon.chevronRightSolid)
