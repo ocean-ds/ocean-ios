@@ -100,15 +100,6 @@ extension OceanSwiftUI {
                     }
                 }
                 .padding(.trailing, Ocean.size.spacingStackXs)
-                .onTapGesture {
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        if parameters.status == .collapsed {
-                            parameters.status = .expanded
-                        } else {
-                            parameters.status = .collapsed
-                        }
-                    }
-                }
 
                 if parameters.status == .expanded {
                     VStack(spacing: 0) {
@@ -123,6 +114,15 @@ extension OceanSwiftUI {
                     width: parameters.borderWidth,
                     color: parameters.borderColor)
             .padding(parameters.padding)
+            .onTapGesture {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    if parameters.status == .collapsed {
+                        parameters.status = .expanded
+                    } else {
+                        parameters.status = .collapsed
+                    }
+                }
+            }
         }
     }
 }
