@@ -126,7 +126,7 @@ extension Ocean {
         public static let acquirerSumup = UIImage(named: "acquirer-sumup", in: Bundle.module, with: .none)
         public static let acquirerBlu = UIImage(named: "acquirer-blu", in: Bundle.module, with: .none)
         public static let eyeOffAltOutline = UIImage(named: "eye-off-alt-outline", in: Bundle.module, with: .none)
-
+        public static let arrowUturnLeftOutline = UIImage(named: "arrow-u-turn-lef-outline", in: Bundle.module, with: .none)
         // HeroIcons
 
         public static let academicCapOutline = UIImage(named: "academic-cap-outline", in: Bundle.module, with: .none)

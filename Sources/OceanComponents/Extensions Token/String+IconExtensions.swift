@@ -117,6 +117,7 @@ public extension String {
         case "acquirersumup": return Ocean.icon.acquirerSumup
         case "acquirerblu": return Ocean.icon.acquirerBlu
         case "eyeoffaltoutline": return Ocean.icon.eyeOffAltOutline
+        case "arrowuturnleftoutline": return Ocean.icon.arrowUturnLeftOutline
 
             // HeroIcons
         case "academiccapoutline": return Ocean.icon.academicCapOutline
