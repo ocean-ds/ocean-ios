@@ -28,6 +28,23 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         }
     }()
 
+    lazy var inlineTextListItem01: OceanSwiftUI.InlineTextListItem = {
+        let item = OceanSwiftUI.InlineTextListItemParameters.ItemModel(
+            text: "Teste",
+            value: "Ícone: link-alt-outline",
+            valueColor: Ocean.color.colorStatusPositiveDeep
+        )
+
+        return OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.item = item
+            textListItem.parameters.state = .positive
+            textListItem.parameters.size = .normal
+            textListItem.parameters.icon = .init(icon: Ocean.icon.linkAltOutline!,
+                                                 color: Ocean.color.colorStatusPositiveDeep,
+                                                 backgroundColor: Ocean.color.colorInterfaceLightPure)
+        }
+    }()
+
     lazy var inlineTextListItem1: OceanSwiftUI.InlineTextListItem = {
         let item = OceanSwiftUI.InlineTextListItemParameters.ItemModel(
             text: "Title",
@@ -568,6 +585,7 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             inlineTextListItem0
+            inlineTextListItem01
             inlineTextListItem1
             inlineTextListItem2
             inlineTextListItem3
