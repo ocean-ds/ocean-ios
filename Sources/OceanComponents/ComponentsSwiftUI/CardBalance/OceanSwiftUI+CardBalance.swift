@@ -7,7 +7,6 @@ extension OceanSwiftUI {
     // MARK: Parameters
 
     public final class CardBalanceParameters: ObservableObject {
-        @Published public var context: Context
         @Published public var header: Header
         @Published public var balanceRows: [BalanceRow]
         @Published public var footer: Footer
@@ -20,7 +19,6 @@ extension OceanSwiftUI {
         public var onFooterTap: (() -> Void)?
 
         public init(
-            context: Context = .distributor,
             header: Header = .init(),
             balanceRows: [BalanceRow] = [],
             footer: Footer = Footer(),
@@ -31,7 +29,6 @@ extension OceanSwiftUI {
             onCTATap: (() -> Void)? = nil,
             onFooterTap: (() -> Void)? = nil,
         ) {
-            self.context = context
             self.header = header
             self.balanceRows = balanceRows
             self.footer = footer
@@ -50,11 +47,6 @@ extension OceanSwiftUI {
         public enum CardBalanceState: Equatable {
             case collapsed
             case expanded
-        }
-
-        public enum Context {
-            case retailer
-            case distributor
         }
 
         public struct Header: Equatable {
@@ -127,15 +119,10 @@ extension OceanSwiftUI {
 
         private var headerView: some View {
             HStack(spacing: Ocean.size.spacingStackXxs) {
-                VStack(alignment: .leading, spacing: 0) {
-                    OceanSwiftUI.Typography.caption { view in
-                        view.parameters.text = parameters.header.title
-                    }
 
-                    OceanSwiftUI.Typography.heading4 { view in
-                        view.parameters.text = parameters.header.value.toCurrency() ?? ""
-                    }
-                }
+                getBalanceView(label: parameters.header.title,
+                               balance: parameters.header.value,
+                               isVerticalBalance: true)
 
                 Spacer()
 
@@ -157,17 +144,9 @@ extension OceanSwiftUI {
             VStack(spacing: 0) {
                 ForEach(parameters.balanceRows.indices, id: \.self) { i in
                     let item = parameters.balanceRows[i]
-                    HStack {
-                        OceanSwiftUI.Typography.caption { view in
-                            view.parameters.text = item.label
-                        }
-
-                        Spacer()
-
-                        OceanSwiftUI.Typography.heading5 { view in
-                            view.parameters.text = item.value.toCurrency() ?? ""
-                        }
-                    }
+                    getBalanceView(label: item.label,
+                                   balance: item.value,
+                                   isVerticalBalance: false)
                     .padding(.vertical, Ocean.size.spacingStackXxsExtra)
                     .padding(.horizontal, Ocean.size.spacingStackXs)
 
@@ -183,40 +162,26 @@ extension OceanSwiftUI {
 
         @ViewBuilder
         private var footerView: some View {
-            Group {
-                switch parameters.context {
-                case .distributor:
-                    HStack(spacing: Ocean.size.spacingStackXs) {
-                        DescValueView(description: parameters.footer.title ?? "",
-                                      value: parameters.footer.value,
-                                      showValue: parameters.header.showValue)
+            HStack(spacing: Ocean.size.spacingStackXs) {
+                if let value = parameters.footer.value {
+                    getBalanceView(label: parameters.footer.title,
+                                   balance: parameters.footer.value,
+                                   isVerticalBalance: true)
 
-                        Spacer()
-
-                        if let cta = parameters.footer.ctaTitle {
-                            OceanSwiftUI.Button.secondarySM { b in
-                                b.parameters.text = cta
-                                b.parameters.onTouch = { parameters.onCTATap?() }
-                            }
-                            .fixedSize(horizontal: true, vertical: false)
-                        }
+                } else {
+                    OceanSwiftUI.Typography.caption { view in
+                        view.parameters.text = parameters.footer.description ?? ""
                     }
-                case .retailer:
-                    HStack(spacing: Ocean.size.spacingStackXs) {
-                        OceanSwiftUI.Typography.caption { view in
-                            view.parameters.text = parameters.footer.title ?? ""
-                        }
+                }
 
-                        Spacer()
+                Spacer()
 
-                        if let cta = parameters.footer.ctaTitle {
-                            OceanSwiftUI.Button.secondarySM { b in
-                                b.parameters.text = cta
-                                b.parameters.onTouch = { parameters.onCTATap?() }
-                            }
-                            .fixedSize()
-                        }
+                if let cta = parameters.footer.ctaTitle {
+                    OceanSwiftUI.Button.secondarySM { b in
+                        b.parameters.text = cta
+                        b.parameters.onTouch = { parameters.onCTATap?() }
                     }
+                    .fixedSize(horizontal: true, vertical: false)
                 }
             }
             .padding(.vertical, Ocean.size.spacingStackXxsExtra)
@@ -300,23 +265,38 @@ extension OceanSwiftUI {
             .clipped()
         }
 
-        // MARK: Methods private
+        private func getBalanceView(label: String?,
+                                    balance: Double?,
+                                    isVerticalBalance: Bool) -> some View {
+            VStack(alignment: .leading, spacing: 0) {
+                if isVerticalBalance {
+                    VStack(alignment: .leading, spacing: 0) {
+                        OceanSwiftUI.Typography.caption { view in
+                            view.parameters.text = label ?? ""
+                        }
+                        OceanSwiftUI.Typography.heading4 { view in
+                            view.parameters.text = maskedCurrency(balance)
+                        }
+                        .animation(.easeInOut(duration: 0.2), value: parameters.header.showValue)
 
-        private struct DescValueView: View {
-            let description: String
-            let value: Double?
-            let showValue: Bool
-
-            var body: some View {
-                VStack(alignment: .leading, spacing: 0) {
-                    OceanSwiftUI.Typography.caption { view in
-                        view.parameters.text = description
                     }
-                    OceanSwiftUI.Typography.heading4 { view in
-                        view.parameters.text = (showValue ? (value?.toCurrency() ?? "") : "R$ ••••")
+                } else {
+                    HStack {
+                        OceanSwiftUI.Typography.caption { view in
+                            view.parameters.text = label ?? ""
+                        }
+                        Spacer()
+                        OceanSwiftUI.Typography.heading5 { view in
+                            view.parameters.text = maskedCurrency(balance)
+                        }
+                        .animation(.easeInOut(duration: 0.2), value: parameters.header.showValue)
                     }
                 }
             }
+        }
+
+        private func maskedCurrency(_ value: Double?) -> String {
+            return parameters.header.showValue ? (value?.toCurrency() ?? "") : "R$ ••••••"
         }
     }
 }

@@ -6,7 +6,6 @@ class CardBalanceSwiftUIViewController: UIViewController {
 
     private lazy var cardBalanceDistributor: OceanSwiftUI.CardBalance = {
         OceanSwiftUI.CardBalance { view in
-            view.parameters.context = .distributor
             view.parameters.header = .init(
                 title: "Saldo consolidado",
                 value: 12345.67,
@@ -14,9 +13,10 @@ class CardBalanceSwiftUIViewController: UIViewController {
                 acquirers: ["Cielo", "Rede", "Stone", "Getnet"]
             )
             view.parameters.balanceRows = [
-                .init(label: "Cielo", value: 5321.45),
-                .init(label: "Rede", value: 2234.10),
-                .init(label: "Stone", value: 3456.78)
+                .init(label: "Saldo atual na Blu", value: 10765.45),
+                .init(label: "Agenda na Blu", value: 5321.45),
+                .init(label: "Agenda na Rede", value: 2234.10),
+                .init(label: "Agenda na Getnet", value: 3456.78)
             ]
             view.parameters.footer = .init(
                 description: nil,
@@ -32,7 +32,6 @@ class CardBalanceSwiftUIViewController: UIViewController {
 
     private lazy var cardBalanceRetailer: OceanSwiftUI.CardBalance = {
         OceanSwiftUI.CardBalance { view in
-            view.parameters.context = .retailer
             view.parameters.header = .init(
                 title: "Saldo consolidado",
                 value: 12345.67,
@@ -40,18 +39,40 @@ class CardBalanceSwiftUIViewController: UIViewController {
                 acquirers: ["Cielo", "Rede", "Stone", "Getnet"]
             )
             view.parameters.balanceRows = [
-                .init(label: "Cielo", value: 5321.45),
-                .init(label: "Rede", value: 2234.10),
-                .init(label: "Stone", value: 3456.78)
+                .init(label: "Saldo atual na Blu", value: 10765.45),
+                .init(label: "Agenda na Blu", value: 5321.45),
+                .init(label: "Agenda na Rede", value: 2234.10),
+                .init(label: "Agenda na Getnet", value: 3456.78)
             ]
             view.parameters.footer = .init(
                 description: "Confira todas as movimentações feitas na sua conta",
-                title: "Confira todas as movimentações feitas na sua conta",
                 ctaTitle: "Extrato"
             )
             view.parameters.state = .collapsed
             view.parameters.onToggle = { print("CardBalance toggled") }
             view.parameters.onCTATap = { print("CTA tapped") }
+        }
+    }()
+
+    private lazy var toggleShowValueButton: OceanSwiftUI.Button = {
+        OceanSwiftUI.Button.secondarySM { b in
+            b.parameters.text = "Balance Show Toggle"
+            b.parameters.onTouch = {
+                let newValue = !(self.cardBalanceDistributor.parameters.header.showValue)
+
+                self.cardBalanceDistributor.parameters.header = .init(
+                    title: self.cardBalanceDistributor.parameters.header.title,
+                    value: self.cardBalanceDistributor.parameters.header.value,
+                    showValue: newValue,
+                    acquirers: self.cardBalanceDistributor.parameters.header.acquirers
+                )
+                self.cardBalanceRetailer.parameters.header = .init(
+                    title: self.cardBalanceRetailer.parameters.header.title,
+                    value: self.cardBalanceRetailer.parameters.header.value,
+                    showValue: newValue,
+                    acquirers: self.cardBalanceRetailer.parameters.header.acquirers
+                )
+            }
         }
     }()
 
@@ -62,6 +83,8 @@ class CardBalanceSwiftUIViewController: UIViewController {
             cardBalanceDistributor
 
             cardBalanceRetailer
+
+            toggleShowValueButton
         }
     })
 
