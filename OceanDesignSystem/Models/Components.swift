@@ -70,6 +70,7 @@ struct DSComponents {
         "Button",
         "CardCrossSell",
         "CardCTA",
+        "CardBalance",
         "CardGroup",
         "CardListItem",
         "CardOption",
@@ -436,3 +437,4 @@ struct PrimaryInverseButtons {
         primaryInverseBlockedLGIcon
     ]
 }
+
