@@ -10,7 +10,33 @@ class CardBalanceSwiftUIViewController: UIViewController {
                 title: "Saldo consolidado",
                 value: 12345.67,
                 showValue: true,
-                acquirers: ["Cielo", "Rede", "Stone", "Getnet"]
+                acquirers: ["Blu", "Rede", "Stone", "Getnet", "Asaas"]
+            )
+            view.parameters.balanceRows = [
+                .init(label: "Saldo atual na Blu", value: 10765.45),
+                .init(label: "Agenda na Blu", value: 5321.45),
+                .init(label: "Agenda na Rede", value: 2234.10),
+                .init(label: "Agenda na Getnet", value: 3456.78)
+            ]
+            view.parameters.footer = .init(
+                description: nil,
+                title: "Disponível para saque",
+                value: 7890.12,
+                ctaTitle: "Receber"
+            )
+            view.parameters.state = .collapsed
+            view.parameters.onToggle = { print("CardBalance toggled") }
+            view.parameters.onCTATap = { print("CTA tapped") }
+        }
+    }()
+
+    private lazy var cardBalanceDistributor2: OceanSwiftUI.CardBalance = {
+        OceanSwiftUI.CardBalance { view in
+            view.parameters.header = .init(
+                title: "Saldo consolidado",
+                value: 12345.67,
+                showValue: true,
+                acquirers: ["Blu", "Getnet"]
             )
             view.parameters.balanceRows = [
                 .init(label: "Saldo atual na Blu", value: 10765.45),
@@ -66,6 +92,12 @@ class CardBalanceSwiftUIViewController: UIViewController {
                     showValue: newValue,
                     acquirers: self.cardBalanceDistributor.parameters.header.acquirers
                 )
+                self.cardBalanceDistributor2.parameters.header = .init(
+                    title: self.cardBalanceDistributor2.parameters.header.title,
+                    value: self.cardBalanceDistributor2.parameters.header.value,
+                    showValue: newValue,
+                    acquirers: self.cardBalanceDistributor2.parameters.header.acquirers
+                )
                 self.cardBalanceRetailer.parameters.header = .init(
                     title: self.cardBalanceRetailer.parameters.header.title,
                     value: self.cardBalanceRetailer.parameters.header.value,
@@ -81,6 +113,8 @@ class CardBalanceSwiftUIViewController: UIViewController {
             Spacer()
 
             cardBalanceDistributor
+
+            cardBalanceDistributor2
 
             cardBalanceRetailer
 
@@ -105,3 +139,4 @@ class CardBalanceSwiftUIViewController: UIViewController {
 #Preview {
     CardBalanceSwiftUIViewController()
 }
+

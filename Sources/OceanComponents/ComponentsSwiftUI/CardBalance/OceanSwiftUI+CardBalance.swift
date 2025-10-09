@@ -1,4 +1,8 @@
-// OceanSwiftUI+CardBalance.swift
+//  OceanSwiftUI+Balance.swift
+//  OceanComponents
+//
+//  Created by Acassio Mendonça on 08/10/25.
+
 import SwiftUI
 import OceanTokens
 
@@ -177,9 +181,9 @@ extension OceanSwiftUI {
                 Spacer()
 
                 if let cta = parameters.footer.ctaTitle {
-                    OceanSwiftUI.Button.secondarySM { b in
-                        b.parameters.text = cta
-                        b.parameters.onTouch = { parameters.onCTATap?() }
+                    OceanSwiftUI.Button.secondarySM { view in
+                        view.parameters.text = cta
+                        view.parameters.onTouch = { parameters.onCTATap?() }
                     }
                     .fixedSize(horizontal: true, vertical: false)
                 }
@@ -200,38 +204,13 @@ extension OceanSwiftUI {
         }
 
         private var acquirersView: some View {
-            let acquirers = parameters.header.acquirers
-            let limit = 3
-            let count = min(acquirers.count, limit)
-            return HStack(spacing: -Ocean.size.spacingStackXxs) {
-                ForEach(0..<count, id: \.self) { i in
-                    ZStack {
-                        Circle().fill(Color.white)
-                            .frame(width: Ocean.size.spacingStackMd,
-                                   height: Ocean.size.spacingStackMd)
-
-                        if let icon = "acquirer\(acquirers[i])".toOceanIcon() {
-                            Image(uiImage: icon).resizable()
-                                .scaledToFit()
-                                .frame(width: Ocean.size.spacingStackMd,
-                                       height: Ocean.size.spacingStackMd)
-                        } else {
-                            OceanSwiftUI.Typography.eyebrow {view in
-                               view.parameters.text = String(acquirers[i].prefix(1)).uppercased()
-                               view.parameters.textColor = Ocean.color.colorBrandPrimaryDown
-                            }
-                        }
-                    }
-                }
-                if acquirers.count > limit {
-                    OceanSwiftUI.Badge { b in
-                        b.parameters.count = acquirers.count - limit
-                        b.parameters.status = .primaryInverted
-                        b.parameters.size = .small
-                        b.parameters.style = .count
-                        b.parameters.valuePrefix = "+"
-                    }
-                }
+            OceanSwiftUI.Brands { view in
+                view.parameters.acquirers = parameters.header.acquirers
+                view.parameters.limit = 3
+                view.parameters.hasBorder = true
+                view.parameters.borderColor = Ocean.color.colorInterfaceLightPure
+                view.parameters.itemSize = Ocean.size.spacingStackMd
+                view.parameters.overlapSpacing = Ocean.size.spacingStackXxs
             }
         }
 
