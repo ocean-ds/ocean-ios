@@ -12,6 +12,33 @@ import OceanComponents
 import SwiftUI
 
 class CardGroupSwiftUIViewController: UIViewController {
+
+    lazy var cardGroup00: OceanSwiftUI.CardGroup = {
+        OceanSwiftUI.CardGroup { view in
+            view.parameters.title = "Crédito"
+            view.parameters.tagLabelHeader = "Boletos disponíveis"
+            view.parameters.tagStatusHeader = .highlightNeutral
+            view.parameters.headerBackgroundColor = Ocean.color.colorInterfaceLightUp
+            view.parameters.hasDivider = false
+            view.parameters.view = OceanSwiftUI.TextListItem { item in
+                item.parameters.title = "Limite para pagar boletos"
+                item.parameters.description = "R$ 9.000,00"
+                item.parameters.caption = "Pague em até 12 vezes"
+                item.parameters.icon = Ocean.icon.fingerPrintSolid
+                item.parameters.iconColor = Ocean.color.colorBrandPrimaryDown
+                item.parameters.backgroundColor = Ocean.color.colorInterfaceLightUp
+            }
+            view.parameters.ctaText = "Ir para boletos"
+            view.parameters.ctaBadgeCount = 3
+            view.parameters.ctaBadgeStatus = .warning
+            view.parameters.highlightText = "Pague seu boleto da Ortobom Colchões hoje usando seu limite de crédito."
+            view.parameters.highlightContentBackgroundColor = Ocean.color.colorBrandPrimaryPure
+            view.parameters.onTouch = {
+                print("Ir para boletos tapped")
+            }
+        }
+    }()
+
     lazy var cardGroup: OceanSwiftUI.CardGroup = {
         OceanSwiftUI.CardGroup { view in
             view.parameters.title = "Title"
@@ -131,6 +158,7 @@ class CardGroupSwiftUIViewController: UIViewController {
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
+            cardGroup00
             cardGroup
             cardGroup1
             cardGroup2

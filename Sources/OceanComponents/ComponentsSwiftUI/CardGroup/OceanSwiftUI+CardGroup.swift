@@ -27,9 +27,18 @@ extension OceanSwiftUI {
         @Published public var ctaIcon: UIImage?
         @Published public var recommend: Bool
         @Published public var showProgressText: Bool
+        @Published public var hasDivider: Bool
         @Published public var isLoading: Bool
         @Published public var showSkeleton: Bool
         @Published public var isInverted: Bool
+        @Published public var tagLabelHeader: String?
+        @Published public var tagStatusHeader: TagParameters.Status
+        @Published public var ctaBadgeCount: Int?
+        @Published public var ctaBadgeStatus: BadgeParameters.Status
+        @Published public var highlightText: String?
+        @Published public var headerBackgroundColor: UIColor?
+        @Published public var contentBackgroundColor: UIColor?
+        @Published public var highlightContentBackgroundColor: UIColor?
         public var onTouch: () -> Void
 
         public init(title: String = "",
@@ -46,9 +55,18 @@ extension OceanSwiftUI {
                     ctaIcon: UIImage? = Ocean.icon.chevronRightSolid,
                     recommend: Bool = false,
                     showProgressText: Bool = false,
+                    hasDivider: Bool = true,
                     isLoading: Bool = false,
                     showSkeleton: Bool = false,
                     isInverted: Bool = false,
+                    tagLabelHeader: String? = nil,
+                    tagStatusHeader: TagParameters.Status = .warning,
+                    ctaBadgeCount: Int? = nil,
+                    ctaBadgeStatus: BadgeParameters.Status = .warning,
+                    highlightText: String? = nil,
+                    headerBackgroundColor: UIColor? = nil,
+                    contentBackgroundColor: UIColor? = nil,
+                    highlightContentBackgroundColor: UIColor? = nil,
                     onTouch: @escaping () -> Void = { }) {
             self.title = title
             self.subtitle = subtitle
@@ -64,9 +82,18 @@ extension OceanSwiftUI {
             self.ctaIcon = ctaIcon
             self.recommend = recommend
             self.showProgressText = showProgressText
+            self.hasDivider = hasDivider
             self.isLoading = isLoading
             self.showSkeleton = showSkeleton
             self.isInverted = isInverted
+            self.tagLabelHeader = tagLabelHeader
+            self.tagStatusHeader = tagStatusHeader
+            self.ctaBadgeCount = ctaBadgeCount
+            self.ctaBadgeStatus = ctaBadgeStatus
+            self.highlightText = highlightText
+            self.headerBackgroundColor = headerBackgroundColor
+            self.contentBackgroundColor = contentBackgroundColor
+            self.highlightContentBackgroundColor = highlightContentBackgroundColor
             self.onTouch = onTouch
         }
 
@@ -169,12 +196,9 @@ extension OceanSwiftUI {
                             if let icon = self.parameters.icon {
                                 Image(uiImage: icon)
                                     .resizable()
-                                    .frame(width: 24,
-                                           height: 24,
-                                           alignment: .center)
+                                    .frame(width: 24, height: 24, alignment: .center)
                                     .foregroundColor(Color(Ocean.color.colorInterfaceDarkDeep))
                             }
-
                             VStack(alignment: .leading, spacing: Ocean.size.spacingStackXs) {
                                 titleSubtitleCaptionView
 
@@ -185,23 +209,26 @@ extension OceanSwiftUI {
                                     }
                                 }
                             }
-
                             Spacer()
-
                             VStack(spacing: 0) {
-                                if let badgeCount = self.parameters.badgeCount {
+                                if let tagLabelHeader = parameters.tagLabelHeader {
+                                    Tag { tag in
+                                        tag.parameters.label = tagLabelHeader
+                                        tag.parameters.status = parameters.tagStatusHeader
+                                    }
+                                    Spacer()
+                                } else if let badgeCount = parameters.badgeCount {
                                     Badge { badge in
                                         badge.parameters.count = badgeCount
                                         badge.parameters.status = self.parameters.badgeStatus
                                     }
-
                                     Spacer()
                                 }
                             }
                         }
                         .frame(minWidth: 0, maxWidth: .infinity)
                         .padding(.all, Ocean.size.spacingStackXs)
-                        .background(Color(Ocean.color.colorInterfaceLightPure))
+                        .background(Color(parameters.headerBackgroundColor ?? Ocean.color.colorInterfaceLightPure))
 
                         if let progress = parameters.progress {
                             ProgressBar { view in
@@ -214,29 +241,55 @@ extension OceanSwiftUI {
                             }
                         }
 
-                        if let _ = self.parameters.view {
-                            Divider()
-
-                            self.parameters.contentView
+                        if let customView = parameters.view {
+                            if parameters.hasDivider {
+                                Divider()
+                            }
+                            VStack(spacing: 0) {
+                                AnyView(customView)
+                            }
+                            .background(Color(parameters.contentBackgroundColor ?? Ocean.color.colorInterfaceLightPure))
                         }
 
-                        if !self.parameters.ctaText.isEmpty {
+                        if !parameters.ctaText.isEmpty {
+                            Divider()
+                            CardCTA { cardCTA in
+                                cardCTA.parameters.text = parameters.ctaText
+                                cardCTA.parameters.icon = parameters.ctaIcon
+                                cardCTA.parameters.badgeCount = parameters.ctaBadgeCount
+                                cardCTA.parameters.badgeStatus = parameters.ctaBadgeStatus
+                                cardCTA.parameters.isLoading = parameters.isLoading
+                                cardCTA.parameters.onTouch = parameters.onTouch
+                            }
+                        }
+
+                        if let highlightText = parameters.highlightText {
                             Divider()
 
-                            CardCTA { cardCTA in
-                                cardCTA.parameters.text = self.parameters.ctaText
-                                cardCTA.parameters.icon = self.parameters.ctaIcon
-                                cardCTA.parameters.isLoading = self.parameters.isLoading
-                                cardCTA.parameters.onTouch = self.parameters.onTouch
+                            VStack(alignment: .leading, spacing: Ocean.size.spacingStackXs) {
+                                OceanSwiftUI.Typography.captionBold { view in
+                                    view.parameters.text = highlightText
+                                }
+                                .foregroundColor(Color(Ocean.color.colorInterfaceLightPure))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.all, Ocean.size.spacingStackXs)
                             }
+                            .frame(maxWidth: .infinity)
+                            .background(Color(parameters.highlightContentBackgroundColor ?? Ocean.color.colorBrandPrimaryPure))
                         }
                     }
                     .padding(.all, 1)
                     .frame(minWidth: 0, maxWidth: .infinity)
+                    .background(Color.white)
                     .cornerRadius(Ocean.size.borderRadiusMd)
-                    .border(cornerRadius: Ocean.size.borderRadiusMd,
-                            width: Ocean.size.borderWidthHairline,
-                            color: self.parameters.recommend ? Ocean.color.colorBrandPrimaryUp : Ocean.color.colorInterfaceLightDown)
+                    .clipShape(RoundedRectangle(cornerRadius: Ocean.size.borderRadiusMd, style: .continuous))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: Ocean.size.borderRadiusMd, style: .continuous)
+                            .stroke(
+                                Color(self.parameters.recommend ? Ocean.color.colorBrandPrimaryUp : Ocean.color.colorInterfaceLightDown),
+                                lineWidth: Ocean.size.borderWidthHairline
+                            )
+                    )
 
                     if self.parameters.recommend {
                         Tag.highlightNeutralMD { tag in
