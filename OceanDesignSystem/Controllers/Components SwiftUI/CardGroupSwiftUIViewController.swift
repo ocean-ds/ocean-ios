@@ -31,6 +31,7 @@ class CardGroupSwiftUIViewController: UIViewController {
             view.parameters.ctaText = "Ir para boletos"
             view.parameters.ctaBadgeCount = 3
             view.parameters.ctaBadgeStatus = .warning
+            view.parameters.contentBackgroundColor = Ocean.color.colorInterfaceLightUp
             view.parameters.highlightText = "Pague seu boleto da Ortobom Colchões hoje usando seu limite de crédito."
             view.parameters.highlightContentBackgroundColor = Ocean.color.colorBrandPrimaryPure
             view.parameters.onTouch = {
