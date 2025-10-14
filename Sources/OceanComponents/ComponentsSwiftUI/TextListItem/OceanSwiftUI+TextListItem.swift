@@ -27,6 +27,7 @@ extension OceanSwiftUI {
         @Published public var tagStatus: OceanSwiftUI.TagParameters.Status
         @Published public var tagSize: OceanSwiftUI.TagParameters.Size
         @Published public var tagOrientation: OceanSwiftUI.TextListItemParameters.TagOrientation
+        @Published public var backgroundColor: UIColor?
         @Published public var padding: EdgeInsets
         @Published public var state: OceanSwiftUI.TextListItemParameters.State
         @Published public var checkboxIcon: UIImage?
@@ -58,6 +59,7 @@ extension OceanSwiftUI {
                     tagStatus: OceanSwiftUI.TagParameters.Status = .positive,
                     tagSize: OceanSwiftUI.TagParameters.Size = .small,
                     tagOrientation: OceanSwiftUI.TextListItemParameters.TagOrientation = .vertical,
+                    backgroundColor: UIColor? = nil,
                     padding: EdgeInsets = .init(top: Ocean.size.spacingStackXs,
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXs,
@@ -90,6 +92,7 @@ extension OceanSwiftUI {
             self.tagStatus = tagStatus
             self.tagSize = tagSize
             self.tagOrientation = tagOrientation
+            self.backgroundColor = backgroundColor
             self.padding = padding
             self.state = state
             self.checkboxIcon = checkboxIcon
@@ -269,7 +272,7 @@ extension OceanSwiftUI {
                 }
                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                 .padding(parameters.padding)
-                .background(Color(Ocean.color.colorInterfaceLightPure))
+                .background(Color(parameters.backgroundColor ?? Ocean.color.colorInterfaceLightPure))
                 .transform(condition: parameters.isEnabled, transform: { view in
                     view.onTapGesture {
                         parameters.onTouch()
