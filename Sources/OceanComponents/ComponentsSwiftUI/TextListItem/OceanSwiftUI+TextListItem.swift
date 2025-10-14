@@ -22,6 +22,8 @@ extension OceanSwiftUI {
         @Published public var infoLineLimit: Int?
         @Published public var icon: UIImage?
         @Published public var iconColor: UIColor
+        @Published public var iconWidth: CGFloat
+        @Published public var iconHeight: CGFloat
         @Published public var tagLabel: String
         @Published public var tagIcon: UIImage?
         @Published public var tagStatus: OceanSwiftUI.TagParameters.Status
@@ -54,6 +56,8 @@ extension OceanSwiftUI {
                     infoLineLimit: Int? = nil,
                     icon: UIImage? = nil,
                     iconColor: UIColor = Ocean.color.colorBrandPrimaryDown,
+                    iconWidth: CGFloat = 24,
+                    iconHeight: CGFloat = 24,
                     tagLabel: String = "",
                     tagIcon: UIImage? = nil,
                     tagStatus: OceanSwiftUI.TagParameters.Status = .positive,
@@ -87,6 +91,8 @@ extension OceanSwiftUI {
             self.infoLineLimit = infoLineLimit
             self.icon = icon
             self.iconColor = iconColor
+            self.iconWidth = iconWidth
+            self.iconHeight = iconHeight
             self.tagLabel = tagLabel
             self.tagIcon = tagIcon
             self.tagStatus = tagStatus
@@ -160,7 +166,7 @@ extension OceanSwiftUI {
                         Image(uiImage: icon)
                             .resizable()
                             .renderingMode(.template)
-                            .frame(width: 24, height: 24)
+                            .frame(width: parameters.iconWidth, height: parameters.iconHeight)
                             .foregroundColor(Color(parameters.iconColor))
                     }
                     else if parameters.hasCheckbox {
@@ -279,11 +285,6 @@ extension OceanSwiftUI {
                     }
                 })
             }
-        }
-
-        private struct Constants {
-            static let iconSize: CGFloat = 20
-            static let skeletonHeight: CGFloat = 24
         }
     }
 }

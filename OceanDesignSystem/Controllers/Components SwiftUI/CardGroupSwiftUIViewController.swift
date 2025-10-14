@@ -26,6 +26,8 @@ class CardGroupSwiftUIViewController: UIViewController {
                 item.parameters.caption = "Pague em até 12 vezes"
                 item.parameters.icon = Ocean.icon.fingerPrintSolid
                 item.parameters.iconColor = Ocean.color.colorBrandPrimaryDown
+                item.parameters.iconWidth = 56
+                item.parameters.iconHeight = 56
                 item.parameters.backgroundColor = Ocean.color.colorInterfaceLightUp
             }
             view.parameters.ctaText = "Ir para boletos"
