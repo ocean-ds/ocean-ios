@@ -15,6 +15,7 @@ extension OceanSwiftUI {
     public class InvertedTextListItemParameters: ObservableObject {
         @Published public var title: String
         @Published public var subtitle: String
+        @Published public var showSubtitle: Bool
         @Published public var subtitleColor: UIColor?
         @Published public var newSubtitle: String
         @Published public var caption: String
@@ -37,6 +38,7 @@ extension OceanSwiftUI {
         public init(title: String = "",
                     subtitle: String = "",
                     subtitleColor: UIColor? = nil,
+                    showSubtitle: Bool = true,
                     newSubtitle: String = "",
                     caption: String = "",
                     hasCaptionBold: Bool = false,
@@ -60,6 +62,7 @@ extension OceanSwiftUI {
                     alignmentIcon: OceanSwiftUI.InvertedTextListItemParameters.AlignmentIcon = .default) {
             self.title = title
             self.subtitle = subtitle
+            self.showSubtitle = showSubtitle
             self.subtitleColor = subtitleColor
             self.newSubtitle = newSubtitle
             self.caption = caption
@@ -180,7 +183,7 @@ extension OceanSwiftUI {
                         }
 
                         OceanSwiftUI.Typography.paragraph { label in
-                            label.parameters.text = parameters.subtitle
+                            label.parameters.text = maskedValue(parameters.subtitle)
 
                             if parameters.newSubtitle.isEmpty {
                                 label.parameters.textColor = getStatusColor()
@@ -197,6 +200,7 @@ extension OceanSwiftUI {
                                 label.parameters.font = .baseBold(size: Ocean.font.fontSizeMd)
                             }
                         }
+                        .animation(.easeInOut(duration: 0.2), value: parameters.showSubtitle)
 
                         if !parameters.newSubtitle.isEmpty {
                             Spacer()
@@ -289,7 +293,7 @@ extension OceanSwiftUI {
                     } else {
                         HStack(spacing: 0) {
                             OceanSwiftUI.Typography.paragraph { label in
-                                label.parameters.text = parameters.subtitle
+                                label.parameters.text = maskedValue(parameters.subtitle)
 
                                 if parameters.newSubtitle.isEmpty {
                                     label.parameters.textColor = getStatusColor()
@@ -306,6 +310,7 @@ extension OceanSwiftUI {
                                     label.parameters.font = .baseBold(size: Ocean.font.fontSizeMd)
                                 }
                             }
+                            .animation(.easeInOut(duration: 0.2), value: parameters.showSubtitle)
 
                             if !parameters.newSubtitle.isEmpty {
                                 Spacer()
@@ -377,6 +382,10 @@ extension OceanSwiftUI {
             default:
                 return Ocean.color.colorInterfaceDarkDeep
             }
+        }
+
+        private func maskedValue(_ value: String) -> String {
+            return parameters.showSubtitle ? value : "R$ ••••••"
         }
 
         private struct Constants {

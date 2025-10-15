@@ -45,6 +45,40 @@ class CardGroupSwiftUIViewController: UIViewController {
         }
     }()
 
+    lazy var cardGroup01: OceanSwiftUI.CardGroup = {
+        OceanSwiftUI.CardGroup { view in
+            view.parameters.title = "Crédito"
+            view.parameters.tagLabelHeader = "Boletos disponíveis"
+            view.parameters.tagStatusHeader = .highlightNeutral
+            view.parameters.hasTagLabelBold = true
+            view.parameters.headerBackgroundColor = Ocean.color.colorInterfaceLightUp
+            view.parameters.hasDivider = false
+            view.parameters.hasDivider = false
+            view.parameters.view = OceanSwiftUI.InvertedTextListItem { item in
+                item.parameters.title = "Limite para pagar boletos"
+                item.parameters.subtitle = "R$ 9.000,00"
+                item.parameters.showSubtitle = false
+                item.parameters.caption = "Pague em até 12 vezes"
+                item.parameters.hasCaptionBold = true
+                item.parameters.icon = Ocean.icon.fingerPrintSolid
+                item.parameters.iconWidth = 56
+                item.parameters.iconHeight = 56
+                item.parameters.alignmentIcon = .leading
+                item.parameters.status = .highlight
+                item.parameters.backgroundColor = Ocean.color.colorInterfaceLightUp
+            }
+            view.parameters.ctaText = "Ir para boletos"
+            view.parameters.ctaBadgeCount = 3
+            view.parameters.ctaBadgeStatus = .warning
+            view.parameters.contentBackgroundColor = Ocean.color.colorInterfaceLightUp
+            view.parameters.highlightText = "Pague seu boleto da Ortobom Colchões hoje usando seu limite de crédito."
+            view.parameters.highlightContentBackgroundColor = Ocean.color.colorBrandPrimaryPure
+            view.parameters.onTouch = {
+                print("Ir para boletos tapped")
+            }
+        }
+    }()
+
     lazy var cardGroup: OceanSwiftUI.CardGroup = {
         OceanSwiftUI.CardGroup { view in
             view.parameters.title = "Title"
@@ -165,6 +199,7 @@ class CardGroupSwiftUIViewController: UIViewController {
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             cardGroup00
+            cardGroup01
             cardGroup
             cardGroup1
             cardGroup2
