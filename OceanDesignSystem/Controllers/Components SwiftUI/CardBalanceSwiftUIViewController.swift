@@ -9,7 +9,6 @@ class CardBalanceSwiftUIViewController: UIViewController {
             view.parameters.header = .init(
                 title: "Saldo consolidado",
                 value: 12345.67,
-                showValue: true,
                 acquirers: ["Blu", "Rede", "Stone", "Getnet", "Asaas"]
             )
             view.parameters.balanceRows = [
@@ -35,7 +34,6 @@ class CardBalanceSwiftUIViewController: UIViewController {
             view.parameters.header = .init(
                 title: "Saldo consolidado",
                 value: 12345.67,
-                showValue: true,
                 acquirers: ["Blu", "Getnet"]
             )
             view.parameters.balanceRows = [
@@ -61,7 +59,6 @@ class CardBalanceSwiftUIViewController: UIViewController {
             view.parameters.header = .init(
                 title: "Saldo consolidado",
                 value: 12345.67,
-                showValue: true,
                 acquirers: ["Cielo", "Rede", "Stone", "Getnet"]
             )
             view.parameters.balanceRows = [
@@ -84,26 +81,11 @@ class CardBalanceSwiftUIViewController: UIViewController {
         OceanSwiftUI.Button.secondarySM { b in
             b.parameters.text = "Balance Show Toggle"
             b.parameters.onTouch = {
-                let newValue = !(self.cardBalanceDistributor.parameters.header.showValue)
-
-                self.cardBalanceDistributor.parameters.header = .init(
-                    title: self.cardBalanceDistributor.parameters.header.title,
-                    value: self.cardBalanceDistributor.parameters.header.value,
-                    showValue: newValue,
-                    acquirers: self.cardBalanceDistributor.parameters.header.acquirers
-                )
-                self.cardBalanceDistributor2.parameters.header = .init(
-                    title: self.cardBalanceDistributor2.parameters.header.title,
-                    value: self.cardBalanceDistributor2.parameters.header.value,
-                    showValue: newValue,
-                    acquirers: self.cardBalanceDistributor2.parameters.header.acquirers
-                )
-                self.cardBalanceRetailer.parameters.header = .init(
-                    title: self.cardBalanceRetailer.parameters.header.title,
-                    value: self.cardBalanceRetailer.parameters.header.value,
-                    showValue: newValue,
-                    acquirers: self.cardBalanceRetailer.parameters.header.acquirers
-                )
+                let newValue = !(self.cardBalanceDistributor.parameters.showValue)
+                
+                self.cardBalanceDistributor.parameters.showValue = newValue
+                self.cardBalanceDistributor2.parameters.showValue = newValue
+                self.cardBalanceRetailer.parameters.showValue = newValue
             }
         }
     }()

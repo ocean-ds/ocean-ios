@@ -39,7 +39,6 @@ extension OceanSwiftUI {
         @Published public var highlightText: String?
         @Published public var highlightTextColor: UIColor
         @Published public var headerBackgroundColor: UIColor?
-        @Published public var contentBackgroundColor: UIColor?
         @Published public var highlightContentBackgroundColor: UIColor?
         public var onTouch: () -> Void
 
@@ -69,7 +68,6 @@ extension OceanSwiftUI {
                     highlightText: String? = nil,
                     highlightTextColor: UIColor = Ocean.color.colorInterfaceLightUp,
                     headerBackgroundColor: UIColor? = nil,
-                    contentBackgroundColor: UIColor? = nil,
                     highlightContentBackgroundColor: UIColor? = nil,
                     onTouch: @escaping () -> Void = { }) {
             self.title = title
@@ -98,7 +96,6 @@ extension OceanSwiftUI {
             self.highlightText = highlightText
             self.highlightTextColor = highlightTextColor
             self.headerBackgroundColor = headerBackgroundColor
-            self.contentBackgroundColor = contentBackgroundColor
             self.highlightContentBackgroundColor = highlightContentBackgroundColor
             self.onTouch = onTouch
         }
@@ -220,7 +217,7 @@ extension OceanSwiftUI {
 
                                 Spacer()
 
-                                if let tagLabelHeader = parameters.tagLabelHeader {
+                                if let tagLabelHeader = parameters.tagLabelHeader, !tagLabelHeader.isEmpty {
                                     Tag { tag in
                                         tag.parameters.label = tagLabelHeader
                                         tag.parameters.status = parameters.tagStatusHeader
@@ -284,7 +281,7 @@ extension OceanSwiftUI {
                     }
                     .zIndex(1)
 
-                    if let highlightText = parameters.highlightText {
+                    if let highlightText = parameters.highlightText, !highlightText.isEmpty {
                             OceanSwiftUI.Typography.captionBold { view in
                                 view.parameters.text = highlightText
                                 view.parameters.textColor = parameters.highlightTextColor

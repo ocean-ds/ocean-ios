@@ -15,6 +15,7 @@ extension OceanSwiftUI {
         @Published public var balanceRows: [BalanceRow]
         @Published public var footer: Footer
         @Published public var state: CardBalanceState
+        @Published public var showValue: Bool
         @Published public var showSkeleton: Bool
         @Published public var padding: EdgeInsets
 
@@ -27,6 +28,7 @@ extension OceanSwiftUI {
             balanceRows: [BalanceRow] = [],
             footer: Footer = Footer(),
             state: CardBalanceState = .collapsed,
+            showValue: Bool = true,
             showSkeleton: Bool = false,
             padding: EdgeInsets = .all(Ocean.size.spacingStackXs),
             onToggle: (() -> Void)? = nil,
@@ -37,6 +39,7 @@ extension OceanSwiftUI {
             self.balanceRows = balanceRows
             self.footer = footer
             self.state = state
+            self.showValue = showValue
             self.showSkeleton = showSkeleton
             self.padding = padding
             self.onToggle = onToggle
@@ -56,16 +59,13 @@ extension OceanSwiftUI {
         public struct Header: Equatable {
             public let title: String
             public let value: Double
-            public let showValue: Bool
             public let acquirers: [String]
 
             public init(title: String = "",
                         value: Double = 0,
-                        showValue: Bool = true,
                         acquirers: [String] = []) {
                 self.title = title
                 self.value = value
-                self.showValue = showValue
                 self.acquirers = acquirers
             }
         }
@@ -256,7 +256,7 @@ extension OceanSwiftUI {
                         OceanSwiftUI.Typography.heading4 { view in
                             view.parameters.text = maskedCurrency(balance)
                         }
-                        .animation(.easeInOut(duration: 0.2), value: parameters.header.showValue)
+                        .animation(.easeInOut(duration: 0.2), value: parameters.showValue)
 
                     }
                 } else {
@@ -268,14 +268,14 @@ extension OceanSwiftUI {
                         OceanSwiftUI.Typography.heading5 { view in
                             view.parameters.text = maskedCurrency(balance)
                         }
-                        .animation(.easeInOut(duration: 0.2), value: parameters.header.showValue)
+                        .animation(.easeInOut(duration: 0.2), value: parameters.showValue)
                     }
                 }
             }
         }
 
         private func maskedCurrency(_ value: Double?) -> String {
-            return parameters.header.showValue ? (value?.toCurrency() ?? "") : "R$ ••••••"
+            return parameters.showValue ? (value?.toCurrency() ?? "") : "R$ ••••••"
         }
     }
 }

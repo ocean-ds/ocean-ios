@@ -131,14 +131,12 @@ class CardGroupSwiftUIViewController: UIViewController {
 
     lazy var cardGroup13 = factoryCardGroup(
         showSubtitle: false,
-        contentBackground: Ocean.color.colorStatusWarningDown,
         highlightText: "Pague seu boleto da Ortobom Colchões hoje usando seu limite de crédito.",
         highlightContentBackground: Ocean.color.colorStatusWarningDown
     )
 
     lazy var cardGroup14 = factoryCardGroup(
         headerBackground: Ocean.color.colorInterfaceLightUp,
-        contentBackground: Ocean.color.colorInterfaceLightUp,
         highlightText: "Pague seu boleto da Ortobom Colchões hoje usando seu limite de crédito.",
         highlightContentBackground: Ocean.color.colorBrandPrimaryPure,
         highlightTextColor: Ocean.color.colorInterfaceLightUp,
@@ -152,7 +150,6 @@ class CardGroupSwiftUIViewController: UIViewController {
     lazy var cardGroup15 = factoryCardGroup(
         showSubtitle: false,
         headerBackground: Ocean.color.colorInterfaceLightUp,
-        contentBackground: Ocean.color.colorInterfaceLightUp,
         highlightText: "Pague seu boleto da Ortobom Colchões hoje usando seu limite de crédito.",
         highlightContentBackground: Ocean.color.colorBrandPrimaryPure,
         highlightTextColor: Ocean.color.colorInterfaceLightUp,
@@ -203,7 +200,6 @@ class CardGroupSwiftUIViewController: UIViewController {
         showSubtitle: Bool = true,
         caption: String = "Pague em até 12 vezes",
         headerBackground: UIColor = Ocean.color.colorInterfaceLightPure,
-        contentBackground: UIColor? = nil,
         highlightText: String? = nil,
         highlightContentBackground: UIColor? = nil,
         highlightTextColor: UIColor = Ocean.color.colorInterfaceDarkDeep,
@@ -220,7 +216,6 @@ class CardGroupSwiftUIViewController: UIViewController {
             view.parameters.title = title
             view.parameters.headerBackgroundColor = headerBackground
             view.parameters.hasDivider = includeDivider
-            view.parameters.contentBackgroundColor = contentBackground
             view.parameters.ctaText = ctaText
             view.parameters.ctaBadgeCount = ctaBadgeCount
             view.parameters.ctaBadgeStatus = ctaBadgeStatus
@@ -238,7 +233,7 @@ class CardGroupSwiftUIViewController: UIViewController {
                 item.parameters.hasCaptionBold = true
                 item.parameters.leadingImage = Ocean.icon.fingerPrintSolid
                 item.parameters.status = .highlight
-                item.parameters.backgroundColor = contentBackground
+                item.parameters.backgroundColor = headerBackground
             }
             view.parameters.onTouch = {
                 print("Ir para boletos tapped")
