@@ -219,6 +219,7 @@ extension OceanSwiftUI {
                             tag.parameters.icon = parameters.tagIcon
                             tag.parameters.status = parameters.tagStatus
                             tag.parameters.size = parameters.tagSize
+                            tag.parameters.hasLabelBold = parameters.hasCaptionBold
                         }
                     }
 
@@ -327,6 +328,7 @@ extension OceanSwiftUI {
                                 tag.parameters.icon = parameters.tagIcon
                                 tag.parameters.status = parameters.tagStatus
                                 tag.parameters.size = parameters.tagSize
+                                tag.parameters.hasLabelBold = parameters.hasCaptionBold
                             }
                         }
 

@@ -13,6 +13,7 @@ extension OceanSwiftUI {
 
     public class TagParameters: ObservableObject {
         @Published public var label: String
+        @Published public var hasLabelBold: Bool
         @Published public var icon: UIImage?
         @Published public var status: Status
         @Published public var size: Size
@@ -35,11 +36,13 @@ extension OceanSwiftUI {
         }
 
         public init(label: String = "",
+                    hasLabelBold: Bool = false,
                     icon: UIImage? = nil,
                     status: Status = .positive,
                     size: Size = .medium,
                     showSkeleton: Bool = false) {
             self.label = label
+            self.hasLabelBold = hasLabelBold
             self.icon = icon
             self.status = status
             self.size = size
@@ -90,10 +93,16 @@ extension OceanSwiftUI {
                         Spacer().frame(width: Ocean.size.spacingStackXxxs)
                     }
 
-                    OceanSwiftUI.Typography.caption { label in
-                        label.parameters.textColor = self.getColor()
-                        label.parameters.text = self.parameters.label
-                        label.parameters.lineLimit = 1
+                    if parameters.hasLabelBold {
+                        OceanSwiftUI.Typography.captionBold { label in
+                            label.parameters.text = self.parameters.label
+                            label.parameters.textColor = self.getColor()
+                        }
+                    } else {
+                        OceanSwiftUI.Typography.caption { label in
+                            label.parameters.text = self.parameters.label
+                            label.parameters.textColor = self.getColor()
+                        }
                     }
                 }
                 .padding(.horizontal, self.parameters.size == .medium ? Ocean.size.spacingStackXxs : Ocean.size.spacingStackXxxs)

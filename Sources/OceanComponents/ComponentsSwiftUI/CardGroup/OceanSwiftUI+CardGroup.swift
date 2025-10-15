@@ -20,6 +20,7 @@ extension OceanSwiftUI {
         @Published public var badgeCount: Int?
         @Published public var badgeStatus: BadgeParameters.Status
         @Published public var tagLabel: String?
+        @Published public var hasTagLabelBold: Bool
         @Published public var tagStatus: TagParameters.Status
         @Published public var progress: Float?
         @Published public var view: (any View)?
@@ -48,6 +49,7 @@ extension OceanSwiftUI {
                     badgeCount: Int? = nil,
                     badgeStatus: BadgeParameters.Status = .warning,
                     tagLabel: String? = nil,
+                    hasTagLabelBold: Bool = false,
                     tagStatus: TagParameters.Status = .warning,
                     progress: Float? = nil,
                     view: (any View)? = nil,
@@ -75,6 +77,7 @@ extension OceanSwiftUI {
             self.badgeCount = badgeCount
             self.badgeStatus = badgeStatus
             self.tagLabel = tagLabel
+            self.hasTagLabelBold = hasTagLabelBold
             self.tagStatus = tagStatus
             self.progress = progress
             self.view = view
@@ -207,6 +210,7 @@ extension OceanSwiftUI {
                                         Tag { tag in
                                             tag.parameters.label = tagLabel
                                             tag.parameters.status = self.parameters.tagStatus
+                                            tag.parameters.hasLabelBold = self.parameters.hasTagLabelBold
                                         }
                                     }
                                 }
@@ -217,6 +221,7 @@ extension OceanSwiftUI {
                                     Tag { tag in
                                         tag.parameters.label = tagLabelHeader
                                         tag.parameters.status = parameters.tagStatusHeader
+                                        tag.parameters.hasLabelBold = parameters.hasTagLabelBold
                                     }
                                 } else if let badgeCount = parameters.badgeCount {
                                     Badge { badge in

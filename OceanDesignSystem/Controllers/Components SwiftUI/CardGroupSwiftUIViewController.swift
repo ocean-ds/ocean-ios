@@ -18,6 +18,7 @@ class CardGroupSwiftUIViewController: UIViewController {
             view.parameters.title = "Crédito"
             view.parameters.tagLabelHeader = "Boletos disponíveis"
             view.parameters.tagStatusHeader = .highlightNeutral
+            view.parameters.hasTagLabelBold = true
             view.parameters.headerBackgroundColor = Ocean.color.colorInterfaceLightUp
             view.parameters.hasDivider = false
             view.parameters.view = OceanSwiftUI.InvertedTextListItem { item in
