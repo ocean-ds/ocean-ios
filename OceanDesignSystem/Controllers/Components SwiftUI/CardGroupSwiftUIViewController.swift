@@ -23,10 +23,7 @@ class CardGroupSwiftUIViewController: UIViewController {
                 item.parameters.subtitle = "R$ 9.000,00"
                 item.parameters.caption = "Pague em até 12 vezes"
                 item.parameters.hasCaptionBold = true
-                item.parameters.icon = Ocean.icon.fingerPrintSolid
-                item.parameters.iconWidth = 56
-                item.parameters.iconHeight = 56
-                item.parameters.alignmentIcon = .leading
+                item.parameters.leadingImage = Ocean.icon.fingerPrintSolid
                 item.parameters.status = .highlight
                 item.parameters.backgroundColor = Ocean.color.colorInterfaceLightUp
             }
@@ -49,10 +46,7 @@ class CardGroupSwiftUIViewController: UIViewController {
                 item.parameters.showSubtitle = false
                 item.parameters.caption = "Pague em até 12 vezes"
                 item.parameters.hasCaptionBold = true
-                item.parameters.icon = Ocean.icon.fingerPrintSolid
-                item.parameters.iconWidth = 56
-                item.parameters.iconHeight = 56
-                item.parameters.alignmentIcon = .leading
+                item.parameters.leadingImage = Ocean.icon.fingerPrintSolid
                 item.parameters.status = .highlight
                 item.parameters.backgroundColor = Ocean.color.colorInterfaceLightUp
             }
@@ -73,10 +67,7 @@ class CardGroupSwiftUIViewController: UIViewController {
                 item.parameters.subtitle = "R$ 9.000,00"
                 item.parameters.caption = "Pague em até 12 vezes"
                 item.parameters.hasCaptionBold = true
-                item.parameters.icon = Ocean.icon.fingerPrintSolid
-                item.parameters.iconWidth = 56
-                item.parameters.iconHeight = 56
-                item.parameters.alignmentIcon = .leading
+                item.parameters.leadingImage = Ocean.icon.fingerPrintSolid
                 item.parameters.status = .highlight
                 item.parameters.backgroundColor = Ocean.color.colorInterfaceLightPure
             }
@@ -99,10 +90,7 @@ class CardGroupSwiftUIViewController: UIViewController {
                 item.parameters.showSubtitle = false
                 item.parameters.caption = "Pague em até 12 vezes"
                 item.parameters.hasCaptionBold = true
-                item.parameters.icon = Ocean.icon.fingerPrintSolid
-                item.parameters.iconWidth = 56
-                item.parameters.iconHeight = 56
-                item.parameters.alignmentIcon = .leading
+                item.parameters.leadingImage = Ocean.icon.fingerPrintSolid
                 item.parameters.status = .highlight
                 item.parameters.backgroundColor = Ocean.color.colorInterfaceLightPure
             }
@@ -124,10 +112,7 @@ class CardGroupSwiftUIViewController: UIViewController {
                 item.parameters.subtitle = "R$ 9.000,00"
                 item.parameters.caption = "Pague em até 12 vezes"
                 item.parameters.hasCaptionBold = true
-                item.parameters.icon = Ocean.icon.fingerPrintSolid
-                item.parameters.iconWidth = 56
-                item.parameters.iconHeight = 56
-                item.parameters.alignmentIcon = .leading
+                item.parameters.leadingImage = Ocean.icon.fingerPrintSolid
                 item.parameters.status = .highlight
                 item.parameters.backgroundColor = Ocean.color.colorInterfaceLightPure
             }
@@ -152,10 +137,7 @@ class CardGroupSwiftUIViewController: UIViewController {
                 item.parameters.showSubtitle = false
                 item.parameters.caption = "Pague em até 12 vezes"
                 item.parameters.hasCaptionBold = true
-                item.parameters.icon = Ocean.icon.fingerPrintSolid
-                item.parameters.iconWidth = 56
-                item.parameters.iconHeight = 56
-                item.parameters.alignmentIcon = .leading
+                item.parameters.leadingImage = Ocean.icon.fingerPrintSolid
                 item.parameters.status = .highlight
                 item.parameters.backgroundColor = Ocean.color.colorInterfaceLightPure
             }
@@ -183,10 +165,7 @@ class CardGroupSwiftUIViewController: UIViewController {
                 item.parameters.subtitle = "R$ 9.000,00"
                 item.parameters.caption = "Pague em até 12 vezes"
                 item.parameters.hasCaptionBold = true
-                item.parameters.icon = Ocean.icon.fingerPrintSolid
-                item.parameters.iconWidth = 56
-                item.parameters.iconHeight = 56
-                item.parameters.alignmentIcon = .leading
+                item.parameters.leadingImage = Ocean.icon.fingerPrintSolid
                 item.parameters.status = .highlight
                 item.parameters.backgroundColor = Ocean.color.colorInterfaceLightUp
             }
@@ -216,10 +195,7 @@ class CardGroupSwiftUIViewController: UIViewController {
                 item.parameters.showSubtitle = false
                 item.parameters.caption = "Pague em até 12 vezes"
                 item.parameters.hasCaptionBold = true
-                item.parameters.icon = Ocean.icon.fingerPrintSolid
-                item.parameters.iconWidth = 56
-                item.parameters.iconHeight = 56
-                item.parameters.alignmentIcon = .leading
+                item.parameters.leadingImage = Ocean.icon.fingerPrintSolid
                 item.parameters.status = .highlight
                 item.parameters.backgroundColor = Ocean.color.colorInterfaceLightUp
             }
