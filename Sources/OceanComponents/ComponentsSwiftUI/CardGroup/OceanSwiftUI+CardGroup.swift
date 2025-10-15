@@ -37,6 +37,7 @@ extension OceanSwiftUI {
         @Published public var ctaBadgeCount: Int?
         @Published public var ctaBadgeStatus: BadgeParameters.Status
         @Published public var highlightText: String?
+        @Published public var highlightTextColor: UIColor
         @Published public var headerBackgroundColor: UIColor?
         @Published public var contentBackgroundColor: UIColor?
         @Published public var highlightContentBackgroundColor: UIColor?
@@ -66,6 +67,7 @@ extension OceanSwiftUI {
                     ctaBadgeCount: Int? = nil,
                     ctaBadgeStatus: BadgeParameters.Status = .warning,
                     highlightText: String? = nil,
+                    highlightTextColor: UIColor = Ocean.color.colorInterfaceLightUp,
                     headerBackgroundColor: UIColor? = nil,
                     contentBackgroundColor: UIColor? = nil,
                     highlightContentBackgroundColor: UIColor? = nil,
@@ -94,6 +96,7 @@ extension OceanSwiftUI {
             self.ctaBadgeCount = ctaBadgeCount
             self.ctaBadgeStatus = ctaBadgeStatus
             self.highlightText = highlightText
+            self.highlightTextColor = highlightTextColor
             self.headerBackgroundColor = headerBackgroundColor
             self.contentBackgroundColor = contentBackgroundColor
             self.highlightContentBackgroundColor = highlightContentBackgroundColor
@@ -284,6 +287,7 @@ extension OceanSwiftUI {
                     if let highlightText = parameters.highlightText {
                             OceanSwiftUI.Typography.captionBold { view in
                                 view.parameters.text = highlightText
+                                view.parameters.textColor = parameters.highlightTextColor
                             }
                         .padding(.top, Ocean.size.spacingStackSm)
                         .padding(.horizontal, Ocean.size.spacingStackXs)

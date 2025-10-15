@@ -13,6 +13,163 @@ import SwiftUI
 
 class CardGroupSwiftUIViewController: UIViewController {
 
+    lazy var cardGroup000: OceanSwiftUI.CardGroup = {
+        OceanSwiftUI.CardGroup { view in
+            view.parameters.title = "Crédito"
+            view.parameters.headerBackgroundColor = Ocean.color.colorInterfaceLightUp
+            view.parameters.hasDivider = false
+            view.parameters.view = OceanSwiftUI.InvertedTextListItem { item in
+                item.parameters.title = "Limite para pagar boletos"
+                item.parameters.subtitle = "R$ 9.000,00"
+                item.parameters.caption = "Pague em até 12 vezes"
+                item.parameters.hasCaptionBold = true
+                item.parameters.icon = Ocean.icon.fingerPrintSolid
+                item.parameters.iconWidth = 56
+                item.parameters.iconHeight = 56
+                item.parameters.alignmentIcon = .leading
+                item.parameters.status = .highlight
+                item.parameters.backgroundColor = Ocean.color.colorInterfaceLightUp
+            }
+            view.parameters.ctaText = "Como usar crédito"
+            view.parameters.contentBackgroundColor = Ocean.color.colorInterfaceLightUp
+            view.parameters.onTouch = {
+                print("Ir para boletos tapped")
+            }
+        }
+    }()
+
+    lazy var cardGroup001: OceanSwiftUI.CardGroup = {
+        OceanSwiftUI.CardGroup { view in
+            view.parameters.title = "Crédito"
+            view.parameters.headerBackgroundColor = Ocean.color.colorInterfaceLightUp
+            view.parameters.hasDivider = false
+            view.parameters.view = OceanSwiftUI.InvertedTextListItem { item in
+                item.parameters.title = "Limite para pagar boletos"
+                item.parameters.subtitle = "R$ 9.000,00"
+                item.parameters.showSubtitle = false
+                item.parameters.caption = "Pague em até 12 vezes"
+                item.parameters.hasCaptionBold = true
+                item.parameters.icon = Ocean.icon.fingerPrintSolid
+                item.parameters.iconWidth = 56
+                item.parameters.iconHeight = 56
+                item.parameters.alignmentIcon = .leading
+                item.parameters.status = .highlight
+                item.parameters.backgroundColor = Ocean.color.colorInterfaceLightUp
+            }
+            view.parameters.ctaText = "Como usar crédito"
+            view.parameters.contentBackgroundColor = Ocean.color.colorInterfaceLightUp
+            view.parameters.onTouch = {
+                print("Ir para boletos tapped")
+            }
+        }
+    }()
+    lazy var cardGroup0000: OceanSwiftUI.CardGroup = {
+        OceanSwiftUI.CardGroup { view in
+            view.parameters.title = "Crédito"
+            view.parameters.headerBackgroundColor = Ocean.color.colorInterfaceLightPure
+            view.parameters.hasDivider = false
+            view.parameters.view = OceanSwiftUI.InvertedTextListItem { item in
+                item.parameters.title = "Limite para pagar boletos"
+                item.parameters.subtitle = "R$ 9.000,00"
+                item.parameters.caption = "Pague em até 12 vezes"
+                item.parameters.hasCaptionBold = true
+                item.parameters.icon = Ocean.icon.fingerPrintSolid
+                item.parameters.iconWidth = 56
+                item.parameters.iconHeight = 56
+                item.parameters.alignmentIcon = .leading
+                item.parameters.status = .highlight
+                item.parameters.backgroundColor = Ocean.color.colorInterfaceLightPure
+            }
+            view.parameters.ctaText = "Como usar crédito"
+            view.parameters.contentBackgroundColor = Ocean.color.colorInterfaceLightPure
+            view.parameters.onTouch = {
+                print("Ir para boletos tapped")
+            }
+        }
+    }()
+
+    lazy var cardGroup0001: OceanSwiftUI.CardGroup = {
+        OceanSwiftUI.CardGroup { view in
+            view.parameters.title = "Crédito"
+            view.parameters.headerBackgroundColor = Ocean.color.colorInterfaceLightPure
+            view.parameters.hasDivider = false
+            view.parameters.view = OceanSwiftUI.InvertedTextListItem { item in
+                item.parameters.title = "Limite para pagar boletos"
+                item.parameters.subtitle = "R$ 9.000,00"
+                item.parameters.showSubtitle = false
+                item.parameters.caption = "Pague em até 12 vezes"
+                item.parameters.hasCaptionBold = true
+                item.parameters.icon = Ocean.icon.fingerPrintSolid
+                item.parameters.iconWidth = 56
+                item.parameters.iconHeight = 56
+                item.parameters.alignmentIcon = .leading
+                item.parameters.status = .highlight
+                item.parameters.backgroundColor = Ocean.color.colorInterfaceLightPure
+            }
+            view.parameters.ctaText = "Como usar crédito"
+            view.parameters.contentBackgroundColor = Ocean.color.colorInterfaceLightPure
+            view.parameters.onTouch = {
+                print("Ir para boletos tapped")
+            }
+        }
+    }()
+
+    lazy var cardGroupWarning: OceanSwiftUI.CardGroup = {
+        OceanSwiftUI.CardGroup { view in
+            view.parameters.title = "Crédito"
+            view.parameters.headerBackgroundColor = Ocean.color.colorInterfaceLightPure
+            view.parameters.hasDivider = false
+            view.parameters.view = OceanSwiftUI.InvertedTextListItem { item in
+                item.parameters.title = "Limite para pagar boletos"
+                item.parameters.subtitle = "R$ 9.000,00"
+                item.parameters.caption = "Pague em até 12 vezes"
+                item.parameters.hasCaptionBold = true
+                item.parameters.icon = Ocean.icon.fingerPrintSolid
+                item.parameters.iconWidth = 56
+                item.parameters.iconHeight = 56
+                item.parameters.alignmentIcon = .leading
+                item.parameters.status = .highlight
+                item.parameters.backgroundColor = Ocean.color.colorInterfaceLightPure
+            }
+            view.parameters.ctaText = "Como usar crédito"
+            view.parameters.highlightText = "Pague seu boleto da Ortobom Colchões hoje usando seu limite de crédito."
+            view.parameters.highlightContentBackgroundColor = Ocean.color.colorStatusWarningDown
+            view.parameters.highlightTextColor = Ocean.color.colorInterfaceDarkDeep
+            view.parameters.onTouch = {
+                print("Ir para boletos tapped")
+            }
+        }
+    }()
+
+    lazy var cardGroupWarningNotShow: OceanSwiftUI.CardGroup = {
+        OceanSwiftUI.CardGroup { view in
+            view.parameters.title = "Crédito"
+            view.parameters.headerBackgroundColor = Ocean.color.colorInterfaceLightPure
+            view.parameters.hasDivider = false
+            view.parameters.view = OceanSwiftUI.InvertedTextListItem { item in
+                item.parameters.title = "Limite para pagar boletos"
+                item.parameters.subtitle = "R$ 9.000,00"
+                item.parameters.showSubtitle = false
+                item.parameters.caption = "Pague em até 12 vezes"
+                item.parameters.hasCaptionBold = true
+                item.parameters.icon = Ocean.icon.fingerPrintSolid
+                item.parameters.iconWidth = 56
+                item.parameters.iconHeight = 56
+                item.parameters.alignmentIcon = .leading
+                item.parameters.status = .highlight
+                item.parameters.backgroundColor = Ocean.color.colorInterfaceLightPure
+            }
+            view.parameters.ctaText = "Como usar crédito"
+            view.parameters.contentBackgroundColor = Ocean.color.colorStatusWarningDown
+            view.parameters.highlightText = "Pague seu boleto da Ortobom Colchões hoje usando seu limite de crédito."
+            view.parameters.highlightContentBackgroundColor = Ocean.color.colorStatusWarningDown
+            view.parameters.highlightTextColor = Ocean.color.colorInterfaceDarkDeep
+            view.parameters.onTouch = {
+                print("Ir para boletos tapped")
+            }
+        }
+    }()
+
     lazy var cardGroup00: OceanSwiftUI.CardGroup = {
         OceanSwiftUI.CardGroup { view in
             view.parameters.title = "Crédito"
@@ -52,7 +209,6 @@ class CardGroupSwiftUIViewController: UIViewController {
             view.parameters.tagStatusHeader = .highlightNeutral
             view.parameters.hasTagLabelBold = true
             view.parameters.headerBackgroundColor = Ocean.color.colorInterfaceLightUp
-            view.parameters.hasDivider = false
             view.parameters.hasDivider = false
             view.parameters.view = OceanSwiftUI.InvertedTextListItem { item in
                 item.parameters.title = "Limite para pagar boletos"
@@ -198,8 +354,14 @@ class CardGroupSwiftUIViewController: UIViewController {
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
+            cardGroup000
+            cardGroup001
             cardGroup00
             cardGroup01
+            cardGroup0000
+            cardGroup0001
+            cardGroupWarning
+            cardGroupWarningNotShow
             cardGroup
             cardGroup1
             cardGroup2
