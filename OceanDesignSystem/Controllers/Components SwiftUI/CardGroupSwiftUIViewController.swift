@@ -20,14 +20,16 @@ class CardGroupSwiftUIViewController: UIViewController {
             view.parameters.tagStatusHeader = .highlightNeutral
             view.parameters.headerBackgroundColor = Ocean.color.colorInterfaceLightUp
             view.parameters.hasDivider = false
-            view.parameters.view = OceanSwiftUI.TextListItem { item in
+            view.parameters.view = OceanSwiftUI.InvertedTextListItem { item in
                 item.parameters.title = "Limite para pagar boletos"
-                item.parameters.description = "R$ 9.000,00"
+                item.parameters.subtitle = "R$ 9.000,00"
                 item.parameters.caption = "Pague em até 12 vezes"
+                item.parameters.hasCaptionBold = true
                 item.parameters.icon = Ocean.icon.fingerPrintSolid
-                item.parameters.iconColor = Ocean.color.colorBrandPrimaryDown
                 item.parameters.iconWidth = 56
                 item.parameters.iconHeight = 56
+                item.parameters.alignmentIcon = .leading
+                item.parameters.status = .highlight
                 item.parameters.backgroundColor = Ocean.color.colorInterfaceLightUp
             }
             view.parameters.ctaText = "Ir para boletos"
