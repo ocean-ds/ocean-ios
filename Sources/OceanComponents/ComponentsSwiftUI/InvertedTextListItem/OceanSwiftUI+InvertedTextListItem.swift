@@ -175,7 +175,7 @@ extension OceanSwiftUI {
                             }
 
                             OceanSwiftUI.Typography.paragraph { label in
-                                label.parameters.text = parameters.subtitle
+                                label.parameters.text = maskedValue(parameters.subtitle)
 
                                 if parameters.newSubtitle.isEmpty {
                                     label.parameters.textColor = getStatusColor()
@@ -192,6 +192,7 @@ extension OceanSwiftUI {
                                     label.parameters.font = .baseBold(size: Ocean.font.fontSizeMd)
                                 }
                             }
+                            .animation(.easeInOut(duration: 0.2), value: parameters.showSubtitle)
 
                             if !parameters.newSubtitle.isEmpty {
                                 Spacer()
@@ -238,6 +239,7 @@ extension OceanSwiftUI {
             }
             .padding(parameters.padding)
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+            .background(Color(parameters.backgroundColor ?? Ocean.color.colorInterfaceLightPure))
         }
 
         private func getStatusColor() -> UIColor {
@@ -257,6 +259,10 @@ extension OceanSwiftUI {
             default:
                 return Ocean.color.colorInterfaceDarkDeep
             }
+        }
+
+        private func maskedValue(_ value: String) -> String {
+            return parameters.showSubtitle ? value : "R$ ••••••"
         }
 
         private struct Constants {

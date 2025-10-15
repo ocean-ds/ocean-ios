@@ -12,53 +12,6 @@ import OceanComponents
 import SwiftUI
 
 class CardGroupSwiftUIViewController: UIViewController {
-
-    lazy var cardGroup8 = factoryCardGroup(headerBackground: Ocean.color.colorInterfaceLightUp)
-
-    lazy var cardGroup9 = factoryCardGroup(
-        showSubtitle: false,
-        headerBackground: Ocean.color.colorInterfaceLightUp
-    )
-
-    lazy var cardGroup10 = factoryCardGroup()
-
-    lazy var cardGroup11 = factoryCardGroup(showSubtitle: false)
-
-    lazy var cardGroup12 = factoryCardGroup(
-        highlightText: "Pague seu boleto da Ortobom Colchões hoje usando seu limite de crédito.",
-        highlightContentBackground: Ocean.color.colorStatusWarningDown
-    )
-
-    lazy var cardGroup13 = factoryCardGroup(
-        showSubtitle: false,
-        contentBackground: Ocean.color.colorStatusWarningDown,
-        highlightText: "Pague seu boleto da Ortobom Colchões hoje usando seu limite de crédito.",
-        highlightContentBackground: Ocean.color.colorStatusWarningDown
-    )
-
-    lazy var cardGroup14 = factoryCardGroup(
-        headerBackground: Ocean.color.colorInterfaceLightUp,
-        highlightText: "Pague seu boleto da Ortobom Colchões hoje usando seu limite de crédito.",
-        highlightContentBackground: Ocean.color.colorBrandPrimaryPure,
-        tagLabelHeader: "Boletos disponíveis",
-        hasTagBold: true,
-        ctaText: "Ir para boletos",
-        ctaBadgeCount: 3,
-        ctaBadgeStatus: .warning
-    )
-
-    lazy var cardGroup15 = factoryCardGroup(
-        showSubtitle: false,
-        headerBackground: Ocean.color.colorInterfaceLightUp,
-        highlightText: "Pague seu boleto da Ortobom Colchões hoje usando seu limite de crédito.",
-        highlightContentBackground: Ocean.color.colorBrandPrimaryPure,
-        tagLabelHeader: "Boletos disponíveis",
-        hasTagBold: true,
-        ctaText: "Ir para boletos",
-        ctaBadgeCount: 3,
-        ctaBadgeStatus: .warning,
-    )
-
     lazy var cardGroup = OceanSwiftUI.CardGroup { view in
         view.parameters.title = "Title"
         view.parameters.subtitle = "Subtitle"
@@ -160,6 +113,56 @@ class CardGroupSwiftUIViewController: UIViewController {
         }
     }
 
+    lazy var cardGroup8 = factoryCardGroup(headerBackground: Ocean.color.colorInterfaceLightUp)
+
+    lazy var cardGroup9 = factoryCardGroup(
+        showSubtitle: false,
+        headerBackground: Ocean.color.colorInterfaceLightUp
+    )
+
+    lazy var cardGroup10 = factoryCardGroup()
+
+    lazy var cardGroup11 = factoryCardGroup(showSubtitle: false)
+
+    lazy var cardGroup12 = factoryCardGroup(
+        highlightText: "Pague seu boleto da Ortobom Colchões hoje usando seu limite de crédito.",
+        highlightContentBackground: Ocean.color.colorStatusWarningDown
+    )
+
+    lazy var cardGroup13 = factoryCardGroup(
+        showSubtitle: false,
+        contentBackground: Ocean.color.colorStatusWarningDown,
+        highlightText: "Pague seu boleto da Ortobom Colchões hoje usando seu limite de crédito.",
+        highlightContentBackground: Ocean.color.colorStatusWarningDown
+    )
+
+    lazy var cardGroup14 = factoryCardGroup(
+        headerBackground: Ocean.color.colorInterfaceLightUp,
+        contentBackground: Ocean.color.colorInterfaceLightUp,
+        highlightText: "Pague seu boleto da Ortobom Colchões hoje usando seu limite de crédito.",
+        highlightContentBackground: Ocean.color.colorBrandPrimaryPure,
+        highlightTextColor: Ocean.color.colorInterfaceLightUp,
+        tagLabelHeader: "Boletos disponíveis",
+        hasTagBold: true,
+        ctaText: "Ir para boletos",
+        ctaBadgeCount: 3,
+        ctaBadgeStatus: .warning
+    )
+
+    lazy var cardGroup15 = factoryCardGroup(
+        showSubtitle: false,
+        headerBackground: Ocean.color.colorInterfaceLightUp,
+        contentBackground: Ocean.color.colorInterfaceLightUp,
+        highlightText: "Pague seu boleto da Ortobom Colchões hoje usando seu limite de crédito.",
+        highlightContentBackground: Ocean.color.colorBrandPrimaryPure,
+        highlightTextColor: Ocean.color.colorInterfaceLightUp,
+        tagLabelHeader: "Boletos disponíveis",
+        hasTagBold: true,
+        ctaText: "Ir para boletos",
+        ctaBadgeCount: 3,
+        ctaBadgeStatus: .warning,
+    )
+
     // MARK: - Hosting
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
@@ -217,7 +220,7 @@ class CardGroupSwiftUIViewController: UIViewController {
             view.parameters.title = title
             view.parameters.headerBackgroundColor = headerBackground
             view.parameters.hasDivider = includeDivider
-            view.parameters.contentBackgroundColor = contentBackground ?? headerBackground
+            view.parameters.contentBackgroundColor = contentBackground
             view.parameters.ctaText = ctaText
             view.parameters.ctaBadgeCount = ctaBadgeCount
             view.parameters.ctaBadgeStatus = ctaBadgeStatus
@@ -235,7 +238,7 @@ class CardGroupSwiftUIViewController: UIViewController {
                 item.parameters.hasCaptionBold = true
                 item.parameters.leadingImage = Ocean.icon.fingerPrintSolid
                 item.parameters.status = .highlight
-                item.parameters.backgroundColor = contentBackground ?? headerBackground
+                item.parameters.backgroundColor = contentBackground
             }
             view.parameters.onTouch = {
                 print("Ir para boletos tapped")
