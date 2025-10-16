@@ -177,6 +177,15 @@ extension OceanSwiftUI.Typography {
         }
     }
 
+    public static func captionBold(builder: OceanSwiftUI.Typography.Builder? = nil) -> OceanSwiftUI.Typography {
+        return OceanSwiftUI.Typography { label in
+            label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
+            label.parameters.textColor = Ocean.color.colorInterfaceLightUp
+            label.parameters.lineSpacing = Ocean.font.lineHeightComfy
+            builder?(label)
+        }
+    }
+
     public static func captionInverse(builder: OceanSwiftUI.Typography.Builder? = nil) -> OceanSwiftUI.Typography {
         return OceanSwiftUI.Typography.caption { label in
             builder?(label)

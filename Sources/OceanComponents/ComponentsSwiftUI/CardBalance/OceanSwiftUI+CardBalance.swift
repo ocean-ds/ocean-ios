@@ -15,11 +15,11 @@ extension OceanSwiftUI {
         @Published public var balanceRows: [BalanceRow]
         @Published public var footer: Footer
         @Published public var state: CardBalanceState
+        @Published public var showValue: Bool
         @Published public var showSkeleton: Bool
         @Published public var padding: EdgeInsets
 
         public var onToggle: (() -> Void)?
-        public var onCTATap: (() -> Void)?
         public var onFooterTap: (() -> Void)?
 
         public init(
@@ -27,20 +27,20 @@ extension OceanSwiftUI {
             balanceRows: [BalanceRow] = [],
             footer: Footer = Footer(),
             state: CardBalanceState = .collapsed,
+            showValue: Bool = true,
             showSkeleton: Bool = false,
             padding: EdgeInsets = .all(Ocean.size.spacingStackXs),
             onToggle: (() -> Void)? = nil,
-            onCTATap: (() -> Void)? = nil,
             onFooterTap: (() -> Void)? = nil,
         ) {
             self.header = header
             self.balanceRows = balanceRows
             self.footer = footer
             self.state = state
+            self.showValue = showValue
             self.showSkeleton = showSkeleton
             self.padding = padding
             self.onToggle = onToggle
-            self.onCTATap = onCTATap
             self.onFooterTap = onFooterTap
         }
 
@@ -56,16 +56,13 @@ extension OceanSwiftUI {
         public struct Header: Equatable {
             public let title: String
             public let value: Double
-            public let showValue: Bool
             public let acquirers: [String]
 
             public init(title: String = "",
                         value: Double = 0,
-                        showValue: Bool = true,
                         acquirers: [String] = []) {
                 self.title = title
                 self.value = value
-                self.showValue = showValue
                 self.acquirers = acquirers
             }
         }
@@ -80,21 +77,24 @@ extension OceanSwiftUI {
             }
         }
 
-        public struct Footer: Equatable {
+        public struct Footer {
 
             public let description: String?
             public let title: String?
             public let value: Double?
             public let ctaTitle: String?
+            public var onCTATap: (() -> Void)?
 
             public init(description: String? = nil,
                         title: String? = nil,
                         value: Double? = nil,
-                        ctaTitle: String? = nil) {
+                        ctaTitle: String? = nil,
+                        onCTATap: (() -> Void)? = nil) {
                 self.description = description
                 self.title = title
                 self.value = value
                 self.ctaTitle = ctaTitle
+                self.onCTATap = onCTATap
             }
         }
 
@@ -183,7 +183,7 @@ extension OceanSwiftUI {
                 if let cta = parameters.footer.ctaTitle {
                     OceanSwiftUI.Button.secondarySM { view in
                         view.parameters.text = cta
-                        view.parameters.onTouch = { parameters.onCTATap?() }
+                        view.parameters.onTouch = { parameters.footer.onCTATap?() }
                     }
                     .fixedSize(horizontal: true, vertical: false)
                 }
@@ -256,7 +256,7 @@ extension OceanSwiftUI {
                         OceanSwiftUI.Typography.heading4 { view in
                             view.parameters.text = maskedCurrency(balance)
                         }
-                        .animation(.easeInOut(duration: 0.2), value: parameters.header.showValue)
+                        .animation(.easeInOut(duration: 0.2), value: parameters.showValue)
 
                     }
                 } else {
@@ -268,14 +268,14 @@ extension OceanSwiftUI {
                         OceanSwiftUI.Typography.heading5 { view in
                             view.parameters.text = maskedCurrency(balance)
                         }
-                        .animation(.easeInOut(duration: 0.2), value: parameters.header.showValue)
+                        .animation(.easeInOut(duration: 0.2), value: parameters.showValue)
                     }
                 }
             }
         }
 
         private func maskedCurrency(_ value: Double?) -> String {
-            return parameters.header.showValue ? (value?.toCurrency() ?? "") : "R$ ••••••"
+            return parameters.showValue ? (value?.toCurrency() ?? "") : "R$ ••••••"
         }
     }
 }

@@ -16,13 +16,19 @@ extension OceanSwiftUI {
         @Published public var title: String
         @Published public var subtitle: String
         @Published public var subtitleColor: UIColor?
+        @Published public var showSubtitle: Bool
         @Published public var newSubtitle: String
         @Published public var caption: String
+        @Published public var hasCaptionBold: Bool
         @Published public var icon: UIImage?
+        @Published public var leadingImage: UIImage?
+        @Published public var leadingImageWidth: CGFloat
+        @Published public var leadingImageHeight: CGFloat
         @Published public var tagLabel: String
         @Published public var tagIcon: UIImage?
         @Published public var tagStatus: OceanSwiftUI.TagParameters.Status
         @Published public var tagSize: OceanSwiftUI.TagParameters.Size
+        @Published public var backgroundColor: UIColor?
         @Published public var status: OceanSwiftUI.InvertedTextListItemParameters.State
         @Published public var tooltipText: String
         @Published public var padding: EdgeInsets
@@ -32,13 +38,20 @@ extension OceanSwiftUI {
         public init(title: String = "",
                     subtitle: String = "",
                     subtitleColor: UIColor? = nil,
+                    showSubtitle: Bool = true,
                     newSubtitle: String = "",
                     caption: String = "",
+                    hasCaptionBold: Bool = false,
+                    leadingImage: UIImage? = nil,
                     icon: UIImage? = nil,
+                    iconColor: UIColor = Ocean.color.colorBrandPrimaryDown,
+                    leadingImageWidth: CGFloat = 56,
+                    leadingImageHeight: CGFloat = 56,
                     tagLabel: String = "",
                     tagIcon: UIImage? = nil,
                     tagStatus: OceanSwiftUI.TagParameters.Status = .positive,
                     tagSize: OceanSwiftUI.TagParameters.Size = .medium,
+                    backgroundColor: UIColor? = nil,
                     status: OceanSwiftUI.InvertedTextListItemParameters.State = .normal,
                     tooltipText: String = "",
                     padding: EdgeInsets = .init(top: Ocean.size.spacingStackXxsExtra,
@@ -49,10 +62,14 @@ extension OceanSwiftUI {
                     link: OceanSwiftUI.LinkParameters = .init()) {
             self.title = title
             self.subtitle = subtitle
+            self.showSubtitle = showSubtitle
             self.subtitleColor = subtitleColor
             self.newSubtitle = newSubtitle
             self.caption = caption
+            self.hasCaptionBold = hasCaptionBold
             self.icon = icon
+            self.leadingImageWidth = leadingImageWidth
+            self.leadingImageHeight = leadingImageHeight
             self.tagLabel = tagLabel
             self.tagIcon = tagIcon
             self.tagStatus = tagStatus
@@ -106,108 +123,123 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            VStack(alignment: .leading, spacing: 0) {
-                HStack(spacing: Ocean.size.spacingStackXxxs) {
-                    if !parameters.title.isEmpty {
-                        OceanSwiftUI.Typography.description { label in
-                            label.parameters.text = parameters.title
-                            label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
-                        }
-                    }
+            HStack(spacing: 0) {
+                if let image = parameters.leadingImage {
+                    Image(uiImage: image)
+                        .resizable()
+                        .renderingMode(.template)
+                        .foregroundColor(Color(getStatusColor()))
+                        .frame(width: parameters.leadingImageWidth, height: parameters.leadingImageHeight)
 
-                    if !parameters.tooltipText.isEmpty {
-                        OceanSwiftUI.Tooltip { tooltip in
-                            tooltip.parameters.text = parameters.tooltipText
-                        }
-                    }
+                    Spacer()
+                        .frame(width: Ocean.size.spacingInsetXxs)
                 }
+                VStack(alignment: .leading, spacing: 0) {
 
-                if parameters.showSkeleton {
-                    GeometryReader { geometryReader in
-                        Rectangle()
-                            .oceanSkeleton(isActive: true,
-                                           size: CGSize(width: geometryReader.size.width,
-                                                        height: Constants.skeletonHeight),
-                                           shape: .rounded(.radius(Ocean.size.borderRadiusTiny,
-                                                                   style: .circular)))
+                    HStack(spacing: Ocean.size.spacingStackXxxs) {
+                        if !parameters.title.isEmpty {
+                            OceanSwiftUI.Typography.description { label in
+                                label.parameters.text = parameters.title
+                                label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                            }
+                        }
+
+                        if !parameters.tooltipText.isEmpty {
+                            OceanSwiftUI.Tooltip { tooltip in
+                                tooltip.parameters.text = parameters.tooltipText
+                            }
+                        }
                     }
-                    .frame(height: Constants.skeletonHeight)
-                } else {
-                    HStack(spacing: 0) {
-                        if let image = parameters.icon {
-                            Image(uiImage: image)
-                                .resizable()
-                                .renderingMode(.template)
-                                .foregroundColor(Color(getStatusColor()))
-                                .frame(width: Constants.iconSize, height: Constants.iconSize)
 
-                            Spacer()
-                                .frame(width: Ocean.size.spacingInsetXxs)
+                    if parameters.showSkeleton {
+                        GeometryReader { geometryReader in
+                            Rectangle()
+                                .oceanSkeleton(isActive: true,
+                                               size: CGSize(width: geometryReader.size.width,
+                                                            height: Constants.skeletonHeight),
+                                               shape: .rounded(.radius(Ocean.size.borderRadiusTiny,
+                                                                       style: .circular)))
                         }
+                        .frame(height: Constants.skeletonHeight)
+                    } else {
+                        HStack(spacing: 0) {
+                            if let image = parameters.icon {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .renderingMode(.template)
+                                    .foregroundColor(Color(getStatusColor()))
+                                    .frame(width: Constants.iconSize, height: Constants.iconSize)
 
-                        OceanSwiftUI.Typography.paragraph { label in
-                            label.parameters.text = parameters.subtitle
-
-                            if parameters.newSubtitle.isEmpty {
-                                label.parameters.textColor = getStatusColor()
-                            } else {
-                                label.parameters.strikethrough = true
-                                label.parameters.textColor = Ocean.color.colorInterfaceDarkPure
+                                Spacer()
+                                    .frame(width: Ocean.size.spacingInsetXxs)
                             }
-
-                            if parameters.status == .highlight {
-                                label.parameters.font = .baseBold(size: Ocean.font.fontSizeXs)
-                            }
-
-                            if parameters.status == .highlightLead {
-                                label.parameters.font = .baseBold(size: Ocean.font.fontSizeMd)
-                            }
-                        }
-
-                        if !parameters.newSubtitle.isEmpty {
-                            Spacer()
-                                .frame(width: Ocean.size.spacingInsetXxs)
 
                             OceanSwiftUI.Typography.paragraph { label in
-                                label.parameters.text = parameters.newSubtitle
-                                label.parameters.textColor = getStatusColor()
-                                label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXs)
+                                label.parameters.text = maskedValue(parameters.subtitle)
+
+                                if parameters.newSubtitle.isEmpty {
+                                    label.parameters.textColor = getStatusColor()
+                                } else {
+                                    label.parameters.strikethrough = true
+                                    label.parameters.textColor = Ocean.color.colorInterfaceDarkPure
+                                }
+
+                                if parameters.status == .highlight {
+                                    label.parameters.font = .baseBold(size: Ocean.font.fontSizeXs)
+                                }
+
+                                if parameters.status == .highlightLead {
+                                    label.parameters.font = .baseBold(size: Ocean.font.fontSizeMd)
+                                }
+                            }
+                            .animation(.easeInOut(duration: 0.2), value: parameters.showSubtitle)
+
+                            if !parameters.newSubtitle.isEmpty {
+                                Spacer()
+                                    .frame(width: Ocean.size.spacingInsetXxs)
+
+                                OceanSwiftUI.Typography.paragraph { label in
+                                    label.parameters.text = parameters.newSubtitle
+                                    label.parameters.textColor = getStatusColor()
+                                    label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXs)
+                                }
                             }
                         }
-                    }
 
-                    if !parameters.tagLabel.isEmpty {
-                        Spacer()
-                            .frame(height: Ocean.size.spacingStackXxs)
+                        if !parameters.tagLabel.isEmpty {
+                            Spacer()
+                                .frame(height: Ocean.size.spacingStackXxs)
 
-                        OceanSwiftUI.Tag { tag in
-                            tag.parameters.label = parameters.tagLabel
-                            tag.parameters.icon = parameters.tagIcon
-                            tag.parameters.status = parameters.tagStatus
-                            tag.parameters.size = parameters.tagSize
+                            OceanSwiftUI.Tag { tag in
+                                tag.parameters.label = parameters.tagLabel
+                                tag.parameters.icon = parameters.tagIcon
+                                tag.parameters.status = parameters.tagStatus
+                                tag.parameters.size = parameters.tagSize
+                            }
                         }
-                    }
 
-                    if !parameters.caption.isEmpty {
-                        Spacer()
-                            .frame(height: Ocean.size.spacingStackXxs)
+                        if !parameters.caption.isEmpty {
+                            Spacer()
+                                .frame(height: Ocean.size.spacingStackXxs)
 
-                        OceanSwiftUI.Typography.caption { label in
-                            label.parameters.text = parameters.caption
-                            label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                            OceanSwiftUI.Typography.caption { label in
+                                label.parameters.text = parameters.caption
+                                label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                            }
                         }
-                    }
 
-                    if !parameters.link.text.isEmpty {
-                        Spacer()
-                            .frame(height: Ocean.size.spacingStackXxsExtra)
+                        if !parameters.link.text.isEmpty {
+                            Spacer()
+                                .frame(height: Ocean.size.spacingStackXxsExtra)
 
-                        OceanSwiftUI.Link(parameters: parameters.link)
+                            OceanSwiftUI.Link(parameters: parameters.link)
+                        }
                     }
                 }
             }
             .padding(parameters.padding)
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+            .background(Color(parameters.backgroundColor ?? Ocean.color.colorInterfaceLightPure))
         }
 
         private func getStatusColor() -> UIColor {
@@ -227,6 +259,10 @@ extension OceanSwiftUI {
             default:
                 return Ocean.color.colorInterfaceDarkDeep
             }
+        }
+
+        private func maskedValue(_ value: String) -> String {
+            return parameters.showSubtitle ? value : "R$ ••••••"
         }
 
         private struct Constants {

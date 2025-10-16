@@ -15,17 +15,26 @@ extension OceanSwiftUI {
     public class CardCTAParameters: ObservableObject {
         @Published public var text: String
         @Published public var icon: UIImage?
+        @Published public var badgeCount: Int?
+        @Published public var badgeStatus: BadgeParameters.Status
+        @Published public var backgroundColor: UIColor?
         @Published public var isLoading: Bool
         @Published public var showSkeleton: Bool
         public var onTouch: () -> Void
 
         public init(text: String = "",
                     icon: UIImage? = Ocean.icon.chevronRightSolid,
+                    badgeCount: Int? = nil,
+                    badgeStatus: BadgeParameters.Status = .warning,
+                    backgroundColor: UIColor? = nil,
                     isLoading: Bool = false,
                     showSkeleton: Bool = false,
                     onTouch: @escaping () -> Void = { }) {
             self.text = text
             self.icon = icon
+            self.badgeCount = badgeCount
+            self.badgeStatus = badgeStatus
+            self.backgroundColor = backgroundColor
             self.isLoading = isLoading
             self.showSkeleton = showSkeleton
             self.onTouch = onTouch
@@ -83,6 +92,13 @@ extension OceanSwiftUI {
 
                             Spacer()
 
+                            if let badgeCount = self.parameters.badgeCount {
+                                Badge { badge in
+                                    badge.parameters.count = badgeCount
+                                    badge.parameters.status = self.parameters.badgeStatus
+                                }
+                            }
+
                             if let icon = self.parameters.icon {
                                 Image(uiImage: icon)
                                     .renderingMode(.template)
@@ -97,7 +113,7 @@ extension OceanSwiftUI {
             .frame(height: 48)
             .padding(.horizontal, Ocean.size.spacingStackXs)
             .cornerRadius(Ocean.size.borderRadiusMd)
-            .background(Color(Ocean.color.colorInterfaceLightPure))
+            .background(Color(parameters.backgroundColor ?? Ocean.color.colorInterfaceLightPure))
         }
 
         // MARK: Methods private
