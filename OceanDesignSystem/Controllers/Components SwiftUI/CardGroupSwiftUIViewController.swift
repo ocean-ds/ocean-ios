@@ -234,6 +234,10 @@ class CardGroupSwiftUIViewController: UIViewController {
                 item.parameters.leadingImage = Ocean.icon.fingerPrintSolid
                 item.parameters.status = .highlight
                 item.parameters.backgroundColor = headerBackground
+                item.parameters.padding = .init(top: -Ocean.size.spacingStackXxsExtra,
+                                                leading: Ocean.size.spacingStackXs,
+                                                bottom: Ocean.size.spacingStackXxsExtra,
+                                                trailing: Ocean.size.spacingStackXs)
             }
             view.parameters.onTouch = {
                 print("Ir para boletos tapped")

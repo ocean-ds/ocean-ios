@@ -25,7 +25,7 @@ class CardBalanceSwiftUIViewController: UIViewController {
             )
             view.parameters.state = .collapsed
             view.parameters.onToggle = { print("CardBalance toggled") }
-            view.parameters.onCTATap = { print("CTA tapped") }
+            view.parameters.footer.onCTATap = { print("CTA tapped") }
         }
     }()
 
@@ -50,7 +50,7 @@ class CardBalanceSwiftUIViewController: UIViewController {
             )
             view.parameters.state = .collapsed
             view.parameters.onToggle = { print("CardBalance toggled") }
-            view.parameters.onCTATap = { print("CTA tapped") }
+            view.parameters.footer.onCTATap = { print("CTA tapped") }
         }
     }()
 
@@ -73,7 +73,7 @@ class CardBalanceSwiftUIViewController: UIViewController {
             )
             view.parameters.state = .collapsed
             view.parameters.onToggle = { print("CardBalance toggled") }
-            view.parameters.onCTATap = { print("CTA tapped") }
+            view.parameters.footer.onCTATap = { print("CTA tapped") }
         }
     }()
 

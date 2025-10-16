@@ -20,7 +20,6 @@ extension OceanSwiftUI {
         @Published public var padding: EdgeInsets
 
         public var onToggle: (() -> Void)?
-        public var onCTATap: (() -> Void)?
         public var onFooterTap: (() -> Void)?
 
         public init(
@@ -32,7 +31,6 @@ extension OceanSwiftUI {
             showSkeleton: Bool = false,
             padding: EdgeInsets = .all(Ocean.size.spacingStackXs),
             onToggle: (() -> Void)? = nil,
-            onCTATap: (() -> Void)? = nil,
             onFooterTap: (() -> Void)? = nil,
         ) {
             self.header = header
@@ -43,7 +41,6 @@ extension OceanSwiftUI {
             self.showSkeleton = showSkeleton
             self.padding = padding
             self.onToggle = onToggle
-            self.onCTATap = onCTATap
             self.onFooterTap = onFooterTap
         }
 
@@ -80,21 +77,24 @@ extension OceanSwiftUI {
             }
         }
 
-        public struct Footer: Equatable {
+        public struct Footer {
 
             public let description: String?
             public let title: String?
             public let value: Double?
             public let ctaTitle: String?
+            public var onCTATap: (() -> Void)?
 
             public init(description: String? = nil,
                         title: String? = nil,
                         value: Double? = nil,
-                        ctaTitle: String? = nil) {
+                        ctaTitle: String? = nil,
+                        onCTATap: (() -> Void)? = nil) {
                 self.description = description
                 self.title = title
                 self.value = value
                 self.ctaTitle = ctaTitle
+                self.onCTATap = onCTATap
             }
         }
 
@@ -183,7 +183,7 @@ extension OceanSwiftUI {
                 if let cta = parameters.footer.ctaTitle {
                     OceanSwiftUI.Button.secondarySM { view in
                         view.parameters.text = cta
-                        view.parameters.onTouch = { parameters.onCTATap?() }
+                        view.parameters.onTouch = { parameters.footer.onCTATap?() }
                     }
                     .fixedSize(horizontal: true, vertical: false)
                 }

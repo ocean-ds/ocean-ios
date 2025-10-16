@@ -231,7 +231,7 @@ extension OceanSwiftUI {
                                 }
                             }
                             .frame(minWidth: 0, maxWidth: .infinity)
-                            .padding([.horizontal, .top], Ocean.size.spacingStackXs)
+                            .padding(Ocean.size.spacingStackXs)
                             .background(Color(parameters.headerBackgroundColor ?? Ocean.color.colorInterfaceLightPure))
 
                             if let progress = parameters.progress {
