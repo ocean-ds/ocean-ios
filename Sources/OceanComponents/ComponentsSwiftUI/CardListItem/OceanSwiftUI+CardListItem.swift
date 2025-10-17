@@ -266,26 +266,23 @@ extension OceanSwiftUI {
                         width: Ocean.size.borderWidthHairline,
                         color: borderColor)
                 .shadow(color: Color(shadowColor), radius: 32, x: 0, y: 16)
-                .transform(condition: parameters.isEnabled, transform: { view in
-                    view.onTapGesture {
+                .onTapGesture {
+                    parameters.onTouch()
 
+                    if parameters.isEnabled {
                         if parameters.hasCheckbox {
                             parameters.isChecked.toggle()
                             parameters.onCheckboxSelect(parameters.isChecked)
-                            parameters.onTouch()
                             return
                         }
 
                         if parameters.hasRadioButton {
                             guard !parameters.isChecked else { return }
                             parameters.isChecked = true
-                            parameters.onTouch()
                             return
                         }
-                        
-                        parameters.onTouch()
                     }
-                })
+                }
                 .onAppear {
                     guard !parameters.highlightCaption.isEmpty else { return }
 
