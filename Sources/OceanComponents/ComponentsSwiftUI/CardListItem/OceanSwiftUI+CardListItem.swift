@@ -41,6 +41,7 @@ extension OceanSwiftUI {
 
         public var onCheckboxSelect: (Bool) -> Void
         public var onTouch: (() -> Void)
+        public var onTouchWhenDisabled: (() -> Void)
 
         public init(title: String = "",
                     titleColor: UIColor = Ocean.color.colorInterfaceDarkDeep,
@@ -69,7 +70,8 @@ extension OceanSwiftUI {
                     hasError: Bool = false,
                     showSkeleton: Bool = false,
                     onCheckboxSelect: @escaping (Bool) -> Void = { _ in },
-                    onTouch: @escaping (() -> Void) = {}) {
+                    onTouch: @escaping (() -> Void) = {},
+                    onTouchWhenDisabled: @escaping (() -> Void) = {}) {
             self.title = title
             self.titleColor = titleColor
             self.subtitle = subtitle
@@ -98,6 +100,7 @@ extension OceanSwiftUI {
             self.showSkeleton = showSkeleton
             self.onCheckboxSelect = onCheckboxSelect
             self.onTouch = onTouch
+            self.onTouchWhenDisabled = onTouchWhenDisabled
         }
     }
 
@@ -282,8 +285,13 @@ extension OceanSwiftUI {
                             parameters.onTouch()
                             return
                         }
-                        
+
                         parameters.onTouch()
+                    }
+                })
+                .transform(condition: !parameters.isEnabled, transform: { view in
+                    view.onTapGesture {
+                        parameters.onTouchWhenDisabled()
                     }
                 })
                 .onAppear {

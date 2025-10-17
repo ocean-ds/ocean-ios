@@ -143,8 +143,34 @@ class CardListItemSwiftUIViewController: UIViewController {
         view.parameters.onTouch = { print("Checked") }
     }
 
+    lazy var card15 = OceanSwiftUI.CardListItem { view in
+        view.parameters.title = "Item desabilitado com toque"
+        view.parameters.subtitle = "Este item está desabilitado mas ainda responde ao toque"
+        view.parameters.caption = "Toque para ver a mensagem"
+        view.parameters.leadingIcon = Ocean.icon.BluLogoOutline
+        view.parameters.isEnabled = false
+        view.parameters.onTouch = {
+            print("Este não será chamado pois está desabilitado")
+        }
+        view.parameters.onTouchWhenDisabled = {
+            print("Toque no item desabilitado!")
+        }
+    }
+
+    lazy var card16 = OceanSwiftUI.CardListItem { view in
+        view.parameters.title = "Opção bloqueada"
+        view.parameters.subtitle = "insufficient_credit_limit"
+        view.parameters.hasRadioButton = true
+        view.parameters.isEnabled = false
+        view.parameters.onTouchWhenDisabled = {
+            print("Modal explicativa")
+        }
+    }
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
+            card16
+            card15
             card14
             card13
             card12
