@@ -68,6 +68,7 @@ extension OceanSwiftUI {
             self.caption = caption
             self.hasCaptionBold = hasCaptionBold
             self.icon = icon
+            self.leadingImage = leadingImage
             self.leadingImageWidth = leadingImageWidth
             self.leadingImageHeight = leadingImageHeight
             self.tagLabel = tagLabel
@@ -123,12 +124,11 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            HStack(spacing: 0) {
+            HStack(spacing: Ocean.size.spacingStackXxsExtra) {
                 if let image = parameters.leadingImage {
                     Image(uiImage: image)
                         .resizable()
                         .renderingMode(.template)
-                        .foregroundColor(Color(getStatusColor()))
                         .frame(width: parameters.leadingImageWidth, height: parameters.leadingImageHeight)
 
                     Spacer()
