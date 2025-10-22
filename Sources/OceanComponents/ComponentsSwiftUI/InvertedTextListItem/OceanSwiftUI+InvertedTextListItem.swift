@@ -128,11 +128,7 @@ extension OceanSwiftUI {
                 if let image = parameters.leadingImage {
                     Image(uiImage: image)
                         .resizable()
-                        .renderingMode(.template)
                         .frame(width: parameters.leadingImageWidth, height: parameters.leadingImageHeight)
-
-                    Spacer()
-                        .frame(width: Ocean.size.spacingInsetXxs)
                 }
                 VStack(alignment: .leading, spacing: 0) {
 
