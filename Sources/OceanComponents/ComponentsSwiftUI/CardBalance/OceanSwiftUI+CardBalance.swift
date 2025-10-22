@@ -31,7 +31,7 @@ extension OceanSwiftUI {
             showSkeleton: Bool = false,
             padding: EdgeInsets = .all(Ocean.size.spacingStackXs),
             onToggle: (() -> Void)? = nil,
-            onFooterTap: (() -> Void)? = nil,
+            onFooterTap: (() -> Void)? = nil
         ) {
             self.header = header
             self.balanceRows = balanceRows
