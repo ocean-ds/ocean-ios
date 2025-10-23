@@ -275,7 +275,7 @@ extension OceanSwiftUI {
         }
 
         private func maskedCurrency(_ value: Double?) -> String {
-            return parameters.showValue ? (value?.toCurrency() ?? "") : "R$ ••••••"
+            return parameters.showValue ? (value?.toCurrency(symbolSpace: true) ?? "") : "R$ ••••••"
         }
     }
 }

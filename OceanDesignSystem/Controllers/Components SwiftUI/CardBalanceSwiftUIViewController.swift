@@ -58,14 +58,14 @@ class CardBalanceSwiftUIViewController: UIViewController {
         OceanSwiftUI.CardBalance { view in
             view.parameters.header = .init(
                 title: "Saldo consolidado",
-                value: 12345.67,
-                acquirers: ["Cielo", "Rede", "Stone", "Getnet"]
+                value: -12345.67,
+                acquirers: ["Blu","Cielo", "Rede", "Stone", "Getnet"]
             )
             view.parameters.balanceRows = [
-                .init(label: "Saldo atual na Blu", value: 10765.45),
-                .init(label: "Agenda na Blu", value: 5321.45),
-                .init(label: "Agenda na Rede", value: 2234.10),
-                .init(label: "Agenda na Getnet", value: 3456.78)
+                .init(label: "Saldo atual Blu", value: -10765.45),
+                .init(label: "Agenda Blu", value: 5321.45),
+                .init(label: "Agenda Rede", value: 2234.10),
+                .init(label: "Agenda Getnet", value: 3456.78)
             ]
             view.parameters.footer = .init(
                 description: "Confira todas as movimentações feitas na sua conta",
