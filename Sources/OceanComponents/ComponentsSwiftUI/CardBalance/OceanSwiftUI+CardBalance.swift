@@ -237,8 +237,9 @@ extension OceanSwiftUI {
 
                 footerView
             }
+            .oceanSkeleton(isActive: parameters.showSkeleton, shape: .rectangle)
             .border(cornerRadius: Ocean.size.borderRadiusSm,
-                    width: 1,
+                    width: !parameters.showSkeleton ? 1 : 0,
                     color: Ocean.color.colorInterfaceLightDown)
             .padding(parameters.padding)
             .clipped()

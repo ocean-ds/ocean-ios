@@ -77,6 +77,30 @@ class CardBalanceSwiftUIViewController: UIViewController {
         }
     }()
 
+    private lazy var cardBalanceSkeleton: OceanSwiftUI.CardBalance = {
+        OceanSwiftUI.CardBalance { view in
+            view.parameters.header = .init(
+                title: "Saldo consolidado",
+                value: -12345.67,
+                acquirers: ["Blu","Cielo", "Rede", "Stone", "Getnet"]
+            )
+            view.parameters.balanceRows = [
+                .init(label: "Saldo atual Blu", value: -10765.45),
+                .init(label: "Agenda Blu", value: 5321.45),
+                .init(label: "Agenda Rede", value: 2234.10),
+                .init(label: "Agenda Getnet", value: 3456.78)
+            ]
+            view.parameters.footer = .init(
+                description: "Confira todas as movimentações feitas na sua conta",
+                ctaTitle: "Extrato"
+            )
+            view.parameters.state = .collapsed
+            view.parameters.onToggle = { print("CardBalance toggled") }
+            view.parameters.footer.onCTATap = { print("CTA tapped") }
+            view.parameters.showSkeleton = true
+        }
+    }()
+
     private lazy var toggleShowValueButton: OceanSwiftUI.Button = {
         OceanSwiftUI.Button.secondarySM { b in
             b.parameters.text = "Balance Show Toggle"
@@ -99,6 +123,8 @@ class CardBalanceSwiftUIViewController: UIViewController {
             cardBalanceDistributor2
 
             cardBalanceRetailer
+
+            cardBalanceSkeleton
 
             toggleShowValueButton
         }
