@@ -190,7 +190,47 @@ extension OceanSwiftUI {
                                 .frame(width: Constants.leadingIconSize, height: Constants.leadingIconSize)
                                 .background(Color(Ocean.color.colorInterfaceLightUp))
                                 .cornerRadius(Constants.leadingIconSize / 2)
-                            } else if parameters.hasCheckbox {
+                            }
+
+                            VStack(alignment: .leading, spacing: 0) {
+                                HStack(spacing: Ocean.size.spacingStackXxxs) {
+                                    OceanSwiftUI.Typography.paragraph { label in
+                                        label.parameters.text = parameters.title
+                                        label.parameters.textColor = parameters.isEnabled ? parameters.titleColor : Ocean.color.colorInterfaceDarkUp
+                                        label.parameters.lineLimit = parameters.titleLineLimit
+                                    }
+
+                                    if !parameters.tagLabel.isEmpty {
+                                        OceanSwiftUI.Tag { tag in
+                                            tag.parameters.icon = parameters.tagIcon
+                                            tag.parameters.label = parameters.tagLabel
+                                            tag.parameters.status = parameters.tagStatus
+                                            tag.parameters.size = parameters.tagSize
+                                        }
+                                    }
+                                }
+
+                                if !parameters.subtitle.isEmpty {
+                                    OceanSwiftUI.Typography.description { label in
+                                        label.parameters.text = parameters.subtitle
+                                        label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDown : Ocean.color.colorInterfaceDarkUp
+                                        label.parameters.lineLimit = parameters.subtitleLineLimit
+                                    }
+                                }
+
+                                if !parameters.caption.isEmpty {
+                                    OceanSwiftUI.Typography.caption { label in
+                                        label.parameters.text = parameters.caption
+                                        label.parameters.textColor = parameters.isEnabled ? parameters.captionColor : Ocean.color.colorInterfaceDarkUp
+                                        label.parameters.lineLimit = parameters.captionLineLimit
+                                    }
+                                    .padding(.top, Ocean.size.spacingStackXxs)
+                                }
+                            }
+
+                            Spacer()
+
+                            if parameters.hasCheckbox {
                                 OceanSwiftUI.CheckboxGroup { group in
                                     group.parameters.hasError = parameters.hasError
                                     group.parameters.items = [
@@ -209,47 +249,7 @@ extension OceanSwiftUI {
                                         self.parameters.onTouch()
                                     }
                                 }
-                            }
-                            
-                            VStack(alignment: .leading, spacing: 0) {
-                                HStack(spacing: Ocean.size.spacingStackXxxs) {
-                                    OceanSwiftUI.Typography.paragraph { label in
-                                        label.parameters.text = parameters.title
-                                        label.parameters.textColor = parameters.isEnabled ? parameters.titleColor : Ocean.color.colorInterfaceDarkUp
-                                        label.parameters.lineLimit = parameters.titleLineLimit
-                                    }
-                                    
-                                    if !parameters.tagLabel.isEmpty {
-                                        OceanSwiftUI.Tag { tag in
-                                            tag.parameters.icon = parameters.tagIcon
-                                            tag.parameters.label = parameters.tagLabel
-                                            tag.parameters.status = parameters.tagStatus
-                                            tag.parameters.size = parameters.tagSize
-                                        }
-                                    }
-                                }
-                                
-                                if !parameters.subtitle.isEmpty {
-                                    OceanSwiftUI.Typography.description { label in
-                                        label.parameters.text = parameters.subtitle
-                                        label.parameters.textColor = parameters.isEnabled ? Ocean.color.colorInterfaceDarkDown : Ocean.color.colorInterfaceDarkUp
-                                        label.parameters.lineLimit = parameters.subtitleLineLimit
-                                    }
-                                }
-                                
-                                if !parameters.caption.isEmpty {
-                                    OceanSwiftUI.Typography.caption { label in
-                                        label.parameters.text = parameters.caption
-                                        label.parameters.textColor = parameters.isEnabled ? parameters.captionColor : Ocean.color.colorInterfaceDarkUp
-                                        label.parameters.lineLimit = parameters.captionLineLimit
-                                    }
-                                    .padding(.top, Ocean.size.spacingStackXxs)
-                                }
-                            }
-                            
-                            Spacer()
-                            
-                            if let image = parameters.trailingIcon {
+                            } else if let image = parameters.trailingIcon {
                                 Image(uiImage: image)
                                     .resizable()
                                     .renderingMode(.template)
