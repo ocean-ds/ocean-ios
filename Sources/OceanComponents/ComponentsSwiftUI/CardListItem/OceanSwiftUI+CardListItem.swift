@@ -308,7 +308,8 @@ extension OceanSwiftUI {
                             }
                         }
                         .padding(.horizontal, Ocean.size.spacingStackXs)
-                        .padding(.vertical, Ocean.size.spacingStackSm)
+                        .padding(.vertical, Ocean.size.spacingStackXxs)
+                        .padding(.top, Ocean.size.spacingStackXxsExtra)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .background(Color(parameters.highlightBackgroundColor))
                         .cornerRadius(Ocean.size.borderRadiusMd, corners: [.bottomLeft, .bottomRight])
