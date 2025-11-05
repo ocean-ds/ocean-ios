@@ -22,6 +22,7 @@ extension OceanSwiftUI {
         @Published public var hasCaptionBold: Bool
         @Published public var icon: UIImage?
         @Published public var leadingImage: UIImage?
+        @Published public var leadingImageUrl: String?
         @Published public var leadingImageWidth: CGFloat
         @Published public var leadingImageHeight: CGFloat
         @Published public var tagLabel: String
@@ -43,6 +44,7 @@ extension OceanSwiftUI {
                     caption: String = "",
                     hasCaptionBold: Bool = false,
                     leadingImage: UIImage? = nil,
+                    leadingImageUrl: String? = nil,
                     icon: UIImage? = nil,
                     iconColor: UIColor = Ocean.color.colorBrandPrimaryDown,
                     leadingImageWidth: CGFloat = 56,
@@ -69,6 +71,7 @@ extension OceanSwiftUI {
             self.hasCaptionBold = hasCaptionBold
             self.icon = icon
             self.leadingImage = leadingImage
+            self.leadingImageUrl = leadingImageUrl
             self.leadingImageWidth = leadingImageWidth
             self.leadingImageHeight = leadingImageHeight
             self.tagLabel = tagLabel
@@ -125,7 +128,10 @@ extension OceanSwiftUI {
 
         public var body: some View {
             HStack(spacing: Ocean.size.spacingStackXxsExtra) {
-                if let image = parameters.leadingImage {
+                if let imageUrl = parameters.leadingImageUrl {
+                    ImageDownload(parameters: .init(url: imageUrl, contentMode: .fit))
+                        .frame(width: parameters.leadingImageWidth, height: parameters.leadingImageHeight)
+                } else if let image = parameters.leadingImage {
                     Image(uiImage: image)
                         .resizable()
                         .frame(width: parameters.leadingImageWidth, height: parameters.leadingImageHeight)
