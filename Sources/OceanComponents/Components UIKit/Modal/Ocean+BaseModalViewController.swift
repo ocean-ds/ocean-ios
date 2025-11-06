@@ -29,6 +29,7 @@ extension Ocean {
                 imageView.tintColor = Ocean.color.colorInterfaceDarkUp
                 imageView.contentMode = .scaleAspectFit
                 imageView.addTapGesture(target: self, selector: #selector(closeTap))
+                imageView.accessibilityIdentifier = "closeButton"
 
                 imageView.oceanConstraints
                     .width(constant: 20)
