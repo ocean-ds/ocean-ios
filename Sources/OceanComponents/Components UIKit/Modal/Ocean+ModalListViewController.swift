@@ -31,7 +31,7 @@ extension Ocean {
         var contentValues: [CellModel]?
         var actionsAxis: NSLayoutConstraint.Axis = .vertical
         var actions: [UIControl] = []
-        var contenteMultipleOptions: [CellModel]?
+        var contentMultipleOptions: [CellModel]?
         var buttonStackDistribution: UIStackView.Distribution = .fill
 
         private lazy var tableView: UITableView = {
@@ -95,7 +95,7 @@ extension Ocean {
                 totalSpacing += tableHeight
             }
 
-            if let contentValues = contenteMultipleOptions {
+            if let contentValues = contentMultipleOptions {
                 let tableHeight = Constants.heightCell * (CGFloat(contentValues.count))
                 totalSpacing += tableHeight
             }
@@ -196,8 +196,8 @@ extension Ocean {
                 return contentValues.count
             }
             
-            if let contenteMultipleOptions = contenteMultipleOptions {
-                return contenteMultipleOptions.count
+            if let contentMultipleOptions = contentMultipleOptions {
+                return contentMultipleOptions.count
             }
             
             return 0
@@ -213,9 +213,9 @@ extension Ocean {
                 cell = tableView.dequeueReusableCell(withIdentifier: ModalSingleChoiceCell.identifier, for: indexPath) as! ModalSingleChoiceCell
                 cell.model = contentValues[indexPath.row]
                 
-            } else if let contenteMultipleOptions = contenteMultipleOptions {
+            } else if let contentMultipleOptions = contentMultipleOptions {
                 cell = tableView.dequeueReusableCell(withIdentifier: ModalMultipleChoiceCell.identifier, for: indexPath) as! ModalMultipleChoiceCell
-                cell.model = contenteMultipleOptions[indexPath.row]
+                cell.model = contentMultipleOptions[indexPath.row]
             }
             
             return cell

@@ -48,6 +48,9 @@ class FilterBarSwiftUIViewController: UIViewController {
                           chips: [.init(id: "filter5", title: "Filtro 5")])
                 ])
             ]
+            filterBar.parameters.textIsRightForMultipleChoice = false
+            filterBar.parameters.primaryButtonTitle = "Exibir boletos"
+            filterBar.parameters.secondaryButtonTitle = "Limpar filtros"
             filterBar.parameters.onTouch = { [weak self] selectedChips, touchedOption in
                 guard let self = self else { return false }
 

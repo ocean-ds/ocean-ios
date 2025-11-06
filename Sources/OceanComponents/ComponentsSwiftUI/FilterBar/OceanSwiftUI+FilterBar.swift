@@ -22,6 +22,9 @@ extension OceanSwiftUI {
         @Published public var onTouch: (([Ocean.ChipModel], FilterBarOption) -> Bool)
         @Published public var onSelectionChange: (([Ocean.ChipModel], [FilterBarGroup]) -> Void)
         @Published public var onDateRangeChange: ((Date?, Date?, [FilterBarGroup]) -> Void)
+        @Published public var textIsRightForMultipleChoice: Bool = true
+        @Published public var primaryButtonTitle: String = ""
+        @Published public var secondaryButtonTitle: String = ""
 
         weak public var rootViewController: UIViewController?
 
@@ -38,12 +41,16 @@ extension OceanSwiftUI {
                     showSkeleton: Bool = false,
                     onTouch: @escaping ([Ocean.ChipModel], FilterBarOption) -> Bool = { _, _ in return false },
                     onSelectionChange: @escaping ([Ocean.ChipModel], [FilterBarGroup]) -> Void = { _, _  in },
-                    onDateRangeChange: @escaping ((Date?, Date?, [FilterBarGroup]) -> Void) = { _, _, _ in }) {
+                    onDateRangeChange: @escaping ((Date?, Date?, [FilterBarGroup]) -> Void) = { _, _, _ in },
+                    textIsRightForMultipleChoice: Bool = true,
+                    primaryButtonTitle: String = "Filtrar",
+                    secondaryButtonTitle: String = "Limpar") {
             self.groups = groups
             self.showSkeleton = showSkeleton
             self.onTouch = onTouch
             self.onSelectionChange = onSelectionChange
             self.onDateRangeChange = onDateRangeChange
+            self.textIsRightForMultipleChoice = textIsRightForMultipleChoice
         }
     }
 
@@ -244,12 +251,13 @@ extension OceanSwiftUI {
                     .withTitle(touchedOption.title)
                     .withDismiss(true)
                     .withMultipleOptions(touchedOption.chips.map { Ocean.CellModel(title: $0.title,
-                                                                                   isSelected: $0.isSelected) })
-                    .withAction(textNegative: "Limpar",
+                                                                                   isSelected: $0.isSelected) },
+                                         textIsRightForMultipleChoice: parameters.textIsRightForMultipleChoice)
+                    .withAction(textNegative: parameters.secondaryButtonTitle,
                                 actionNegative: {
                         updateSelection(chips: [], option: touchedOption, group: touchedGroup)
                     },
-                                textPositive: "Filtrar",
+                                textPositive: parameters.primaryButtonTitle,
                                 actionPositive: { allOptions in
                         let selectedOptions = allOptions.filter { $0.isSelected }
                         let chips = touchedOption.chips.map { chip in

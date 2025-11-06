@@ -27,8 +27,9 @@ extension Ocean {
             return self
         }
         
-        public func withMultipleOptions(_ values: [CellModel]) -> ModalMultipleChoice {
-            modalMultipleChoiceViewController.contenteMultipleOptions = values
+        public func withMultipleOptions(_ values: [CellModel], textIsRightForMultipleChoice: Bool = true) -> ModalMultipleChoice {
+            modalMultipleChoiceViewController.contentMultipleOptions = values
+            modalMultipleChoiceViewController.optionTextIsRight = textIsRightForMultipleChoice
             return self
         }
         

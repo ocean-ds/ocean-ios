@@ -73,6 +73,12 @@ extension Ocean {
             }
         }
 
+        public var textIsRight: Bool = false {
+            didSet {
+                rebuildStackForTextPosition()
+            }
+        }
+
         public override var isSelected: Bool {
             didSet {
                 updateState()
@@ -265,6 +271,24 @@ extension Ocean {
         public convenience init(builder: RadioButtonBuilder) {
             self.init(frame: .zero)
             builder(self)
+        }
+
+        private func rebuildStackForTextPosition() {
+            textStack.removeFromSuperview()
+            radioBkgView.removeFromSuperview()
+
+            radioStack.arrangedSubviews.forEach { radioStack.removeArrangedSubview($0); $0.removeFromSuperview() }
+
+            if textIsRight {
+                radioStack.addArrangedSubview(radioBkgView)
+                radioStack.addArrangedSubview(textStack)
+            } else {
+                radioStack.addArrangedSubview(textStack)
+                radioStack.addArrangedSubview(radioBkgView)
+            }
+
+            radioStack.setNeedsLayout()
+            radioStack.layoutIfNeeded()
         }
 
         private func setupUI() {
