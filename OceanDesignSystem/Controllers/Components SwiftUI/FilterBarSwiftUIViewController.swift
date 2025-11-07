@@ -18,6 +18,13 @@ class FilterBarSwiftUIViewController: UIViewController {
             filterBar.parameters.rootViewController = self
             filterBar.parameters.groups = [
                 .init(mode: .multiple, options: [
+                    .init(title: "Exibir boletos pelos status",
+                          mode: .multiple,
+                          chips: [
+                            .init(number: 2, title: "Vencidos"),
+                            .init(number: 7, title: "A vencer"),
+                            .init(number: 2, title: "Agendados")
+                          ]),
                     .init(title: "Date Range",
                           beginDate: beginDate,
                           endDate: endDate),
@@ -155,3 +162,4 @@ struct FilterBarSwiftUIViewController_Preview: PreviewProvider {
         }
     }
 }
+

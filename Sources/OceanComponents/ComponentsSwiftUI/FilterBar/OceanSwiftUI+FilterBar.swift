@@ -147,11 +147,14 @@ extension OceanSwiftUI {
                 .padding([.vertical], Ocean.size.spacingStackXxs)
 
                 if option.chips.count == 1 {
-                    countView(chips: option.chips)
+                    let totalFilters = countView(chips: option.chips)
+                    if totalFilters > 0 {
+                        badge(count: totalFilters, isSelected: option.isSelected)
+                    }
                 }
 
                 if option.mode == .multiple && option.chips.contains(where: { $0.isSelected }) {
-                    badge(count: option.chips.filter { $0.isSelected }.count)
+                    badge(count: option.chips.filter { $0.isSelected }.count, isSelected: true)
                 }
 
                 if let icon = option.trailingIcon {
@@ -191,24 +194,19 @@ extension OceanSwiftUI {
                 ))
         }
 
-        private func badge(count: Int) -> some View {
-            Badge.primaryInvertedSm { badge in
+        private func badge(count: Int, isSelected: Bool) -> some View {
+            Badge { badge in
                 badge.parameters.count = count
+                badge.parameters.size = .small
+                badge.parameters.status = isSelected ? .primaryInverted : .primary
             }
         }
 
         @ViewBuilder
-        private func countView(chips: [Ocean.ChipModel]) -> some View {
-            let count = chips.map { $0.number ?? 0 }.reduce(0, { partialResult, counter in
+        private func countView(chips: [Ocean.ChipModel]) -> Int {
+            return chips.map { $0.number ?? 0 }.reduce(0, { partialResult, counter in
                 partialResult + counter
             })
-
-            if count > 0 {
-                Badge.warningSm { view in
-                    view.parameters.size = .small
-                    view.parameters.count = count
-                }
-            }
         }
 
         // MARK: Private properties
@@ -251,7 +249,8 @@ extension OceanSwiftUI {
                     .withTitle(touchedOption.title)
                     .withDismiss(true)
                     .withMultipleOptions(touchedOption.chips.map { Ocean.CellModel(title: $0.title,
-                                                                                   isSelected: $0.isSelected) },
+                                                                                   isSelected: $0.isSelected,
+                                                                                   badgeNumber: $0.number) },
                                          textIsRightForMultipleChoice: parameters.textIsRightForMultipleChoice)
                     .withAction(textNegative: parameters.secondaryButtonTitle,
                                 actionNegative: {

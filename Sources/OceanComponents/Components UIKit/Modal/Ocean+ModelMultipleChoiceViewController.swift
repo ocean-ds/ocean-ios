@@ -172,6 +172,7 @@ extension Ocean {
                 let itemCheckBox = Ocean.CheckBox()
                 itemCheckBox.text = item.title
                 itemCheckBox.isSelected = item.isSelected
+                itemCheckBox.badgeNumber = item.badgeNumber
                 itemCheckBox.textIsRight = self.optionTextIsRight
                 itemCheckBox.onTouch = {
                     self.contentMultipleOptions[index].isSelected = !self.contentMultipleOptions[index].isSelected
@@ -181,3 +182,4 @@ extension Ocean {
         }
     }
 }
+

@@ -54,6 +54,12 @@ extension Ocean {
             }
         }
 
+        public var badgeNumber: Int? {
+            didSet {
+                updateBadge()
+            }
+        }
+
         public var stackAlignment: UIStackView.Alignment = .top {
             didSet {
                 radioStack.alignment = stackAlignment
@@ -183,6 +189,15 @@ extension Ocean {
             }
         }()
 
+        private lazy var badgeView: Ocean.BadgeNumber = {
+            let badge = Ocean.Badge.number()
+            badge.status = .warning
+            badge.size = .small
+            badge.translatesAutoresizingMaskIntoConstraints = false
+            badge.isHidden = true
+            return badge
+        }()
+
         private lazy var textStack: Ocean.StackView = {
             Ocean.StackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
@@ -199,6 +214,21 @@ extension Ocean {
             }
         }()
 
+        private lazy var trailingStack: Ocean.StackView = {
+            Ocean.StackView { stack in
+                stack.translatesAutoresizingMaskIntoConstraints = false
+                stack.axis = .horizontal
+                stack.alignment = .center
+                stack.distribution = .fill
+                stack.spacing = Ocean.size.spacingStackXs
+
+                stack.add([
+                    badgeView,
+                    radioBkgView
+                ])
+            }
+        }()
+
         private lazy var radioStack: Ocean.StackView = {
             Ocean.StackView { stack in
                 stack.translatesAutoresizingMaskIntoConstraints = false
@@ -208,8 +238,8 @@ extension Ocean {
                 stack.spacing = Ocean.size.spacingStackXs
 
                 stack.add([
-                    radioBkgView,
-                    textStack
+                    textStack,
+                    trailingStack
                 ])
             }
         }()
@@ -275,20 +305,30 @@ extension Ocean {
 
         private func rebuildStackForTextPosition() {
             textStack.removeFromSuperview()
-            radioBkgView.removeFromSuperview()
+            trailingStack.removeFromSuperview()
 
             radioStack.arrangedSubviews.forEach { radioStack.removeArrangedSubview($0); $0.removeFromSuperview() }
 
             if textIsRight {
-                radioStack.addArrangedSubview(radioBkgView)
+                radioStack.addArrangedSubview(trailingStack)
                 radioStack.addArrangedSubview(textStack)
             } else {
                 radioStack.addArrangedSubview(textStack)
-                radioStack.addArrangedSubview(radioBkgView)
+                radioStack.addArrangedSubview(Ocean.Spacer())
+                radioStack.addArrangedSubview(trailingStack)
             }
 
             radioStack.setNeedsLayout()
             radioStack.layoutIfNeeded()
+        }
+
+        private func updateBadge() {
+            if let number = badgeNumber, number > 0 {
+                badgeView.isHidden = false
+                badgeView.number = number
+            } else {
+                badgeView.isHidden = true
+            }
         }
 
         private func setupUI() {
@@ -296,6 +336,13 @@ extension Ocean {
 
             self.addSubview(mainStack)
             self.addTapGesture(target: self, selector: #selector(toogleRadio))
+
+            textStack.setContentHuggingPriority(.defaultLow, for: .horizontal)
+            textStack.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+            trailingStack.setContentHuggingPriority(.required, for: .horizontal)
+            trailingStack.setContentCompressionResistancePriority(.required, for: .horizontal)
+            badgeView.setContentHuggingPriority(.required, for: .horizontal)
+            badgeView.setContentCompressionResistancePriority(.required, for: .horizontal)
 
             self.updateState()
         }
