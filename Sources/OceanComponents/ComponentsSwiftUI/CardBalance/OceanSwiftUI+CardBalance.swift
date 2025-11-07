@@ -13,6 +13,7 @@ extension OceanSwiftUI {
     public final class CardBalanceParameters: ObservableObject {
         @Published public var header: Header
         @Published public var balanceRows: [BalanceRow]
+        @Published public var promotionalOffer: PromotionalOffer?
         @Published public var footer: Footer
         @Published public var state: CardBalanceState
         @Published public var showValue: Bool
@@ -25,6 +26,7 @@ extension OceanSwiftUI {
         public init(
             header: Header = .init(),
             balanceRows: [BalanceRow] = [],
+            promotionalOffer: PromotionalOffer? = nil,
             footer: Footer = Footer(),
             state: CardBalanceState = .collapsed,
             showValue: Bool = true,
@@ -35,6 +37,7 @@ extension OceanSwiftUI {
         ) {
             self.header = header
             self.balanceRows = balanceRows
+            self.promotionalOffer = promotionalOffer
             self.footer = footer
             self.state = state
             self.showValue = showValue
@@ -74,6 +77,28 @@ extension OceanSwiftUI {
             public init(label: String, value: Double) {
                 self.label = label
                 self.value = value
+            }
+        }
+
+        public struct PromotionalOffer {
+            public let message: String
+            public let ctaTitle: String
+            public let remainingTime: TimeInterval
+            public let showSkeleton: Bool
+            public var onCTATap: (() -> Void)?
+
+            public init(
+                message: String,
+                ctaTitle: String,
+                remainingTime: TimeInterval,
+                showSkeleton: Bool = false,
+                onCTATap: (() -> Void)? = nil
+            ) {
+                self.message = message
+                self.ctaTitle = ctaTitle
+                self.remainingTime = remainingTime
+                self.showSkeleton = showSkeleton
+                self.onCTATap = onCTATap
             }
         }
 
