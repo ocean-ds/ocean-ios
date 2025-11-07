@@ -223,6 +223,7 @@ extension Ocean {
                 stack.spacing = Ocean.size.spacingStackXs
 
                 stack.add([
+                    UIView(),
                     badgeView,
                     radioBkgView
                 ])
@@ -336,13 +337,6 @@ extension Ocean {
 
             self.addSubview(mainStack)
             self.addTapGesture(target: self, selector: #selector(toogleRadio))
-
-            textStack.setContentHuggingPriority(.defaultLow, for: .horizontal)
-            textStack.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
-            trailingStack.setContentHuggingPriority(.required, for: .horizontal)
-            trailingStack.setContentCompressionResistancePriority(.required, for: .horizontal)
-            badgeView.setContentHuggingPriority(.required, for: .horizontal)
-            badgeView.setContentCompressionResistancePriority(.required, for: .horizontal)
 
             self.updateState()
         }
