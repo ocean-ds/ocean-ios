@@ -190,6 +190,62 @@ extension OceanSwiftUI {
         }
 
         @ViewBuilder
+        private var promotionalOfferView: some View {
+            if let offer = parameters.promotionalOffer {
+                VStack(spacing: 0) {
+                    OceanSwiftUI.Divider()
+
+                    VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
+                        HStack(spacing: Ocean.size.spacingStackXxxs) {
+                            Image(uiImage: Ocean.icon.clockOutline)
+                                .resizable()
+                                .renderingMode(.template)
+                                .frame(width: Ocean.size.spacingStackXs, height: Ocean.size.spacingStackXs)
+                                .foregroundColor(Color(Ocean.color.colorStatusWarningDeep))
+
+                            OceanSwiftUI.Typography.caption { view in
+                                view.parameters.text = formatTime(offer.remainingTime)
+                                view.parameters.textColor = Ocean.color.colorStatusWarningDeep
+                                view.parameters.font = .baseBold(size: Ocean.font.fontSizeXxxs)
+                            }
+
+                            Spacer()
+                        }
+
+                        OceanSwiftUI.Typography.caption { view in
+                            view.parameters.text = offer.message
+                            view.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                            view.parameters.lineLimit = 3
+                        }
+
+                        HStack(spacing: Ocean.size.spacingStackXxxs) {
+                            OceanSwiftUI.Typography.caption { view in
+                                view.parameters.text = offer.ctaTitle
+                                view.parameters.textColor = Ocean.color.colorBrandPrimaryDeep
+                                view.parameters.font = .baseBold(size: Ocean.font.fontSizeXxxs)
+                            }
+
+                            Image(uiImage: Ocean.icon.chevronRightSolid)
+                                .resizable()
+                                .renderingMode(.template)
+                                .frame(width: Ocean.size.spacingStackXxxs, height: Ocean.size.spacingStackXxxs)
+                                .foregroundColor(Color(Ocean.color.colorBrandPrimaryDeep))
+                        }
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            offer.onCTATap?()
+                        }
+                    }
+                    .padding(.vertical, Ocean.size.spacingStackXs)
+                    .padding(.horizontal, Ocean.size.spacingStackXs)
+                    .background(Color(Ocean.color.colorStatusWarningUp).opacity(0.12))
+                    .oceanSkeleton(isActive: offer.showSkeleton, shape: .rectangle)
+                }
+                .transition(.opacity)
+            }
+        }
+
+        @ViewBuilder
         private var footerView: some View {
             HStack(spacing: Ocean.size.spacingStackXs) {
                 if let value = parameters.footer.value {
@@ -256,7 +312,11 @@ extension OceanSwiftUI {
             VStack(spacing: 0) {
                 headerView
 
-                if parameters.state == .expanded { bodyItems }
+                if parameters.state == .expanded {
+                    bodyItems
+
+                    promotionalOfferView
+                }
 
                 OceanSwiftUI.Divider()
 
@@ -303,6 +363,16 @@ extension OceanSwiftUI {
         private func maskedCurrency(_ value: Double?) -> String {
             let hasSymbolSpace = (value ?? 0) < 0
             return parameters.showValue ? (value?.toCurrency(symbolSpace: hasSymbolSpace) ?? "") : "R$ ••••••"
+        }
+
+        private func formatTime(_ seconds: TimeInterval) -> String {
+            guard seconds > 0 else { return "00h00m00s" }
+
+            let hours = Int(seconds) / 3600
+            let minutes = (Int(seconds) % 3600) / 60
+            let secs = Int(seconds) % 60
+
+            return String(format: "%02dh%02dm%02ds", hours, minutes, secs)
         }
     }
 }

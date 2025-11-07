@@ -3,6 +3,8 @@ import SwiftUI
 import OceanTokens
 
 class CardBalanceSwiftUIViewController: UIViewController {
+    private var timer: Timer?
+    private var remainingTime: TimeInterval = 86400
 
     private lazy var cardBalanceDistributor: OceanSwiftUI.CardBalance = {
         OceanSwiftUI.CardBalance { view in
@@ -17,6 +19,13 @@ class CardBalanceSwiftUIViewController: UIViewController {
                 .init(label: "Agenda Rede", value: 2234.10),
                 .init(label: "Agenda Getnet", value: 3456.78)
             ]
+            view.parameters.promotionalOffer = .init(
+                message: "Oferta: taxa de 7,69% (era 11,06%) para antecipar sua agenda Blu — e ter dinheiro hoje.",
+                ctaTitle: "Simular antecipação",
+                remainingTime: self.remainingTime,
+                showSkeleton: false,
+                onCTATap: { print("Promotional offer CTA tapped - Blu") }
+            )
             view.parameters.footer = .init(
                 description: nil,
                 title: "Disponível para saque",
