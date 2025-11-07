@@ -22,8 +22,8 @@ extension OceanSwiftUI {
         @Published public var onTouch: (([Ocean.ChipModel], FilterBarOption) -> Bool)
         @Published public var onSelectionChange: (([Ocean.ChipModel], [FilterBarGroup]) -> Void)
         @Published public var onDateRangeChange: ((Date?, Date?, [FilterBarGroup]) -> Void)
-        @Published public var primaryButtonTitle: String = ""
-        @Published public var secondaryButtonTitle: String = ""
+        @Published public var primaryButtonTitle: String = "Filtrar"
+        @Published public var secondaryButtonTitle: String = "Limpar"
 
         weak public var rootViewController: UIViewController?
 
