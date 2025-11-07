@@ -162,4 +162,3 @@ struct FilterBarSwiftUIViewController_Preview: PreviewProvider {
         }
     }
 }
-

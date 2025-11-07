@@ -22,7 +22,7 @@ extension OceanSwiftUI {
         @Published public var onTouch: (([Ocean.ChipModel], FilterBarOption) -> Bool)
         @Published public var onSelectionChange: (([Ocean.ChipModel], [FilterBarGroup]) -> Void)
         @Published public var onDateRangeChange: ((Date?, Date?, [FilterBarGroup]) -> Void)
-        @Published public var textIsRightForMultipleChoice: Bool = true
+        @Published public var textIsRightForMultipleChoice: Bool = false
         @Published public var primaryButtonTitle: String = ""
         @Published public var secondaryButtonTitle: String = ""
 
@@ -42,7 +42,7 @@ extension OceanSwiftUI {
                     onTouch: @escaping ([Ocean.ChipModel], FilterBarOption) -> Bool = { _, _ in return false },
                     onSelectionChange: @escaping ([Ocean.ChipModel], [FilterBarGroup]) -> Void = { _, _  in },
                     onDateRangeChange: @escaping ((Date?, Date?, [FilterBarGroup]) -> Void) = { _, _, _ in },
-                    textIsRightForMultipleChoice: Bool = true,
+                    textIsRightForMultipleChoice: Bool = false,
                     primaryButtonTitle: String = "Filtrar",
                     secondaryButtonTitle: String = "Limpar") {
             self.groups = groups
