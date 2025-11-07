@@ -18,6 +18,13 @@ class FilterBarSwiftUIViewController: UIViewController {
             filterBar.parameters.rootViewController = self
             filterBar.parameters.groups = [
                 .init(mode: .multiple, options: [
+                    .init(title: "Exibir boletos pelos status",
+                          mode: .multiple,
+                          chips: [
+                            .init(number: 2, title: "Vencidos"),
+                            .init(number: 7, title: "A vencer"),
+                            .init(number: 2, title: "Agendados")
+                          ]),
                     .init(title: "Date Range",
                           beginDate: beginDate,
                           endDate: endDate),
@@ -48,6 +55,8 @@ class FilterBarSwiftUIViewController: UIViewController {
                           chips: [.init(id: "filter5", title: "Filtro 5")])
                 ])
             ]
+            filterBar.parameters.primaryButtonTitle = "Exibir boletos"
+            filterBar.parameters.secondaryButtonTitle = "Limpar filtros"
             filterBar.parameters.onTouch = { [weak self] selectedChips, touchedOption in
                 guard let self = self else { return false }
 

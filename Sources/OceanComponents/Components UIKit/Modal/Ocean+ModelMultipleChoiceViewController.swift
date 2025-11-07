@@ -19,11 +19,13 @@ extension Ocean {
         }
     
         var contentTitle: String?
-        var contenteMultipleOptions: [CellModel] = []
+        var contentMultipleOptions: [CellModel] = []
         var actions: [UIControl] = []
         
+        public var optionTextIsRight: Bool = true
+
         public func getMultipleOptions() -> [CellModel] {
-            return contenteMultipleOptions
+            return contentMultipleOptions
         }
         
         private lazy var optionsListCheckBox: [Ocean.CheckBox] = []
@@ -54,7 +56,7 @@ extension Ocean {
         }()
         
         public func getOptionSelected() -> [CellModel] {
-            return contenteMultipleOptions
+            return contentMultipleOptions
         }
         
         public override func makeView() {
@@ -78,7 +80,7 @@ extension Ocean {
             totalSpacing += addTitleIfExists()
             totalSpacing += addActionsIfExist()
             
-            let tableHeight = Constants.heightCell * (CGFloat(contenteMultipleOptions.count))
+            let tableHeight = Constants.heightCell * (CGFloat(contentMultipleOptions.count))
             totalSpacing += tableHeight - 4
             
             spTransitionDelegate.customHeight = totalSpacing
@@ -166,15 +168,18 @@ extension Ocean {
         }
         
         private func setupUI() {
-            contenteMultipleOptions.enumerated().forEach { index, item in
+            contentMultipleOptions.enumerated().forEach { index, item in
                 let itemCheckBox = Ocean.CheckBox()
                 itemCheckBox.text = item.title
                 itemCheckBox.isSelected = item.isSelected
+                itemCheckBox.badgeNumber = item.badgeNumber
+                itemCheckBox.textIsRight = self.optionTextIsRight
                 itemCheckBox.onTouch = {
-                    self.contenteMultipleOptions[index].isSelected = !self.contenteMultipleOptions[index].isSelected
+                    self.contentMultipleOptions[index].isSelected = !self.contentMultipleOptions[index].isSelected
                 }
                 optionsListCheckBox.append(itemCheckBox)
             }
         }
     }
 }
+

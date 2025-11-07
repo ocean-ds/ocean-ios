@@ -22,6 +22,8 @@ extension OceanSwiftUI {
         @Published public var onTouch: (([Ocean.ChipModel], FilterBarOption) -> Bool)
         @Published public var onSelectionChange: (([Ocean.ChipModel], [FilterBarGroup]) -> Void)
         @Published public var onDateRangeChange: ((Date?, Date?, [FilterBarGroup]) -> Void)
+        @Published public var primaryButtonTitle: String = ""
+        @Published public var secondaryButtonTitle: String = ""
 
         weak public var rootViewController: UIViewController?
 
@@ -38,7 +40,9 @@ extension OceanSwiftUI {
                     showSkeleton: Bool = false,
                     onTouch: @escaping ([Ocean.ChipModel], FilterBarOption) -> Bool = { _, _ in return false },
                     onSelectionChange: @escaping ([Ocean.ChipModel], [FilterBarGroup]) -> Void = { _, _  in },
-                    onDateRangeChange: @escaping ((Date?, Date?, [FilterBarGroup]) -> Void) = { _, _, _ in }) {
+                    onDateRangeChange: @escaping ((Date?, Date?, [FilterBarGroup]) -> Void) = { _, _, _ in },
+                    primaryButtonTitle: String = "Filtrar",
+                    secondaryButtonTitle: String = "Limpar") {
             self.groups = groups
             self.showSkeleton = showSkeleton
             self.onTouch = onTouch
@@ -140,11 +144,14 @@ extension OceanSwiftUI {
                 .padding([.vertical], Ocean.size.spacingStackXxs)
 
                 if option.chips.count == 1 {
-                    countView(chips: option.chips)
+                    let totalFilters = countView(chips: option.chips)
+                    if totalFilters > 0 {
+                        badge(count: totalFilters, isSelected: option.isSelected)
+                    }
                 }
 
                 if option.mode == .multiple && option.chips.contains(where: { $0.isSelected }) {
-                    badge(count: option.chips.filter { $0.isSelected }.count)
+                    badge(count: option.chips.filter { $0.isSelected }.count, isSelected: true)
                 }
 
                 if let icon = option.trailingIcon {
@@ -184,24 +191,19 @@ extension OceanSwiftUI {
                 ))
         }
 
-        private func badge(count: Int) -> some View {
-            Badge.primaryInvertedSm { badge in
+        private func badge(count: Int, isSelected: Bool) -> some View {
+            Badge { badge in
                 badge.parameters.count = count
+                badge.parameters.size = .small
+                badge.parameters.status = isSelected ? .primaryInverted : .primary
             }
         }
 
         @ViewBuilder
-        private func countView(chips: [Ocean.ChipModel]) -> some View {
-            let count = chips.map { $0.number ?? 0 }.reduce(0, { partialResult, counter in
+        private func countView(chips: [Ocean.ChipModel]) -> Int {
+            return chips.map { $0.number ?? 0 }.reduce(0, { partialResult, counter in
                 partialResult + counter
             })
-
-            if count > 0 {
-                Badge.warningSm { view in
-                    view.parameters.size = .small
-                    view.parameters.count = count
-                }
-            }
         }
 
         // MARK: Private properties
@@ -244,12 +246,14 @@ extension OceanSwiftUI {
                     .withTitle(touchedOption.title)
                     .withDismiss(true)
                     .withMultipleOptions(touchedOption.chips.map { Ocean.CellModel(title: $0.title,
-                                                                                   isSelected: $0.isSelected) })
-                    .withAction(textNegative: "Limpar",
+                                                                                   isSelected: $0.isSelected,
+                                                                                   badgeNumber: $0.number) },
+                                         textIsRightForMultipleChoice: false)
+                    .withAction(textNegative: parameters.secondaryButtonTitle,
                                 actionNegative: {
                         updateSelection(chips: [], option: touchedOption, group: touchedGroup)
                     },
-                                textPositive: "Filtrar",
+                                textPositive: parameters.primaryButtonTitle,
                                 actionPositive: { allOptions in
                         let selectedOptions = allOptions.filter { $0.isSelected }
                         let chips = touchedOption.chips.map { chip in
