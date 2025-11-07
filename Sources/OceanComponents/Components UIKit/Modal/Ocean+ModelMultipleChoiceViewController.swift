@@ -22,7 +22,7 @@ extension Ocean {
         var contentMultipleOptions: [CellModel] = []
         var actions: [UIControl] = []
         
-        public var optionTextIsRight: Bool = false
+        public var optionTextIsRight: Bool = true
 
         public func getMultipleOptions() -> [CellModel] {
             return contentMultipleOptions

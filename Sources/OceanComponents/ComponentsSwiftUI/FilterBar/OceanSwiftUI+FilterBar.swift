@@ -248,7 +248,7 @@ extension OceanSwiftUI {
                     .withMultipleOptions(touchedOption.chips.map { Ocean.CellModel(title: $0.title,
                                                                                    isSelected: $0.isSelected,
                                                                                    badgeNumber: $0.number) },
-                                         textIsRightForMultipleChoice: true)
+                                         textIsRightForMultipleChoice: false)
                     .withAction(textNegative: parameters.secondaryButtonTitle,
                                 actionNegative: {
                         updateSelection(chips: [], option: touchedOption, group: touchedGroup)

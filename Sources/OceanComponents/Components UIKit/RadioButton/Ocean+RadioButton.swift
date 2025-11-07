@@ -79,7 +79,7 @@ extension Ocean {
             }
         }
 
-        public var textIsRight: Bool = false {
+        public var textIsRight: Bool = true {
             didSet {
                 rebuildStackForTextPosition()
             }
