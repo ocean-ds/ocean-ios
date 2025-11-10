@@ -20,9 +20,9 @@ class CardBalanceSwiftUIViewController: UIViewController {
                 .init(label: "Agenda Getnet", value: 3456.78)
             ]
             view.parameters.promotionalOffer = .init(
-                message: "Oferta: taxa de 7,69% (era 11,06%) para antecipar sua agenda Blu — e ter dinheiro hoje.",
-                ctaTitle: "Simular antecipação",
                 remainingTime: self.remainingTime,
+                description: "Oferta: taxa de 7,69% (era 11,06%) para antecipar sua agenda Blu — e ter dinheiro hoje.",
+                ctaTitle: "Simular antecipação",
                 onCTATap: { print("Promotional offer CTA tapped - Blu") }
             )
             view.parameters.footer = .init(
