@@ -21,7 +21,7 @@ class FilterBarSwiftUIViewController: UIViewController {
                     .init(title: "Exibir boletos pelos status",
                           mode: .multiple,
                           chips: [
-                            .init(number: 2, title: "Vencidos"),
+                            .init(number: 200, title: "Vencidos"),
                             .init(number: 7, title: "A vencer"),
                             .init(number: 2, title: "Agendados")
                           ]),
