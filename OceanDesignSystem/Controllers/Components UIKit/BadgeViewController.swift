@@ -20,6 +20,7 @@ final public class BadgeViewController : UIViewController {
     let badgeNumber2 = Ocean.Badge.number { view in
         view.status = .primaryInverted
         view.number = 100
+        view.size = .small
     }
     let badgeNumber3 = Ocean.Badge.number { view in
         view.status = .warning

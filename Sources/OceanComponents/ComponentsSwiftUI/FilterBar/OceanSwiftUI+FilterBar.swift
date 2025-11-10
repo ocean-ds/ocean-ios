@@ -22,6 +22,7 @@ extension OceanSwiftUI {
         @Published public var onTouch: (([Ocean.ChipModel], FilterBarOption) -> Bool)
         @Published public var onSelectionChange: (([Ocean.ChipModel], [FilterBarGroup]) -> Void)
         @Published public var onDateRangeChange: ((Date?, Date?, [FilterBarGroup]) -> Void)
+        @Published public var modalTitle: String? = nil
         @Published public var primaryButtonTitle: String = "Filtrar"
         @Published public var secondaryButtonTitle: String = "Limpar"
 
@@ -41,6 +42,7 @@ extension OceanSwiftUI {
                     onTouch: @escaping ([Ocean.ChipModel], FilterBarOption) -> Bool = { _, _ in return false },
                     onSelectionChange: @escaping ([Ocean.ChipModel], [FilterBarGroup]) -> Void = { _, _  in },
                     onDateRangeChange: @escaping ((Date?, Date?, [FilterBarGroup]) -> Void) = { _, _, _ in },
+                    modalTitle: String? = nil,
                     primaryButtonTitle: String = "Filtrar",
                     secondaryButtonTitle: String = "Limpar") {
             self.groups = groups
@@ -48,6 +50,9 @@ extension OceanSwiftUI {
             self.onTouch = onTouch
             self.onSelectionChange = onSelectionChange
             self.onDateRangeChange = onDateRangeChange
+            self.modalTitle = modalTitle
+            self.primaryButtonTitle = primaryButtonTitle
+            self.secondaryButtonTitle = secondaryButtonTitle
         }
     }
 
@@ -243,7 +248,7 @@ extension OceanSwiftUI {
 
             case .multiple:
                 Ocean.ModalMultipleChoice(rootViewController)
-                    .withTitle(touchedOption.title)
+                    .withTitle(parameters.modalTitle ?? touchedOption.title)
                     .withDismiss(true)
                     .withMultipleOptions(touchedOption.chips.map { Ocean.CellModel(title: $0.title,
                                                                                    isSelected: $0.isSelected,
@@ -267,7 +272,7 @@ extension OceanSwiftUI {
 
             case .dateRange:
                 Ocean.ModalDateRange(rootViewController)
-                    .withTitle(touchedOption.title)
+                    .withTitle(parameters.modalTitle ?? touchedOption.title)
                     .withBeginDate(touchedOption.beginDate)
                     .withEndDate(touchedOption.endDate)
                     .withCompletion { beginDate, endDate in
