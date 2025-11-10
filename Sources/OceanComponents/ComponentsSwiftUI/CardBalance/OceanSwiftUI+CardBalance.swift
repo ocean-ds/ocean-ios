@@ -81,22 +81,22 @@ extension OceanSwiftUI {
         }
 
         public struct PromotionalOffer {
-            public let message: String
-            public let ctaTitle: String
             public let remainingTime: TimeInterval
+            public let description: String
+            public let ctaTitle: String
             public let backgroundColor: UIColor
             public var onCTATap: (() -> Void)?
 
             public init(
-                message: String,
-                ctaTitle: String,
                 remainingTime: TimeInterval,
+                description: String,
+                ctaTitle: String,
                 backgroundColor: UIColor = Ocean.color.colorStatusWarningUp,
                 onCTATap: (() -> Void)? = nil
             ) {
-                self.message = message
-                self.ctaTitle = ctaTitle
                 self.remainingTime = remainingTime
+                self.description = description
+                self.ctaTitle = ctaTitle
                 self.backgroundColor = backgroundColor
                 self.onCTATap = onCTATap
             }
@@ -202,7 +202,7 @@ extension OceanSwiftUI {
                     .padding(.bottom, Ocean.size.spacingStackXxxs)
 
                     OceanSwiftUI.Typography.description { view in
-                        view.parameters.text = offer.message
+                        view.parameters.text = offer.description
                         view.parameters.textColor = Ocean.color.colorInterfaceDarkDown
                         view.parameters.lineLimit = 3
                     }
