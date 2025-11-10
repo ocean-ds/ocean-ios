@@ -84,20 +84,20 @@ extension OceanSwiftUI {
             public let message: String
             public let ctaTitle: String
             public let remainingTime: TimeInterval
-            public let showSkeleton: Bool
+            public let backgroundColor: UIColor
             public var onCTATap: (() -> Void)?
 
             public init(
                 message: String,
                 ctaTitle: String,
                 remainingTime: TimeInterval,
-                showSkeleton: Bool = false,
+                backgroundColor: UIColor = Ocean.color.colorStatusWarningUp,
                 onCTATap: (() -> Void)? = nil
             ) {
                 self.message = message
                 self.ctaTitle = ctaTitle
                 self.remainingTime = remainingTime
-                self.showSkeleton = showSkeleton
+                self.backgroundColor = backgroundColor
                 self.onCTATap = onCTATap
             }
         }
@@ -192,55 +192,33 @@ extension OceanSwiftUI {
         @ViewBuilder
         private var promotionalOfferView: some View {
             if let offer = parameters.promotionalOffer {
-                VStack(spacing: 0) {
-                    OceanSwiftUI.Divider()
-
-                    VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
-                        HStack(spacing: Ocean.size.spacingStackXxxs) {
-                            Image(uiImage: Ocean.icon.clockOutline)
-                                .resizable()
-                                .renderingMode(.template)
-                                .frame(width: Ocean.size.spacingStackXs, height: Ocean.size.spacingStackXs)
-                                .foregroundColor(Color(Ocean.color.colorStatusWarningDeep))
-
-                            OceanSwiftUI.Typography.caption { view in
-                                view.parameters.text = formatTime(offer.remainingTime)
-                                view.parameters.textColor = Ocean.color.colorStatusWarningDeep
-                                view.parameters.font = .baseBold(size: Ocean.font.fontSizeXxxs)
-                            }
-
-                            Spacer()
-                        }
-
-                        OceanSwiftUI.Typography.caption { view in
-                            view.parameters.text = offer.message
-                            view.parameters.textColor = Ocean.color.colorInterfaceDarkDown
-                            view.parameters.lineLimit = 3
-                        }
-
-                        HStack(spacing: Ocean.size.spacingStackXxxs) {
-                            OceanSwiftUI.Typography.caption { view in
-                                view.parameters.text = offer.ctaTitle
-                                view.parameters.textColor = Ocean.color.colorBrandPrimaryDeep
-                                view.parameters.font = .baseBold(size: Ocean.font.fontSizeXxxs)
-                            }
-
-                            Image(uiImage: Ocean.icon.chevronRightSolid)
-                                .resizable()
-                                .renderingMode(.template)
-                                .frame(width: Ocean.size.spacingStackXxxs, height: Ocean.size.spacingStackXxxs)
-                                .foregroundColor(Color(Ocean.color.colorBrandPrimaryDeep))
-                        }
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            offer.onCTATap?()
-                        }
+                VStack(alignment: .leading, spacing: 0) {
+                    OceanSwiftUI.Typography.description { view in
+                        view.parameters.text = formatTime(offer.remainingTime)
+                        view.parameters.textColor = Ocean.color.colorStatusWarningDeep
+                        view.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
                     }
-                    .padding(.vertical, Ocean.size.spacingStackXs)
-                    .padding(.horizontal, Ocean.size.spacingStackXs)
-                    .background(Color(Ocean.color.colorStatusWarningUp).opacity(0.12))
-                    .oceanSkeleton(isActive: offer.showSkeleton, shape: .rectangle)
+                    .padding(.top, Ocean.size.spacingStackXs)
+                    .padding(.bottom, Ocean.size.spacingStackXxxs)
+
+                    OceanSwiftUI.Typography.description { view in
+                        view.parameters.text = offer.message
+                        view.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                        view.parameters.lineLimit = 3
+                    }
+                    .padding(.bottom, Ocean.size.spacingStackXxsExtra)
+
+                    OceanSwiftUI.Link { view in
+                        view.parameters.text = offer.ctaTitle
+                        view.parameters.style = .primary
+                        view.parameters.type = .chevron
+                        view.parameters.onTouch = { offer.onCTATap?() }
+                    }
+                    .padding(.bottom, Ocean.size.spacingStackXs)
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, Ocean.size.spacingStackXs)
+                .background(Color(offer.backgroundColor))
                 .transition(.opacity)
             }
         }

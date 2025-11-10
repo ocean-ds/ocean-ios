@@ -23,7 +23,6 @@ class CardBalanceSwiftUIViewController: UIViewController {
                 message: "Oferta: taxa de 7,69% (era 11,06%) para antecipar sua agenda Blu — e ter dinheiro hoje.",
                 ctaTitle: "Simular antecipação",
                 remainingTime: self.remainingTime,
-                showSkeleton: false,
                 onCTATap: { print("Promotional offer CTA tapped - Blu") }
             )
             view.parameters.footer = .init(
