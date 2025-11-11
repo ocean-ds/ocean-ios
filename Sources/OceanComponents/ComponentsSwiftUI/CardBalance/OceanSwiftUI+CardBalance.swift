@@ -189,45 +189,40 @@ extension OceanSwiftUI {
 
         @ViewBuilder
         private var promotionalOfferView: some View {
-            if parameters.promotionalAnticipation.remainingTime != nil ||
-                parameters.promotionalAnticipation.description != nil ||
-                parameters.promotionalAnticipation.ctaTitle != nil {
-
-                VStack(alignment: .leading, spacing: 0) {
-                    if let remainingTime = parameters.promotionalAnticipation.remainingTime {
-                        OceanSwiftUI.Typography.description { view in
-                            view.parameters.text = remainingTime
-                            view.parameters.textColor = Ocean.color.colorStatusWarningDeep
-                            view.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
-                        }
-                        .padding(.top, Ocean.size.spacingStackXs)
-                        .padding(.bottom, Ocean.size.spacingStackXxxs)
+            VStack(alignment: .leading, spacing: 0) {
+                if let remainingTime = parameters.promotionalAnticipation.remainingTime {
+                    OceanSwiftUI.Typography.description { view in
+                        view.parameters.text = remainingTime
+                        view.parameters.textColor = Ocean.color.colorStatusWarningDeep
+                        view.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
                     }
-                    
-                    if let description = parameters.promotionalAnticipation.description {
-                        OceanSwiftUI.Typography.description { view in
-                            view.parameters.text = description
-                            view.parameters.textColor = Ocean.color.colorInterfaceDarkDown
-                            view.parameters.lineLimit = 3
-                        }
-                        .padding(.bottom, Ocean.size.spacingStackXxsExtra)
-                    }
-
-                    if let ctaTitle = parameters.promotionalAnticipation.ctaTitle {
-                        OceanSwiftUI.Link { view in
-                            view.parameters.text = ctaTitle
-                            view.parameters.style = .primary
-                            view.parameters.type = .chevron
-                            view.parameters.onTouch = { parameters.promotionalAnticipation.onCTATap?() }
-                        }
-                        .padding(.bottom, Ocean.size.spacingStackXs)
-                    }
+                    .padding(.top, Ocean.size.spacingStackXs)
+                    .padding(.bottom, Ocean.size.spacingStackXxxs)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, Ocean.size.spacingStackXs)
-                .background(Color(parameters.promotionalAnticipation.backgroundColor))
-                .transition(.opacity)
+
+                if let description = parameters.promotionalAnticipation.description {
+                    OceanSwiftUI.Typography.description { view in
+                        view.parameters.text = description
+                        view.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                        view.parameters.lineLimit = 3
+                    }
+                    .padding(.bottom, Ocean.size.spacingStackXxsExtra)
+                }
+
+                if let ctaTitle = parameters.promotionalAnticipation.ctaTitle {
+                    OceanSwiftUI.Link { view in
+                        view.parameters.text = ctaTitle
+                        view.parameters.style = .primary
+                        view.parameters.type = .chevron
+                        view.parameters.onTouch = { parameters.promotionalAnticipation.onCTATap?() }
+                    }
+                    .padding(.bottom, Ocean.size.spacingStackXs)
+                }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, Ocean.size.spacingStackXs)
+            .background(Color(parameters.promotionalAnticipation.backgroundColor))
+            .transition(.opacity)
         }
 
         @ViewBuilder
