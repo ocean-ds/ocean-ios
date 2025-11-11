@@ -9,8 +9,7 @@ class CardBalanceSwiftUIViewController: UIViewController {
             view.parameters.header = .init(
                 title: "Saldo total",
                 value: 1000000.00,
-                acquirers: ["Blu", "Rede", "Stone", "Getnet", "Asaas"],
-                blockedAcquirersCount: 2
+                acquirers: ["Blu", "Rede", "Stone", "Getnet", "Asaas"]
             )
             view.parameters.balanceRows = [
                 .init(label: "Saldo atual Blu", value: 500000.00),
@@ -45,8 +44,7 @@ class CardBalanceSwiftUIViewController: UIViewController {
             view.parameters.header = .init(
                 title: "Saldo total",
                 value: 2000000.00,
-                acquirers: ["Blu", "Rede", "Stone", "Getnet", "Asaas"],
-                blockedAcquirersCount: 2
+                acquirers: ["Blu", "Rede", "Stone", "Getnet", "Asaas"]
             )
             view.parameters.balanceRows = [
                 .init(label: "Saldo atual Blu", value: 500000.00),
