@@ -13,7 +13,7 @@ extension OceanSwiftUI {
     public final class CardBalanceParameters: ObservableObject {
         @Published public var header: Header
         @Published public var balanceRows: [BalanceRow]
-        @Published public var promotionalOffer: PromotionalOffer
+        @Published public var promotionalAnticipation: PromotionalAnticipation
         @Published public var footer: Footer
         @Published public var state: CardBalanceState
         @Published public var showValue: Bool
@@ -26,7 +26,7 @@ extension OceanSwiftUI {
         public init(
             header: Header = .init(),
             balanceRows: [BalanceRow] = [],
-            promotionalOffer: PromotionalOffer = PromotionalOffer(),
+            promotionalAnticipation: PromotionalAnticipation = PromotionalAnticipation(),
             footer: Footer = Footer(),
             state: CardBalanceState = .collapsed,
             showValue: Bool = true,
@@ -37,7 +37,7 @@ extension OceanSwiftUI {
         ) {
             self.header = header
             self.balanceRows = balanceRows
-            self.promotionalOffer = promotionalOffer
+            self.promotionalAnticipation = promotionalAnticipation
             self.footer = footer
             self.state = state
             self.showValue = showValue
@@ -80,7 +80,7 @@ extension OceanSwiftUI {
             }
         }
 
-        public struct PromotionalOffer {
+        public struct PromotionalAnticipation {
             public let remainingTime: String?
             public let description: String?
             public let ctaTitle: String?
@@ -190,12 +190,12 @@ extension OceanSwiftUI {
 
         @ViewBuilder
         private var promotionalOfferView: some View {
-            if parameters.promotionalOffer.remainingTime != nil ||
-                parameters.promotionalOffer.description != nil ||
-                parameters.promotionalOffer.ctaTitle != nil {
+            if parameters.promotionalAnticipation.remainingTime != nil ||
+                parameters.promotionalAnticipation.description != nil ||
+                parameters.promotionalAnticipation.ctaTitle != nil {
 
                 VStack(alignment: .leading, spacing: 0) {
-                    if let remainingTime = parameters.promotionalOffer.remainingTime {
+                    if let remainingTime = parameters.promotionalAnticipation.remainingTime {
                         OceanSwiftUI.Typography.description { view in
                             view.parameters.text = remainingTime
                             view.parameters.textColor = Ocean.color.colorStatusWarningDeep
@@ -205,7 +205,7 @@ extension OceanSwiftUI {
                         .padding(.bottom, Ocean.size.spacingStackXxxs)
                     }
                     
-                    if let description = parameters.promotionalOffer.description {
+                    if let description = parameters.promotionalAnticipation.description {
                         OceanSwiftUI.Typography.description { view in
                             view.parameters.text = description
                             view.parameters.textColor = Ocean.color.colorInterfaceDarkDown
@@ -214,19 +214,19 @@ extension OceanSwiftUI {
                         .padding(.bottom, Ocean.size.spacingStackXxsExtra)
                     }
 
-                    if let ctaTitle = parameters.promotionalOffer.ctaTitle {
+                    if let ctaTitle = parameters.promotionalAnticipation.ctaTitle {
                         OceanSwiftUI.Link { view in
                             view.parameters.text = ctaTitle
                             view.parameters.style = .primary
                             view.parameters.type = .chevron
-                            view.parameters.onTouch = { parameters.promotionalOffer.onCTATap?() }
+                            view.parameters.onTouch = { parameters.promotionalAnticipation.onCTATap?() }
                         }
                         .padding(.bottom, Ocean.size.spacingStackXs)
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, Ocean.size.spacingStackXs)
-                .background(Color(parameters.promotionalOffer.backgroundColor))
+                .background(Color(parameters.promotionalAnticipation.backgroundColor))
                 .transition(.opacity)
             }
         }

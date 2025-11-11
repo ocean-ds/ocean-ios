@@ -19,7 +19,7 @@ class CardBalanceSwiftUIViewController: UIViewController {
                 .init(label: "Agenda Rede", value: 2234.10),
                 .init(label: "Agenda Getnet", value: 3456.78)
             ]
-            view.parameters.promotionalOffer = .init(
+            view.parameters.promotionalAnticipation = .init(
                 remainingTime: self.remainingTime,
                 description: "Oferta: taxa de 7,69% (era 11,06%) para antecipar sua agenda Blu — e ter dinheiro hoje.",
                 ctaTitle: "Simular antecipação",
