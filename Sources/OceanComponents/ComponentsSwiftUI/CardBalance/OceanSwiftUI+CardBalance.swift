@@ -91,8 +91,7 @@ extension OceanSwiftUI {
                         description: String? = nil,
                         ctaTitle: String? = nil,
                         backgroundColor: UIColor = Ocean.color.colorStatusWarningUp,
-                        onCTATap: (() -> Void)? = nil
-            ) {
+                        onCTATap: (() -> Void)? = nil) {
                 self.remainingTime = remainingTime
                 self.description = description
                 self.ctaTitle = ctaTitle
