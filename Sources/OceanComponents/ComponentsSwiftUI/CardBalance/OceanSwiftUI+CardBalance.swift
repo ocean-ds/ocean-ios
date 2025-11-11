@@ -57,26 +57,38 @@ extension OceanSwiftUI {
             public let title: String
             public let value: Double
             public let acquirers: [String]
+            public let hasBlockedAcquirers: Bool
+            public let blockedAcquirersCount: Int
 
             public init(title: String = "",
                         value: Double = 0,
-                        acquirers: [String] = []) {
+                        acquirers: [String] = [],
+                        hasBlockedAcquirers: Bool = false,
+                        blockedAcquirersCount: Int = 0) {
                 self.title = title
                 self.value = value
                 self.acquirers = acquirers
+                self.hasBlockedAcquirers = hasBlockedAcquirers
+                self.blockedAcquirersCount = blockedAcquirersCount
             }
         }
 
         public struct BalanceRow {
             public let label: String
             public let value: Double
+            public let isLocked: Bool
+            public let lockedLabel: String?
             public let promotionalAnticipation: PromotionalAnticipation?
 
             public init(label: String,
                         value: Double,
+                        isLocked: Bool = false,
+                        lockedLabel: String? = nil,
                         promotionalAnticipation: PromotionalAnticipation? = nil) {
                 self.label = label
                 self.value = value
+                self.isLocked = isLocked
+                self.lockedLabel = lockedLabel
                 self.promotionalAnticipation = promotionalAnticipation
             }
         }
@@ -172,11 +184,28 @@ extension OceanSwiftUI {
             VStack(spacing: 0) {
                 ForEach(parameters.balanceRows.indices, id: \.self) { i in
                     let item = parameters.balanceRows[i]
-                    getBalanceView(label: item.label,
-                                   balance: item.value,
-                                   isVerticalBalance: false)
+
+                    if item.isLocked, let lockedLabel = item.lockedLabel {
+                        lockedLabelView(text: lockedLabel)
+                    }
+
+                    HStack(spacing: Ocean.size.spacingStackXxs) {
+                        if item.isLocked {
+                            Image(uiImage: Ocean.icon.lockClosedSolid)
+                                .resizable()
+                                .renderingMode(.template)
+                                .frame(width: 16, height: 16)
+                                .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
+                        }
+
+                        getBalanceView(label: item.label,
+                                       balance: item.value,
+                                       isVerticalBalance: false,
+                                       isLocked: item.isLocked)
+                    }
                     .padding(.vertical, Ocean.size.spacingStackXxsExtra)
                     .padding(.horizontal, Ocean.size.spacingStackXs)
+                    .background(item.isLocked ? Color(Ocean.color.colorInterfaceLightUp) : Color(Ocean.color.colorInterfaceLightPure))
 
                     if let anticipation = item.promotionalAnticipation {
                         promotionalAnticipationView(anticipation: anticipation)
@@ -190,6 +219,20 @@ extension OceanSwiftUI {
             .clipped()
             .transition(.opacity)
             .zIndex(0)
+        }
+
+        @ViewBuilder
+        private func lockedLabelView(text: String) -> some View {
+            OceanSwiftUI.Typography.captionBold { view in
+                view.parameters.text = text
+                view.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                view.parameters.lineLimit = 3
+            }
+            .padding(.top, Ocean.size.spacingStackXxsExtra)
+            .padding(.horizontal, Ocean.size.spacingStackXs)
+            .padding(.bottom, Ocean.size.spacingStackXxs)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Color(Ocean.color.colorInterfaceLightUp))
         }
 
         @ViewBuilder
@@ -266,7 +309,7 @@ extension OceanSwiftUI {
         private var acquirersView: some View {
             OceanSwiftUI.Brands { view in
                 view.parameters.acquirers = parameters.header.acquirers
-                view.parameters.limit = 3
+                view.parameters.limit = parameters.header.blockedAcquirersCount != 0 ? 1 : 3
                 view.parameters.hasBorder = true
                 view.parameters.borderColor = Ocean.color.colorInterfaceLightPure
                 view.parameters.itemSize = Ocean.size.spacingStackMd
@@ -309,7 +352,8 @@ extension OceanSwiftUI {
 
         private func getBalanceView(label: String?,
                                     balance: Double?,
-                                    isVerticalBalance: Bool) -> some View {
+                                    isVerticalBalance: Bool,
+                                    isLocked: Bool = false) -> some View {
             VStack(alignment: .leading, spacing: 0) {
                 if isVerticalBalance {
                     VStack(alignment: .leading, spacing: 0) {
@@ -324,14 +368,29 @@ extension OceanSwiftUI {
                     }
                 } else {
                     HStack {
-                        OceanSwiftUI.Typography.caption { view in
-                            view.parameters.text = label ?? ""
+                        if isLocked {
+                            OceanSwiftUI.Typography.captionBold { view in
+                                view.parameters.text = label ?? ""
+                                view.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                            }
+                        } else {
+                            OceanSwiftUI.Typography.caption { view in
+                                view.parameters.text = label ?? ""
+                            }
                         }
                         Spacer()
-                        OceanSwiftUI.Typography.heading5 { view in
-                            view.parameters.text = maskedCurrency(balance)
+                        if isLocked {
+                            OceanSwiftUI.Typography.captionBold { view in
+                                view.parameters.text = maskedCurrency(balance)
+                                view.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                            }
+                            .animation(.easeInOut(duration: 0.2), value: parameters.showValue)
+                        } else {
+                            OceanSwiftUI.Typography.heading5 { view in
+                                view.parameters.text = maskedCurrency(balance)
+                            }
+                            .animation(.easeInOut(duration: 0.2), value: parameters.showValue)
                         }
-                        .animation(.easeInOut(duration: 0.2), value: parameters.showValue)
                     }
                 }
             }
