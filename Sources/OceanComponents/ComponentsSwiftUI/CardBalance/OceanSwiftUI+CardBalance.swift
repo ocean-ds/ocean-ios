@@ -13,7 +13,7 @@ extension OceanSwiftUI {
     public final class CardBalanceParameters: ObservableObject {
         @Published public var header: Header
         @Published public var balanceRows: [BalanceRow]
-        @Published public var promotionalAnticipation: PromotionalAnticipation
+        @Published public var promotionalAnticipation: PromotionalAnticipation?
         @Published public var footer: Footer
         @Published public var state: CardBalanceState
         @Published public var showValue: Bool
@@ -26,7 +26,7 @@ extension OceanSwiftUI {
         public init(
             header: Header = .init(),
             balanceRows: [BalanceRow] = [],
-            promotionalAnticipation: PromotionalAnticipation = PromotionalAnticipation(),
+            promotionalAnticipation: PromotionalAnticipation? = nil,
             footer: Footer = Footer(),
             state: CardBalanceState = .collapsed,
             showValue: Bool = true,
@@ -81,15 +81,15 @@ extension OceanSwiftUI {
         }
 
         public struct PromotionalAnticipation {
-            public let remainingTime: String?
-            public let description: String?
-            public let ctaTitle: String?
+            public let remainingTime: String
+            public let description: String
+            public let ctaTitle: String
             public let backgroundColor: UIColor
             public var onCTATap: (() -> Void)?
 
-            public init(remainingTime: String? = nil,
-                        description: String? = nil,
-                        ctaTitle: String? = nil,
+            public init(remainingTime: String,
+                        description: String,
+                        ctaTitle: String,
                         backgroundColor: UIColor = Ocean.color.colorStatusWarningUp,
                         onCTATap: (() -> Void)? = nil) {
                 self.remainingTime = remainingTime
@@ -188,41 +188,38 @@ extension OceanSwiftUI {
         }
 
         @ViewBuilder
-        private var promotionalOfferView: some View {
-            VStack(alignment: .leading, spacing: 0) {
-                if let remainingTime = parameters.promotionalAnticipation.remainingTime {
+        private var promotionalAnticipationView: some View {
+                if let anticipation = parameters.promotionalAnticipation {
+                    VStack(alignment: .leading, spacing: 0) {
+
                     OceanSwiftUI.Typography.description { view in
-                        view.parameters.text = remainingTime
+                        view.parameters.text = anticipation.remainingTime
                         view.parameters.textColor = Ocean.color.colorStatusWarningDeep
                         view.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
                     }
                     .padding(.top, Ocean.size.spacingStackXs)
                     .padding(.bottom, Ocean.size.spacingStackXxxs)
-                }
 
-                if let description = parameters.promotionalAnticipation.description {
                     OceanSwiftUI.Typography.description { view in
-                        view.parameters.text = description
+                        view.parameters.text = anticipation.description
                         view.parameters.textColor = Ocean.color.colorInterfaceDarkDown
                         view.parameters.lineLimit = 3
                     }
                     .padding(.bottom, Ocean.size.spacingStackXxsExtra)
-                }
 
-                if let ctaTitle = parameters.promotionalAnticipation.ctaTitle {
                     OceanSwiftUI.Link { view in
-                        view.parameters.text = ctaTitle
+                        view.parameters.text = anticipation.ctaTitle
                         view.parameters.style = .primary
                         view.parameters.type = .chevron
-                        view.parameters.onTouch = { parameters.promotionalAnticipation.onCTATap?() }
+                        view.parameters.onTouch = { anticipation.onCTATap?() }
                     }
                     .padding(.bottom, Ocean.size.spacingStackXs)
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, Ocean.size.spacingStackXs)
+                .background(Color(anticipation.backgroundColor))
+                .transition(.opacity)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, Ocean.size.spacingStackXs)
-            .background(Color(parameters.promotionalAnticipation.backgroundColor))
-            .transition(.opacity)
         }
 
         @ViewBuilder
@@ -294,8 +291,6 @@ extension OceanSwiftUI {
 
                 if parameters.state == .expanded {
                     bodyItems
-
-                    promotionalOfferView
                 }
 
                 OceanSwiftUI.Divider()

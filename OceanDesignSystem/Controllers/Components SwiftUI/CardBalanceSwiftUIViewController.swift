@@ -3,9 +3,6 @@ import SwiftUI
 import OceanTokens
 
 class CardBalanceSwiftUIViewController: UIViewController {
-    private var timer: Timer?
-    private var remainingTime: String = "00h24m00s"
-
     private lazy var cardBalanceDistributor: OceanSwiftUI.CardBalance = {
         OceanSwiftUI.CardBalance { view in
             view.parameters.header = .init(
@@ -20,7 +17,7 @@ class CardBalanceSwiftUIViewController: UIViewController {
                 .init(label: "Agenda Getnet", value: 3456.78)
             ]
             view.parameters.promotionalAnticipation = .init(
-                remainingTime: self.remainingTime,
+                remainingTime: "00h24m00s",
                 description: "Oferta: taxa de 7,69% (era 11,06%) para antecipar sua agenda Blu — e ter dinheiro hoje.",
                 ctaTitle: "Simular antecipação",
                 onCTATap: { print("Promotional offer CTA tapped - Blu") }
