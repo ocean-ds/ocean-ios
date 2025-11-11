@@ -4,7 +4,7 @@ import OceanTokens
 
 class CardBalanceSwiftUIViewController: UIViewController {
     private var timer: Timer?
-    private var remainingTime: TimeInterval = 86400
+    private var remainingTime: String = "00h24m00s"
 
     private lazy var cardBalanceDistributor: OceanSwiftUI.CardBalance = {
         OceanSwiftUI.CardBalance { view in
