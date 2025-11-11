@@ -58,18 +58,15 @@ extension OceanSwiftUI {
             public let value: Double
             public let acquirers: [String]
             public let hasBlockedAcquirers: Bool
-            public let blockedAcquirersCount: Int
 
             public init(title: String = "",
                         value: Double = 0,
                         acquirers: [String] = [],
-                        hasBlockedAcquirers: Bool = false,
-                        blockedAcquirersCount: Int = 0) {
+                        hasBlockedAcquirers: Bool = false) {
                 self.title = title
                 self.value = value
                 self.acquirers = acquirers
                 self.hasBlockedAcquirers = hasBlockedAcquirers
-                self.blockedAcquirersCount = blockedAcquirersCount
             }
         }
 
@@ -309,7 +306,7 @@ extension OceanSwiftUI {
         private var acquirersView: some View {
             OceanSwiftUI.Brands { view in
                 view.parameters.acquirers = parameters.header.acquirers
-                view.parameters.limit = parameters.header.blockedAcquirersCount != 0 ? 1 : 3
+                view.parameters.limit = parameters.header.hasBlockedAcquirers ? 1 : 3
                 view.parameters.hasBorder = true
                 view.parameters.borderColor = Ocean.color.colorInterfaceLightPure
                 view.parameters.itemSize = Ocean.size.spacingStackMd
