@@ -75,16 +75,25 @@ extension OceanSwiftUI {
             case locked(label: String, value: Double)
             case lockedLabel(text: String)
             case promotionalAnticipation(anticipation: PromotionalAnticipation)
+
+            var hasDivider: Bool {
+                switch self {
+                case .simple, .locked:
+                    return true
+                case .lockedLabel, .promotionalAnticipation:
+                    return false
+                }
+            }
         }
 
         public struct PromotionalAnticipation {
-            public let remainingTime: String
+            public let remainingTime: String?
             public let description: String
             public let ctaTitle: String
             public let backgroundColor: UIColor
             public var onCTATap: (() -> Void)?
 
-            public init(remainingTime: String,
+            public init(remainingTime: String? = nil,
                         description: String,
                         ctaTitle: String,
                         backgroundColor: UIColor = Ocean.color.colorStatusWarningUp,
@@ -165,9 +174,17 @@ extension OceanSwiftUI {
         }
 
         private var bodyItems: some View {
-            VStack(spacing: 0) {
-                ForEach(parameters.balanceRows.indices, id: \.self) { i in
-                    let row = parameters.balanceRows[i]
+
+            let filteredRows = parameters.balanceRows.filter { row in
+                if case let .promotionalAnticipation(anticipation) = row {
+                    return anticipation.remainingTime != nil
+                }
+                return true
+            }
+
+            return VStack(spacing: 0) {
+                ForEach(filteredRows.indices, id: \.self) { i in
+                    let row = filteredRows[i]
 
                     switch row {
                     case let .simple(label, value):
@@ -183,19 +200,22 @@ extension OceanSwiftUI {
                         getPromotionalRowView(anticipation: anticipation)
                     }
 
-                    if i != parameters.balanceRows.indices.last,
-                       case .lockedLabel = row {
-                    } else if i != parameters.balanceRows.indices.last {
-                        if case .locked = row {
-                            VStack(spacing: 0) {
-                                OceanSwiftUI.Divider()
-                                    .padding(.horizontal, Ocean.size.spacingStackXs)
-                            }
-                            .background(Color(Ocean.color.colorInterfaceLightUp))
+                    if i != filteredRows.indices.last && row.hasDivider {
+                        let nextRow = filteredRows[i + 1]
+                        if case .promotionalAnticipation = nextRow {
                         } else {
-                            OceanSwiftUI.Divider()
+                            if case .locked = row {
+                                VStack(spacing: 0) {
+                                    OceanSwiftUI.Divider()
+                                        .padding(.horizontal, Ocean.size.spacingStackXs)
+                                }
+                                .background(Color(Ocean.color.colorInterfaceLightUp))
+                            } else {
+                                OceanSwiftUI.Divider()
+                            }
                         }
                     }
+
                 }
             }
             .clipped()
@@ -237,34 +257,40 @@ extension OceanSwiftUI {
 
         @ViewBuilder
         private func getPromotionalRowView(anticipation: CardBalanceParameters.PromotionalAnticipation) -> some View {
-            VStack(alignment: .leading, spacing: 0) {
-                OceanSwiftUI.Typography.description { view in
-                    view.parameters.text = anticipation.remainingTime
-                    view.parameters.textColor = Ocean.color.colorStatusWarningDeep
-                    view.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
-                }
-                .padding(.top, Ocean.size.spacingStackXs)
-                .padding(.bottom, Ocean.size.spacingStackXxxs)
+            if let remainingTime = anticipation.remainingTime {
+                VStack(alignment: .leading, spacing: 0) {
+                    OceanSwiftUI.Typography.description { view in
+                        view.parameters.text = remainingTime
+                        view.parameters.textColor = Ocean.color.colorStatusWarningDeep
+                        view.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
+                    }
+                    .padding(.top, Ocean.size.spacingStackXs)
+                    .padding(.bottom, Ocean.size.spacingStackXxxs)
 
-                OceanSwiftUI.Typography.description { view in
-                    view.parameters.text = anticipation.description
-                    view.parameters.textColor = Ocean.color.colorInterfaceDarkDown
-                    view.parameters.lineLimit = 3
-                }
-                .padding(.bottom, Ocean.size.spacingStackXxsExtra)
+                    OceanSwiftUI.Typography.description { view in
+                        view.parameters.text = anticipation.description
+                        view.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                        view.parameters.lineLimit = 3
+                    }
+                    .padding(.bottom, Ocean.size.spacingStackXxsExtra)
 
-                OceanSwiftUI.Link { view in
-                    view.parameters.text = anticipation.ctaTitle
-                    view.parameters.style = .primary
-                    view.parameters.type = .chevron
-                    view.parameters.onTouch = { anticipation.onCTATap?() }
+                    OceanSwiftUI.Link { view in
+                        view.parameters.text = anticipation.ctaTitle
+                        view.parameters.style = .primary
+                        view.parameters.type = .chevron
+                        view.parameters.onTouch = { anticipation.onCTATap?() }
+                    }
+                    .padding(.bottom, Ocean.size.spacingStackXs)
+
+                    OceanSwiftUI.Divider()
+                        .padding(.horizontal, -Ocean.size.spacingStackXs)
+
                 }
-                .padding(.bottom, Ocean.size.spacingStackXs)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, Ocean.size.spacingStackXs)
+                .background(Color(anticipation.backgroundColor))
+                .transition(.opacity)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, Ocean.size.spacingStackXs)
-            .background(Color(anticipation.backgroundColor))
-            .transition(.opacity)
         }
 
         @ViewBuilder

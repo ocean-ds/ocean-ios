@@ -49,6 +49,31 @@ class CardBalanceSwiftUIViewController: UIViewController {
         }
     }()
 
+    private lazy var cardBalanceWithPromotionWhenRemainingTimeNil: OceanSwiftUI.CardBalance = {
+        OceanSwiftUI.CardBalance { view in
+            view.parameters.header = .init(title: "Saldo total",
+                                           value: 2000000.00,
+                                           acquirers: ["Blu", "Rede", "Stone", "Getnet", "Asaas"],
+                                           hasBlockedAcquirers: true)
+            view.parameters.balanceRows = [.simple(label: "Saldo atual Blu", value: 500000.00),
+                                           .simple(label: "Agenda Blu", value: 5321.45),
+                                           .promotionalAnticipation(anticipation: .init(description: "Oferta: taxa de 7,69% (era 11,06%) para antecipar sua agenda Blu — e ter dinheiro hoje.",
+                                                                                        ctaTitle: "Simular antecipação",
+                                                                                        onCTATap: { print("Promotional offer CTA tapped - Blu") })),
+                .lockedLabel(text: "Conforme você for usando mais a Blu, estas agendas ficarão disponíveis para você."),
+                .locked(label: "Agenda Rede", value: 500000.00),
+                .locked(label: "Agenda Getnet", value: 500000.00)
+            ]
+            view.parameters.footer = .init(description: nil,
+                                           title: "Disponível para saque",
+                                           value: 500000.00,
+                                           ctaTitle: "Receber")
+            view.parameters.state = .collapsed
+            view.parameters.onToggle = { print("CardBalance blocked with promotion toggled") }
+            view.parameters.footer.onCTATap = { print("Receive CTA tapped") }
+        }
+    }()
+
     private lazy var cardBalanceDistributor: OceanSwiftUI.CardBalance = {
         OceanSwiftUI.CardBalance { view in
             view.parameters.header = .init(title: "Saldo consolidado",
@@ -158,6 +183,8 @@ class CardBalanceSwiftUIViewController: UIViewController {
             cardBalanceWithBlockedAcquirers
 
             cardBalanceBlockedWithPromotion
+
+            cardBalanceWithPromotionWhenRemainingTimeNil
 
             Spacer()
 
