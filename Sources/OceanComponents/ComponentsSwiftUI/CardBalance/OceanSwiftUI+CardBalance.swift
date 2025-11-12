@@ -382,29 +382,34 @@ extension OceanSwiftUI {
                     }
                 } else {
                     HStack {
-                        if isLocked {
-                            OceanSwiftUI.Typography.captionBold { view in
-                                view.parameters.text = label ?? ""
-                                view.parameters.textColor = Ocean.color.colorInterfaceDarkDown
-                            }
-                        } else {
-                            OceanSwiftUI.Typography.caption { view in
-                                view.parameters.text = label ?? ""
+                        Group {
+                            if isLocked {
+                                OceanSwiftUI.Typography.captionBold { view in
+                                    view.parameters.text = label ?? ""
+                                    view.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                                }
+                            } else {
+                                OceanSwiftUI.Typography.caption { view in
+                                    view.parameters.text = label ?? ""
+                                }
                             }
                         }
+
                         Spacer()
-                        if isLocked {
-                            OceanSwiftUI.Typography.captionBold { view in
-                                view.parameters.text = maskedCurrency(balance)
-                                view.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+
+                        Group {
+                            if isLocked {
+                                OceanSwiftUI.Typography.captionBold { view in
+                                    view.parameters.text = maskedCurrency(balance)
+                                    view.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                                }
+                            } else {
+                                OceanSwiftUI.Typography.heading5 { view in
+                                    view.parameters.text = maskedCurrency(balance)
+                                }
                             }
-                            .animation(.easeInOut(duration: 0.2), value: parameters.showValue)
-                        } else {
-                            OceanSwiftUI.Typography.heading5 { view in
-                                view.parameters.text = maskedCurrency(balance)
-                            }
-                            .animation(.easeInOut(duration: 0.2), value: parameters.showValue)
                         }
+                        .animation(.easeInOut(duration: 0.2), value: parameters.showValue)
                     }
                 }
             }
