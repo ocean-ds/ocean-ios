@@ -171,16 +171,16 @@ extension OceanSwiftUI {
 
                     switch row {
                     case let .simple(label, value):
-                        simpleRowView(label: label, value: value)
+                        getSimpleRowView(label: label, value: value)
 
                     case let .locked(label, value):
-                        lockedRowView(label: label, value: value)
+                        getLockedRowView(label: label, value: value)
 
                     case let .lockedLabel(text):
-                        lockedLabelView(text: text)
+                        getLockedLabelView(text: text)
 
                     case let .promotionalAnticipation(anticipation):
-                        promotionalRowView(anticipation: anticipation)
+                        getPromotionalRowView(anticipation: anticipation)
                     }
 
                     if i != parameters.balanceRows.indices.last,
@@ -204,7 +204,7 @@ extension OceanSwiftUI {
         }
 
         @ViewBuilder
-        private func simpleRowView(label: String, value: Double) -> some View {
+        private func getSimpleRowView(label: String, value: Double) -> some View {
             HStack(spacing: Ocean.size.spacingStackXxs) {
                 getBalanceView(label: label,
                                balance: value,
@@ -217,7 +217,7 @@ extension OceanSwiftUI {
         }
 
         @ViewBuilder
-        private func lockedRowView(label: String, value: Double) -> some View {
+        private func getLockedRowView(label: String, value: Double) -> some View {
             HStack(spacing: Ocean.size.spacingStackXxs) {
                 Image(uiImage: Ocean.icon.lockClosedSolid)
                     .resizable()
@@ -236,7 +236,7 @@ extension OceanSwiftUI {
         }
 
         @ViewBuilder
-        private func promotionalRowView(anticipation: CardBalanceParameters.PromotionalAnticipation) -> some View {
+        private func getPromotionalRowView(anticipation: CardBalanceParameters.PromotionalAnticipation) -> some View {
             VStack(alignment: .leading, spacing: 0) {
                 OceanSwiftUI.Typography.description { view in
                     view.parameters.text = anticipation.remainingTime
@@ -268,7 +268,7 @@ extension OceanSwiftUI {
         }
 
         @ViewBuilder
-        private func lockedLabelView(text: String) -> some View {
+        private func getLockedLabelView(text: String) -> some View {
             OceanSwiftUI.Typography.captionBold { view in
                 view.parameters.text = text
                 view.parameters.textColor = Ocean.color.colorInterfaceDarkDown
