@@ -70,24 +70,13 @@ extension OceanSwiftUI {
             }
         }
 
-        public struct BalanceRow {
-            public let label: String
-            public let value: Double
-            public let isLocked: Bool
-            public let lockedLabel: String?
-            public let promotionalAnticipation: PromotionalAnticipation?
-
-            public init(label: String,
-                        value: Double,
-                        isLocked: Bool = false,
-                        lockedLabel: String? = nil,
-                        promotionalAnticipation: PromotionalAnticipation? = nil) {
-                self.label = label
-                self.value = value
-                self.isLocked = isLocked
-                self.lockedLabel = lockedLabel
-                self.promotionalAnticipation = promotionalAnticipation
-            }
+        public enum BalanceRow {
+            case simple(label: String, value: Double)
+            case locked(label: String, value: Double)
+            case lockedLabel(text: String)
+            case promotionalAnticipation(label: String,
+                                         value: Double,
+                                         anticipation: PromotionalAnticipation)
         }
 
         public struct PromotionalAnticipation {
@@ -180,42 +169,91 @@ extension OceanSwiftUI {
         private var bodyItems: some View {
             VStack(spacing: 0) {
                 ForEach(parameters.balanceRows.indices, id: \.self) { i in
-                    let item = parameters.balanceRows[i]
+                    let row = parameters.balanceRows[i]
 
-                    if item.isLocked, let lockedLabel = item.lockedLabel {
-                        lockedLabelView(text: lockedLabel)
+                    switch row {
+                    case let .simple(label, value):
+                        simpleRowView(label: label, value: value)
+
+                    case let .locked(label, value):
+                        lockedRowView(label: label, value: value)
+
+                    case let .lockedLabel(text):
+                        lockedLabelView(text: text)
+
+                    case let .promotionalAnticipation(label, value, anticipation):
+                        promotionalRowView(label: label, value: value, anticipation: anticipation)
                     }
 
-                    HStack(spacing: Ocean.size.spacingStackXxs) {
-                        if item.isLocked {
-                            Image(uiImage: Ocean.icon.lockClosedSolid)
-                                .resizable()
-                                .renderingMode(.template)
-                                .frame(width: 16, height: 16)
-                                .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
+                    if i != parameters.balanceRows.indices.last,
+                       case .lockedLabel = row {
+                    } else if i != parameters.balanceRows.indices.last {
+                        if case .locked = row {
+                            VStack(spacing: 0) {
+                                OceanSwiftUI.Divider()
+                                    .padding(.horizontal, Ocean.size.spacingStackXs)
+                            }
+                            .background(Color(Ocean.color.colorInterfaceLightUp))
+                        } else {
+                            OceanSwiftUI.Divider()
                         }
-
-                        getBalanceView(label: item.label,
-                                       balance: item.value,
-                                       isVerticalBalance: false,
-                                       isLocked: item.isLocked)
-                    }
-                    .padding(.vertical, Ocean.size.spacingStackXxsExtra)
-                    .padding(.horizontal, Ocean.size.spacingStackXs)
-                    .background(item.isLocked ? Color(Ocean.color.colorInterfaceLightUp) : Color(Ocean.color.colorInterfaceLightPure))
-
-                    if let anticipation = item.promotionalAnticipation {
-                        promotionalAnticipationView(anticipation: anticipation)
-                    }
-
-                    if i != parameters.balanceRows.indices.last {
-                        OceanSwiftUI.Divider()
                     }
                 }
             }
             .clipped()
             .transition(.opacity)
             .zIndex(0)
+        }
+
+        @ViewBuilder
+        private func simpleRowView(label: String, value: Double) -> some View {
+            HStack(spacing: Ocean.size.spacingStackXxs) {
+                getBalanceView(label: label,
+                               balance: value,
+                               isVerticalBalance: false,
+                               isLocked: false)
+            }
+            .padding(.vertical, Ocean.size.spacingStackXxsExtra)
+            .padding(.horizontal, Ocean.size.spacingStackXs)
+            .background(Color(Ocean.color.colorInterfaceLightPure))
+        }
+
+        @ViewBuilder
+        private func lockedRowView(label: String, value: Double) -> some View {
+            HStack(spacing: Ocean.size.spacingStackXxs) {
+                Image(uiImage: Ocean.icon.lockClosedSolid)
+                    .resizable()
+                    .renderingMode(.template)
+                    .frame(width: 16, height: 16)
+                    .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
+
+                getBalanceView(label: label,
+                               balance: value,
+                               isVerticalBalance: false,
+                               isLocked: true)
+            }
+            .padding(.vertical, Ocean.size.spacingStackXxsExtra)
+            .padding(.horizontal, Ocean.size.spacingStackXs)
+            .background(Color(Ocean.color.colorInterfaceLightUp))
+        }
+
+        @ViewBuilder
+        private func promotionalRowView(label: String,
+                                        value: Double,
+                                        anticipation: CardBalanceParameters.PromotionalAnticipation) -> some View {
+            VStack(spacing: 0) {
+                HStack(spacing: Ocean.size.spacingStackXxs) {
+                    getBalanceView(label: label,
+                                   balance: value,
+                                   isVerticalBalance: false,
+                                   isLocked: false)
+                }
+                .padding(.vertical, Ocean.size.spacingStackXxsExtra)
+                .padding(.horizontal, Ocean.size.spacingStackXs)
+                .background(Color(Ocean.color.colorInterfaceLightPure))
+
+                promotionalAnticipationView(anticipation: anticipation)
+            }
         }
 
         @ViewBuilder
