@@ -30,9 +30,8 @@ class CardBalanceSwiftUIViewController: UIViewController {
                                            acquirers: ["Blu", "Rede", "Stone", "Getnet", "Asaas"],
                                            hasBlockedAcquirers: true)
             view.parameters.balanceRows = [.simple(label: "Saldo atual Blu", value: 500000.00),
-                                           .promotionalAnticipation(label: "Agenda Blu",
-                                                                    value: 500000.00,
-                                                                    anticipation: .init(remainingTime: "00h24m00s",
+                                           .simple(label: "Agenda Blu", value: 5321.45),
+                                           .promotionalAnticipation(anticipation: .init(remainingTime: "00h24m00s",
                                                                                         description: "Oferta: taxa de 7,69% (era 11,06%) para antecipar sua agenda Blu — e ter dinheiro hoje.",
                                                                                         ctaTitle: "Simular antecipação",
                                                                                         onCTATap: { print("Promotional offer CTA tapped - Blu") })),
@@ -58,9 +57,7 @@ class CardBalanceSwiftUIViewController: UIViewController {
             view.parameters.balanceRows = [
                 .simple(label: "Saldo atual Blu", value: 10765.45),
                 .simple(label: "Agenda Blu",value: 5321.45),
-                .promotionalAnticipation(label: "Agenda Blu",
-                                         value: 5321.45,
-                                         anticipation: .init(remainingTime: "00h24m00s",
+                .promotionalAnticipation(anticipation: .init(remainingTime: "00h24m00s",
                                                              description: "Oferta: taxa de 7,69% (era 11,06%) para antecipar sua agenda Blu — e ter dinheiro hoje.",
                                                              ctaTitle: "Simular antecipação",
                                                              onCTATap: { print("Promotional offer CTA tapped - Blu") })),
@@ -86,9 +83,7 @@ class CardBalanceSwiftUIViewController: UIViewController {
                 .simple(label: "Saldo atual Blu", value: 10765.45),
                 .simple(label: "Agenda Blu", value: 5321.45),
                 .simple(label: "Agenda Rede", value: 2234.10),
-                .promotionalAnticipation(label: "Agenda Getnet",
-                                         value: 3456.78,
-                                         anticipation: .init(remainingTime: "00h24m00s",
+                .promotionalAnticipation(anticipation: .init(remainingTime: "00h24m00s",
                                                              description: "Oferta: taxa de 7,69% (era 11,06%) para antecipar sua agenda Blu — e ter dinheiro hoje.",
                                                              ctaTitle: "Simular antecipação",
                                                              onCTATap: { print("Promotional offer CTA tapped - Getnet") }))

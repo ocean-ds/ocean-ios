@@ -74,9 +74,7 @@ extension OceanSwiftUI {
             case simple(label: String, value: Double)
             case locked(label: String, value: Double)
             case lockedLabel(text: String)
-            case promotionalAnticipation(label: String,
-                                         value: Double,
-                                         anticipation: PromotionalAnticipation)
+            case promotionalAnticipation(anticipation: PromotionalAnticipation)
         }
 
         public struct PromotionalAnticipation {
@@ -181,8 +179,8 @@ extension OceanSwiftUI {
                     case let .lockedLabel(text):
                         lockedLabelView(text: text)
 
-                    case let .promotionalAnticipation(label, value, anticipation):
-                        promotionalRowView(label: label, value: value, anticipation: anticipation)
+                    case let .promotionalAnticipation(anticipation):
+                        promotionalRowView(anticipation: anticipation)
                     }
 
                     if i != parameters.balanceRows.indices.last,
@@ -238,40 +236,7 @@ extension OceanSwiftUI {
         }
 
         @ViewBuilder
-        private func promotionalRowView(label: String,
-                                        value: Double,
-                                        anticipation: CardBalanceParameters.PromotionalAnticipation) -> some View {
-            VStack(spacing: 0) {
-                HStack(spacing: Ocean.size.spacingStackXxs) {
-                    getBalanceView(label: label,
-                                   balance: value,
-                                   isVerticalBalance: false,
-                                   isLocked: false)
-                }
-                .padding(.vertical, Ocean.size.spacingStackXxsExtra)
-                .padding(.horizontal, Ocean.size.spacingStackXs)
-                .background(Color(Ocean.color.colorInterfaceLightPure))
-
-                promotionalAnticipationView(anticipation: anticipation)
-            }
-        }
-
-        @ViewBuilder
-        private func lockedLabelView(text: String) -> some View {
-            OceanSwiftUI.Typography.captionBold { view in
-                view.parameters.text = text
-                view.parameters.textColor = Ocean.color.colorInterfaceDarkDown
-                view.parameters.lineLimit = 3
-            }
-            .padding(.top, Ocean.size.spacingStackXxsExtra)
-            .padding(.horizontal, Ocean.size.spacingStackXs)
-            .padding(.bottom, Ocean.size.spacingStackXxs)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color(Ocean.color.colorInterfaceLightUp))
-        }
-
-        @ViewBuilder
-        private func promotionalAnticipationView(anticipation: CardBalanceParameters.PromotionalAnticipation) -> some View {
+        private func promotionalRowView(anticipation: CardBalanceParameters.PromotionalAnticipation) -> some View {
             VStack(alignment: .leading, spacing: 0) {
                 OceanSwiftUI.Typography.description { view in
                     view.parameters.text = anticipation.remainingTime
@@ -300,6 +265,20 @@ extension OceanSwiftUI {
             .padding(.horizontal, Ocean.size.spacingStackXs)
             .background(Color(anticipation.backgroundColor))
             .transition(.opacity)
+        }
+
+        @ViewBuilder
+        private func lockedLabelView(text: String) -> some View {
+            OceanSwiftUI.Typography.captionBold { view in
+                view.parameters.text = text
+                view.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                view.parameters.lineLimit = 3
+            }
+            .padding(.top, Ocean.size.spacingStackXxsExtra)
+            .padding(.horizontal, Ocean.size.spacingStackXs)
+            .padding(.bottom, Ocean.size.spacingStackXxs)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Color(Ocean.color.colorInterfaceLightUp))
         }
 
         @ViewBuilder
