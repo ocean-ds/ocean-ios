@@ -12,7 +12,7 @@ extension OceanSwiftUI {
 
     public final class CardBalanceParameters: ObservableObject {
         @Published public var header: Header
-        @Published public var balanceRows: [BalanceRow]
+        @Published public var rows: [BalanceRow]
         @Published public var footer: Footer
         @Published public var state: CardBalanceState
         @Published public var showValue: Bool
@@ -24,7 +24,7 @@ extension OceanSwiftUI {
 
         public init(
             header: Header = .init(),
-            balanceRows: [BalanceRow] = [],
+            rows: [BalanceRow] = [],
             footer: Footer = Footer(),
             state: CardBalanceState = .collapsed,
             showValue: Bool = true,
@@ -34,7 +34,7 @@ extension OceanSwiftUI {
             onFooterTap: (() -> Void)? = nil
         ) {
             self.header = header
-            self.balanceRows = balanceRows
+            self.rows = rows
             self.footer = footer
             self.state = state
             self.showValue = showValue
@@ -57,23 +57,51 @@ extension OceanSwiftUI {
             public let title: String
             public let value: Double
             public let acquirers: [String]
+            public let hasBlockedAcquirers: Bool
 
             public init(title: String = "",
                         value: Double = 0,
-                        acquirers: [String] = []) {
+                        acquirers: [String] = [],
+                        hasBlockedAcquirers: Bool = false) {
                 self.title = title
                 self.value = value
                 self.acquirers = acquirers
+                self.hasBlockedAcquirers = hasBlockedAcquirers
             }
         }
 
-        public struct BalanceRow: Equatable {
-            public let label: String
-            public let value: Double
+        public enum BalanceRow {
+            case simple(label: String, value: Double)
+            case locked(title: String, items: [String: Double])
+            case promotionalAnticipation(anticipation: PromotionalAnticipation)
 
-            public init(label: String, value: Double) {
-                self.label = label
-                self.value = value
+            var hasDivider: Bool {
+                switch self {
+                case .simple, .locked:
+                    return true
+                case .promotionalAnticipation:
+                    return false
+                }
+            }
+        }
+
+        public struct PromotionalAnticipation {
+            public let remainingTime: String?
+            public let description: String
+            public let ctaTitle: String
+            public let backgroundColor: UIColor
+            public var onCTATap: (() -> Void)?
+
+            public init(remainingTime: String? = nil,
+                        description: String,
+                        ctaTitle: String,
+                        backgroundColor: UIColor = Ocean.color.colorStatusWarningUp,
+                        onCTATap: (() -> Void)? = nil) {
+                self.remainingTime = remainingTime
+                self.description = description
+                self.ctaTitle = ctaTitle
+                self.backgroundColor = backgroundColor
+                self.onCTATap = onCTATap
             }
         }
 
@@ -144,24 +172,130 @@ extension OceanSwiftUI {
             .zIndex(1)
         }
 
+        @ViewBuilder
         private var bodyItems: some View {
             VStack(spacing: 0) {
-                ForEach(parameters.balanceRows.indices, id: \.self) { i in
-                    let item = parameters.balanceRows[i]
-                    getBalanceView(label: item.label,
-                                   balance: item.value,
-                                   isVerticalBalance: false)
-                    .padding(.vertical, Ocean.size.spacingStackXxsExtra)
-                    .padding(.horizontal, Ocean.size.spacingStackXs)
+                ForEach(0..<parameters.rows.count, id: \.self) { index in
+                    let row = parameters.rows[index]
 
-                    if i != parameters.balanceRows.indices.last {
-                        OceanSwiftUI.Divider()
-                    }
+                    getRow(row: row, index: index)
                 }
             }
             .clipped()
             .transition(.opacity)
             .zIndex(0)
+        }
+
+        @ViewBuilder
+        private func getRow(row: CardBalanceParameters.BalanceRow, index: Int) -> some View {
+            if row.hasDivider {
+                OceanSwiftUI.Divider()
+            }
+
+            switch row {
+            case let .simple(label, value):
+                getSimpleRowView(label: label, value: value)
+
+            case let .locked(title, items):
+                getLockedRowView(title: title, items: items)
+
+            case let .promotionalAnticipation(anticipation):
+                getPromotionalRowView(anticipation: anticipation)
+            }
+        }
+
+        @ViewBuilder
+        private func getSimpleRowView(label: String, value: Double) -> some View {
+            HStack(spacing: Ocean.size.spacingStackXxs) {
+                getBalanceView(label: label,
+                               balance: value,
+                               isVerticalBalance: false,
+                               isLocked: false)
+            }
+            .padding(.vertical, Ocean.size.spacingStackXxsExtra)
+            .padding(.horizontal, Ocean.size.spacingStackXs)
+            .background(Color(Ocean.color.colorInterfaceLightPure))
+        }
+
+        @ViewBuilder
+        private func getLockedRowView(title: String, items: [String: Double]) -> some View {
+            VStack(alignment: .leading, spacing: 0) {
+                getLockedLabelView(text: title)
+
+                let array = Array(items.keys)
+
+                ForEach(array, id: \.self) { key in
+                    let value = items[key]
+
+                    HStack(spacing: Ocean.size.spacingStackXxs) {
+                        Image(uiImage: Ocean.icon.lockClosedSolid)
+                            .resizable()
+                            .renderingMode(.template)
+                            .frame(width: 16, height: 16)
+                            .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
+
+                        getBalanceView(label: key,
+                                       balance: value,
+                                       isVerticalBalance: false,
+                                       isLocked: true)
+                    }
+                    .padding(.vertical, Ocean.size.spacingStackXxsExtra)
+                    .padding(.horizontal, Ocean.size.spacingStackXs)
+
+                    if key != array.last {
+                        OceanSwiftUI.Divider()
+                            .padding(.horizontal, Ocean.size.spacingStackXs)
+                    }
+                }
+            }
+            .background(Color(Ocean.color.colorInterfaceLightUp))
+        }
+
+        @ViewBuilder
+        private func getPromotionalRowView(anticipation: CardBalanceParameters.PromotionalAnticipation) -> some View {
+            if let remainingTime = anticipation.remainingTime {
+                VStack(alignment: .leading, spacing: 0) {
+                    OceanSwiftUI.Typography.description { view in
+                        view.parameters.text = remainingTime
+                        view.parameters.textColor = Ocean.color.colorStatusWarningDeep
+                        view.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
+                    }
+                    .padding(.top, Ocean.size.spacingStackXs)
+                    .padding(.bottom, Ocean.size.spacingStackXxxs)
+
+                    OceanSwiftUI.Typography.description { view in
+                        view.parameters.text = anticipation.description
+                        view.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                        view.parameters.lineLimit = 3
+                    }
+                    .padding(.bottom, Ocean.size.spacingStackXxsExtra)
+
+                    OceanSwiftUI.Link { view in
+                        view.parameters.text = anticipation.ctaTitle
+                        view.parameters.style = .primary
+                        view.parameters.type = .chevron
+                        view.parameters.onTouch = { anticipation.onCTATap?() }
+                    }
+                    .padding(.bottom, Ocean.size.spacingStackXs)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, Ocean.size.spacingStackXs)
+                .background(Color(anticipation.backgroundColor))
+                .transition(.opacity)
+            }
+        }
+
+        @ViewBuilder
+        private func getLockedLabelView(text: String) -> some View {
+            OceanSwiftUI.Typography.captionBold { view in
+                view.parameters.text = text
+                view.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                view.parameters.lineLimit = 3
+            }
+            .padding(.top, Ocean.size.spacingStackXxsExtra)
+            .padding(.horizontal, Ocean.size.spacingStackXs)
+            .padding(.bottom, Ocean.size.spacingStackXxs)
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
 
         @ViewBuilder
@@ -206,7 +340,7 @@ extension OceanSwiftUI {
         private var acquirersView: some View {
             OceanSwiftUI.Brands { view in
                 view.parameters.acquirers = parameters.header.acquirers
-                view.parameters.limit = 3
+                view.parameters.limit = parameters.header.hasBlockedAcquirers ? 1 : 3
                 view.parameters.hasBorder = true
                 view.parameters.borderColor = Ocean.color.colorInterfaceLightPure
                 view.parameters.itemSize = Ocean.size.spacingStackMd
@@ -231,7 +365,9 @@ extension OceanSwiftUI {
             VStack(spacing: 0) {
                 headerView
 
-                if parameters.state == .expanded { bodyItems }
+                if parameters.state == .expanded {
+                    bodyItems
+                }
 
                 OceanSwiftUI.Divider()
 
@@ -247,7 +383,8 @@ extension OceanSwiftUI {
 
         private func getBalanceView(label: String?,
                                     balance: Double?,
-                                    isVerticalBalance: Bool) -> some View {
+                                    isVerticalBalance: Bool,
+                                    isLocked: Bool = false) -> some View {
             VStack(alignment: .leading, spacing: 0) {
                 if isVerticalBalance {
                     VStack(alignment: .leading, spacing: 0) {
@@ -262,15 +399,30 @@ extension OceanSwiftUI {
                     }
                 } else {
                     HStack {
-                        OceanSwiftUI.Typography.caption { view in
-                            view.parameters.text = label ?? ""
+                        if isLocked {
+                            OceanSwiftUI.Typography.captionBold { view in
+                                view.parameters.text = label ?? ""
+                                view.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                            }
+
+                            Spacer()
+
+                            OceanSwiftUI.Typography.captionBold { view in
+                                view.parameters.text = maskedCurrency(balance)
+                                view.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                            }
+                        } else {
+                            OceanSwiftUI.Typography.caption { view in
+                                view.parameters.text = label ?? ""
+                            }
+
+                            Spacer()
+                            OceanSwiftUI.Typography.heading5 { view in
+                                view.parameters.text = maskedCurrency(balance)
+                            }
                         }
-                        Spacer()
-                        OceanSwiftUI.Typography.heading5 { view in
-                            view.parameters.text = maskedCurrency(balance)
-                        }
-                        .animation(.easeInOut(duration: 0.2), value: parameters.showValue)
                     }
+                    .animation(.easeInOut(duration: 0.2), value: parameters.showValue)
                 }
             }
         }
