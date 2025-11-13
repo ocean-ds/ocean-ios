@@ -10,11 +10,10 @@ class CardBalanceSwiftUIViewController: UIViewController {
                                            value: 1000000.00,
                                            acquirers: ["Blu", "Rede", "Stone", "Getnet", "Asaas"],
                                            hasBlockedAcquirers: true)
-            view.parameters.balanceRows = [.simple(label: "Saldo atual Blu", value: 500000.00),
+            view.parameters.rows = [.simple(label: "Saldo atual Blu", value: 500000.00),
                                            .simple(label: "Agenda Blu", value: 500000.00),
-                                           .lockedLabel(text: "Conforme você for usando mais a Blu, estas agendas ficarão disponíveis para você."),
-                                           .locked(label: "Agenda Getnet", value: 500000.00),
-                                           .locked(label: "Agenda Rede", value: 500000.00)]
+                                           .locked(title: "Conforme você for usando mais a Blu, estas agendas ficarão disponíveis para você.", items: ["Agenda Getnet": 500000.00,
+                                                                                                                                                       "Agenda Rede": 600000.00])]
             view.parameters.footer = .init(description: "Confira todas as movimentações feitas na sua conta",
                                            ctaTitle: "Extrato")
             view.parameters.state = .collapsed
@@ -29,16 +28,14 @@ class CardBalanceSwiftUIViewController: UIViewController {
                                            value: 2000000.00,
                                            acquirers: ["Blu", "Rede", "Stone", "Getnet", "Asaas"],
                                            hasBlockedAcquirers: true)
-            view.parameters.balanceRows = [.simple(label: "Saldo atual Blu", value: 500000.00),
+            view.parameters.rows = [.simple(label: "Saldo atual Blu", value: 500000.00),
                                            .simple(label: "Agenda Blu", value: 5321.45),
                                            .promotionalAnticipation(anticipation: .init(remainingTime: "00h24m00s",
                                                                                         description: "Oferta: taxa de 7,69% (era 11,06%) para antecipar sua agenda Blu — e ter dinheiro hoje.",
                                                                                         ctaTitle: "Simular antecipação",
                                                                                         onCTATap: { print("Promotional offer CTA tapped - Blu") })),
-                .lockedLabel(text: "Conforme você for usando mais a Blu, estas agendas ficarão disponíveis para você."),
-                .locked(label: "Agenda Rede", value: 500000.00),
-                .locked(label: "Agenda Getnet", value: 500000.00)
-            ]
+                                    .locked(title: "Conforme você for usando mais a Blu, estas agendas ficarão disponíveis para você.", items: ["Agenda Getnet": 500000.00,
+                                                                                                                                                "Agenda Rede": 600000.00])]
             view.parameters.footer = .init(description: nil,
                                            title: "Disponível para saque",
                                            value: 500000.00,
@@ -55,15 +52,13 @@ class CardBalanceSwiftUIViewController: UIViewController {
                                            value: 2000000.00,
                                            acquirers: ["Blu", "Rede", "Stone", "Getnet", "Asaas"],
                                            hasBlockedAcquirers: true)
-            view.parameters.balanceRows = [.simple(label: "Saldo atual Blu", value: 500000.00),
+            view.parameters.rows = [.simple(label: "Saldo atual Blu", value: 500000.00),
                                            .simple(label: "Agenda Blu", value: 5321.45),
                                            .promotionalAnticipation(anticipation: .init(description: "Oferta: taxa de 7,69% (era 11,06%) para antecipar sua agenda Blu — e ter dinheiro hoje.",
                                                                                         ctaTitle: "Simular antecipação",
                                                                                         onCTATap: { print("Promotional offer CTA tapped - Blu") })),
-                .lockedLabel(text: "Conforme você for usando mais a Blu, estas agendas ficarão disponíveis para você."),
-                .locked(label: "Agenda Rede", value: 500000.00),
-                .locked(label: "Agenda Getnet", value: 500000.00)
-            ]
+                                    .locked(title: "Conforme você for usando mais a Blu, estas agendas ficarão disponíveis para você.", items: ["Agenda Getnet": 500000.00,
+                                                                                                                                                "Agenda Rede": 600000.00])]
             view.parameters.footer = .init(description: nil,
                                            title: "Disponível para saque",
                                            value: 500000.00,
@@ -79,7 +74,7 @@ class CardBalanceSwiftUIViewController: UIViewController {
             view.parameters.header = .init(title: "Saldo consolidado",
                                            value: 12345.67,
                                            acquirers: ["Blu", "Rede", "Stone", "Getnet", "Asaas"])
-            view.parameters.balanceRows = [
+            view.parameters.rows = [
                 .simple(label: "Saldo atual Blu", value: 10765.45),
                 .simple(label: "Agenda Blu",value: 5321.45),
                 .promotionalAnticipation(anticipation: .init(remainingTime: "00h24m00s",
@@ -104,7 +99,7 @@ class CardBalanceSwiftUIViewController: UIViewController {
             view.parameters.header = .init(title: "Saldo consolidado",
                                            value: 12345.67,
                                            acquirers: ["Blu", "Getnet"])
-            view.parameters.balanceRows = [
+            view.parameters.rows = [
                 .simple(label: "Saldo atual Blu", value: 10765.45),
                 .simple(label: "Agenda Blu", value: 5321.45),
                 .simple(label: "Agenda Rede", value: 2234.10),
@@ -130,7 +125,7 @@ class CardBalanceSwiftUIViewController: UIViewController {
                 value: -12345.67,
                 acquirers: ["Blu","Cielo", "Rede", "Stone", "Getnet"]
             )
-            view.parameters.balanceRows = [.simple(label: "Saldo atual Blu", value: -10765.45),
+            view.parameters.rows = [.simple(label: "Saldo atual Blu", value: -10765.45),
                                            .simple(label: "Agenda Blu", value: 5321.45),
                                            .simple(label: "Agenda Rede", value: 2234.10),
                                            .simple(label: "Agenda Getnet", value: 3456.78)]
@@ -149,7 +144,7 @@ class CardBalanceSwiftUIViewController: UIViewController {
                 value: -12345.67,
                 acquirers: ["Blu","Cielo", "Rede", "Stone", "Getnet"]
             )
-            view.parameters.balanceRows = [.simple(label: "Saldo atual Blu", value: -10765.45),
+            view.parameters.rows = [.simple(label: "Saldo atual Blu", value: -10765.45),
                                            .simple(label: "Agenda Blu", value: 5321.45),
                                            .simple(label: "Agenda Rede", value: 2234.10),
                                            .simple(label: "Agenda Getnet", value: 3456.78)]

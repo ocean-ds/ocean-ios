@@ -12,7 +12,7 @@ extension OceanSwiftUI {
 
     public final class CardBalanceParameters: ObservableObject {
         @Published public var header: Header
-        @Published public var balanceRows: [BalanceRow]
+        @Published public var rows: [BalanceRow]
         @Published public var footer: Footer
         @Published public var state: CardBalanceState
         @Published public var showValue: Bool
@@ -24,7 +24,7 @@ extension OceanSwiftUI {
 
         public init(
             header: Header = .init(),
-            balanceRows: [BalanceRow] = [],
+            rows: [BalanceRow] = [],
             footer: Footer = Footer(),
             state: CardBalanceState = .collapsed,
             showValue: Bool = true,
@@ -34,7 +34,7 @@ extension OceanSwiftUI {
             onFooterTap: (() -> Void)? = nil
         ) {
             self.header = header
-            self.balanceRows = balanceRows
+            self.rows = rows
             self.footer = footer
             self.state = state
             self.showValue = showValue
@@ -72,15 +72,14 @@ extension OceanSwiftUI {
 
         public enum BalanceRow {
             case simple(label: String, value: Double)
-            case locked(label: String, value: Double)
-            case lockedLabel(text: String)
+            case locked(title: String, items: [String: Double])
             case promotionalAnticipation(anticipation: PromotionalAnticipation)
 
             var hasDivider: Bool {
                 switch self {
                 case .simple, .locked:
                     return true
-                case .lockedLabel, .promotionalAnticipation:
+                case .promotionalAnticipation:
                     return false
                 }
             }
@@ -173,53 +172,36 @@ extension OceanSwiftUI {
             .zIndex(1)
         }
 
+        @ViewBuilder
         private var bodyItems: some View {
+            VStack(spacing: 0) {
+                ForEach(0..<parameters.rows.count, id: \.self) { index in
+                    let row = parameters.rows[index]
 
-            let filteredRows = parameters.balanceRows.filter { row in
-                if case let .promotionalAnticipation(anticipation) = row {
-                    return anticipation.remainingTime != nil
-                }
-                return true
-            }
-
-            return VStack(spacing: 0) {
-                ForEach(filteredRows.indices, id: \.self) { index in
-                    let row = filteredRows[index]
-
-                    switch row {
-                    case let .simple(label, value):
-                        getSimpleRowView(label: label, value: value)
-
-                    case let .locked(label, value):
-                        getLockedRowView(label: label, value: value)
-
-                    case let .lockedLabel(text):
-                        getLockedLabelView(text: text)
-
-                    case let .promotionalAnticipation(anticipation):
-                        getPromotionalRowView(anticipation: anticipation)
-                    }
-
-                    if index != filteredRows.indices.last && row.hasDivider {
-                        let nextRow = filteredRows[index + 1]
-                        if case .promotionalAnticipation = nextRow {
-                        } else {
-                            if case .locked = row {
-                                VStack(spacing: 0) {
-                                    OceanSwiftUI.Divider()
-                                        .padding(.horizontal, Ocean.size.spacingStackXs)
-                                }
-                                .background(Color(Ocean.color.colorInterfaceLightUp))
-                            } else {
-                                OceanSwiftUI.Divider()
-                            }
-                        }
-                    }
+                    getRow(row: row, index: index)
                 }
             }
             .clipped()
             .transition(.opacity)
             .zIndex(0)
+        }
+
+        @ViewBuilder
+        private func getRow(row: CardBalanceParameters.BalanceRow, index: Int) -> some View {
+            if row.hasDivider {
+                OceanSwiftUI.Divider()
+            }
+
+            switch row {
+            case let .simple(label, value):
+                getSimpleRowView(label: label, value: value)
+
+            case let .locked(title, items):
+                getLockedRowView(title: title, items: items)
+
+            case let .promotionalAnticipation(anticipation):
+                getPromotionalRowView(anticipation: anticipation)
+            }
         }
 
         @ViewBuilder
@@ -236,21 +218,36 @@ extension OceanSwiftUI {
         }
 
         @ViewBuilder
-        private func getLockedRowView(label: String, value: Double) -> some View {
-            HStack(spacing: Ocean.size.spacingStackXxs) {
-                Image(uiImage: Ocean.icon.lockClosedSolid)
-                    .resizable()
-                    .renderingMode(.template)
-                    .frame(width: 16, height: 16)
-                    .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
+        private func getLockedRowView(title: String, items: [String: Double]) -> some View {
+            VStack(alignment: .leading, spacing: 0) {
+                getLockedLabelView(text: title)
 
-                getBalanceView(label: label,
-                               balance: value,
-                               isVerticalBalance: false,
-                               isLocked: true)
+                let array = Array(items.keys)
+
+                ForEach(array, id: \.self) { key in
+                    let value = items[key]
+
+                    HStack(spacing: Ocean.size.spacingStackXxs) {
+                        Image(uiImage: Ocean.icon.lockClosedSolid)
+                            .resizable()
+                            .renderingMode(.template)
+                            .frame(width: 16, height: 16)
+                            .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
+
+                        getBalanceView(label: key,
+                                       balance: value,
+                                       isVerticalBalance: false,
+                                       isLocked: true)
+                    }
+                    .padding(.vertical, Ocean.size.spacingStackXxsExtra)
+                    .padding(.horizontal, Ocean.size.spacingStackXs)
+
+                    if key != array.last {
+                        OceanSwiftUI.Divider()
+                            .padding(.horizontal, Ocean.size.spacingStackXs)
+                    }
+                }
             }
-            .padding(.vertical, Ocean.size.spacingStackXxsExtra)
-            .padding(.horizontal, Ocean.size.spacingStackXs)
             .background(Color(Ocean.color.colorInterfaceLightUp))
         }
 
@@ -280,10 +277,6 @@ extension OceanSwiftUI {
                         view.parameters.onTouch = { anticipation.onCTATap?() }
                     }
                     .padding(.bottom, Ocean.size.spacingStackXs)
-
-                    OceanSwiftUI.Divider()
-                        .padding(.horizontal, -Ocean.size.spacingStackXs)
-
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, Ocean.size.spacingStackXs)
@@ -303,7 +296,6 @@ extension OceanSwiftUI {
             .padding(.horizontal, Ocean.size.spacingStackXs)
             .padding(.bottom, Ocean.size.spacingStackXxs)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color(Ocean.color.colorInterfaceLightUp))
         }
 
         @ViewBuilder
