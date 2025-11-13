@@ -183,8 +183,8 @@ extension OceanSwiftUI {
             }
 
             return VStack(spacing: 0) {
-                ForEach(filteredRows.indices, id: \.self) { i in
-                    let row = filteredRows[i]
+                ForEach(filteredRows.indices, id: \.self) { index in
+                    let row = filteredRows[index]
 
                     switch row {
                     case let .simple(label, value):
@@ -200,8 +200,8 @@ extension OceanSwiftUI {
                         getPromotionalRowView(anticipation: anticipation)
                     }
 
-                    if i != filteredRows.indices.last && row.hasDivider {
-                        let nextRow = filteredRows[i + 1]
+                    if index != filteredRows.indices.last && row.hasDivider {
+                        let nextRow = filteredRows[index + 1]
                         if case .promotionalAnticipation = nextRow {
                         } else {
                             if case .locked = row {
@@ -215,7 +215,6 @@ extension OceanSwiftUI {
                             }
                         }
                     }
-
                 }
             }
             .clipped()
