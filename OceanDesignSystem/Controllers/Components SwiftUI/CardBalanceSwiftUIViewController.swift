@@ -173,6 +173,7 @@ class CardBalanceSwiftUIViewController: UIViewController {
                 self.cardBalanceRetailer.parameters.showValue = newValue
                 self.cardBalanceWithBlockedAcquirers.parameters.showValue = newValue
                 self.cardBalanceBlockedWithPromotion.parameters.showValue = newValue
+                self.cardBalanceWithPromotionWhenRemainingTimeNil.parameters.showValue = newValue
             }
         }
     }()
