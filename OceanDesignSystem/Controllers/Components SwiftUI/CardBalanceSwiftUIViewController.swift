@@ -12,8 +12,8 @@ class CardBalanceSwiftUIViewController: UIViewController {
                                            hasBlockedAcquirers: true)
             view.parameters.rows = [.simple(label: "Saldo atual Blu", value: 500000.00),
                                            .simple(label: "Agenda Blu", value: 500000.00),
-                                           .locked(title: "Conforme você for usando mais a Blu, estas agendas ficarão disponíveis para você.", items: ["Agenda Getnet": 500000.00,
-                                                                                                                                                       "Agenda Rede": 600000.00])]
+                                    .locked(title: "Conforme você for usando mais a Blu, estas agendas ficarão disponíveis para você.", items: [("Agenda Getnet", 500000.00),
+                                                                                                                                                ("Agenda Rede", 600000.00)])]
             view.parameters.footer = .init(description: "Confira todas as movimentações feitas na sua conta",
                                            ctaTitle: "Extrato")
             view.parameters.state = .collapsed
@@ -34,8 +34,8 @@ class CardBalanceSwiftUIViewController: UIViewController {
                                                                                         description: "Oferta: taxa de 7,69% (era 11,06%) para antecipar sua agenda Blu — e ter dinheiro hoje.",
                                                                                         ctaTitle: "Simular antecipação",
                                                                                         onCTATap: { print("Promotional offer CTA tapped - Blu") })),
-                                    .locked(title: "Conforme você for usando mais a Blu, estas agendas ficarão disponíveis para você.", items: ["Agenda Getnet": 500000.00,
-                                                                                                                                                "Agenda Rede": 600000.00])]
+                                    .locked(title: "Conforme você for usando mais a Blu, estas agendas ficarão disponíveis para você.", items: [("Agenda Getnet", 500000.00),
+                                                                                                                                                ("Agenda Rede", 600000.00)])]
             view.parameters.footer = .init(description: nil,
                                            title: "Disponível para saque",
                                            value: 500000.00,
@@ -57,8 +57,8 @@ class CardBalanceSwiftUIViewController: UIViewController {
                                            .promotionalAnticipation(anticipation: .init(description: "Oferta: taxa de 7,69% (era 11,06%) para antecipar sua agenda Blu — e ter dinheiro hoje.",
                                                                                         ctaTitle: "Simular antecipação",
                                                                                         onCTATap: { print("Promotional offer CTA tapped - Blu") })),
-                                    .locked(title: "Conforme você for usando mais a Blu, estas agendas ficarão disponíveis para você.", items: ["Agenda Getnet": 500000.00,
-                                                                                                                                                "Agenda Rede": 600000.00])]
+                                    .locked(title: "Conforme você for usando mais a Blu, estas agendas ficarão disponíveis para você.", items: [("Agenda Getnet", 500000.00),
+                                                                                                                                                ("Agenda Rede", 600000.00)])]
             view.parameters.footer = .init(description: nil,
                                            title: "Disponível para saque",
                                            value: 500000.00,

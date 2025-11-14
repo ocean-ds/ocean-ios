@@ -72,7 +72,7 @@ extension OceanSwiftUI {
 
         public enum BalanceRow {
             case simple(label: String, value: Double)
-            case locked(title: String, items: [String: Double])
+            case locked(title: String, items: [(String, Double)])
             case promotionalAnticipation(anticipation: PromotionalAnticipation)
 
             var hasDivider: Bool {
@@ -218,14 +218,12 @@ extension OceanSwiftUI {
         }
 
         @ViewBuilder
-        private func getLockedRowView(title: String, items: [String: Double]) -> some View {
+        private func getLockedRowView(title: String, items: [(String, Double)]) -> some View {
             VStack(alignment: .leading, spacing: 0) {
                 getLockedLabelView(text: title)
 
-                let array = Array(items.keys)
-
-                ForEach(array, id: \.self) { key in
-                    let value = items[key]
+                ForEach(0..<items.count, id: \.self) { index in
+                    let item = items[index]
 
                     HStack(spacing: Ocean.size.spacingStackXxs) {
                         Image(uiImage: Ocean.icon.lockClosedSolid)
@@ -234,15 +232,15 @@ extension OceanSwiftUI {
                             .frame(width: 16, height: 16)
                             .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
 
-                        getBalanceView(label: key,
-                                       balance: value,
+                        getBalanceView(label: item.0,
+                                       balance: item.1,
                                        isVerticalBalance: false,
                                        isLocked: true)
                     }
                     .padding(.vertical, Ocean.size.spacingStackXxsExtra)
                     .padding(.horizontal, Ocean.size.spacingStackXs)
 
-                    if key != array.last {
+                    if index != items.count - 1 {
                         OceanSwiftUI.Divider()
                             .padding(.horizontal, Ocean.size.spacingStackXs)
                     }
