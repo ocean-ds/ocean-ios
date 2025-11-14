@@ -251,36 +251,34 @@ extension OceanSwiftUI {
 
         @ViewBuilder
         private func getPromotionalRowView(anticipation: CardBalanceParameters.PromotionalAnticipation) -> some View {
-            if let remainingTime = anticipation.remainingTime {
-                VStack(alignment: .leading, spacing: 0) {
-                    OceanSwiftUI.Typography.description { view in
-                        view.parameters.text = remainingTime
-                        view.parameters.textColor = Ocean.color.colorStatusWarningDeep
-                        view.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
-                    }
-                    .padding(.top, Ocean.size.spacingStackXs)
-                    .padding(.bottom, Ocean.size.spacingStackXxxs)
-
-                    OceanSwiftUI.Typography.description { view in
-                        view.parameters.text = anticipation.description
-                        view.parameters.textColor = Ocean.color.colorInterfaceDarkDown
-                        view.parameters.lineLimit = 3
-                    }
-                    .padding(.bottom, Ocean.size.spacingStackXxsExtra)
-
-                    OceanSwiftUI.Link { view in
-                        view.parameters.text = anticipation.ctaTitle
-                        view.parameters.style = .primary
-                        view.parameters.type = .chevron
-                        view.parameters.onTouch = { anticipation.onCTATap?() }
-                    }
-                    .padding(.bottom, Ocean.size.spacingStackXs)
+            VStack(alignment: .leading, spacing: 0) {
+                OceanSwiftUI.Typography.description { view in
+                    view.parameters.text = anticipation.remainingTime ?? ""
+                    view.parameters.textColor = Ocean.color.colorStatusWarningDeep
+                    view.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, Ocean.size.spacingStackXs)
-                .background(Color(anticipation.backgroundColor))
-                .transition(.opacity)
+                .padding(.bottom, Ocean.size.spacingStackXxxs)
+                .hideIfEmpty(anticipation.remainingTime)
+
+                OceanSwiftUI.Typography.description { view in
+                    view.parameters.text = anticipation.description
+                    view.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                    view.parameters.lineLimit = 3
+                }
+                .padding(.bottom, Ocean.size.spacingStackXxsExtra)
+
+                OceanSwiftUI.Link { view in
+                    view.parameters.text = anticipation.ctaTitle
+                    view.parameters.style = .primary
+                    view.parameters.type = .chevron
+                    view.parameters.onTouch = { anticipation.onCTATap?() }
+                }
+                .padding(.bottom, Ocean.size.spacingStackXs)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding([.horizontal, .top], Ocean.size.spacingStackXs)
+            .background(Color(anticipation.backgroundColor))
+            .transition(.opacity)
         }
 
         @ViewBuilder
