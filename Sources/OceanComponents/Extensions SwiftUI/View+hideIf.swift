@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct HideModifier: ViewModifier {
+public struct HideModifier: ViewModifier {
     let isHidden: Bool
 
-    func body(content: Content) -> some View {
+    public func body(content: Content) -> some View {
         Group {
             if !isHidden {
                 content
@@ -19,16 +19,16 @@ struct HideModifier: ViewModifier {
     }
 }
 
-extension View {
-    func hideIf(_ condition: Bool) -> some View {
+public extension View {
+    public func hideIf(_ condition: Bool) -> some View {
         modifier(HideModifier(isHidden: condition))
     }
 
-    func hideIfEqualZero(_ value: Double?) -> some View {
+    public func hideIfEqualZero(_ value: Double?) -> some View {
         modifier(HideModifier(isHidden: (value ?? 0) == 0))
     }
 
-    func hideIfEmpty(_ string: String?) -> some View {
+    public func hideIfEmpty(_ string: String?) -> some View {
         modifier(HideModifier(isHidden: string?.isEmpty ?? true))
     }
 }
