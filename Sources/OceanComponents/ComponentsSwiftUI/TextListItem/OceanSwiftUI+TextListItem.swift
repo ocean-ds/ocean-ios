@@ -161,35 +161,13 @@ extension OceanSwiftUI {
             if parameters.showSkeleton {
                 OceanSwiftUI.Skeleton()
             } else {
-                HStack(spacing: Ocean.size.spacingStackXs) {
+                HStack(spacing: Ocean.size.spacingStackXxsExtra) {
                     if let icon = parameters.icon {
                         Image(uiImage: icon)
                             .resizable()
                             .renderingMode(.template)
                             .frame(width: parameters.iconWidth, height: parameters.iconHeight)
                             .foregroundColor(Color(parameters.iconColor))
-                    }
-                    else if parameters.hasCheckbox {
-                        OceanSwiftUI.CheckboxGroup { group in
-                            group.parameters.icon = parameters.checkboxIcon
-                            group.parameters.hasError = parameters.hasError
-                            group.parameters.items = [ .init(isSelected: self.parameters.isChecked,
-                                                             isEnabled: self.parameters.isEnabled) ]
-                            group.parameters.onTouch = { items in
-                                guard let item = items.first else { return }
-                                parameters.onSelection(item.isSelected)
-                            }
-                        }
-                    } else if parameters.hasRadioButton {
-                        OceanSwiftUI.RadioButtonGroup { group in
-                            group.parameters.hasError = parameters.hasError
-                            group.parameters.items = [ .init() ]
-                            group.parameters.isEnabled = self.parameters.isEnabled
-                            group.parameters.setSelectedIndex(self.parameters.isChecked ? 0 : -1)
-                            group.parameters.onTouch = { _, _ in
-                                parameters.onTouch()
-                            }
-                        }
                     }
 
                     VStack(alignment: .leading) {
@@ -268,6 +246,27 @@ extension OceanSwiftUI {
                             .renderingMode(.template)
                             .frame(width: 20, height: 20)
                             .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
+                    } else if parameters.hasCheckbox {
+                        OceanSwiftUI.CheckboxGroup { group in
+                            group.parameters.icon = parameters.checkboxIcon
+                            group.parameters.hasError = parameters.hasError
+                            group.parameters.items = [ .init(isSelected: self.parameters.isChecked,
+                                                             isEnabled: self.parameters.isEnabled) ]
+                            group.parameters.onTouch = { items in
+                                guard let item = items.first else { return }
+                                parameters.onSelection(item.isSelected)
+                            }
+                        }
+                    } else if parameters.hasRadioButton {
+                        OceanSwiftUI.RadioButtonGroup { group in
+                            group.parameters.hasError = parameters.hasError
+                            group.parameters.items = [ .init() ]
+                            group.parameters.isEnabled = self.parameters.isEnabled
+                            group.parameters.setSelectedIndex(self.parameters.isChecked ? 0 : -1)
+                            group.parameters.onTouch = { _, _ in
+                                parameters.onTouch()
+                            }
+                        }
                     } else if parameters.hasLocked {
                         Image(uiImage: Ocean.icon.lockClosedSolid)
                             .resizable()
@@ -282,6 +281,12 @@ extension OceanSwiftUI {
                 .transform(condition: parameters.isEnabled, transform: { view in
                     view.onTapGesture {
                         parameters.onTouch()
+                        
+                        if parameters.hasCheckbox {
+                            parameters.isChecked.toggle()
+                        } else if parameters.hasRadioButton {
+                            parameters.isChecked = true
+                        }
                     }
                 })
             }

@@ -194,8 +194,13 @@ extension Ocean {
             badge.status = .warning
             badge.size = .small
             badge.translatesAutoresizingMaskIntoConstraints = false
-            badge.isHidden = true
             return badge
+        }()
+        
+        private lazy var badgeViewContainer: UIView = {
+            let view = badgeView.alignRight()
+            view.isHidden = true
+            return view
         }()
 
         private lazy var textStack: Ocean.StackView = {
@@ -223,8 +228,7 @@ extension Ocean {
                 stack.spacing = Ocean.size.spacingStackXs
 
                 stack.add([
-                    UIView(),
-                    badgeView,
+                    badgeViewContainer,
                     radioBkgView
                 ])
             }
@@ -239,8 +243,9 @@ extension Ocean {
                 stack.spacing = Ocean.size.spacingStackXs
 
                 stack.add([
+                    trailingStack,
                     textStack,
-                    trailingStack
+                    UIView()
                 ])
             }
         }()
@@ -313,6 +318,7 @@ extension Ocean {
             if textIsRight {
                 radioStack.addArrangedSubview(trailingStack)
                 radioStack.addArrangedSubview(textStack)
+                radioStack.addArrangedSubview(UIView())
             } else {
                 radioStack.addArrangedSubview(textStack)
                 radioStack.addArrangedSubview(Ocean.Spacer())
@@ -325,10 +331,10 @@ extension Ocean {
 
         private func updateBadge() {
             if let number = badgeNumber, number > 0 {
-                badgeView.isHidden = false
+                badgeViewContainer.isHidden = false
                 badgeView.number = number
             } else {
-                badgeView.isHidden = true
+                badgeViewContainer.isHidden = true
             }
         }
 
