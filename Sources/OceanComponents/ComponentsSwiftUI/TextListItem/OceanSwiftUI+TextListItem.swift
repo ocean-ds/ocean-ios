@@ -161,7 +161,7 @@ extension OceanSwiftUI {
             if parameters.showSkeleton {
                 OceanSwiftUI.Skeleton()
             } else {
-                HStack(spacing: Ocean.size.spacingStackXs) {
+                HStack(spacing: Ocean.size.spacingStackXxsExtra) {
                     if let icon = parameters.icon {
                         Image(uiImage: icon)
                             .resizable()
