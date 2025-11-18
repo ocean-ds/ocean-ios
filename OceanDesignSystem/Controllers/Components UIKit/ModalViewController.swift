@@ -8,6 +8,7 @@
 
 import UIKit
 import OceanTokens
+import SwiftUI
 
 class ModalViewController: UIViewController {
     enum ShowCases {
@@ -153,14 +154,24 @@ class ModalViewController: UIViewController {
     }()
     
     private lazy var customBottomSheet: Ocean.ModalViewController = {
-        let customView = UIView()
-        customView.oceanConstraints
-            .height(constant: 48)
-            .make()
-        customView.backgroundColor = UIColor.red
-
         return Ocean.Modal(self)
-            .withCustomView(view: customView)
+            .withCustomSwiftUIView(view: VStack(spacing: Ocean.size.spacingStackXs) {
+                OceanSwiftUI.Typography.heading2 { view in
+                    view.parameters.text = "Title"
+                }
+                
+                OceanSwiftUI.Typography.description { view in
+                    view.parameters.text = "Lorem Ipsum is <b>simply dummy text</b> of the printing and typesetting industry. Galley of type and scrambled it to make a type specimen book. Galley of type and scrambled it to make a type specimen book. Galley of type and scrambled it to make a type specimen book."
+                }
+                
+                ForEach(0..<6) { index in
+                    OceanSwiftUI.Typography.caption { view in
+                        view.parameters.text = "Texto \(index)"
+                    }
+                    
+                    OceanSwiftUI.Divider()
+                }
+            })
             .build()
     }()
     

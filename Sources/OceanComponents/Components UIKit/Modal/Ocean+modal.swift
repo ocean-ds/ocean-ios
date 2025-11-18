@@ -7,6 +7,7 @@
 
 import UIKit
 import OceanTokens
+import SwiftUI
 
 extension Ocean {
     public class Modal {
@@ -142,6 +143,12 @@ extension Ocean {
 
         public func withCustomView(view: UIView) -> Modal {
             modalViewController.customContent = view
+            return self
+        }
+        
+        public func withCustomSwiftUIView<Content: SwiftUI.View>(view: Content) -> Modal {
+            let hostingController = UIHostingController(rootView: view)
+            modalViewController.customContent = hostingController.getUIView()
             return self
         }
 
