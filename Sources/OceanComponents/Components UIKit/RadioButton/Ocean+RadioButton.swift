@@ -244,8 +244,7 @@ extension Ocean {
 
                 stack.add([
                     trailingStack,
-                    textStack,
-                    UIView()
+                    textStack
                 ])
             }
         }()
@@ -318,7 +317,6 @@ extension Ocean {
             if textIsRight {
                 radioStack.addArrangedSubview(trailingStack)
                 radioStack.addArrangedSubview(textStack)
-                radioStack.addArrangedSubview(UIView())
             } else {
                 radioStack.addArrangedSubview(textStack)
                 radioStack.addArrangedSubview(Ocean.Spacer())

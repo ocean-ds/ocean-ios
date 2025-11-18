@@ -26,6 +26,15 @@ final public class TextListViewController : UIViewController {
         stack.axis = .vertical
         stack.spacing = 0
         
+        let textList0 = Ocean.TextList.cell { textList in
+            textList.title = "Title"
+            textList.text = "text"
+            textList.hasCheckbox = true
+            textList.onTouch = {
+                textList.hasCheckbox = !textList.hasCheckbox
+            }
+        }
+        
         let textList1 = Ocean.TextList.cell { textList in
             textList.title = "Title"
             textList.text = "text"
@@ -161,24 +170,27 @@ final public class TextListViewController : UIViewController {
             .fill(to: scrollableContentView)
             .make()
 
-        [textList1,
-         textList2,
-         textList3,
-         textList4,
-         textList5,
-         textList6,
-         textList7,
-         textList8,
-         textList9,
-         textList10,
-         textList11,
-         textList12,
-         textList13,
-         textList14,
-         textList15,
-         textList16,
-         textList17,
-         textList18].forEach { textListCell in
+        [
+            textList0,
+            textList1,
+            textList2,
+            textList3,
+            textList4,
+            textList5,
+            textList6,
+            textList7,
+            textList8,
+            textList9,
+            textList10,
+            textList11,
+            textList12,
+            textList13,
+            textList14,
+            textList15,
+            textList16,
+            textList17,
+            textList18
+        ].forEach { textListCell in
             stack.addArrangedSubview(textListCell)
             textListCell.oceanConstraints
                 .width(to: self.view)
