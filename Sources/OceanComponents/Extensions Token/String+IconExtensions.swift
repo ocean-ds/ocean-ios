@@ -117,8 +117,8 @@ public extension String {
         case "acquirersumup": return Ocean.icon.acquirerSumup
         case "acquirerblu": return Ocean.icon.acquirerBlu
         case "eyeoffaltoutline": return Ocean.icon.eyeOffAltOutline
-        case "arrowuturnleftoutline": return Ocean.icon.arrowUturnLeftOutline
         case "linkaltoutline": return Ocean.icon.linkAltOutline
+        case "qrcodelistoutline": return Ocean.icon.qrCodeListOutline
 
             // HeroIcons
         case "academiccapoutline": return Ocean.icon.academicCapOutline
@@ -579,6 +579,7 @@ public extension String {
         case "zoominsolid": return Ocean.icon.zoomInSolid
         case "zoomoutoutline": return Ocean.icon.zoomOutOutline
         case "zoomoutsolid": return Ocean.icon.zoomOutSolid
+        case "arrowuturnleftoutline": return Ocean.icon.arrowUturnLeftOutline
         default: return nil
         }
     }
