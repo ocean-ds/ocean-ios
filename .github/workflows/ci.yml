@@ -13,6 +13,11 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           fetch-depth: 0
           ref: refs/pull/${{ github.event.pull_request.number }}/head
+      
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3.0'
+          bundler-cache: true
 
       - name: Select xcode version
         uses: maxim-lobanov/setup-xcode@v1
