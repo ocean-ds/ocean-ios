@@ -126,8 +126,9 @@ extension Ocean {
         public static let acquirerSumup = UIImage(named: "acquirer-sumup", in: Bundle.module, with: .none)
         public static let acquirerBlu = UIImage(named: "acquirer-blu", in: Bundle.module, with: .none)
         public static let eyeOffAltOutline = UIImage(named: "eye-off-alt-outline", in: Bundle.module, with: .none)
-        public static let arrowUturnLeftOutline = UIImage(named: "arrow-u-turn-lef-outline", in: Bundle.module, with: .none)
         public static let linkAltOutline = UIImage(named: "link-alt-outline", in: Bundle.module, with: .none)
+        public static let qrCodeListOutline = UIImage(named: "qr-code-list-outline", in: Bundle.module, with: .none)
+        
         // HeroIcons
 
         public static let academicCapOutline = UIImage(named: "academic-cap-outline", in: Bundle.module, with: .none)
@@ -588,5 +589,6 @@ extension Ocean {
         public static let zoomInSolid = UIImage(named: "zoom-in-solid", in: Bundle.module, with: .none)
         public static let zoomOutOutline = UIImage(named: "zoom-out-outline", in: Bundle.module, with: .none)
         public static let zoomOutSolid = UIImage(named: "zoom-out-solid", in: Bundle.module, with: .none)
+        public static let arrowUturnLeftOutline = UIImage(named: "arrow-uturn-lef-outline", in: Bundle.module, with: .none)
     }
 }
