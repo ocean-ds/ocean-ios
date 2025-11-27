@@ -77,7 +77,7 @@ jobs:
         uses: ncipollo/release-action@v1.14.0
         with:
           generateReleaseNotes: true
-          tag: ${{ env.LATEST_VERSION_TOKENS_LIB_NPM }}$GITHUB_RUN_NUMBER
+          tag: ${{ env.LATEST_VERSION_TOKENS_LIB_NPM }}${{ env.GITHUB_RUN_NUMBER }}
 
       - name: Update SPM dependencies
         run: |
