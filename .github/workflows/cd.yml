@@ -27,6 +27,7 @@ jobs:
         run: |
           LATEST_VERSION=$(npm show @useblu/ocean-tokens version)
           echo "LATEST_VERSION_TOKENS_LIB_NPM=$LATEST_VERSION" >> $GITHUB_ENV
+          echo "GITHUB_RUN_NUMBER=$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
           echo "Latest version: $LATEST_VERSION"
 
       - name: Select xcode version
@@ -70,8 +71,8 @@ jobs:
 
       - name: Increment version SPM
         run: |
-          git tag -a "${{ env.LATEST_VERSION_TOKENS_LIB_NPM }}$GITHUB_RUN_NUMBER" -m "Release of version OceanComponents $LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER"
-          git push origin "${{ env.LATEST_VERSION_TOKENS_LIB_NPM }}$GITHUB_RUN_NUMBER"
+          git tag -a "${{ env.LATEST_VERSION_TOKENS_LIB_NPM }}${{ env.GITHUB_RUN_NUMBER }}" -m "Release of version OceanComponents $LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER"
+          git push origin "${{ env.LATEST_VERSION_TOKENS_LIB_NPM }}${{ env.GITHUB_RUN_NUMBER }}"
 
       - name: Create Release Notes
         uses: ncipollo/release-action@v1.14.0
