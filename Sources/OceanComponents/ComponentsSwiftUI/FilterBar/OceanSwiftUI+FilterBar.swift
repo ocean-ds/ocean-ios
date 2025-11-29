@@ -24,7 +24,9 @@ extension OceanSwiftUI {
         @Published public var onDateRangeChange: ((Date?, Date?, [FilterBarGroup]) -> Void)
         @Published public var modalTitle: String? = nil
         @Published public var primaryButtonTitle: String = "Filtrar"
+        @Published public var primaryButtonAction: () -> Void = { }
         @Published public var secondaryButtonTitle: String = "Limpar"
+        @Published public var secondaryButtonAction: () -> Void = { }
 
         weak public var rootViewController: UIViewController?
 
@@ -44,7 +46,9 @@ extension OceanSwiftUI {
                     onDateRangeChange: @escaping ((Date?, Date?, [FilterBarGroup]) -> Void) = { _, _, _ in },
                     modalTitle: String? = nil,
                     primaryButtonTitle: String = "Filtrar",
-                    secondaryButtonTitle: String = "Limpar") {
+                    secondaryButtonTitle: String = "Limpar",
+                    primaryButtonAction: @escaping () -> Void = { },
+                    secondaryButtonAction: @escaping () -> Void = { }) {
             self.groups = groups
             self.showSkeleton = showSkeleton
             self.onTouch = onTouch
@@ -53,6 +57,8 @@ extension OceanSwiftUI {
             self.modalTitle = modalTitle
             self.primaryButtonTitle = primaryButtonTitle
             self.secondaryButtonTitle = secondaryButtonTitle
+            self.primaryButtonAction = primaryButtonAction
+            self.secondaryButtonAction = secondaryButtonAction
         }
     }
 
@@ -257,6 +263,7 @@ extension OceanSwiftUI {
                     .withAction(textNegative: parameters.secondaryButtonTitle,
                                 actionNegative: {
                         updateSelection(chips: [], option: touchedOption, group: touchedGroup)
+                        parameters.secondaryButtonAction()
                     },
                                 textPositive: parameters.primaryButtonTitle,
                                 actionPositive: { allOptions in
@@ -266,6 +273,7 @@ extension OceanSwiftUI {
                         }.filter { $0.isSelected }
                         
                         updateSelection(chips: chips, option: touchedOption, group: touchedGroup)
+                        parameters.primaryButtonAction()
                     })
                     .build()
                     .show()
