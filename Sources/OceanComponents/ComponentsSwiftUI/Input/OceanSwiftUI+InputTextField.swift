@@ -179,10 +179,10 @@ extension OceanSwiftUI {
                 case .input:
                     ZStack(alignment: .leading) {
                         if self.parameters.text.isEmpty && !self.parameters.placeholder.isEmpty {
-                            Text(self.parameters.placeholder)
-                                .foregroundColor(Color(self.parameters.placeholderColor))
-                                .font(Font(UIFont.baseRegular(size: Ocean.font.fontSizeXs)!))
-                                .padding(.vertical, 0)
+                            OceanSwiftUI.Typography.paragraph { label in
+                                label.parameters.text = self.parameters.placeholder
+                                label.parameters.textColor = self.parameters.placeholderColor
+                            }
                         }
                         TextField("", text: self.$parameters.text, onEditingChanged: { edit in
                             self.focused = edit
@@ -199,9 +199,10 @@ extension OceanSwiftUI {
 
                         ZStack(alignment: .leading) {
                             if self.parameters.text.isEmpty && !self.parameters.placeholder.isEmpty {
-                                Text(self.parameters.placeholder)
-                                    .foregroundColor(Color(self.parameters.placeholderColor))
-                                    .font(Font(UIFont.baseRegular(size: Ocean.font.fontSizeXs)!))
+                                OceanSwiftUI.Typography.paragraph { label in
+                                    label.parameters.text = self.parameters.placeholder
+                                    label.parameters.textColor = self.parameters.placeholderColor
+                                }
                             }
                             TextField("", text: self.$parameters.text, onEditingChanged: { edit in
                                 self.focused = edit
@@ -226,9 +227,10 @@ extension OceanSwiftUI {
                 case .secureText:
                     ZStack(alignment: .leading) {
                         if self.parameters.text.isEmpty && !self.parameters.placeholder.isEmpty {
-                            Text(self.parameters.placeholder)
-                                .foregroundColor(Color(self.parameters.placeholderColor))
-                                .font(Font(UIFont.baseRegular(size: Ocean.font.fontSizeXs)!))
+                            OceanSwiftUI.Typography.paragraph { label in
+                                label.parameters.text = self.parameters.placeholder
+                                label.parameters.textColor = self.parameters.placeholderColor
+                            }
                         }
                         SecureField("", text: self.$parameters.text, onCommit: { self.focused = false })
                             .onTapGesture { self.focused = true }
