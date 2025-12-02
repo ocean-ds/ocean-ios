@@ -16,6 +16,7 @@ extension OceanSwiftUI {
     public class InputTextFieldParameters: ObservableObject {
         @Published public var title: String
         @Published public var titleColor: UIColor
+        @Published public var placeholderColor: UIColor
         @Published public var placeholder: String
         @Published public var text: String
         @Published public var style: Style
@@ -44,6 +45,7 @@ extension OceanSwiftUI {
 
         public init(title: String = "",
                     titleColor: UIColor = Ocean.color.colorInterfaceDarkDown,
+                    placeholderColor: UIColor = Ocean.color.colorInterfaceLightDeep,
                     placeholder: String = "",
                     text: String = "",
                     style: Style = .input,
@@ -71,6 +73,7 @@ extension OceanSwiftUI {
                     onTouchIconHelper: @escaping () -> Void = { }) {
             self.title = title
             self.titleColor = titleColor
+            self.placeholderColor = placeholderColor
             self.placeholder = placeholder
             self.text = text
             self.style = style
@@ -174,22 +177,38 @@ extension OceanSwiftUI {
             Group {
                 switch self.parameters.style {
                 case .input:
-                    TextField(self.parameters.placeholder, text: self.$parameters.text, onEditingChanged: { edit in
-                        self.focused = edit
-                        self.parameters.onEditingChanged(edit)
-                    })
+                    ZStack(alignment: .leading) {
+                        if self.parameters.text.isEmpty && !self.parameters.placeholder.isEmpty {
+                            OceanSwiftUI.Typography.paragraph { label in
+                                label.parameters.text = self.parameters.placeholder
+                                label.parameters.textColor = self.parameters.placeholderColor
+                            }
+                        }
+                        TextField("", text: self.$parameters.text, onEditingChanged: { edit in
+                            self.focused = edit
+                            self.parameters.onEditingChanged(edit)
+                        })
+                    }
                 case .inputSearch:
                     HStack {
                         Image(uiImage: Ocean.icon.searchOutline)
                             .resizable()
                             .renderingMode(.template)
-                            .frame(width: 24, height: 24, alignment: .center)
+                            .frame(width: 20, height: 20, alignment: .center)
                             .foregroundColor(Color(getSearchIconColor()))
 
-                        TextField(self.parameters.placeholder, text: self.$parameters.text, onEditingChanged: { edit in
-                            self.focused = edit
-                            self.parameters.onEditingChanged(edit)
-                        })
+                        ZStack(alignment: .leading) {
+                            if self.parameters.text.isEmpty && !self.parameters.placeholder.isEmpty {
+                                OceanSwiftUI.Typography.paragraph { label in
+                                    label.parameters.text = self.parameters.placeholder
+                                    label.parameters.textColor = self.parameters.placeholderColor
+                                }
+                            }
+                            TextField("", text: self.$parameters.text, onEditingChanged: { edit in
+                                self.focused = edit
+                                self.parameters.onEditingChanged(edit)
+                            })
+                        }
 
                         Spacer()
 
@@ -198,7 +217,7 @@ extension OceanSwiftUI {
                                 .resizable()
                                 .renderingMode(.template)
                                 .frame(width: 24, height: 24, alignment: .center)
-                                .foregroundColor(Color(Ocean.color.colorInterfaceLightDeep))
+                                .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
                                 .onTapGesture {
                                     parameters.text = ""
                                     parameters.onValueChanged("")
@@ -206,17 +225,23 @@ extension OceanSwiftUI {
                         }
                     }
                 case .secureText:
-                    SecureField(self.parameters.placeholder, text: self.$parameters.text, onCommit: { self.focused = false })
-                        .onTapGesture {
-                            self.focused = true
+                    ZStack(alignment: .leading) {
+                        if self.parameters.text.isEmpty && !self.parameters.placeholder.isEmpty {
+                            OceanSwiftUI.Typography.paragraph { label in
+                                label.parameters.text = self.parameters.placeholder
+                                label.parameters.textColor = self.parameters.placeholderColor
+                            }
                         }
+                        SecureField("", text: self.$parameters.text, onCommit: { self.focused = false })
+                            .onTapGesture { self.focused = true }
+                    }
                 case .textArea:
                     if #available(iOS 14.0, *) {
                         ZStack(alignment: .topLeading) {
                             if self.parameters.text.isEmpty && !self.parameters.placeholder.isEmpty {
                                 OceanSwiftUI.Typography.paragraph { label in
                                     label.parameters.text = self.parameters.placeholder
-                                    label.parameters.textColor = Ocean.color.colorInterfaceLightDeep
+                                    label.parameters.textColor = self.parameters.placeholderColor
                                 }
                                 .padding(.vertical, 12)
                                 .padding(.horizontal, Ocean.size.spacingStackXxxs)
@@ -290,15 +315,15 @@ extension OceanSwiftUI {
                     textFieldView
                         .keyboardType(self.parameters.keyboardType)
                         .textContentType(self.parameters.textContentType)
-                        .frame(height: self.parameters.style == .textArea ? 90 : 48)
                         .padding([.leading, .trailing], Ocean.size.spacingStackXs)
                         .padding([.top, .bottom], 2)
+                        .frame(height: self.parameters.style == .textArea ? 90 : 48)
                         .background(
                             RoundedRectangle(cornerRadius: Ocean.size.borderRadiusSm)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: Ocean.size.borderRadiusSm)
                                         .strokeBorder(Color(getBorderColor()),
-                                                      lineWidth: 1))
+                                                      lineWidth: self.focused ? 2 : 1))
                                 .foregroundColor(Color(self.parameters.isDisabled ? Ocean.color.colorInterfaceLightUp : Ocean.color.colorInterfaceLightPure))
                         )
                         .font(Font(UIFont.baseRegular(size: Ocean.font.fontSizeXs)!))
@@ -372,7 +397,7 @@ extension OceanSwiftUI {
 
         private func getBorderColor() -> UIColor {
             if self.parameters.isDisabled {
-                return Ocean.color.colorInterfaceLightUp
+                return Ocean.color.colorInterfaceLightDeep
             } else if !self.parameters.errorMessage.isEmpty {
                 return Ocean.color.colorStatusNegativePure
             } else if self.focused {

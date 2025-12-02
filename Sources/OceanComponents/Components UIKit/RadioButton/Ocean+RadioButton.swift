@@ -328,7 +328,7 @@ extension Ocean {
         }
 
         private func updateBadge() {
-            if let number = badgeNumber, number > 0 {
+            if let number = badgeNumber, number >= 0 {
                 badgeViewContainer.isHidden = false
                 badgeView.number = number
             } else {
