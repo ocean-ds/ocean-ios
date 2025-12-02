@@ -27,6 +27,7 @@ class TextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.title = "Title 2"
             textListItem.parameters.description = "Description"
             textListItem.parameters.caption = "Caption"
+            textListItem.parameters.isCaptionBold = true
             textListItem.parameters.icon = Ocean.icon.chatAlt3Outline
             textListItem.parameters.actionIcon = Ocean.icon.externalLinkSolid
             textListItem.parameters.hasAction = true
