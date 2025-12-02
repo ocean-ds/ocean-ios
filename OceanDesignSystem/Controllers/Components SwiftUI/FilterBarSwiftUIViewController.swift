@@ -23,7 +23,7 @@ class FilterBarSwiftUIViewController: UIViewController {
                           chips: [
                             .init(number: 200, title: "Vencidos"),
                             .init(number: 7, title: "A vencer"),
-                            .init(number: 2, title: "Agendados")
+                            .init(number: 0, title: "Agendados")
                           ]),
                     .init(title: "Date Range",
                           beginDate: beginDate,
