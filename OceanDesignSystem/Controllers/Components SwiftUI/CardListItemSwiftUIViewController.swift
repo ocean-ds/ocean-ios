@@ -59,7 +59,7 @@ class CardListItemSwiftUIViewController: UIViewController {
         builder.parameters.trailingIcon = Ocean.icon.chevronRightSolid
         builder.parameters.tagLabel = "Até 21x"
         builder.parameters.tagStatus = .neutralPrimary
-        builder.parameters.tagIsTrailing = true
+        builder.parameters.tagPosition = .trailing
         builder.parameters.onTouch = { print("card5") }
     }
 
@@ -69,7 +69,7 @@ class CardListItemSwiftUIViewController: UIViewController {
         builder.parameters.trailingIcon = Ocean.icon.chevronRightSolid
         builder.parameters.tagLabel = "Até 21x"
         builder.parameters.tagStatus = .neutralPrimary
-        builder.parameters.tagIsTrailing = true
+        builder.parameters.tagPosition = .trailing
         builder.parameters.isEnabled = false
         builder.parameters.onTouch = { print("card5") }
     }

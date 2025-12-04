@@ -32,7 +32,7 @@ extension OceanSwiftUI {
         @Published public var tagIcon: UIImage?
         @Published public var tagStatus: OceanSwiftUI.TagParameters.Status
         @Published public var tagSize: OceanSwiftUI.TagParameters.Size
-        @Published public var tagIsTrailing: Bool
+        @Published public var tagPosition: TagPosition
         @Published public var hasCheckbox: Bool
         @Published public var hasRadioButton: Bool
         @Published public var isChecked: Bool
@@ -64,7 +64,7 @@ extension OceanSwiftUI {
                     tagIcon: UIImage? = nil,
                     tagStatus: OceanSwiftUI.TagParameters.Status = .neutralPrimary,
                     tagSize: OceanSwiftUI.TagParameters.Size = .small,
-                    tagIsTrailing: Bool = false,
+                    tagPosition: TagPosition = .leading,
                     hasCheckbox: Bool = false,
                     hasRadioButton: Bool = false,
                     isChecked: Bool = false,
@@ -94,7 +94,7 @@ extension OceanSwiftUI {
             self.tagIcon = tagIcon
             self.tagStatus = tagStatus
             self.tagSize = tagSize
-            self.tagIsTrailing = tagIsTrailing
+            self.tagPosition = tagPosition
             self.hasCheckbox = hasCheckbox
             self.hasRadioButton = hasRadioButton
             self.isChecked = isChecked
@@ -104,6 +104,11 @@ extension OceanSwiftUI {
             self.onCheckboxSelect = onCheckboxSelect
             self.onTouch = onTouch
             self.onTouchWhenDisabled = onTouchWhenDisabled
+        }
+
+        public enum TagPosition {
+            case leading
+            case trailing
         }
     }
 
@@ -203,7 +208,7 @@ extension OceanSwiftUI {
                                         label.parameters.lineLimit = parameters.titleLineLimit
                                     }
 
-                                    if !parameters.tagLabel.isEmpty, !parameters.tagIsTrailing {
+                                    if !parameters.tagLabel.isEmpty, parameters.tagPosition == .leading {
                                         OceanSwiftUI.Tag { tag in
                                             tag.parameters.icon = parameters.tagIcon
                                             tag.parameters.label = parameters.tagLabel
@@ -234,7 +239,7 @@ extension OceanSwiftUI {
                             Spacer()
 
                             HStack(spacing: Ocean.size.spacingStackXxs) {
-                                if parameters.tagIsTrailing, !parameters.tagLabel.isEmpty {
+                                if parameters.tagPosition == .trailing, !parameters.tagLabel.isEmpty {
                                     OceanSwiftUI.Tag { tag in
                                         tag.parameters.icon = parameters.tagIcon
                                         tag.parameters.label = parameters.tagLabel
