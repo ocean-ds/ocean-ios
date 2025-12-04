@@ -18,6 +18,8 @@ extension OceanSwiftUI {
         @Published public var descriptionLineLimit: Int?
         @Published public var caption: String
         @Published public var captionLineLimit: Int?
+        @Published public var isCaptionBold: Bool
+        @Published public var captionColor: UIColor
         @Published public var info: String
         @Published public var infoLineLimit: Int?
         @Published public var icon: UIImage?
@@ -52,6 +54,8 @@ extension OceanSwiftUI {
                     descriptionLineLimit: Int? = nil,
                     caption: String = "",
                     captionLineLimit: Int? = nil,
+                    isCaptionBold: Bool = false,
+                    captionColor: UIColor = Ocean.color.colorInterfaceDarkDown,
                     info: String = "",
                     infoLineLimit: Int? = nil,
                     icon: UIImage? = nil,
@@ -87,6 +91,8 @@ extension OceanSwiftUI {
             self.descriptionLineLimit = descriptionLineLimit
             self.caption = caption
             self.captionLineLimit = captionLineLimit
+            self.isCaptionBold = isCaptionBold
+            self.captionColor = captionColor
             self.info = info
             self.infoLineLimit = infoLineLimit
             self.icon = icon
@@ -196,10 +202,13 @@ extension OceanSwiftUI {
                             Spacer()
                                 .frame(height: Ocean.size.spacingStackXxxs)
 
-                            OceanSwiftUI.Typography.caption { label in
+                            OceanSwiftUI.Typography { label in
                                 label.parameters.text = parameters.caption
+                                label.parameters.font = parameters.isCaptionBold
+                                    ? .baseSemiBold(size: Ocean.font.fontSizeXxxs)
+                                    : .baseRegular(size: Ocean.font.fontSizeXxxs)
+                                label.parameters.textColor = parameters.captionColor
                                 label.parameters.lineLimit = parameters.captionLineLimit
-                                label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
                             }
                         }
 
@@ -281,7 +290,7 @@ extension OceanSwiftUI {
                 .transform(condition: parameters.isEnabled, transform: { view in
                     view.onTapGesture {
                         parameters.onTouch()
-                        
+
                         if parameters.hasCheckbox {
                             parameters.isChecked.toggle()
                         } else if parameters.hasRadioButton {
@@ -293,3 +302,4 @@ extension OceanSwiftUI {
         }
     }
 }
+
