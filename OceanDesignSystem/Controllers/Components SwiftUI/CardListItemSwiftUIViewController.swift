@@ -53,6 +53,27 @@ class CardListItemSwiftUIViewController: UIViewController {
         builder.parameters.onTouch = { print("card5") }
     }
 
+    lazy var card51 = OceanSwiftUI.CardListItem { builder in
+        builder.parameters.title = "Title"
+        builder.parameters.leadingIcon = Ocean.icon.archiveOutline
+        builder.parameters.trailingIcon = Ocean.icon.chevronRightSolid
+        builder.parameters.tagLabel = "Até 21x"
+        builder.parameters.tagStatus = .neutralPrimary
+        builder.parameters.tagIsTrailing = true
+        builder.parameters.onTouch = { print("card5") }
+    }
+
+    lazy var card52 = OceanSwiftUI.CardListItem { builder in
+        builder.parameters.title = "Title"
+        builder.parameters.leadingIcon = Ocean.icon.archiveOutline
+        builder.parameters.trailingIcon = Ocean.icon.chevronRightSolid
+        builder.parameters.tagLabel = "Até 21x"
+        builder.parameters.tagStatus = .neutralPrimary
+        builder.parameters.tagIsTrailing = true
+        builder.parameters.isEnabled = false
+        builder.parameters.onTouch = { print("card5") }
+    }
+
     lazy var card6 = OceanSwiftUI.CardListItem { builder in
         builder.parameters.title = "Title"
         builder.parameters.subtitle = "Subtitle"
@@ -169,6 +190,8 @@ class CardListItemSwiftUIViewController: UIViewController {
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
+            card51
+            card52
             card16
             card15
             card14
