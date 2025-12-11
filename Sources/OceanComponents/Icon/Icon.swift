@@ -128,6 +128,9 @@ extension Ocean {
         public static let eyeOffAltOutline = UIImage(named: "eye-off-alt-outline", in: Bundle.module, with: .none)
         public static let linkAltOutline = UIImage(named: "link-alt-outline", in: Bundle.module, with: .none)
         public static let qrCodeListOutline = UIImage(named: "qr-code-list-outline", in: Bundle.module, with: .none)
+        public static let qrCodePlusOutline = UIImage(named: "qr-code-plus-outline", in: Bundle.module, with: .none)
+        public static let copyAltOutline = UIImage(named: "copy-alt-outline", in: Bundle.module, with: .none)
+        public static let bluAnalisysOutline = UIImage(named: "blu-analisys-outline", in: Bundle.module, with: .none)
         
         // HeroIcons
 

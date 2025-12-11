@@ -119,6 +119,9 @@ public extension String {
         case "eyeoffaltoutline": return Ocean.icon.eyeOffAltOutline
         case "linkaltoutline": return Ocean.icon.linkAltOutline
         case "qrcodelistoutline": return Ocean.icon.qrCodeListOutline
+        case "qrcodeplusoutline": return Ocean.icon.qrCodePlusOutline
+        case "copyaltoutline": return Ocean.icon.copyAltOutline
+        case "bluanalisysoutline": return Ocean.icon.bluAnalisysOutline
 
             // HeroIcons
         case "academiccapoutline": return Ocean.icon.academicCapOutline
