@@ -593,5 +593,6 @@ extension Ocean {
         public static let zoomOutOutline = UIImage(named: "zoom-out-outline", in: Bundle.module, with: .none)
         public static let zoomOutSolid = UIImage(named: "zoom-out-solid", in: Bundle.module, with: .none)
         public static let arrowUturnLeftOutline = UIImage(named: "arrow-uturn-lef-outline", in: Bundle.module, with: .none)
+        public static let wave3RightCircle = UIImage(named: "wave-3-right-circle", in: Bundle.module, with: .none)
     }
 }
