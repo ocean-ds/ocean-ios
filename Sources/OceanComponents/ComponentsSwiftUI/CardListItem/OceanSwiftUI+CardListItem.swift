@@ -184,7 +184,7 @@ extension OceanSwiftUI {
                     .padding(.horizontal, Ocean.size.spacingStackXs)
                     .padding(.vertical, Ocean.size.spacingStackXxs)
                 }
-                .border(cornerRadius: Ocean.size.borderRadiusMd,
+                .border(cornerRadius: Ocean.size.borderRadiusSm,
                         width: Ocean.size.borderWidthHairline,
                         color: Ocean.color.colorInterfaceLightDown)
             } else {
@@ -282,7 +282,7 @@ extension OceanSwiftUI {
                     }
                     .frame(minWidth: 0, maxWidth: .infinity)
                     .background(Color(Ocean.color.colorInterfaceLightPure))
-                    .border(cornerRadius: Ocean.size.borderRadiusMd,
+                    .border(cornerRadius: Ocean.size.borderRadiusSm,
                             width: Ocean.size.borderWidthHairline,
                             color: borderColor)
                     .shadow(color: Color(shadowColor), radius: 32, x: 0, y: 16)
@@ -331,7 +331,7 @@ extension OceanSwiftUI {
                         .padding(.top, Ocean.size.spacingStackXxsExtra)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .background(Color(parameters.highlightBackgroundColor))
-                        .cornerRadius(Ocean.size.borderRadiusMd, corners: [.bottomLeft, .bottomRight])
+                        .cornerRadius(Ocean.size.borderRadiusSm, corners: [.bottomLeft, .bottomRight])
                         .offset(y: -Ocean.size.spacingStackXxsExtra)
                         .zIndex(0)
                     }
