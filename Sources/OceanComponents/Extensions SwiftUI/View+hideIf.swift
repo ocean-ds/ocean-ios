@@ -11,10 +11,8 @@ public struct HideModifier: ViewModifier {
     let isHidden: Bool
 
     public func body(content: Content) -> some View {
-        Group {
-            if !isHidden {
-                content
-            }
+        if !isHidden {
+            content
         }
     }
 }
