@@ -107,8 +107,8 @@ extension OceanSwiftUI {
                             button.parameters.text = parameters.buttonTitle
                             button.parameters.style = parameters.buttonStyle
                             button.parameters.size = .small
+                            button.parameters.maxWidth = nil
                             button.parameters.isLoading = parameters.buttonIsLoading
-                            button.parameters.hasPadding = getHasPadding()
                             button.parameters.onTouch = parameters.buttonAction
                         }
                     }
@@ -187,14 +187,5 @@ extension OceanSwiftUI {
         }
         
         // MARK: Private Methods
-        
-        private func getHasPadding() -> Bool {
-            switch parameters.buttonStyle {
-            case .tertiary, .tertiaryCritical:
-                return false
-            default:
-                return true
-            }
-        }
     }
 }

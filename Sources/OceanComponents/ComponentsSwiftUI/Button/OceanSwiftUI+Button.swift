@@ -18,7 +18,7 @@ extension OceanSwiftUI {
         @Published public var style: Style
         @Published public var size: Size
         @Published public var isDisabled: Bool
-        @Published public var hasPadding: Bool
+        @Published public var maxWidth: CGFloat?
         @Published public var showSkeleton: Bool
         public var onTouch: () -> Void = { }
         
@@ -76,7 +76,7 @@ extension OceanSwiftUI {
                     style: Style = .primary,
                     size: Size = .medium,
                     isDisabled: Bool = false,
-                    hasPadding: Bool = true,
+                    maxWidth: CGFloat? = .infinity,
                     showSkeleton: Bool = false,
                     onTouch: @escaping () -> Void = { }) {
             self.text = text
@@ -85,7 +85,7 @@ extension OceanSwiftUI {
             self.style = style
             self.size = size
             self.isDisabled = isDisabled
-            self.hasPadding = hasPadding
+            self.maxWidth = maxWidth
             self.showSkeleton = showSkeleton
             self.onTouch = onTouch
         }
@@ -211,16 +211,26 @@ extension OceanSwiftUI {
         public func makeBody(configuration: Self.Configuration) -> some View {
             configuration.label
                 .font(Font(UIFont.baseBold(size: self.parameters.size.getFontSize())!))
-                .frame(maxWidth: .infinity,
+                .frame(maxWidth: self.parameters.maxWidth,
+                       minHeight: self.parameters.size.rawValue,
                        idealHeight: self.parameters.size.rawValue,
                        maxHeight: self.parameters.size.rawValue,
                        alignment: .center)
-                .padding(.horizontal, self.parameters.hasPadding ? self.parameters.size.getPadding() : 0)
+                .padding(.horizontal, getPadding())
                 .background(
                     RoundedRectangle(cornerRadius: Ocean.size.borderRadiusCircular * self.parameters.size.rawValue)
                         .fill(self.getBackgroundColor(configuration: configuration))
                 )
                 .foregroundColor(self.foregroundColor)
+        }
+        
+        public func getPadding() -> CGFloat {
+            switch self.parameters.style {
+            case .tertiary, .tertiaryCritical:
+                return .zero
+            default:
+                return self.parameters.size.getPadding()
+            }
         }
         
         public func getBackgroundColor(configuration: Self.Configuration) -> Color {

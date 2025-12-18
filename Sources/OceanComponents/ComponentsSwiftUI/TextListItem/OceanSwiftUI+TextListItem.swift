@@ -32,7 +32,6 @@ extension OceanSwiftUI {
         @Published public var tagSize: OceanSwiftUI.TagParameters.Size
         @Published public var tagOrientation: OceanSwiftUI.TextListItemParameters.TagOrientation
         @Published public var backgroundColor: UIColor?
-        @Published public var padding: EdgeInsets
         @Published public var state: OceanSwiftUI.TextListItemParameters.State
         @Published public var checkboxIcon: UIImage?
         @Published public var actionIcon: UIImage?
@@ -44,6 +43,8 @@ extension OceanSwiftUI {
         @Published public var hasAction: Bool
         @Published public var hasLocked: Bool
         @Published public var showSkeleton: Bool
+        @Published public var padding: EdgeInsets
+        @Published public var paddingWithAction: EdgeInsets
 
         public var onSelection: (Bool) -> Void
         public var onTouch: () -> Void
@@ -68,10 +69,6 @@ extension OceanSwiftUI {
                     tagSize: OceanSwiftUI.TagParameters.Size = .small,
                     tagOrientation: OceanSwiftUI.TextListItemParameters.TagOrientation = .vertical,
                     backgroundColor: UIColor? = nil,
-                    padding: EdgeInsets = .init(top: Ocean.size.spacingStackXs,
-                                                leading: Ocean.size.spacingStackXs,
-                                                bottom: Ocean.size.spacingStackXs,
-                                                trailing: Ocean.size.spacingStackXs),
                     state: OceanSwiftUI.TextListItemParameters.State = .normal,
                     checkboxIcon: UIImage? = nil,
                     actionIcon: UIImage? = nil,
@@ -83,6 +80,14 @@ extension OceanSwiftUI {
                     hasAction: Bool = false,
                     hasLocked: Bool = false,
                     showSkeleton: Bool = false,
+                    padding: EdgeInsets = .init(top: Ocean.size.spacingStackXxs,
+                                                leading: Ocean.size.spacingStackXs,
+                                                bottom: Ocean.size.spacingStackXxs,
+                                                trailing: Ocean.size.spacingStackXs),
+                    paddingWithAction: EdgeInsets = .init(top: Ocean.size.spacingStackXs,
+                                                          leading: Ocean.size.spacingStackXs,
+                                                          bottom: Ocean.size.spacingStackXs,
+                                                          trailing: Ocean.size.spacingStackXxs),
                     onSelection: @escaping (Bool) -> Void = { _ in },
                     onTouch: @escaping () -> Void = { }) {
             self.title = title
@@ -105,7 +110,6 @@ extension OceanSwiftUI {
             self.tagSize = tagSize
             self.tagOrientation = tagOrientation
             self.backgroundColor = backgroundColor
-            self.padding = padding
             self.state = state
             self.checkboxIcon = checkboxIcon
             self.actionIcon = actionIcon
@@ -117,6 +121,8 @@ extension OceanSwiftUI {
             self.hasAction = hasAction
             self.hasLocked = hasLocked
             self.showSkeleton = showSkeleton
+            self.padding = padding
+            self.paddingWithAction = paddingWithAction
             self.onSelection = onSelection
             self.onTouch = onTouch
         }
@@ -285,7 +291,7 @@ extension OceanSwiftUI {
                     }
                 }
                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                .padding(parameters.padding)
+                .padding(parameters.hasAction ? parameters.paddingWithAction : parameters.padding)
                 .background(Color(parameters.backgroundColor ?? Ocean.color.colorInterfaceLightPure))
                 .transform(condition: parameters.isEnabled, transform: { view in
                     view.onTapGesture {
