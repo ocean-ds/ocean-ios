@@ -87,7 +87,7 @@ extension OceanSwiftUI {
                     paddingNotReadOnly: EdgeInsets = .init(top: Ocean.size.spacingStackXs,
                                                            leading: Ocean.size.spacingStackXs,
                                                            bottom: Ocean.size.spacingStackXs,
-                                                           trailing: Ocean.size.spacingStackXxs),
+                                                           trailing: Ocean.size.spacingStackXs),
                     onSelection: @escaping (Bool) -> Void = { _ in },
                     onTouch: @escaping () -> Void = { }) {
             self.title = title
@@ -263,6 +263,7 @@ extension OceanSwiftUI {
                             .renderingMode(.template)
                             .frame(width: 20, height: 20)
                             .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
+                            .offset(x: Ocean.size.spacingStackXxs)
                     } else if parameters.hasCheckbox {
                         OceanSwiftUI.CheckboxGroup { group in
                             group.parameters.icon = parameters.checkboxIcon
