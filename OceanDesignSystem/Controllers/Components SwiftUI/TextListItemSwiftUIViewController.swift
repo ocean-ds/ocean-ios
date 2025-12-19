@@ -15,10 +15,6 @@ class TextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.title = "Title 1"
             textListItem.parameters.description = "Description"
             textListItem.parameters.showSkeleton = true
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
 
@@ -34,10 +30,6 @@ class TextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.onTouch = {
                 print("Touched!")
             }
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
 
@@ -51,10 +43,6 @@ class TextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.onTouch = {
                 print("Touched!")
             }
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
 
@@ -64,10 +52,6 @@ class TextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.description = "Description"
             textListItem.parameters.info = "Neutral Info"
             textListItem.parameters.state = .neutral
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
 
@@ -77,10 +61,6 @@ class TextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.description = "Description"
             textListItem.parameters.info = "Positive Info"
             textListItem.parameters.state = .positive
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
 
@@ -89,10 +69,6 @@ class TextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.title = "Title 6"
             textListItem.parameters.description = "Description"
             textListItem.parameters.hasCheckbox = true
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
 
@@ -101,10 +77,6 @@ class TextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.title = "Title 7"
             textListItem.parameters.description = "Description"
             textListItem.parameters.hasRadioButton = true
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
 
@@ -114,10 +86,6 @@ class TextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.description = "Description"
             textListItem.parameters.hasCheckbox = true
             textListItem.parameters.hasError = true
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
 
@@ -127,10 +95,6 @@ class TextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.description = "Description"
             textListItem.parameters.hasRadioButton = true
             textListItem.parameters.hasError = true
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
 
@@ -143,10 +107,6 @@ class TextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.tagStatus = .warning
             textListItem.parameters.tagIcon = Ocean.icon.fingerPrintSolid
             textListItem.parameters.tagSize = .medium
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
 
@@ -160,10 +120,6 @@ class TextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.tagIcon = Ocean.icon.fingerPrintSolid
             textListItem.parameters.tagSize = .medium
             textListItem.parameters.tagOrientation = .horizontal
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
     
@@ -173,10 +129,6 @@ class TextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.description = "Description"
             textListItem.parameters.caption = "Caption"
             textListItem.parameters.hasLocked = true
-            textListItem.parameters.padding = .init(top: Ocean.size.spacingStackXxs,
-                                                    leading: 0,
-                                                    bottom: Ocean.size.spacingStackXxs,
-                                                    trailing: 0)
         }
     }()
 
@@ -232,7 +184,7 @@ class TextListItemSwiftUIViewController: UIViewController {
         self.view.addSubview(uiView)
 
         uiView.oceanConstraints
-            .fill(to: self.view, constant: Ocean.size.spacingStackXs)
+            .fill(to: self.view)
             .make()
     }
 }
