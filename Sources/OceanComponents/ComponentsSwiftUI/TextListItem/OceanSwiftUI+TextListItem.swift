@@ -44,7 +44,7 @@ extension OceanSwiftUI {
         @Published public var hasLocked: Bool
         @Published public var showSkeleton: Bool
         @Published public var padding: EdgeInsets
-        @Published public var paddingWithAction: EdgeInsets
+        @Published public var paddingNotReadOnly: EdgeInsets
 
         public var onSelection: (Bool) -> Void
         public var onTouch: () -> Void
@@ -84,10 +84,10 @@ extension OceanSwiftUI {
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXxs,
                                                 trailing: Ocean.size.spacingStackXs),
-                    paddingWithAction: EdgeInsets = .init(top: Ocean.size.spacingStackXs,
-                                                          leading: Ocean.size.spacingStackXs,
-                                                          bottom: Ocean.size.spacingStackXs,
-                                                          trailing: Ocean.size.spacingStackXxs),
+                    paddingNotReadOnly: EdgeInsets = .init(top: Ocean.size.spacingStackXs,
+                                                           leading: Ocean.size.spacingStackXs,
+                                                           bottom: Ocean.size.spacingStackXs,
+                                                           trailing: Ocean.size.spacingStackXxs),
                     onSelection: @escaping (Bool) -> Void = { _ in },
                     onTouch: @escaping () -> Void = { }) {
             self.title = title
@@ -122,7 +122,7 @@ extension OceanSwiftUI {
             self.hasLocked = hasLocked
             self.showSkeleton = showSkeleton
             self.padding = padding
-            self.paddingWithAction = paddingWithAction
+            self.paddingNotReadOnly = paddingNotReadOnly
             self.onSelection = onSelection
             self.onTouch = onTouch
         }
@@ -170,6 +170,8 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
+            let isNotReadOnly = parameters.hasAction || parameters.hasRadioButton || parameters.hasCheckbox
+            
             if parameters.showSkeleton {
                 OceanSwiftUI.Skeleton()
             } else {
@@ -291,7 +293,7 @@ extension OceanSwiftUI {
                     }
                 }
                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                .padding(parameters.hasAction ? parameters.paddingWithAction : parameters.padding)
+                .padding(isNotReadOnly ? parameters.paddingNotReadOnly : parameters.padding)
                 .background(Color(parameters.backgroundColor ?? Ocean.color.colorInterfaceLightPure))
                 .transform(condition: parameters.isEnabled, transform: { view in
                     view.onTapGesture {
