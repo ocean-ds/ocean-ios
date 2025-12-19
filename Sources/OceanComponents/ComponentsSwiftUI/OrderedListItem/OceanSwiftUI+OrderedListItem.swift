@@ -124,7 +124,7 @@ extension OceanSwiftUI {
         }
 
         private var titleView: some View {
-            OceanSwiftUI.Typography.heading4 { label in
+            OceanSwiftUI.Typography.paragraph { label in
                 label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXs)
                 label.parameters.text = parameters.title
             }
