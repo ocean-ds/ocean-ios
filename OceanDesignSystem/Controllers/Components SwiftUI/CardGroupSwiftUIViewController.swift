@@ -232,9 +232,9 @@ class CardGroupSwiftUIViewController: UIViewController {
     lazy var cardGroupWithAlertNormal = OceanSwiftUI.CardGroup { view in
         view.parameters.title = "Título"
         view.parameters.subtitle = "Subtítulo"
-
         view.parameters.alert = OceanSwiftUI.Alert { alert in
             alert.parameters.text = "Mensagem de alerta normal"
+            alert.parameters.hasCornerRadius = false
             alert.parameters.status = .warning
             alert.parameters.style = .none
         }
