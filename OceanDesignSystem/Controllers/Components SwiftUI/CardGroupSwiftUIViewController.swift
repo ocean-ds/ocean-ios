@@ -160,6 +160,91 @@ class CardGroupSwiftUIViewController: UIViewController {
         ctaBadgeStatus: .warning,
     )
 
+    lazy var cardGroupWithAlertSuccess = OceanSwiftUI.CardGroup { view in
+        view.parameters.title = "PagBlu"
+        view.parameters.subtitle = "Garanta até 16% de economia ao antecipar com taxa zero."
+
+        view.parameters.alert = OceanSwiftUI.Alert { alert in
+            alert.parameters.text = "Use o saldo disponível na Rede e pague hoje"
+            alert.parameters.status = .positive
+            alert.parameters.style = .withBrands
+            alert.parameters.hasCornerRadius = false
+            alert.parameters.brands = OceanSwiftUI.Brands { brands in
+                brands.parameters.acquirers = ["rede"]
+                brands.parameters.limit = 3
+                brands.parameters.itemSize = 24
+            }
+        }
+
+        view.parameters.ctaText = "Pagar fornecedores"
+        view.parameters.ctaBadgeCount = 9
+        view.parameters.ctaBadgeStatus = .warning
+        view.parameters.onTouch = {
+            print("Pagar fornecedores tapped")
+        }
+    }
+
+    lazy var cardGroupWithAlertInfo = OceanSwiftUI.CardGroup { view in
+        view.parameters.title = "PagBlu"
+        view.parameters.subtitle = "Garanta até 16% de economia ao antecipar com taxa zero."
+
+        view.parameters.alert = OceanSwiftUI.Alert { alert in
+            alert.parameters.text = "2 fornecedores já podem te cobrar via PagBlu"
+            alert.parameters.status = .info
+            alert.parameters.style = .withBrands
+            alert.parameters.hasCornerRadius = false
+            alert.parameters.brands = OceanSwiftUI.Brands { brands in
+                brands.parameters.acquirers = ["rede", "cielo"]
+                brands.parameters.limit = 3
+                brands.parameters.itemSize = 24
+            }
+        }
+
+        view.parameters.ctaText = "Pagar fornecedores"
+        view.parameters.onTouch = {
+            print("Pagar fornecedores tapped")
+        }
+    }
+
+    lazy var cardGroupWithAlertInfoWithoutImage = OceanSwiftUI.CardGroup { view in
+        view.parameters.title = "PagBlu"
+        view.parameters.subtitle = "Garanta até 16% de economia ao antecipar com taxa zero."
+
+        view.parameters.alert = OceanSwiftUI.Alert { alert in
+            alert.parameters.text = "2 fornecedores já podem te cobrar via PagBlu"
+            alert.parameters.status = .info
+            alert.parameters.style = .withBrands
+            alert.parameters.hasCornerRadius = false
+            alert.parameters.brands = OceanSwiftUI.Brands { brands in
+                brands.parameters.acquirers = ["hoya", "zeiss"]
+                brands.parameters.limit = 3
+                brands.parameters.itemSize = 24
+                brands.parameters.showFirstLetter = false
+            }
+        }
+
+        view.parameters.ctaText = "Pagar fornecedores"
+        view.parameters.onTouch = {
+            print("Pagar fornecedores tapped")
+        }
+    }
+
+    lazy var cardGroupWithAlertNormal = OceanSwiftUI.CardGroup { view in
+        view.parameters.title = "Título"
+        view.parameters.subtitle = "Subtítulo"
+
+        view.parameters.alert = OceanSwiftUI.Alert { alert in
+            alert.parameters.text = "Mensagem de alerta normal"
+            alert.parameters.status = .warning
+            alert.parameters.style = .none
+        }
+
+        view.parameters.ctaText = "Ação"
+        view.parameters.onTouch = {
+            print("Ação tapped")
+        }
+    }
+
     // MARK: - Hosting
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
@@ -179,6 +264,10 @@ class CardGroupSwiftUIViewController: UIViewController {
             cardGroup13
             cardGroup14
             cardGroup15
+            cardGroupWithAlertSuccess
+            cardGroupWithAlertInfo
+            cardGroupWithAlertNormal
+            cardGroupWithAlertInfoWithoutImage
         }
     })
 

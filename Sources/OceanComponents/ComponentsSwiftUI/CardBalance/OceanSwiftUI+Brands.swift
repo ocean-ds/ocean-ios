@@ -19,6 +19,7 @@ extension OceanSwiftUI {
         @Published public var overlapSpacing: CGFloat
         @Published public var badgeStatus: OceanSwiftUI.BadgeParameters.Status
         @Published public var badgeSize: OceanSwiftUI.BadgeParameters.Size
+        @Published public var showFirstLetter: Bool
 
         public init(
             acquirers: [String] = [],
@@ -28,7 +29,8 @@ extension OceanSwiftUI {
             itemSize: CGFloat = Ocean.size.spacingStackMd,
             overlapSpacing: CGFloat = Ocean.size.spacingStackXxs,
             badgeStatus: OceanSwiftUI.BadgeParameters.Status = .disabled,
-            badgeSize: OceanSwiftUI.BadgeParameters.Size = .medium
+            badgeSize: OceanSwiftUI.BadgeParameters.Size = .medium,
+            showFirstLetter: Bool = true
         ) {
             self.acquirers = acquirers
             self.limit = max(0, limit)
@@ -38,6 +40,7 @@ extension OceanSwiftUI {
             self.overlapSpacing = overlapSpacing
             self.badgeStatus = badgeStatus
             self.badgeSize = badgeSize
+            self.showFirstLetter = showFirstLetter
         }
     }
 
@@ -74,7 +77,7 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            let acquirers = parameters.acquirers
+            let acquirers = parameters.showFirstLetter ? parameters.acquirers : parameters.acquirers.filter { "acquirer\($0)".toOceanIcon() != nil }
             let limit = max(0, parameters.limit)
             let shownCount = min(acquirers.count, limit)
             let remaining = max(0, acquirers.count - shownCount)
@@ -121,7 +124,7 @@ extension OceanSwiftUI {
                         .resizable()
                         .scaledToFit()
                         .frame(width: parameters.itemSize, height: parameters.itemSize)
-                } else {
+                } else if parameters.showFirstLetter {
                     OceanSwiftUI.Typography.eyebrow { view in
                         view.parameters.text = String(acquirer.prefix(1)).uppercased()
                         view.parameters.textColor = Ocean.color.colorBrandPrimaryDown
