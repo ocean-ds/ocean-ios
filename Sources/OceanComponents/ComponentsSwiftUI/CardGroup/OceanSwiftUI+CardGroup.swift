@@ -22,7 +22,7 @@ extension OceanSwiftUI {
         @Published public var tagLabel: String?
         @Published public var hasTagLabelBold: Bool
         @Published public var tagStatus: TagParameters.Status
-        @Published public var alert: Alert?
+        @Published public var alert: OceanSwiftUI.AlertParameters?
         @Published public var progress: Float?
         @Published public var view: (any View)?
         @Published public var ctaText: String
@@ -52,7 +52,7 @@ extension OceanSwiftUI {
                     tagLabel: String? = nil,
                     hasTagLabelBold: Bool = false,
                     tagStatus: TagParameters.Status = .warning,
-                    alert: Alert? = nil,
+                    alert: OceanSwiftUI.AlertParameters? = nil,
                     progress: Float? = nil,
                     view: (any View)? = nil,
                     ctaText: String = "",
@@ -238,7 +238,7 @@ extension OceanSwiftUI {
                             .background(Color(parameters.headerBackgroundColor ?? Ocean.color.colorInterfaceLightPure))
 
                             if let alert = parameters.alert {
-                                alert
+                                Alert.init(parameters: alert)
                             }
 
                             if let progress = parameters.progress {

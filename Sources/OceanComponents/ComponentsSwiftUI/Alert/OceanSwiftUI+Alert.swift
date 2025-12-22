@@ -23,7 +23,7 @@ extension OceanSwiftUI {
         @Published public var actionType: ActionType
         @Published public var tooltipText: String
         @Published public var hasCornerRadius: Bool
-        @Published public var brands: Brands?
+        @Published public var brands: OceanSwiftUI.BrandsParameters?
         public var actionOnTouch: () -> Void
 
         public enum Status {
@@ -56,7 +56,7 @@ extension OceanSwiftUI {
                     actionType: ActionType = .link,
                     tooltipText: String = "",
                     hasCornerRadius: Bool = true,
-                    brands: Brands? = nil,
+                    brands: OceanSwiftUI.BrandsParameters? = nil,
                     actionOnTouch: @escaping () -> Void = { }) {
             self.title = title
             self.text = text
@@ -115,17 +115,17 @@ extension OceanSwiftUI {
         }
 
         @ViewBuilder
-        private var brandsView: some View {
+        private var brands: some View {
             if let brands = parameters.brands {
-                brands
-                Spacer().frame(width: Ocean.size.spacingStackXxs)
+                OceanSwiftUI.Brands.init(parameters: brands)
             }
         }
 
         @ViewBuilder
         private var withBrandsView: some View {
-            HStack(alignment: .center, spacing: 0) {
-                brandsView
+            HStack(alignment: .center, spacing: Ocean.size.spacingStackXxs) {
+                brands
+                    .hideIf(parameters.brands?.getAcquirersWithIcon().isEmpty == true)
 
                 textView
 

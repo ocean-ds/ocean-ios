@@ -159,22 +159,22 @@ class CardGroupSwiftUIViewController: UIViewController {
         ctaBadgeCount: 3,
         ctaBadgeStatus: .warning,
     )
-
+    
     lazy var cardGroupWithAlertSuccess = OceanSwiftUI.CardGroup { view in
         view.parameters.title = "PagBlu"
         view.parameters.subtitle = "Garanta até 16% de economia ao antecipar com taxa zero."
 
-        view.parameters.alert = OceanSwiftUI.Alert { alert in
-            alert.parameters.text = "Use o saldo disponível na Rede e pague hoje"
-            alert.parameters.status = .positive
-            alert.parameters.style = .withBrands
-            alert.parameters.hasCornerRadius = false
-            alert.parameters.brands = OceanSwiftUI.Brands { brands in
-                brands.parameters.acquirers = ["rede"]
-                brands.parameters.limit = 3
-                brands.parameters.itemSize = 24
-            }
-        }
+        view.parameters.alert = OceanSwiftUI.AlertParameters(
+            text: "Use o saldo disponível na Rede e pague hoje",
+            status: .positive,
+            style: .withBrands,
+            hasCornerRadius: false,
+            brands: OceanSwiftUI.BrandsParameters(
+                acquirers: ["rede"],
+                limit: 3,
+                itemSize: 24
+            )
+        )
 
         view.parameters.ctaText = "Pagar fornecedores"
         view.parameters.ctaBadgeCount = 9
@@ -188,17 +188,17 @@ class CardGroupSwiftUIViewController: UIViewController {
         view.parameters.title = "PagBlu"
         view.parameters.subtitle = "Garanta até 16% de economia ao antecipar com taxa zero."
 
-        view.parameters.alert = OceanSwiftUI.Alert { alert in
-            alert.parameters.text = "2 fornecedores já podem te cobrar via PagBlu"
-            alert.parameters.status = .info
-            alert.parameters.style = .withBrands
-            alert.parameters.hasCornerRadius = false
-            alert.parameters.brands = OceanSwiftUI.Brands { brands in
-                brands.parameters.acquirers = ["rede", "cielo"]
-                brands.parameters.limit = 3
-                brands.parameters.itemSize = 24
-            }
-        }
+        view.parameters.alert = OceanSwiftUI.AlertParameters(
+            text: "2 fornecedores já podem te cobrar via PagBlu",
+            status: .info,
+            style: .withBrands,
+            hasCornerRadius: false,
+            brands: OceanSwiftUI.BrandsParameters(
+                acquirers: ["rede", "cielo"],
+                limit: 3,
+                itemSize: 24
+            )
+        )
 
         view.parameters.ctaText = "Pagar fornecedores"
         view.parameters.onTouch = {
@@ -210,18 +210,18 @@ class CardGroupSwiftUIViewController: UIViewController {
         view.parameters.title = "PagBlu"
         view.parameters.subtitle = "Garanta até 16% de economia ao antecipar com taxa zero."
 
-        view.parameters.alert = OceanSwiftUI.Alert { alert in
-            alert.parameters.text = "2 fornecedores já podem te cobrar via PagBlu"
-            alert.parameters.status = .info
-            alert.parameters.style = .withBrands
-            alert.parameters.hasCornerRadius = false
-            alert.parameters.brands = OceanSwiftUI.Brands { brands in
-                brands.parameters.acquirers = ["hoya", "zeiss"]
-                brands.parameters.limit = 3
-                brands.parameters.itemSize = 24
-                brands.parameters.showFirstLetter = false
-            }
-        }
+        view.parameters.alert = OceanSwiftUI.AlertParameters(
+            text: "2 fornecedores já podem te cobrar via PagBlu",
+            status: .info,
+            style: .withBrands,
+            hasCornerRadius: false,
+            brands: OceanSwiftUI.BrandsParameters(
+                acquirers: ["hoya", "zeiss"],
+                limit: 3,
+                itemSize: 24,
+                showFirstLetter: false
+            )
+        )
 
         view.parameters.ctaText = "Pagar fornecedores"
         view.parameters.onTouch = {
@@ -232,12 +232,12 @@ class CardGroupSwiftUIViewController: UIViewController {
     lazy var cardGroupWithAlertNormal = OceanSwiftUI.CardGroup { view in
         view.parameters.title = "Título"
         view.parameters.subtitle = "Subtítulo"
-        view.parameters.alert = OceanSwiftUI.Alert { alert in
-            alert.parameters.text = "Mensagem de alerta normal"
-            alert.parameters.hasCornerRadius = false
-            alert.parameters.status = .warning
-            alert.parameters.style = .none
-        }
+        view.parameters.alert = OceanSwiftUI.AlertParameters(
+            text: "Mensagem de alerta normal",
+            status: .warning,
+            style: .none,
+            hasCornerRadius: false
+        )
 
         view.parameters.ctaText = "Ação"
         view.parameters.onTouch = {

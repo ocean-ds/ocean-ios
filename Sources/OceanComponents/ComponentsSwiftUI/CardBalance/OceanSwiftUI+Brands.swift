@@ -1,4 +1,4 @@
-//  OceanSwiftUI+Balance.swift
+//  OceanSwiftUI+Brands.swift
 //  OceanComponents
 //
 //  Created by Acassio Mendonça on 08/10/25.
@@ -42,6 +42,10 @@ extension OceanSwiftUI {
             self.badgeSize = badgeSize
             self.showFirstLetter = showFirstLetter
         }
+
+        public func getAcquirersWithIcon() -> [String] {
+            return acquirers.filter { "acquirer\($0)".toOceanIcon() != nil }
+        }
     }
 
     // MARK: Brands View
@@ -77,27 +81,29 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            let acquirers = parameters.showFirstLetter ? parameters.acquirers : parameters.acquirers.filter { "acquirer\($0)".toOceanIcon() != nil }
+            let acquirers = parameters.acquirers
             let limit = max(0, parameters.limit)
             let shownCount = min(acquirers.count, limit)
             let remaining = max(0, acquirers.count - shownCount)
 
             return HStack(spacing: -parameters.overlapSpacing) {
-                ForEach(Array(0..<shownCount), id: \.self) { index in
-                    brandItem(for: acquirers[index])
-                        .zIndex(Double(-index))
-                }
+                    if !acquirers.isEmpty {
+                        ForEach(Array(0..<shownCount), id: \.self) { index in
+                            brandItem(for: acquirers[index])
+                                .zIndex(Double(-index))
+                        }
 
-                if remaining > 0 {
-                    OceanSwiftUI.Badge { view in
-                        view.parameters.count = remaining
-                        view.parameters.status = parameters.badgeStatus
-                        view.parameters.size = parameters.badgeSize
-                        view.parameters.style = .count
-                        view.parameters.valuePrefix = "+"
+                    if remaining > 0 {
+                        OceanSwiftUI.Badge { view in
+                            view.parameters.count = remaining
+                            view.parameters.status = parameters.badgeStatus
+                            view.parameters.size = parameters.badgeSize
+                            view.parameters.style = .count
+                            view.parameters.valuePrefix = "+"
+                        }
+                        .padding(.leading, max(0, parameters.overlapSpacing - Ocean.size.spacingStackXxxs))
+                        .zIndex(Double(-limit-1))
                     }
-                    .padding(.leading, max(0, parameters.overlapSpacing - Ocean.size.spacingStackXxxs))
-                    .zIndex(Double(-limit-1))
                 }
             }
         }
@@ -106,28 +112,33 @@ extension OceanSwiftUI {
 
         @ViewBuilder
         private func brandItem(for acquirer: String) -> some View {
-            ZStack {
-                Circle()
-                    .fill(Color.white)
-                    .frame(width: parameters.itemSize, height: parameters.itemSize)
-                    .overlay(
-                        Group {
-                            if parameters.hasBorder {
-                                Circle()
-                                    .stroke(Color(parameters.borderColor), lineWidth: 1)
-                            }
-                        }
-                    )
+            let icon = "acquirer\(acquirer)".toOceanIcon()
+            let shouldShow = icon != nil || parameters.showFirstLetter
 
-                if let icon = "acquirer\(acquirer)".toOceanIcon() {
-                    Image(uiImage: icon)
-                        .resizable()
-                        .scaledToFit()
+            if shouldShow {
+                ZStack {
+                    Circle()
+                        .fill(Color.white)
                         .frame(width: parameters.itemSize, height: parameters.itemSize)
-                } else if parameters.showFirstLetter {
-                    OceanSwiftUI.Typography.eyebrow { view in
-                        view.parameters.text = String(acquirer.prefix(1)).uppercased()
-                        view.parameters.textColor = Ocean.color.colorBrandPrimaryDown
+                        .overlay(
+                            Group {
+                                if parameters.hasBorder {
+                                    Circle()
+                                        .stroke(Color(parameters.borderColor), lineWidth: 1)
+                                }
+                            }
+                        )
+
+                    if let icon = icon {
+                        Image(uiImage: icon)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: parameters.itemSize, height: parameters.itemSize)
+                    } else {
+                        OceanSwiftUI.Typography.eyebrow { view in
+                            view.parameters.text = String(acquirer.prefix(1)).uppercased()
+                            view.parameters.textColor = Ocean.color.colorBrandPrimaryDown
+                        }
                     }
                 }
             }
