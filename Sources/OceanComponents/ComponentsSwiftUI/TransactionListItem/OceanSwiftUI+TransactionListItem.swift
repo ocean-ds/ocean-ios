@@ -25,7 +25,7 @@ extension OceanSwiftUI {
         @Published public var value1Status: ValueStatus
         @Published public var tagIcon: UIImage?
         @Published public var tagTitle: String
-        @Published public var tagStatus: OceanSwiftUI.TagParameters.Status
+        @Published public var tagStatus: TagParameters.Status
         @Published public var hasDivider: Bool
         @Published public var hasChevron: Bool
         @Published public var hasCheckbox: Bool
@@ -58,7 +58,7 @@ extension OceanSwiftUI {
                     value1Status: ValueStatus = .neutral,
                     tagIcon: UIImage? = nil,
                     tagTitle: String = "",
-                    tagStatus: OceanSwiftUI.TagParameters.Status = .highlightNeutral,
+                    tagStatus: TagParameters.Status = .highlightNeutral,
                     hasDivider: Bool = true,
                     hasChevron: Bool = false,
                     hasCheckbox: Bool = false,

@@ -51,12 +51,12 @@ extension OceanSwiftUI {
         @Published public var title: String
         @Published public var view: any View
         @Published public var badgeNumber: Int?
-        @Published public var badgeStatus: OceanSwiftUI.BadgeParameters.Status
+        @Published public var badgeStatus: BadgeParameters.Status
 
         public init(title: String = "",
                     view: any View = EmptyView(),
                     badgeNumber: Int? = nil,
-                    badgeStatus: OceanSwiftUI.BadgeParameters.Status = .primary) {
+                    badgeStatus: BadgeParameters.Status = .primary) {
             self.title = title
             self.view = view
             self.badgeNumber = badgeNumber

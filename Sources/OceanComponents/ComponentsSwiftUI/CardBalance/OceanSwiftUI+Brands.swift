@@ -17,8 +17,8 @@ extension OceanSwiftUI {
         @Published public var borderColor: UIColor
         @Published public var itemSize: CGFloat
         @Published public var overlapSpacing: CGFloat
-        @Published public var badgeStatus: OceanSwiftUI.BadgeParameters.Status
-        @Published public var badgeSize: OceanSwiftUI.BadgeParameters.Size
+        @Published public var badgeStatus: BadgeParameters.Status
+        @Published public var badgeSize: BadgeParameters.Size
         @Published public var showFirstLetter: Bool
 
         public init(
@@ -28,8 +28,8 @@ extension OceanSwiftUI {
             borderColor: UIColor = Ocean.color.colorInterfaceLightPure,
             itemSize: CGFloat = Ocean.size.spacingStackMd,
             overlapSpacing: CGFloat = Ocean.size.spacingStackXxs,
-            badgeStatus: OceanSwiftUI.BadgeParameters.Status = .disabled,
-            badgeSize: OceanSwiftUI.BadgeParameters.Size = .medium,
+            badgeStatus: BadgeParameters.Status = .disabled,
+            badgeSize: BadgeParameters.Size = .medium,
             showFirstLetter: Bool = true
         ) {
             self.acquirers = acquirers

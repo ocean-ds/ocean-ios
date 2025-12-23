@@ -23,7 +23,7 @@ extension OceanSwiftUI {
         @Published public var actionType: ActionType
         @Published public var tooltipText: String
         @Published public var hasCornerRadius: Bool
-        @Published public var brands: OceanSwiftUI.BrandsParameters?
+        @Published public var brands: BrandsParameters?
         public var actionOnTouch: () -> Void
 
         public enum Status {
@@ -56,7 +56,7 @@ extension OceanSwiftUI {
                     actionType: ActionType = .link,
                     tooltipText: String = "",
                     hasCornerRadius: Bool = true,
-                    brands: OceanSwiftUI.BrandsParameters? = nil,
+                    brands: BrandsParameters? = nil,
                     actionOnTouch: @escaping () -> Void = { }) {
             self.title = title
             self.text = text

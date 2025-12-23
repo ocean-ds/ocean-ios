@@ -13,14 +13,14 @@ extension OceanSwiftUI {
     // MARK: Parameter
 
     public class CardReadOnlyParameters: ObservableObject {
-        @Published public var contentList: OceanSwiftUI.ContentListParameters
+        @Published public var contentList: ContentListParameters
         @Published public var backgroundColor: UIColor
         @Published public var cornerRadius: CGFloat
         @Published public var borderColor: UIColor
         @Published public var borderWidth: CGFloat
         @Published public var padding: EdgeInsets
 
-        public init(contentList: OceanSwiftUI.ContentListParameters = OceanSwiftUI.ContentListParameters(),
+        public init(contentList: ContentListParameters = ContentListParameters(),
                     backgroundColor: UIColor = Ocean.color.colorInterfaceLightPure,
                     cornerRadius: CGFloat = Ocean.size.borderRadiusSm,
                     borderColor: UIColor = Ocean.color.colorInterfaceLightDown,

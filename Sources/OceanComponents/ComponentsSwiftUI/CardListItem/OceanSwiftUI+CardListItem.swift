@@ -30,8 +30,8 @@ extension OceanSwiftUI {
         @Published public var highlightShadowColor: UIColor
         @Published public var tagLabel: String
         @Published public var tagIcon: UIImage?
-        @Published public var tagStatus: OceanSwiftUI.TagParameters.Status
-        @Published public var tagSize: OceanSwiftUI.TagParameters.Size
+        @Published public var tagStatus: TagParameters.Status
+        @Published public var tagSize: TagParameters.Size
         @Published public var tagPosition: TagPosition
         @Published public var hasCheckbox: Bool
         @Published public var hasRadioButton: Bool
@@ -62,8 +62,8 @@ extension OceanSwiftUI {
                     highlightShadowColor: UIColor = Ocean.color.colorStatusPositiveDeep,
                     tagLabel: String = "",
                     tagIcon: UIImage? = nil,
-                    tagStatus: OceanSwiftUI.TagParameters.Status = .neutralPrimary,
-                    tagSize: OceanSwiftUI.TagParameters.Size = .small,
+                    tagStatus: TagParameters.Status = .neutralPrimary,
+                    tagSize: TagParameters.Size = .small,
                     tagPosition: TagPosition = .leading,
                     hasCheckbox: Bool = false,
                     hasRadioButton: Bool = false,
@@ -138,7 +138,7 @@ extension OceanSwiftUI {
         @State private var borderColor: UIColor = Ocean.color.colorInterfaceLightDown
         @State private var shadowColor: UIColor = .clear
         private var disabledColor: UIColor = Ocean.color.colorInterfaceDarkUp
-        private var disabledTagStatus: OceanSwiftUI.TagParameters.Status = .neutralInterface
+        private var disabledTagStatus: TagParameters.Status = .neutralInterface
         private var hasIconTrailingViews: Bool {
             parameters.trailingIcon != nil && parameters.isEnabled
         }
