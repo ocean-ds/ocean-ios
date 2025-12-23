@@ -172,7 +172,7 @@ class CardGroupSwiftUIViewController: UIViewController {
             brands: OceanSwiftUI.BrandsParameters(
                 acquirers: ["rede"],
                 limit: 3,
-                itemSize: 24
+                itemSize: 28
             )
         )
 
@@ -196,7 +196,7 @@ class CardGroupSwiftUIViewController: UIViewController {
             brands: OceanSwiftUI.BrandsParameters(
                 acquirers: ["rede", "cielo"],
                 limit: 3,
-                itemSize: 24
+                itemSize: 28
             )
         )
 
@@ -218,8 +218,53 @@ class CardGroupSwiftUIViewController: UIViewController {
             brands: OceanSwiftUI.BrandsParameters(
                 acquirers: ["hoya", "zeiss"],
                 limit: 3,
-                itemSize: 24,
+                itemSize: 28,
                 showFirstLetter: false
+            )
+        )
+
+        view.parameters.ctaText = "Pagar fornecedores"
+        view.parameters.onTouch = {
+            print("Pagar fornecedores tapped")
+        }
+    }
+
+    lazy var cardGroupAlertInfoWithIconAndBadge = OceanSwiftUI.CardGroup { view in
+        view.parameters.title = "PagBlu"
+        view.parameters.subtitle = "Garanta até 16% de economia ao antecipar com taxa zero."
+
+        view.parameters.alert = OceanSwiftUI.AlertParameters(
+            text: "2 fornecedores já podem te cobrar via PagBlu",
+            status: .info,
+            style: .withBrands,
+            hasCornerRadius: false,
+            brands: OceanSwiftUI.BrandsParameters(
+                acquirers: ["rede", "cielo", "Vn", "Acs"],
+                limit: 3,
+                itemSize: 28,
+                showFirstLetter: false
+            )
+        )
+
+        view.parameters.ctaText = "Pagar fornecedores"
+        view.parameters.onTouch = {
+            print("Pagar fornecedores tapped")
+        }
+    }
+
+    lazy var cardGroupAlertInfoWithIconWhitoutBadge = OceanSwiftUI.CardGroup { view in
+        view.parameters.title = "PagBlu"
+        view.parameters.subtitle = "Garanta até 16% de economia ao antecipar com taxa zero."
+
+        view.parameters.alert = OceanSwiftUI.AlertParameters(
+            text: "2 fornecedores já podem te cobrar via PagBlu",
+            status: .info,
+            style: .withBrands,
+            hasCornerRadius: false,
+            brands: OceanSwiftUI.BrandsParameters(
+                acquirers: ["rede", "cielo", "Vn", "Acs"],
+                limit: 3,
+                itemSize: 28,
             )
         )
 
@@ -268,6 +313,8 @@ class CardGroupSwiftUIViewController: UIViewController {
             cardGroupWithAlertInfo
             cardGroupWithAlertNormal
             cardGroupWithAlertInfoWithoutImage
+            cardGroupAlertInfoWithIconAndBadge
+            cardGroupAlertInfoWithIconWhitoutBadge
         }
     })
 

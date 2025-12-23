@@ -81,30 +81,27 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            let acquirers = parameters.acquirers
+            let acquirers = parameters.showFirstLetter ? parameters.acquirers : parameters.getAcquirersWithIcon()
             let limit = max(0, parameters.limit)
             let shownCount = min(acquirers.count, limit)
             let remaining = max(0, acquirers.count - shownCount)
 
             return HStack(spacing: -parameters.overlapSpacing) {
-                    if !acquirers.isEmpty {
-                        ForEach(Array(0..<shownCount), id: \.self) { index in
-                            brandItem(for: acquirers[index])
-                                .zIndex(Double(-index))
-                        }
-
-                    if remaining > 0 {
-                        OceanSwiftUI.Badge { view in
-                            view.parameters.count = remaining
-                            view.parameters.status = parameters.badgeStatus
-                            view.parameters.size = parameters.badgeSize
-                            view.parameters.style = .count
-                            view.parameters.valuePrefix = "+"
-                        }
-                        .padding(.leading, max(0, parameters.overlapSpacing - Ocean.size.spacingStackXxxs))
-                        .zIndex(Double(-limit-1))
-                    }
+                ForEach(Array(0..<shownCount), id: \.self) { index in
+                    brandItem(for: acquirers[index])
+                        .zIndex(Double(-index))
                 }
+
+                OceanSwiftUI.Badge { view in
+                    view.parameters.count = remaining
+                    view.parameters.status = parameters.badgeStatus
+                    view.parameters.size = parameters.badgeSize
+                    view.parameters.style = .count
+                    view.parameters.valuePrefix = "+"
+                }
+                .padding(.leading, max(0, parameters.overlapSpacing - Ocean.size.spacingStackXxxs))
+                .zIndex(Double(-limit-1))
+                .hideIf(remaining <= 0)
             }
         }
 
