@@ -28,11 +28,11 @@ extension OceanSwiftUI {
         @Published public var iconHeight: CGFloat
         @Published public var tagLabel: String
         @Published public var tagIcon: UIImage?
-        @Published public var tagStatus: OceanSwiftUI.TagParameters.Status
-        @Published public var tagSize: OceanSwiftUI.TagParameters.Size
-        @Published public var tagOrientation: OceanSwiftUI.TextListItemParameters.TagOrientation
+        @Published public var tagStatus: TagParameters.Status
+        @Published public var tagSize: TagParameters.Size
+        @Published public var tagOrientation: TextListItemParameters.TagOrientation
         @Published public var backgroundColor: UIColor?
-        @Published public var state: OceanSwiftUI.TextListItemParameters.State
+        @Published public var state: TextListItemParameters.State
         @Published public var checkboxIcon: UIImage?
         @Published public var actionIcon: UIImage?
         @Published public var hasCheckbox: Bool
@@ -65,11 +65,11 @@ extension OceanSwiftUI {
                     iconHeight: CGFloat = 24,
                     tagLabel: String = "",
                     tagIcon: UIImage? = nil,
-                    tagStatus: OceanSwiftUI.TagParameters.Status = .positive,
-                    tagSize: OceanSwiftUI.TagParameters.Size = .small,
-                    tagOrientation: OceanSwiftUI.TextListItemParameters.TagOrientation = .vertical,
+                    tagStatus: TagParameters.Status = .positive,
+                    tagSize: TagParameters.Size = .small,
+                    tagOrientation: TextListItemParameters.TagOrientation = .vertical,
                     backgroundColor: UIColor? = nil,
-                    state: OceanSwiftUI.TextListItemParameters.State = .normal,
+                    state: TextListItemParameters.State = .normal,
                     checkboxIcon: UIImage? = nil,
                     actionIcon: UIImage? = nil,
                     hasCheckbox: Bool = false,

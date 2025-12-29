@@ -1,4 +1,4 @@
-//  OceanSwiftUI+Balance.swift
+//  OceanSwiftUI+Brands.swift
 //  OceanComponents
 //
 //  Created by Acassio Mendonça on 08/10/25.
@@ -17,8 +17,9 @@ extension OceanSwiftUI {
         @Published public var borderColor: UIColor
         @Published public var itemSize: CGFloat
         @Published public var overlapSpacing: CGFloat
-        @Published public var badgeStatus: OceanSwiftUI.BadgeParameters.Status
-        @Published public var badgeSize: OceanSwiftUI.BadgeParameters.Size
+        @Published public var badgeStatus: BadgeParameters.Status
+        @Published public var badgeSize: BadgeParameters.Size
+        @Published public var showFirstLetter: Bool
 
         public init(
             acquirers: [String] = [],
@@ -27,8 +28,9 @@ extension OceanSwiftUI {
             borderColor: UIColor = Ocean.color.colorInterfaceLightPure,
             itemSize: CGFloat = Ocean.size.spacingStackMd,
             overlapSpacing: CGFloat = Ocean.size.spacingStackXxs,
-            badgeStatus: OceanSwiftUI.BadgeParameters.Status = .disabled,
-            badgeSize: OceanSwiftUI.BadgeParameters.Size = .medium
+            badgeStatus: BadgeParameters.Status = .disabled,
+            badgeSize: BadgeParameters.Size = .medium,
+            showFirstLetter: Bool = true
         ) {
             self.acquirers = acquirers
             self.limit = max(0, limit)
@@ -38,6 +40,11 @@ extension OceanSwiftUI {
             self.overlapSpacing = overlapSpacing
             self.badgeStatus = badgeStatus
             self.badgeSize = badgeSize
+            self.showFirstLetter = showFirstLetter
+        }
+
+        public func getAcquirersWithIcon() -> [String] {
+            return acquirers.filter { "acquirer\($0)".toOceanIcon() != nil }
         }
     }
 
@@ -74,7 +81,7 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            let acquirers = parameters.acquirers
+            let acquirers = parameters.showFirstLetter ? parameters.acquirers : parameters.getAcquirersWithIcon()
             let limit = max(0, parameters.limit)
             let shownCount = min(acquirers.count, limit)
             let remaining = max(0, acquirers.count - shownCount)
@@ -85,17 +92,16 @@ extension OceanSwiftUI {
                         .zIndex(Double(-index))
                 }
 
-                if remaining > 0 {
-                    OceanSwiftUI.Badge { view in
-                        view.parameters.count = remaining
-                        view.parameters.status = parameters.badgeStatus
-                        view.parameters.size = parameters.badgeSize
-                        view.parameters.style = .count
-                        view.parameters.valuePrefix = "+"
-                    }
-                    .padding(.leading, max(0, parameters.overlapSpacing - Ocean.size.spacingStackXxxs))
-                    .zIndex(Double(-limit-1))
+                OceanSwiftUI.Badge { view in
+                    view.parameters.count = remaining
+                    view.parameters.status = parameters.badgeStatus
+                    view.parameters.size = parameters.badgeSize
+                    view.parameters.style = .count
+                    view.parameters.valuePrefix = "+"
                 }
+                .padding(.leading, max(0, parameters.overlapSpacing - Ocean.size.spacingStackXxxs))
+                .zIndex(Double(-limit-1))
+                .hideIf(remaining <= 0)
             }
         }
 
@@ -103,28 +109,33 @@ extension OceanSwiftUI {
 
         @ViewBuilder
         private func brandItem(for acquirer: String) -> some View {
-            ZStack {
-                Circle()
-                    .fill(Color.white)
-                    .frame(width: parameters.itemSize, height: parameters.itemSize)
-                    .overlay(
-                        Group {
-                            if parameters.hasBorder {
-                                Circle()
-                                    .stroke(Color(parameters.borderColor), lineWidth: 1)
-                            }
-                        }
-                    )
+            let icon = "acquirer\(acquirer)".toOceanIcon()
+            let shouldShow = icon != nil || parameters.showFirstLetter
 
-                if let icon = "acquirer\(acquirer)".toOceanIcon() {
-                    Image(uiImage: icon)
-                        .resizable()
-                        .scaledToFit()
+            if shouldShow {
+                ZStack {
+                    Circle()
+                        .fill(Color.white)
                         .frame(width: parameters.itemSize, height: parameters.itemSize)
-                } else {
-                    OceanSwiftUI.Typography.eyebrow { view in
-                        view.parameters.text = String(acquirer.prefix(1)).uppercased()
-                        view.parameters.textColor = Ocean.color.colorBrandPrimaryDown
+                        .overlay(
+                            Group {
+                                if parameters.hasBorder {
+                                    Circle()
+                                        .stroke(Color(parameters.borderColor), lineWidth: 1)
+                                }
+                            }
+                        )
+
+                    if let icon = icon {
+                        Image(uiImage: icon)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: parameters.itemSize, height: parameters.itemSize)
+                    } else {
+                        OceanSwiftUI.Typography.eyebrow { view in
+                            view.parameters.text = String(acquirer.prefix(1)).uppercased()
+                            view.parameters.textColor = Ocean.color.colorBrandPrimaryDown
+                        }
                     }
                 }
             }

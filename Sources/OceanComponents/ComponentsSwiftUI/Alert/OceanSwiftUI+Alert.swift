@@ -23,6 +23,7 @@ extension OceanSwiftUI {
         @Published public var actionType: ActionType
         @Published public var tooltipText: String
         @Published public var hasCornerRadius: Bool
+        @Published public var brands: BrandsParameters?
         public var actionOnTouch: () -> Void
 
         public enum Status {
@@ -37,6 +38,7 @@ extension OceanSwiftUI {
             case longDescription
             case shortDescription
             case inverted
+            case withBrands
         }
 
         public enum ActionType {
@@ -54,6 +56,7 @@ extension OceanSwiftUI {
                     actionType: ActionType = .link,
                     tooltipText: String = "",
                     hasCornerRadius: Bool = true,
+                    brands: BrandsParameters? = nil,
                     actionOnTouch: @escaping () -> Void = { }) {
             self.title = title
             self.text = text
@@ -65,6 +68,7 @@ extension OceanSwiftUI {
             self.actionType = actionType
             self.tooltipText = tooltipText
             self.hasCornerRadius = hasCornerRadius
+            self.brands = brands
             self.actionOnTouch = actionOnTouch
         }
     }
@@ -107,6 +111,25 @@ extension OceanSwiftUI {
                     .frame(width: iconWidth, height: iconHeight, alignment: .center)
                     .foregroundColor(Color(getForegroundColor()))
                 Spacer().frame(width: Ocean.size.spacingStackXxs)
+            }
+        }
+
+        @ViewBuilder
+        private var brands: some View {
+            if let brands = parameters.brands {
+                OceanSwiftUI.Brands.init(parameters: brands)
+            }
+        }
+
+        @ViewBuilder
+        private var withBrandsView: some View {
+            HStack(alignment: .center, spacing: Ocean.size.spacingStackXxs) {
+                brands
+                    .hideIf(parameters.brands?.getAcquirersWithIcon().isEmpty == true)
+
+                textView
+
+                Spacer()
             }
         }
 
@@ -271,6 +294,8 @@ extension OceanSwiftUI {
                     shortDescriptionView
                 case .inverted:
                     invertedView
+                case .withBrands:
+                    withBrandsView
                 }
             }
             .padding(Ocean.size.spacingStackXs)

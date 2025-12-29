@@ -27,14 +27,14 @@ extension OceanSwiftUI {
         @Published public var leadingImageHeight: CGFloat
         @Published public var tagLabel: String
         @Published public var tagIcon: UIImage?
-        @Published public var tagStatus: OceanSwiftUI.TagParameters.Status
-        @Published public var tagSize: OceanSwiftUI.TagParameters.Size
+        @Published public var tagStatus: TagParameters.Status
+        @Published public var tagSize: TagParameters.Size
         @Published public var backgroundColor: UIColor?
-        @Published public var status: OceanSwiftUI.InvertedTextListItemParameters.State
+        @Published public var status: InvertedTextListItemParameters.State
         @Published public var tooltipText: String
         @Published public var padding: EdgeInsets
         @Published public var showSkeleton: Bool
-        @Published public var link: OceanSwiftUI.LinkParameters
+        @Published public var link: LinkParameters
 
         public init(title: String = "",
                     subtitle: String = "",
@@ -51,17 +51,17 @@ extension OceanSwiftUI {
                     leadingImageHeight: CGFloat = 56,
                     tagLabel: String = "",
                     tagIcon: UIImage? = nil,
-                    tagStatus: OceanSwiftUI.TagParameters.Status = .positive,
-                    tagSize: OceanSwiftUI.TagParameters.Size = .medium,
+                    tagStatus: TagParameters.Status = .positive,
+                    tagSize: TagParameters.Size = .medium,
                     backgroundColor: UIColor? = nil,
-                    status: OceanSwiftUI.InvertedTextListItemParameters.State = .normal,
+                    status: InvertedTextListItemParameters.State = .normal,
                     tooltipText: String = "",
                     padding: EdgeInsets = .init(top: Ocean.size.spacingStackXxsExtra,
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXxsExtra,
                                                 trailing: Ocean.size.spacingStackXs),
                     showSkeleton: Bool = false,
-                    link: OceanSwiftUI.LinkParameters = .init()) {
+                    link: LinkParameters = .init()) {
             self.title = title
             self.subtitle = subtitle
             self.showSubtitle = showSubtitle

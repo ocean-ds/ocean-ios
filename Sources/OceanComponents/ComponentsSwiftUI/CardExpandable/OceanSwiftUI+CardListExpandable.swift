@@ -13,7 +13,7 @@ extension OceanSwiftUI {
     // MARK: Parameter
 
     public class CardListExpandableParameters: ObservableObject {
-        @Published public var contentList: OceanSwiftUI.ContentListParameters
+        @Published public var contentList: ContentListParameters
         @Published public var backgroundColor: UIColor
         @Published public var cornerRadius: CGFloat
         @Published public var borderColor: UIColor
@@ -28,7 +28,7 @@ extension OceanSwiftUI {
             case expanded, collapsed
         }
 
-        public init(contentList: OceanSwiftUI.ContentListParameters = OceanSwiftUI.ContentListParameters(),
+        public init(contentList: ContentListParameters = ContentListParameters(),
                     backgroundColor: UIColor = Ocean.color.colorInterfaceLightPure,
                     cornerRadius: CGFloat = Ocean.size.borderRadiusSm,
                     borderColor: UIColor = Ocean.color.colorInterfaceLightDown,
