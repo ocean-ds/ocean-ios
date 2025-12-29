@@ -106,7 +106,6 @@ class CardListItemSwiftUIViewController: UIViewController {
     lazy var card9 = OceanSwiftUI.CardListItem { builder in
         builder.parameters.title = "title title title"
         builder.parameters.caption = "caption caption caption"
-        builder.parameters.leadingIcon = Ocean.icon.archiveOutline
         builder.parameters.trailingIcon = nil
         builder.parameters.onTouch = { print("card8") }
         builder.parameters.titleLineLimit = 1
