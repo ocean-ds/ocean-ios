@@ -178,7 +178,7 @@ extension OceanSwiftUI {
             if parameters.showSkeleton {
                 VStack(spacing: 0) {
                     OceanSwiftUI.Skeleton { view in
-                        view.parameters.withImage = true
+                        view.parameters.withImage = parameters.leadingIcon != nil
                         view.parameters.lines = 2
                     }
                     .padding(.horizontal, Ocean.size.spacingStackXs)
@@ -227,7 +227,7 @@ extension OceanSwiftUI {
                                 }
 
                                 if !parameters.caption.isEmpty {
-                                    OceanSwiftUI.Typography.caption { label in
+                                    OceanSwiftUI.Typography.captionBold { label in
                                         label.parameters.text = parameters.caption
                                         label.parameters.textColor = parameters.isEnabled ? parameters.captionColor : disabledColor
                                         label.parameters.lineLimit = parameters.captionLineLimit

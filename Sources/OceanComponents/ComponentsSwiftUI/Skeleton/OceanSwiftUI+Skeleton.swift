@@ -48,6 +48,8 @@ extension OceanSwiftUI {
         @ObservedObject public var parameters: SkeletonParameters
 
         // MARK: Properties private
+        
+        private let height: CGFloat = 40
 
         // MARK: Constructors
 
@@ -81,7 +83,7 @@ extension OceanSwiftUI {
                         Rectangle()
                             .oceanSkeleton(isActive: true,
                                            size: CGSize(width: self.parameters.width ?? width,
-                                                        height: self.parameters.height ?? 60),
+                                                        height: self.parameters.height ?? height),
                                            shape: .rounded(.radius(self.parameters.radius,
                                                                    style: .circular)),
                                            lines: self.parameters.lines,
@@ -90,7 +92,7 @@ extension OceanSwiftUI {
                 }
 
                 Spacer()
-                    .frame(height: self.parameters.height ?? 60)
+                    .frame(height: self.parameters.height ?? height)
             }
         }
 
