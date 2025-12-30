@@ -17,6 +17,13 @@ public extension String {
             .replacingOccurrences(of: "-", with: "")
             .replacingOccurrences(of: "_", with: "")
 
+        let lowercased = self.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+        if lowercased.hasPrefix("apple-") {
+            let rawName = lowercased.dropFirst("apple-".count)
+            let symbolName = rawName.replacingOccurrences(of: "-", with: ".")
+            return UIImage(systemName: String(symbolName))
+        }
+
         switch cleaned {
             // BluIcons
         case "appareloutline": return Ocean.icon.apparelOutline
