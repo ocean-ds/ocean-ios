@@ -48,8 +48,8 @@ class CardListItemSwiftUIViewController: UIViewController {
         builder.parameters.title = "Title"
         builder.parameters.subtitle = "Subtitle"
         builder.parameters.caption = "Caption"
-        builder.parameters.leadingIcon = "apple-wave-3-right-circle".toOceanIcon()
-        builder.parameters.trailingIcon = "apple-wave.3.right.circle".toOceanIcon()
+        builder.parameters.leadingIcon = Ocean.icon.archiveOutline
+        builder.parameters.trailingIcon = Ocean.icon.chevronRightSolid
         builder.parameters.onTouch = { print("card5") }
     }
 
