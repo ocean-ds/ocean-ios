@@ -72,33 +72,34 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            HStack(alignment: .center, spacing: 0) {
-                if self.parameters.isLoading {
-                    Spacer()
-
-                    CircularProgressIndicator(parameters: .init(style: .primary))
-
-                    Spacer()
-                } else {
-                    SwiftUI.Button(action: {
-                        self.parameters.onTouch()
-                    }, label: {
+            SwiftUI.Button(action: {
+                self.parameters.onTouch()
+            }, label: {
+                HStack(alignment: .center, spacing: 0) {
+                    if self.parameters.isLoading {
+                        Spacer()
+                        
+                        CircularProgressIndicator(parameters: .init(style: .primary))
+                        
+                        Spacer()
+                    } else {
+                        
                         HStack(spacing: Ocean.size.spacingStackXxs) {
                             Typography.heading5 { label in
                                 label.parameters.text = self.parameters.text
                                 label.parameters.textColor = Ocean.color.colorBrandPrimaryPure
                                 label.parameters.showSkeleton = self.parameters.showSkeleton
                             }
-
+                            
                             Spacer()
-
+                            
                             if let badgeCount = self.parameters.badgeCount {
                                 Badge { badge in
                                     badge.parameters.count = badgeCount
                                     badge.parameters.status = self.parameters.badgeStatus
                                 }
                             }
-
+                            
                             if let icon = self.parameters.icon {
                                 Image(uiImage: icon)
                                     .renderingMode(.template)
@@ -106,16 +107,31 @@ extension OceanSwiftUI {
                                     .oceanSkeleton(isActive: parameters.showSkeleton)
                             }
                         }
-                    })
-                    .disabled(parameters.showSkeleton)
+                    }
                 }
-            }
-            .frame(height: 48)
-            .padding(.horizontal, Ocean.size.spacingStackXs)
-            .cornerRadius(Ocean.size.borderRadiusMd)
-            .background(Color(parameters.backgroundColor ?? Ocean.color.colorInterfaceLightPure))
+                .frame(height: 48)
+                .padding(.leading, Ocean.size.spacingStackXs)
+                .padding(.trailing, Ocean.size.spacingStackXxs)
+            })
+            .buttonStyle(OceanCardCTAStyle(parameters: parameters))
+            .disabled(parameters.showSkeleton)
         }
 
         // MARK: Methods private
+        
+        private struct OceanCardCTAStyle: ButtonStyle {
+            private var parameters: CardCTAParameters
+            
+            public init(parameters: CardCTAParameters) {
+                self.parameters = parameters
+            }
+            
+            public func makeBody(configuration: Self.Configuration) -> some View {
+                configuration.label
+                    .background(configuration.isPressed ? Color(Ocean.color.colorInterfaceLightUp) :
+                                    Color(parameters.backgroundColor ?? Ocean.color.colorInterfaceLightPure))
+                    .cornerRadius(Ocean.size.borderRadiusMd)
+            }
+        }
     }
 }
