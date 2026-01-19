@@ -128,9 +128,9 @@ extension OceanSwiftUI {
             
             public func makeBody(configuration: Self.Configuration) -> some View {
                 configuration.label
+                    .cornerRadius(Ocean.size.borderRadiusMd)
                     .background(configuration.isPressed ? Color(Ocean.color.colorInterfaceLightUp) :
                                     Color(parameters.backgroundColor ?? Ocean.color.colorInterfaceLightPure))
-                    .cornerRadius(Ocean.size.borderRadiusMd)
             }
         }
     }
