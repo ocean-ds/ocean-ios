@@ -157,4 +157,8 @@ extension Ocean {
             return modalViewController
         }
     }
+    
+    public protocol ModalNotDismissIfPresented {
+        
+    }
 }

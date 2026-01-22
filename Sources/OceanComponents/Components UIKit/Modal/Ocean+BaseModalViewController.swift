@@ -103,8 +103,10 @@ extension Ocean {
                 guard let rootViewController = rootViewController else { return }
 
                 if let presentedViewController = rootViewController.presentedViewController {
-                    presentedViewController.dismiss(animated: true) {
-                        rootViewController.present(self, animated: true, completion: nil)
+                    if !(presentedViewController is ModalNotDismissIfPresented) {
+                        presentedViewController.dismiss(animated: true) {
+                            rootViewController.present(self, animated: true, completion: nil)
+                        }
                     }
                 } else {
                     rootViewController.present(self, animated: true, completion: nil)
