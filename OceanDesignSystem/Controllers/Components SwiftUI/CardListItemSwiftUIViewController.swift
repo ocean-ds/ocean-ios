@@ -155,9 +155,10 @@ class CardListItemSwiftUIViewController: UIViewController {
     lazy var card14 = OceanSwiftUI.CardListItem { view in
         view.parameters.title = "Crédito parcelado"
         view.parameters.titleColor = Ocean.color.colorInterfaceDarkDeep
-        view.parameters.subtitle = "Parcele tudo em até 12 vezes com a 1ª parcela para 30 dias"
+        view.parameters.subtitle = "Parcele tudo em até 13 vezes com a 1ª parcela para 30 dias"
         view.parameters.caption = "Crédito aprovado: R$ 10.000,00"
         view.parameters.captionColor = Ocean.color.colorBrandPrimaryPure
+        view.parameters.leadingIcon = "flash-alt-outline".toOceanIcon()
         view.parameters.hasRadioButton = true
         view.parameters.isEnabled = false
         view.parameters.onTouch = { print("Checked") }
@@ -167,7 +168,7 @@ class CardListItemSwiftUIViewController: UIViewController {
         view.parameters.title = "Item desabilitado com toque"
         view.parameters.subtitle = "Este item está desabilitado mas ainda responde ao toque"
         view.parameters.caption = "Toque para ver a mensagem"
-        view.parameters.leadingIcon = Ocean.icon.BluLogoOutline
+        view.parameters.leadingIcon = Ocean.icon.flashOffAltOutline
         view.parameters.isEnabled = false
         view.parameters.onTouch = {
             print("Este não será chamado pois está desabilitado")

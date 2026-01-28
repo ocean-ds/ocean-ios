@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "wave.3.right.circle.png",
+      "filename" : "flash-off-alt-outline.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "flash-off-alt-outline@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "flash-off-alt-outline@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

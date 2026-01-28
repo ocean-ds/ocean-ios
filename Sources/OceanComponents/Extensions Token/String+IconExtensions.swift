@@ -590,7 +590,8 @@ public extension String {
         case "zoomoutoutline": return Ocean.icon.zoomOutOutline
         case "zoomoutsolid": return Ocean.icon.zoomOutSolid
         case "arrowuturnleftoutline": return Ocean.icon.arrowUturnLeftOutline
-        case "wave3rightcircle": return Ocean.icon.wave3RightCircle
+        case "flashoffaltoutline": return Ocean.icon.flashOffAltOutline
+        case "flashaltoutline": return Ocean.icon.flashAltOutline
         default: return nil
         }
     }
