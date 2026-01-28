@@ -12,7 +12,7 @@ import SwiftUI
 class ButtonSwiftUIViewController: UIViewController {
     lazy var button1: OceanSwiftUI.Button = {
         return OceanSwiftUI.Button.primaryMD { button in
-            button.parameters.text = "Avançar"
+            button.parameters.text = "Primary"
             button.parameters.icon = Ocean.icon.plusSolid
             button.parameters.onTouch = {
                 button.parameters.isLoading.toggle()
@@ -26,7 +26,7 @@ class ButtonSwiftUIViewController: UIViewController {
 
     lazy var button2: OceanSwiftUI.Button = {
         return OceanSwiftUI.Button.secondaryMD { button in
-            button.parameters.text = "Avançar"
+            button.parameters.text = "Secondary"
             button.parameters.icon = Ocean.icon.plusSolid
             button.parameters.onTouch = {
                 button.parameters.isLoading.toggle()
@@ -40,7 +40,7 @@ class ButtonSwiftUIViewController: UIViewController {
 
     lazy var button3: OceanSwiftUI.Button = {
         return OceanSwiftUI.Button.tertiaryMD { button in
-            button.parameters.text = "Avançar"
+            button.parameters.text = "Tertiary"
             button.parameters.icon = Ocean.icon.plusSolid
             button.parameters.onTouch = {
                 button.parameters.isLoading.toggle()
@@ -54,7 +54,7 @@ class ButtonSwiftUIViewController: UIViewController {
 
     lazy var button4: OceanSwiftUI.Button = {
         return OceanSwiftUI.Button.primaryCriticalMD { button in
-            button.parameters.text = "Avançar"
+            button.parameters.text = "Primary Critical"
             button.parameters.icon = Ocean.icon.plusSolid
             button.parameters.onTouch = {
                 button.parameters.isLoading.toggle()
@@ -68,7 +68,7 @@ class ButtonSwiftUIViewController: UIViewController {
 
     lazy var button5: OceanSwiftUI.Button = {
         return OceanSwiftUI.Button.secondaryCriticalMD { button in
-            button.parameters.text = "Avançar"
+            button.parameters.text = "Secondary Critical"
             button.parameters.icon = Ocean.icon.plusSolid
             button.parameters.onTouch = {
                 button.parameters.isLoading.toggle()
@@ -82,7 +82,7 @@ class ButtonSwiftUIViewController: UIViewController {
 
     lazy var button6: OceanSwiftUI.Button = {
         return OceanSwiftUI.Button.tertiaryCriticalMD { button in
-            button.parameters.text = "Avançar"
+            button.parameters.text = "Tertiary Critical"
             button.parameters.icon = Ocean.icon.plusSolid
             button.parameters.onTouch = {
                 button.parameters.isLoading.toggle()
@@ -96,7 +96,49 @@ class ButtonSwiftUIViewController: UIViewController {
 
     lazy var button7: OceanSwiftUI.Button = {
         return OceanSwiftUI.Button.primaryInverseMD { button in
-            button.parameters.text = "Avançar"
+            button.parameters.text = "Primary Inverse"
+            button.parameters.icon = Ocean.icon.plusSolid
+            button.parameters.onTouch = {
+                button.parameters.isLoading.toggle()
+                print("Tap")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    button.parameters.isLoading.toggle()
+                }
+            }
+        }
+    }()
+    
+    lazy var button8: OceanSwiftUI.Button = {
+        return OceanSwiftUI.Button.primaryWarningMD { button in
+            button.parameters.text = "Primary Warning"
+            button.parameters.icon = Ocean.icon.plusSolid
+            button.parameters.onTouch = {
+                button.parameters.isLoading.toggle()
+                print("Tap")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    button.parameters.isLoading.toggle()
+                }
+            }
+        }
+    }()
+    
+    lazy var button9: OceanSwiftUI.Button = {
+        return OceanSwiftUI.Button.secondaryWarningMD { button in
+            button.parameters.text = "Secondary Warning"
+            button.parameters.icon = Ocean.icon.plusSolid
+            button.parameters.onTouch = {
+                button.parameters.isLoading.toggle()
+                print("Tap")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    button.parameters.isLoading.toggle()
+                }
+            }
+        }
+    }()
+    
+    lazy var button10: OceanSwiftUI.Button = {
+        return OceanSwiftUI.Button.tertiaryWarningMD { button in
+            button.parameters.text = "Tertiary Warning"
             button.parameters.icon = Ocean.icon.plusSolid
             button.parameters.onTouch = {
                 button.parameters.isLoading.toggle()
@@ -108,9 +150,9 @@ class ButtonSwiftUIViewController: UIViewController {
         }
     }()
 
-    lazy var button8: OceanSwiftUI.Button = {
+    lazy var button11: OceanSwiftUI.Button = {
         return OceanSwiftUI.Button.primaryMD { button in
-            button.parameters.text = "Avançar"
+            button.parameters.text = "Disabled"
             button.parameters.icon = Ocean.icon.plusSolid
             button.parameters.isDisabled = true
             button.parameters.onTouch = {
@@ -123,9 +165,9 @@ class ButtonSwiftUIViewController: UIViewController {
         }
     }()
 
-    lazy var button9: OceanSwiftUI.Button = {
+    lazy var button12: OceanSwiftUI.Button = {
         return OceanSwiftUI.Button.primaryMD { button in
-            button.parameters.text = "Avançar"
+            button.parameters.text = "Skeleton"
             button.parameters.icon = Ocean.icon.plusSolid
             button.parameters.showSkeleton = true
             button.parameters.onTouch = {
@@ -149,6 +191,9 @@ class ButtonSwiftUIViewController: UIViewController {
             button7
             button8
             button9
+            button10
+            button11
+            button12
         }
     })
 

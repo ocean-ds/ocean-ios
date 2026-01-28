@@ -351,7 +351,7 @@ extension OceanSwiftUI {
             case .positive:
                 return .primaryInverse
             case .warning:
-                return .warning
+                return .primaryWarning
             case .negative:
                 return .primaryCritical
             }

@@ -30,7 +30,9 @@ extension OceanSwiftUI {
             case secondaryCritical
             case tertiaryCritical
             case primaryInverse
-            case warning
+            case primaryWarning
+            case secondaryWarning
+            case tertiaryWarning
         }
         
         public enum Size: CGFloat {
@@ -167,7 +169,7 @@ extension OceanSwiftUI {
             }
             
             switch self.parameters.style {
-            case .primary, .primaryCritical, .primaryInverse:
+            case .primary, .primaryCritical, .primaryInverse, .primaryWarning:
                 return OceanSwiftUI.CircularProgressIndicator(parameters: .init(style: .normal, size: size))
             default:
                 return OceanSwiftUI.CircularProgressIndicator(parameters: .init(style: .primary, size: size))
@@ -192,8 +194,12 @@ extension OceanSwiftUI {
                 return Color(Ocean.color.colorStatusNegativePure)
             case .primaryInverse:
                 return Color(Ocean.color.colorInterfaceLightPure)
-            case .warning:
+            case .primaryWarning:
                 return Color(Ocean.color.colorInterfaceLightPure)
+            case .secondaryWarning:
+                return Color(Ocean.color.colorStatusWarningDeep)
+            case .tertiaryWarning:
+                return Color(Ocean.color.colorStatusWarningDeep)
             }
         }
     }
@@ -258,8 +264,12 @@ extension OceanSwiftUI {
                 return configuration.isPressed ? Color(Ocean.color.colorInterfaceLightDeep) : Color(UIColor.clear)
             case .primaryInverse:
                 return configuration.isPressed ? Color(Ocean.color.colorComplementaryDeep) : Color(Ocean.color.colorComplementaryPure)
-            case .warning:
-                return configuration.isPressed ? Color(Ocean.color.colorStatusWarningDeep) : Color(Ocean.color.colorStatusWarningPure)
+            case .primaryWarning:
+                return configuration.isPressed ? Color(Ocean.color.colorStatusWarningDeep).mix(with: Color(Ocean.color.colorInterfaceDarkPure), by: 0.12) : Color(Ocean.color.colorStatusWarningDeep)
+            case .secondaryWarning:
+                return configuration.isPressed ? Color(Ocean.color.colorStatusWarningUp).mix(with: Color(Ocean.color.colorStatusWarningDeep), by: 0.16) : Color(Ocean.color.colorStatusWarningUp)
+            case .tertiaryWarning:
+                return configuration.isPressed ? Color(Ocean.color.colorStatusWarningUp).mix(with: Color(Ocean.color.colorStatusWarningDeep), by: 0.16) : Color(UIColor.clear)
             }
         }
     }

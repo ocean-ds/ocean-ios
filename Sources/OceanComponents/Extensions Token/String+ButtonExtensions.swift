@@ -18,7 +18,9 @@ public extension String {
         case "secondarycritical": return OceanSwiftUI.ButtonParameters.Style.secondaryCritical
         case "tertiarycritical": return OceanSwiftUI.ButtonParameters.Style.tertiaryCritical
         case "primaryinverse": return OceanSwiftUI.ButtonParameters.Style.primaryInverse
-        case "warning": return OceanSwiftUI.ButtonParameters.Style.warning
+        case "primarywarning": return OceanSwiftUI.ButtonParameters.Style.primaryWarning
+        case "secondarywarning": return OceanSwiftUI.ButtonParameters.Style.secondaryWarning
+        case "tertiarywarning": return OceanSwiftUI.ButtonParameters.Style.tertiaryWarning
         default: return nil
         }
     }
