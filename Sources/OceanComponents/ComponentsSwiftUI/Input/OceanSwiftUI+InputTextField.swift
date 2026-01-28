@@ -243,14 +243,15 @@ extension OceanSwiftUI {
                                     label.parameters.text = self.parameters.placeholder
                                     label.parameters.textColor = self.parameters.placeholderColor
                                 }
-                                .padding(.vertical, 12)
-                                .padding(.horizontal, Ocean.size.spacingStackXxxs)
+                                .padding(.vertical, Ocean.size.spacingStackXs)
                             }
 
                             if #available(iOS 16.0, *) {
                                 TextEditor(text: self.$parameters.text)
                                     .scrollContentBackground(.hidden)
                                     .background(Color.clear)
+                                    .padding(.vertical, Ocean.size.spacingStackXxs)
+                                    .padding(.horizontal, -2)
                                     .frame(height: 88)
                                     .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
                                         self.focused = true
@@ -262,6 +263,8 @@ extension OceanSwiftUI {
                                     }
                             } else {
                                 TextEditor(text: self.$parameters.text)
+                                    .padding(.vertical, Ocean.size.spacingStackXxs)
+                                    .padding(.horizontal, -2)
                                     .frame(height: 88)
                                     .background(Color.clear)
                                     .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
