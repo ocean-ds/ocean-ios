@@ -175,4 +175,76 @@ extension OceanSwiftUI.Button {
             builder?(button)
         }
     }
+    
+    public static func primaryWarningSM(builder: OceanSwiftUI.Button.Builder? = nil) -> OceanSwiftUI.Button {
+        return OceanSwiftUI.Button { button in
+            button.parameters.style = .primaryWarning
+            button.parameters.size = .small
+            builder?(button)
+        }
+    }
+    
+    public static func primaryWarningMD(builder: OceanSwiftUI.Button.Builder? = nil) -> OceanSwiftUI.Button {
+        return OceanSwiftUI.Button { button in
+            button.parameters.style = .primaryWarning
+            button.parameters.size = .medium
+            builder?(button)
+        }
+    }
+    
+    public static func primaryWarningLG(builder: OceanSwiftUI.Button.Builder? = nil) -> OceanSwiftUI.Button {
+        return OceanSwiftUI.Button { button in
+            button.parameters.style = .primaryWarning
+            button.parameters.size = .large
+            builder?(button)
+        }
+    }
+    
+    public static func secondaryWarningSM(builder: OceanSwiftUI.Button.Builder? = nil) -> OceanSwiftUI.Button {
+        return OceanSwiftUI.Button { button in
+            button.parameters.style = .secondaryWarning
+            button.parameters.size = .small
+            builder?(button)
+        }
+    }
+    
+    public static func secondaryWarningMD(builder: OceanSwiftUI.Button.Builder? = nil) -> OceanSwiftUI.Button {
+        return OceanSwiftUI.Button { button in
+            button.parameters.style = .secondaryWarning
+            button.parameters.size = .medium
+            builder?(button)
+        }
+    }
+    
+    public static func secondaryWarningLG(builder: OceanSwiftUI.Button.Builder? = nil) -> OceanSwiftUI.Button {
+        return OceanSwiftUI.Button { button in
+            button.parameters.style = .secondaryWarning
+            button.parameters.size = .large
+            builder?(button)
+        }
+    }
+    
+    public static func tertiaryWarningSM(builder: OceanSwiftUI.Button.Builder? = nil) -> OceanSwiftUI.Button {
+        return OceanSwiftUI.Button { button in
+            button.parameters.style = .tertiaryWarning
+            button.parameters.size = .small
+            builder?(button)
+        }
+    }
+    
+    public static func tertiaryWarningMD(builder: OceanSwiftUI.Button.Builder? = nil) -> OceanSwiftUI.Button {
+        return OceanSwiftUI.Button { button in
+            button.parameters.style = .tertiaryWarning
+            button.parameters.size = .medium
+            builder?(button)
+        }
+    }
+    
+    public static func tertiaryWarningLG(builder: OceanSwiftUI.Button.Builder? = nil) -> OceanSwiftUI.Button {
+        return OceanSwiftUI.Button { button in
+            button.parameters.style = .tertiaryWarning
+            button.parameters.size = .large
+            builder?(button)
+        }
+    }
 }
