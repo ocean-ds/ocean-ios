@@ -10,8 +10,7 @@ import OceanTokens
 import SwiftUI
 
 class ButtonSwiftUIViewController: UIViewController {
-
-    lazy var fluidButton1: OceanSwiftUI.Button = {
+    lazy var fluidPrimaryButton: OceanSwiftUI.Button = {
         return OceanSwiftUI.Button.primaryMD { button in
             button.parameters.text = "Primary Fluid"
             button.parameters.icon = Ocean.icon.plusSolid
@@ -25,35 +24,7 @@ class ButtonSwiftUIViewController: UIViewController {
         }
     }()
 
-    lazy var fluidButton2: OceanSwiftUI.Button = {
-        return OceanSwiftUI.Button.secondaryMD { button in
-            button.parameters.text = "Secondary Fluid"
-            button.parameters.icon = Ocean.icon.plusSolid
-            button.parameters.onTouch = {
-                button.parameters.isLoading.toggle()
-                print("Tap")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    button.parameters.isLoading.toggle()
-                }
-            }
-        }
-    }()
-
-    lazy var fluidButton3: OceanSwiftUI.Button = {
-        return OceanSwiftUI.Button.tertiaryMD { button in
-            button.parameters.text = "Tertiary Fluid"
-            button.parameters.icon = Ocean.icon.plusSolid
-            button.parameters.onTouch = {
-                button.parameters.isLoading.toggle()
-                print("Tap")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    button.parameters.isLoading.toggle()
-                }
-            }
-        }
-    }()
-
-    lazy var fluidButton4: OceanSwiftUI.Button = {
+    lazy var fluidPrimaryCriticalButton: OceanSwiftUI.Button = {
         return OceanSwiftUI.Button.primaryCriticalMD { button in
             button.parameters.text = "Primary Critical Fluid"
             button.parameters.icon = Ocean.icon.plusSolid
@@ -67,35 +38,7 @@ class ButtonSwiftUIViewController: UIViewController {
         }
     }()
 
-    lazy var fluidButton5: OceanSwiftUI.Button = {
-        return OceanSwiftUI.Button.secondaryCriticalMD { button in
-            button.parameters.text = "Secondary Critical Fluid"
-            button.parameters.icon = Ocean.icon.plusSolid
-            button.parameters.onTouch = {
-                button.parameters.isLoading.toggle()
-                print("Tap")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    button.parameters.isLoading.toggle()
-                }
-            }
-        }
-    }()
-
-    lazy var fluidButton6: OceanSwiftUI.Button = {
-        return OceanSwiftUI.Button.tertiaryCriticalMD { button in
-            button.parameters.text = "Tertiary Critical Fluid"
-            button.parameters.icon = Ocean.icon.plusSolid
-            button.parameters.onTouch = {
-                button.parameters.isLoading.toggle()
-                print("Tap")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    button.parameters.isLoading.toggle()
-                }
-            }
-        }
-    }()
-
-    lazy var fluidButton7: OceanSwiftUI.Button = {
+    lazy var fluidPrimaryWarningButton: OceanSwiftUI.Button = {
         return OceanSwiftUI.Button.primaryWarningMD { button in
             button.parameters.text = "Primary Warning Fluid"
             button.parameters.icon = Ocean.icon.plusSolid
@@ -109,7 +52,35 @@ class ButtonSwiftUIViewController: UIViewController {
         }
     }()
 
-    lazy var fluidButton8: OceanSwiftUI.Button = {
+    lazy var fluidSecondaryButton: OceanSwiftUI.Button = {
+        return OceanSwiftUI.Button.secondaryMD { button in
+            button.parameters.text = "Secondary Fluid"
+            button.parameters.icon = Ocean.icon.plusSolid
+            button.parameters.onTouch = {
+                button.parameters.isLoading.toggle()
+                print("Tap")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    button.parameters.isLoading.toggle()
+                }
+            }
+        }
+    }()
+
+    lazy var fluidSecondaryCriticalButton: OceanSwiftUI.Button = {
+        return OceanSwiftUI.Button.secondaryCriticalMD { button in
+            button.parameters.text = "Secondary Critical Fluid"
+            button.parameters.icon = Ocean.icon.plusSolid
+            button.parameters.onTouch = {
+                button.parameters.isLoading.toggle()
+                print("Tap")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    button.parameters.isLoading.toggle()
+                }
+            }
+        }
+    }()
+
+    lazy var fluidSecondaryWarningButton: OceanSwiftUI.Button = {
         return OceanSwiftUI.Button.secondaryWarningMD { button in
             button.parameters.text = "Secondary Warning Fluid"
             button.parameters.icon = Ocean.icon.plusSolid
@@ -123,7 +94,35 @@ class ButtonSwiftUIViewController: UIViewController {
         }
     }()
 
-    lazy var fluidButton9: OceanSwiftUI.Button = {
+    lazy var fluidTertiaryButton: OceanSwiftUI.Button = {
+        return OceanSwiftUI.Button.tertiaryMD { button in
+            button.parameters.text = "Tertiary Fluid"
+            button.parameters.icon = Ocean.icon.plusSolid
+            button.parameters.onTouch = {
+                button.parameters.isLoading.toggle()
+                print("Tap")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    button.parameters.isLoading.toggle()
+                }
+            }
+        }
+    }()
+
+    lazy var fluidTertiaryCriticalButton: OceanSwiftUI.Button = {
+        return OceanSwiftUI.Button.tertiaryCriticalMD { button in
+            button.parameters.text = "Tertiary Critical Fluid"
+            button.parameters.icon = Ocean.icon.plusSolid
+            button.parameters.onTouch = {
+                button.parameters.isLoading.toggle()
+                print("Tap")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    button.parameters.isLoading.toggle()
+                }
+            }
+        }
+    }()
+
+    lazy var fluidTertiaryWarningButton: OceanSwiftUI.Button = {
         return OceanSwiftUI.Button.tertiaryWarningMD { button in
             button.parameters.text = "Tertiary Warning Fluid"
             button.parameters.icon = Ocean.icon.plusSolid
@@ -158,7 +157,11 @@ class ButtonSwiftUIViewController: UIViewController {
             button.parameters.icon = Ocean.icon.plusSolid
             button.parameters.widthMode = .hug
             button.parameters.onTouch = {
+                button.parameters.isLoading.toggle()
                 print("Tap")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    button.parameters.isLoading.toggle()
+                }
             }
         }
     }()
@@ -169,7 +172,11 @@ class ButtonSwiftUIViewController: UIViewController {
             button.parameters.icon = Ocean.icon.plusSolid
             button.parameters.widthMode = .hug
             button.parameters.onTouch = {
+                button.parameters.isLoading.toggle()
                 print("Tap")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    button.parameters.isLoading.toggle()
+                }
             }
         }
     }()
@@ -267,7 +274,7 @@ class ButtonSwiftUIViewController: UIViewController {
             ScrollView {
                 VStack(alignment: .leading, spacing: Ocean.size.spacingStackXs) {
 
-                    Text("FLUID MODE")
+                    Text("FLUID MODE - PRIMARY")
                         .font(.headline)
                         .padding(.top, Ocean.size.spacingStackMd)
 
@@ -276,15 +283,41 @@ class ButtonSwiftUIViewController: UIViewController {
                         .foregroundColor(.gray)
 
                     VStack(spacing: Ocean.size.spacingStackXs) {
-                        fluidButton1
-                        fluidButton2
-                        fluidButton3
-                        fluidButton4
-                        fluidButton5
-                        fluidButton6
-                        fluidButton7
-                        fluidButton8
-                        fluidButton9
+                        fluidPrimaryButton
+                        fluidPrimaryCriticalButton
+                        fluidPrimaryWarningButton
+                    }
+
+                    Divider()
+                        .padding(.vertical, Ocean.size.spacingStackMd)
+
+                    Text("FLUID MODE - SECONDARY")
+                        .font(.headline)
+
+                    Text("Background escurece ao pressionar o botão")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+
+                    VStack(spacing: Ocean.size.spacingStackXs) {
+                        fluidSecondaryButton
+                        fluidSecondaryCriticalButton
+                        fluidSecondaryWarningButton
+                    }
+
+                    Divider()
+                        .padding(.vertical, Ocean.size.spacingStackMd)
+
+                    Text("FLUID MODE - TERTIARY")
+                        .font(.headline)
+
+                    Text("Background escurece ao pressionar o botão")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+
+                    VStack(spacing: Ocean.size.spacingStackXs) {
+                        fluidTertiaryButton
+                        fluidTertiaryCriticalButton
+                        fluidTertiaryWarningButton
                     }
 
                     Divider()
