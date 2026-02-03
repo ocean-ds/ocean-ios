@@ -17,6 +17,7 @@ extension OceanSwiftUI {
         @Published public var isLoading: Bool
         @Published public var style: Style
         @Published public var size: Size
+        @Published public var widthMode: WidthMode
         @Published public var isDisabled: Bool
         @Published public var maxWidth: CGFloat?
         @Published public var showSkeleton: Bool
@@ -71,12 +72,18 @@ extension OceanSwiftUI {
                 }
             }
         }
-        
+
+        public enum WidthMode {
+            case fluid
+            case hug
+        }
+
         public init(text: String = "",
                     icon: UIImage? = nil,
                     isLoading: Bool = false,
                     style: Style = .primary,
                     size: Size = .medium,
+                    widthMode: WidthMode = .fluid,
                     isDisabled: Bool = false,
                     maxWidth: CGFloat? = .infinity,
                     showSkeleton: Bool = false,
@@ -86,10 +93,22 @@ extension OceanSwiftUI {
             self.isLoading = isLoading
             self.style = style
             self.size = size
+            self.widthMode = widthMode
             self.isDisabled = isDisabled
             self.maxWidth = maxWidth
             self.showSkeleton = showSkeleton
             self.onTouch = onTouch
+        }
+        
+        public func shouldShowLoading() -> Bool {
+            guard isLoading && !isDisabled else { return false }
+
+            switch style {
+            case .primary, .primaryCritical, .primaryWarning, .primaryInverse, .secondary, .tertiary:
+                return true
+            default:
+                return false
+            }
         }
     }
     
@@ -128,11 +147,12 @@ extension OceanSwiftUI {
                     self.parameters.onTouch()
                 }
             } label: {
-                HStack {
-                    Spacer()
-                    if !self.parameters.isDisabled && self.parameters.isLoading {
-                        self.getLoadingView()
-                    } else {
+                ZStack {
+                    HStack {
+                        if self.parameters.widthMode == .fluid {
+                            Spacer()
+                        }
+
                         if let icon = self.parameters.icon {
                             Image(uiImage: icon)
                                 .resizable()
@@ -147,8 +167,16 @@ extension OceanSwiftUI {
                             Text(self.parameters.text)
                                 .fixedSize(horizontal: true, vertical: false)
                         }
+
+                        if self.parameters.widthMode == .fluid {
+                            Spacer()
+                        }
                     }
-                    Spacer()
+                    .opacity(self.parameters.shouldShowLoading() ? 0 : 1)
+
+                    if self.parameters.shouldShowLoading() {
+                        self.getLoadingView()
+                    }
                 }
             }
             .buttonStyle(OceanButtonStyle(parameters: self.parameters, foregroundColor: self.getForegroundColor()))
@@ -215,9 +243,13 @@ extension OceanSwiftUI {
         }
         
         public func makeBody(configuration: Self.Configuration) -> some View {
+            let finalForegroundColor = self.parameters.widthMode == .hug && configuration.isPressed
+            ? self.getPressedForegroundColor()
+            : self.foregroundColor
+
             configuration.label
                 .font(Font(UIFont.baseBold(size: self.parameters.size.getFontSize())!))
-                .frame(maxWidth: self.parameters.maxWidth,
+                .frame(maxWidth: self.getMaxWidth(),
                        minHeight: self.parameters.size.rawValue,
                        idealHeight: self.parameters.size.rawValue,
                        maxHeight: self.parameters.size.rawValue,
@@ -227,28 +259,77 @@ extension OceanSwiftUI {
                     RoundedRectangle(cornerRadius: Ocean.size.borderRadiusCircular * self.parameters.size.rawValue)
                         .fill(self.getBackgroundColor(configuration: configuration))
                 )
-                .foregroundColor(self.foregroundColor)
+                .foregroundColor(finalForegroundColor)
         }
-        
+
+        public func getMaxWidth() -> CGFloat? {
+            switch self.parameters.widthMode {
+            case .fluid:
+                return self.parameters.maxWidth
+            case .hug:
+                return nil
+            }
+        }
+
         public func getPadding() -> CGFloat {
+            if self.parameters.widthMode == .hug {
+                switch self.parameters.style {
+                case .tertiary, .tertiaryCritical, .tertiaryWarning:
+                    return .zero
+                default:
+                    return self.parameters.size.getPadding()
+                }
+            }
+
             switch self.parameters.style {
-            case .tertiary, .tertiaryCritical:
+            case .tertiary, .tertiaryCritical, .tertiaryWarning:
                 return .zero
             default:
                 return self.parameters.size.getPadding()
             }
         }
-        
+
+        public func getPressedForegroundColor() -> Color {
+            guard !self.parameters.isDisabled else { return Color(Ocean.color.colorInterfaceDarkUp) }
+
+            switch self.parameters.style {
+            case .primary:
+                return Color(Ocean.color.colorBrandPrimaryDeep)
+            case .secondary:
+                return Color(Ocean.color.colorBrandPrimaryDeep)
+            case .tertiary:
+                return Color(Ocean.color.colorBrandPrimaryDeep)
+            case .primaryCritical:
+                return Color(Ocean.color.colorStatusNegativeDeep)
+            case .secondaryCritical:
+                return Color(Ocean.color.colorStatusNegativeDeep)
+            case .tertiaryCritical:
+                return Color(Ocean.color.colorStatusNegativeDeep)
+            case .primaryInverse:
+                return Color(Ocean.color.colorComplementaryDeep)
+            case .primaryWarning:
+                return Color(Ocean.color.colorStatusWarningDeep).mix(with: Color(Ocean.color.colorInterfaceDarkPure), by: 0.12)
+            case .secondaryWarning:
+                return Color(Ocean.color.colorStatusWarningDeep).mix(with: Color(Ocean.color.colorInterfaceDarkPure), by: 0.12)
+            case .tertiaryWarning:
+                return Color(Ocean.color.colorStatusWarningDeep).mix(with: Color(Ocean.color.colorInterfaceDarkPure), by: 0.12)
+            }
+        }
+
         public func getBackgroundColor(configuration: Self.Configuration) -> Color {
             guard !self.parameters.isDisabled else {
                 switch self.parameters.style {
-                case .tertiary, .tertiaryCritical:
+                case .tertiary, .tertiaryCritical, .tertiaryWarning:
                     return Color.clear
                 default:
                     return Color(Ocean.color.colorInterfaceLightDown)
                 }
             }
-            
+
+            if self.parameters.widthMode == .hug {
+                return self.getBaseBackgroundColor()
+            }
+
             switch self.parameters.style {
             case .primary:
                 return configuration.isPressed ? Color(Ocean.color.colorBrandPrimaryDeep) : Color(Ocean.color.colorBrandPrimaryPure)
@@ -270,6 +351,31 @@ extension OceanSwiftUI {
                 return configuration.isPressed ? Color(Ocean.color.colorStatusWarningUp).mix(with: Color(Ocean.color.colorStatusWarningDeep), by: 0.16) : Color(Ocean.color.colorStatusWarningUp)
             case .tertiaryWarning:
                 return configuration.isPressed ? Color(Ocean.color.colorStatusWarningUp).mix(with: Color(Ocean.color.colorStatusWarningDeep), by: 0.16) : Color(UIColor.clear)
+            }
+        }
+
+        private func getBaseBackgroundColor() -> Color {
+            switch self.parameters.style {
+            case .primary:
+                return Color(Ocean.color.colorBrandPrimaryPure)
+            case .secondary:
+                return Color(Ocean.color.colorInterfaceLightUp)
+            case .tertiary:
+                return Color(UIColor.clear)
+            case .primaryCritical:
+                return Color(Ocean.color.colorStatusNegativePure)
+            case .secondaryCritical:
+                return Color(Ocean.color.colorStatusNegativeUp)
+            case .tertiaryCritical:
+                return Color(UIColor.clear)
+            case .primaryInverse:
+                return Color(Ocean.color.colorComplementaryPure)
+            case .primaryWarning:
+                return Color(Ocean.color.colorStatusWarningDeep)
+            case .secondaryWarning:
+                return Color(Ocean.color.colorStatusWarningUp)
+            case .tertiaryWarning:
+                return Color(UIColor.clear)
             }
         }
     }
