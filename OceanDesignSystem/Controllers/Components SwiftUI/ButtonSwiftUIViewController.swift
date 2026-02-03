@@ -61,6 +61,22 @@ class ButtonSwiftUIViewController: UIViewController {
         }
     }()
 
+    lazy var fluidPrimaryInverseButton: OceanSwiftUI.Button = {
+        return OceanSwiftUI.Button { button in
+            button.parameters.text = "Primary Inverse Fluid"
+            button.parameters.icon = Ocean.icon.plusSolid
+            button.parameters.style = .primaryInverse
+            button.parameters.size = self.selectedSize
+            button.parameters.onTouch = {
+                button.parameters.isLoading.toggle()
+                print("Tap")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    button.parameters.isLoading.toggle()
+                }
+            }
+        }
+    }()
+
     lazy var fluidSecondaryButton: OceanSwiftUI.Button = {
         return OceanSwiftUI.Button { button in
             button.parameters.text = "Secondary Fluid"
@@ -196,6 +212,23 @@ class ButtonSwiftUIViewController: UIViewController {
             button.parameters.text = "Primary Warning Hug"
             button.parameters.icon = Ocean.icon.plusSolid
             button.parameters.style = .primaryWarning
+            button.parameters.size = self.selectedSize
+            button.parameters.widthMode = .hug
+            button.parameters.onTouch = {
+                button.parameters.isLoading.toggle()
+                print("Tap")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    button.parameters.isLoading.toggle()
+                }
+            }
+        }
+    }()
+
+    lazy var hugPrimaryInverseButton: OceanSwiftUI.Button = {
+        return OceanSwiftUI.Button { button in
+            button.parameters.text = "Primary Inverse Hug"
+            button.parameters.icon = Ocean.icon.plusSolid
+            button.parameters.style = .primaryInverse
             button.parameters.size = self.selectedSize
             button.parameters.widthMode = .hug
             button.parameters.onTouch = {
@@ -350,6 +383,7 @@ class ButtonSwiftUIViewController: UIViewController {
                         fluidPrimaryButton
                         fluidPrimaryCriticalButton
                         fluidPrimaryWarningButton
+                        fluidPrimaryInverseButton
                     }
 
                     Divider()
@@ -398,6 +432,7 @@ class ButtonSwiftUIViewController: UIViewController {
                         hugPrimaryButton
                         hugPrimaryCriticalButton
                         hugPrimaryWarningButton
+                        hugPrimaryInverseButton
                     }
 
                     Divider()
@@ -467,6 +502,7 @@ class ButtonSwiftUIViewController: UIViewController {
         fluidPrimaryButton.parameters.size = size
         fluidPrimaryCriticalButton.parameters.size = size
         fluidPrimaryWarningButton.parameters.size = size
+        fluidPrimaryInverseButton.parameters.size = size
 
         fluidSecondaryButton.parameters.size = size
         fluidSecondaryCriticalButton.parameters.size = size
@@ -479,6 +515,7 @@ class ButtonSwiftUIViewController: UIViewController {
         hugPrimaryButton.parameters.size = size
         hugPrimaryCriticalButton.parameters.size = size
         hugPrimaryWarningButton.parameters.size = size
+        hugPrimaryInverseButton.parameters.size = size
 
         hugSecondaryButton.parameters.size = size
         hugSecondaryCriticalButton.parameters.size = size
