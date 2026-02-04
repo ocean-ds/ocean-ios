@@ -12,334 +12,26 @@ import SwiftUI
 class ButtonSwiftUIViewController: UIViewController {
 
     @Published private var selectedSize: OceanSwiftUI.ButtonParameters.Size = .medium
+    @Published private var selectedStyle: OceanSwiftUI.ButtonParameters.Style = .primary
+    @Published private var hasIcon: Bool = true
+    @Published private var isFluidWidth: Bool = true
+    @Published private var isDisabled: Bool = false
+    @Published private var isLoading: Bool = false
+    @Published private var showSkeleton: Bool = false
 
-    lazy var fluidPrimaryButton: OceanSwiftUI.Button = {
+    lazy var configButton: OceanSwiftUI.Button = {
         return OceanSwiftUI.Button { button in
-            button.parameters.text = "Primary Fluid"
-            button.parameters.icon = Ocean.icon.plusSolid
-            button.parameters.style = .primary
+            button.parameters.text = "Button Example"
+            button.parameters.icon = self.hasIcon ? Ocean.icon.plusSolid : nil
+            button.parameters.style = self.selectedStyle
             button.parameters.size = self.selectedSize
+            button.parameters.maxWidth = self.isFluidWidth ? .infinity : nil
+            button.parameters.isDisabled = self.isDisabled
+            button.parameters.isLoading = self.isLoading
+            button.parameters.showSkeleton = self.showSkeleton
             button.parameters.onTouch = {
-                button.parameters.isLoading.toggle()
-                print("Tap")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    button.parameters.isLoading.toggle()
-                }
+                print("Tapped")
             }
-        }
-    }()
-
-    lazy var fluidPrimaryCriticalButton: OceanSwiftUI.Button = {
-        return OceanSwiftUI.Button { button in
-            button.parameters.text = "Primary Critical Fluid"
-            button.parameters.icon = Ocean.icon.plusSolid
-            button.parameters.style = .primaryCritical
-            button.parameters.size = self.selectedSize
-            button.parameters.onTouch = {
-                button.parameters.isLoading.toggle()
-                print("Tap")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    button.parameters.isLoading.toggle()
-                }
-            }
-        }
-    }()
-
-    lazy var fluidPrimaryWarningButton: OceanSwiftUI.Button = {
-        return OceanSwiftUI.Button { button in
-            button.parameters.text = "Primary Warning Fluid"
-            button.parameters.icon = Ocean.icon.plusSolid
-            button.parameters.style = .primaryWarning
-            button.parameters.size = self.selectedSize
-            button.parameters.onTouch = {
-                button.parameters.isLoading.toggle()
-                print("Tap")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    button.parameters.isLoading.toggle()
-                }
-            }
-        }
-    }()
-
-    lazy var fluidPrimaryInverseButton: OceanSwiftUI.Button = {
-        return OceanSwiftUI.Button { button in
-            button.parameters.text = "Primary Inverse Fluid"
-            button.parameters.icon = Ocean.icon.plusSolid
-            button.parameters.style = .primaryInverse
-            button.parameters.size = self.selectedSize
-            button.parameters.onTouch = {
-                button.parameters.isLoading.toggle()
-                print("Tap")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    button.parameters.isLoading.toggle()
-                }
-            }
-        }
-    }()
-
-    lazy var fluidSecondaryButton: OceanSwiftUI.Button = {
-        return OceanSwiftUI.Button { button in
-            button.parameters.text = "Secondary Fluid"
-            button.parameters.icon = Ocean.icon.plusSolid
-            button.parameters.style = .secondary
-            button.parameters.size = self.selectedSize
-            button.parameters.onTouch = {
-                button.parameters.isLoading.toggle()
-                print("Tap")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    button.parameters.isLoading.toggle()
-                }
-            }
-        }
-    }()
-
-    lazy var fluidSecondaryCriticalButton: OceanSwiftUI.Button = {
-        return OceanSwiftUI.Button { button in
-            button.parameters.text = "Secondary Critical Fluid"
-            button.parameters.icon = Ocean.icon.plusSolid
-            button.parameters.style = .secondaryCritical
-            button.parameters.size = self.selectedSize
-            button.parameters.onTouch = {
-                button.parameters.isLoading.toggle()
-                print("Tap")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    button.parameters.isLoading.toggle()
-                }
-            }
-        }
-    }()
-
-    lazy var fluidSecondaryWarningButton: OceanSwiftUI.Button = {
-        return OceanSwiftUI.Button { button in
-            button.parameters.text = "Secondary Warning Fluid"
-            button.parameters.icon = Ocean.icon.plusSolid
-            button.parameters.style = .secondaryWarning
-            button.parameters.size = self.selectedSize
-            button.parameters.onTouch = {
-                button.parameters.isLoading.toggle()
-                print("Tap")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    button.parameters.isLoading.toggle()
-                }
-            }
-        }
-    }()
-
-    lazy var fluidTertiaryButton: OceanSwiftUI.Button = {
-        return OceanSwiftUI.Button { button in
-            button.parameters.text = "Tertiary Fluid"
-            button.parameters.icon = Ocean.icon.plusSolid
-            button.parameters.style = .tertiary
-            button.parameters.size = self.selectedSize
-            button.parameters.onTouch = {
-                button.parameters.isLoading.toggle()
-                print("Tap")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    button.parameters.isLoading.toggle()
-                }
-            }
-        }
-    }()
-
-    lazy var fluidTertiaryCriticalButton: OceanSwiftUI.Button = {
-        return OceanSwiftUI.Button { button in
-            button.parameters.text = "Tertiary Critical Fluid"
-            button.parameters.icon = Ocean.icon.plusSolid
-            button.parameters.style = .tertiaryCritical
-            button.parameters.size = self.selectedSize
-            button.parameters.onTouch = {
-                button.parameters.isLoading.toggle()
-                print("Tap")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    button.parameters.isLoading.toggle()
-                }
-            }
-        }
-    }()
-
-    lazy var fluidTertiaryWarningButton: OceanSwiftUI.Button = {
-        return OceanSwiftUI.Button { button in
-            button.parameters.text = "Tertiary Warning Fluid"
-            button.parameters.icon = Ocean.icon.plusSolid
-            button.parameters.style = .tertiaryWarning
-            button.parameters.size = self.selectedSize
-            button.parameters.onTouch = {
-                button.parameters.isLoading.toggle()
-                print("Tap")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    button.parameters.isLoading.toggle()
-                }
-            }
-        }
-    }()
-
-    lazy var hugPrimaryButton: OceanSwiftUI.Button = {
-        return OceanSwiftUI.Button { button in
-            button.parameters.text = "Primary Hug"
-            button.parameters.icon = Ocean.icon.plusSolid
-            button.parameters.style = .primary
-            button.parameters.size = self.selectedSize
-            button.parameters.widthMode = .hug
-            button.parameters.onTouch = {
-                button.parameters.isLoading.toggle()
-                print("Tap")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    button.parameters.isLoading.toggle()
-                }
-            }
-        }
-    }()
-
-    lazy var hugPrimaryCriticalButton: OceanSwiftUI.Button = {
-        return OceanSwiftUI.Button { button in
-            button.parameters.text = "Primary Critical Hug"
-            button.parameters.icon = Ocean.icon.plusSolid
-            button.parameters.style = .primaryCritical
-            button.parameters.size = self.selectedSize
-            button.parameters.widthMode = .hug
-            button.parameters.onTouch = {
-                button.parameters.isLoading.toggle()
-                print("Tap")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    button.parameters.isLoading.toggle()
-                }
-            }
-        }
-    }()
-
-    lazy var hugPrimaryWarningButton: OceanSwiftUI.Button = {
-        return OceanSwiftUI.Button { button in
-            button.parameters.text = "Primary Warning Hug"
-            button.parameters.icon = Ocean.icon.plusSolid
-            button.parameters.style = .primaryWarning
-            button.parameters.size = self.selectedSize
-            button.parameters.widthMode = .hug
-            button.parameters.onTouch = {
-                button.parameters.isLoading.toggle()
-                print("Tap")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    button.parameters.isLoading.toggle()
-                }
-            }
-        }
-    }()
-
-    lazy var hugPrimaryInverseButton: OceanSwiftUI.Button = {
-        return OceanSwiftUI.Button { button in
-            button.parameters.text = "Primary Inverse Hug"
-            button.parameters.icon = Ocean.icon.plusSolid
-            button.parameters.style = .primaryInverse
-            button.parameters.size = self.selectedSize
-            button.parameters.widthMode = .hug
-            button.parameters.onTouch = {
-                button.parameters.isLoading.toggle()
-                print("Tap")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    button.parameters.isLoading.toggle()
-                }
-            }
-        }
-    }()
-
-    lazy var hugSecondaryButton: OceanSwiftUI.Button = {
-        return OceanSwiftUI.Button { button in
-            button.parameters.text = "Secondary Hug"
-            button.parameters.icon = Ocean.icon.plusSolid
-            button.parameters.style = .secondary
-            button.parameters.size = self.selectedSize
-            button.parameters.widthMode = .hug
-            button.parameters.onTouch = {
-                button.parameters.isLoading.toggle()
-                print("Tap")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    button.parameters.isLoading.toggle()
-                }
-            }
-        }
-    }()
-
-    lazy var hugSecondaryCriticalButton: OceanSwiftUI.Button = {
-        return OceanSwiftUI.Button { button in
-            button.parameters.text = "Secondary Critical Hug"
-            button.parameters.icon = Ocean.icon.plusSolid
-            button.parameters.style = .secondaryCritical
-            button.parameters.size = self.selectedSize
-            button.parameters.widthMode = .hug
-            button.parameters.onTouch = {
-                print("Tap")
-            }
-        }
-    }()
-
-    lazy var hugSecondaryWarningButton: OceanSwiftUI.Button = {
-        return OceanSwiftUI.Button { button in
-            button.parameters.text = "Secondary Warning Hug"
-            button.parameters.icon = Ocean.icon.plusSolid
-            button.parameters.style = .secondaryWarning
-            button.parameters.size = self.selectedSize
-            button.parameters.widthMode = .hug
-            button.parameters.onTouch = {
-                print("Tap")
-            }
-        }
-    }()
-
-    lazy var hugTertiaryButton: OceanSwiftUI.Button = {
-        return OceanSwiftUI.Button { button in
-            button.parameters.text = "Tertiary Hug"
-            button.parameters.icon = Ocean.icon.plusSolid
-            button.parameters.style = .tertiary
-            button.parameters.size = self.selectedSize
-            button.parameters.widthMode = .hug
-            button.parameters.onTouch = {
-                print("Tap")
-            }
-        }
-    }()
-
-    lazy var hugTertiaryCriticalButton: OceanSwiftUI.Button = {
-        return OceanSwiftUI.Button { button in
-            button.parameters.text = "Tertiary Critical Hug"
-            button.parameters.icon = Ocean.icon.plusSolid
-            button.parameters.style = .tertiaryCritical
-            button.parameters.size = self.selectedSize
-            button.parameters.widthMode = .hug
-            button.parameters.onTouch = {
-                print("Tap")
-            }
-        }
-    }()
-
-    lazy var hugTertiaryWarningButton: OceanSwiftUI.Button = {
-        return OceanSwiftUI.Button { button in
-            button.parameters.text = "Tertiary Warning Hug"
-            button.parameters.icon = Ocean.icon.plusSolid
-            button.parameters.style = .tertiaryWarning
-            button.parameters.size = self.selectedSize
-            button.parameters.widthMode = .hug
-            button.parameters.onTouch = {
-                print("Tap")
-            }
-        }
-    }()
-
-    lazy var disabledButton: OceanSwiftUI.Button = {
-        return OceanSwiftUI.Button { button in
-            button.parameters.text = "Disabled"
-            button.parameters.icon = Ocean.icon.plusSolid
-            button.parameters.style = .primary
-            button.parameters.size = self.selectedSize
-            button.parameters.isDisabled = true
-        }
-    }()
-
-    lazy var skeletonButton: OceanSwiftUI.Button = {
-        return OceanSwiftUI.Button { button in
-            button.parameters.text = "Skeleton"
-            button.parameters.icon = Ocean.icon.plusSolid
-            button.parameters.style = .primary
-            button.parameters.size = self.selectedSize
-            button.parameters.showSkeleton = true
         }
     }()
 
@@ -347,138 +39,125 @@ class ButtonSwiftUIViewController: UIViewController {
 
     public lazy var hostingController: UIHostingController<AnyView> = {
         let content = AnyView(
-            ScrollView {
-                VStack(alignment: .leading, spacing: Ocean.size.spacingStackXs) {
-
-                    VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
-                        Text("SIZE BUTTONS")
-                            .frame(maxWidth: .infinity, alignment: .center)
-                            .padding(.bottom, Ocean.size.spacingStackMd)
-
-                        Picker("Button Size", selection: Binding(
-                            get: { self.selectedSize },
-                            set: { newSize in
-                                self.selectedSize = newSize
-                                self.updateAllButtonSizes(to: newSize)
-                            }
-                        )) {
-                            Text("Small (32)").tag(OceanSwiftUI.ButtonParameters.Size.small)
-                            Text("Medium (48)").tag(OceanSwiftUI.ButtonParameters.Size.medium)
-                            Text("Large (56)").tag(OceanSwiftUI.ButtonParameters.Size.large)
+            VStack(spacing: 0) {
+                VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
+                    if self.isFluidWidth {
+                        configButton
+                    } else {
+                        HStack {
+                            configButton
+                            Spacer()
                         }
-                        .pickerStyle(SegmentedPickerStyle())
-                    }
-
-                    Divider()
-                        .padding(.vertical, Ocean.size.spacingStackMd)
-
-                    Text("FLUID MODE - PRIMARY")
-                        .font(.headline)
-
-                    Text("Background escurece ao pressionar o botão")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-
-                    VStack(spacing: Ocean.size.spacingStackXs) {
-                        fluidPrimaryButton
-                        fluidPrimaryCriticalButton
-                        fluidPrimaryWarningButton
-                        fluidPrimaryInverseButton
-                    }
-
-                    Divider()
-                        .padding(.vertical, Ocean.size.spacingStackMd)
-
-                    Text("FLUID MODE - SECONDARY")
-                        .font(.headline)
-
-                    Text("Background escurece ao pressionar o botão")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-
-                    VStack(spacing: Ocean.size.spacingStackXs) {
-                        fluidSecondaryButton
-                        fluidSecondaryCriticalButton
-                        fluidSecondaryWarningButton
-                    }
-
-                    Divider()
-                        .padding(.vertical, Ocean.size.spacingStackMd)
-
-                    Text("FLUID MODE - TERTIARY")
-                        .font(.headline)
-
-                    Text("Background escurece ao pressionar o botão")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-
-                    VStack(spacing: Ocean.size.spacingStackXs) {
-                        fluidTertiaryButton
-                        fluidTertiaryCriticalButton
-                        fluidTertiaryWarningButton
-                    }
-
-                    Divider()
-                        .padding(.vertical, Ocean.size.spacingStackMd)
-
-                    Text("HUG MODE - PRIMARY")
-                        .font(.headline)
-
-                    Text("Com padding | Cor do texto muda ao pressionar")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-
-                    VStack(alignment: .leading, spacing: Ocean.size.spacingStackXs) {
-                        hugPrimaryButton
-                        hugPrimaryCriticalButton
-                        hugPrimaryWarningButton
-                        hugPrimaryInverseButton
-                    }
-
-                    Divider()
-                        .padding(.vertical, Ocean.size.spacingStackMd)
-
-                    Text("HUG MODE - SECONDARY")
-                        .font(.headline)
-
-                    Text("Com padding | Cor do texto muda ao pressionar")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-
-                    VStack(alignment: .leading, spacing: Ocean.size.spacingStackXs) {
-                        hugSecondaryButton
-                        hugSecondaryCriticalButton
-                        hugSecondaryWarningButton
-                    }
-
-                    Divider()
-                        .padding(.vertical, Ocean.size.spacingStackMd)
-
-                    Text("HUG MODE - TERTIARY")
-                        .font(.headline)
-
-                    Text("SEM padding | SEM loading | Cor do texto muda ao pressionar")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-
-                    VStack(alignment: .leading, spacing: Ocean.size.spacingStackXs) {
-                        hugTertiaryButton
-                        hugTertiaryCriticalButton
-                        hugTertiaryWarningButton
-                    }
-
-                    Divider()
-                        .padding(.vertical, Ocean.size.spacingStackMd)
-
-                    Text("Disabled + Skeleton")
-                        .font(.headline)
-
-                    VStack(spacing: Ocean.size.spacingStackXs) {
-                        disabledButton
-                        skeletonButton
                     }
                 }
-                .padding(.horizontal, Ocean.size.spacingStackXs)
+                .padding(.horizontal, Ocean.size.spacingStackMd)
+                .padding(.vertical, Ocean.size.spacingStackMd)
+                .background(Color(UIColor.systemBackground))
+
+                Divider()
+
+                ScrollView {
+                    VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
+
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Size")
+                                .font(.headline)
+
+                            Picker("Button Size", selection: Binding(
+                                get: { self.selectedSize },
+                                set: { newSize in
+                                    self.selectedSize = newSize
+                                    self.updateButton()
+                                }
+                            )) {
+                                Text("Small (32)").tag(OceanSwiftUI.ButtonParameters.Size.small)
+                                Text("Medium (48)").tag(OceanSwiftUI.ButtonParameters.Size.medium)
+                                Text("Large (56)").tag(OceanSwiftUI.ButtonParameters.Size.large)
+                            }
+                            .pickerStyle(SegmentedPickerStyle())
+                        }
+                        .padding(.bottom, Ocean.size.spacingStackXxs)
+
+                        Divider()
+
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Style")
+                                .font(.headline)
+
+                            Picker("Button Style", selection: Binding(
+                                get: { self.selectedStyle },
+                                set: { newStyle in
+                                    self.selectedStyle = newStyle
+                                    self.updateButton()
+                                }
+                            )) {
+                                Text("Primary").tag(OceanSwiftUI.ButtonParameters.Style.primary)
+                                Text("Secondary").tag(OceanSwiftUI.ButtonParameters.Style.secondary)
+                                Text("Tertiary").tag(OceanSwiftUI.ButtonParameters.Style.tertiary)
+                                Text("Primary Critical").tag(OceanSwiftUI.ButtonParameters.Style.primaryCritical)
+                                Text("Secondary Critical").tag(OceanSwiftUI.ButtonParameters.Style.secondaryCritical)
+                                Text("Tertiary Critical").tag(OceanSwiftUI.ButtonParameters.Style.tertiaryCritical)
+                                Text("Primary Inverse").tag(OceanSwiftUI.ButtonParameters.Style.primaryInverse)
+                                Text("Primary Warning").tag(OceanSwiftUI.ButtonParameters.Style.primaryWarning)
+                                Text("Secondary Warning").tag(OceanSwiftUI.ButtonParameters.Style.secondaryWarning)
+                                Text("Tertiary Warning").tag(OceanSwiftUI.ButtonParameters.Style.tertiaryWarning)
+                            }
+                            .pickerStyle(WheelPickerStyle())
+                            .frame(height: 150)
+                            .clipped()
+                        }
+                        .padding(.bottom, Ocean.size.spacingStackXxs)
+
+                        Divider()
+
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Options")
+                                .font(.headline)
+
+                            Toggle("Has Icon", isOn: Binding(
+                                get: { self.hasIcon },
+                                set: { newValue in
+                                    self.hasIcon = newValue
+                                    self.updateButton()
+                                }
+                            ))
+
+                            Toggle("Fluid", isOn: Binding(
+                                get: { self.isFluidWidth },
+                                set: { newValue in
+                                    self.isFluidWidth = newValue
+                                    self.updateButton()
+                                }
+                            ))
+
+                            Toggle("Loading", isOn: Binding(
+                                get: { self.isLoading },
+                                set: { newValue in
+                                    self.isLoading = newValue
+                                    self.updateButton()
+                                }
+                            ))
+
+                            Toggle("Disabled", isOn: Binding(
+                                get: { self.isDisabled },
+                                set: { newValue in
+                                    self.isDisabled = newValue
+                                    self.updateButton()
+                                }
+                            ))
+
+                            Toggle("Show Skeleton", isOn: Binding(
+                                get: { self.showSkeleton },
+                                set: { newValue in
+                                    self.showSkeleton = newValue
+                                    self.updateButton()
+                                }
+                            ))
+                        }
+                    }
+                    .padding(.horizontal, Ocean.size.spacingStackMd)
+                    .padding(.vertical, Ocean.size.spacingStackXs)
+                }
             }
         )
         return UIHostingController(rootView: content)
@@ -490,43 +169,20 @@ class ButtonSwiftUIViewController: UIViewController {
 
     public override func viewDidLoad() {
         self.view.backgroundColor = .white
-
         self.view.addSubview(uiView)
-
         uiView.oceanConstraints
             .fill(to: self.view, constant: Ocean.size.spacingStackXs)
             .make()
     }
 
-    private func updateAllButtonSizes(to size: OceanSwiftUI.ButtonParameters.Size) {
-        fluidPrimaryButton.parameters.size = size
-        fluidPrimaryCriticalButton.parameters.size = size
-        fluidPrimaryWarningButton.parameters.size = size
-        fluidPrimaryInverseButton.parameters.size = size
-
-        fluidSecondaryButton.parameters.size = size
-        fluidSecondaryCriticalButton.parameters.size = size
-        fluidSecondaryWarningButton.parameters.size = size
-
-        fluidTertiaryButton.parameters.size = size
-        fluidTertiaryCriticalButton.parameters.size = size
-        fluidTertiaryWarningButton.parameters.size = size
-
-        hugPrimaryButton.parameters.size = size
-        hugPrimaryCriticalButton.parameters.size = size
-        hugPrimaryWarningButton.parameters.size = size
-        hugPrimaryInverseButton.parameters.size = size
-
-        hugSecondaryButton.parameters.size = size
-        hugSecondaryCriticalButton.parameters.size = size
-        hugSecondaryWarningButton.parameters.size = size
-
-        hugTertiaryButton.parameters.size = size
-        hugTertiaryCriticalButton.parameters.size = size
-        hugTertiaryWarningButton.parameters.size = size
-
-        disabledButton.parameters.size = size
-        skeletonButton.parameters.size = size
+    private func updateButton() {
+        configButton.parameters.size = selectedSize
+        configButton.parameters.style = selectedStyle
+        configButton.parameters.icon = hasIcon ? Ocean.icon.plusSolid : nil
+        configButton.parameters.maxWidth = isFluidWidth ? .infinity : nil
+        configButton.parameters.isLoading = isLoading
+        configButton.parameters.isDisabled = isDisabled
+        configButton.parameters.showSkeleton = showSkeleton
     }
 }
 
