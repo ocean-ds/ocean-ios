@@ -244,7 +244,7 @@ extension OceanSwiftUI {
                     RoundedRectangle(cornerRadius: Ocean.size.borderRadiusCircular * self.parameters.size.rawValue)
                         .fill(self.getBackgroundColor(configuration: configuration))
                 )
-                .foregroundColor(isHugMode && configuration.isPressed ? getPressedForegroundColor() : foregroundColor)
+                .foregroundColor(configuration.isPressed ? getPressedForegroundColor() : foregroundColor)
         }
 
         public func getPadding() -> CGFloat {
@@ -259,18 +259,20 @@ extension OceanSwiftUI {
         public func getPressedForegroundColor() -> Color {
             guard !self.parameters.isDisabled else { return Color(Ocean.color.colorInterfaceDarkUp) }
 
-            switch self.parameters.style {
-            case .primary, .secondary, .tertiary:
-                return Color(Ocean.color.colorBrandPrimaryDeep)
-            case .primaryCritical, .secondaryCritical, .tertiaryCritical:
-                return Color(Ocean.color.colorStatusNegativeDeep)
-            case .primaryInverse:
-                return Color(Ocean.color.colorComplementaryDeep)
-            case .primaryWarning:
-                return Color(Ocean.color.colorStatusWarningDeep).mix(with: Color(Ocean.color.colorInterfaceDarkPure), by: 0.12)
-            case .secondaryWarning, .tertiaryWarning:
-                return Color(Ocean.color.colorStatusWarningDeep).mix(with: Color(Ocean.color.colorInterfaceDarkPure), by: 0.16)
+            if isHugMode {
+                switch self.parameters.style {
+                case .tertiary:
+                    return Color(Ocean.color.colorBrandPrimaryDeep)
+                case .tertiaryCritical:
+                    return Color(Ocean.color.colorStatusNegativeDeep)
+                case .tertiaryWarning:
+                    return Color(Ocean.color.colorStatusWarningDeep).mix(with: Color(Ocean.color.colorInterfaceDarkPure), by: 0.16)
+                default:
+                    break
+                }
             }
+
+            return foregroundColor
         }
 
         public func getBackgroundColor(configuration: Self.Configuration) -> Color {
@@ -284,7 +286,12 @@ extension OceanSwiftUI {
             }
 
             if isHugMode {
-                return self.getBaseBackgroundColor()
+                switch self.parameters.style {
+                case .tertiary, .tertiaryCritical, .tertiaryWarning:
+                    return Color.clear
+                default:
+                    return configuration.isPressed ? self.getPressedBackgroundColor() : self.getBaseBackgroundColor()
+                }
             }
 
             switch self.parameters.style {
@@ -327,6 +334,27 @@ extension OceanSwiftUI {
                 return Color(Ocean.color.colorStatusWarningDeep)
             case .secondaryWarning:
                 return Color(Ocean.color.colorStatusWarningUp)
+            }
+        }
+
+        private func getPressedBackgroundColor() -> Color {
+            switch self.parameters.style {
+            case .primary:
+                return Color(Ocean.color.colorBrandPrimaryDeep)
+            case .secondary:
+                return Color(Ocean.color.colorInterfaceDarkUp)
+            case .tertiary, .tertiaryWarning, .tertiaryCritical:
+                return Color(UIColor.clear)
+            case .primaryCritical:
+                return Color(Ocean.color.colorStatusNegativeDeep)
+            case .secondaryCritical:
+                return Color(Ocean.color.colorInterfaceLightDeep)
+            case .primaryInverse:
+                return Color(Ocean.color.colorComplementaryDeep)
+            case .primaryWarning:
+                return Color(Ocean.color.colorStatusWarningDeep).mix(with: Color(Ocean.color.colorInterfaceDarkPure), by: 0.12)
+            case .secondaryWarning:
+                return Color(Ocean.color.colorStatusWarningUp).mix(with: Color(Ocean.color.colorStatusWarningDeep), by: 0.16)
             }
         }
     }
