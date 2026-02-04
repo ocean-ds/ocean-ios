@@ -26,6 +26,7 @@ extension OceanSwiftUI {
         @Published public var iconColor: UIColor
         @Published public var iconWidth: CGFloat
         @Published public var iconHeight: CGFloat
+        @Published public var badge: BadgeParameters?
         @Published public var tagLabel: String
         @Published public var tagIcon: UIImage?
         @Published public var tagStatus: TagParameters.Status
@@ -63,6 +64,7 @@ extension OceanSwiftUI {
                     iconColor: UIColor = Ocean.color.colorBrandPrimaryDown,
                     iconWidth: CGFloat = 24,
                     iconHeight: CGFloat = 24,
+                    badge: BadgeParameters? = nil,
                     tagLabel: String = "",
                     tagIcon: UIImage? = nil,
                     tagStatus: TagParameters.Status = .positive,
@@ -104,6 +106,7 @@ extension OceanSwiftUI {
             self.iconColor = iconColor
             self.iconWidth = iconWidth
             self.iconHeight = iconHeight
+            self.badge = badge
             self.tagLabel = tagLabel
             self.tagIcon = tagIcon
             self.tagStatus = tagStatus
@@ -246,8 +249,12 @@ extension OceanSwiftUI {
                         }
                     }
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-
-                    if !parameters.tagLabel.isEmpty && parameters.tagOrientation == .horizontal {
+                    
+                    if let badge = parameters.badge {
+                        OceanSwiftUI.Badge(parameters: badge)
+                            .fixedSize()
+                            .padding(.trailing, -Ocean.size.spacingStackXxs)
+                    } else if !parameters.tagLabel.isEmpty && parameters.tagOrientation == .horizontal {
                         OceanSwiftUI.Tag { tag in
                             tag.parameters.label = parameters.tagLabel
                             tag.parameters.icon = parameters.tagIcon
