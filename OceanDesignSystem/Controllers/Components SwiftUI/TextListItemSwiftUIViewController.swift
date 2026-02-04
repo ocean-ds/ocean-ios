@@ -40,6 +40,7 @@ class TextListItemSwiftUIViewController: UIViewController {
             textListItem.parameters.caption = "Caption"
             textListItem.parameters.icon = Ocean.icon.personOutline
             textListItem.parameters.hasAction = true
+            textListItem.parameters.badge = .init(count: 2, valuePrefix: "", status: .warning, size: .medium, style: .count)
             textListItem.parameters.onTouch = {
                 print("Touched!")
             }
