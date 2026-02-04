@@ -226,13 +226,12 @@ extension OceanSwiftUI {
             self.parameters = parameters
             self.foregroundColor = foregroundColor
         }
-        
-        public func makeBody(configuration: Self.Configuration) -> some View {
-            let isHugMode = self.parameters.maxWidth == nil
-            let finalForegroundColor = isHugMode && configuration.isPressed
-            ? self.getPressedForegroundColor()
-            : self.foregroundColor
 
+        private var isHugMode: Bool {
+            return parameters.maxWidth == nil
+        }
+
+        public func makeBody(configuration: Self.Configuration) -> some View {
             configuration.label
                 .font(Font(UIFont.baseBold(size: self.parameters.size.getFontSize())!))
                 .frame(maxWidth: self.parameters.maxWidth,
@@ -245,7 +244,7 @@ extension OceanSwiftUI {
                     RoundedRectangle(cornerRadius: Ocean.size.borderRadiusCircular * self.parameters.size.rawValue)
                         .fill(self.getBackgroundColor(configuration: configuration))
                 )
-                .foregroundColor(finalForegroundColor)
+                .foregroundColor(isHugMode && configuration.isPressed ? getPressedForegroundColor() : foregroundColor)
         }
 
         public func getPadding() -> CGFloat {
@@ -283,8 +282,6 @@ extension OceanSwiftUI {
                     return Color(Ocean.color.colorInterfaceLightDown)
                 }
             }
-
-            let isHugMode = self.parameters.maxWidth == nil
 
             if isHugMode {
                 return self.getBaseBackgroundColor()
