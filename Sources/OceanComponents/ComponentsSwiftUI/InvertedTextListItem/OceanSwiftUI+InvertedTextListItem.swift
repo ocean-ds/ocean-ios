@@ -25,6 +25,7 @@ extension OceanSwiftUI {
         @Published public var leadingImageUrl: String?
         @Published public var leadingImageWidth: CGFloat
         @Published public var leadingImageHeight: CGFloat
+        @Published public var badge: BadgeParameters?
         @Published public var tagLabel: String
         @Published public var tagIcon: UIImage?
         @Published public var tagStatus: TagParameters.Status
@@ -35,6 +36,8 @@ extension OceanSwiftUI {
         @Published public var padding: EdgeInsets
         @Published public var showSkeleton: Bool
         @Published public var link: LinkParameters
+        @Published public var hasAction: Bool
+        public var onTouch: () -> Void
 
         public init(title: String = "",
                     subtitle: String = "",
@@ -49,6 +52,7 @@ extension OceanSwiftUI {
                     iconColor: UIColor = Ocean.color.colorBrandPrimaryDown,
                     leadingImageWidth: CGFloat = 56,
                     leadingImageHeight: CGFloat = 56,
+                    badge: BadgeParameters? = nil,
                     tagLabel: String = "",
                     tagIcon: UIImage? = nil,
                     tagStatus: TagParameters.Status = .positive,
@@ -61,7 +65,9 @@ extension OceanSwiftUI {
                                                 bottom: Ocean.size.spacingStackXxsExtra,
                                                 trailing: Ocean.size.spacingStackXs),
                     showSkeleton: Bool = false,
-                    link: LinkParameters = .init()) {
+                    link: LinkParameters = .init(),
+                    hasAction: Bool = false,
+                    onTouch: @escaping () -> Void = { }) {
             self.title = title
             self.subtitle = subtitle
             self.showSubtitle = showSubtitle
@@ -74,6 +80,7 @@ extension OceanSwiftUI {
             self.leadingImageUrl = leadingImageUrl
             self.leadingImageWidth = leadingImageWidth
             self.leadingImageHeight = leadingImageHeight
+            self.badge = badge
             self.tagLabel = tagLabel
             self.tagIcon = tagIcon
             self.tagStatus = tagStatus
@@ -83,6 +90,8 @@ extension OceanSwiftUI {
             self.padding = padding
             self.showSkeleton = showSkeleton
             self.link = link
+            self.hasAction = hasAction
+            self.onTouch = onTouch
         }
 
         public enum State {
@@ -238,10 +247,29 @@ extension OceanSwiftUI {
                         }
                     }
                 }
+                
+                Spacer()
+                
+                if let badge = parameters.badge {
+                    OceanSwiftUI.Badge(parameters: badge)
+                        .padding(.trailing, -Ocean.size.spacingStackXxxs)
+                }
+                
+                if parameters.hasAction {
+                    Image(uiImage: Ocean.icon.chevronRightSolid)
+                        .resizable()
+                        .renderingMode(.template)
+                        .frame(width: 20, height: 20)
+                        .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
+                        .offset(x: Ocean.size.spacingStackXxs)
+                }
             }
             .padding(parameters.padding)
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
             .background(Color(parameters.backgroundColor ?? Ocean.color.colorInterfaceLightPure))
+            .onTapGesture {
+                parameters.onTouch()
+            }
         }
 
         private func getStatusColor() -> UIColor {

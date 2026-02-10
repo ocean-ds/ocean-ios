@@ -18,6 +18,11 @@ class InvertedTextListItemSwiftUIViewController: UIViewController {
         invertedListItem.parameters.caption = "caption"
         invertedListItem.parameters.status = .normal
         invertedListItem.parameters.tooltipText = "This is a test"
+        invertedListItem.parameters.badge = .init(count: 5, valuePrefix: "", status: .warning, size: .medium, style: .count, showSkeleton: false)
+        invertedListItem.parameters.hasAction = true
+        invertedListItem.parameters.onTouch = {
+            print("Touched!")
+        }
     }
 
     lazy var invertedTextListItem2 = OceanSwiftUI.InvertedTextListItem { invertedListItem in
