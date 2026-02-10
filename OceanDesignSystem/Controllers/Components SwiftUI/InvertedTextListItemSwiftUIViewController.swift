@@ -17,6 +17,7 @@ class InvertedTextListItemSwiftUIViewController: UIViewController {
         invertedListItem.parameters.subtitle = "Description"
         invertedListItem.parameters.caption = "caption"
         invertedListItem.parameters.status = .normal
+        invertedListItem.parameters.leadingImage = Ocean.icon.BmsOutline
         invertedListItem.parameters.tooltipText = "This is a test"
         invertedListItem.parameters.badge = .init(count: 5, valuePrefix: "", status: .warning, size: .medium, style: .count, showSkeleton: false)
         invertedListItem.parameters.hasAction = true
