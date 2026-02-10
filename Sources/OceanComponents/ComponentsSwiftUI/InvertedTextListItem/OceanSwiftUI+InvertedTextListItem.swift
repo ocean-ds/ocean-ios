@@ -25,6 +25,7 @@ extension OceanSwiftUI {
         @Published public var leadingImageUrl: String?
         @Published public var leadingImageWidth: CGFloat
         @Published public var leadingImageHeight: CGFloat
+        @Published public var leadingImageColor: UIColor
         @Published public var badge: BadgeParameters?
         @Published public var tagLabel: String
         @Published public var tagIcon: UIImage?
@@ -50,8 +51,9 @@ extension OceanSwiftUI {
                     leadingImageUrl: String? = nil,
                     icon: UIImage? = nil,
                     iconColor: UIColor = Ocean.color.colorBrandPrimaryDown,
-                    leadingImageWidth: CGFloat = 56,
-                    leadingImageHeight: CGFloat = 56,
+                    leadingImageWidth: CGFloat = 24,
+                    leadingImageHeight: CGFloat = 24,
+                    leadingImageColor: UIColor = Ocean.color.colorBrandPrimaryDown,
                     badge: BadgeParameters? = nil,
                     tagLabel: String = "",
                     tagIcon: UIImage? = nil,
@@ -80,6 +82,7 @@ extension OceanSwiftUI {
             self.leadingImageUrl = leadingImageUrl
             self.leadingImageWidth = leadingImageWidth
             self.leadingImageHeight = leadingImageHeight
+            self.leadingImageColor = leadingImageColor
             self.badge = badge
             self.tagLabel = tagLabel
             self.tagIcon = tagIcon
@@ -143,6 +146,8 @@ extension OceanSwiftUI {
                 } else if let image = parameters.leadingImage {
                     Image(uiImage: image)
                         .resizable()
+                        .renderingMode(.template)
+                        .foregroundColor(Color(parameters.leadingImageColor))
                         .frame(width: parameters.leadingImageWidth, height: parameters.leadingImageHeight)
                 }
                 VStack(alignment: .leading, spacing: 0) {
