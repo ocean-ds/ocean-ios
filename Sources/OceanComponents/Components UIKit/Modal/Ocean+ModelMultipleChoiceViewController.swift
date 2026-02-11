@@ -144,8 +144,8 @@ extension Ocean {
         private func addConstraintMainStack() {
             mainStack.oceanConstraints
                 .topToTop(to: view, safeArea: true)
-                .leadingToLeading(to: view, constant: Ocean.size.spacingStackSm, safeArea: true)
-                .trailingToTrailing(to: view, constant: -Ocean.size.spacingStackSm, safeArea: true)
+                .leadingToLeading(to: view, constant: Ocean.size.spacingStackXs, safeArea: true)
+                .trailingToTrailing(to: view, constant: -Ocean.size.spacingStackXs, safeArea: true)
                 .make()
         }
 
@@ -162,8 +162,8 @@ extension Ocean {
             bottomStack.oceanConstraints
                 .topToBottom(to: contentStack)
                 .bottomToBottom(to: view, safeArea: true)
-                .leadingToLeading(to: view, constant: Ocean.size.spacingStackSm, safeArea: true)
-                .trailingToTrailing(to: view, constant: -Ocean.size.spacingStackSm, safeArea: true)
+                .leadingToLeading(to: view, constant: Ocean.size.spacingStackXs, safeArea: true)
+                .trailingToTrailing(to: view, constant: -Ocean.size.spacingStackXs, safeArea: true)
                 .make()
         }
         
