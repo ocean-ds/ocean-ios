@@ -205,7 +205,7 @@ extension Ocean {
             mainStack.oceanConstraints
                 .topToTop(to: view, safeArea: true)
                 .centerX(to: view)
-                .width(constant: UIScreen.main.bounds.width - Ocean.size.spacingStackSm * 2)
+                .width(constant: UIScreen.main.bounds.width - Ocean.size.spacingStackXs * 2)
                 .make()
         }
     }
