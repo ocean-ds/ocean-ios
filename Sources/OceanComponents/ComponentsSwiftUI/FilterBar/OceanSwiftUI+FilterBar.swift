@@ -94,10 +94,10 @@ extension OceanSwiftUI {
 
         public var body: some View {
             ScrollView(.horizontal) {
-                HStack {
+                HStack(spacing: 0) {
                     Spacer(minLength: parameters.marginLeft)
 
-                    HStack(spacing: Ocean.size.spacingStackXs) {
+                    HStack(spacing: Ocean.size.spacingStackXxs) {
                         if parameters.showSkeleton {
                             ForEach(0..<3, id: \.self) { _ in
                                 Rectangle()
@@ -107,7 +107,7 @@ extension OceanSwiftUI {
                             }
                         } else {
                             ForEach(parameters.groups, id: \.id) { group in
-                                HStack(spacing: Ocean.size.spacingStackXs) {
+                                HStack(spacing: Ocean.size.spacingStackXxs) {
                                     ForEach(group.options, id: \.title) { option in
                                         itemView(option: option, group: group)
                                     }
