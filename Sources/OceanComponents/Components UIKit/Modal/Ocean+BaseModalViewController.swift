@@ -57,7 +57,7 @@ extension Ocean {
         public lazy var spTransitionDelegate: SPStorkTransitioningDelegate = {
             let delegate = SPStorkTransitioningDelegate()
             delegate.showIndicator = false
-            delegate.cornerRadius = 24
+            delegate.cornerRadius = Ocean.size.borderRadiusLg
             self.transitioningDelegate = delegate
             self.modalPresentationStyle = .custom
             self.modalPresentationCapturesStatusBarAppearance = true
