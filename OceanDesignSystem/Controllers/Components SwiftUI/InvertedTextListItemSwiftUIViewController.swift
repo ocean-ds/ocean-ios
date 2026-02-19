@@ -92,9 +92,20 @@ class InvertedTextListItemSwiftUIViewController: UIViewController {
         }
     }
 
+    lazy var invertedTextListItem11 = OceanSwiftUI.InvertedTextListItem { invertedListItem in
+        invertedListItem.parameters.title = "Com iconColor customizado"
+        invertedListItem.parameters.subtitle = "Ícone na cor de sucesso"
+        invertedListItem.parameters.icon = Ocean.icon.placeholderSolid
+        invertedListItem.parameters.iconColor = Ocean.color.colorStatusPositiveDeep
+        invertedListItem.parameters.onTouch = {
+            print("Item com iconColor tocado!")
+        }
+    }
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             invertedTextListItem10
+            invertedTextListItem11
             invertedTextListItem1
             invertedTextListItem2
             invertedTextListItem3

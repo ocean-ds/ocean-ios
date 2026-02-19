@@ -366,7 +366,6 @@ class CardGroupSwiftUIViewController: UIViewController {
                 item.parameters.subtitle = subtitle
                 item.parameters.showSubtitle = showSubtitle
                 item.parameters.caption = caption
-                item.parameters.hasCaptionBold = true
                 item.parameters.leadingImage = Ocean.icon.fingerPrintSolid
                 item.parameters.status = .highlight
                 item.parameters.backgroundColor = headerBackground

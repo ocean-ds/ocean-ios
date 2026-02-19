@@ -19,8 +19,8 @@ extension OceanSwiftUI {
         @Published public var showSubtitle: Bool
         @Published public var newSubtitle: String
         @Published public var caption: String
-        @Published public var hasCaptionBold: Bool
         @Published public var icon: UIImage?
+        @Published public var iconColor: UIColor
         @Published public var leadingImage: UIImage?
         @Published public var leadingImageUrl: String?
         @Published public var leadingImageWidth: CGFloat
@@ -46,7 +46,6 @@ extension OceanSwiftUI {
                     showSubtitle: Bool = true,
                     newSubtitle: String = "",
                     caption: String = "",
-                    hasCaptionBold: Bool = false,
                     leadingImage: UIImage? = nil,
                     leadingImageUrl: String? = nil,
                     icon: UIImage? = nil,
@@ -76,8 +75,8 @@ extension OceanSwiftUI {
             self.subtitleColor = subtitleColor
             self.newSubtitle = newSubtitle
             self.caption = caption
-            self.hasCaptionBold = hasCaptionBold
             self.icon = icon
+            self.iconColor = iconColor
             self.leadingImage = leadingImage
             self.leadingImageUrl = leadingImageUrl
             self.leadingImageWidth = leadingImageWidth
@@ -183,7 +182,7 @@ extension OceanSwiftUI {
                                 Image(uiImage: image)
                                     .resizable()
                                     .renderingMode(.template)
-                                    .foregroundColor(Color(getStatusColor()))
+                                    .foregroundColor(Color(parameters.iconColor))
                                     .frame(width: Constants.iconSize, height: Constants.iconSize)
 
                                 Spacer()
