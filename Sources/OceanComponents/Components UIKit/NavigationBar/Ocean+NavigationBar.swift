@@ -49,6 +49,10 @@ public extension OceanNavigationBar {
     }
     
     func setupNavigation() {
+        updateTitle(newTitle: navigationTitle)
+        
+        guard let navigationController = navigationController,
+            navigationController.topViewController == self else { return }
         
         let titleAttr = [
             NSAttributedString.Key.foregroundColor: navigationTintColor,
@@ -70,22 +74,21 @@ public extension OceanNavigationBar {
         navBarAppearance.shadowColor = nil
         navBarAppearance.setBackIndicatorImage(navigationBackImage, transitionMaskImage: navigationBackImage)
 
+        
         if navigationShadow {
-            navigationController?.navigationBar.ocean.shadow.applyLevel1()
-            navigationController?.navigationBar.layer.shadowOpacity = 0
+            navigationController.navigationBar.ocean.shadow.applyLevel1()
+            navigationController.navigationBar.layer.shadowOpacity = 0
         }
 
         let backButtonAppearance = UIBarButtonItemAppearance()
         backButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.clear]
         navBarAppearance.backButtonAppearance = backButtonAppearance
 
-        navigationController?.navigationBar.tintColor = navigationTintColor
-        navigationController?.navigationBar.standardAppearance = navBarAppearance
-        navigationController?.navigationBar.compactAppearance = navBarAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
-        navigationController?.navigationBar.prefersLargeTitles = navigationLargeTitle
-
-        updateTitle(newTitle: navigationTitle)
+        navigationController.navigationBar.tintColor = navigationTintColor
+        navigationController.navigationBar.standardAppearance = navBarAppearance
+        navigationController.navigationBar.compactAppearance = navBarAppearance
+        navigationController.navigationBar.scrollEdgeAppearance = navBarAppearance
+        navigationController.navigationBar.prefersLargeTitles = navigationLargeTitle
     }
     
     func updateTitle(newTitle: String) {
