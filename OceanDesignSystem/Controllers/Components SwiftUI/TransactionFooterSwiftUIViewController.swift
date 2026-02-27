@@ -35,8 +35,21 @@ class TransactionFooterSwiftUIViewController: UIViewController {
         ]
     }
 
+    private lazy var transactionFooterWithCaption = OceanSwiftUI.TransactionFooter { view in
+        view.parameters.primaryButton = .init(text: "Agendar", style: .primary, onTouch: { print("Agendar") })
+        view.parameters.buttonOrientation = .vertical
+        view.parameters.items = [
+            .init(text: "Total a pagar",
+                  value: "R$ 5.000,00",
+                  isBoldValue: true,
+                  caption: "Se não houver saldo atual, pode ser cobrada taxa de antecipação.")
+        ]
+    }
+
     private lazy var hostingController = UIHostingController(rootView: VStack {
         Spacer()
+        Divider()
+        transactionFooterWithCaption
         Divider()
         transactionFooterWithButtonsVertical
     })
