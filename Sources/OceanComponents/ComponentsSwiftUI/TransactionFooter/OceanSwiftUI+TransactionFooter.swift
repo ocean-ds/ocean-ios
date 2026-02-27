@@ -55,6 +55,7 @@ extension OceanSwiftUI {
             @Published public var isBoldValue: Bool
             @Published public var newValue: String
             @Published public var newValueColor: UIColor
+            @Published public var caption: String
             @Published public var imageIcon: UIImage?
             @Published public var imageColor: UIColor
 
@@ -64,6 +65,7 @@ extension OceanSwiftUI {
                         isBoldValue: Bool = false,
                         newValue: String = "",
                         newValueColor: UIColor = Ocean.color.colorStatusPositiveDeep,
+                        caption: String = "",
                         imageIcon: UIImage? = nil,
                         imageColor: UIColor = Ocean.color.colorStatusPositiveDeep) {
                 self.text = text
@@ -72,6 +74,7 @@ extension OceanSwiftUI {
                 self.isBoldValue = isBoldValue
                 self.newValue = newValue
                 self.newValueColor = newValueColor
+                self.caption = caption
                 self.imageIcon = imageIcon
                 self.imageColor = imageColor
             }
@@ -136,39 +139,49 @@ extension OceanSwiftUI {
 
         @ViewBuilder
         private func getItemView(item: TransactionFooterParameters.ItemModel) -> some View {
-            HStack {
-                Typography.paragraph { label in
-                    label.parameters.text = item.text
+            VStack(alignment: .leading, spacing: 0) {
+                HStack {
+                    Typography.paragraph { label in
+                        label.parameters.text = item.text
+                    }
+
+                    Spacer()
+
+                    if let icon = item.imageIcon {
+                        Image(uiImage: icon.withRenderingMode(.alwaysTemplate))
+                            .resizable()
+                            .renderingMode(.template)
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(Color(item.imageColor))
+                    }
+
+                    if !item.newValue.isEmpty, !item.value.isEmpty {
+                        Typography.paragraph { label in
+                            label.parameters.text = item.value
+                            label.parameters.textColor = item.valueColor
+                            label.parameters.strikethrough = true
+                        }
+                        Typography.paragraph { label in
+                            label.parameters.text = item.newValue
+                            label.parameters.textColor = item.newValueColor
+                        }
+                    } else {
+                        Typography.paragraph { label in
+                            label.parameters.text = item.value
+                            label.parameters.textColor = item.valueColor
+                            label.parameters.font = item.isBoldValue
+                                ? .baseBold(size: Ocean.font.fontSizeXs)
+                                : .baseRegular(size: Ocean.font.fontSizeXs)
+                        }
+                    }
                 }
 
-                Spacer()
-
-                if let icon = item.imageIcon {
-                    Image(uiImage: icon.withRenderingMode(.alwaysTemplate))
-                        .resizable()
-                        .renderingMode(.template)
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(Color(item.imageColor))
-                }
-
-                if !item.newValue.isEmpty, !item.value.isEmpty {
-                    Typography.paragraph { label in
-                        label.parameters.text = item.value
-                        label.parameters.textColor = item.valueColor
-                        label.parameters.strikethrough = true
+                if !item.caption.isEmpty {
+                    Typography.caption { label in
+                        label.parameters.text = item.caption
+                        label.parameters.textColor = Ocean.color.colorInterfaceDarkUp
                     }
-                    Typography.paragraph { label in
-                        label.parameters.text = item.newValue
-                        label.parameters.textColor = item.newValueColor
-                    }
-                } else {
-                    Typography.paragraph { label in
-                        label.parameters.text = item.value
-                        label.parameters.textColor = item.valueColor
-                        label.parameters.font = item.isBoldValue
-                            ? .baseBold(size: Ocean.font.fontSizeXs)
-                            : .baseRegular(size: Ocean.font.fontSizeXs)
-                    }
+                    .padding(.top, Ocean.size.spacingStackXxs)
                 }
             }
         }
