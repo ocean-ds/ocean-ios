@@ -14,6 +14,8 @@ extension OceanSwiftUI {
     // MARK: Parameters
 
     public class TransactionListItemParameters: ObservableObject {
+        @Published public var icon: UIImage?
+        @Published public var iconColor: UIColor
         @Published public var level1: String
         @Published public var level2: String
         @Published public var level3: String
@@ -48,7 +50,9 @@ extension OceanSwiftUI {
             }
         }
 
-        public init(level1: String = "",
+        public init(icon: UIImage? = nil,
+                    iconColor: UIColor = Ocean.color.colorInterfaceDarkUp,
+                    level1: String = "",
                     level2: String = "",
                     level3: String = "",
                     level4: String = "",
@@ -72,6 +76,8 @@ extension OceanSwiftUI {
                     lineLimitLevel3: Int? = nil,
                     onSelection: @escaping (Bool) -> Void = { _ in },
                     onTouch: @escaping () -> Void = { }) {
+            self.icon = icon
+            self.iconColor = iconColor
             self.level1 = level1
             self.level2 = level2
             self.level3 = level3
@@ -126,19 +132,19 @@ extension OceanSwiftUI {
             self.parameters = parameters
         }
 
-        public init(builder: Builder) {
-            self.init()
+        public init(parameters: TransactionListItemParameters = TransactionListItemParameters(), builder: Builder) {
+            self.init(parameters: parameters)
             builder(self)
         }
 
         // MARK: View SwiftUI
         public var body: some View {
             VStack(spacing: 0) {
-                HStack(spacing: Ocean.size.spacingStackXxs) {
-                    if parameters.hasCheckbox {
-                        leadingView
-                    }
+                HStack(spacing: 0) {
+                    leadingView
+                    
                     centerView
+                    
                     trailingView
                 }
                 .padding(parameters.padding)
@@ -158,24 +164,33 @@ extension OceanSwiftUI {
         @ViewBuilder
         private var leadingView: some View {
             HStack(spacing: 0) {
-                OceanSwiftUI.CheckboxGroup { group in
-                    group.parameters.hasError = parameters.hasError
-                    group.parameters.items = [.init(isSelected: parameters.isSelected,
-                                                    isEnabled: parameters.isEnabled)]
-                    group.parameters.onTouch = { items in
-                        guard let item = items.first else { return }
-                        parameters.onSelection(item.isSelected)
+                if let icon = parameters.icon {
+                    Image(uiImage: icon)
+                        .renderingMode(.template)
+                        .foregroundColor(Color(parameters.iconColor))
+                    
+                    Spacer()
+                        .frame(width: Ocean.size.spacingStackXxsExtra)
+                } else if parameters.hasCheckbox {
+                    OceanSwiftUI.CheckboxGroup { group in
+                        group.parameters.hasError = parameters.hasError
+                        group.parameters.items = [.init(isSelected: parameters.isSelected,
+                                                        isEnabled: parameters.isEnabled)]
+                        group.parameters.onTouch = { items in
+                            guard let item = items.first else { return }
+                            parameters.onSelection(item.isSelected)
+                        }
                     }
+                    
+                    Spacer()
+                        .frame(width: Ocean.size.spacingStackXxsExtra)
                 }
-
-                Spacer()
-                    .frame(width: Ocean.size.spacingStackXxs)
             }
         }
 
         @ViewBuilder
         private var centerView: some View {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 0) {
                 if !parameters.level4.isEmpty {
                     OceanSwiftUI.Typography.caption { label in
                         label.parameters.text = parameters.level4
@@ -231,6 +246,7 @@ extension OceanSwiftUI {
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.trailing, Ocean.size.spacingStackXxxs)
         }
 
         private func getValue1Color() -> UIColor {
