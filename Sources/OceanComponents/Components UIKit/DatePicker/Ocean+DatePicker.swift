@@ -52,7 +52,35 @@ extension Ocean {
         public var isTodaySelectable: Bool = true
         public var onReleaseCalendar: ((Date) -> Void)?
         public var onCancel: (() -> Void)?
-        
+        public var tooltipConfiguration: TooltipConfiguration?
+
+        // MARK: - TooltipConfiguration
+
+        public struct TooltipConfiguration {
+            public var text: String
+            public var date: Date
+            public var showOnOpen: Bool
+            public var showOnDateTap: Bool
+            public var position: Ocean.Tooltip.Position
+            public var onTooltipTouch: (() -> Void)?
+
+            public init(
+                text: String,
+                date: Date,
+                showOnOpen: Bool = false,
+                showOnDateTap: Bool = true,
+                position: Ocean.Tooltip.Position = .bottom,
+                onTooltipTouch: (() -> Void)? = nil
+            ) {
+                self.text = text
+                self.date = date.onlyDate
+                self.showOnOpen = showOnOpen
+                self.showOnDateTap = showOnDateTap
+                self.position = position
+                self.onTooltipTouch = onTooltipTouch
+            }
+        }
+
         // MARK: Main View
         
         private lazy var titleLabel: UILabel = {
@@ -191,6 +219,11 @@ extension Ocean {
             super.viewWillAppear(animated)
             setupNavigation()
         }
+
+        public override func viewDidAppear(_ animated: Bool) {
+            super.viewDidAppear(animated)
+            tryShowTooltipOnOpen()
+        }
         
         // MARK: Setup
         
@@ -251,6 +284,10 @@ extension Ocean {
         public func calendar(_ calendar: FSCalendar,
                              shouldSelect date: Date,
                              at monthPosition: FSCalendarMonthPosition) -> Bool {
+            let dateOnly = date.onlyDate
+            if let config = tooltipConfiguration, config.showOnDateTap, getFormatedDate(date: config.date) == getFormatedDate(date: dateOnly) {
+                showTooltip(for: dateOnly, at: monthPosition)
+            }
             return isDateEnabled(date: date) ? true : false
         }
 
@@ -342,6 +379,26 @@ extension Ocean {
         
         @objc private func nextMonth() {
             calendar.setCurrentPage(getNextMonth(date: calendar.currentPage), animated: true)
+        }
+
+        private func tryShowTooltipOnOpen() {
+            guard let config = tooltipConfiguration, config.showOnOpen else { return }
+            let configDate = config.date
+            let currentPage = calendar.currentPage
+            let calendar = Calendar.current
+            guard calendar.isDate(configDate, equalTo: currentPage, toGranularity: .month) else { return }
+            showTooltip(for: configDate, at: .current)
+        }
+
+        private func showTooltip(for date: Date, at monthPosition: FSCalendarMonthPosition) {
+            guard let config = tooltipConfiguration else { return }
+            guard let cell = calendar.cell(for: date, at: monthPosition) else { return }
+            let tooltip = Ocean.Tooltip { tip in
+                tip.message = config.text
+                tip.onTouch = config.onTooltipTouch
+                tip.indicatorMargin = Ocean.size.spacingStackXxxs
+            }
+            tooltip.show(target: cell, position: config.position, presenter: view)
         }
     }
 }
