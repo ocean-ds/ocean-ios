@@ -35,7 +35,10 @@ extension OceanSwiftUI {
         @Published public var isEnabled: Bool
         @Published public var isSelected: Bool
         @Published public var padding: EdgeInsets
+        @Published public var lineLimitLevel1: Int?
+        @Published public var lineLimitLevel2: Int?
         @Published public var lineLimitLevel3: Int?
+        @Published public var lineLimitLevel4: Int?
         @Published public var iconLineTop: Bool
         @Published public var iconLineBottom: Bool
         public var onSelection: (Bool) -> Void
@@ -75,7 +78,10 @@ extension OceanSwiftUI {
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXs,
                                                 trailing: Ocean.size.spacingStackXs),
+                    lineLimitLevel1: Int? = nil,
+                    lineLimitLevel2: Int? = nil,
                     lineLimitLevel3: Int? = nil,
+                    lineLimitLevel4: Int? = nil,
                     iconLineTop: Bool = false,
                     iconLineBottom: Bool = false,
                     onSelection: @escaping (Bool) -> Void = { _ in },
@@ -99,7 +105,10 @@ extension OceanSwiftUI {
             self.isEnabled = isEnabled
             self.isSelected = isSelected
             self.padding = padding
+            self.lineLimitLevel1 = lineLimitLevel1
+            self.lineLimitLevel2 = lineLimitLevel2
             self.lineLimitLevel3 = lineLimitLevel3
+            self.lineLimitLevel4 = lineLimitLevel4
             self.iconLineTop = iconLineTop
             self.iconLineBottom = iconLineBottom
             self.hasChevron = hasChevron
@@ -217,7 +226,7 @@ extension OceanSwiftUI {
                         label.parameters.textColor = parameters.isEnabled
                         ? Ocean.color.colorBrandPrimaryDeep
                         : Ocean.color.colorInterfaceDarkUp
-                        label.parameters.lineLimit = 1
+                        label.parameters.lineLimit = parameters.lineLimitLevel4 ?? 1
                         label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
                     }
 
@@ -226,13 +235,12 @@ extension OceanSwiftUI {
                 }
 
                 if !parameters.level1.isEmpty {
-                    OceanSwiftUI.Typography.heading4 { label in
+                    OceanSwiftUI.Typography.description { label in
                         label.parameters.text = parameters.level1
                         label.parameters.textColor = parameters.isEnabled
-                        ? Ocean.color.colorInterfaceDarkDeep
+                        ? Ocean.color.colorInterfaceDarkDown
                         : Ocean.color.colorInterfaceDarkUp
-                        label.parameters.lineLimit = 2
-                        label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXs)
+                        label.parameters.lineLimit = parameters.lineLimitLevel1 ?? 2
                     }
                 }
 
@@ -243,13 +251,12 @@ extension OceanSwiftUI {
                             .frame(height: Ocean.size.spacingStackXxxs)
                     }
 
-                    OceanSwiftUI.Typography.description { label in
+                    OceanSwiftUI.Typography.paragraph { label in
                         label.parameters.text = parameters.level2
                         label.parameters.textColor = parameters.isEnabled
-                        ? Ocean.color.colorInterfaceDarkDown
+                        ? Ocean.color.colorInterfaceDarkDeep
                         : Ocean.color.colorInterfaceDarkUp
-                        label.parameters.lineLimit = 1
-                        label.parameters.font = .baseRegular(size: Ocean.font.fontSizeXxs)
+                        label.parameters.lineLimit = parameters.lineLimitLevel2 ?? 1
                     }
                 }
 
@@ -257,9 +264,11 @@ extension OceanSwiftUI {
                     Spacer()
                         .frame(height: Ocean.size.spacingStackXxs)
 
-                    OceanSwiftUI.Typography.description { label in
+                    OceanSwiftUI.Typography.captionBold { label in
                         label.parameters.text = parameters.level3
-                        label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                        label.parameters.textColor = parameters.isEnabled
+                        ? Ocean.color.colorInterfaceDarkDown
+                        : Ocean.color.colorInterfaceDarkUp
                         label.parameters.lineLimit = parameters.lineLimitLevel3 ?? 1
                         label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
                     }

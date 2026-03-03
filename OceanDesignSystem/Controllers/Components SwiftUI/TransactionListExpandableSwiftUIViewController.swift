@@ -10,7 +10,7 @@ import OceanTokens
 import SwiftUI
 
 class TransactionListExpandableSwiftUIViewController: UIViewController {
-    public lazy var transactionListExpandable: OceanSwiftUI.TransactionListExpandable = {
+    public lazy var transactionListExpandable1: OceanSwiftUI.TransactionListExpandable = {
         OceanSwiftUI.TransactionListExpandable { view in
             view.parameters.item = .init(level2: "Cancelamento de retenções", value1: 1850.00, value1Status: .positive, hasDivider: false)
             view.parameters.items = [
@@ -22,11 +22,25 @@ class TransactionListExpandableSwiftUIViewController: UIViewController {
         }
     }()
     
+    public lazy var transactionListExpandable2: OceanSwiftUI.TransactionListExpandable = {
+        OceanSwiftUI.TransactionListExpandable { view in
+            view.parameters.item = .init(level2: "Retenções", value1: -1850.00, value1Status: .neutral, hasDivider: false)
+            view.parameters.items = [
+                .init(icon: Ocean.icon.lockClosedSolid, level1: "Retenção de saldo", level2: "Boleto de Blu Instituição de Pagamentos LTDA", value1: -150.00, value1Status: .neutral, hasDivider: false, hasChevron: true),
+                .init(icon: Ocean.icon.lockClosedSolid, level1: "Retenção de saldo", level2: "Boleto de Blu Instituição de Pagamentos LTDA", value1: -200.00, value1Status: .neutral, hasDivider: false, hasChevron: true),
+                .init(icon: Ocean.icon.lockClosedSolid, level1: "Retenção de saldo", level2: "Boleto de Blu Instituição de Pagamentos LTDA", value1: -1500.00, value1Status: .neutral, hasDivider: false, hasChevron: true)
+            ]
+            view.parameters.bottomMessage = "Fim das retenções de saldo"
+        }
+    }()
+    
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
-            Spacer(minLength: 40)
+            Spacer(minLength: Ocean.size.spacingStackSm)
             
-            transactionListExpandable
+            transactionListExpandable1
+            
+            transactionListExpandable2
         }
     })
     

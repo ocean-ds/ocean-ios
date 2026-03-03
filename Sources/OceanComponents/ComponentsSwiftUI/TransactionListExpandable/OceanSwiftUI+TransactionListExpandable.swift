@@ -129,9 +129,7 @@ extension OceanSwiftUI {
                         .padding(.bottom, Ocean.size.spacingStackSm)
                         .hideIfEmpty(parameters.bottomMessage)
                     }
-                    .padding(.bottom, Ocean.size.spacingStackXxs)
                 }
-                
                 
                 OceanSwiftUI.Divider()
             }
