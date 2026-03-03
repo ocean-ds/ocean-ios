@@ -13,19 +13,19 @@ extension OceanSwiftUI {
     // MARK: Parameters
     
     public class TransactionListExpandableParameters: ObservableObject {
-        @Published public var item: TransactionListItemParameters
-        @Published public var items: [TransactionListItemParameters]
+        @Published public var parent: TransactionListItemParameters
+        @Published public var children: [TransactionListItemParameters]
         @Published public var bottomMessage: String
         @Published public var status: Status
         @Published public var isEnabled: Bool
         
-        public init(item: TransactionListItemParameters = .init(),
-                    items: [TransactionListItemParameters] = [],
+        public init(parent: TransactionListItemParameters = .init(),
+                    children: [TransactionListItemParameters] = [],
                     bottomMessage: String = "",
                     status: Status = .collapsed,
                     isEnabled: Bool = true) {
-            self.item = item
-            self.items = items
+            self.parent = parent
+            self.children = children
             self.bottomMessage = bottomMessage
             self.status = status
             self.isEnabled = isEnabled
@@ -71,7 +71,7 @@ extension OceanSwiftUI {
         public var body: some View {
             VStack(alignment: .leading, spacing: 0) {
                 HStack(spacing: 0) {
-                    getItemTransactionItem()
+                    getParentTransactionItem()
                     
                     Image(uiImage: Ocean.icon.chevronDownSolid)
                         .resizable()
@@ -93,8 +93,8 @@ extension OceanSwiftUI {
                 
                 if parameters.status == .expanded {
                     VStack(alignment: .leading, spacing: 0) {
-                        ForEach(parameters.items.indices, id: \.self) { index in
-                            getChildTransactionItem(for: parameters.items[index], index: index)
+                        ForEach(parameters.children.indices, id: \.self) { index in
+                            getChildTransactionItem(for: parameters.children[index], index: index)
                         }
                         
                         HStack(alignment: .center, spacing: 0) {
@@ -120,8 +120,8 @@ extension OceanSwiftUI {
         }
         
         @ViewBuilder
-        public func getItemTransactionItem() -> OceanSwiftUI.TransactionListItem {
-            let item = parameters.item
+        public func getParentTransactionItem() -> OceanSwiftUI.TransactionListItem {
+            let item = parameters.parent
             item.padding = .init(top: Ocean.size.spacingStackXs,
                                  leading: Ocean.size.spacingStackXs,
                                  bottom: Ocean.size.spacingStackXs,
@@ -134,7 +134,7 @@ extension OceanSwiftUI {
         private func getChildTransactionItem(for item: TransactionListItemParameters, index: Int) -> OceanSwiftUI.TransactionListItem {
             item.iconColor = Ocean.color.colorInterfaceLightDown
             item.iconLineTop = index != 0
-            item.iconLineBottom = index != parameters.items.count - 1
+            item.iconLineBottom = index != parameters.children.count - 1
             item.level1Style = .captionBold
             item.level2Style = .description
             item.level3Style = .captionBold
