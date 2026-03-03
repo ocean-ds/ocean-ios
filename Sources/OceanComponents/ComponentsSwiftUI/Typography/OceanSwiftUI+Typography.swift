@@ -107,13 +107,13 @@ extension OceanSwiftUI {
                 case .heading3, .heading3Inverse:
                     return Ocean.font.lineHeightMedium
                 case .heading4, .heading4Inverse:
-                    return Ocean.font.lineHeightMedium
+                    return Ocean.font.lineHeightLoose
                 case .heading5, .heading5Inverse:
-                    return Ocean.font.lineHeightMedium
+                    return Ocean.font.lineHeightLoose
                 case .subTitle1, .subTitle1Inverse:
-                    return Ocean.font.lineHeightMedium
+                    return Ocean.font.lineHeightLoose
                 case .subTitle2, .subTitle2Inverse:
-                    return Ocean.font.lineHeightMedium
+                    return Ocean.font.lineHeightLoose
                 default:
                     return Ocean.font.lineHeightComfy
                 }
