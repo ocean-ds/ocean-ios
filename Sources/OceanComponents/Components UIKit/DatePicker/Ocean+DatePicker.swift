@@ -52,7 +52,7 @@ extension Ocean {
         public var isTodaySelectable: Bool = true
         public var onReleaseCalendar: ((Date) -> Void)?
         public var onCancel: (() -> Void)?
-        public var tooltipConfiguration: TooltipConfiguration?
+        public var tooltipConfigurations: [Date: TooltipConfiguration] = [:]
 
         // MARK: - TooltipConfiguration
 
@@ -285,8 +285,8 @@ extension Ocean {
                              shouldSelect date: Date,
                              at monthPosition: FSCalendarMonthPosition) -> Bool {
             let dateOnly = date.onlyDate
-            if let config = tooltipConfiguration, config.showOnDateTap, getFormatedDate(date: config.date) == getFormatedDate(date: dateOnly) {
-                showTooltip(for: dateOnly, at: monthPosition)
+            if let config = tooltipConfigurations[dateOnly], config.showOnDateTap {
+                showTooltip(for: dateOnly, at: monthPosition, config: config)
             }
             return isDateEnabled(date: date) ? true : false
         }
@@ -382,16 +382,15 @@ extension Ocean {
         }
 
         private func tryShowTooltipOnOpen() {
-            guard let config = tooltipConfiguration, config.showOnOpen else { return }
-            let configDate = config.date
             let currentPage = calendar.currentPage
-            let calendar = Calendar.current
-            guard calendar.isDate(configDate, equalTo: currentPage, toGranularity: .month) else { return }
-            showTooltip(for: configDate, at: .current)
+            let cal = Calendar.current
+            for (configDate, config) in tooltipConfigurations where config.showOnOpen {
+                guard cal.isDate(configDate, equalTo: currentPage, toGranularity: .month) else { continue }
+                showTooltip(for: configDate, at: .current, config: config)
+            }
         }
 
-        private func showTooltip(for date: Date, at monthPosition: FSCalendarMonthPosition) {
-            guard let config = tooltipConfiguration else { return }
+        private func showTooltip(for date: Date, at monthPosition: FSCalendarMonthPosition, config: TooltipConfiguration) {
             guard let cell = calendar.cell(for: date, at: monthPosition) else { return }
             let tooltip = Ocean.Tooltip { tip in
                 tip.message = config.text
