@@ -211,6 +211,7 @@ extension Ocean {
         }
 
         @objc private func tooltipAction(_ sender: Any) {
+            self.onTouch?()
             self.removeFromSuperview()
         }
     }
