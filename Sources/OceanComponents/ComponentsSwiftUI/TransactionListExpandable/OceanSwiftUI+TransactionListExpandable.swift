@@ -103,6 +103,9 @@ extension OceanSwiftUI {
                     VStack(alignment: .leading, spacing: 0) {
                         ForEach(parameters.items.indices, id: \.self) { index in
                             OceanSwiftUI.TransactionListItem(parameters: parameters.items[index]) { view in
+                                view.parameters.iconColor = Ocean.color.colorInterfaceLightDown
+                                view.parameters.iconLineTop = index != 0
+                                view.parameters.iconLineBottom = index != parameters.items.count - 1
                                 view.parameters.padding = .init(top: Ocean.size.spacingStackXxsExtra,
                                                                 leading: Ocean.size.spacingStackXs,
                                                                 bottom: Ocean.size.spacingStackXxsExtra,

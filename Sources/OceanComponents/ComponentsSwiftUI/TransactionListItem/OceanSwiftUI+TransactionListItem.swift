@@ -36,6 +36,8 @@ extension OceanSwiftUI {
         @Published public var isSelected: Bool
         @Published public var padding: EdgeInsets
         @Published public var lineLimitLevel3: Int?
+        @Published public var iconLineTop: Bool
+        @Published public var iconLineBottom: Bool
         public var onSelection: (Bool) -> Void
         public var onTouch: () -> Void
 
@@ -74,6 +76,8 @@ extension OceanSwiftUI {
                                                 bottom: Ocean.size.spacingStackXs,
                                                 trailing: Ocean.size.spacingStackXs),
                     lineLimitLevel3: Int? = nil,
+                    iconLineTop: Bool = false,
+                    iconLineBottom: Bool = false,
                     onSelection: @escaping (Bool) -> Void = { _ in },
                     onTouch: @escaping () -> Void = { }) {
             self.icon = icon
@@ -96,6 +100,8 @@ extension OceanSwiftUI {
             self.isSelected = isSelected
             self.padding = padding
             self.lineLimitLevel3 = lineLimitLevel3
+            self.iconLineTop = iconLineTop
+            self.iconLineBottom = iconLineBottom
             self.hasChevron = hasChevron
             self.onSelection = onSelection
             self.onTouch = onTouch
@@ -165,9 +171,23 @@ extension OceanSwiftUI {
         private var leadingView: some View {
             HStack(spacing: 0) {
                 if let icon = parameters.icon {
-                    Image(uiImage: icon)
-                        .renderingMode(.template)
-                        .foregroundColor(Color(parameters.iconColor))
+                    VStack(alignment: .center, spacing: Ocean.size.spacingStackXxxs) {
+                        OceanSwiftUI.Divider { view in
+                            view.parameters.axis = .vertical
+                        }
+                        .opacity(parameters.iconLineTop ? 1 : 0)
+                        
+                        
+                        Image(uiImage: icon)
+                            .renderingMode(.template)
+                            .foregroundColor(Color(parameters.iconColor))
+                        
+                        OceanSwiftUI.Divider { view in
+                            view.parameters.axis = .vertical
+                        }
+                        .opacity(parameters.iconLineBottom ? 1 : 0)
+                    }
+                    .padding(.vertical, -Ocean.size.spacingStackXs)
                     
                     Spacer()
                         .frame(width: Ocean.size.spacingStackXxsExtra)
