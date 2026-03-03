@@ -31,6 +31,7 @@ extension OceanSwiftUI {
         @Published public var value1Style: TypographyParameters.Style
         @Published public var value2Style: TypographyParameters.Style
         @Published public var value3Style: TypographyParameters.Style
+        @Published public var value1Color: UIColor?
         @Published public var value1Status: ValueStatus
         @Published public var tagIcon: UIImage?
         @Published public var tagTitle: String
@@ -78,6 +79,7 @@ extension OceanSwiftUI {
                     value1Style: TypographyParameters.Style = .heading4,
                     value2Style: TypographyParameters.Style = .description,
                     value3Style: TypographyParameters.Style = .description,
+                    value1Color: UIColor? = nil,
                     value1Status: ValueStatus = .neutral,
                     tagIcon: UIImage? = nil,
                     tagTitle: String = "",
@@ -91,7 +93,7 @@ extension OceanSwiftUI {
                     padding: EdgeInsets = .init(top: Ocean.size.spacingStackXs,
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXs,
-                                                trailing: Ocean.size.spacingStackXs),
+                                                trailing: Ocean.size.spacingStackXxs),
                     lineLimitLevel1: Int? = nil,
                     lineLimitLevel2: Int? = nil,
                     lineLimitLevel3: Int? = nil,
@@ -116,6 +118,7 @@ extension OceanSwiftUI {
             self.value1Style = value1Style
             self.value2Style = value2Style
             self.value3Style = value3Style
+            self.value1Color = value1Color
             self.value1Status = value1Status
             self.tagIcon = tagIcon
             self.tagTitle = tagTitle
@@ -143,6 +146,47 @@ extension OceanSwiftUI {
             case negative
             case processing
             case cancelled
+        }
+        
+        func duplicate() -> TransactionListItemParameters {
+            return TransactionListItemParameters(
+                icon: self.icon,
+                iconColor: self.iconColor,
+                level1: self.level1,
+                level2: self.level2,
+                level3: self.level3,
+                level4: self.level4,
+                level1Style: self.level1Style,
+                level2Style: self.level2Style,
+                level3Style: self.level3Style,
+                level4Style: self.level4Style,
+                value1: self.value1,
+                value2: self.value2,
+                value3: self.value3,
+                value1Style: self.value1Style,
+                value2Style: self.value2Style,
+                value3Style: self.value3Style,
+                value1Color: self.value1Color,
+                value1Status: self.value1Status,
+                tagIcon: self.tagIcon,
+                tagTitle: self.tagTitle,
+                tagStatus: self.tagStatus,
+                hasDivider: self.hasDivider,
+                hasChevron: self.hasChevron,
+                hasCheckbox: self.hasCheckbox,
+                hasError: self.hasError,
+                isEnabled: self.isEnabled,
+                isSelected: self.isSelected,
+                padding: self.padding,
+                lineLimitLevel1: self.lineLimitLevel1,
+                lineLimitLevel2: self.lineLimitLevel2,
+                lineLimitLevel3: self.lineLimitLevel3,
+                lineLimitLevel4: self.lineLimitLevel4,
+                iconLineTop: self.iconLineTop,
+                iconLineBottom: self.iconLineBottom,
+                onSelection: self.onSelection,
+                onTouch: self.onTouch
+            )
         }
     }
 
@@ -330,7 +374,7 @@ extension OceanSwiftUI {
                             label.parameters.text = "\(parameters.sign) \(parameters.value1.toCurrency(symbolSpace: true) ?? " R$ 0,00")"
                         }
                         label.parameters.style = parameters.value1Style
-                        label.parameters.textColor = getValue1Color()
+                        label.parameters.textColor = parameters.value1Color ?? getValue1Color()
                         label.parameters.lineLimit = 1
                         label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
                         label.parameters.strikethrough = parameters.value1Status == .cancelled

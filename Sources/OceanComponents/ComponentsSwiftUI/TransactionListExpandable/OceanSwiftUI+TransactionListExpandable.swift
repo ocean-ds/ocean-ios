@@ -119,32 +119,33 @@ extension OceanSwiftUI {
             }
         }
         
-        @ViewBuilder
         public func getParentTransactionItem() -> OceanSwiftUI.TransactionListItem {
-            let item = parameters.parent
-            item.padding = .init(top: Ocean.size.spacingStackXs,
+            let parent = parameters.parent.duplicate()
+            parent.padding = .init(top: Ocean.size.spacingStackXs,
                                  leading: Ocean.size.spacingStackXs,
                                  bottom: Ocean.size.spacingStackXs,
                                  trailing: Ocean.size.spacingStackXxsExtra)
-            item.onTouch = { toggleStatus() }
-            return OceanSwiftUI.TransactionListItem(parameters: item)
+            parent.onTouch = { toggleStatus() }
+            return OceanSwiftUI.TransactionListItem(parameters: parent)
         }
         
         @ViewBuilder
         private func getChildTransactionItem(for item: TransactionListItemParameters, index: Int) -> OceanSwiftUI.TransactionListItem {
-            item.iconColor = Ocean.color.colorInterfaceLightDown
-            item.iconLineTop = index != 0
-            item.iconLineBottom = index != parameters.children.count - 1
-            item.level1Style = .captionBold
-            item.level2Style = .description
-            item.level3Style = .captionBold
-            item.value1Style = .heading5
-            item.padding = .init(top: Ocean.size.spacingStackXxsExtra,
-                                 leading: Ocean.size.spacingStackXs,
-                                 bottom: Ocean.size.spacingStackXxsExtra,
-                                 trailing: Ocean.size.spacingStackXxs)
+            let newItem = item.duplicate()
+            newItem.iconColor = Ocean.color.colorInterfaceLightDown
+            newItem.iconLineTop = index != 0
+            newItem.iconLineBottom = index != parameters.children.count - 1
+            newItem.level1Style = .captionBold
+            newItem.level2Style = .description
+            newItem.level3Style = .captionBold
+            newItem.value1Style = .heading5
+            newItem.value1Color = newItem.value1Status == .neutral ? Ocean.color.colorInterfaceDarkDown : nil
+            newItem.padding = .init(top: Ocean.size.spacingStackXxsExtra,
+                                    leading: Ocean.size.spacingStackXs,
+                                    bottom: Ocean.size.spacingStackXxsExtra,
+                                    trailing: Ocean.size.spacingStackXxs)
             
-            return OceanSwiftUI.TransactionListItem(parameters: item)
+            return OceanSwiftUI.TransactionListItem(parameters: newItem)
         }
         
         private func toggleStatus() {
