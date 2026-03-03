@@ -10,194 +10,168 @@ import OceanTokens
 extension OceanSwiftUI.Typography {
     public static func heading1(builder: OceanSwiftUI.Typography.Builder? = nil) -> OceanSwiftUI.Typography {
         return OceanSwiftUI.Typography { label in
-            label.parameters.font = .highlightExtraBold(size: Ocean.font.fontSizeLg)
-            label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
-            label.parameters.lineSpacing = Ocean.font.lineHeightMedium
+            label.parameters.style = .heading1
             builder?(label)
         }
     }
 
     public static func heading2(builder: OceanSwiftUI.Typography.Builder? = nil) -> OceanSwiftUI.Typography {
         return OceanSwiftUI.Typography { label in
-            label.parameters.font = .highlightExtraBold(size: Ocean.font.fontSizeMd)
-            label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
-            label.parameters.lineSpacing = Ocean.font.lineHeightMedium
+            label.parameters.style = .heading2
             builder?(label)
         }
     }
 
     public static func heading3(builder: OceanSwiftUI.Typography.Builder? = nil) -> OceanSwiftUI.Typography {
         return OceanSwiftUI.Typography { label in
-            label.parameters.font = .highlightExtraBold(size: Ocean.font.fontSizeSm)
-            label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
-            label.parameters.lineSpacing = Ocean.font.lineHeightMedium
+            label.parameters.style = .heading3
             builder?(label)
         }
     }
 
     public static func heading4(builder: OceanSwiftUI.Typography.Builder? = nil) -> OceanSwiftUI.Typography {
         return OceanSwiftUI.Typography { label in
-            label.parameters.font = .highlightBold(size: Ocean.font.fontSizeXs)
-            label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
-            label.parameters.lineSpacing = Ocean.font.lineHeightMedium
+            label.parameters.style = .heading4
             builder?(label)
         }
     }
 
     public static func heading5(builder: OceanSwiftUI.Typography.Builder? = nil) -> OceanSwiftUI.Typography {
         return OceanSwiftUI.Typography { label in
-            label.parameters.font = .highlightBold(size: Ocean.font.fontSizeXxs)
-            label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
-            label.parameters.lineSpacing = Ocean.font.lineHeightMedium
+            label.parameters.style = .heading5
             builder?(label)
         }
     }
 
     public static func heading1Inverse(builder: OceanSwiftUI.Typography.Builder? = nil) -> OceanSwiftUI.Typography {
-        return OceanSwiftUI.Typography.heading1 { label in
+        return OceanSwiftUI.Typography { label in
+            label.parameters.style = .heading1Inverse
             builder?(label)
-            label.parameters.textColor = Ocean.color.colorInterfaceLightPure
         }
     }
 
     public static func heading2Inverse(builder: OceanSwiftUI.Typography.Builder? = nil) -> OceanSwiftUI.Typography {
-        return OceanSwiftUI.Typography.heading2 { label in
+        return OceanSwiftUI.Typography { label in
+            label.parameters.style = .heading2Inverse
             builder?(label)
-            label.parameters.textColor = Ocean.color.colorInterfaceLightPure
         }
     }
 
     public static func heading3Inverse(builder: OceanSwiftUI.Typography.Builder? = nil) -> OceanSwiftUI.Typography {
-        return OceanSwiftUI.Typography.heading3 { label in
+        return OceanSwiftUI.Typography { label in
+            label.parameters.style = .heading3Inverse
             builder?(label)
-            label.parameters.textColor = Ocean.color.colorInterfaceLightPure
         }
     }
 
     public static func heading4Inverse(builder: OceanSwiftUI.Typography.Builder? = nil) -> OceanSwiftUI.Typography {
-        return OceanSwiftUI.Typography.heading4 { label in
+        return OceanSwiftUI.Typography { label in
+            label.parameters.style = .heading4Inverse
             builder?(label)
-            label.parameters.textColor = Ocean.color.colorInterfaceLightPure
         }
     }
 
     public static func heading5Inverse(builder: OceanSwiftUI.Typography.Builder? = nil) -> OceanSwiftUI.Typography {
-        return OceanSwiftUI.Typography.heading5 { label in
+        return OceanSwiftUI.Typography { label in
+            label.parameters.style = .heading5Inverse
             builder?(label)
-            label.parameters.textColor = Ocean.color.colorInterfaceLightPure
         }
     }
 
     public static func subTitle1(builder: OceanSwiftUI.Typography.Builder? = nil) -> OceanSwiftUI.Typography {
         return OceanSwiftUI.Typography { label in
-            label.parameters.font = .baseRegular(size: Ocean.font.fontSizeMd)
-            label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
-            label.parameters.lineSpacing = Ocean.font.lineHeightMedium
+            label.parameters.style = .subTitle1
             builder?(label)
         }
     }
 
     public static func subTitle2(builder: OceanSwiftUI.Typography.Builder? = nil) -> OceanSwiftUI.Typography {
         return OceanSwiftUI.Typography { label in
-            label.parameters.font = .baseRegular(size: Ocean.font.fontSizeSm)
-            label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
-            label.parameters.lineSpacing = Ocean.font.lineHeightMedium
+            label.parameters.style = .subTitle2
             builder?(label)
         }
     }
 
     public static func subTitle1Inverse(builder: OceanSwiftUI.Typography.Builder? = nil) -> OceanSwiftUI.Typography {
-        return OceanSwiftUI.Typography.subTitle1 { label in
+        return OceanSwiftUI.Typography { label in
+            label.parameters.style = .subTitle1Inverse
             builder?(label)
-            label.parameters.textColor = Ocean.color.colorInterfaceLightDown
         }
     }
 
     public static func subTitle2Inverse(builder: OceanSwiftUI.Typography.Builder? = nil) -> OceanSwiftUI.Typography {
-        return OceanSwiftUI.Typography.subTitle2 { label in
+        return OceanSwiftUI.Typography { label in
+            label.parameters.style = .subTitle2Inverse
             builder?(label)
-            label.parameters.textColor = Ocean.color.colorInterfaceLightDown
         }
     }
 
     public static func paragraph(builder: OceanSwiftUI.Typography.Builder? = nil) -> OceanSwiftUI.Typography {
         return OceanSwiftUI.Typography { label in
-            label.parameters.font = .baseRegular(size: Ocean.font.fontSizeXs)
-            label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
-            label.parameters.lineSpacing = Ocean.font.lineHeightComfy
+            label.parameters.style = .paragraph
             builder?(label)
         }
     }
 
     public static func paragraphInverse(builder: OceanSwiftUI.Typography.Builder? = nil) -> OceanSwiftUI.Typography {
-        return OceanSwiftUI.Typography.paragraph { label in
+        return OceanSwiftUI.Typography { label in
+            label.parameters.style = .paragraphInverse
             builder?(label)
-            label.parameters.textColor = Ocean.color.colorInterfaceLightDown
         }
     }
 
     public static func lead(builder: OceanSwiftUI.Typography.Builder? = nil) -> OceanSwiftUI.Typography {
         return OceanSwiftUI.Typography { label in
-            label.parameters.font = .baseBold(size: Ocean.font.fontSizeSm)
-            label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
-            label.parameters.lineSpacing = Ocean.font.lineHeightComfy
+            label.parameters.style = .lead
             builder?(label)
         }
     }
 
     public static func leadInverse(builder: OceanSwiftUI.Typography.Builder? = nil) -> OceanSwiftUI.Typography {
-        return OceanSwiftUI.Typography.lead { label in
+        return OceanSwiftUI.Typography { label in
+            label.parameters.style = .leadInverse
             builder?(label)
-            label.parameters.textColor = Ocean.color.colorInterfaceLightDown
         }
     }
 
     public static func description(builder: OceanSwiftUI.Typography.Builder? = nil) -> OceanSwiftUI.Typography {
         return OceanSwiftUI.Typography { label in
-            label.parameters.font = .baseRegular(size: Ocean.font.fontSizeXxs)
-            label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
-            label.parameters.lineSpacing = Ocean.font.lineHeightComfy
+            label.parameters.style = .description
             builder?(label)
         }
     }
 
     public static func descriptionInverse(builder: OceanSwiftUI.Typography.Builder? = nil) -> OceanSwiftUI.Typography {
-        return OceanSwiftUI.Typography.description { label in
+        return OceanSwiftUI.Typography { label in
+            label.parameters.style = .descriptionInverse
             builder?(label)
-            label.parameters.textColor = Ocean.color.colorBrandPrimaryUp
         }
     }
 
     public static func caption(builder: OceanSwiftUI.Typography.Builder? = nil) -> OceanSwiftUI.Typography {
         return OceanSwiftUI.Typography { label in
-            label.parameters.font = .baseRegular(size: Ocean.font.fontSizeXxxs)
-            label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
-            label.parameters.lineSpacing = Ocean.font.lineHeightComfy
+            label.parameters.style = .caption
             builder?(label)
         }
     }
 
     public static func captionBold(builder: OceanSwiftUI.Typography.Builder? = nil) -> OceanSwiftUI.Typography {
         return OceanSwiftUI.Typography { label in
-            label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
-            label.parameters.textColor = Ocean.color.colorInterfaceLightUp
-            label.parameters.lineSpacing = Ocean.font.lineHeightComfy
+            label.parameters.style = .captionBold
             builder?(label)
         }
     }
 
     public static func captionInverse(builder: OceanSwiftUI.Typography.Builder? = nil) -> OceanSwiftUI.Typography {
-        return OceanSwiftUI.Typography.caption { label in
+        return OceanSwiftUI.Typography { label in
+            label.parameters.style = .captionInverse
             builder?(label)
-            label.parameters.textColor = Ocean.color.colorBrandPrimaryUp
         }
     }
 
     public static func eyebrow(builder: OceanSwiftUI.Typography.Builder? = nil) -> OceanSwiftUI.Typography {
         return OceanSwiftUI.Typography { label in
-            label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxxs)
-            label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
-            label.parameters.kerning = 2.16
+            label.parameters.style = .eyebrow
             builder?(label)
         }
     }
