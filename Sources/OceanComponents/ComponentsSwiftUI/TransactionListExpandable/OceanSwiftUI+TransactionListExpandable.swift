@@ -71,15 +71,7 @@ extension OceanSwiftUI {
         public var body: some View {
             VStack(alignment: .leading, spacing: 0) {
                 HStack(spacing: 0) {
-                    OceanSwiftUI.TransactionListItem(parameters: parameters.item) { view in
-                        view.parameters.padding = .init(top: Ocean.size.spacingStackXs,
-                                                        leading: Ocean.size.spacingStackXs,
-                                                        bottom: Ocean.size.spacingStackXs,
-                                                        trailing: Ocean.size.spacingStackXxsExtra)
-                        view.parameters.onTouch = {
-                            toggleStatus()
-                        }
-                    }
+                    getItemTransactionItem()
                     
                     Image(uiImage: Ocean.icon.chevronDownSolid)
                         .resizable()
@@ -102,15 +94,7 @@ extension OceanSwiftUI {
                 if parameters.status == .expanded {
                     VStack(alignment: .leading, spacing: 0) {
                         ForEach(parameters.items.indices, id: \.self) { index in
-                            OceanSwiftUI.TransactionListItem(parameters: parameters.items[index]) { view in
-                                view.parameters.iconColor = Ocean.color.colorInterfaceLightDown
-                                view.parameters.iconLineTop = index != 0
-                                view.parameters.iconLineBottom = index != parameters.items.count - 1
-                                view.parameters.padding = .init(top: Ocean.size.spacingStackXxsExtra,
-                                                                leading: Ocean.size.spacingStackXs,
-                                                                bottom: Ocean.size.spacingStackXxsExtra,
-                                                                trailing: Ocean.size.spacingStackXxs)
-                            }
+                            getChildTransactionItem(for: parameters.items[index], index: index)
                         }
                         
                         HStack(alignment: .center, spacing: 0) {
@@ -133,6 +117,34 @@ extension OceanSwiftUI {
                 
                 OceanSwiftUI.Divider()
             }
+        }
+        
+        @ViewBuilder
+        public func getItemTransactionItem() -> OceanSwiftUI.TransactionListItem {
+            let item = parameters.item
+            item.padding = .init(top: Ocean.size.spacingStackXs,
+                                 leading: Ocean.size.spacingStackXs,
+                                 bottom: Ocean.size.spacingStackXs,
+                                 trailing: Ocean.size.spacingStackXxsExtra)
+            item.onTouch = { toggleStatus() }
+            return OceanSwiftUI.TransactionListItem(parameters: item)
+        }
+        
+        @ViewBuilder
+        private func getChildTransactionItem(for item: TransactionListItemParameters, index: Int) -> OceanSwiftUI.TransactionListItem {
+            item.iconColor = Ocean.color.colorInterfaceLightDown
+            item.iconLineTop = index != 0
+            item.iconLineBottom = index != parameters.items.count - 1
+            item.level1Style = .captionBold
+            item.level2Style = .description
+            item.level3Style = .captionBold
+            item.value1Style = .heading5
+            item.padding = .init(top: Ocean.size.spacingStackXxsExtra,
+                                 leading: Ocean.size.spacingStackXs,
+                                 bottom: Ocean.size.spacingStackXxsExtra,
+                                 trailing: Ocean.size.spacingStackXxs)
+            
+            return OceanSwiftUI.TransactionListItem(parameters: item)
         }
         
         private func toggleStatus() {

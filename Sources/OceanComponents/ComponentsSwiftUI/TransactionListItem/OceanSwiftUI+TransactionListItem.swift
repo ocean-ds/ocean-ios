@@ -20,10 +20,17 @@ extension OceanSwiftUI {
         @Published public var level2: String
         @Published public var level3: String
         @Published public var level4: String
+        @Published public var level1Style: TypographyParameters.Style
+        @Published public var level2Style: TypographyParameters.Style
+        @Published public var level3Style: TypographyParameters.Style
+        @Published public var level4Style: TypographyParameters.Style
         @Published public var value1: Double
         @Published public var value1Text: String?
         @Published public var value2: Double?
         @Published public var value3: String
+        @Published public var value1Style: TypographyParameters.Style
+        @Published public var value2Style: TypographyParameters.Style
+        @Published public var value3Style: TypographyParameters.Style
         @Published public var value1Status: ValueStatus
         @Published public var tagIcon: UIImage?
         @Published public var tagTitle: String
@@ -61,9 +68,16 @@ extension OceanSwiftUI {
                     level2: String = "",
                     level3: String = "",
                     level4: String = "",
+                    level1Style: TypographyParameters.Style = .description,
+                    level2Style: TypographyParameters.Style = .paragraph,
+                    level3Style: TypographyParameters.Style = .captionBold,
+                    level4Style: TypographyParameters.Style = .caption,
                     value1: Double = 0.0,
                     value2: Double? = nil,
                     value3: String = "",
+                    value1Style: TypographyParameters.Style = .heading4,
+                    value2Style: TypographyParameters.Style = .description,
+                    value3Style: TypographyParameters.Style = .description,
                     value1Status: ValueStatus = .neutral,
                     tagIcon: UIImage? = nil,
                     tagTitle: String = "",
@@ -92,9 +106,16 @@ extension OceanSwiftUI {
             self.level2 = level2
             self.level3 = level3
             self.level4 = level4
+            self.level1Style = level1Style
+            self.level2Style = level2Style
+            self.level3Style = level3Style
+            self.level4Style = level4Style
             self.value1 = value1
             self.value2 = value2
             self.value3 = value3
+            self.value1Style = value1Style
+            self.value2Style = value2Style
+            self.value3Style = value3Style
             self.value1Status = value1Status
             self.tagIcon = tagIcon
             self.tagTitle = tagTitle
@@ -147,8 +168,8 @@ extension OceanSwiftUI {
             self.parameters = parameters
         }
 
-        public init(parameters: TransactionListItemParameters = TransactionListItemParameters(), builder: Builder) {
-            self.init(parameters: parameters)
+        public init(builder: Builder) {
+            self.init()
             builder(self)
         }
 
@@ -221,13 +242,13 @@ extension OceanSwiftUI {
         private var centerView: some View {
             VStack(alignment: .leading, spacing: 0) {
                 if !parameters.level4.isEmpty {
-                    OceanSwiftUI.Typography.caption { label in
+                    OceanSwiftUI.Typography { label in
+                        label.parameters.style = parameters.level4Style
                         label.parameters.text = parameters.level4
                         label.parameters.textColor = parameters.isEnabled
                         ? Ocean.color.colorBrandPrimaryDeep
                         : Ocean.color.colorInterfaceDarkUp
                         label.parameters.lineLimit = parameters.lineLimitLevel4 ?? 1
-                        label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
                     }
 
                     Spacer()
@@ -235,7 +256,8 @@ extension OceanSwiftUI {
                 }
 
                 if !parameters.level1.isEmpty {
-                    OceanSwiftUI.Typography.description { label in
+                    OceanSwiftUI.Typography { label in
+                        label.parameters.style = parameters.level1Style
                         label.parameters.text = parameters.level1
                         label.parameters.textColor = parameters.isEnabled
                         ? Ocean.color.colorInterfaceDarkDown
@@ -251,7 +273,8 @@ extension OceanSwiftUI {
                             .frame(height: Ocean.size.spacingStackXxxs)
                     }
 
-                    OceanSwiftUI.Typography.paragraph { label in
+                    OceanSwiftUI.Typography { label in
+                        label.parameters.style = parameters.level2Style
                         label.parameters.text = parameters.level2
                         label.parameters.textColor = parameters.isEnabled
                         ? Ocean.color.colorInterfaceDarkDeep
@@ -264,7 +287,8 @@ extension OceanSwiftUI {
                     Spacer()
                         .frame(height: Ocean.size.spacingStackXxs)
 
-                    OceanSwiftUI.Typography.captionBold { label in
+                    OceanSwiftUI.Typography { label in
+                        label.parameters.style = parameters.level3Style
                         label.parameters.text = parameters.level3
                         label.parameters.textColor = parameters.isEnabled
                         ? Ocean.color.colorInterfaceDarkDown
@@ -299,14 +323,14 @@ extension OceanSwiftUI {
         private var trailingView: some View {
             HStack {
                 VStack(alignment: .trailing) {
-                    OceanSwiftUI.Typography.heading5 { label in
+                    OceanSwiftUI.Typography { label in
                         if let text = parameters.value1Text {
                             label.parameters.text = text
                         } else {
                             label.parameters.text = "\(parameters.sign) \(parameters.value1.toCurrency(symbolSpace: true) ?? " R$ 0,00")"
                         }
+                        label.parameters.style = parameters.value1Style
                         label.parameters.textColor = getValue1Color()
-
                         label.parameters.lineLimit = 1
                         label.parameters.font = .baseBold(size: Ocean.font.fontSizeXxs)
                         label.parameters.strikethrough = parameters.value1Status == .cancelled
@@ -317,7 +341,8 @@ extension OceanSwiftUI {
                         Spacer()
                             .frame(height: Ocean.size.spacingStackXxxs)
 
-                        OceanSwiftUI.Typography.description { label in
+                        OceanSwiftUI.Typography { label in
+                            label.parameters.style = parameters.value2Style
                             label.parameters.text = value
                             label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
                             label.parameters.lineLimit = 1
@@ -343,7 +368,8 @@ extension OceanSwiftUI {
                         Spacer()
                             .frame(height: Ocean.size.spacingStackXxxs)
 
-                        OceanSwiftUI.Typography.description { label in
+                        OceanSwiftUI.Typography { label in
+                            label.parameters.style = parameters.value3Style
                             label.parameters.text = parameters.value3
                             label.parameters.textColor = parameters.isEnabled
                             ? Ocean.color.colorInterfaceDarkDown
