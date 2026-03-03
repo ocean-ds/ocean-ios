@@ -208,6 +208,7 @@ class TransactionListItemSwiftUIViewController: UIViewController {
             view.parameters.hasDivider = false
             view.parameters.hasChevron = true
             view.parameters.lineLimitLevel3 = 2
+            view.parameters.icon = Ocean.icon.moneyInflowOutline
             view.parameters.onTouch = {
                 print("Touched!")
             }
