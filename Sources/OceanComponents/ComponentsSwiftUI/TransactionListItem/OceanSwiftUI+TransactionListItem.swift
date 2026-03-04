@@ -78,7 +78,7 @@ extension OceanSwiftUI {
                     value3: String = "",
                     value1Style: TypographyParameters.Style = .heading4,
                     value2Style: TypographyParameters.Style = .description,
-                    value3Style: TypographyParameters.Style = .description,
+                    value3Style: TypographyParameters.Style = .captionBold,
                     value1Color: UIColor? = nil,
                     value1Status: ValueStatus = .neutral,
                     tagIcon: UIImage? = nil,
@@ -338,7 +338,6 @@ extension OceanSwiftUI {
                         ? Ocean.color.colorInterfaceDarkDown
                         : Ocean.color.colorInterfaceDarkUp
                         label.parameters.lineLimit = parameters.lineLimitLevel3 ?? 1
-                        label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
                     }
                 }
             }
@@ -390,7 +389,6 @@ extension OceanSwiftUI {
                             label.parameters.text = value
                             label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
                             label.parameters.lineLimit = 1
-                            label.parameters.font = .baseRegular(size: Ocean.font.fontSizeXxs)
                         }
                     }
 
@@ -419,7 +417,6 @@ extension OceanSwiftUI {
                             ? Ocean.color.colorInterfaceDarkDown
                             : Ocean.color.colorInterfaceDarkUp
                             label.parameters.lineLimit = 1
-                            label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
                         }
                     }
                 }
