@@ -437,6 +437,9 @@ extension OceanSwiftUI {
                         .renderingMode(.template)
                         .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
                         .frame(width: 20, height: 20)
+                } else {
+                    Spacer()
+                        .frame(width: Ocean.size.spacingStackXxs)
                 }
             }
         }
