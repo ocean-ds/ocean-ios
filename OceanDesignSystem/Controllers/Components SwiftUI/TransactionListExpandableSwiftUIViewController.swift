@@ -14,9 +14,9 @@ class TransactionListExpandableSwiftUIViewController: UIViewController {
         OceanSwiftUI.TransactionListExpandable { view in
             view.parameters.parent = .init(level2: "Cancelamento de retenções", value1: 1850.00, value1Status: .positive, hasDivider: false)
             view.parameters.children = [
-                .init(icon: Ocean.icon.lockOpenSolid, level1: "Cancelamento de retenção", level2: "Boleto de Blu Instituição de Pagamentos LTDA", level3: "Retenção lançada em 14/01/2026", value1: 150.00, value1Status: .positive, hasDivider: false, hasChevron: true),
-                .init(icon: Ocean.icon.lockOpenSolid, level1: "Cancelamento de retenção", level2: "Boleto de Blu Instituição de Pagamentos LTDA", level3: "Retenção lançada em 14/01/2026", value1: 200.00, value1Status: .positive, hasDivider: false, hasChevron: true),
-                .init(icon: Ocean.icon.lockOpenSolid, level1: "Cancelamento de retenção", level2: "Boleto de Blu Instituição de Pagamentos LTDA", level3: "Retenção lançada em 14/01/2026", value1: 1500.00, value1Status: .positive, hasDivider: false, hasChevron: true)
+                .init(icon: Ocean.icon.lockOpenSolid, level1: "Cancelamento de retenção", level2: "Boleto de Blu Instituição de Pagamentos LTDA", level3: "Retenção lançada em 14/01/2026", value1: 150.00, value3: "Additional data", value1Status: .positive, tagTitle: "Label", tagStatus: .positive, hasDivider: false, hasChevron: true),
+                .init(icon: Ocean.icon.lockOpenSolid, level1: "Cancelamento de retenção", level2: "Boleto de Blu Instituição de Pagamentos LTDA", level3: "Retenção lançada em 14/01/2026", value1: 200.00, value3: "Additional data", value1Status: .positive, tagTitle: "Label", tagStatus: .positive, hasDivider: false, hasChevron: true),
+                .init(icon: Ocean.icon.lockOpenSolid, level1: "Cancelamento de retenção", level2: "Boleto de Blu Instituição de Pagamentos LTDA", level3: "Retenção lançada em 14/01/2026", value1: 1500.00, value3: "Additional data", value1Status: .positive, tagTitle: "Label", tagStatus: .positive, hasDivider: false, hasChevron: true)
             ]
             view.parameters.bottomMessage = "Fim dos cancelamentos das retenções"
         }
@@ -26,9 +26,9 @@ class TransactionListExpandableSwiftUIViewController: UIViewController {
         OceanSwiftUI.TransactionListExpandable { view in
             view.parameters.parent = .init(level2: "Retenções", value1: -1850.00, value1Status: .neutral, hasDivider: false)
             view.parameters.children = [
-                .init(icon: Ocean.icon.lockClosedSolid, level1: "Retenção de saldo", level2: "Boleto de Blu Instituição de Pagamentos LTDA", value1: -150.00, value1Status: .neutral, hasDivider: false, hasChevron: true),
-                .init(icon: Ocean.icon.lockClosedSolid, level1: "Retenção de saldo", level2: "Boleto de Blu Instituição de Pagamentos LTDA", value1: -200.00, value1Status: .neutral, hasDivider: false, hasChevron: true),
-                .init(icon: Ocean.icon.lockClosedSolid, level1: "Retenção de saldo", level2: "Boleto de Blu Instituição de Pagamentos LTDA", value1: -1500.00, value1Status: .neutral, hasDivider: false, hasChevron: true)
+                .init(icon: Ocean.icon.lockClosedSolid, level1: "Retenção de saldo", level2: "Boleto de Blu Instituição de Pagamentos LTDA", value1: -150.00, value3: "Additional data", value1Status: .neutral, tagTitle: "Label", tagStatus: .positive, hasDivider: false, hasChevron: true),
+                .init(icon: Ocean.icon.lockClosedSolid, level1: "Retenção de saldo", level2: "Boleto de Blu Instituição de Pagamentos LTDA", value1: -200.00, value3: "Additional data", value1Status: .neutral, tagTitle: "Label", tagStatus: .positive, hasDivider: false, hasChevron: true),
+                .init(icon: Ocean.icon.lockClosedSolid, level1: "Retenção de saldo", level2: "Boleto de Blu Instituição de Pagamentos LTDA", value1: -1500.00, value3: "Additional data", value1Status: .neutral, tagTitle: "Label", tagStatus: .positive, hasDivider: false, hasChevron: true)
             ]
             view.parameters.bottomMessage = "Fim das retenções de saldo"
         }

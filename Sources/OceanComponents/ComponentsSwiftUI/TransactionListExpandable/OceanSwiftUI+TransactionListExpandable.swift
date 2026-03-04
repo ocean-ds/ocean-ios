@@ -19,16 +19,20 @@ extension OceanSwiftUI {
         @Published public var status: Status
         @Published public var isEnabled: Bool
         
+        public var onStatusChange: (Status) -> Void
+        
         public init(parent: TransactionListItemParameters = .init(),
                     children: [TransactionListItemParameters] = [],
                     bottomMessage: String = "",
                     status: Status = .collapsed,
-                    isEnabled: Bool = true) {
+                    isEnabled: Bool = true,
+                    onStatusChange: @escaping (Status) -> Void = { _ in }) {
             self.parent = parent
             self.children = children
             self.bottomMessage = bottomMessage
             self.status = status
             self.isEnabled = isEnabled
+            self.onStatusChange = onStatusChange
         }
         
         public enum Status {
@@ -152,6 +156,7 @@ extension OceanSwiftUI {
             parameters.status = parameters.status == .collapsed ? .expanded : .collapsed
             withAnimation(.linear(duration: animationDuration)) {
                 rotation = parameters.status == .collapsed ? 0 : -180
+                parameters.onStatusChange(parameters.status)
             }
         }
     }
