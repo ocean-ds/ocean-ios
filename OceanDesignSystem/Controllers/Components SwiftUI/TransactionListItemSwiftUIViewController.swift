@@ -20,6 +20,7 @@ class TransactionListItemSwiftUIViewController: UIViewController {
             view.parameters.value1 = 2500
             view.parameters.value3 = "09:00"
             view.parameters.value1Status = .positive
+            view.parameters.value1HasSign = false
             view.parameters.tagTitle = "Pago"
             view.parameters.tagStatus = .positive
             view.parameters.hasChevron = true

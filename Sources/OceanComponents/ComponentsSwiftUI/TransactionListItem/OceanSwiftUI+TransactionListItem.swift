@@ -33,6 +33,7 @@ extension OceanSwiftUI {
         @Published public var value3Style: TypographyParameters.Style
         @Published public var value1Color: UIColor?
         @Published public var value1Status: ValueStatus
+        @Published public var value1HasSign: Bool
         @Published public var tagIcon: UIImage?
         @Published public var tagTitle: String
         @Published public var tagStatus: TagParameters.Status
@@ -53,6 +54,8 @@ extension OceanSwiftUI {
         public var onTouch: () -> Void
 
         public var sign: String {
+            if !value1HasSign { return "" }
+            
             switch value1Status {
             case .positive:
                 return "+"
@@ -74,6 +77,7 @@ extension OceanSwiftUI {
                     level3Style: TypographyParameters.Style = .captionBold,
                     level4Style: TypographyParameters.Style = .caption,
                     value1: Double = 0.0,
+                    value1Text: String? = nil,
                     value2: Double? = nil,
                     value3: String = "",
                     value1Style: TypographyParameters.Style = .heading4,
@@ -81,6 +85,7 @@ extension OceanSwiftUI {
                     value3Style: TypographyParameters.Style = .captionBold,
                     value1Color: UIColor? = nil,
                     value1Status: ValueStatus = .neutral,
+                    value1HasSign: Bool = true,
                     tagIcon: UIImage? = nil,
                     tagTitle: String = "",
                     tagStatus: TagParameters.Status = .highlightNeutral,
@@ -113,6 +118,7 @@ extension OceanSwiftUI {
             self.level3Style = level3Style
             self.level4Style = level4Style
             self.value1 = value1
+            self.value1Text = value1Text
             self.value2 = value2
             self.value3 = value3
             self.value1Style = value1Style
@@ -120,6 +126,7 @@ extension OceanSwiftUI {
             self.value3Style = value3Style
             self.value1Color = value1Color
             self.value1Status = value1Status
+            self.value1HasSign = value1HasSign
             self.tagIcon = tagIcon
             self.tagTitle = tagTitle
             self.tagStatus = tagStatus
@@ -161,6 +168,7 @@ extension OceanSwiftUI {
                 level3Style: self.level3Style,
                 level4Style: self.level4Style,
                 value1: self.value1,
+                value1Text: self.value1Text,
                 value2: self.value2,
                 value3: self.value3,
                 value1Style: self.value1Style,
@@ -168,6 +176,7 @@ extension OceanSwiftUI {
                 value3Style: self.value3Style,
                 value1Color: self.value1Color,
                 value1Status: self.value1Status,
+                value1HasSign: self.value1HasSign,
                 tagIcon: self.tagIcon,
                 tagTitle: self.tagTitle,
                 tagStatus: self.tagStatus,
@@ -230,7 +239,8 @@ extension OceanSwiftUI {
                 .padding(parameters.padding)
 
                 if parameters.hasDivider {
-                    Divider()
+                    OceanSwiftUI.Divider()
+                        .padding(.horizontal, Ocean.size.spacingStackXs)
                 }
             }
             .frame(maxWidth: .infinity)
@@ -427,6 +437,9 @@ extension OceanSwiftUI {
                         .renderingMode(.template)
                         .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
                         .frame(width: 20, height: 20)
+                } else {
+                    Spacer()
+                        .frame(width: Ocean.size.spacingStackXxs)
                 }
             }
         }
