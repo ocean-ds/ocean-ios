@@ -15,6 +15,7 @@ extension Ocean {
         FSCalendarDataSource,
         FSCalendarDelegate,
         FSCalendarDelegateAppearance,
+        UIGestureRecognizerDelegate,
         OceanNavigationBar {
         
         // MARK: Properties
@@ -194,6 +195,13 @@ extension Ocean {
             return calendar
         }()
         
+        private lazy var calendarTapGesture: UITapGestureRecognizer = {
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(handleCalendarTap(_:)))
+            gesture.delegate = self
+            gesture.cancelsTouchesInView = false
+            return gesture
+        }()
+        
         // MARK: Bottom View
         
         private lazy var confirmButton: Ocean.ButtonPrimary = {
@@ -230,6 +238,7 @@ extension Ocean {
         private func setupUI() {
             self.view.backgroundColor = Ocean.color.colorInterfaceLightPure
             self.view.addSubviews(calendar, confirmButton, headerStack)
+            calendar.addGestureRecognizer(calendarTapGesture)
             
             NSLayoutConstraint.activate([
                 headerStack.topAnchor.constraint(equalTo: self.view.layoutMarginsGuide.topAnchor, constant: Ocean.size.spacingStackXxxs),
@@ -284,11 +293,32 @@ extension Ocean {
         public func calendar(_ calendar: FSCalendar,
                              shouldSelect date: Date,
                              at monthPosition: FSCalendarMonthPosition) -> Bool {
-            let dateOnly = date.onlyDate
-            if let config = tooltipConfigurations[dateOnly], config.showOnDateTap {
-                showTooltip(for: dateOnly, at: monthPosition, config: config)
+            return isDateEnabled(date: date)
+        }
+        
+        public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+            true
+        }
+        
+        @objc private func handleCalendarTap(_ gesture: UITapGestureRecognizer) {
+            let point = gesture.location(in: calendar)
+
+            for cell in calendar.visibleCells() {
+                guard let fsCell = cell as? FSCalendarCell else { continue }
+
+                let frameInCalendar = fsCell.convert(fsCell.bounds, to: calendar)
+
+                guard frameInCalendar.contains(point) else { continue }
+
+                guard let date = calendar.date(for: fsCell) else { continue }
+
+                let dateOnly = date.onlyDate
+
+                guard let config = tooltipConfiguration(for: dateOnly), config.showOnDateTap else { break }
+
+                showTooltip(for: dateOnly, at: .current, config: config, cell: fsCell)
+                break
             }
-            return isDateEnabled(date: date) ? true : false
         }
 
         public func calendar(_ calendar: FSCalendar,
@@ -381,23 +411,35 @@ extension Ocean {
             calendar.setCurrentPage(getNextMonth(date: calendar.currentPage), animated: true)
         }
 
+        private func tooltipConfiguration(for date: Date) -> TooltipConfiguration? {
+            let cal = Calendar.current
+            return tooltipConfigurations.first { cal.isDate($0.key, inSameDayAs: date) }?.value
+        }
+
         private func tryShowTooltipOnOpen() {
             let currentPage = calendar.currentPage
             let cal = Calendar.current
             for (configDate, config) in tooltipConfigurations where config.showOnOpen {
                 guard cal.isDate(configDate, equalTo: currentPage, toGranularity: .month) else { continue }
-                showTooltip(for: configDate, at: .current, config: config)
+                showTooltip(for: configDate, at: .current, config: config, cell: nil)
             }
         }
 
-        private func showTooltip(for date: Date, at monthPosition: FSCalendarMonthPosition, config: TooltipConfiguration) {
-            guard let cell = calendar.cell(for: date, at: monthPosition) else { return }
+        private func showTooltip(for date: Date, at monthPosition: FSCalendarMonthPosition, config: TooltipConfiguration, cell: FSCalendarCell? = nil) {
+            let targetCell: FSCalendarCell
+            if let cell = cell {
+                targetCell = cell
+            } else if let calendarCell = calendar.cell(for: date, at: monthPosition) {
+                targetCell = calendarCell
+            } else {
+                return
+            }
             let tooltip = Ocean.Tooltip { tip in
                 tip.message = config.text
                 tip.onTouch = config.onTooltipTouch
                 tip.indicatorMargin = Ocean.size.spacingStackXxxs
             }
-            tooltip.show(target: cell, position: config.position, presenter: view)
+            tooltip.show(target: targetCell, position: config.position, presenter: view)
         }
     }
 }

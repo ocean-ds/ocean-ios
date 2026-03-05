@@ -74,34 +74,26 @@ final class DatePickerViewController: UIViewController {
     }
 
     private func showTooltipExample() {
-        let tooltipDate1 = Calendar.current.date(byAdding: .day, value: 3, to: Date())!.onlyDate
-        let tooltipDate2 = Calendar.current.date(byAdding: .day, value: 5, to: Date())!.onlyDate
+//        let tooltipDate1 = Calendar.current.date(byAdding: .day, value: 3, to: Date())!.onlyDate
+//        let tooltipDate2 = Calendar.current.date(byAdding: .day, value: 5, to: Date())!.onlyDate
         let datePicker = Ocean.DatePicker()
         datePicker.navigationTitle = "Agendar para"
         datePicker.title = "Escolha uma data"
         datePicker.subtitle = "As datas desabilitadas possuem restrição. Toque nelas para ver o motivo."
-        datePicker.minimumDate = Calendar.current.date(byAdding: .day, value: -10, to: Date())!
-        datePicker.maximumDate = Calendar.current.date(byAdding: .year, value: 2, to: Date())!
-        datePicker.datesToHide = [tooltipDate1, tooltipDate2]
-        datePicker.selectedDate = Date()
+        datePicker.minimumDate = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
+        datePicker.maximumDate = Calendar.current.date(byAdding: .year, value: 4, to: Date())!
+        datePicker.datesToHide = [Date().onlyDate]
+        datePicker.selectedDate = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
         datePicker.isTodaySelectable = true
         let tooltipConfig1 = Ocean.DatePicker.TooltipConfiguration(
             text: "Esta data não está disponível para agendamento. Tente escolher outro dia.",
-            date: tooltipDate1,
+            date: Date().onlyDate,
             showOnOpen: true,
             showOnDateTap: true,
             position: .bottom,
             onTooltipTouch: { print("Tooltip data 1 foi tocado") }
         )
-        let tooltipConfig2 = Ocean.DatePicker.TooltipConfiguration(
-            text: "Manutenção programada nesta data. Escolha outro dia.",
-            date: tooltipDate2,
-            showOnOpen: false,
-            showOnDateTap: true,
-            position: .bottom,
-            onTooltipTouch: { print("Tooltip data 2 foi tocado") }
-        )
-        datePicker.tooltipConfigurations = [tooltipDate1: tooltipConfig1, tooltipDate2: tooltipConfig2]
+        datePicker.tooltipConfigurations = [Date().onlyDate: tooltipConfig1]
         datePicker.onCancel = { print("DatePicker cancel") }
         datePicker.onReleaseCalendar = { date in print("DatePicker \(date)") }
         datePicker.show(rootViewController: self)
