@@ -74,8 +74,8 @@ final class DatePickerViewController: UIViewController {
     }
 
     private func showTooltipExample() {
-//        let tooltipDate1 = Calendar.current.date(byAdding: .day, value: 3, to: Date())!.onlyDate
-//        let tooltipDate2 = Calendar.current.date(byAdding: .day, value: 5, to: Date())!.onlyDate
+        let tooltipDate1 = Date().onlyDate
+        let tooltipDate2 = Calendar.current.date(byAdding: .month, value: 1, to: Date())!.onlyDate
         let datePicker = Ocean.DatePicker()
         datePicker.navigationTitle = "Agendar para"
         datePicker.title = "Escolha uma data"
@@ -86,14 +86,22 @@ final class DatePickerViewController: UIViewController {
         datePicker.selectedDate = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
         datePicker.isTodaySelectable = true
         let tooltipConfig1 = Ocean.DatePicker.TooltipConfiguration(
-            text: "Esta data não está disponível para agendamento. Tente escolher outro dia.",
-            date: Date().onlyDate,
+            text: "Boletos pagos em finais de semana, feriados ou após às 16:00 são quitados no próximo dia útil.",
+            date: tooltipDate1,
             showOnOpen: true,
             showOnDateTap: true,
             position: .bottom,
             onTooltipTouch: { print("Tooltip data 1 foi tocado") }
         )
-        datePicker.tooltipConfigurations = [Date().onlyDate: tooltipConfig1]
+        let tooltipConfig2 = Ocean.DatePicker.TooltipConfiguration(
+            text: "Esta data não está disponível para agendamento. Tente escolher outro dia.",
+            date: tooltipDate2,
+            showOnOpen: true,
+            showOnDateTap: true,
+            position: .bottom,
+            onTooltipTouch: { print("Tooltip data 2 foi tocado") }
+        )
+        datePicker.tooltipConfigurations = [tooltipDate1: tooltipConfig1, tooltipDate2: tooltipConfig2]
         datePicker.onCancel = { print("DatePicker cancel") }
         datePicker.onReleaseCalendar = { date in print("DatePicker \(date)") }
         datePicker.show(rootViewController: self)
