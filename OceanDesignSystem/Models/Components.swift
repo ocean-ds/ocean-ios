@@ -110,6 +110,7 @@ struct DSComponents {
         "Tooltip",
         "TransactionFooter",
         "TransactionListItem",
+        "TransactionListExpandable",
         "Typography"
     ]
 }
