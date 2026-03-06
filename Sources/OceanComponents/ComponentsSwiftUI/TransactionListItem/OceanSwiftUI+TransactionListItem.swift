@@ -16,6 +16,7 @@ extension OceanSwiftUI {
     public class TransactionListItemParameters: ObservableObject {
         @Published public var icon: UIImage?
         @Published public var iconColor: UIColor
+        @Published public var iconSize: CGSize
         @Published public var level1: String
         @Published public var level2: String
         @Published public var level3: String
@@ -68,6 +69,7 @@ extension OceanSwiftUI {
 
         public init(icon: UIImage? = nil,
                     iconColor: UIColor = Ocean.color.colorInterfaceDarkUp,
+                    iconSize: CGSize = CGSize(width: 24, height: 24),
                     level1: String = "",
                     level2: String = "",
                     level3: String = "",
@@ -109,6 +111,7 @@ extension OceanSwiftUI {
                     onTouch: @escaping () -> Void = { }) {
             self.icon = icon
             self.iconColor = iconColor
+            self.iconSize = iconSize
             self.level1 = level1
             self.level2 = level2
             self.level3 = level3
@@ -159,6 +162,7 @@ extension OceanSwiftUI {
             return TransactionListItemParameters(
                 icon: self.icon,
                 iconColor: self.iconColor,
+                iconSize: self.iconSize,
                 level1: self.level1,
                 level2: self.level2,
                 level3: self.level3,
@@ -263,7 +267,11 @@ extension OceanSwiftUI {
                         
                         
                         Image(uiImage: icon)
+                            .resizable()
                             .renderingMode(.template)
+                            .frame(width: parameters.iconSize.width,
+                                   height: parameters.iconSize.height,
+                                   alignment: .center)
                             .foregroundColor(Color(parameters.iconColor))
                         
                         OceanSwiftUI.Divider { view in

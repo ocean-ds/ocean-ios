@@ -18,6 +18,7 @@ extension OceanSwiftUI {
         @Published public var bottomMessage: String
         @Published public var status: Status
         @Published public var isEnabled: Bool
+        @Published public var hasDivider: Bool
         
         public var onStatusChange: (Status) -> Void
         
@@ -26,12 +27,14 @@ extension OceanSwiftUI {
                     bottomMessage: String = "",
                     status: Status = .collapsed,
                     isEnabled: Bool = true,
+                    hasDivider: Bool = true,
                     onStatusChange: @escaping (Status) -> Void = { _ in }) {
             self.parent = parent
             self.children = children
             self.bottomMessage = bottomMessage
             self.status = status
             self.isEnabled = isEnabled
+            self.hasDivider = hasDivider
             self.onStatusChange = onStatusChange
         }
         
@@ -112,14 +115,16 @@ extension OceanSwiftUI {
                             
                             Spacer()
                         }
-                        .padding(.top, Ocean.size.spacingStackXxxs)
+                        .padding(.top, Ocean.size.spacingStackXxsExtra)
                         .padding(.horizontal, Ocean.size.spacingStackXs)
                         .padding(.bottom, Ocean.size.spacingStackSm)
                         .hideIfEmpty(parameters.bottomMessage)
                     }
                 }
                 
-                OceanSwiftUI.Divider()
+                if parameters.hasDivider {
+                    OceanSwiftUI.Divider()
+                }
             }
         }
         
@@ -128,7 +133,8 @@ extension OceanSwiftUI {
             parent.padding = .init(top: Ocean.size.spacingStackXs,
                                  leading: Ocean.size.spacingStackXs,
                                  bottom: Ocean.size.spacingStackXs,
-                                 trailing: Ocean.size.spacingStackXxsExtra)
+                                 trailing: 0)
+            parent.hasDivider = false
             parent.onTouch = { toggleStatus() }
             return OceanSwiftUI.TransactionListItem(parameters: parent)
         }
@@ -137,12 +143,14 @@ extension OceanSwiftUI {
         private func getChildTransactionItem(for item: TransactionListItemParameters, index: Int) -> OceanSwiftUI.TransactionListItem {
             let newItem = item.duplicate()
             newItem.iconColor = Ocean.color.colorInterfaceLightDown
+            newItem.iconSize = CGSize(width: 16, height: 16)
             newItem.iconLineTop = index != 0
             newItem.iconLineBottom = index != parameters.children.count - 1
             newItem.level1Style = .captionBold
             newItem.level2Style = .description
             newItem.level3Style = .captionBold
             newItem.value1Style = .heading5
+            newItem.hasDivider = false
             newItem.value1Color = newItem.value1Status == .neutral ? Ocean.color.colorInterfaceDarkDown : nil
             newItem.padding = .init(top: Ocean.size.spacingStackXxsExtra,
                                     leading: Ocean.size.spacingStackXs,
