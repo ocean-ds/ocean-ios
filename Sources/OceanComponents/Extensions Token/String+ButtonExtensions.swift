@@ -10,7 +10,7 @@ import OceanTokens
 
 public extension String {
     func toOceanButtonStyle() -> OceanSwiftUI.ButtonParameters.Style? {
-        switch self.lowercased() {
+        switch self.fromToken() {
         case "primary": return OceanSwiftUI.ButtonParameters.Style.primary
         case "secondary": return OceanSwiftUI.ButtonParameters.Style.secondary
         case "tertiary": return OceanSwiftUI.ButtonParameters.Style.tertiary

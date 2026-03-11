@@ -10,7 +10,7 @@ import OceanTokens
 
 public extension String {
     func toOceanAlertStatus() -> Ocean.AlertBox.Status? {
-        switch self.lowercased() {
+        switch self.fromToken() {
         case "info": return Ocean.AlertBox.Status.info
         case "error": return Ocean.AlertBox.Status.error
         case "warning": return Ocean.AlertBox.Status.warning
@@ -20,7 +20,7 @@ public extension String {
     }
 
     func toOceanAlertStatus() -> OceanSwiftUI.AlertParameters.Status? {
-        switch self.lowercased() {
+        switch self.fromToken() {
         case "info": return OceanSwiftUI.AlertParameters.Status.info
         case "error", "negative": return OceanSwiftUI.AlertParameters.Status.negative
         case "warning": return OceanSwiftUI.AlertParameters.Status.warning

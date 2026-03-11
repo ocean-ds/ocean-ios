@@ -239,6 +239,7 @@ extension OceanSwiftUI {
                     centerView
                     
                     trailingView
+                        .fixedSize(horizontal: true, vertical: false)
                 }
                 .padding(parameters.padding)
 
@@ -382,7 +383,7 @@ extension OceanSwiftUI {
 
         @ViewBuilder
         private var trailingView: some View {
-            HStack {
+            HStack(spacing: 0) {
                 VStack(alignment: .trailing) {
                     OceanSwiftUI.Typography { label in
                         if let text = parameters.value1Text {

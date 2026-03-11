@@ -11,11 +11,7 @@ import UIKit
 
 public extension String {
     func toOceanIcon() -> UIImage? {
-        let cleaned = self
-            .lowercased()
-            .trimmingCharacters(in: .whitespacesAndNewlines)
-            .replacingOccurrences(of: "-", with: "")
-            .replacingOccurrences(of: "_", with: "")
+        let cleaned = self.fromToken()
 
         let lowercased = self.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         if lowercased.hasPrefix("apple-") {

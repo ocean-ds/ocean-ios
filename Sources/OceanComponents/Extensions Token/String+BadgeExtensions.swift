@@ -10,7 +10,7 @@ import OceanTokens
 
 public extension String {
     func toOceanBadgeStatus() -> OceanSwiftUI.BadgeParameters.Status? {
-        switch self.lowercased() {
+        switch self.fromToken() {
         case "primary": return OceanSwiftUI.BadgeParameters.Status.primary
         case "primaryinverted": return OceanSwiftUI.BadgeParameters.Status.primaryInverted
         case "warning": return OceanSwiftUI.BadgeParameters.Status.warning

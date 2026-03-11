@@ -11,7 +11,7 @@ import UIKit
 
 public extension String {
     func toOceanColor(altColor: UIColor = Ocean.color.colorInterfaceDarkDown) -> UIColor {
-        switch self.lowercased() {
+        switch self.fromToken() {
         case "colorbrandprimarydeep": return Ocean.color.colorBrandPrimaryDeep
         case "colorbrandprimarydown": return Ocean.color.colorBrandPrimaryDown
         case "colorbrandprimarypure": return Ocean.color.colorBrandPrimaryPure
