@@ -10,7 +10,7 @@ import OceanTokens
 
 public extension String {
     func toOceanSettingsListItemType() -> OceanSwiftUI.SettingsListItemParameters.SettingsListItemType? {
-        switch self.lowercased() {
+        switch self.fromToken() {
         case "button": return OceanSwiftUI.SettingsListItemParameters.SettingsListItemType.button
         case "tag": return OceanSwiftUI.SettingsListItemParameters.SettingsListItemType.tag
         case "blocked": return OceanSwiftUI.SettingsListItemParameters.SettingsListItemType.blocked

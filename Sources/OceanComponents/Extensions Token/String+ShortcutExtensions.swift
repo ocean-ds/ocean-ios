@@ -10,7 +10,7 @@ import OceanTokens
 
 public extension String {
     func toOceanShortcutSize() -> Ocean.Shortcut.Size? {
-        switch self.lowercased() {
+        switch self.fromToken() {
         case "medium": return Ocean.Shortcut.Size.medium
         case "small": return Ocean.Shortcut.Size.small
         case "tiny": return Ocean.Shortcut.Size.tiny
@@ -19,7 +19,7 @@ public extension String {
     }
 
     func toOceanShortcutOrientation() -> Ocean.Shortcut.Orientation? {
-        switch self.lowercased() {
+        switch self.fromToken() {
         case "horizontal": return Ocean.Shortcut.Orientation.horizontal
         case "vertical": return Ocean.Shortcut.Orientation.vertical
         default: return nil
@@ -27,7 +27,7 @@ public extension String {
     }
 
     func toOceanShortcutSize() -> OceanSwiftUI.ShortcutParameters.Size? {
-        switch self.lowercased() {
+        switch self.fromToken() {
         case "medium": return .medium
         case "small": return .small
         case "tiny": return .tiny
@@ -36,7 +36,7 @@ public extension String {
     }
 
     func toOceanShortcutOrientation() -> OceanSwiftUI.ShortcutParameters.Orientation? {
-        switch self.lowercased() {
+        switch self.fromToken() {
         case "horizontal": return .horizontal
         case "vertical": return .vertical
         default: return nil
