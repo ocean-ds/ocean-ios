@@ -10,6 +10,14 @@ import OceanTokens
 import SDWebImage
 
 public extension String {
+    func fromToken() -> String {
+        return self
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .lowercased()
+            .replacingOccurrences(of: "_", with: "")
+            .replacingOccurrences(of: "-", with: "")
+    }
+    
     func htmlToAttributedText(font: UIFont = UIFont(name: Ocean.font.fontFamilyBaseWeightRegular, size: Ocean.font.fontSizeXs)!,
                               size: CGFloat,
                               color: UIColor,

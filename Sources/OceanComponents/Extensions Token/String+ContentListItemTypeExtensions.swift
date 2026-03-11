@@ -11,7 +11,7 @@ import OceanComponents
 
 public extension String {
     func toOceanContentType() -> OceanSwiftUI.ContentListParameters.ContentListItemType? {
-        switch self.lowercased() {
+        switch self.fromToken() {
         case "inverted": return OceanSwiftUI.ContentListParameters.ContentListItemType.inverted
         case "inactive": return OceanSwiftUI.ContentListParameters.ContentListItemType.inactive
         case "highlight": return OceanSwiftUI.ContentListParameters.ContentListItemType.highlight
