@@ -18,7 +18,11 @@ class TransactionFooterSwiftUIViewController: UIViewController {
         view.parameters.buttonOrientation = .vertical
         view.parameters.skeletonLines = 4
         view.parameters.showSkeleton = true
-        view.parameters.interlineSpacing = Ocean.size.spacingStackXxsExtra
+        view.parameters.interlineSpacing = Ocean.size.spacingStackXxs
+        view.parameters.padding = .init(top: Ocean.size.spacingStackXs,
+                                        leading: Ocean.size.spacingStackXs,
+                                        bottom: Ocean.size.spacingStackXs,
+                                        trailing: Ocean.size.spacingStackXs)
         view.parameters.items = [
             .init(text: "Desconto à vista",
                   value: "R$ 100.000,00",
@@ -38,6 +42,11 @@ class TransactionFooterSwiftUIViewController: UIViewController {
     private lazy var transactionFooterWithCaption = OceanSwiftUI.TransactionFooter { view in
         view.parameters.primaryButton = .init(text: "Agendar", style: .primary, onTouch: { print("Agendar") })
         view.parameters.buttonOrientation = .vertical
+        view.parameters.interlineSpacing = Ocean.size.spacingStackXxs
+        view.parameters.padding = .init(top: Ocean.size.spacingStackXs,
+                                        leading: Ocean.size.spacingStackXs,
+                                        bottom: Ocean.size.spacingStackXs,
+                                        trailing: Ocean.size.spacingStackXs)
         view.parameters.items = [
             .init(text: "Total a pagar",
                   value: "R$ 5.000,00",

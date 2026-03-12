@@ -111,22 +111,22 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: Ocean.size.spacingStackXs) {
                 if parameters.showSkeleton {
                     getSkeletonView(skeletonLines: parameters.skeletonLines)
-                        .padding(.vertical, Ocean.size.spacingStackXs)
                 } else {
-                    ForEach(parameters.items.indices, id: \.self) { index in
-                        getItemView(item: parameters.items[index])
-                            .padding(.vertical, parameters.interlineSpacing)
+                    VStack(spacing: parameters.interlineSpacing) {
+                        ForEach(parameters.items.indices, id: \.self) { index in
+                            getItemView(item: parameters.items[index])
+                        }
                     }
 
                     if parameters.buttonOrientation == .horizontal {
-                        HStack {
+                        HStack(spacing: Ocean.size.spacingStackXxsExtra) {
                             getButtonsView()
                         }
                     } else {
-                        VStack {
+                        VStack(spacing: Ocean.size.spacingStackXxsExtra) {
                             getButtonsView()
                         }
                     }
@@ -197,22 +197,23 @@ extension OceanSwiftUI {
                     Button.init(parameters: button)
                 }
             }
-            .padding(.vertical, Ocean.size.spacingStackXxs)
         }
 
         private func getSkeletonView(skeletonLines: Int) -> some View {
-            ForEach(0..<skeletonLines, id: \.self) { index in
-                HStack {
-                    Typography.paragraph { label in
-                        label.parameters.text = "                                        "
-                        label.parameters.showSkeleton = true
-                    }
+            VStack(spacing: parameters.interlineSpacing) {
+                ForEach(0..<skeletonLines, id: \.self) { index in
+                    HStack {
+                        Typography.paragraph { label in
+                            label.parameters.text = "                                        "
+                            label.parameters.showSkeleton = true
+                        }
 
-                    Spacer()
+                        Spacer()
 
-                    Typography.paragraph { label in
-                        label.parameters.text = "                     "
-                        label.parameters.showSkeleton = true
+                        Typography.paragraph { label in
+                            label.parameters.text = "                     "
+                            label.parameters.showSkeleton = true
+                        }
                     }
                 }
             }
