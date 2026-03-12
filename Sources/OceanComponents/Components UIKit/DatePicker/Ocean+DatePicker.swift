@@ -160,7 +160,7 @@ extension Ocean {
             calendar.translatesAutoresizingMaskIntoConstraints = false
             calendar.dataSource = self
             calendar.delegate = self
-            calendar.appearance.caseOptions = [.headerUsesUpperCase, .weekdayUsesSingleUpperCase]
+            calendar.appearance.caseOptions = [.headerUsesCapitalized, .weekdayUsesSingleUpperCase]
             calendar.placeholderType = .none
             calendar.calendarWeekdayView.backgroundColor = .white
             calendar.daysContainer.backgroundColor = Ocean.color.colorInterfaceLightPure
