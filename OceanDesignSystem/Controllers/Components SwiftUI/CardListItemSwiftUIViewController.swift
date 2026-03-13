@@ -188,6 +188,54 @@ class CardListItemSwiftUIViewController: UIViewController {
         }
     }
 
+    lazy var card17 = OceanSwiftUI.CardListItem { view in
+        view.parameters.title = "Agenda de outras maquininhas"
+        view.parameters.subtitle = "Disponível: R$ 353.861,30"
+        view.parameters.brandsParameters = OceanSwiftUI.BrandsParameters(
+            acquirers: ["Getnet", "rede"],
+            limit: 3,
+            hasBorder: true
+        )
+        view.parameters.hasRadioButton = true
+        view.parameters.onTouch = { print("Card com brands selecionado") }
+    }
+
+    lazy var card18 = OceanSwiftUI.CardListItem { view in
+        view.parameters.title = "Agenda Blu"
+        view.parameters.subtitle = "Disponível: R$ 10,00"
+        view.parameters.brandsParameters = OceanSwiftUI.BrandsParameters(
+            acquirers: ["Blu"],
+            limit: 3,
+            hasBorder: true
+        )
+        view.parameters.hasRadioButton = true
+        view.parameters.onTouch = { print("Card com brands selecionado") }
+    }
+
+    lazy var card19 = OceanSwiftUI.CardListItem { view in
+        view.parameters.title = "Agenda"
+        view.parameters.subtitle = "Disponível: R$ 10,00"
+        view.parameters.brandsParameters = OceanSwiftUI.BrandsParameters(
+            acquirers: ["Blu", "Oie", "Rede"],
+            limit: 3,
+            hasBorder: true
+        )
+        view.parameters.hasRadioButton = true
+        view.parameters.onTouch = { print("Card com brands selecionado") }
+    }
+
+    lazy var card20 = OceanSwiftUI.CardListItem { view in
+        view.parameters.title = "Agenda"
+        view.parameters.subtitle = "Disponível: R$ 10,00"
+        view.parameters.brandsParameters = OceanSwiftUI.BrandsParameters(
+            acquirers: ["Blu", "Oie", "Rede", "Stone"],
+            limit: 3,
+            hasBorder: true
+        )
+        view.parameters.hasRadioButton = true
+        view.parameters.onTouch = { print("Card com brands selecionado") }
+    }
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             card51
@@ -197,6 +245,10 @@ class CardListItemSwiftUIViewController: UIViewController {
             card14
             card13
             card12
+            card17
+            card18
+            card19
+            card20
             card1
             card2
             card3
