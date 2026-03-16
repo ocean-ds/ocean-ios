@@ -191,7 +191,7 @@ class CardListItemSwiftUIViewController: UIViewController {
     lazy var card17 = OceanSwiftUI.CardListItem { view in
         view.parameters.title = "Agenda de outras maquininhas"
         view.parameters.subtitle = "Disponível: R$ 353.861,30"
-        view.parameters.brandsParameters = OceanSwiftUI.BrandsParameters(
+        view.parameters.brands = OceanSwiftUI.BrandsParameters(
             acquirers: ["Getnet", "rede"],
             limit: 3,
             hasBorder: true
@@ -203,7 +203,7 @@ class CardListItemSwiftUIViewController: UIViewController {
     lazy var card18 = OceanSwiftUI.CardListItem { view in
         view.parameters.title = "Agenda Blu"
         view.parameters.subtitle = "Disponível: R$ 10,00"
-        view.parameters.brandsParameters = OceanSwiftUI.BrandsParameters(
+        view.parameters.brands = OceanSwiftUI.BrandsParameters(
             acquirers: ["Blu"],
             limit: 3,
             hasBorder: true
@@ -215,7 +215,7 @@ class CardListItemSwiftUIViewController: UIViewController {
     lazy var card19 = OceanSwiftUI.CardListItem { view in
         view.parameters.title = "Agenda"
         view.parameters.subtitle = "Disponível: R$ 10,00"
-        view.parameters.brandsParameters = OceanSwiftUI.BrandsParameters(
+        view.parameters.brands = OceanSwiftUI.BrandsParameters(
             acquirers: ["Blu", "Oie", "Rede"],
             limit: 3,
             hasBorder: true
@@ -227,7 +227,7 @@ class CardListItemSwiftUIViewController: UIViewController {
     lazy var card20 = OceanSwiftUI.CardListItem { view in
         view.parameters.title = "Agenda"
         view.parameters.subtitle = "Disponível: R$ 10,00"
-        view.parameters.brandsParameters = OceanSwiftUI.BrandsParameters(
+        view.parameters.brands = OceanSwiftUI.BrandsParameters(
             acquirers: ["Blu", "Oie", "Rede", "Stone"],
             limit: 3,
             hasBorder: true
