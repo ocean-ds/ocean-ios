@@ -33,6 +33,7 @@ extension OceanSwiftUI {
         @Published public var tagStatus: TagParameters.Status
         @Published public var tagSize: TagParameters.Size
         @Published public var tagPosition: TagPosition
+        @Published public var brands: OceanSwiftUI.BrandsParameters?
         @Published public var hasCheckbox: Bool
         @Published public var hasRadioButton: Bool
         @Published public var isChecked: Bool
@@ -65,6 +66,7 @@ extension OceanSwiftUI {
                     tagStatus: TagParameters.Status = .neutralPrimary,
                     tagSize: TagParameters.Size = .small,
                     tagPosition: TagPosition = .leading,
+                    brands: OceanSwiftUI.BrandsParameters? = nil,
                     hasCheckbox: Bool = false,
                     hasRadioButton: Bool = false,
                     isChecked: Bool = false,
@@ -95,6 +97,7 @@ extension OceanSwiftUI {
             self.tagStatus = tagStatus
             self.tagSize = tagSize
             self.tagPosition = tagPosition
+            self.brands = brands
             self.hasCheckbox = hasCheckbox
             self.hasRadioButton = hasRadioButton
             self.isChecked = isChecked
@@ -235,8 +238,7 @@ extension OceanSwiftUI {
                                     .padding(.top, Ocean.size.spacingStackXxs)
                                 }
                             }
-
-                            Spacer()
+                            .frame(maxWidth: .infinity, alignment: .leading)
 
                             HStack(spacing: Ocean.size.spacingStackXxs) {
                                 if parameters.tagPosition == .trailing, !parameters.tagLabel.isEmpty {
@@ -246,6 +248,10 @@ extension OceanSwiftUI {
                                         tag.parameters.status = parameters.isEnabled ? parameters.tagStatus : disabledTagStatus
                                         tag.parameters.size = parameters.tagSize
                                     }
+                                }
+
+                                if let brandsParams = parameters.brands, !brandsParams.acquirers.isEmpty {
+                                    OceanSwiftUI.Brands(parameters: brandsParams)
                                 }
 
                                 if parameters.hasCheckbox {

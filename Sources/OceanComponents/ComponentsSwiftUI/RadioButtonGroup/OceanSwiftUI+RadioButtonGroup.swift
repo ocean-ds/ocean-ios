@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 import OceanTokens
 
 extension OceanSwiftUI {
@@ -49,6 +50,7 @@ extension OceanSwiftUI {
         fileprivate func selectItem(item: String, index: Int) {
             errorMessage = ""
             itemSelectedIndex = index
+            UISelectionFeedbackGenerator().selectionChanged()
             onTouch(index, item)
         }
     }
