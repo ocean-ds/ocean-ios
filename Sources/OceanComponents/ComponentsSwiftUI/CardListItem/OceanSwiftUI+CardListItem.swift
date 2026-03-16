@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import UIKit
 import OceanTokens
 
 extension OceanSwiftUI {
@@ -270,7 +269,6 @@ extension OceanSwiftUI {
                                         group.parameters.isEnabled = self.parameters.isEnabled
                                         group.parameters.setSelectedIndex(self.parameters.isChecked ? 0 : -1)
                                         group.parameters.onTouch = { _, _ in
-                                            UISelectionFeedbackGenerator().selectionChanged()
                                             self.parameters.isChecked = group.parameters.itemSelectedIndex == 0
                                             self.parameters.onTouch()
                                         }
@@ -305,7 +303,6 @@ extension OceanSwiftUI {
 
                             if parameters.hasRadioButton {
                                 guard !parameters.isChecked else { return }
-                                UISelectionFeedbackGenerator().selectionChanged()
                                 parameters.isChecked = true
                                 parameters.onTouch()
                                 return
