@@ -137,7 +137,6 @@ class CardListItemSwiftUIViewController: UIViewController {
         view.parameters.tagLabel = "Mais econômico"
         view.parameters.tagStatus = .positive
         view.parameters.highlightCaption = "Receber à vista agora é mais barato do que antecipar depois!"
-        view.parameters.highlightCaptionColor = Ocean.color.colorBrandPrimaryPure
         view.parameters.hasRadioButton = true
         view.parameters.onTouch = { print("Checked") }
     }
