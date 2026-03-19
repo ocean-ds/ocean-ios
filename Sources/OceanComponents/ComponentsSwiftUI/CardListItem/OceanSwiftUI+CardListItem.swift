@@ -23,6 +23,7 @@ extension OceanSwiftUI {
         @Published public var captionLineLimit: Int?
         @Published public var trailingIcon: UIImage?
         @Published public var highlightCaption: String
+        @Published public var highlightCaptionColor: UIColor
         @Published public var highlightIcon: UIImage?
         @Published public var highlightIconColor: UIColor
         @Published public var highlightBackgroundColor: UIColor
@@ -56,6 +57,7 @@ extension OceanSwiftUI {
                     subtitleLineLimit: Int? = nil,
                     captionLineLimit: Int? = nil,
                     highlightCaption: String = "",
+                    highlightCaptionColor: UIColor = Ocean.color.colorInterfaceDarkDown,
                     highlightIcon: UIImage? = Ocean.icon.sparklesAltSolid,
                     highlightIconColor: UIColor = Ocean.color.colorStatusPositiveDeep,
                     highlightBackgroundColor: UIColor = Ocean.color.colorStatusPositiveUp,
@@ -87,6 +89,7 @@ extension OceanSwiftUI {
             self.subtitleLineLimit = subtitleLineLimit
             self.captionLineLimit = captionLineLimit
             self.highlightCaption = highlightCaption
+            self.highlightCaptionColor = highlightCaptionColor
             self.highlightIcon = highlightIcon
             self.highlightIconColor = highlightIconColor
             self.highlightBackgroundColor = highlightBackgroundColor
@@ -157,6 +160,7 @@ extension OceanSwiftUI {
 
                 OceanSwiftUI.Typography.caption { label in
                     label.parameters.text = parameters.highlightCaption
+                    label.parameters.textColor = parameters.highlightCaptionColor
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -330,6 +334,7 @@ extension OceanSwiftUI {
 
                             OceanSwiftUI.Typography.caption { label in
                                 label.parameters.text = parameters.highlightCaption
+                                label.parameters.textColor = parameters.highlightCaptionColor
                             }
                         }
                         .padding(.horizontal, Ocean.size.spacingStackXs)
