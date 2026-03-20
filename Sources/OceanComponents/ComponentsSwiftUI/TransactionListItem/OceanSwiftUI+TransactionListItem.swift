@@ -330,12 +330,6 @@ extension OceanSwiftUI {
                 }
 
                 if !parameters.level2.isEmpty {
-
-                    if !parameters.level1.isEmpty {
-                        Spacer()
-                            .frame(height: Ocean.size.spacingStackXxxs)
-                    }
-
                     OceanSwiftUI.Typography { label in
                         label.parameters.style = parameters.level2Style
                         label.parameters.text = parameters.level2
@@ -383,8 +377,8 @@ extension OceanSwiftUI {
 
         @ViewBuilder
         private var trailingView: some View {
-            HStack(spacing: 0) {
-                VStack(alignment: .trailing) {
+            HStack(spacing: Ocean.size.spacingStackXxsExtra) {
+                VStack(alignment: .trailing, spacing: 0) {
                     OceanSwiftUI.Typography { label in
                         if let text = parameters.value1Text {
                             label.parameters.text = text
@@ -448,7 +442,7 @@ extension OceanSwiftUI {
                         .frame(width: 20, height: 20)
                 } else {
                     Spacer()
-                        .frame(width: Ocean.size.spacingStackXxs)
+                        .frame(width: 1)
                 }
             }
         }
