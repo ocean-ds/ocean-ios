@@ -10,269 +10,213 @@ import OceanTokens
 import SwiftUI
 
 class CardListItemSwiftUIViewController: UIViewController {
-    
-    lazy var card1 = OceanSwiftUI.CardListItem { builder in
+
+    // MARK: - State
+
+    fileprivate class State: ObservableObject {
+        @Published var hasLeadingIcon: Bool = false
+        @Published var hasTrailingIcon: Bool = false
+        @Published var hasSubtitle: Bool = true
+        @Published var hasCaption: Bool = true
+        @Published var hasTag: Bool = false
+        @Published var tagPosition: OceanSwiftUI.CardListItemParameters.TagPosition = .leading
+        @Published var tagStatus: OceanSwiftUI.TagParameters.Status = .neutralPrimary
+        @Published var hasHighlight: Bool = false
+        @Published var hasHighlightIcon: Bool = true
+        @Published var selectionMode: SelectionMode = .none
+        @Published var isEnabled: Bool = true
+        @Published var hasError: Bool = false
+        @Published var showSkeleton: Bool = false
+    }
+
+    enum SelectionMode: String, CaseIterable {
+        case none = "None"
+        case checkbox = "Checkbox"
+        case radioButton = "Radio Button"
+    }
+
+    // MARK: - Component
+
+    lazy var previewCard = OceanSwiftUI.CardListItem { builder in
         builder.parameters.title = "Title"
         builder.parameters.subtitle = "Subtitle"
         builder.parameters.caption = "Caption"
-        builder.parameters.tagLabel = "Tag"
-        builder.parameters.tagSize = .small
-        builder.parameters.tagStatus = .warning
-        builder.parameters.onTouch = {
-            print("card1")
-            builder.parameters.showSkeleton = !builder.parameters.showSkeleton
-        }
+        builder.parameters.onTouch = { print("card touched") }
+        builder.parameters.onTouchWhenDisabled = { print("card touched (disabled)") }
     }
 
-    lazy var card2 = OceanSwiftUI.CardListItem { builder in
-        builder.parameters.title = "Title"
-        builder.parameters.subtitle = "Subtitle"
-        builder.parameters.onTouch = { print("card2") }
-    }
+    private let state = State()
 
-    lazy var card3 = OceanSwiftUI.CardListItem { builder in
-        builder.parameters.title = "Title"
-        builder.parameters.caption = "Caption"
-        builder.parameters.onTouch = { print("card3") }
-    }
+    // MARK: - Layout
 
-    lazy var card4 = OceanSwiftUI.CardListItem { builder in
-        builder.parameters.title = "Title"
-        builder.parameters.subtitle = "Subtitle"
-        builder.parameters.caption = "Caption"
-        builder.parameters.leadingIcon = Ocean.icon.archiveOutline
-        builder.parameters.onTouch = { print("card4") }
-    }
+    public lazy var hostingController: UIHostingController<AnyView> = {
+        let content = AnyView(CardListItemPreviewView(state: self.state, card: self.previewCard))
+        return UIHostingController(rootView: content)
+    }()
 
-    lazy var card5 = OceanSwiftUI.CardListItem { builder in
-        builder.parameters.title = "Title"
-        builder.parameters.subtitle = "Subtitle"
-        builder.parameters.caption = "Caption"
-        builder.parameters.leadingIcon = Ocean.icon.archiveOutline
-        builder.parameters.trailingIcon = Ocean.icon.chevronRightSolid
-        builder.parameters.onTouch = { print("card5") }
-    }
+    public lazy var uiView: UIView = {
+        return self.hostingController.getUIView()
+    }()
 
-    lazy var card51 = OceanSwiftUI.CardListItem { builder in
-        builder.parameters.title = "Title"
-        builder.parameters.leadingIcon = Ocean.icon.archiveOutline
-        builder.parameters.trailingIcon = Ocean.icon.chevronRightSolid
-        builder.parameters.tagLabel = "Até 21x"
-        builder.parameters.tagStatus = .neutralPrimary
-        builder.parameters.tagPosition = .trailing
-        builder.parameters.onTouch = { print("card5") }
-    }
-
-    lazy var card52 = OceanSwiftUI.CardListItem { builder in
-        builder.parameters.title = "Title"
-        builder.parameters.leadingIcon = Ocean.icon.archiveOutline
-        builder.parameters.trailingIcon = Ocean.icon.chevronRightSolid
-        builder.parameters.tagLabel = "Até 21x"
-        builder.parameters.tagStatus = .neutralPrimary
-        builder.parameters.tagPosition = .trailing
-        builder.parameters.isEnabled = false
-        builder.parameters.onTouch = { print("card5") }
-    }
-
-    lazy var card6 = OceanSwiftUI.CardListItem { builder in
-        builder.parameters.title = "Title"
-        builder.parameters.subtitle = "Subtitle"
-        builder.parameters.leadingIcon = Ocean.icon.archiveOutline
-        builder.parameters.trailingIcon = Ocean.icon.chevronRightSolid
-        builder.parameters.onTouch = { print("card6") }
-    }
-
-    lazy var card7 = OceanSwiftUI.CardListItem { builder in
-        builder.parameters.title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        builder.parameters.subtitle = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        builder.parameters.caption = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        builder.parameters.leadingIcon = Ocean.icon.archiveOutline
-        builder.parameters.trailingIcon = Ocean.icon.chevronRightSolid
-        builder.parameters.onTouch = { print("card7") }
-    }
-
-    lazy var card8 = OceanSwiftUI.CardListItem { builder in
-        builder.parameters.title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        builder.parameters.subtitle = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        builder.parameters.caption = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        builder.parameters.leadingIcon = Ocean.icon.archiveOutline
-        builder.parameters.trailingIcon = Ocean.icon.chevronRightSolid
-        builder.parameters.onTouch = { print("card8") }
-        builder.parameters.titleLineLimit = 1
-        builder.parameters.subtitleLineLimit = 1
-        builder.parameters.captionLineLimit = 1
-    }
-
-    lazy var card9 = OceanSwiftUI.CardListItem { builder in
-        builder.parameters.title = "title title title"
-        builder.parameters.caption = "caption caption caption"
-        builder.parameters.trailingIcon = nil
-        builder.parameters.onTouch = { print("card8") }
-        builder.parameters.titleLineLimit = 1
-        builder.parameters.subtitleLineLimit = 1
-        builder.parameters.captionLineLimit = 1
-        builder.parameters.showSkeleton = true
-    }
-
-    lazy var card10 = OceanSwiftUI.CardListItem { view in
-        view.parameters.title = "title title title"
-        view.parameters.subtitle = "subtitle subtitle subtitle"
-        view.parameters.caption = "caption caption caption"
-        view.parameters.hasCheckbox = true
-        view.parameters.onCheckboxSelect = { $0 ? print("Checked") : print("Unchecked") }
-        view.parameters.onTouch = { print("card10") }
-    }
-
-    lazy var card11 = OceanSwiftUI.CardListItem { view in
-        view.parameters.title = "title title title"
-        view.parameters.subtitle = "subtitle subtitle subtitle"
-        view.parameters.caption = "caption caption caption"
-        view.parameters.hasRadioButton = true
-        view.parameters.onTouch = { print("Checked") }
-    }
-
-    lazy var card12 = OceanSwiftUI.CardListItem { view in
-        view.parameters.title = "À vista"
-        view.parameters.subtitle = "Receba R$ 927,10 (Taxa 7,99%)"
-        view.parameters.tagLabel = "Mais econômico"
-        view.parameters.tagStatus = .positive
-        view.parameters.highlightCaption = "Receber à vista agora é mais barato do que antecipar depois!"
-        view.parameters.hasRadioButton = true
-        view.parameters.onTouch = { print("Checked") }
-    }
-
-    lazy var card13 = OceanSwiftUI.CardListItem { view in
-        view.parameters.title = "Crédito parcelado"
-        view.parameters.titleColor = Ocean.color.colorInterfaceDarkDeep
-        view.parameters.subtitle = "Parcele tudo em até 12 vezes com a 1ª parcela para 30 dias"
-        view.parameters.caption = "Crédito aprovado: R$ 10.000,00"
-        view.parameters.captionColor = Ocean.color.colorBrandPrimaryPure
-        view.parameters.highlightCaption = "Melhor escolha para o caixa da sua loja."
-        view.parameters.hasRadioButton = true
-        view.parameters.onTouch = { print("Checked") }
-    }
-    
-    lazy var card14 = OceanSwiftUI.CardListItem { view in
-        view.parameters.title = "Crédito parcelado"
-        view.parameters.titleColor = Ocean.color.colorInterfaceDarkDeep
-        view.parameters.subtitle = "Parcele tudo em até 13 vezes com a 1ª parcela para 30 dias"
-        view.parameters.caption = "Crédito aprovado: R$ 10.000,00"
-        view.parameters.captionColor = Ocean.color.colorBrandPrimaryPure
-        view.parameters.leadingIcon = "flash-alt-outline".toOceanIcon()
-        view.parameters.hasRadioButton = true
-        view.parameters.isEnabled = false
-        view.parameters.onTouch = { print("Checked") }
-    }
-
-    lazy var card15 = OceanSwiftUI.CardListItem { view in
-        view.parameters.title = "Item desabilitado com toque"
-        view.parameters.subtitle = "Este item está desabilitado mas ainda responde ao toque"
-        view.parameters.caption = "Toque para ver a mensagem"
-        view.parameters.leadingIcon = Ocean.icon.flashOffAltOutline
-        view.parameters.isEnabled = false
-        view.parameters.onTouch = {
-            print("Este não será chamado pois está desabilitado")
-        }
-        view.parameters.onTouchWhenDisabled = {
-            print("Toque no item desabilitado!")
-        }
-    }
-
-    lazy var card16 = OceanSwiftUI.CardListItem { view in
-        view.parameters.title = "Opção bloqueada"
-        view.parameters.subtitle = "insufficient_credit_limit"
-        view.parameters.hasRadioButton = true
-        view.parameters.isEnabled = false
-        view.parameters.onTouchWhenDisabled = {
-            print("Modal explicativa")
-        }
-    }
-
-    lazy var card17 = OceanSwiftUI.CardListItem { view in
-        view.parameters.title = "Agenda de outras maquininhas"
-        view.parameters.subtitle = "Disponível: R$ 353.861,30"
-        view.parameters.brands = OceanSwiftUI.BrandsParameters(
-            acquirers: ["Getnet", "rede"],
-            limit: 3,
-            hasBorder: true
-        )
-        view.parameters.hasRadioButton = true
-        view.parameters.onTouch = { print("Card com brands selecionado") }
-    }
-
-    lazy var card18 = OceanSwiftUI.CardListItem { view in
-        view.parameters.title = "Agenda Blu"
-        view.parameters.subtitle = "Disponível: R$ 10,00"
-        view.parameters.brands = OceanSwiftUI.BrandsParameters(
-            acquirers: ["Blu"],
-            limit: 3,
-            hasBorder: true
-        )
-        view.parameters.hasRadioButton = true
-        view.parameters.onTouch = { print("Card com brands selecionado") }
-    }
-
-    lazy var card19 = OceanSwiftUI.CardListItem { view in
-        view.parameters.title = "Agenda"
-        view.parameters.subtitle = "Disponível: R$ 10,00"
-        view.parameters.brands = OceanSwiftUI.BrandsParameters(
-            acquirers: ["Blu", "Oie", "Rede"],
-            limit: 3,
-            hasBorder: true
-        )
-        view.parameters.hasRadioButton = true
-        view.parameters.onTouch = { print("Card com brands selecionado") }
-    }
-
-    lazy var card20 = OceanSwiftUI.CardListItem { view in
-        view.parameters.title = "Agenda"
-        view.parameters.subtitle = "Disponível: R$ 10,00"
-        view.parameters.brands = OceanSwiftUI.BrandsParameters(
-            acquirers: ["Blu", "Oie", "Rede", "Stone"],
-            limit: 3,
-            hasBorder: true
-        )
-        view.parameters.hasRadioButton = true
-        view.parameters.onTouch = { print("Card com brands selecionado") }
-    }
-
-    public lazy var hostingController = UIHostingController(rootView: ScrollView {
-        VStack(spacing: Ocean.size.spacingStackXs) {
-            card51
-            card52
-            card16
-            card15
-            card14
-            card13
-            card12
-            card17
-            card18
-            card19
-            card20
-            card1
-            card2
-            card3
-            card4
-            card5
-            card6
-            card7
-            card8
-            card9
-            card10
-            card11
-        }
-    })
-
-    public lazy var uiView = self.hostingController.getUIView()
+    // MARK: - Lifecycle
 
     public override func viewDidLoad() {
         self.view.backgroundColor = .white
-
         self.view.addSubview(uiView)
-
         uiView.oceanConstraints
             .fill(to: self.view, constant: Ocean.size.spacingStackXs)
             .make()
+    }
+}
+
+// MARK: - SwiftUI View
+
+private struct CardListItemPreviewView: View {
+
+    @ObservedObject var state: CardListItemSwiftUIViewController.State
+    var card: OceanSwiftUI.CardListItem
+
+    var body: some View {
+        VStack(spacing: 0) {
+            // MARK: Preview area
+            if #available(iOS 14.0, *) {
+                VStack {
+                    card
+                        .fixedSize(horizontal: false, vertical: true)
+                        .padding(.horizontal, Ocean.size.spacingStackXs)
+                }
+                .padding(.vertical, Ocean.size.spacingStackSm)
+                .frame(maxWidth: .infinity)
+                .background(Color(UIColor.systemBackground))
+                .onChange(of: state.hasLeadingIcon)   { _ in updateCard() }
+                .onChange(of: state.hasTrailingIcon)  { _ in updateCard() }
+                .onChange(of: state.hasSubtitle)      { _ in updateCard() }
+                .onChange(of: state.hasCaption)       { _ in updateCard() }
+                .onChange(of: state.hasTag)           { _ in updateCard() }
+                .onChange(of: state.tagPosition)      { _ in updateCard() }
+                .onChange(of: state.tagStatus)        { _ in updateCard() }
+                .onChange(of: state.hasHighlight)     { _ in updateCard() }
+                .onChange(of: state.hasHighlightIcon) { _ in updateCard() }
+                .onChange(of: state.selectionMode)    { _ in updateCard() }
+                .onChange(of: state.isEnabled)        { _ in updateCard() }
+                .onChange(of: state.hasError)         { _ in updateCard() }
+                .onChange(of: state.showSkeleton)     { _ in updateCard() }
+            }
+
+            Divider()
+
+            // MARK: Controls
+            ScrollView {
+                VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
+
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Content").font(.headline)
+
+                        Toggle("Leading Icon", isOn: $state.hasLeadingIcon)
+                        Toggle("Trailing Icon", isOn: $state.hasTrailingIcon)
+                        Toggle("Subtitle", isOn: $state.hasSubtitle)
+                        Toggle("Caption", isOn: $state.hasCaption)
+                    }
+                    .padding(.bottom, Ocean.size.spacingStackXxs)
+
+                    Divider()
+
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Tag").font(.headline)
+
+                        Toggle("Has Tag", isOn: $state.hasTag)
+
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Position")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+
+                            Picker("Tag Position", selection: $state.tagPosition) {
+                                Text("Leading").tag(OceanSwiftUI.CardListItemParameters.TagPosition.leading)
+                                Text("Trailing").tag(OceanSwiftUI.CardListItemParameters.TagPosition.trailing)
+                            }
+                            .pickerStyle(SegmentedPickerStyle())
+
+                            Text("Status")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+
+                            Picker("Tag Status", selection: $state.tagStatus) {
+                                Text("Neutral").tag(OceanSwiftUI.TagParameters.Status.neutralPrimary)
+                                Text("Positive").tag(OceanSwiftUI.TagParameters.Status.positive)
+                                Text("Warning").tag(OceanSwiftUI.TagParameters.Status.warning)
+                                Text("Negative").tag(OceanSwiftUI.TagParameters.Status.negative)
+                            }
+                            .pickerStyle(WheelPickerStyle())
+                            .frame(height: 120)
+                            .clipped()
+                        }
+                        .disabled(!state.hasTag)
+                        .opacity(state.hasTag ? 1 : 0.3)
+                    }
+                    .padding(.bottom, Ocean.size.spacingStackXxs)
+
+                    Divider()
+
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Highlight").font(.headline)
+
+                        Toggle("Has Highlight", isOn: $state.hasHighlight)
+
+                        Toggle("Has Highlight Icon", isOn: $state.hasHighlightIcon)
+                            .disabled(!state.hasHighlight)
+                            .opacity(state.hasHighlight ? 1 : 0.3)
+                    }
+                    .padding(.bottom, Ocean.size.spacingStackXxs)
+
+                    Divider()
+
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Selection Mode").font(.headline)
+
+                        Picker("Selection Mode", selection: $state.selectionMode) {
+                            ForEach(CardListItemSwiftUIViewController.SelectionMode.allCases, id: \.self) { mode in
+                                Text(mode.rawValue).tag(mode)
+                            }
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                    }
+                    .padding(.bottom, Ocean.size.spacingStackXxs)
+
+                    Divider()
+
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("State").font(.headline)
+
+                        Toggle("Enabled", isOn: $state.isEnabled)
+                        Toggle("Has Error", isOn: $state.hasError)
+                        Toggle("Show Skeleton", isOn: $state.showSkeleton)
+                    }
+                }
+                .padding(.horizontal, Ocean.size.spacingStackMd)
+                .padding(.vertical, Ocean.size.spacingStackXs)
+            }
+        }
+    }
+
+    // MARK: - Update
+
+    private func updateCard() {
+        card.parameters.leadingIcon = state.hasLeadingIcon ? Ocean.icon.archiveOutline : nil
+        card.parameters.trailingIcon = state.hasTrailingIcon ? Ocean.icon.chevronRightSolid : nil
+        card.parameters.subtitle = state.hasSubtitle ? "Subtitle" : ""
+        card.parameters.caption = state.hasCaption ? "Caption" : ""
+        card.parameters.tagLabel = state.hasTag ? "Tag" : ""
+        card.parameters.tagPosition = state.tagPosition
+        card.parameters.tagStatus = state.tagStatus
+        card.parameters.highlightCaption = state.hasHighlight ? "This is a highlight message for this card item." : ""
+        card.parameters.highlightIcon = state.hasHighlight && state.hasHighlightIcon ? Ocean.icon.sparklesSolid : nil
+        card.parameters.hasCheckbox = state.selectionMode == CardListItemSwiftUIViewController.SelectionMode.checkbox
+        card.parameters.hasRadioButton = state.selectionMode == CardListItemSwiftUIViewController.SelectionMode.radioButton
+
+        card.parameters.isEnabled = state.isEnabled
+        card.parameters.hasError = state.hasError
+        card.parameters.showSkeleton = state.showSkeleton
     }
 }
 
