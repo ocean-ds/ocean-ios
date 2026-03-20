@@ -58,7 +58,7 @@ extension OceanSwiftUI {
                     captionLineLimit: Int? = nil,
                     highlightCaption: String = "",
                     highlightCaptionColor: UIColor = Ocean.color.colorInterfaceDarkDown,
-                    highlightIcon: UIImage? = Ocean.icon.sparklesAltSolid,
+                    highlightIcon: UIImage? = nil,
                     highlightIconColor: UIColor = Ocean.color.colorStatusPositiveDeep,
                     highlightBackgroundColor: UIColor = Ocean.color.colorStatusPositiveUp,
                     highlightBorderColor: UIColor = Ocean.color.colorStatusPositiveDeep,
