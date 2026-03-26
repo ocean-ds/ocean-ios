@@ -25,6 +25,10 @@ extension OceanSwiftUI {
         @Published public var level2Style: TypographyParameters.Style
         @Published public var level3Style: TypographyParameters.Style
         @Published public var level4Style: TypographyParameters.Style
+        @Published public var level1Color: UIColor
+        @Published public var level2Color: UIColor
+        @Published public var level3Color: UIColor
+        @Published public var level4Color: UIColor
         @Published public var value1: Double
         @Published public var value1Text: String?
         @Published public var value2: Double?
@@ -78,6 +82,10 @@ extension OceanSwiftUI {
                     level2Style: TypographyParameters.Style = .paragraph,
                     level3Style: TypographyParameters.Style = .captionBold,
                     level4Style: TypographyParameters.Style = .caption,
+                    level1Color: UIColor = Ocean.color.colorInterfaceDarkDown,
+                    level2Color: UIColor = Ocean.color.colorInterfaceDarkDeep,
+                    level3Color: UIColor = Ocean.color.colorInterfaceDarkDown,
+                    level4Color: UIColor = Ocean.color.colorBrandPrimaryDeep,
                     value1: Double = 0.0,
                     value1Text: String? = nil,
                     value2: Double? = nil,
@@ -120,6 +128,10 @@ extension OceanSwiftUI {
             self.level2Style = level2Style
             self.level3Style = level3Style
             self.level4Style = level4Style
+            self.level1Color = level1Color
+            self.level2Color = level2Color
+            self.level3Color = level3Color
+            self.level4Color = level4Color
             self.value1 = value1
             self.value1Text = value1Text
             self.value2 = value2
@@ -171,6 +183,10 @@ extension OceanSwiftUI {
                 level2Style: self.level2Style,
                 level3Style: self.level3Style,
                 level4Style: self.level4Style,
+                level1Color: self.level1Color,
+                level2Color: self.level2Color,
+                level3Color: self.level3Color,
+                level4Color: self.level4Color,
                 value1: self.value1,
                 value1Text: self.value1Text,
                 value2: self.value2,
@@ -309,7 +325,7 @@ extension OceanSwiftUI {
                         label.parameters.style = parameters.level4Style
                         label.parameters.text = parameters.level4
                         label.parameters.textColor = parameters.isEnabled
-                        ? Ocean.color.colorBrandPrimaryDeep
+                        ? parameters.level4Color
                         : Ocean.color.colorInterfaceDarkUp
                         label.parameters.lineLimit = parameters.lineLimitLevel4 ?? 1
                     }
@@ -323,7 +339,7 @@ extension OceanSwiftUI {
                         label.parameters.style = parameters.level1Style
                         label.parameters.text = parameters.level1
                         label.parameters.textColor = parameters.isEnabled
-                        ? Ocean.color.colorInterfaceDarkDown
+                        ? parameters.level1Color
                         : Ocean.color.colorInterfaceDarkUp
                         label.parameters.lineLimit = parameters.lineLimitLevel1 ?? 2
                     }
@@ -334,7 +350,7 @@ extension OceanSwiftUI {
                         label.parameters.style = parameters.level2Style
                         label.parameters.text = parameters.level2
                         label.parameters.textColor = parameters.isEnabled
-                        ? Ocean.color.colorInterfaceDarkDeep
+                        ? parameters.level2Color
                         : Ocean.color.colorInterfaceDarkUp
                         label.parameters.lineLimit = parameters.lineLimitLevel2 ?? 1
                     }
@@ -348,7 +364,7 @@ extension OceanSwiftUI {
                         label.parameters.style = parameters.level3Style
                         label.parameters.text = parameters.level3
                         label.parameters.textColor = parameters.isEnabled
-                        ? Ocean.color.colorInterfaceDarkDown
+                        ? parameters.level3Color
                         : Ocean.color.colorInterfaceDarkUp
                         label.parameters.lineLimit = parameters.lineLimitLevel3 ?? 1
                     }
