@@ -61,6 +61,7 @@ extension OceanSwiftUI {
 
         public enum ContentListItemType {
             case `default`
+            @available(*, deprecated, message: "Use isInverted = true no ContentListParameters. Este case sera removido em versao futura.")
             case inverted
             case inactive
             case highlight
