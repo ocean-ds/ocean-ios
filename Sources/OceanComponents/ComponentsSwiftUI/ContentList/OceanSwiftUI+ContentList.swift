@@ -198,15 +198,6 @@ extension OceanSwiftUI {
                 return descriptionColor
             }
 
-            if resolvedInverted {
-                switch parameters.type {
-                case .highlight, .highlightLead:
-                    return Ocean.color.colorInterfaceDarkDeep
-                default:
-                    return Ocean.color.colorInterfaceDarkPure
-                }
-            }
-
             switch parameters.type {
             case .default:
                 return Ocean.color.colorInterfaceDarkDown
