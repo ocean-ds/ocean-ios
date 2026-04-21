@@ -13,47 +13,50 @@ import SwiftUI
 
 class TextListReadOnlySwiftUIViewController: UIViewController {
 
-    lazy var invertedDefault: OceanSwiftUI.TextListReadOnly = {
+    lazy var highlightLeadInverted: OceanSwiftUI.TextListReadOnly = {
         OceanSwiftUI.TextListReadOnly { view in
-            view.parameters.contentList.type = .inverted
-            view.parameters.contentList.title = "R$ 2.500,00"
-            view.parameters.contentList.description = "Saldo total na Blu"
-        }
-    }()
-
-    lazy var invertedWithTag: OceanSwiftUI.TextListReadOnly = {
-        OceanSwiftUI.TextListReadOnly { view in
-            view.parameters.contentList.type = .inverted
-            view.parameters.contentList.title = "R$ 2.500,00"
-            view.parameters.contentList.description = "Saldo total na Blu"
-            view.parameters.tag = .init(label: "Novo",
-                                        status: .highlightNeutral,
-                                        size: .small)
-        }
-    }()
-
-    lazy var invertedWithIconAndDivider: OceanSwiftUI.TextListReadOnly = {
-        OceanSwiftUI.TextListReadOnly { view in
-            view.parameters.contentList.type = .inverted
-            view.parameters.contentList.title = "R$ 2.500,00"
-            view.parameters.contentList.description = "Saldo total na Blu"
-            view.parameters.showIcon = true
-            view.parameters.icon = Ocean.icon.placeholderSolid
-            view.parameters.showDivider = true
+            view.parameters.contentList.type = .highlightLead
+            view.parameters.contentList.inverted = true
+            view.parameters.contentList.title = "Saldo total na Blu"
+            view.parameters.contentList.description = "R$ 2.500,00"
         }
     }()
 
     lazy var defaultWithCaption: OceanSwiftUI.TextListReadOnly = {
         OceanSwiftUI.TextListReadOnly { view in
+            view.parameters.contentList.type = .default
             view.parameters.contentList.title = "Title"
             view.parameters.contentList.description = "Description"
             view.parameters.contentList.caption = "Caption"
         }
     }()
 
+    lazy var highlightWithTag: OceanSwiftUI.TextListReadOnly = {
+        OceanSwiftUI.TextListReadOnly { view in
+            view.parameters.contentList.type = .highlight
+            view.parameters.contentList.title = "Title"
+            view.parameters.contentList.description = "Description"
+            view.parameters.tag = .init(label: "Novo",
+                                        status: .highlightNeutral,
+                                        size: .small)
+        }
+    }()
+
+    lazy var defaultWithIconAndDivider: OceanSwiftUI.TextListReadOnly = {
+        OceanSwiftUI.TextListReadOnly { view in
+            view.parameters.contentList.type = .default
+            view.parameters.contentList.title = "Title"
+            view.parameters.contentList.description = "Description"
+            view.parameters.showIcon = true
+            view.parameters.icon = Ocean.icon.placeholderSolid
+            view.parameters.showDivider = true
+        }
+    }()
+
     lazy var disabled: OceanSwiftUI.TextListReadOnly = {
         OceanSwiftUI.TextListReadOnly { view in
             view.parameters.state = .disabled
+            view.parameters.contentList.type = .default
             view.parameters.contentList.title = "Title"
             view.parameters.contentList.description = "Description"
             view.parameters.contentList.caption = "Caption"
@@ -70,10 +73,10 @@ class TextListReadOnlySwiftUIViewController: UIViewController {
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
-            invertedDefault
-            invertedWithTag
-            invertedWithIconAndDivider
+            highlightLeadInverted
             defaultWithCaption
+            highlightWithTag
+            defaultWithIconAndDivider
             disabled
             loading
         }
