@@ -17,9 +17,7 @@ extension OceanSwiftUI {
         @Published public var showIcon: Bool
         @Published public var icon: UIImage?
         @Published public var iconColor: UIColor
-        @Published public var iconSize: CGFloat
-        @Published public var showIndicator: Bool
-        @Published public var indicator: TagParameters?
+        @Published public var tag: TagParameters?
         @Published public var showDivider: Bool
         @Published public var contentList: ContentListParameters
         @Published public var backgroundColor: UIColor
@@ -29,9 +27,7 @@ extension OceanSwiftUI {
                     showIcon: Bool = false,
                     icon: UIImage? = nil,
                     iconColor: UIColor = Ocean.color.colorInterfaceDarkDown,
-                    iconSize: CGFloat = 20,
-                    showIndicator: Bool = false,
-                    indicator: TagParameters? = nil,
+                    tag: TagParameters? = nil,
                     showDivider: Bool = false,
                     contentList: ContentListParameters = ContentListParameters(),
                     backgroundColor: UIColor = Ocean.color.colorInterfaceLightPure,
@@ -40,9 +36,7 @@ extension OceanSwiftUI {
             self.showIcon = showIcon
             self.icon = icon
             self.iconColor = iconColor
-            self.iconSize = iconSize
-            self.showIndicator = showIndicator
-            self.indicator = indicator
+            self.tag = tag
             self.showDivider = showDivider
             self.contentList = contentList
             self.backgroundColor = backgroundColor
@@ -86,19 +80,20 @@ extension OceanSwiftUI {
 
         public var body: some View {
             VStack(spacing: 0) {
-                HStack(alignment: .center, spacing: Ocean.size.spacingStackXxs) {
+                HStack(alignment: .center, spacing: Ocean.size.spacingStackXxsExtra) {
                     if parameters.showIcon, let icon = parameters.icon {
                         Image(uiImage: icon)
                             .resizable()
                             .renderingMode(.template)
-                            .frame(width: parameters.iconSize,
-                                   height: parameters.iconSize)
                             .foregroundColor(Color(parameters.iconColor))
+                            .frame(width: Ocean.size.spacingStackXs,
+                                   height: Ocean.size.spacingStackXs)
+                            .padding(Ocean.size.spacingInsetXxs)
                     }
 
                     ContentList(parameters: resolvedContentListParameters())
 
-                    if parameters.showIndicator, let tag = parameters.indicator {
+                    if let tag = parameters.tag, !tag.label.isEmpty {
                         Tag(parameters: tag)
                     }
                 }

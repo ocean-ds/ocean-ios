@@ -21,15 +21,14 @@ class TextListReadOnlySwiftUIViewController: UIViewController {
         }
     }()
 
-    lazy var invertedWithIndicator: OceanSwiftUI.TextListReadOnly = {
+    lazy var invertedWithTag: OceanSwiftUI.TextListReadOnly = {
         OceanSwiftUI.TextListReadOnly { view in
             view.parameters.contentList.type = .inverted
             view.parameters.contentList.title = "R$ 2.500,00"
             view.parameters.contentList.description = "Saldo total na Blu"
-            view.parameters.showIndicator = true
-            view.parameters.indicator = .init(label: "Novo",
-                                              status: .highlightNeutral,
-                                              size: .small)
+            view.parameters.tag = .init(label: "Novo",
+                                        status: .highlightNeutral,
+                                        size: .small)
         }
     }()
 
@@ -72,7 +71,7 @@ class TextListReadOnlySwiftUIViewController: UIViewController {
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             invertedDefault
-            invertedWithIndicator
+            invertedWithTag
             invertedWithIconAndDivider
             defaultWithCaption
             disabled
