@@ -216,7 +216,7 @@ extension OceanSwiftUI {
             case .highlight:
                 return .baseBold(size: Ocean.font.fontSizeXs)
             case .highlightLead:
-                return .baseBold(size: Ocean.font.fontSizeMd)
+                return .baseBold(size: Ocean.font.fontSizeSm)
             default:
                 return .baseRegular(size: Ocean.font.fontSizeXs)
             }
