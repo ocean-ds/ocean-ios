@@ -16,7 +16,7 @@ class TextListReadOnlySwiftUIViewController: UIViewController {
     lazy var highlightLeadInverted: OceanSwiftUI.TextListReadOnly = {
         OceanSwiftUI.TextListReadOnly { view in
             view.parameters.contentList.type = .highlightLead
-            view.parameters.contentList.inverted = true
+            view.parameters.contentList.isInverted = true
             view.parameters.contentList.title = "Saldo total na Blu"
             view.parameters.contentList.description = "R$ 2.500,00"
         }

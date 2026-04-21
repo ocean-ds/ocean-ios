@@ -25,7 +25,7 @@ extension OceanSwiftUI {
         @Published public var tagStatus: TagParameters.Status
         @Published public var errorMessage: String
         @Published public var type: ContentListItemType
-        @Published public var inverted: Bool
+        @Published public var isInverted: Bool
         @Published public var showSkeleton: Bool
         @Published public var padding: EdgeInsets
 
@@ -40,7 +40,7 @@ extension OceanSwiftUI {
                     tagStatus: TagParameters.Status = .warning,
                     errorMessage: String = "",
                     type: ContentListItemType = .default,
-                    inverted: Bool = false,
+                    isInverted: Bool = false,
                     showSkeleton: Bool = false,
                     padding: EdgeInsets = .all(Ocean.size.spacingStackXs)) {
             self.title = title
@@ -54,7 +54,7 @@ extension OceanSwiftUI {
             self.tagStatus = tagStatus
             self.errorMessage = errorMessage
             self.type = type
-            self.inverted = inverted
+            self.isInverted = isInverted
             self.showSkeleton = showSkeleton
             self.padding = padding
         }
@@ -175,8 +175,12 @@ extension OceanSwiftUI {
         
         // MARK: Private Methods
         
+        private var resolvedInverted: Bool {
+            parameters.isInverted || parameters.type == .inverted
+        }
+
         private func getTitleColor() -> UIColor {
-            if parameters.inverted {
+            if resolvedInverted {
                 return Ocean.color.colorInterfaceDarkDown
             }
 
@@ -193,8 +197,13 @@ extension OceanSwiftUI {
                 return descriptionColor
             }
 
-            if parameters.inverted {
-                return Ocean.color.colorInterfaceDarkDeep
+            if resolvedInverted {
+                switch parameters.type {
+                case .highlight, .highlightLead:
+                    return Ocean.color.colorInterfaceDarkDeep
+                default:
+                    return Ocean.color.colorInterfaceDarkPure
+                }
             }
 
             switch parameters.type {

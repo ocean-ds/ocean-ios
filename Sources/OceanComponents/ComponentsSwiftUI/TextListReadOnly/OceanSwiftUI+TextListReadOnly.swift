@@ -122,7 +122,7 @@ extension OceanSwiftUI {
                 tagStatus: source.tagStatus,
                 errorMessage: source.errorMessage,
                 type: parameters.state == .disabled ? .inactive : source.type,
-                inverted: source.inverted,
+                isInverted: source.isInverted,
                 showSkeleton: parameters.state == .loading || source.showSkeleton,
                 padding: .all(0)
             )
