@@ -15,6 +15,7 @@ public extension String {
         case "inverted": return OceanSwiftUI.ContentListParameters.ContentListItemType.inverted
         case "inactive": return OceanSwiftUI.ContentListParameters.ContentListItemType.inactive
         case "highlight": return OceanSwiftUI.ContentListParameters.ContentListItemType.highlight
+        case "highlightLead": return OceanSwiftUI.ContentListParameters.ContentListItemType.highlightLead
         case "default": return OceanSwiftUI.ContentListParameters.ContentListItemType.default
         default: return nil
         }

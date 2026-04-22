@@ -103,6 +103,7 @@ struct DSComponents {
         "Tab",
         "Tag",
         "TextListItem",
+        "TextListReadOnly",
         "InlineTextListItem",
         "CardReadOnly",
         "CardListExpandable",

@@ -25,9 +25,10 @@ extension OceanSwiftUI {
         @Published public var tagStatus: TagParameters.Status
         @Published public var errorMessage: String
         @Published public var type: ContentListItemType
+        @Published public var isInverted: Bool
         @Published public var showSkeleton: Bool
         @Published public var padding: EdgeInsets
-        
+
         public init(title: String = "",
                     description: String = "",
                     descriptionColor: UIColor? = nil,
@@ -39,6 +40,7 @@ extension OceanSwiftUI {
                     tagStatus: TagParameters.Status = .warning,
                     errorMessage: String = "",
                     type: ContentListItemType = .default,
+                    isInverted: Bool = false,
                     showSkeleton: Bool = false,
                     padding: EdgeInsets = .all(Ocean.size.spacingStackXs)) {
             self.title = title
@@ -52,15 +54,18 @@ extension OceanSwiftUI {
             self.tagStatus = tagStatus
             self.errorMessage = errorMessage
             self.type = type
+            self.isInverted = isInverted
             self.showSkeleton = showSkeleton
             self.padding = padding
         }
-        
+
         public enum ContentListItemType {
             case `default`
+            @available(*, deprecated, message: "Use isInverted = true no ContentListParameters. Este case sera removido em versao futura.")
             case inverted
             case inactive
             case highlight
+            case highlightLead
         }
     }
     
@@ -171,20 +176,28 @@ extension OceanSwiftUI {
         
         // MARK: Private Methods
         
+        private var resolvedInverted: Bool {
+            parameters.isInverted || parameters.type == .inverted
+        }
+
         private func getTitleColor() -> UIColor {
+            if resolvedInverted {
+                return Ocean.color.colorInterfaceDarkDown
+            }
+
             switch parameters.type {
             case .default:
                 return Ocean.color.colorInterfaceDarkPure
-            case .inverted, .inactive, .highlight:
+            case .inverted, .inactive, .highlight, .highlightLead:
                 return Ocean.color.colorInterfaceDarkDown
             }
         }
-        
+
         private func getDescriptionColor() -> UIColor {
             if let descriptionColor = parameters.descriptionColor {
                 return descriptionColor
             }
-            
+
             switch parameters.type {
             case .default:
                 return Ocean.color.colorInterfaceDarkDown
@@ -192,17 +205,19 @@ extension OceanSwiftUI {
                 return Ocean.color.colorInterfaceDarkPure
             case .inactive:
                 return Ocean.color.colorInterfaceDarkUp
-            case .highlight:
+            case .highlight, .highlightLead:
                 return Ocean.color.colorInterfaceDarkDeep
             }
         }
-        
+
         private func getFont() -> UIFont? {
             if let font = parameters.descriptionFont { return font }
-            
+
             switch parameters.type {
             case .highlight:
                 return .baseBold(size: Ocean.font.fontSizeXs)
+            case .highlightLead:
+                return .baseBold(size: Ocean.font.fontSizeSm)
             default:
                 return .baseRegular(size: Ocean.font.fontSizeXs)
             }
