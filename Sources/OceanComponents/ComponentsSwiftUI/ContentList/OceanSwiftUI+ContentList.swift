@@ -110,10 +110,11 @@ extension OceanSwiftUI {
                             if !parameters.title.isEmpty {
                                 Typography.description { label in
                                     label.parameters.text = parameters.title
+                                    label.parameters.font = getTitleFont()
                                     label.parameters.textColor = getTitleColor()
                                 }
                             }
-                            
+
                             if !parameters.tagTitle.isEmpty {
                                 Tag { tag in
                                     tag.parameters.label = parameters.tagTitle
@@ -121,13 +122,13 @@ extension OceanSwiftUI {
                                 }
                             }
                         }
-                        
+
                         HStack(spacing: Ocean.size.spacingStackXxxs) {
                             if !parameters.description.isEmpty {
                                 Typography.paragraph { label in
                                     label.parameters.text = parameters.description
-                                    label.parameters.font = getFont()
-                                    
+                                    label.parameters.font = getDescriptionFont()
+
                                     if parameters.newDescription.isEmpty {
                                         label.parameters.textColor = getDescriptionColor()
                                     } else {
@@ -136,7 +137,7 @@ extension OceanSwiftUI {
                                     }
                                 }
                             }
-                            
+
                             if !parameters.newDescription.isEmpty {
                                 OceanSwiftUI.Typography.paragraph { label in
                                     label.parameters.text = parameters.newDescription
@@ -175,16 +176,9 @@ extension OceanSwiftUI {
         }
         
         // MARK: Private Methods
-        
-        private var resolvedInverted: Bool {
-            parameters.isInverted || parameters.type == .inverted
-        }
 
-        private func getTitleColor() -> UIColor {
-            if resolvedInverted {
-                return Ocean.color.colorInterfaceDarkDown
-            }
-
+        /// Cor base que a title assume quando o componente NAO esta invertido.
+        private func titleColorForType() -> UIColor {
             switch parameters.type {
             case .default:
                 return Ocean.color.colorInterfaceDarkPure
@@ -193,7 +187,8 @@ extension OceanSwiftUI {
             }
         }
 
-        private func getDescriptionColor() -> UIColor {
+        /// Cor base que a description assume quando o componente NAO esta invertido.
+        private func descriptionColorForType() -> UIColor {
             if let descriptionColor = parameters.descriptionColor {
                 return descriptionColor
             }
@@ -210,7 +205,8 @@ extension OceanSwiftUI {
             }
         }
 
-        private func getFont() -> UIFont? {
+        /// Fonte base que a description assume quando o componente NAO esta invertido.
+        private func descriptionFontForType() -> UIFont? {
             if let font = parameters.descriptionFont { return font }
 
             switch parameters.type {
@@ -221,6 +217,37 @@ extension OceanSwiftUI {
             default:
                 return .baseRegular(size: Ocean.font.fontSizeXs)
             }
+        }
+
+        /// Fonte base que a title assume quando o componente NAO esta invertido
+        /// (14pt regular, espelhando o default de Typography.description).
+        private func titleFontForType() -> UIFont? {
+            return .baseRegular(size: Ocean.font.fontSizeXxs)
+        }
+
+        // isInverted (novo): troca cor E fonte entre title/description.
+        // type == .inverted (legacy): continua trocando somente cores, sem mexer em fonte.
+
+        private func getTitleColor() -> UIColor {
+            if parameters.isInverted {
+                return descriptionColorForType()
+            }
+            return titleColorForType()
+        }
+
+        private func getDescriptionColor() -> UIColor {
+            if parameters.isInverted {
+                return titleColorForType()
+            }
+            return descriptionColorForType()
+        }
+
+        private func getTitleFont() -> UIFont? {
+            parameters.isInverted ? descriptionFontForType() : nil
+        }
+
+        private func getDescriptionFont() -> UIFont? {
+            parameters.isInverted ? titleFontForType() : descriptionFontForType()
         }
     }
 }
