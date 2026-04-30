@@ -331,7 +331,7 @@ extension OceanSwiftUI {
                     }
 
                     Spacer()
-                        .frame(height: Ocean.size.spacingStackXxs)
+                        .frame(height: Ocean.size.spacingStackXxxs)
                 }
 
                 if !parameters.level1.isEmpty {
@@ -358,7 +358,7 @@ extension OceanSwiftUI {
 
                 if !parameters.level3.isEmpty {
                     Spacer()
-                        .frame(height: Ocean.size.spacingStackXxs)
+                        .frame(height: Ocean.size.spacingStackXxxs)
 
                     OceanSwiftUI.Typography { label in
                         label.parameters.style = parameters.level3Style
