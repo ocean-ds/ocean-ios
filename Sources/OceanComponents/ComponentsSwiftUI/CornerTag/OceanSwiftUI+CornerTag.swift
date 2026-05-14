@@ -77,7 +77,7 @@ extension OceanSwiftUI {
                     .frame(height: Constants.height)
                     .background(SwiftUI.Color(backgroundColor))
                     .cornerRadius(Ocean.size.borderRadiusSm, corners: [.bottomLeft])
-                    .accessibilityLabel(parameters.label)
+                    .accessibility(label: Text(parameters.label))
             }
         }
 
