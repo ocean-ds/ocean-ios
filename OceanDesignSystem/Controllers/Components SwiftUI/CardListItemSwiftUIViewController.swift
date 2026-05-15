@@ -241,7 +241,8 @@ private struct CardListItemPreviewView: View {
         card.parameters.cornerTag = state.hasCornerTag
             ? OceanSwiftUI.TagParameters(label: "Recomendado",
                                          status: state.cornerTagStatus,
-                                         size: .corner)
+                                         size: .corner,
+                                         font: UIFont.baseExtraBold(size: 10))
             : nil
         card.parameters.hasCheckbox = state.selectionMode == CardListItemSwiftUIViewController.SelectionMode.checkbox
         card.parameters.hasRadioButton = state.selectionMode == CardListItemSwiftUIViewController.SelectionMode.radioButton

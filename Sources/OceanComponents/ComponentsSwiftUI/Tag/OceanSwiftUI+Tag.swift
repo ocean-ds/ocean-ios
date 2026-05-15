@@ -18,6 +18,9 @@ extension OceanSwiftUI {
         @Published public var status: Status
         @Published public var size: Size
         @Published public var showSkeleton: Bool
+        /// Overrides the default font for this Tag. When `nil`, the size's
+        /// default typography is used (`Typography.caption` / `.captionBold`).
+        @Published public var font: UIFont?
 
         public enum Status {
             case positive
@@ -44,13 +47,15 @@ extension OceanSwiftUI {
                     icon: UIImage? = nil,
                     status: Status = .positive,
                     size: Size = .medium,
-                    showSkeleton: Bool = false) {
+                    showSkeleton: Bool = false,
+                    font: UIFont? = nil) {
             self.label = label
             self.hasLabelBold = hasLabelBold
             self.icon = icon
             self.status = status
             self.size = size
             self.showSkeleton = showSkeleton
+            self.font = font
         }
     }
 
@@ -105,7 +110,11 @@ extension OceanSwiftUI {
                         Spacer().frame(width: Ocean.size.spacingStackXxxs)
                     }
 
-                    if parameters.hasLabelBold {
+                    if let font = parameters.font {
+                        Text(parameters.label)
+                            .font(Font(font))
+                            .foregroundColor(Color(getColor()))
+                    } else if parameters.hasLabelBold {
                         OceanSwiftUI.Typography.captionBold { label in
                             label.parameters.text = self.parameters.label
                             label.parameters.textColor = self.getColor()
@@ -125,11 +134,12 @@ extension OceanSwiftUI {
         }
 
         private var cornerBody: some View {
-            // 10pt font is a Figma literal — Ocean tokens' smallest is fontSizeXxxs (12pt).
-            // Same precedent as ocean-web#1244 and OceanTagLayout.Small on Android.
-            Text(parameters.label)
-                .font(Font(UIFont.baseExtraBold(size: 10)
-                    ?? .systemFont(ofSize: 10, weight: .heavy)))
+            let resolvedFont: UIFont = parameters.font
+                ?? UIFont.baseExtraBold(size: 10)
+                ?? .systemFont(ofSize: 10, weight: .heavy)
+
+            return Text(parameters.label)
+                .font(Font(resolvedFont))
                 .foregroundColor(Color(getColor()))
                 .padding(.horizontal, Ocean.size.spacingStackXxs)
                 .padding(.vertical, Ocean.size.spacingStackXxxs)
