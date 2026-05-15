@@ -28,11 +28,15 @@ extension OceanSwiftUI {
             case neutralPrimary
             case highlightImportant
             case highlightNeutral
+            case highlightComplementary
         }
 
         public enum Size {
             case medium
             case small
+            /// Used for the Highlight Corner Tag overlay — Nunito Sans ExtraBold 10pt
+            /// with `borderRadiusSm` only on the bottom-left corner.
+            case corner
         }
 
         public init(label: String = "",
@@ -81,6 +85,14 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
+            if parameters.size == .corner {
+                cornerBody
+            } else {
+                defaultBody
+            }
+        }
+
+        private var defaultBody: some View {
             HStack {
                 HStack {
                     if let icon = self.parameters.icon {
@@ -112,6 +124,21 @@ extension OceanSwiftUI {
             .oceanSkeleton(isActive: self.parameters.showSkeleton)
         }
 
+        private var cornerBody: some View {
+            // 10pt font is a Figma literal — Ocean tokens' smallest is fontSizeXxxs (12pt).
+            // Same precedent as ocean-web#1244 and OceanTagLayout.Small on Android.
+            Text(parameters.label)
+                .font(Font(UIFont.baseExtraBold(size: 10)
+                    ?? .systemFont(ofSize: 10, weight: .heavy)))
+                .foregroundColor(Color(getColor()))
+                .padding(.horizontal, Ocean.size.spacingStackXxs)
+                .padding(.vertical, Ocean.size.spacingStackXxxs)
+                .background(Color(getBackgroundColor()))
+                .cornerRadius(Ocean.size.borderRadiusSm, corners: [.bottomLeft])
+                .accessibility(label: Text(parameters.label))
+                .oceanSkeleton(isActive: parameters.showSkeleton)
+        }
+
         // MARK: Methods private
 
         private func getColor() -> UIColor {
@@ -128,7 +155,7 @@ extension OceanSwiftUI {
                 return Ocean.color.colorInterfaceDarkUp
             case .neutralPrimary:
                 return Ocean.color.colorBrandPrimaryDown
-            case .highlightImportant, .highlightNeutral:
+            case .highlightImportant, .highlightNeutral, .highlightComplementary:
                 return Ocean.color.colorInterfaceLightPure
             }
         }
@@ -151,6 +178,8 @@ extension OceanSwiftUI {
                 return Ocean.color.colorHighlightPure
             case .highlightNeutral:
                 return Ocean.color.colorBrandPrimaryDown
+            case .highlightComplementary:
+                return Ocean.color.colorComplementaryPure
             }
         }
     }

@@ -35,7 +35,7 @@ extension OceanSwiftUI {
         @Published public var tagSize: TagParameters.Size
         @Published public var tagPosition: TagPosition
         @Published public var brands: OceanSwiftUI.BrandsParameters?
-        @Published public var cornerTag: CornerTagParameters?
+        @Published public var cornerTag: TagParameters?
         @Published public var hasCheckbox: Bool
         @Published public var hasRadioButton: Bool
         @Published public var isChecked: Bool
@@ -70,7 +70,7 @@ extension OceanSwiftUI {
                     tagSize: TagParameters.Size = .small,
                     tagPosition: TagPosition = .leading,
                     brands: OceanSwiftUI.BrandsParameters? = nil,
-                    cornerTag: CornerTagParameters? = nil,
+                    cornerTag: TagParameters? = nil,
                     hasCheckbox: Bool = false,
                     hasRadioButton: Bool = false,
                     isChecked: Bool = false,
@@ -155,7 +155,7 @@ extension OceanSwiftUI {
         @ViewBuilder
         private var cornerTagOverlay: some View {
             if let cornerTagParams = parameters.cornerTag, !parameters.showSkeleton {
-                OceanSwiftUI.CornerTag(parameters: cornerTagParams)
+                OceanSwiftUI.Tag(parameters: cornerTagParams)
             }
         }
 

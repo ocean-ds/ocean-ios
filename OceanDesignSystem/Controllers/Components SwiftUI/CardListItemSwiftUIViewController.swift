@@ -24,7 +24,7 @@ class CardListItemSwiftUIViewController: UIViewController {
         @Published var hasHighlight: Bool = false
         @Published var hasHighlightIcon: Bool = true
         @Published var hasCornerTag: Bool = false
-        @Published var cornerTagColor: OceanSwiftUI.CornerTagParameters.Color = .primaryDown
+        @Published var cornerTagStatus: OceanSwiftUI.TagParameters.Status = .highlightNeutral
         @Published var selectionMode: SelectionMode = .none
         @Published var isEnabled: Bool = true
         @Published var hasError: Bool = false
@@ -100,7 +100,7 @@ private struct CardListItemPreviewView: View {
                 .onChange(of: state.hasHighlight)     { _ in updateCard() }
                 .onChange(of: state.hasHighlightIcon) { _ in updateCard() }
                 .onChange(of: state.hasCornerTag)     { _ in updateCard() }
-                .onChange(of: state.cornerTagColor)   { _ in updateCard() }
+                .onChange(of: state.cornerTagStatus)  { _ in updateCard() }
                 .onChange(of: state.selectionMode)    { _ in updateCard() }
                 .onChange(of: state.isEnabled)        { _ in updateCard() }
                 .onChange(of: state.hasError)         { _ in updateCard() }
@@ -181,13 +181,13 @@ private struct CardListItemPreviewView: View {
                         Toggle("Has Corner Tag", isOn: $state.hasCornerTag)
 
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("Color")
+                            Text("Status")
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
 
-                            Picker("Corner Tag Color", selection: $state.cornerTagColor) {
-                                Text("Primary Down").tag(OceanSwiftUI.CornerTagParameters.Color.primaryDown)
-                                Text("Complementary Pure").tag(OceanSwiftUI.CornerTagParameters.Color.complementaryPure)
+                            Picker("Corner Tag Status", selection: $state.cornerTagStatus) {
+                                Text("Highlight Neutral").tag(OceanSwiftUI.TagParameters.Status.highlightNeutral)
+                                Text("Highlight Complementary").tag(OceanSwiftUI.TagParameters.Status.highlightComplementary)
                             }
                             .pickerStyle(SegmentedPickerStyle())
                         }
@@ -239,7 +239,9 @@ private struct CardListItemPreviewView: View {
         card.parameters.highlightCaption = state.hasHighlight ? "This is a highlight message for this card item." : ""
         card.parameters.highlightIcon = state.hasHighlight && state.hasHighlightIcon ? Ocean.icon.sparklesSolid : nil
         card.parameters.cornerTag = state.hasCornerTag
-            ? OceanSwiftUI.CornerTagParameters(label: "Recomendado", color: state.cornerTagColor)
+            ? OceanSwiftUI.TagParameters(label: "Recomendado",
+                                         status: state.cornerTagStatus,
+                                         size: .corner)
             : nil
         card.parameters.hasCheckbox = state.selectionMode == CardListItemSwiftUIViewController.SelectionMode.checkbox
         card.parameters.hasRadioButton = state.selectionMode == CardListItemSwiftUIViewController.SelectionMode.radioButton
