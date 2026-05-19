@@ -18,6 +18,7 @@ extension OceanSwiftUI {
         @Published public var status: Status
         @Published public var size: Size
         @Published public var showSkeleton: Bool
+        @Published public var font: UIFont?
 
         public enum Status {
             case positive
@@ -28,11 +29,13 @@ extension OceanSwiftUI {
             case neutralPrimary
             case highlightImportant
             case highlightNeutral
+            case highlightComplementary
         }
 
         public enum Size {
             case medium
             case small
+            case corner
         }
 
         public init(label: String = "",
@@ -40,13 +43,15 @@ extension OceanSwiftUI {
                     icon: UIImage? = nil,
                     status: Status = .positive,
                     size: Size = .medium,
-                    showSkeleton: Bool = false) {
+                    showSkeleton: Bool = false,
+                    font: UIFont? = nil) {
             self.label = label
             self.hasLabelBold = hasLabelBold
             self.icon = icon
             self.status = status
             self.size = size
             self.showSkeleton = showSkeleton
+            self.font = font
         }
     }
 
@@ -81,6 +86,14 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
+            if parameters.size == .corner {
+                cornerBody
+            } else {
+                defaultBody
+            }
+        }
+
+        private var defaultBody: some View {
             HStack {
                 HStack {
                     if let icon = self.parameters.icon {
@@ -93,7 +106,11 @@ extension OceanSwiftUI {
                         Spacer().frame(width: Ocean.size.spacingStackXxxs)
                     }
 
-                    if parameters.hasLabelBold {
+                    if let font = parameters.font {
+                        Text(parameters.label)
+                            .font(Font(font))
+                            .foregroundColor(Color(getColor()))
+                    } else if parameters.hasLabelBold {
                         OceanSwiftUI.Typography.captionBold { label in
                             label.parameters.text = self.parameters.label
                             label.parameters.textColor = self.getColor()
@@ -112,6 +129,22 @@ extension OceanSwiftUI {
             .oceanSkeleton(isActive: self.parameters.showSkeleton)
         }
 
+        private var cornerBody: some View {
+            let resolvedFont: UIFont = parameters.font
+                ?? UIFont.baseExtraBold(size: 10)
+                ?? .systemFont(ofSize: 10, weight: .heavy)
+
+            return Text(parameters.label)
+                .font(Font(resolvedFont))
+                .foregroundColor(Color(getColor()))
+                .padding(.horizontal, Ocean.size.spacingStackXxs)
+                .padding(.vertical, Ocean.size.spacingStackXxxs)
+                .background(Color(getBackgroundColor()))
+                .cornerRadius(Ocean.size.borderRadiusSm, corners: [.bottomLeft])
+                .accessibility(label: Text(parameters.label))
+                .oceanSkeleton(isActive: parameters.showSkeleton)
+        }
+
         // MARK: Methods private
 
         private func getColor() -> UIColor {
@@ -128,7 +161,7 @@ extension OceanSwiftUI {
                 return Ocean.color.colorInterfaceDarkUp
             case .neutralPrimary:
                 return Ocean.color.colorBrandPrimaryDown
-            case .highlightImportant, .highlightNeutral:
+            case .highlightImportant, .highlightNeutral, .highlightComplementary:
                 return Ocean.color.colorInterfaceLightPure
             }
         }
@@ -151,6 +184,8 @@ extension OceanSwiftUI {
                 return Ocean.color.colorHighlightPure
             case .highlightNeutral:
                 return Ocean.color.colorBrandPrimaryDown
+            case .highlightComplementary:
+                return Ocean.color.colorComplementaryPure
             }
         }
     }
