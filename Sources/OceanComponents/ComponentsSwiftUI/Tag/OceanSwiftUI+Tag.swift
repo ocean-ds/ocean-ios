@@ -18,8 +18,6 @@ extension OceanSwiftUI {
         @Published public var status: Status
         @Published public var size: Size
         @Published public var showSkeleton: Bool
-        /// Overrides the default font for this Tag. When `nil`, the size's
-        /// default typography is used (`Typography.caption` / `.captionBold`).
         @Published public var font: UIFont?
 
         public enum Status {
@@ -37,8 +35,6 @@ extension OceanSwiftUI {
         public enum Size {
             case medium
             case small
-            /// Used for the Highlight Corner Tag overlay — Nunito Sans ExtraBold 10pt
-            /// with `borderRadiusSm` only on the bottom-left corner.
             case corner
         }
 
