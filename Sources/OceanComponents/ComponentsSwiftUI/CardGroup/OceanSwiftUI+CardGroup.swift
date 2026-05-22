@@ -138,6 +138,51 @@ extension OceanSwiftUI {
             (parameters.tagLabelHeader != nil && !(parameters.tagLabelHeader?.isEmpty ?? true)) ||
             parameters.badgeCount != nil
         }
+        
+        @ViewBuilder
+        private var headerView: some View {
+            if hasHeaderContent {
+                HStack(alignment: .center, spacing: Ocean.size.spacingStackXs) {
+                    if let icon = self.parameters.icon {
+                        Image(uiImage: icon)
+                            .resizable()
+                            .frame(width: 24, height: 24, alignment: .center)
+                            .foregroundColor(Color(Ocean.color.colorInterfaceDarkDeep))
+                    }
+                    VStack(alignment: .leading, spacing: Ocean.size.spacingStackXs) {
+                        titleSubtitleCaptionView
+                        
+                        if let tagLabel = self.parameters.tagLabel {
+                            Tag { tag in
+                                tag.parameters.label = tagLabel
+                                tag.parameters.status = self.parameters.tagStatus
+                                tag.parameters.hasLabelBold = self.parameters.hasTagLabelBold
+                            }
+                        }
+                    }
+                    
+                    Spacer()
+                    
+                    if let tagLabelHeader = parameters.tagLabelHeader, !tagLabelHeader.isEmpty {
+                        Tag { tag in
+                            tag.parameters.label = tagLabelHeader
+                            tag.parameters.status = parameters.tagStatusHeader
+                            tag.parameters.hasLabelBold = parameters.hasTagLabelBold
+                        }
+                    } else if let badgeCount = parameters.badgeCount {
+                        Badge { badge in
+                            badge.parameters.count = badgeCount
+                            badge.parameters.status = self.parameters.badgeStatus
+                        }
+                    }
+                }
+                .frame(minWidth: 0, maxWidth: .infinity)
+                .padding(Ocean.size.spacingStackXs)
+                .background(Color(parameters.headerBackgroundColor ?? Ocean.color.colorInterfaceLightPure))
+            } else {
+                EmptyView()
+            }
+        }
 
         @ViewBuilder
         private var titleSubtitleCaptionView: some View {
@@ -209,45 +254,7 @@ extension OceanSwiftUI {
                 VStack(alignment: .leading, spacing: 0) {
                     ZStack(alignment: .topLeading) {
                         VStack(alignment: .leading, spacing: 0) {
-                            if hasHeaderContent {
-                                HStack(alignment: .center, spacing: Ocean.size.spacingStackXs) {
-                                    if let icon = self.parameters.icon {
-                                        Image(uiImage: icon)
-                                            .resizable()
-                                            .frame(width: 24, height: 24, alignment: .center)
-                                            .foregroundColor(Color(Ocean.color.colorInterfaceDarkDeep))
-                                    }
-                                    VStack(alignment: .leading, spacing: Ocean.size.spacingStackXs) {
-                                        titleSubtitleCaptionView
-
-                                        if let tagLabel = self.parameters.tagLabel {
-                                            Tag { tag in
-                                                tag.parameters.label = tagLabel
-                                                tag.parameters.status = self.parameters.tagStatus
-                                                tag.parameters.hasLabelBold = self.parameters.hasTagLabelBold
-                                            }
-                                        }
-                                    }
-
-                                    Spacer()
-
-                                    if let tagLabelHeader = parameters.tagLabelHeader, !tagLabelHeader.isEmpty {
-                                        Tag { tag in
-                                            tag.parameters.label = tagLabelHeader
-                                            tag.parameters.status = parameters.tagStatusHeader
-                                            tag.parameters.hasLabelBold = parameters.hasTagLabelBold
-                                        }
-                                    } else if let badgeCount = parameters.badgeCount {
-                                        Badge { badge in
-                                            badge.parameters.count = badgeCount
-                                            badge.parameters.status = self.parameters.badgeStatus
-                                        }
-                                    }
-                                }
-                                .frame(minWidth: 0, maxWidth: .infinity)
-                                .padding(Ocean.size.spacingStackXs)
-                                .background(Color(parameters.headerBackgroundColor ?? Ocean.color.colorInterfaceLightPure))
-                            }
+                            headerView
 
                             if let alert = parameters.alert {
                                 Alert.init(parameters: alert)
