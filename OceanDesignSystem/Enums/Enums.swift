@@ -122,6 +122,7 @@ public enum DesignSystemComponentsSwiftUIType: String {
     case Tab
     case Tag
     case TextListItem
+    case TextListReadOnly
     case Tooltip
     case TransactionFooter
     case TransactionListItem

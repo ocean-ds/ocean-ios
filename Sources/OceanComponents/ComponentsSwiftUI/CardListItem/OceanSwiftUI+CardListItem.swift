@@ -35,6 +35,7 @@ extension OceanSwiftUI {
         @Published public var tagSize: TagParameters.Size
         @Published public var tagPosition: TagPosition
         @Published public var brands: OceanSwiftUI.BrandsParameters?
+        @Published public var cornerTag: TagParameters?
         @Published public var hasCheckbox: Bool
         @Published public var hasRadioButton: Bool
         @Published public var isChecked: Bool
@@ -69,6 +70,7 @@ extension OceanSwiftUI {
                     tagSize: TagParameters.Size = .small,
                     tagPosition: TagPosition = .leading,
                     brands: OceanSwiftUI.BrandsParameters? = nil,
+                    cornerTag: TagParameters? = nil,
                     hasCheckbox: Bool = false,
                     hasRadioButton: Bool = false,
                     isChecked: Bool = false,
@@ -101,6 +103,7 @@ extension OceanSwiftUI {
             self.tagSize = tagSize
             self.tagPosition = tagPosition
             self.brands = brands
+            self.cornerTag = cornerTag
             self.hasCheckbox = hasCheckbox
             self.hasRadioButton = hasRadioButton
             self.isChecked = isChecked
@@ -147,6 +150,13 @@ extension OceanSwiftUI {
         private var disabledTagStatus: TagParameters.Status = .neutralInterface
         private var hasIconTrailingViews: Bool {
             parameters.trailingIcon != nil && parameters.isEnabled
+        }
+
+        @ViewBuilder
+        private var cornerTagOverlay: some View {
+            if let cornerTagParams = parameters.cornerTag, !parameters.showSkeleton {
+                OceanSwiftUI.Tag(parameters: cornerTagParams)
+            }
         }
 
         private var captionHighlightView: some View {
@@ -292,9 +302,13 @@ extension OceanSwiftUI {
                     }
                     .frame(minWidth: 0, maxWidth: .infinity)
                     .background(Color(Ocean.color.colorInterfaceLightPure))
-                    .border(cornerRadius: Ocean.size.borderRadiusSm,
-                            width: Ocean.size.borderWidthHairline,
-                            color: borderColor)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: Ocean.size.borderRadiusSm)
+                            .inset(by: Ocean.size.borderWidthHairline)
+                            .stroke(Color(borderColor), lineWidth: Ocean.size.borderWidthHairline)
+                    )
+                    .overlay(cornerTagOverlay, alignment: .topTrailing)
+                    .cornerRadius(Ocean.size.borderRadiusSm)
                     .shadow(color: Color(shadowColor), radius: 32, x: 0, y: 16)
                     .transform(condition: parameters.isEnabled, transform: { view in
                         view.onTapGesture {
