@@ -31,11 +31,8 @@ platform :ios do
   end
 
   desc "Build and Test App"
-  lane :build_test do
-    run_tests(
-      scheme: "OceanDesignSystem",
-      destination: "platform=iOS Simulator,OS=latest,name=iPhone 17 Pro"
-    )
+  lane :build_test do 
+    run_tests(scheme: "OceanDesignSystem")
   end
 
   desc "Prepare new version on master"
