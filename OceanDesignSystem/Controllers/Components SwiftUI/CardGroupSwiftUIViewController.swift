@@ -290,6 +290,16 @@ class CardGroupSwiftUIViewController: UIViewController {
         }
     }
 
+    lazy var cardGroupWithoutHeader = OceanSwiftUI.CardGroup { view in
+        view.parameters.hasDivider = false
+        view.parameters.view = HStack {
+            OceanSwiftUI.TextListItem { view in
+                view.parameters.title = "Sem Header"
+                view.parameters.description = "Conteúdo vai ao topo"
+            }
+        }
+    }
+
     // MARK: - Hosting
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
@@ -315,6 +325,7 @@ class CardGroupSwiftUIViewController: UIViewController {
             cardGroupWithAlertInfoWithoutImage
             cardGroupAlertInfoWithIconAndBadge
             cardGroupAlertInfoWithIconWhitoutBadge
+            cardGroupWithoutHeader
         }
     })
 
