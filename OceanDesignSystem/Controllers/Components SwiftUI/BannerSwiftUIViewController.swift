@@ -112,7 +112,7 @@ class BannerSwiftUIViewController: UIViewController {
         }
     }()
 
-    public lazy var hostingController = UIHostingController(rootView: ScrollView {
+    public lazy var hostingController = UIHostingController(rootView: AnyView(ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             bannerLargeDefault
             bannerLargeWarning
@@ -124,7 +124,7 @@ class BannerSwiftUIViewController: UIViewController {
             bannerSmallEmphasys
         }
         .padding(.all, Ocean.size.spacingStackXs)
-    })
+    }))
 
     public lazy var uiView = self.hostingController.getUIView()
 
