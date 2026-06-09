@@ -239,7 +239,7 @@ extension OceanSwiftUI {
                   !urlString.isEmpty else { return }
 
             urlString.getImage { result in
-                if let img = try? result.get(), let img = img {
+                if let img = try? result.get() {
                     DispatchQueue.main.async {
                         self.downloadedImage = img
                     }
