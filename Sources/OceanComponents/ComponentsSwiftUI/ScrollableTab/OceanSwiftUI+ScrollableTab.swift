@@ -83,98 +83,80 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            if #available(iOS 14.0, *) {
-                VStack(spacing: 0) {
-                    if position.y <= 0 || parameters.header == nil {
-                        ScrollViewReader { scrollReader in
-                            getTabs().onChange(of: showTabAtIndex) { _ in
-                                withAnimation {
-                                    scrollReader.scrollTo(showTabAtIndex, anchor: .leading)
-                                }
-                            }
-                            .background(Color(Ocean.color.colorInterfaceLightPure))
-                            .onChange(of: contentOffset) { offset in
-                                debouncer?.invalidate()
-                                debouncer = Timer.scheduledTimer(withTimeInterval: 0.16,
-                                                                 repeats: false) { _ in
-                                    updateSection()
-                                }
-                            }
-                        }
-                    }
-
+            VStack(spacing: 0) {
+                if position.y <= 0 || parameters.header == nil {
                     ScrollViewReader { scrollReader in
-                        OffsetObservingScrollView(offset: $contentOffset) { coordinateSpace in
-                            VStack {
-                                if let header = parameters.header {
-                                    AnyView(header)
-                                        .overlay(GeometryReader { geometryReader in
-                                            Color.clear.onAppear {
-                                                guard !sectionsOffset.isEmpty, let firstOffset = sectionsOffset[0] else { return }
-
-                                                let height = Int(geometryReader.size.height)
-
-                                                if firstOffset < height {
-                                                    sectionsOffset = sectionsOffset.mapValues({ value in
-                                                        value - firstOffset + height + Int(tabHeight)
-                                                    })
-                                                }
-                                            }
-                                        })
-                                }
-
-                                PositionObservingView(coordinateSpace: coordinateSpace,
-                                                      position: $position) { coordinateSpace in
-                                    Spacer()
-                                        .frame(height: 0)
-                                }
-
-                                if parameters.header != nil {
-                                    if position.y > 0 {
-                                        getTabs(shouldUpdate: false)
-                                    } else {
-                                        Spacer()
-                                            .frame(height: getSpacerHeight())
-                                    }
-                                }
-
-                                ForEach(0..<parameters.tabs.count, id: \.self) { index in
-                                    getView(index: index, coordinateSpace: coordinateSpace)
-                                        .onTapGesture {
-                                            parameters.selectedIndex = index
-                                            showTabAtIndex = index
-                                        }
-                                }
-                                .onChange(of: showContentAtIndex) { _ in
-                                    if showContentAtIndex > -1 {
-                                        withAnimation {
-                                            scrollReader.scrollTo(showContentAtIndex, anchor: .top)
-                                        }
-                                    }
-                                    showContentAtIndex = -1
-                                }
+                        getTabs().onChange(of: showTabAtIndex) { _ in
+                            withAnimation {
+                                scrollReader.scrollTo(showTabAtIndex, anchor: .leading)
                             }
                         }
-                        .padding(parameters.padding)
                         .background(Color(Ocean.color.colorInterfaceLightPure))
-                    }
-                }
-            } else {
-                ScrollView {
-                    VStack {
-                        if let header = parameters.header {
-                            AnyView(header)
-                        }
-
-                        getTabs(shouldUpdate: false)
-
-                        ForEach(0..<parameters.tabs.count, id: \.self) { index in
-                            getView(index: index, coordinateSpace: .global)
+                        .onChange(of: contentOffset) { offset in
+                            debouncer?.invalidate()
+                            debouncer = Timer.scheduledTimer(withTimeInterval: 0.16,
+                                                             repeats: false) { _ in
+                                updateSection()
+                            }
                         }
                     }
                 }
-                .padding(parameters.padding)
-                .background(Color(Ocean.color.colorInterfaceLightPure))
+
+                ScrollViewReader { scrollReader in
+                    OffsetObservingScrollView(offset: $contentOffset) { coordinateSpace in
+                        VStack {
+                            if let header = parameters.header {
+                                AnyView(header)
+                                    .overlay(GeometryReader { geometryReader in
+                                        Color.clear.onAppear {
+                                            guard !sectionsOffset.isEmpty, let firstOffset = sectionsOffset[0] else { return }
+
+                                            let height = Int(geometryReader.size.height)
+
+                                            if firstOffset < height {
+                                                sectionsOffset = sectionsOffset.mapValues({ value in
+                                                    value - firstOffset + height + Int(tabHeight)
+                                                })
+                                            }
+                                        }
+                                    })
+                            }
+
+                            PositionObservingView(coordinateSpace: coordinateSpace,
+                                                  position: $position) { coordinateSpace in
+                                Spacer()
+                                    .frame(height: 0)
+                            }
+
+                            if parameters.header != nil {
+                                if position.y > 0 {
+                                    getTabs(shouldUpdate: false)
+                                } else {
+                                    Spacer()
+                                        .frame(height: getSpacerHeight())
+                                }
+                            }
+
+                            ForEach(0..<parameters.tabs.count, id: \.self) { index in
+                                getView(index: index, coordinateSpace: coordinateSpace)
+                                    .onTapGesture {
+                                        parameters.selectedIndex = index
+                                        showTabAtIndex = index
+                                    }
+                            }
+                            .onChange(of: showContentAtIndex) { _ in
+                                if showContentAtIndex > -1 {
+                                    withAnimation {
+                                        scrollReader.scrollTo(showContentAtIndex, anchor: .top)
+                                    }
+                                }
+                                showContentAtIndex = -1
+                            }
+                        }
+                    }
+                    .padding(parameters.padding)
+                    .background(Color(Ocean.color.colorInterfaceLightPure))
+                }
             }
         }
 

@@ -118,36 +118,7 @@ extension OceanSwiftUI {
 
         @ViewBuilder
         private func getScrollTabs() -> some View {
-            if #available(iOS 14.0, *) {
-                ScrollViewReader { scrollReader in
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack {
-
-                            Spacer()
-                                .frame(width: Ocean.size.spacingStackMd)
-
-                            ForEach(0..<self.parameters.tabs.count, id: \.self) { index in
-                                getTab(self.parameters.tabs[index], index: index)
-                                    .onChange(of: parameters.tabSelectedIndex) { newValue in
-                                        withAnimation {
-                                            scrollReader.scrollTo(newValue, anchor: .center)
-                                        }
-                                    }
-                                    .onAppear {
-                                        if parameters.tabSelectedIndex != 0 {
-                                            withAnimation {
-                                                scrollReader.scrollTo(parameters.tabSelectedIndex, anchor: .center)
-                                            }
-                                        }
-                                    }
-                            }
-
-                            Spacer()
-                                .frame(width: Ocean.size.spacingStackMd)
-                        }
-                    }
-                }
-            } else {
+            ScrollViewReader { scrollReader in
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
 
@@ -156,6 +127,18 @@ extension OceanSwiftUI {
 
                         ForEach(0..<self.parameters.tabs.count, id: \.self) { index in
                             getTab(self.parameters.tabs[index], index: index)
+                                .onChange(of: parameters.tabSelectedIndex) { newValue in
+                                    withAnimation {
+                                        scrollReader.scrollTo(newValue, anchor: .center)
+                                    }
+                                }
+                                .onAppear {
+                                    if parameters.tabSelectedIndex != 0 {
+                                        withAnimation {
+                                            scrollReader.scrollTo(parameters.tabSelectedIndex, anchor: .center)
+                                        }
+                                    }
+                                }
                         }
 
                         Spacer()

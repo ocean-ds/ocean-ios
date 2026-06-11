@@ -68,9 +68,7 @@ open class OceanBottomNavigationBar: UITabBarController {
         setTabBarItemColors(appearance.compactInlineLayoutAppearance)
 
         tabBar.standardAppearance = appearance
-        if #available(iOS 15.0, *) {
-            tabBar.scrollEdgeAppearance = appearance
-        }
+        tabBar.scrollEdgeAppearance = appearance
 
         tabBar.insertSubview(movingBackgroundView, at: 0)
     }

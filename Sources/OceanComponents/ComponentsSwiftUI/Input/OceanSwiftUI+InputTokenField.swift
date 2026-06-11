@@ -92,33 +92,18 @@ extension OceanSwiftUI {
                         Spacer().frame(height: Ocean.size.spacingStackXxs)
                     }
 
-                    if #available(iOS 15.0, *) {
-                        InputTokenFieldItemsFocused(text1: self.$text1,
-                                                    text2: self.$text2,
-                                                    text3: self.$text3,
-                                                    text4: self.$text4,
-                                                    errorMessage: self.$parameters.errorMessage,
-                                                    isDisabled: self.$parameters.isDisabled,
-                                                    showSkeleton: self.$parameters.showSkeleton,
-                                                    onValueChanged: {
-                            self.tryOnValueChanged()
-                        }, onClear: {
-                            self.code = ""
-                        })
-                    } else {
-                        InputTokenFieldItems(text1: self.$text1,
-                                             text2: self.$text2,
-                                             text3: self.$text3,
-                                             text4: self.$text4,
-                                             errorMessage: self.$parameters.errorMessage,
-                                             isDisabled: self.$parameters.isDisabled,
-                                             showSkeleton: self.$parameters.showSkeleton,
-                                             onValueChanged: {
-                            self.tryOnValueChanged()
-                        }, onClear: {
-                            self.code = ""
-                        })
-                    }
+                    InputTokenFieldItemsFocused(text1: self.$text1,
+                                                text2: self.$text2,
+                                                text3: self.$text3,
+                                                text4: self.$text4,
+                                                errorMessage: self.$parameters.errorMessage,
+                                                isDisabled: self.$parameters.isDisabled,
+                                                showSkeleton: self.$parameters.showSkeleton,
+                                                onValueChanged: {
+                        self.tryOnValueChanged()
+                    }, onClear: {
+                        self.code = ""
+                    })
 
                     HStack {
                         if !self.parameters.errorMessage.isEmpty {

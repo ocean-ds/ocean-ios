@@ -81,31 +81,29 @@ private struct CardListItemPreviewView: View {
     var body: some View {
         VStack(spacing: 0) {
             // MARK: Preview area
-            if #available(iOS 14.0, *) {
-                VStack {
-                    card
-                        .fixedSize(horizontal: false, vertical: true)
-                        .padding(.horizontal, Ocean.size.spacingStackXs)
-                }
-                .padding(.vertical, Ocean.size.spacingStackSm)
-                .frame(maxWidth: .infinity)
-                .background(Color(UIColor.systemBackground))
-                .onChange(of: state.hasLeadingIcon)   { _ in updateCard() }
-                .onChange(of: state.hasTrailingIcon)  { _ in updateCard() }
-                .onChange(of: state.hasSubtitle)      { _ in updateCard() }
-                .onChange(of: state.hasCaption)       { _ in updateCard() }
-                .onChange(of: state.hasTag)           { _ in updateCard() }
-                .onChange(of: state.tagPosition)      { _ in updateCard() }
-                .onChange(of: state.tagStatus)        { _ in updateCard() }
-                .onChange(of: state.hasHighlight)     { _ in updateCard() }
-                .onChange(of: state.hasHighlightIcon) { _ in updateCard() }
-                .onChange(of: state.hasCornerTag)     { _ in updateCard() }
-                .onChange(of: state.cornerTagStatus)  { _ in updateCard() }
-                .onChange(of: state.selectionMode)    { _ in updateCard() }
-                .onChange(of: state.isEnabled)        { _ in updateCard() }
-                .onChange(of: state.hasError)         { _ in updateCard() }
-                .onChange(of: state.showSkeleton)     { _ in updateCard() }
+            VStack {
+                card
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.horizontal, Ocean.size.spacingStackXs)
             }
+            .padding(.vertical, Ocean.size.spacingStackSm)
+            .frame(maxWidth: .infinity)
+            .background(Color(UIColor.systemBackground))
+            .onChange(of: state.hasLeadingIcon)   { _ in updateCard() }
+            .onChange(of: state.hasTrailingIcon)  { _ in updateCard() }
+            .onChange(of: state.hasSubtitle)      { _ in updateCard() }
+            .onChange(of: state.hasCaption)       { _ in updateCard() }
+            .onChange(of: state.hasTag)           { _ in updateCard() }
+            .onChange(of: state.tagPosition)      { _ in updateCard() }
+            .onChange(of: state.tagStatus)        { _ in updateCard() }
+            .onChange(of: state.hasHighlight)     { _ in updateCard() }
+            .onChange(of: state.hasHighlightIcon) { _ in updateCard() }
+            .onChange(of: state.hasCornerTag)     { _ in updateCard() }
+            .onChange(of: state.cornerTagStatus)  { _ in updateCard() }
+            .onChange(of: state.selectionMode)    { _ in updateCard() }
+            .onChange(of: state.isEnabled)        { _ in updateCard() }
+            .onChange(of: state.hasError)         { _ in updateCard() }
+            .onChange(of: state.showSkeleton)     { _ in updateCard() }
 
             Divider()
 

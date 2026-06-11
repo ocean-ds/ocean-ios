@@ -142,9 +142,7 @@ extension Ocean {
             tableView.register(ParentChildTextListChildCell.self, forCellReuseIdentifier: ParentChildTextListChildCell.identifier)
             tableView.isSkeletonable = true
             tableView.bounces = false
-            if #available(iOS 15.0, *) {
-                tableView.sectionHeaderTopPadding = 0
-            }
+            tableView.sectionHeaderTopPadding = 0
 
             return tableView
         }()
