@@ -26,24 +26,13 @@ extension OceanSwiftUI {
             case emphasys
         }
 
-        public struct BannerButtonParameters {
-            public var text: String
-            public var onTouch: () -> Void
-
-            public init(text: String, onTouch: @escaping () -> Void = { }) {
-                self.text = text
-                self.onTouch = onTouch
-            }
-        }
-
         @Published public var size: Size
         @Published public var bannerType: BannerType
         @Published public var title: String
         @Published public var description: String
         @Published public var image: UIImage?
         @Published public var imageURL: String?
-        @Published public var backgroundColor: UIColor?
-        @Published public var buttons: [BannerButtonParameters]
+        @Published public var buttons: [ButtonParameters]
 
         public init(size: Size = .large,
                     bannerType: BannerType = .default,
@@ -51,15 +40,13 @@ extension OceanSwiftUI {
                     description: String = "",
                     image: UIImage? = nil,
                     imageURL: String? = nil,
-                    backgroundColor: UIColor? = nil,
-                    buttons: [BannerButtonParameters] = []) {
+                    buttons: [ButtonParameters] = []) {
             self.size = size
             self.bannerType = bannerType
             self.title = title
             self.description = description
             self.image = image
             self.imageURL = imageURL
-            self.backgroundColor = backgroundColor
             self.buttons = buttons
         }
     }
@@ -78,10 +65,6 @@ extension OceanSwiftUI {
         // MARK: Properties
 
         @ObservedObject public var parameters: BannerParameters
-
-        // MARK: Private properties
-
-        @State private var downloadedImage: UIImage?
 
         // MARK: Constructors
 
@@ -106,25 +89,18 @@ extension OceanSwiftUI {
             }
             .background(Color(resolvedBackgroundColor))
             .cornerRadius(Ocean.size.borderRadiusMd)
-            .onAppear {
-                loadImageIfNeeded()
-            }
         }
 
         // MARK: Layouts
 
         private var largeLayout: some View {
             VStack(alignment: .leading, spacing: 0) {
-                imageView
-                    .map { img in
-                        AnyView(
-                            img
-                                .resizable()
-                                .aspectRatio(CGSize(width: 16, height: 9), contentMode: .fill)
-                                .frame(maxWidth: .infinity)
-                                .clipped()
-                        )
-                    } ?? AnyView(EmptyView())
+                if hasImage {
+                    bannerImage
+                        .aspectRatio(CGSize(width: 16, height: 9), contentMode: .fill)
+                        .frame(maxWidth: .infinity)
+                        .clipped()
+                }
 
                 contentStack
                     .padding(.all, Ocean.size.spacingStackXs)
@@ -137,17 +113,12 @@ extension OceanSwiftUI {
                 contentStack
                     .frame(maxWidth: .infinity, alignment: .leading)
 
-                imageView
-                    .map { img in
-                        AnyView(
-                            img
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 80, height: 80)
-                                .clipped()
-                                .cornerRadius(Ocean.size.borderRadiusSm)
-                        )
-                    } ?? AnyView(EmptyView())
+                if hasImage {
+                    bannerImage
+                        .frame(width: 80, height: 80)
+                        .clipped()
+                        .cornerRadius(Ocean.size.borderRadiusSm)
+                }
             }
             .padding(.all, Ocean.size.spacingStackXs)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -156,17 +127,11 @@ extension OceanSwiftUI {
         private var contentStack: some View {
             VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
                 if !parameters.title.isEmpty {
-                    Typography.heading4 { label in
-                        label.parameters.text = self.parameters.title
-                        label.parameters.textColor = self.resolvedTextColor
-                    }
+                    titleView
                 }
 
                 if !parameters.description.isEmpty {
-                    Typography.paragraph { label in
-                        label.parameters.text = self.parameters.description
-                        label.parameters.textColor = self.resolvedTextColor
-                    }
+                    descriptionView
                 }
 
                 if !parameters.buttons.isEmpty {
@@ -181,8 +146,22 @@ extension OceanSwiftUI {
             }
         }
 
+        private var titleView: some View {
+            Typography.heading4 { label in
+                label.parameters.text = self.parameters.title
+                label.parameters.textColor = self.resolvedTextColor
+            }
+        }
+
+        private var descriptionView: some View {
+            Typography.paragraph { label in
+                label.parameters.text = self.parameters.description
+                label.parameters.textColor = self.resolvedTextColor
+            }
+        }
+
         @ViewBuilder
-        private func buttonView(for buttonParam: BannerParameters.BannerButtonParameters) -> some View {
+        private func buttonView(for buttonParam: ButtonParameters) -> some View {
             if parameters.bannerType == .emphasys {
                 OceanSwiftUI.Button.primaryInverseMD { button in
                     button.parameters.text = buttonParam.text
@@ -196,22 +175,24 @@ extension OceanSwiftUI {
             }
         }
 
-        // MARK: Helpers
+        // MARK: Private properties
 
-        private var imageView: Image? {
-            if let img = parameters.image {
-                return Image(uiImage: img)
+        private var hasImage: Bool {
+            parameters.image != nil || !(parameters.imageURL?.isEmpty ?? true)
+        }
+
+        @ViewBuilder
+        private var bannerImage: some View {
+            if let image = parameters.image {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            } else if let url = parameters.imageURL, !url.isEmpty {
+                OceanSwiftUI.ImageDownload(parameters: .init(url: url, contentMode: .fill))
             }
-            if let img = downloadedImage {
-                return Image(uiImage: img)
-            }
-            return nil
         }
 
         private var resolvedBackgroundColor: UIColor {
-            if let custom = parameters.backgroundColor {
-                return custom
-            }
             switch parameters.bannerType {
             case .default:
                 return Ocean.color.colorInterfaceLightUp
@@ -232,21 +213,5 @@ extension OceanSwiftUI {
                 return Ocean.color.colorInterfaceDarkDeep
             }
         }
-
-        private func loadImageIfNeeded() {
-            guard parameters.image == nil,
-                  let urlString = parameters.imageURL,
-                  !urlString.isEmpty else { return }
-
-            urlString.getImage { result in
-                if let img = try? result.get() {
-                    DispatchQueue.main.async {
-                        self.downloadedImage = img
-                    }
-                }
-            }
-        }
-
-        // MARK: Methods private
     }
 }
