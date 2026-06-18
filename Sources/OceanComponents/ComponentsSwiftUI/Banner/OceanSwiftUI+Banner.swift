@@ -88,7 +88,7 @@ extension OceanSwiftUI {
                 }
             }
             .background(Color(resolvedBackgroundColor))
-            .cornerRadius(Ocean.size.borderRadiusMd)
+            .cornerRadius(Ocean.size.borderRadiusSm)
         }
 
         // MARK: Layouts
@@ -115,7 +115,7 @@ extension OceanSwiftUI {
 
                 if hasImage {
                     bannerImage
-                        .frame(width: 80, height: 80)
+                        .frame(width: 82, height: 82)
                         .clipped()
                         .cornerRadius(Ocean.size.borderRadiusSm)
                 }
@@ -137,11 +137,11 @@ extension OceanSwiftUI {
                 if !parameters.buttons.isEmpty {
                     let limitedButtons = Array(parameters.buttons.prefix(2))
                     VStack(spacing: Ocean.size.spacingStackXxs) {
-                        ForEach(Array(limitedButtons.enumerated()), id: \.offset) { _, buttonParam in
-                            buttonView(for: buttonParam)
+                        ForEach(Array(limitedButtons.enumerated()), id: \.offset) { index, buttonParam in
+                            buttonView(for: buttonParam, isPrimary: index == 0)
                         }
                     }
-                    .padding(.top, Ocean.size.spacingStackXxs)
+                    .padding(.top, Ocean.size.spacingStackXxsExtra)
                 }
             }
         }
@@ -149,28 +149,64 @@ extension OceanSwiftUI {
         private var titleView: some View {
             Typography.heading4 { label in
                 label.parameters.text = self.parameters.title
-                label.parameters.textColor = self.resolvedTextColor
+                label.parameters.textColor = self.resolvedTitleColor
             }
         }
 
         private var descriptionView: some View {
             Typography.paragraph { label in
                 label.parameters.text = self.parameters.description
-                label.parameters.textColor = self.resolvedTextColor
+                label.parameters.textColor = self.resolvedDescriptionColor
             }
         }
 
         @ViewBuilder
-        private func buttonView(for buttonParam: ButtonParameters) -> some View {
-            if parameters.bannerType == .emphasys {
-                OceanSwiftUI.Button.primaryInverseMD { button in
-                    button.parameters.text = buttonParam.text
-                    button.parameters.onTouch = buttonParam.onTouch
+        private func buttonView(for buttonParam: ButtonParameters, isPrimary: Bool) -> some View {
+            if isPrimary {
+                switch parameters.bannerType {
+                case .default:
+                    OceanSwiftUI.Button.primarySM { button in
+                        button.parameters.text = buttonParam.text
+                        button.parameters.onTouch = buttonParam.onTouch
+                    }
+                case .warning:
+                    OceanSwiftUI.Button.primaryWarningSM { button in
+                        button.parameters.text = buttonParam.text
+                        button.parameters.onTouch = buttonParam.onTouch
+                    }
+                case .negative:
+                    OceanSwiftUI.Button.primaryCriticalSM { button in
+                        button.parameters.text = buttonParam.text
+                        button.parameters.onTouch = buttonParam.onTouch
+                    }
+                case .emphasys:
+                    OceanSwiftUI.Button.secondarySM { button in
+                        button.parameters.text = buttonParam.text
+                        button.parameters.onTouch = buttonParam.onTouch
+                    }
                 }
             } else {
-                OceanSwiftUI.Button.primarySM { button in
-                    button.parameters.text = buttonParam.text
-                    button.parameters.onTouch = buttonParam.onTouch
+                switch parameters.bannerType {
+                case .default:
+                    OceanSwiftUI.Button.tertiarySM { button in
+                        button.parameters.text = buttonParam.text
+                        button.parameters.onTouch = buttonParam.onTouch
+                    }
+                case .warning:
+                    OceanSwiftUI.Button.tertiaryWarningSM { button in
+                        button.parameters.text = buttonParam.text
+                        button.parameters.onTouch = buttonParam.onTouch
+                    }
+                case .negative:
+                    OceanSwiftUI.Button.tertiaryCriticalSM { button in
+                        button.parameters.text = buttonParam.text
+                        button.parameters.onTouch = buttonParam.onTouch
+                    }
+                case .emphasys:
+                    OceanSwiftUI.Button.primaryInverseSM { button in
+                        button.parameters.text = buttonParam.text
+                        button.parameters.onTouch = buttonParam.onTouch
+                    }
                 }
             }
         }
@@ -205,12 +241,21 @@ extension OceanSwiftUI {
             }
         }
 
-        private var resolvedTextColor: UIColor {
+        private var resolvedTitleColor: UIColor {
             switch parameters.bannerType {
             case .emphasys:
                 return Ocean.color.colorInterfaceLightPure
             default:
                 return Ocean.color.colorInterfaceDarkDeep
+            }
+        }
+
+        private var resolvedDescriptionColor: UIColor {
+            switch parameters.bannerType {
+            case .emphasys:
+                return Ocean.color.colorInterfaceLightUp
+            default:
+                return Ocean.color.colorInterfaceDarkDown
             }
         }
     }
