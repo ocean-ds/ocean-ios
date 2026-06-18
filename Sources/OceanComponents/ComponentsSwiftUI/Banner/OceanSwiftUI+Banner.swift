@@ -97,35 +97,35 @@ extension OceanSwiftUI {
             VStack(alignment: .leading, spacing: 0) {
                 if hasImage {
                     bannerImage
-                        .aspectRatio(CGSize(width: 16, height: 9), contentMode: .fill)
                         .frame(maxWidth: .infinity)
+                        .frame(height: 190)
                         .clipped()
                 }
 
-                contentStack
+                contentView(textToButtonSpacing: Ocean.size.spacingStackSm)
                     .padding(.all, Ocean.size.spacingStackXs)
             }
             .frame(maxWidth: .infinity)
         }
 
         private var smallLayout: some View {
-            HStack(alignment: .top, spacing: Ocean.size.spacingStackXs) {
-                contentStack
+            HStack(alignment: .top, spacing: 0) {
+                contentView(textToButtonSpacing: Ocean.size.spacingStackXxsExtra)
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.all, Ocean.size.spacingStackXs)
 
                 if hasImage {
                     bannerImage
-                        .frame(width: 82, height: 82)
+                        .frame(width: 82)
+                        .frame(maxHeight: .infinity)
                         .clipped()
-                        .cornerRadius(Ocean.size.borderRadiusSm)
                 }
             }
-            .padding(.all, Ocean.size.spacingStackXs)
             .frame(maxWidth: .infinity, alignment: .leading)
         }
 
-        private var contentStack: some View {
-            VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
+        private func contentView(textToButtonSpacing: CGFloat) -> some View {
+            VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxxs) {
                 if !parameters.title.isEmpty {
                     titleView
                 }
@@ -136,12 +136,13 @@ extension OceanSwiftUI {
 
                 if !parameters.buttons.isEmpty {
                     let limitedButtons = Array(parameters.buttons.prefix(2))
-                    VStack(spacing: Ocean.size.spacingStackXxs) {
+                    HStack(spacing: Ocean.size.spacingInlineXs) {
                         ForEach(Array(limitedButtons.enumerated()), id: \.offset) { index, buttonParam in
                             buttonView(for: buttonParam, isPrimary: index == 0)
+                                .fixedSize()
                         }
                     }
-                    .padding(.top, Ocean.size.spacingStackXxsExtra)
+                    .padding(.top, textToButtonSpacing)
                 }
             }
         }
