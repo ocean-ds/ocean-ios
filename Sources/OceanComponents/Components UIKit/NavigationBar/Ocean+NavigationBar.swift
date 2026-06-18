@@ -148,20 +148,15 @@ public extension OceanNavigationBar {
                                             style: .plain,
                                             target: self, action: nil)
         
-        if #available(iOS 14.0, *) {
-            var children: [UIAction] = []
-            for item in options {
-                let action = UIAction(title: item.title, image: item.isDestructive ? item.image?.tinted(with: .systemRed) : item.image, attributes: item.isDestructive ? [.destructive] : [], handler: { _ in
-                    item.action()
-                })
-                children.append(action)
-            }
-            barButtonItem.menu = UIMenu(title: "", children: children)
-        } else {
-            barButtonItem.options = options
-            barButtonItem.action = #selector(optionsClick(_:))
+        var children: [UIAction] = []
+        for item in options {
+            let action = UIAction(title: item.title, image: item.isDestructive ? item.image?.tinted(with: .systemRed) : item.image, attributes: item.isDestructive ? [.destructive] : [], handler: { _ in
+                item.action()
+            })
+            children.append(action)
         }
-        
+        barButtonItem.menu = UIMenu(title: "", children: children)
+
         navigationItem.rightBarButtonItem = barButtonItem
     }
     
