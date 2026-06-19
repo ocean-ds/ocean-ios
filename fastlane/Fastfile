@@ -46,6 +46,21 @@ platform :ios do
     sh("git push")
   end
 
+  desc "Update certificate"
+  lane :update_certificate do
+    remove_profiles_step(type: 'development')
+    remove_profiles_step(type: 'appstore')
+
+    get_profiles_step(type: 'development')
+    get_profiles_step(type: 'appstore')
+  end
+
+  desc "Get certificate"
+  lane :get_certificate do
+    get_profiles_step(type: 'development')
+    get_profiles_step(type: 'appstore')
+  end
+
   desc "Upload to TestFlight"
   lane :beta_testflight do
     increment_build_number()
@@ -78,6 +93,21 @@ platform :ios do
       app_identifier: bundle_identifier,
       type: options[:type],
       readonly: is_ci
+    )
+  end
+
+  private_lane :remove_profiles_step do |options|
+    api_key = app_store_connect_api_key(
+      key_id: "#{ENV["APP_STORE_CONNECT_API_KEY_KEY_ID"]}",
+      issuer_id: "#{ENV["APP_STORE_CONNECT_API_KEY_ISSUER_ID"]}",
+      key_content: "#{ENV["APP_STORE_CONNECT_API_KEY_KEY"]}".gsub('\n', '\\n'),
+      in_house: false
+    )
+
+    match_nuke(
+      api_key: api_key,
+      git_basic_authorization: "#{ENV["MATCH_GIT_BASIC_AUTHORIZATION"]}",
+      type: options[:type]
     )
   end
 
