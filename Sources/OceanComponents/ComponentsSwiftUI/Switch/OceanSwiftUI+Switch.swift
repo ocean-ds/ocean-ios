@@ -14,13 +14,16 @@ extension OceanSwiftUI {
 
     public class SwitchParameters: ObservableObject {
         @Published public var isOn: Bool
+        @Published public var isDisabled: Bool
         @Published public var showSkeleton: Bool
         public var onValueChanged: (Bool) -> Void
-        
+
         public init(isOn: Bool = false,
+                    isDisabled: Bool = false,
                     showSkeleton: Bool = false,
                     onValueChanged: @escaping (Bool) -> Void = { _ in }) {
             self.isOn = isOn
+            self.isDisabled = isDisabled
             self.showSkeleton = showSkeleton
             self.onValueChanged = onValueChanged
         }
@@ -58,7 +61,8 @@ extension OceanSwiftUI {
 
         public var body: some View {
             Toggle("", isOn: self.$parameters.isOn)
-                .toggleStyle(OceanSwitchStyle(onValueChanged: self.parameters.onValueChanged))
+                .toggleStyle(OceanSwitchStyle(isDisabled: self.parameters.isDisabled,
+                                              onValueChanged: self.parameters.onValueChanged))
                 .oceanSkeleton(isActive: self.parameters.showSkeleton, size: .init(width: 40, height: 20))
         }
 
@@ -66,33 +70,41 @@ extension OceanSwiftUI {
     }
     
     public struct OceanSwitchStyle: ToggleStyle {
+        public var isDisabled: Bool
         public var onValueChanged: (Bool) -> Void
-        
+
         let onColor = Color(Ocean.color.colorComplementaryPure)
         let offColor = Color(Ocean.color.colorInterfaceLightPure)
         let offThumbColor = Color(Ocean.color.colorInterfaceDarkUp)
         let onThumbColor = Color(Ocean.color.colorInterfaceLightPure)
         let onBorderColor = Ocean.color.colorComplementaryPure
         let offBorderColor = Ocean.color.colorInterfaceDarkUp
-        
-        init(onValueChanged: @escaping (Bool) -> Void) {
+        let disabledColor = Color(Ocean.color.colorInterfaceLightDown)
+        let disabledBorderColor = Ocean.color.colorInterfaceLightDown
+
+        init(isDisabled: Bool = false, onValueChanged: @escaping (Bool) -> Void) {
+            self.isDisabled = isDisabled
             self.onValueChanged = onValueChanged
         }
-        
+
         public func makeBody(configuration: Configuration) -> some View {
-            RoundedRectangle(cornerRadius: Ocean.size.borderRadiusLg, style: .circular)
-                .fill(configuration.isOn ? onColor : offColor)
+            let isEnabled = !self.isDisabled
+
+            return RoundedRectangle(cornerRadius: Ocean.size.borderRadiusLg, style: .circular)
+                .fill(configuration.isOn ? (isEnabled ? onColor : disabledColor) : offColor)
                 .frame(width: 40, height: 20)
                 .overlay(
                     Circle()
-                        .fill(configuration.isOn ? onThumbColor : offThumbColor)
+                        .fill(configuration.isOn ? onThumbColor : (isEnabled ? offThumbColor : disabledColor))
                         .padding(5)
                         .offset(x: configuration.isOn ? 10 : -10)
                 )
                 .border(cornerRadius: Ocean.size.borderRadiusLg,
                         width: Ocean.size.borderWidthHairline,
-                        color: configuration.isOn ? onBorderColor : offBorderColor)
+                        color: isEnabled ? (configuration.isOn ? onBorderColor : offBorderColor) : disabledBorderColor)
                 .onTapGesture {
+                    guard isEnabled else { return }
+
                     withAnimation(.smooth(duration: 0.2)) {
                         configuration.isOn.toggle()
                         self.onValueChanged(configuration.isOn)
