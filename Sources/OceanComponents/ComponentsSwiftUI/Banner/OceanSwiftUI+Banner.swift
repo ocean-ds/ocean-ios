@@ -151,13 +151,16 @@ extension OceanSwiftUI {
             Typography.heading4 { label in
                 label.parameters.text = self.parameters.title
                 label.parameters.textColor = self.resolvedTitleColor
+                label.parameters.lineSpacing = Ocean.font.lineHeightMedium
             }
         }
 
         private var descriptionView: some View {
-            Typography.paragraph { label in
+            Typography.description { label in
                 label.parameters.text = self.parameters.description
                 label.parameters.textColor = self.resolvedDescriptionColor
+                label.parameters.font = UIFont(name: Ocean.font.fontFamilyBaseWeightMedium,
+                                               size: Ocean.font.fontSizeXxs)
             }
         }
 
