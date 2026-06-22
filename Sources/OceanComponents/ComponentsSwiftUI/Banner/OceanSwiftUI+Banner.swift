@@ -1,0 +1,274 @@
+//
+//  OceanSwiftUI+Banner.swift
+//  OceanComponents
+//
+//  Created by Mateus Amarante on 09/06/26.
+//
+
+import SwiftUI
+import OceanTokens
+
+extension OceanSwiftUI {
+
+    // MARK: Parameters
+
+    public class BannerParameters: ObservableObject {
+
+        public enum Size {
+            case large
+            case small
+        }
+
+        public enum BannerType {
+            case `default`
+            case warning
+            case negative
+            case emphasys
+        }
+
+        @Published public var size: Size
+        @Published public var bannerType: BannerType
+        @Published public var title: String
+        @Published public var description: String
+        @Published public var image: UIImage?
+        @Published public var imageURL: String?
+        @Published public var buttons: [ButtonParameters]
+
+        public init(size: Size = .large,
+                    bannerType: BannerType = .default,
+                    title: String = "",
+                    description: String = "",
+                    image: UIImage? = nil,
+                    imageURL: String? = nil,
+                    buttons: [ButtonParameters] = []) {
+            self.size = size
+            self.bannerType = bannerType
+            self.title = title
+            self.description = description
+            self.image = image
+            self.imageURL = imageURL
+            self.buttons = buttons
+        }
+    }
+
+    public struct Banner: View {
+
+        // MARK: Properties for UIKit
+
+        public lazy var hostingController = UIHostingController(rootView: self)
+        public lazy var uiView = self.hostingController.getUIView()
+
+        // MARK: Builder
+
+        public typealias Builder = (Banner) -> Void
+
+        // MARK: Properties
+
+        @ObservedObject public var parameters: BannerParameters
+
+        // MARK: Constructors
+
+        public init(parameters: BannerParameters = BannerParameters()) {
+            self.parameters = parameters
+        }
+
+        public init(builder: Builder) {
+            self.init()
+            builder(self)
+        }
+
+        // MARK: View SwiftUI
+
+        public var body: some View {
+            Group {
+                if parameters.size == .large {
+                    largeLayout
+                } else {
+                    smallLayout
+                }
+            }
+            .background(Color(resolvedBackgroundColor))
+            .cornerRadius(Ocean.size.borderRadiusSm)
+        }
+
+        // MARK: Layouts
+
+        private var largeLayout: some View {
+            VStack(alignment: .leading, spacing: 0) {
+                if hasImage {
+                    bannerImage
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 190)
+                        .clipped()
+                }
+
+                contentView(textToButtonSpacing: Ocean.size.spacingStackSm - Ocean.size.spacingStackXxxs)
+                    .padding(.all, Ocean.size.spacingStackXs)
+            }
+            .frame(maxWidth: .infinity)
+        }
+
+        private var smallLayout: some View {
+            HStack(alignment: .top, spacing: 0) {
+                contentView(textToButtonSpacing: Ocean.size.spacingStackXxs)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.all, Ocean.size.spacingStackXs)
+
+                if hasImage {
+                    bannerImage
+                        .frame(width: 82)
+                        .frame(maxHeight: .infinity)
+                        .clipped()
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+
+        private func contentView(textToButtonSpacing: CGFloat) -> some View {
+            VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxxs) {
+                if !parameters.title.isEmpty {
+                    titleView
+                }
+
+                if !parameters.description.isEmpty {
+                    descriptionView
+                }
+
+                if !parameters.buttons.isEmpty {
+                    let limitedButtons = Array(parameters.buttons.prefix(2))
+                    HStack(spacing: Ocean.size.spacingInlineXs) {
+                        ForEach(Array(limitedButtons.enumerated()), id: \.offset) { index, buttonParam in
+                            buttonView(for: buttonParam, isPrimary: index == 0)
+                                .fixedSize()
+                        }
+                    }
+                    .padding(.top, textToButtonSpacing)
+                }
+            }
+        }
+
+        private var titleView: some View {
+            Typography.heading4 { label in
+                label.parameters.text = self.parameters.title
+                label.parameters.textColor = self.resolvedTitleColor
+                label.parameters.lineSpacing = Ocean.font.lineHeightMedium
+                label.parameters.font = UIFont(name: Ocean.font.fontFamilyBaseWeightBold,
+                                               size: Ocean.font.fontSizeXs)
+            }
+        }
+
+        private var descriptionView: some View {
+            Typography.description { label in
+                label.parameters.text = self.parameters.description
+                label.parameters.textColor = self.resolvedDescriptionColor
+                label.parameters.font = UIFont(name: Ocean.font.fontFamilyBaseWeightMedium,
+                                               size: Ocean.font.fontSizeXxs)
+                label.parameters.lineSpacing = Ocean.font.lineHeightComfy
+            }
+        }
+
+        @ViewBuilder
+        private func buttonView(for buttonParam: ButtonParameters, isPrimary: Bool) -> some View {
+            if isPrimary {
+                switch parameters.bannerType {
+                case .default:
+                    OceanSwiftUI.Button.primarySM { button in
+                        button.parameters.text = buttonParam.text
+                        button.parameters.onTouch = buttonParam.onTouch
+                    }
+                case .warning:
+                    OceanSwiftUI.Button.primaryWarningSM { button in
+                        button.parameters.text = buttonParam.text
+                        button.parameters.onTouch = buttonParam.onTouch
+                    }
+                case .negative:
+                    OceanSwiftUI.Button.primaryCriticalSM { button in
+                        button.parameters.text = buttonParam.text
+                        button.parameters.onTouch = buttonParam.onTouch
+                    }
+                case .emphasys:
+                    OceanSwiftUI.Button.secondarySM { button in
+                        button.parameters.text = buttonParam.text
+                        button.parameters.onTouch = buttonParam.onTouch
+                    }
+                }
+            } else {
+                switch parameters.bannerType {
+                case .default:
+                    OceanSwiftUI.Button.tertiarySM { button in
+                        button.parameters.text = buttonParam.text
+                        button.parameters.onTouch = buttonParam.onTouch
+                    }
+                case .warning:
+                    OceanSwiftUI.Button.tertiaryWarningSM { button in
+                        button.parameters.text = buttonParam.text
+                        button.parameters.onTouch = buttonParam.onTouch
+                    }
+                case .negative:
+                    OceanSwiftUI.Button.tertiaryCriticalSM { button in
+                        button.parameters.text = buttonParam.text
+                        button.parameters.onTouch = buttonParam.onTouch
+                    }
+                case .emphasys:
+                    // Tertiary com colorInterfaceLightPure — escopo exclusivo do Emphasys
+                    SwiftUI.Button(action: buttonParam.onTouch) {
+                        Text(buttonParam.text)
+                            .font(Font(UIFont.baseBold(size: Ocean.font.fontSizeXxs)!))
+                            .foregroundColor(Color(Ocean.color.colorInterfaceLightPure))
+                            .fixedSize(horizontal: true, vertical: false)
+                    }
+                    .buttonStyle(.plain)
+                    .fixedSize()
+                }
+            }
+        }
+
+        // MARK: Private properties
+
+        private var hasImage: Bool {
+            parameters.image != nil || !(parameters.imageURL?.isEmpty ?? true)
+        }
+
+        @ViewBuilder
+        private var bannerImage: some View {
+            if let image = parameters.image {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            } else if let url = parameters.imageURL, !url.isEmpty {
+                OceanSwiftUI.ImageDownload(parameters: .init(url: url, contentMode: .fill))
+            }
+        }
+
+        private var resolvedBackgroundColor: UIColor {
+            switch parameters.bannerType {
+            case .default:
+                return Ocean.color.colorInterfaceLightUp
+            case .warning:
+                return Ocean.color.colorStatusWarningUp
+            case .negative:
+                return Ocean.color.colorStatusNegativeUp
+            case .emphasys:
+                return Ocean.color.colorBrandPrimaryPure
+            }
+        }
+
+        private var resolvedTitleColor: UIColor {
+            switch parameters.bannerType {
+            case .emphasys:
+                return Ocean.color.colorInterfaceLightPure
+            default:
+                return Ocean.color.colorInterfaceDarkDeep
+            }
+        }
+
+        private var resolvedDescriptionColor: UIColor {
+            switch parameters.bannerType {
+            case .emphasys:
+                return Ocean.color.colorInterfaceLightUp
+            default:
+                return Ocean.color.colorInterfaceDarkDown
+            }
+        }
+    }
+}
