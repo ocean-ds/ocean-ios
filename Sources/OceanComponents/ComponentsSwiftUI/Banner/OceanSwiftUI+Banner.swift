@@ -102,7 +102,7 @@ extension OceanSwiftUI {
                         .clipped()
                 }
 
-                contentView(textToButtonSpacing: Ocean.size.spacingStackSm)
+                contentView(textToButtonSpacing: Ocean.size.spacingStackSm - Ocean.size.spacingStackXxxs)
                     .padding(.all, Ocean.size.spacingStackXs)
             }
             .frame(maxWidth: .infinity)
@@ -110,7 +110,7 @@ extension OceanSwiftUI {
 
         private var smallLayout: some View {
             HStack(alignment: .top, spacing: 0) {
-                contentView(textToButtonSpacing: Ocean.size.spacingStackXxsExtra)
+                contentView(textToButtonSpacing: Ocean.size.spacingStackXxs)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.all, Ocean.size.spacingStackXs)
 
@@ -152,6 +152,8 @@ extension OceanSwiftUI {
                 label.parameters.text = self.parameters.title
                 label.parameters.textColor = self.resolvedTitleColor
                 label.parameters.lineSpacing = Ocean.font.lineHeightMedium
+                label.parameters.font = UIFont(name: Ocean.font.fontFamilyBaseWeightBold,
+                                               size: Ocean.font.fontSizeXs)
             }
         }
 
@@ -161,6 +163,7 @@ extension OceanSwiftUI {
                 label.parameters.textColor = self.resolvedDescriptionColor
                 label.parameters.font = UIFont(name: Ocean.font.fontFamilyBaseWeightMedium,
                                                size: Ocean.font.fontSizeXxs)
+                label.parameters.lineSpacing = Ocean.font.lineHeightComfy
             }
         }
 
@@ -207,10 +210,15 @@ extension OceanSwiftUI {
                         button.parameters.onTouch = buttonParam.onTouch
                     }
                 case .emphasys:
-                    OceanSwiftUI.Button.primaryInverseSM { button in
-                        button.parameters.text = buttonParam.text
-                        button.parameters.onTouch = buttonParam.onTouch
+                    // Tertiary com colorInterfaceLightPure — escopo exclusivo do Emphasys
+                    SwiftUI.Button(action: buttonParam.onTouch) {
+                        Text(buttonParam.text)
+                            .font(Font(UIFont.baseBold(size: Ocean.font.fontSizeXxs)!))
+                            .foregroundColor(Color(Ocean.color.colorInterfaceLightPure))
+                            .fixedSize(horizontal: true, vertical: false)
                     }
+                    .buttonStyle(.plain)
+                    .fixedSize()
                 }
             }
         }
