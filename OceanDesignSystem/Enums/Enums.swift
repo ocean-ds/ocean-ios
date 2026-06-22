@@ -78,6 +78,7 @@ public enum DesignSystemComponentsType: String {
 }
 
 public enum DesignSystemComponentsSwiftUIType: String {
+    case Storybook
     case Accordion
     case Alert
     case Badge

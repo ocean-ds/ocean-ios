@@ -40,6 +40,10 @@ class ComponentsSwiftUIViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
 
         switch self.designSystemComponentsTypeSelected! {
+        case .Storybook:
+            let storybook = StorybookViewController()
+            storybook.modalPresentationStyle = .fullScreen
+            self.present(storybook, animated: true, completion: nil)
         case .Banner:
             self.present(BannerSwiftUIViewController(), animated: true, completion: nil)
         case .Alert:
