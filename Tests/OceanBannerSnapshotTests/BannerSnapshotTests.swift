@@ -144,6 +144,58 @@ final class BannerSnapshotTests: XCTestCase {
         parameters.buttons = [OceanSwiftUI.ButtonParameters(text: "Ação")]
         return parameters
     }
+
+    // MARK: Comparação direta com o Figma (mesmo conteúdo das specs)
+
+    /// Renderiza as 8 variantes (Large/Small × Emphasys/Default/Warning/Negative) com o conteúdo
+    /// exato das specs do Figma, para comparar visualmente. Saída: `figma-comparison.png`.
+    func testGenerateFigmaComparison() throws {
+        Ocean.installFonts()
+        let outDir = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent()
+            .appendingPathComponent("__BannerSnapshots__", isDirectory: true)
+        try FileManager.default.createDirectory(at: outDir, withIntermediateDirectories: true)
+
+        let view = AnyView(
+            VStack(spacing: 20) {
+                figmaBanner(size: .large, type: .emphasys)
+                figmaBanner(size: .large, type: .default)
+                figmaBanner(size: .large, type: .warning)
+                figmaBanner(size: .large, type: .negative)
+                figmaBanner(size: .small, type: .emphasys)
+                figmaBanner(size: .small, type: .default)
+                figmaBanner(size: .small, type: .warning)
+                figmaBanner(size: .small, type: .negative)
+            }
+            .padding(20)
+            .background(Color.white)
+        )
+
+        var result: UIImage?
+        let exp = expectation(description: "figma")
+        Snapshotting<AnyView, UIImage>.image(layout: .sizeThatFits)
+            .snapshot(view)
+            .run { image in
+                result = image
+                exp.fulfill()
+            }
+        wait(for: [exp], timeout: 30)
+        if let data = result?.pngData() {
+            try data.write(to: outDir.appendingPathComponent("figma-comparison.png"))
+        }
+    }
+
+    private func figmaBanner(size: OceanSwiftUI.BannerParameters.Size,
+                             type: OceanSwiftUI.BannerParameters.BannerType) -> some View {
+        let parameters = OceanSwiftUI.BannerParameters()
+        parameters.size = size
+        parameters.bannerType = type
+        parameters.title = "Display title for campaigns"
+        parameters.description = "Supporting text that expands on the title by providing contex."
+        parameters.image = UIImage(systemName: "photo")
+        parameters.buttons = [OceanSwiftUI.ButtonParameters(text: "Label")]
+        return OceanSwiftUI.Banner(parameters: parameters).frame(width: 328)
+    }
 }
 
 /// Réplica do layout ANTIGO do small (com `maxHeight: .infinity`) para comparar com o corrigido.
