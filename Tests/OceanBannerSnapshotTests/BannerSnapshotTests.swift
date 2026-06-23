@@ -66,6 +66,113 @@ final class BannerSnapshotTests: XCTestCase {
         }
         return image
     }
+
+    // MARK: Validação do bug do small (reproduz o contexto do app demo)
+
+    /// Gera duas telas no MESMO contexto do app demo (vários banners num ScrollView, small no topo):
+    /// - `validation-buggy.png`: réplica do layout ANTIGO (maxHeight: .infinity) → deve estourar.
+    /// - `validation-fixed.png`: componente REAL corrigido → deve ficar correto.
+    func testGenerateValidationScreens() throws {
+        Ocean.installFonts()
+        let outDir = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent()
+            .appendingPathComponent("__BannerSnapshots__", isDirectory: true)
+        try FileManager.default.createDirectory(at: outDir, withIntermediateDirectories: true)
+
+        try writeScreen(AnyView(demoScreen(buggy: true)),
+                        to: outDir.appendingPathComponent("validation-buggy.png"))
+        try writeScreen(AnyView(demoScreen(buggy: false)),
+                        to: outDir.appendingPathComponent("validation-fixed.png"))
+    }
+
+    private func writeScreen(_ view: AnyView, to url: URL) throws {
+        var result: UIImage?
+        let exp = expectation(description: "screen")
+        Snapshotting<AnyView, UIImage>.image(layout: .fixed(width: 390, height: 844))
+            .snapshot(view)
+            .run { image in
+                result = image
+                exp.fulfill()
+            }
+        wait(for: [exp], timeout: 20)
+        guard let data = result?.pngData() else {
+            throw NSError(domain: "BannerSnapshot", code: 3,
+                          userInfo: [NSLocalizedDescriptionKey: "tela de validação vazia"])
+        }
+        try data.write(to: url)
+    }
+
+    private func demoScreen(buggy: Bool) -> some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: Ocean.size.spacingStackXs) {
+                if buggy {
+                    BuggyOldSmallBanner(title: "Banner Small Default", description: "")
+                    BuggyOldSmallBanner(title: "Banner Small Warning", description: "Aviso compacto.")
+                } else {
+                    OceanSwiftUI.Banner(parameters: demoSmallParams(type: .default, description: ""))
+                    OceanSwiftUI.Banner(parameters: demoSmallParams(type: .warning, description: "Aviso compacto."))
+                }
+
+                ForEach(0..<4, id: \.self) { _ in
+                    OceanSwiftUI.Banner(parameters: demoLargeParams())
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.all, Ocean.size.spacingStackXs)
+        }
+        .background(Color(Ocean.color.colorInterfaceLightPure))
+    }
+
+    private func demoSmallParams(type: OceanSwiftUI.BannerParameters.BannerType,
+                                 description: String) -> OceanSwiftUI.BannerParameters {
+        let parameters = OceanSwiftUI.BannerParameters()
+        parameters.size = .small
+        parameters.bannerType = type
+        parameters.title = type == .warning ? "Banner Small Warning" : "Banner Small Default"
+        parameters.description = description
+        parameters.image = UIImage(systemName: type == .warning ? "exclamationmark.triangle" : "photo")
+        return parameters
+    }
+
+    private func demoLargeParams() -> OceanSwiftUI.BannerParameters {
+        let parameters = OceanSwiftUI.BannerParameters()
+        parameters.size = .large
+        parameters.bannerType = .default
+        parameters.title = "Banner Large Default"
+        parameters.description = "Descrição opcional do banner no tamanho large."
+        parameters.image = UIImage(systemName: "photo")
+        parameters.buttons = [OceanSwiftUI.ButtonParameters(text: "Ação")]
+        return parameters
+    }
+}
+
+/// Réplica do layout ANTIGO do small (com `maxHeight: .infinity`) para comparar com o corrigido.
+private struct BuggyOldSmallBanner: View {
+    let title: String
+    let description: String
+
+    var body: some View {
+        HStack(alignment: .top, spacing: 0) {
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title).font(.headline)
+                if !description.isEmpty {
+                    Text(description).font(.subheadline).foregroundColor(.secondary)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(16)
+
+            Image(systemName: "exclamationmark.triangle")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 82)
+                .frame(maxHeight: .infinity)
+                .clipped()
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color(red: 1.0, green: 0.96, blue: 0.91))
+        .cornerRadius(8)
+    }
 }
 
 /// Uma combinação da matriz de variantes do Banner.
