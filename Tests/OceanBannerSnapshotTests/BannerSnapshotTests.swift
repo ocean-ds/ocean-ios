@@ -109,12 +109,12 @@ final class BannerSnapshotTests: XCTestCase {
                     BuggyOldSmallBanner(title: "Banner Small Default", description: "")
                     BuggyOldSmallBanner(title: "Banner Small Warning", description: "Aviso compacto.")
                 } else {
-                    OceanSwiftUI.Banner(parameters: demoSmallParams(type: .default, description: ""))
-                    OceanSwiftUI.Banner(parameters: demoSmallParams(type: .warning, description: "Aviso compacto."))
+                    OceanSwiftUI.Banner(parameters: self.demoSmallParams(type: .default, description: ""))
+                    OceanSwiftUI.Banner(parameters: self.demoSmallParams(type: .warning, description: "Aviso compacto."))
                 }
 
                 ForEach(0..<4, id: \.self) { _ in
-                    OceanSwiftUI.Banner(parameters: demoLargeParams())
+                    OceanSwiftUI.Banner(parameters: self.demoLargeParams())
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
