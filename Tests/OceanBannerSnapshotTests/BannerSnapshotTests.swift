@@ -3,10 +3,9 @@
 //  OceanBannerSnapshotTests (Swift Package test target)
 //
 //  Gera os snapshots PNG do componente REAL OceanSwiftUI.Banner para a galeria web.
-//  Vive num test target do Swift Package (membership explícita) — o test target do app
-//  de exemplo não compilava arquivos novos (synchronized group não os incluía).
+//  Usa swift-snapshot-testing (captura SwiftUI de forma confiável), mas extrai o UIImage
+//  diretamente para gravar com os nomes que a galeria espera (sem o "record mode").
 //
-//  Render real via UIHostingController + UIGraphicsImageRenderer (sem dependência extra).
 //  Saída: <pasta deste arquivo>/__BannerSnapshots__/<key>.png
 //  Chave compartilhada com o Android: banner__{size}__{type}__{image}__{buttons}
 //
@@ -16,14 +15,14 @@ import SwiftUI
 import UIKit
 import OceanComponents
 import OceanTokens
+import SnapshotTesting
 
 final class BannerSnapshotTests: XCTestCase {
 
     private let width: CGFloat = 343
 
     func testGenerateBannerSnapshots() throws {
-        // Registra as fontes custom do Ocean (o app faz isso no AppDelegate; o test bundle precisa
-        // fazer manualmente, senão UIFont.baseBold(...) retorna nil e o Button crasha ao renderizar).
+        // Registra as fontes custom do Ocean (senão UIFont.baseBold(...) é nil e o Button crasha).
         Ocean.installFonts()
 
         let outDir = URL(fileURLWithPath: #filePath)
@@ -32,45 +31,36 @@ final class BannerSnapshotTests: XCTestCase {
         try FileManager.default.createDirectory(at: outDir, withIntermediateDirectories: true)
 
         for snapshotCase in BannerSnapshotMatrix.all {
-            let view = OceanSwiftUI.Banner(parameters: snapshotCase.parameters())
-                .frame(width: width)
-            let data = try Self.png(of: view, width: width)
+            let view = AnyView(
+                OceanSwiftUI.Banner(parameters: snapshotCase.parameters())
+                    .frame(width: width)
+            )
+            let image = try render(view)
+            guard let data = image.pngData() else {
+                throw NSError(domain: "BannerSnapshot", code: 1,
+                              userInfo: [NSLocalizedDescriptionKey: "Falha ao gerar PNG de \(snapshotCase.key)"])
+            }
             try data.write(to: outDir.appendingPathComponent("\(snapshotCase.key).png"))
             print("[banner-snapshot] wrote \(snapshotCase.key).png")
         }
     }
 
-    /// Renderiza uma SwiftUI View para PNG via UIHostingController + UIGraphicsImageRenderer.
-    static func png<Content: View>(of view: Content, width: CGFloat) throws -> Data {
-        let controller = UIHostingController(rootView: view)
-        let target = controller.view!
-        target.backgroundColor = .clear
-
-        let fitting = target.systemLayoutSizeFitting(
-            CGSize(width: width, height: UIView.layoutFittingCompressedSize.height),
-            withHorizontalFittingPriority: .required,
-            verticalFittingPriority: .fittingSizeLevel
-        )
-        let height = max(fitting.height, 1)
-        target.bounds = CGRect(x: 0, y: 0, width: width, height: height)
-
-        let window = UIWindow(frame: target.bounds)
-        window.rootViewController = controller
-        window.makeKeyAndVisible()
-        target.setNeedsLayout()
-        target.layoutIfNeeded()
-        // Dá um ciclo de run loop para o SwiftUI concluir o desenho; sem isso a captura sai em branco.
-        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
-
-        let renderer = UIGraphicsImageRenderer(bounds: target.bounds)
-        let image = renderer.image { _ in
-            target.drawHierarchy(in: target.bounds, afterScreenUpdates: true)
+    /// Renderiza uma SwiftUI View para UIImage via swift-snapshot-testing (largura fixa, altura = conteúdo).
+    private func render(_ view: AnyView) throws -> UIImage {
+        var result: UIImage?
+        let exp = expectation(description: "snapshot")
+        Snapshotting<AnyView, UIImage>.image(layout: .sizeThatFits)
+            .snapshot(view)
+            .run { image in
+                result = image
+                exp.fulfill()
+            }
+        wait(for: [exp], timeout: 15)
+        guard let image = result else {
+            throw NSError(domain: "BannerSnapshot", code: 2,
+                          userInfo: [NSLocalizedDescriptionKey: "snapshot retornou vazio"])
         }
-        guard let data = image.pngData() else {
-            throw NSError(domain: "BannerSnapshot", code: 1,
-                          userInfo: [NSLocalizedDescriptionKey: "Falha ao gerar PNG"])
-        }
-        return data
+        return image
     }
 }
 
