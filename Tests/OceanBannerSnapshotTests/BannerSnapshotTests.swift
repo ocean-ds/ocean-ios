@@ -56,9 +56,11 @@ final class BannerSnapshotTests: XCTestCase {
 
         let window = UIWindow(frame: target.bounds)
         window.rootViewController = controller
-        window.isHidden = false
+        window.makeKeyAndVisible()
         target.setNeedsLayout()
         target.layoutIfNeeded()
+        // Dá um ciclo de run loop para o SwiftUI concluir o desenho; sem isso a captura sai em branco.
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
 
         let renderer = UIGraphicsImageRenderer(bounds: target.bounds)
         let image = renderer.image { _ in
