@@ -46,6 +46,11 @@ let package = Package(
             resources: [
                 .copy("Resources/Icon.xcassets")
             ]
+        ),
+        .testTarget(
+            name: "OceanBannerSnapshotTests",
+            dependencies: ["OceanComponents"],
+            path: "Tests/OceanBannerSnapshotTests"
         )
     ],
     swiftLanguageVersions: [.v5]
