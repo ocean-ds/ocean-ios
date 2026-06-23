@@ -49,7 +49,7 @@ let package = Package(
         ),
         .testTarget(
             name: "OceanBannerSnapshotTests",
-            dependencies: ["OceanComponents"],
+            dependencies: ["OceanComponents", "OceanTokens"],
             path: "Tests/OceanBannerSnapshotTests"
         )
     ],

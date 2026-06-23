@@ -15,6 +15,7 @@ import XCTest
 import SwiftUI
 import UIKit
 import OceanComponents
+import OceanTokens
 
 final class BannerSnapshotTests: XCTestCase {
 
