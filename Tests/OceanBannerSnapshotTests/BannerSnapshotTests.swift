@@ -19,8 +19,6 @@ import SnapshotTesting
 
 final class BannerSnapshotTests: XCTestCase {
 
-    private let width: CGFloat = 343
-
     func testGenerateBannerSnapshots() throws {
         // Registra as fontes custom do Ocean (senão UIFont.baseBold(...) é nil e o Button crasha).
         Ocean.installFonts()
@@ -31,11 +29,7 @@ final class BannerSnapshotTests: XCTestCase {
         try FileManager.default.createDirectory(at: outDir, withIntermediateDirectories: true)
 
         for snapshotCase in BannerSnapshotMatrix.all {
-            let view = AnyView(
-                OceanSwiftUI.Banner(parameters: snapshotCase.parameters())
-                    .frame(width: width)
-            )
-            let image = try render(view)
+            let image = try render(OceanSwiftUI.Banner(parameters: snapshotCase.parameters()))
             guard let data = image.pngData() else {
                 throw NSError(domain: "BannerSnapshot", code: 1,
                               userInfo: [NSLocalizedDescriptionKey: "Falha ao gerar PNG de \(snapshotCase.key)"])
@@ -45,12 +39,22 @@ final class BannerSnapshotTests: XCTestCase {
         }
     }
 
-    /// Renderiza uma SwiftUI View para UIImage via swift-snapshot-testing (largura fixa, altura = conteúdo).
-    private func render(_ view: AnyView) throws -> UIImage {
+    /// Renderiza o Banner DENTRO do contexto real do app (ScrollView + VStack, largura cheia da tela),
+    /// para o storybook ser fiel — divergências dependentes de container aparecem aqui (igual ao app).
+    private func render(_ banner: OceanSwiftUI.Banner) throws -> UIImage {
+        let screen = ScrollView {
+            VStack(alignment: .leading, spacing: Ocean.size.spacingStackXs) {
+                banner
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.all, Ocean.size.spacingStackXs)
+        }
+        .background(Color(Ocean.color.colorInterfaceLightPure))
+
         var result: UIImage?
         let exp = expectation(description: "snapshot")
-        Snapshotting<AnyView, UIImage>.image(layout: .sizeThatFits)
-            .snapshot(view)
+        Snapshotting<AnyView, UIImage>.image(layout: .fixed(width: 390, height: 844))
+            .snapshot(AnyView(screen))
             .run { image in
                 result = image
                 exp.fulfill()
