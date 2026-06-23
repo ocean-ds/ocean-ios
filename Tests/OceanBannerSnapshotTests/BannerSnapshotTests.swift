@@ -22,6 +22,10 @@ final class BannerSnapshotTests: XCTestCase {
     private let width: CGFloat = 343
 
     func testGenerateBannerSnapshots() throws {
+        // Registra as fontes custom do Ocean (o app faz isso no AppDelegate; o test bundle precisa
+        // fazer manualmente, senão UIFont.baseBold(...) retorna nil e o Button crasha ao renderizar).
+        Ocean.installFonts()
+
         let outDir = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()
             .appendingPathComponent("__BannerSnapshots__", isDirectory: true)
