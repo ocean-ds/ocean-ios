@@ -39,9 +39,14 @@ final class BannerSnapshotTests: XCTestCase {
         }
     }
 
-    /// Renderiza o Banner isolado (largura 328, igual ao Figma), ajustado ao conteúdo — thumbnail limpo p/ a galeria.
+    /// Renderiza o Banner como numa tela do app: largura de device (360pt), padding e fundo de tela reais.
     private func render(_ banner: OceanSwiftUI.Banner) throws -> UIImage {
-        let view = AnyView(banner.frame(width: 328))
+        let view = AnyView(
+            banner
+                .padding(Ocean.size.spacingStackXs)
+                .frame(width: 360)
+                .background(Color(Ocean.color.colorInterfaceLightUp))
+        )
 
         var result: UIImage?
         let exp = expectation(description: "snapshot")
