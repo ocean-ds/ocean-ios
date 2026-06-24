@@ -22,7 +22,8 @@ let package = Package(
         .package(url: "https://github.com/Juanpe/SkeletonView", .upToNextMajor(from: "1.31.0")),
         .package(url: "https://github.com/SDWebImage/SDWebImage", from: "5.19.0"),
         .package(url: "https://github.com/danielgindi/Charts.git", .upToNextMajor(from: "5.1.0")),
-        .package(url: "https://github.com/teodorpatras/EasyTipView", from: "2.1.0")
+        .package(url: "https://github.com/teodorpatras/EasyTipView", from: "2.1.0"),
+        .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.18.0")
     ],
     targets: [
         .target(
@@ -46,6 +47,15 @@ let package = Package(
             resources: [
                 .copy("Resources/Icon.xcassets")
             ]
+        ),
+        .testTarget(
+            name: "OceanBannerSnapshotTests",
+            dependencies: [
+                "OceanComponents",
+                "OceanTokens",
+                .product(name: "SnapshotTesting", package: "swift-snapshot-testing")
+            ],
+            path: "Tests/OceanBannerSnapshotTests"
         )
     ],
     swiftLanguageVersions: [.v5]
