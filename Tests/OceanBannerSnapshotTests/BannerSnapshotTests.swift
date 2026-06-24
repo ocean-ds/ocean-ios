@@ -39,22 +39,14 @@ final class BannerSnapshotTests: XCTestCase {
         }
     }
 
-    /// Renderiza o Banner DENTRO do contexto real do app (ScrollView + VStack, largura cheia da tela),
-    /// para o storybook ser fiel — divergências dependentes de container aparecem aqui (igual ao app).
+    /// Renderiza o Banner isolado (largura 328, igual ao Figma), ajustado ao conteúdo — thumbnail limpo p/ a galeria.
     private func render(_ banner: OceanSwiftUI.Banner) throws -> UIImage {
-        let screen = ScrollView {
-            VStack(alignment: .leading, spacing: Ocean.size.spacingStackXs) {
-                banner
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.all, Ocean.size.spacingStackXs)
-        }
-        .background(Color(Ocean.color.colorInterfaceLightPure))
+        let view = AnyView(banner.frame(width: 328))
 
         var result: UIImage?
         let exp = expectation(description: "snapshot")
-        Snapshotting<AnyView, UIImage>.image(layout: .fixed(width: 390, height: 844))
-            .snapshot(AnyView(screen))
+        Snapshotting<AnyView, UIImage>.image(layout: .sizeThatFits)
+            .snapshot(view)
             .run { image in
                 result = image
                 exp.fulfill()
