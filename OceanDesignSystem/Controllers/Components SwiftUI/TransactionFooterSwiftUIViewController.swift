@@ -30,10 +30,14 @@ class TransactionFooterSwiftUIViewController: UIViewController {
                   imageIcon: Ocean.icon.tagSolid),
             .init(text: "Valor cobrado", 
                   value: "R$ 100.000,00"),
-            .init(text: "Custo de antecipação", 
-                  value: "R$ 10,00",
-                  newValue: "Zero"),
-            .init(text: "Pague", 
+            .init(text: "Juros do parcelamento",
+                  value: "4,39%",
+                  valueColor: Ocean.color.colorStatusPositiveDeep,
+                  isBoldValue: true,
+                  newValue: "Grátis",
+                  newValueColor: Ocean.color.colorStatusPositiveDeep),
+            .init(isDivider: true),
+            .init(text: "Pague",
                   value: "R$ 10,00",
                   isBoldValue: true)
         ]
