@@ -61,13 +61,13 @@ extension OceanSwiftUI {
                 case .heading3, .heading3Inverse:
                     return .highlightExtraBold(size: Ocean.font.fontSizeSm)
                 case .heading4, .heading4Inverse:
-                    return .highlightBold(size: Ocean.font.fontSizeXs)
+                    return .highlightExtraBold(size: Ocean.font.fontSizeXs)
                 case .heading5, .heading5Inverse:
-                    return .highlightBold(size: Ocean.font.fontSizeXxs)
+                    return .highlightExtraBold(size: Ocean.font.fontSizeXxs)
                 case .subTitle1, .subTitle1Inverse:
-                    return .baseRegular(size: Ocean.font.fontSizeMd)
-                case .subTitle2, .subTitle2Inverse:
                     return .baseRegular(size: Ocean.font.fontSizeSm)
+                case .subTitle2, .subTitle2Inverse:
+                    return .baseRegular(size: Ocean.font.fontSizeXs)
                 case .paragraph, .paragraphInverse:
                     return .baseRegular(size: Ocean.font.fontSizeXs)
                 case .lead, .leadInverse:
@@ -125,6 +125,15 @@ extension OceanSwiftUI {
                     return 2.16
                 default:
                     return 0
+                }
+            }
+
+            func getTextCase() -> Text.Case? {
+                switch self {
+                case .eyebrow:
+                    return .uppercase
+                default:
+                    return nil
                 }
             }
         }
@@ -222,6 +231,7 @@ extension OceanSwiftUI {
                 .lineLimit(parameters.lineLimit)
                 .lineSpacing(parameters.lineSpacing ?? parameters.style.getLineSpacing())
                 .multilineTextAlignment(parameters.multilineTextAlignment)
+                .textCase(parameters.style.getTextCase())
                 .fixedSize(horizontal: false, vertical: true)
                 .oceanSkeleton(isActive: parameters.showSkeleton, shape: .capsule)
         }
