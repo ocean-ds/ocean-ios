@@ -31,13 +31,31 @@ class SwitchSwiftUIViewController: UIViewController {
         }
     }()
 
+    private lazy var switchDisabledOffView: OceanSwiftUI.Switch = {
+        OceanSwiftUI.Switch { view in
+            view.parameters.isOn = false
+            view.parameters.isDisabled = true
+        }
+    }()
+
+    private lazy var switchDisabledOnView: OceanSwiftUI.Switch = {
+        OceanSwiftUI.Switch { view in
+            view.parameters.isOn = true
+            view.parameters.isDisabled = true
+        }
+    }()
+
     private lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(alignment: .center, spacing: Ocean.size.spacingStackXs) {
             switchView
-            
+
             stateLabel
-            
+
             switchSkeltonView
+
+            switchDisabledOffView
+
+            switchDisabledOnView
         }
     })
 

@@ -43,7 +43,7 @@ extension Ocean {
         
         public static func heading4(builder: TypographyBuilder = nil) -> UILabel {
             return UILabel { label in
-                label.font = .highlightBold(size: Ocean.font.fontSizeXs)
+                label.font = .highlightExtraBold(size: Ocean.font.fontSizeXs)
                 label.textColor = Ocean.color.colorInterfaceDarkDeep
                 label.setLineHeight(lineHeight: Ocean.font.lineHeightMedium)
                 builder?( label )
@@ -52,7 +52,7 @@ extension Ocean {
 
         public static func heading5(builder: TypographyBuilder = nil) -> UILabel {
             return UILabel { label in
-                label.font = .highlightBold(size: Ocean.font.fontSizeXxs)
+                label.font = .highlightExtraBold(size: Ocean.font.fontSizeXxs)
                 label.textColor = Ocean.color.colorInterfaceDarkDeep
                 label.setLineHeight(lineHeight: Ocean.font.lineHeightMedium)
                 builder?( label )
@@ -96,7 +96,7 @@ extension Ocean {
         
         public static func subTitle1(builder: TypographyBuilder = nil) -> UILabel {
             return UILabel { label in
-                label.font = .baseRegular(size: Ocean.font.fontSizeMd)
+                label.font = .baseRegular(size: Ocean.font.fontSizeSm)
                 label.textColor = Ocean.color.colorInterfaceDarkDown
                 label.setLineHeight(lineHeight: Ocean.font.lineHeightMedium)
                 builder?( label )
@@ -105,7 +105,7 @@ extension Ocean {
         
         public static func subTitle2(builder: TypographyBuilder = nil) -> UILabel {
             return UILabel { label in
-                label.font = .baseRegular(size: Ocean.font.fontSizeSm)
+                label.font = .baseRegular(size: Ocean.font.fontSizeXs)
                 label.textColor = Ocean.color.colorInterfaceDarkDown
                 label.setLineHeight(lineHeight: Ocean.font.lineHeightMedium)
                 builder?( label )

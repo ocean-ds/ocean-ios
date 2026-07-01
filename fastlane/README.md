@@ -33,6 +33,22 @@ Build and Test App
 
 Prepare new version on master
 
+### ios update_certificate
+
+```sh
+[bundle exec] fastlane ios update_certificate
+```
+
+Update certificate
+
+### ios get_certificate
+
+```sh
+[bundle exec] fastlane ios get_certificate
+```
+
+Get certificate
+
 ### ios beta_testflight
 
 ```sh
