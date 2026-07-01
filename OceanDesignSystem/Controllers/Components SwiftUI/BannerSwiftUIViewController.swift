@@ -69,13 +69,17 @@ class BannerSwiftUIViewController: UIViewController {
         }
     }()
 
-    // Small - Default (sem descrição)
+    // Small - Default
     lazy var bannerSmallDefault: OceanSwiftUI.Banner = {
         OceanSwiftUI.Banner { view in
             view.parameters.size = .small
             view.parameters.bannerType = .default
             view.parameters.title = "Banner Small Default"
-            view.parameters.image = UIImage(systemName: "photo")
+            view.parameters.description = "Descrição do banner small com tipo default."
+            view.parameters.buttons = [
+                OceanSwiftUI.ButtonParameters(text: "Ação Primária"),
+                OceanSwiftUI.ButtonParameters(text: "Ação Secundária")
+            ]
         }
     }()
 
@@ -85,8 +89,11 @@ class BannerSwiftUIViewController: UIViewController {
             view.parameters.size = .small
             view.parameters.bannerType = .warning
             view.parameters.title = "Banner Small Warning"
-            view.parameters.description = "Aviso compacto."
-            view.parameters.image = UIImage(systemName: "exclamationmark.triangle")
+            view.parameters.description = "Atenção! Este é um banner de aviso compacto."
+            view.parameters.buttons = [
+                OceanSwiftUI.ButtonParameters(text: "Entendi"),
+                OceanSwiftUI.ButtonParameters(text: "Cancelar")
+            ]
         }
     }()
 
@@ -96,9 +103,10 @@ class BannerSwiftUIViewController: UIViewController {
             view.parameters.size = .small
             view.parameters.bannerType = .negative
             view.parameters.title = "Banner Small Negative"
-            view.parameters.description = "Erro compacto."
+            view.parameters.description = "Ocorreu um erro. Banner negativo compacto."
             view.parameters.buttons = [
-                OceanSwiftUI.ButtonParameters(text: "Corrigir")
+                OceanSwiftUI.ButtonParameters(text: "Tentar novamente"),
+                OceanSwiftUI.ButtonParameters(text: "Cancelar")
             ]
         }
     }()
@@ -109,8 +117,11 @@ class BannerSwiftUIViewController: UIViewController {
             view.parameters.size = .small
             view.parameters.bannerType = .emphasys
             view.parameters.title = "Banner Small Emphasys"
-            view.parameters.description = "Destaque compacto com imagem."
-            view.parameters.image = UIImage(systemName: "star.fill")
+            view.parameters.description = "Destaque compacto com fundo brand."
+            view.parameters.buttons = [
+                OceanSwiftUI.ButtonParameters(text: "Saiba mais"),
+                OceanSwiftUI.ButtonParameters(text: "Fechar")
+            ]
         }
     }()
 

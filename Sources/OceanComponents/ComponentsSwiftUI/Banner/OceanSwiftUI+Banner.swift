@@ -140,9 +140,29 @@ extension OceanSwiftUI {
                         .frame(width: 82)
                         .frame(maxHeight: .infinity)
                         .clipped()
+                } else {
+                    smallImagePlaceholder
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
+        }
+
+        private var smallImagePlaceholder: some View {
+            ZStack {
+                Color(UIColor(red: 237/255, green: 234/255, blue: 255/255, alpha: 1))
+                Image(systemName: "photo")
+                    .font(.system(size: 24, weight: .regular))
+                    .foregroundColor(Color(UIColor(red: 123/255, green: 97/255, blue: 255/255, alpha: 1)))
+            }
+            .frame(width: 82)
+            .frame(maxHeight: .infinity)
+            .overlay(
+                Rectangle()
+                    .strokeBorder(
+                        style: StrokeStyle(lineWidth: 1.5, dash: [8, 5])
+                    )
+                    .foregroundColor(Color(UIColor(red: 123/255, green: 97/255, blue: 255/255, alpha: 1)))
+            )
         }
 
         private func contentView(textToButtonSpacing: CGFloat) -> some View {
