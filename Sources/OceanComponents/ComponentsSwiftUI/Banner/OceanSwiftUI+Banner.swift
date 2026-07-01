@@ -83,6 +83,7 @@ extension OceanSwiftUI {
             Group {
                 if parameters.size == .large {
                     largeLayout
+                        .aspectRatio(1, contentMode: .fit)
                 } else {
                     smallLayout
                 }
@@ -98,7 +99,7 @@ extension OceanSwiftUI {
                 if hasImage {
                     bannerImage
                         .frame(maxWidth: .infinity)
-                        .frame(height: 190)
+                        .frame(maxHeight: .infinity)
                         .clipped()
                 }
 
