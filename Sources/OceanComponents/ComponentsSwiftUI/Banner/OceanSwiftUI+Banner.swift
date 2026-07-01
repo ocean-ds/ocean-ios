@@ -100,6 +100,8 @@ extension OceanSwiftUI {
                         .frame(maxWidth: .infinity)
                         .frame(height: 190)
                         .clipped()
+                } else {
+                    largeImagePlaceholder
                 }
 
                 contentView(textToButtonSpacing: Ocean.size.spacingStackSm - Ocean.size.spacingStackXxxs)
@@ -107,6 +109,24 @@ extension OceanSwiftUI {
                     .padding(.all, Ocean.size.spacingStackXs)
             }
             .frame(maxWidth: .infinity)
+        }
+
+        private var largeImagePlaceholder: some View {
+            ZStack {
+                Color(UIColor(red: 237/255, green: 234/255, blue: 255/255, alpha: 1))
+                Image(systemName: "photo")
+                    .font(.system(size: 32, weight: .regular))
+                    .foregroundColor(Color(UIColor(red: 123/255, green: 97/255, blue: 255/255, alpha: 1)))
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: 190)
+            .overlay(
+                Rectangle()
+                    .strokeBorder(
+                        style: StrokeStyle(lineWidth: 1.5, dash: [8, 5])
+                    )
+                    .foregroundColor(Color(UIColor(red: 123/255, green: 97/255, blue: 255/255, alpha: 1)))
+            )
         }
 
         private var smallLayout: some View {
