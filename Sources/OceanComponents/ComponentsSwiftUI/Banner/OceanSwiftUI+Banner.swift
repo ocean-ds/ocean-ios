@@ -251,9 +251,9 @@ extension OceanSwiftUI {
             if let image = parameters.image {
                 Image(uiImage: image)
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
+                    .aspectRatio(contentMode: .fill)
             } else if let url = parameters.imageURL, !url.isEmpty {
-                OceanSwiftUI.ImageDownload(parameters: .init(url: url, contentMode: .fit))
+                OceanSwiftUI.ImageDownload(parameters: .init(url: url, contentMode: .fill))
             }
         }
 
