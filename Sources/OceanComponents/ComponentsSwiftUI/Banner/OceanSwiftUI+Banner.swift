@@ -103,6 +103,7 @@ extension OceanSwiftUI {
                 }
 
                 contentView(textToButtonSpacing: Ocean.size.spacingStackSm - Ocean.size.spacingStackXxxs)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.all, Ocean.size.spacingStackXs)
             }
             .frame(maxWidth: .infinity)
