@@ -20,7 +20,6 @@ class BannerSwiftUIViewController: UIViewController {
             view.parameters.bannerType = .default
             view.parameters.title = "Banner Large Default"
             view.parameters.description = "Descrição opcional do banner no tamanho large com tipo default."
-            view.parameters.image = UIImage(named: "banner1")
             view.parameters.buttons = [
                 OceanSwiftUI.ButtonParameters(text: "Ação Primária"),
                 OceanSwiftUI.ButtonParameters(text: "Ação Secundária")
@@ -35,7 +34,6 @@ class BannerSwiftUIViewController: UIViewController {
             view.parameters.bannerType = .warning
             view.parameters.title = "Banner Large Warning"
             view.parameters.description = "Atenção! Este é um banner de aviso com tipo warning."
-            view.parameters.image = UIImage(named: "banner1")
             view.parameters.buttons = [
                 OceanSwiftUI.ButtonParameters(text: "Entendi"),
                 OceanSwiftUI.ButtonParameters(text: "Cancelar")
@@ -50,7 +48,6 @@ class BannerSwiftUIViewController: UIViewController {
             view.parameters.bannerType = .negative
             view.parameters.title = "Banner Large Negative"
             view.parameters.description = "Ocorreu um erro. Este é um banner do tipo negativo."
-            view.parameters.image = UIImage(named: "banner2")
             view.parameters.buttons = [
                 OceanSwiftUI.ButtonParameters(text: "Tentar novamente"),
                 OceanSwiftUI.ButtonParameters(text: "Cancelar")
@@ -65,7 +62,6 @@ class BannerSwiftUIViewController: UIViewController {
             view.parameters.bannerType = .emphasys
             view.parameters.title = "Banner Large Emphasys"
             view.parameters.description = "Destaque máximo! Este é um banner do tipo emphasys com fundo brand."
-            view.parameters.image = UIImage(named: "banner2")
             view.parameters.buttons = [
                 OceanSwiftUI.ButtonParameters(text: "Saiba mais")
             ]
