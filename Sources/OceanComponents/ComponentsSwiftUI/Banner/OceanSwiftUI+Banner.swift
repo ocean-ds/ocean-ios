@@ -178,6 +178,9 @@ extension OceanSwiftUI {
             Typography.description { label in
                 label.parameters.text = self.parameters.description
                 label.parameters.textColor = self.resolvedDescriptionColor
+                label.parameters.font = UIFont(name: Ocean.font.fontFamilyBaseWeightMedium,
+                                               size: Ocean.font.fontSizeXxs)
+                label.parameters.lineSpacing = Ocean.font.lineHeightComfy
             }
         }
 
@@ -201,18 +204,10 @@ extension OceanSwiftUI {
                         button.parameters.onTouch = buttonParam.onTouch
                     }
                 case .emphasys:
-                    // Primary branco sólido (interfaceLightPure + brandPrimaryPure) — escopo Emphasys
-                    SwiftUI.Button(action: buttonParam.onTouch) {
-                        Text(buttonParam.text)
-                            .font(Font(UIFont.baseBold(size: Ocean.font.fontSizeXs)!))
-                            .foregroundColor(Color(Ocean.color.colorBrandPrimaryPure))
-                            .padding(.horizontal, Ocean.size.spacingInlineXs)
-                            .frame(height: 32)
+                    OceanSwiftUI.Button.secondarySM { button in
+                        button.parameters.text = buttonParam.text
+                        button.parameters.onTouch = buttonParam.onTouch
                     }
-                    .background(Color(Ocean.color.colorInterfaceLightPure))
-                    .clipShape(Capsule())
-                    .buttonStyle(.plain)
-                    .fixedSize(horizontal: true, vertical: false)
                 }
             } else {
                 switch parameters.bannerType {
