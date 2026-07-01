@@ -66,15 +66,6 @@ extension OceanSwiftUI {
 
         @ObservedObject public var parameters: BannerParameters
 
-        @State private var smallContentHeight: CGFloat = 0
-
-        private struct SmallContentHeightKey: PreferenceKey {
-            static var defaultValue: CGFloat = 0
-            static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
-                value = max(value, nextValue())
-            }
-        }
-
         // MARK: Constructors
 
         public init(parameters: BannerParameters = BannerParameters()) {
@@ -122,21 +113,15 @@ extension OceanSwiftUI {
                 contentView(textToButtonSpacing: Ocean.size.spacingStackXxs)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.all, Ocean.size.spacingStackXs)
-                    .background(
-                        GeometryReader { proxy in
-                            Color.clear.preference(key: SmallContentHeightKey.self,
-                                                   value: proxy.size.height)
-                        }
-                    )
 
                 if hasImage {
                     bannerImage
-                        .frame(width: 82, height: smallContentHeight)
+                        .frame(width: 82)
+                        .frame(maxHeight: .infinity)
                         .clipped()
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .onPreferenceChange(SmallContentHeightKey.self) { smallContentHeight = $0 }
         }
 
         private func contentView(textToButtonSpacing: CGFloat) -> some View {
