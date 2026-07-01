@@ -35,7 +35,8 @@ class BannerSwiftUIViewController: UIViewController {
             view.parameters.title = "Banner Large Warning"
             view.parameters.description = "Atenção! Este é um banner de aviso com tipo warning."
             view.parameters.buttons = [
-                OceanSwiftUI.ButtonParameters(text: "Entendi")
+                OceanSwiftUI.ButtonParameters(text: "Entendi"),
+                OceanSwiftUI.ButtonParameters(text: "Cancelar")
             ]
         }
     }()
