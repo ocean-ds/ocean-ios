@@ -55,8 +55,33 @@ class TransactionFooterSwiftUIViewController: UIViewController {
         ]
     }
 
+    private lazy var transactionFooterHighlight = OceanSwiftUI.TransactionFooter { view in
+        view.parameters.variant = .highlight
+        view.parameters.primaryButton = .init(text: "Confirmar pagamento", style: .primary, onTouch: { print("primaryButton") })
+        view.parameters.buttonOrientation = .vertical
+        view.parameters.interlineSpacing = Ocean.size.spacingStackXxs
+        view.parameters.padding = .init(top: Ocean.size.spacingStackXs,
+                                        leading: Ocean.size.spacingStackXs,
+                                        bottom: Ocean.size.spacingStackXs,
+                                        trailing: Ocean.size.spacingStackXs)
+        view.parameters.items = [
+            .init(text: "Você vai economizar",
+                  value: "R$ 3.574,28",
+                  valueColor: Ocean.color.colorStatusPositiveDeep,
+                  imageIcon: Ocean.icon.tagSolid),
+            .init(text: "Custo de antecipação",
+                  value: "3,99%",
+                  newValue: "Grátis"),
+            .init(text: "Pagando",
+                  value: "R$ 41.256,25",
+                  isBoldValue: true)
+        ]
+    }
+
     private lazy var hostingController = UIHostingController(rootView: VStack {
         Spacer()
+        Divider()
+        transactionFooterHighlight
         Divider()
         transactionFooterWithCaption
         Divider()

@@ -12,6 +12,11 @@ extension OceanSwiftUI {
 
     // MARK: Parameters
 
+    public enum TransactionFooterVariant {
+        case `default`
+        case highlight
+    }
+
     public class TransactionFooterParameters: ObservableObject {
         @Published public var items: [ItemModel]
         @Published public var primaryButton: ButtonParameters?
@@ -21,6 +26,7 @@ extension OceanSwiftUI {
         @Published public var skeletonLines: Int
         @Published public var interlineSpacing: CGFloat
         @Published public var padding: EdgeInsets
+        @Published public var variant: TransactionFooterVariant
 
         public init(items: [ItemModel] = [],
                     primaryButton: ButtonParameters? = nil,
@@ -32,7 +38,8 @@ extension OceanSwiftUI {
                     padding: EdgeInsets = .init(top: 0,
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXs,
-                                                trailing: Ocean.size.spacingStackXs)) {
+                                                trailing: Ocean.size.spacingStackXs),
+                    variant: TransactionFooterVariant = .default) {
             self.items = items
             self.primaryButton = primaryButton
             self.secondaryButton = secondaryButton
@@ -41,6 +48,7 @@ extension OceanSwiftUI {
             self.skeletonLines = skeletonLines
             self.interlineSpacing = interlineSpacing
             self.padding = padding
+            self.variant = variant
         }
 
         public enum ButtonOrientation {
@@ -111,6 +119,16 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
+            if parameters.variant == .highlight {
+                contentView
+                    .background(Color(Ocean.color.colorInterfaceLightUp))
+                    .cornerRadius(Ocean.size.borderRadiusLg, corners: [.topLeft, .topRight])
+            } else {
+                contentView
+            }
+        }
+
+        private var contentView: some View {
             VStack(alignment: .leading, spacing: Ocean.size.spacingStackXs) {
                 if parameters.showSkeleton {
                     getSkeletonView(skeletonLines: parameters.skeletonLines)
