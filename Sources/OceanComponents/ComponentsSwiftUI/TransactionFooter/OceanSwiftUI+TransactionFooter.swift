@@ -121,11 +121,22 @@ extension OceanSwiftUI {
         public var body: some View {
             if parameters.variant == .highlight {
                 contentView
+                    .padding(.top, Ocean.size.spacingStackXxs)
                     .background(Color(Ocean.color.colorInterfaceLightUp))
                     .cornerRadius(Ocean.size.borderRadiusLg, corners: [.topLeft, .topRight])
             } else {
                 contentView
+                    .padding(.top, Ocean.size.spacingStackXxs)
+                    .overlay(topDivider, alignment: .top)
             }
+        }
+
+        // Divisor de topo da variante Default (Figma), edge-to-edge, dentro do
+        // espaçador de 8px — a Highlight arredonda o topo e não tem divisor.
+        private var topDivider: some View {
+            Rectangle()
+                .fill(Color(Ocean.color.colorInterfaceLightDown))
+                .frame(height: 1)
         }
 
         private var contentView: some View {
