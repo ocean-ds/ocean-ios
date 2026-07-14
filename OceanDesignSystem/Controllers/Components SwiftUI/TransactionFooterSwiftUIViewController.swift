@@ -40,6 +40,8 @@ class TransactionFooterSwiftUIViewController: UIViewController {
     private lazy var transactionFooterWithCaption = OceanSwiftUI.TransactionFooter { view in
         view.parameters.primaryButton = .init(text: "Label", style: .primary, onTouch: { print("primaryButton") })
         view.parameters.buttonOrientation = .vertical
+        view.parameters.sectionTitle = "Title"
+        view.parameters.showBottomDivider = true
         view.parameters.interlineSpacing = Ocean.size.spacingStackXxs
         view.parameters.padding = .init(top: Ocean.size.spacingStackXs,
                                         leading: Ocean.size.spacingStackXs,
@@ -57,6 +59,8 @@ class TransactionFooterSwiftUIViewController: UIViewController {
         view.parameters.variant = .highlight
         view.parameters.primaryButton = .init(text: "Label", style: .primary, onTouch: { print("primaryButton") })
         view.parameters.buttonOrientation = .vertical
+        view.parameters.sectionTitle = "Title"
+        view.parameters.showBottomDivider = true
         view.parameters.interlineSpacing = Ocean.size.spacingStackXxs
         view.parameters.padding = .init(top: Ocean.size.spacingStackXs,
                                         leading: Ocean.size.spacingStackXs,

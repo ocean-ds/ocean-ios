@@ -27,6 +27,8 @@ extension OceanSwiftUI {
         @Published public var interlineSpacing: CGFloat
         @Published public var padding: EdgeInsets
         @Published public var variant: TransactionFooterVariant
+        @Published public var sectionTitle: String
+        @Published public var showBottomDivider: Bool
 
         public init(items: [ItemModel] = [],
                     primaryButton: ButtonParameters? = nil,
@@ -39,7 +41,9 @@ extension OceanSwiftUI {
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXs,
                                                 trailing: Ocean.size.spacingStackXs),
-                    variant: TransactionFooterVariant = .default) {
+                    variant: TransactionFooterVariant = .default,
+                    sectionTitle: String = "",
+                    showBottomDivider: Bool = false) {
             self.items = items
             self.primaryButton = primaryButton
             self.secondaryButton = secondaryButton
@@ -49,6 +53,8 @@ extension OceanSwiftUI {
             self.interlineSpacing = interlineSpacing
             self.padding = padding
             self.variant = variant
+            self.sectionTitle = sectionTitle
+            self.showBottomDivider = showBottomDivider
         }
 
         public enum ButtonOrientation {
@@ -144,8 +150,24 @@ extension OceanSwiftUI {
                 if parameters.showSkeleton {
                     getSkeletonView(skeletonLines: parameters.skeletonLines)
                 } else {
+                    if !parameters.sectionTitle.isEmpty {
+                        Typography.heading5 { label in
+                            label.parameters.text = parameters.sectionTitle
+                            label.parameters.textColor = Ocean.color.colorInterfaceDarkUp
+                        }
+                    }
+
                     VStack(spacing: parameters.interlineSpacing) {
                         ForEach(parameters.items.indices, id: \.self) { index in
+                            if parameters.showBottomDivider
+                                && index == parameters.items.count - 1
+                                && parameters.items.count > 1 {
+                                Rectangle()
+                                    .fill(Color(Ocean.color.colorInterfaceLightDown))
+                                    .frame(height: 1)
+                                    .padding(.vertical, Ocean.size.spacingStackXxxs)
+                            }
+
                             getItemView(item: parameters.items[index])
                         }
                     }

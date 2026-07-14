@@ -139,4 +139,17 @@ final class TransactionFooterVariantTests: XCTestCase {
         let parameters = OceanSwiftUI.TransactionFooterParameters(variant: .highlight)
         XCTAssertEqual(parameters.variant, .highlight)
     }
+
+    func testSectionTitleAndBottomDividerDefaults() {
+        let parameters = OceanSwiftUI.TransactionFooterParameters()
+        XCTAssertEqual(parameters.sectionTitle, "")
+        XCTAssertFalse(parameters.showBottomDivider)
+    }
+
+    func testSectionTitleAndBottomDividerCanBeSet() {
+        let parameters = OceanSwiftUI.TransactionFooterParameters(sectionTitle: "Resumo",
+                                                                  showBottomDivider: true)
+        XCTAssertEqual(parameters.sectionTitle, "Resumo")
+        XCTAssertTrue(parameters.showBottomDivider)
+    }
 }
