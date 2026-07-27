@@ -136,6 +136,8 @@ private struct CardListItemPreviewView: View {
                             Picker("Tag Position", selection: $state.tagPosition) {
                                 Text("Leading").tag(OceanSwiftUI.CardListItemParameters.TagPosition.leading)
                                 Text("Trailing").tag(OceanSwiftUI.CardListItemParameters.TagPosition.trailing)
+                                Text("Above").tag(OceanSwiftUI.CardListItemParameters.TagPosition.above)
+                                Text("Below").tag(OceanSwiftUI.CardListItemParameters.TagPosition.below)
                             }
                             .pickerStyle(SegmentedPickerStyle())
 
@@ -257,5 +259,42 @@ struct CardListItemSwiftUIViewController_Preview: PreviewProvider {
         UIViewControllerPreview {
             CardListItemSwiftUIViewController()
         }
+    }
+}
+
+/// As quatro posições de tag lado a lado (MR-555). `.leading` e `.trailing` são o
+/// comportamento atual; `.above` e `.below` empilham dentro do bloco de conteúdo.
+@available(iOS 14.0, *)
+struct CardListItemTagPosition_Preview: PreviewProvider {
+
+    private static func card(
+        _ title: String,
+        _ position: OceanSwiftUI.CardListItemParameters.TagPosition,
+        selectable: Bool = false
+    ) -> some View {
+        OceanSwiftUI.CardListItem { view in
+            view.parameters.title = title
+            view.parameters.subtitle = "Pague em até 3x"
+            view.parameters.caption = "Caption"
+            view.parameters.tagLabel = "3x sem acréscimo"
+            view.parameters.tagStatus = .positive
+            view.parameters.tagPosition = position
+            view.parameters.hasRadioButton = selectable
+            view.parameters.isChecked = selectable
+        }
+    }
+
+    static var previews: some View {
+        ScrollView {
+            VStack(spacing: Ocean.size.spacingStackXs) {
+                card(".leading (default)", .leading)
+                card(".trailing", .trailing)
+                card(".above", .above)
+                card(".below", .below)
+                card(".above + radio (caso MR-523)", .above, selectable: true)
+            }
+            .padding(Ocean.size.spacingStackXs)
+        }
+        .previewDisplayName("Tag position")
     }
 }
