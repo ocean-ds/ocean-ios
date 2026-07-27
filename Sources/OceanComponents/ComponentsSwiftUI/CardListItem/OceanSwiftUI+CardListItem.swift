@@ -115,9 +115,16 @@ extension OceanSwiftUI {
             self.onTouchWhenDisabled = onTouchWhenDisabled
         }
 
+        /// Onde a tag é posicionada em relação ao texto do card.
+        ///
+        /// `.leading` e `.trailing` mantêm a tag na mesma linha do título; `.above` e `.below`
+        /// a empilham dentro do bloco de conteúdo, nunca no slot do controle
+        /// (checkbox/radio/chevron).
         public enum TagPosition {
             case leading
             case trailing
+            case above
+            case below
         }
     }
 
@@ -150,6 +157,19 @@ extension OceanSwiftUI {
         private var disabledTagStatus: TagParameters.Status = .neutralInterface
         private var hasIconTrailingViews: Bool {
             parameters.trailingIcon != nil && parameters.isEnabled
+        }
+
+        private var hasTag: Bool {
+            !parameters.tagLabel.isEmpty
+        }
+
+        private var tagView: some View {
+            OceanSwiftUI.Tag { tag in
+                tag.parameters.icon = parameters.tagIcon
+                tag.parameters.label = parameters.tagLabel
+                tag.parameters.status = parameters.isEnabled ? parameters.tagStatus : disabledTagStatus
+                tag.parameters.size = parameters.tagSize
+            }
         }
 
         @ViewBuilder
@@ -218,6 +238,11 @@ extension OceanSwiftUI {
                             }
 
                             VStack(alignment: .leading, spacing: 0) {
+                                if hasTag, parameters.tagPosition == .above {
+                                    tagView
+                                        .padding(.bottom, Ocean.size.spacingStackXxs)
+                                }
+
                                 HStack(spacing: Ocean.size.spacingStackXxxs) {
                                     OceanSwiftUI.Typography.paragraph { label in
                                         label.parameters.text = parameters.title
@@ -225,13 +250,8 @@ extension OceanSwiftUI {
                                         label.parameters.lineLimit = parameters.titleLineLimit
                                     }
 
-                                    if !parameters.tagLabel.isEmpty, parameters.tagPosition == .leading {
-                                        OceanSwiftUI.Tag { tag in
-                                            tag.parameters.icon = parameters.tagIcon
-                                            tag.parameters.label = parameters.tagLabel
-                                            tag.parameters.status = parameters.isEnabled ? parameters.tagStatus : disabledTagStatus
-                                            tag.parameters.size = parameters.tagSize
-                                        }
+                                    if hasTag, parameters.tagPosition == .leading {
+                                        tagView
                                     }
                                 }
 
@@ -251,17 +271,17 @@ extension OceanSwiftUI {
                                     }
                                     .padding(.top, Ocean.size.spacingStackXxs)
                                 }
+
+                                if hasTag, parameters.tagPosition == .below {
+                                    tagView
+                                        .padding(.top, Ocean.size.spacingStackXxs)
+                                }
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
 
                             HStack(spacing: Ocean.size.spacingStackXxs) {
-                                if parameters.tagPosition == .trailing, !parameters.tagLabel.isEmpty {
-                                    OceanSwiftUI.Tag { tag in
-                                        tag.parameters.icon = parameters.tagIcon
-                                        tag.parameters.label = parameters.tagLabel
-                                        tag.parameters.status = parameters.isEnabled ? parameters.tagStatus : disabledTagStatus
-                                        tag.parameters.size = parameters.tagSize
-                                    }
+                                if hasTag, parameters.tagPosition == .trailing {
+                                    tagView
                                 }
 
                                 if let brandsParams = parameters.brands, !brandsParams.acquirers.isEmpty {
