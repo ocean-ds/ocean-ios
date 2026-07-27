@@ -20,6 +20,7 @@ class CardListItemSwiftUIViewController: UIViewController {
         @Published var hasCaption: Bool = true
         @Published var hasTag: Bool = false
         @Published var tagPosition: OceanSwiftUI.CardListItemParameters.TagPosition = .leading
+        @Published var tagSize: OceanSwiftUI.TagParameters.Size = .medium
         @Published var tagStatus: OceanSwiftUI.TagParameters.Status = .neutralPrimary
         @Published var hasHighlight: Bool = false
         @Published var hasHighlightIcon: Bool = true
@@ -95,6 +96,7 @@ private struct CardListItemPreviewView: View {
             .onChange(of: state.hasCaption)       { _ in updateCard() }
             .onChange(of: state.hasTag)           { _ in updateCard() }
             .onChange(of: state.tagPosition)      { _ in updateCard() }
+            .onChange(of: state.tagSize)          { _ in updateCard() }
             .onChange(of: state.tagStatus)        { _ in updateCard() }
             .onChange(of: state.hasHighlight)     { _ in updateCard() }
             .onChange(of: state.hasHighlightIcon) { _ in updateCard() }
@@ -138,6 +140,16 @@ private struct CardListItemPreviewView: View {
                                 Text("Trailing").tag(OceanSwiftUI.CardListItemParameters.TagPosition.trailing)
                                 Text("Above").tag(OceanSwiftUI.CardListItemParameters.TagPosition.above)
                                 Text("Below").tag(OceanSwiftUI.CardListItemParameters.TagPosition.below)
+                            }
+                            .pickerStyle(SegmentedPickerStyle())
+
+                            Text("Size")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+
+                            Picker("Tag Size", selection: $state.tagSize) {
+                                Text("Medium (8pt)").tag(OceanSwiftUI.TagParameters.Size.medium)
+                                Text("Small (4pt)").tag(OceanSwiftUI.TagParameters.Size.small)
                             }
                             .pickerStyle(SegmentedPickerStyle())
 
@@ -235,6 +247,7 @@ private struct CardListItemPreviewView: View {
         card.parameters.caption = state.hasCaption ? "Caption" : ""
         card.parameters.tagLabel = state.hasTag ? "Tag" : ""
         card.parameters.tagPosition = state.tagPosition
+        card.parameters.tagSize = state.tagSize
         card.parameters.tagStatus = state.tagStatus
         card.parameters.highlightCaption = state.hasHighlight ? "This is a highlight message for this card item." : ""
         card.parameters.highlightIcon = state.hasHighlight && state.hasHighlightIcon ? Ocean.icon.sparklesSolid : nil
@@ -278,6 +291,7 @@ struct CardListItemTagPosition_Preview: PreviewProvider {
             view.parameters.caption = "Caption"
             view.parameters.tagLabel = "3x sem acréscimo"
             view.parameters.tagStatus = .positive
+            view.parameters.tagSize = .medium
             view.parameters.tagPosition = position
             view.parameters.hasRadioButton = selectable
             view.parameters.isChecked = selectable
