@@ -10,14 +10,14 @@ import SwiftUI
 import OceanTokens
 @testable import OceanComponents
 
-/// Cobre a prop `tagPosition` do CardListItem (MR-555 / MR-552): os valores `.above` e
-/// `.below` acrescentados, e a não-regressão dos valores preexistentes (RN-01).
+/// Covers the CardListItem `tagPosition` prop (MR-555 / MR-552): the newly added
+/// `.above` and `.below` values, and the non-regression of the pre-existing ones (RN-01).
 ///
-/// O repositório não tem infraestrutura de snapshot, então a verificação aqui é de API e
-/// de contrato de parâmetros; a fidelidade visual das posições é validada no app de showcase.
+/// The repository has no snapshot infrastructure, so the checks here are on the API and the
+/// parameter contract; the visual fidelity of the positions is validated in the showcase app.
 final class CardListItemTagPositionTests: XCTestCase {
 
-    // MARK: - RN-01: o default não muda
+    // MARK: - RN-01: the default does not change
 
     func testDefaultTagPositionIsLeading() {
         let parameters = OceanSwiftUI.CardListItemParameters()
@@ -41,7 +41,7 @@ final class CardListItemTagPositionTests: XCTestCase {
         XCTAssertEqual(parameters.tagPosition, .trailing)
     }
 
-    // MARK: - Valores novos
+    // MARK: - New values
 
     func testAboveIsAssignableViaInitializer() {
         let parameters = OceanSwiftUI.CardListItemParameters(title: "Title",
@@ -71,8 +71,8 @@ final class CardListItemTagPositionTests: XCTestCase {
         XCTAssertEqual(parameters.tagPosition, .above)
     }
 
-    /// O `switch` exaustivo é a prova de compilação de que o enum tem exatamente estes quatro
-    /// casos — se alguém acrescentar ou remover um valor, este teste deixa de compilar.
+    /// The exhaustive `switch` is compile-time proof that the enum has exactly these four
+    /// cases — if anyone adds or removes a value, this test stops compiling.
     func testTagPositionHasExactlyFourCases() {
         let allCases: [OceanSwiftUI.CardListItemParameters.TagPosition] =
             [.leading, .trailing, .above, .below]
@@ -87,7 +87,7 @@ final class CardListItemTagPositionTests: XCTestCase {
         XCTAssertEqual(allCases.count, 4)
     }
 
-    // MARK: - Construção da view com cada posição
+    // MARK: - Building the view with each position
 
     func testViewIsBuiltForEveryTagPosition() {
         let positions: [OceanSwiftUI.CardListItemParameters.TagPosition] =

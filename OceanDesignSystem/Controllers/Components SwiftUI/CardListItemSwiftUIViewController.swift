@@ -275,8 +275,8 @@ struct CardListItemSwiftUIViewController_Preview: PreviewProvider {
     }
 }
 
-/// As quatro posições de tag lado a lado (MR-555). `.leading` e `.trailing` são o
-/// comportamento atual; `.above` e `.below` empilham dentro do bloco de conteúdo.
+/// The four tag positions side by side (MR-555). `.leading` and `.trailing` are the
+/// current behaviour; `.above` and `.below` stack it inside the content block.
 @available(iOS 14.0, *)
 struct CardListItemTagPosition_Preview: PreviewProvider {
 
