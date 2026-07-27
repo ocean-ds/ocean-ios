@@ -115,10 +115,10 @@ extension OceanSwiftUI {
             self.onTouchWhenDisabled = onTouchWhenDisabled
         }
 
-        /// Onde a tag é posicionada em relação ao texto do card.
+        /// Where the tag is positioned relative to the card's text.
         ///
-        /// `.leading` e `.trailing` mantêm a tag na mesma linha do título; `.above` e `.below`
-        /// a empilham dentro do bloco de conteúdo, nunca no slot do controle
+        /// `.leading` and `.trailing` keep the tag on the same line as the title; `.above` and
+        /// `.below` stack it inside the content block, never in the control slot
         /// (checkbox/radio/chevron).
         public enum TagPosition {
             case leading
