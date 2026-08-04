@@ -12,6 +12,7 @@ extension OceanSwiftUI {
     // MARK: Parameters
 
     public class StatusListItemParameters: ObservableObject {
+        @Published public var leadingIcon: UIImage?
         @Published public var title: String
         @Published public var titleLineLimit: Int?
         @Published public var description: String
@@ -47,6 +48,7 @@ extension OceanSwiftUI {
                     caption: String = "",
                     captionLineLimit: Int? = nil,
                     captionColor: UIColor? = nil,
+                    leadingIcon: UIImage? = nil,
                     style: Style = .normal,
                     tagLabel: String = "",
                     tagStatus: TagParameters.Status = .positive,
@@ -63,6 +65,7 @@ extension OceanSwiftUI {
             self.caption = caption
             self.captionLineLimit = captionLineLimit
             self.captionColor = captionColor
+            self.leadingIcon = leadingIcon
             self.style = style
             self.tagLabel = tagLabel
             self.tagStatus = tagStatus
@@ -92,6 +95,11 @@ extension OceanSwiftUI {
 
         // MARK: Properties private
 
+        private struct Constants {
+            static let leadingIconSize: CGFloat = 24
+            static let trailingIconSize: CGFloat = 20
+        }
+
         // MARK: Constructors
 
         public init(parameters: StatusListItemParameters = StatusListItemParameters()) {
@@ -115,6 +123,18 @@ extension OceanSwiftUI {
                                    scales: [0: 0.3, 1: 1, 2: 0.5])
             } else {
                 HStack {
+                    if let leadingIcon = self.parameters.leadingIcon {
+                        Image(uiImage: leadingIcon)
+                            .resizable()
+                            .renderingMode(.template)
+                            .frame(width: Constants.leadingIconSize,
+                                   height: Constants.leadingIconSize,
+                                   alignment: .center)
+                            .foregroundColor(Color(Ocean.color.colorBrandPrimaryDown))
+
+                        Spacer().frame(width: Ocean.size.spacingStackXxs)
+                    }
+
                     VStack(alignment: .leading) {
                         OceanSwiftUI.Typography.paragraph { label in
                             label.parameters.textColor = Ocean.color.colorInterfaceDarkPure
@@ -177,7 +197,9 @@ extension OceanSwiftUI {
                         Image(uiImage: icon)
                             .resizable()
                             .renderingMode(.template)
-                            .frame(width: 20, height: 20, alignment: .center)
+                            .frame(width: Constants.trailingIconSize,
+                                   height: Constants.trailingIconSize,
+                                   alignment: .center)
                             .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
                     }
                 }

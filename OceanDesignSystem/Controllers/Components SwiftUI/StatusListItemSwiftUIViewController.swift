@@ -115,6 +115,28 @@ class StatusListItemSwiftUIViewController: UIViewController {
         }
     }()
 
+    lazy var statusListItem10: OceanSwiftUI.StatusListItem = {
+        return OceanSwiftUI.StatusListItem { statusListItem in
+            statusListItem.parameters.leadingIcon = Ocean.icon.pagbluOutline
+            statusListItem.parameters.title = "Title"
+            statusListItem.parameters.description = "Description"
+            statusListItem.parameters.caption = "Caption"
+            statusListItem.parameters.style = .normal
+        }
+    }()
+
+    lazy var statusListItem11: OceanSwiftUI.StatusListItem = {
+        return OceanSwiftUI.StatusListItem { statusListItem in
+            statusListItem.parameters.leadingIcon = Ocean.icon.documentTextOutline
+            statusListItem.parameters.title = "Title"
+            statusListItem.parameters.description = "Description"
+            statusListItem.parameters.style = .contextMenu
+            statusListItem.parameters.tagLabel = "Label"
+            statusListItem.parameters.tagStatus = .warning
+            statusListItem.parameters.tagPosition = .right
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             statusListItem1
@@ -125,6 +147,8 @@ class StatusListItemSwiftUIViewController: UIViewController {
             statusListItem6
             statusListItem7
             statusListItem8
+            statusListItem10
+            statusListItem11
             statusListItem9
         }
     })
