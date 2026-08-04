@@ -122,7 +122,7 @@ extension OceanSwiftUI {
                                    lines: 3,
                                    scales: [0: 0.3, 1: 1, 2: 0.5])
             } else {
-                HStack {
+                HStack(spacing: 0) {
                     if let leadingIcon = self.parameters.leadingIcon {
                         Image(uiImage: leadingIcon)
                             .resizable()
@@ -132,7 +132,7 @@ extension OceanSwiftUI {
                                    alignment: .center)
                             .foregroundColor(Color(Ocean.color.colorBrandPrimaryDown))
 
-                        Spacer().frame(width: Ocean.size.spacingStackXxs)
+                        Spacer().frame(width: Ocean.size.spacingStackXxsExtra)
                     }
 
                     VStack(alignment: .leading) {
@@ -185,12 +185,13 @@ extension OceanSwiftUI {
                         Spacer().frame(width: Ocean.size.spacingStackXxs)
                     }
                     if self.parameters.badgeCount != nil && self.parameters.badgePosition == .right {
-                        Spacer().frame(width: Ocean.size.spacingStackXxs)
                         OceanSwiftUI.Badge { badge in
                             badge.parameters.count = self.parameters.badgeCount ?? 0
                             badge.parameters.status = self.parameters.badgeStatus
                             badge.parameters.size = .small
                         }
+
+                        Spacer().frame(width: Ocean.size.spacingStackXxs)
                     }
 
                     if let icon = getIconImage() {
