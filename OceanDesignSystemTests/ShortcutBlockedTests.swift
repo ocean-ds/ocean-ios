@@ -10,11 +10,13 @@ import SwiftUI
 import OceanTokens
 @testable import OceanComponents
 
-/// Covers the `blocked` contract of the Shortcut SwiftUI component: it shows the lock and keeps
-/// the item tappable, because the tap is what explains why the function is restricted.
+/// Covers the `blocked` contract of the Shortcut SwiftUI component: it shows the lock, keeps the
+/// item disabled by default (backwards compatibility) and becomes tappable only with
+/// `forceEnableActionWhenBlocked` — the case where the tap is what explains the restriction.
 ///
 /// The repository has no snapshot infrastructure, so the checks here are on the API and the
-/// parameter contract; the gesture itself is validated in the showcase app.
+/// parameter contract; `isActionDisabled` is the single source the view reads, which is why the
+/// truth table below is the real regression guard. The gesture is validated in the showcase app.
 final class ShortcutBlockedTests: XCTestCase {
 
     // MARK: - Default
@@ -43,11 +45,44 @@ final class ShortcutBlockedTests: XCTestCase {
 
     // MARK: - Interaction
 
-    /// `onTouch` segue sendo o caminho do item bloqueado: sem isto o cadeado seria um beco sem
-    /// saída, e é justamente ele que precisa abrir a explicação do motivo.
+    /// Tabela-verdade do `.disabled` da view. O default preserva o comportamento de sempre —
+    /// bloqueado não clica — e a chave explícita é o que libera o toque.
+    func testIsActionDisabledTruthTable() {
+        let free = OceanSwiftUI.ShortcutModel(title: "Extrato")
+        let blocked = OceanSwiftUI.ShortcutModel(title: "Antecipar vendas", blocked: true)
+        let blockedTappable = OceanSwiftUI.ShortcutModel(title: "Antecipar vendas",
+                                                        blocked: true,
+                                                        forceEnableActionWhenBlocked: true)
+        let freeWithFlag = OceanSwiftUI.ShortcutModel(title: "Extrato",
+                                                      forceEnableActionWhenBlocked: true)
+
+        XCTAssertFalse(free.isActionDisabled)
+        XCTAssertTrue(blocked.isActionDisabled)
+        XCTAssertFalse(blockedTappable.isActionDisabled)
+        XCTAssertFalse(freeWithFlag.isActionDisabled)
+    }
+
+    func testForceEnableActionWhenBlockedIsFalseByDefault() {
+        let item = OceanSwiftUI.ShortcutModel(title: "Title", blocked: true)
+
+        XCTAssertFalse(item.forceEnableActionWhenBlocked)
+        XCTAssertTrue(item.isActionDisabled)
+    }
+
+    func testForceEnableActionWhenBlockedIsAssignableViaProperty() {
+        let item = OceanSwiftUI.ShortcutModel(title: "Title", blocked: true)
+
+        item.forceEnableActionWhenBlocked = true
+
+        XCTAssertFalse(item.isActionDisabled)
+    }
+
+    /// `onTouch` é o caminho do item restrito que fala: é por ele que a tela abre a explicação.
     func testOnTouchIsDeliveredForABlockedItem() {
         let expectation = expectation(description: "onTouch called for a blocked item")
-        let blockedItem = OceanSwiftUI.ShortcutModel(title: "Antecipar vendas", blocked: true)
+        let blockedItem = OceanSwiftUI.ShortcutModel(title: "Antecipar vendas",
+                                                     blocked: true,
+                                                     forceEnableActionWhenBlocked: true)
         let parameters = OceanSwiftUI.ShortcutParameters(items: [blockedItem]) { index, item in
             XCTAssertEqual(index, 0)
             XCTAssertTrue(item.blocked)

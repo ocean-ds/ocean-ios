@@ -60,12 +60,19 @@ extension OceanSwiftUI {
         @Published public var title: String
         @Published public var subtitle: String
 
-        /// Função restrita: mostra o cadeado e **mantém o item tocável**.
+        /// Função restrita: mostra o cadeado e, por retrocompatibilidade, **continua sem toque**.
         ///
-        /// O toque é o que resta ao cliente quando a função está indisponível — é por ele que a
-        /// tela explica o motivo. Um item com cadeado e sem toque é um beco sem saída, então
-        /// `blocked` NÃO desliga a interação; quem precisa de item inerte não passa `onTouch`.
+        /// Para o item restrito responder ao toque — o caso em que o toque é o que explica a
+        /// restrição — ligue `forceEnableActionWhenBlocked`.
         @Published public var blocked: Bool
+
+        /// Deixa o item tocável mesmo com `blocked`. Nasce `false`, então nada muda para quem já usa
+        /// o componente.
+        ///
+        /// Ligue quando o toque for a resposta ao cadeado: um item que avisa que a função está
+        /// restrita e não deixa o cliente descobrir por quê é um beco sem saída. Item que não tem o
+        /// que dizer continua inerte com o default.
+        @Published public var forceEnableActionWhenBlocked: Bool
 
         public init(icon: UIImage? = nil,
                     badgeNumber: Int? = nil,
@@ -74,7 +81,8 @@ extension OceanSwiftUI {
                     tagStatus: TagParameters.Status = .highlightImportant,
                     title: String,
                     subtitle: String = "",
-                    blocked: Bool = false) {
+                    blocked: Bool = false,
+                    forceEnableActionWhenBlocked: Bool = false) {
             self.icon = icon
             self.badgeNumber = badgeNumber
             self.badgeStatus = badgeStatus
@@ -83,6 +91,12 @@ extension OceanSwiftUI {
             self.title = title
             self.subtitle = subtitle
             self.blocked = blocked
+            self.forceEnableActionWhenBlocked = forceEnableActionWhenBlocked
+        }
+
+        /// Única fonte da decisão de interação do item — o `.disabled` da view lê daqui.
+        var isActionDisabled: Bool {
+            blocked && !forceEnableActionWhenBlocked
         }
     }
 
@@ -132,6 +146,7 @@ extension OceanSwiftUI {
                                     getContentView(item: item)
                                 })
                                 .buttonStyle(OceanShortcutStyle())
+                                .disabled(item.isActionDisabled)
                             }
                         }
                     }
@@ -150,6 +165,7 @@ extension OceanSwiftUI {
                                         getContentView(item: item)
                                     })
                                     .buttonStyle(OceanShortcutStyle())
+                                    .disabled(item.isActionDisabled)
                                     .layoutPriority(1.0)
                                 }
 
