@@ -59,6 +59,12 @@ extension OceanSwiftUI {
         @Published public var tagStatus: TagParameters.Status
         @Published public var title: String
         @Published public var subtitle: String
+
+        /// Função restrita: mostra o cadeado e **mantém o item tocável**.
+        ///
+        /// O toque é o que resta ao cliente quando a função está indisponível — é por ele que a
+        /// tela explica o motivo. Um item com cadeado e sem toque é um beco sem saída, então
+        /// `blocked` NÃO desliga a interação; quem precisa de item inerte não passa `onTouch`.
         @Published public var blocked: Bool
 
         public init(icon: UIImage? = nil,
@@ -126,7 +132,6 @@ extension OceanSwiftUI {
                                     getContentView(item: item)
                                 })
                                 .buttonStyle(OceanShortcutStyle())
-                                .disabled(item.blocked)
                             }
                         }
                     }
@@ -145,7 +150,6 @@ extension OceanSwiftUI {
                                         getContentView(item: item)
                                     })
                                     .buttonStyle(OceanShortcutStyle())
-                                    .disabled(item.blocked)
                                     .layoutPriority(1.0)
                                 }
 
