@@ -59,6 +59,22 @@ final class ShortcutBlockedTests: XCTestCase {
         wait(for: [expectation], timeout: 1)
     }
 
+    // MARK: - Corner slot
+
+    /// Cadeado, tag e badge dividem o mesmo canto. O contrato é o do Ocean web: com `blocked`
+    /// o cadeado vence, e tag/badge continuam no model sem serem desenhados — o item pode voltar
+    /// a mostrá-los assim que a função for liberada, sem o consumidor remontar nada.
+    func testBlockedItemKeepsTagAndBadgeInTheModel() {
+        let item = OceanSwiftUI.ShortcutModel(badgeNumber: 2,
+                                              tagLabel: "Oferta",
+                                              title: "Antecipar vendas",
+                                              blocked: true)
+
+        XCTAssertTrue(item.blocked)
+        XCTAssertEqual(item.tagLabel, "Oferta")
+        XCTAssertEqual(item.badgeNumber, 2)
+    }
+
     func testBlockedItemsCoexistWithUnblockedOnesInTheSameList() {
         let parameters = OceanSwiftUI.ShortcutParameters(items: [
             .init(title: "Extrato"),

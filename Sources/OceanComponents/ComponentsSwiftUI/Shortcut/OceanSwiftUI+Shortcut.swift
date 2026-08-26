@@ -278,9 +278,23 @@ extension OceanSwiftUI {
             }
         }
 
+        /// Cadeado, tag e badge dividem o mesmo canto — um único slot. Com a função restrita o
+        /// cadeado vem primeiro: ele é o que explica o estado do item, enquanto tag e badge falam
+        /// de oferta e de contagem, que não servem para nada se a função não abre. É a mesma
+        /// precedência do Ocean web, onde `blocked` suprime tag e badge.
         @ViewBuilder
         private func getOverlay(item: ShortcutModel) -> some View {
-            if let tagLabel = item.tagLabel, parameters.size != .tiny || parameters.orientation != .horizontal {
+            if item.blocked {
+                Image(uiImage: Ocean.icon.lockClosedSolid)
+                    .resizable()
+                    .renderingMode(.template)
+                    .frame(width: 16,
+                           height: 16,
+                           alignment: .center)
+                    .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
+                    .padding(.top, Ocean.size.spacingStackXxs)
+                    .padding(.trailing, Ocean.size.spacingStackXxs)
+            } else if let tagLabel = item.tagLabel, parameters.size != .tiny || parameters.orientation != .horizontal {
                 OceanSwiftUI.Tag { view in
                     view.parameters.label = tagLabel
                     view.parameters.status = item.tagStatus
@@ -296,16 +310,6 @@ extension OceanSwiftUI {
                 }
                 .padding(.top, Ocean.size.spacingStackXxs)
                 .padding(.trailing, Ocean.size.spacingStackXxs)
-            } else if item.blocked {
-                Image(uiImage: Ocean.icon.lockClosedSolid)
-                    .resizable()
-                    .renderingMode(.template)
-                    .frame(width: 16,
-                           height: 16,
-                           alignment: .center)
-                    .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
-                    .padding(.top, Ocean.size.spacingStackXxs)
-                    .padding(.trailing, Ocean.size.spacingStackXxs)
             }
         }
 
