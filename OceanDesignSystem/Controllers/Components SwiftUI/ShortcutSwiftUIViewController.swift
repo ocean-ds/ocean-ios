@@ -42,7 +42,28 @@ class ShortcutSwiftUIViewController: UIViewController {
                                    badgeStatus: .warning,
                                    title: "Label",
                                    subtitle: "Lorem ipsum dolor sit amet, consectetur. Lorem ipsum dolor sit amet, consectetur.",
-                                   blocked: true)
+                                   blocked: true),
+        OceanSwiftUI.ShortcutModel(icon: Ocean.icon.documentOutline,
+                                   badgeNumber: nil,
+                                   badgeStatus: .warning,
+                                   tagLabel: "Oferta",
+                                   title: "Label",
+                                   subtitle: "Lorem ipsum dolor sit amet, consectetur. Lorem ipsum dolor sit amet, consectetur.",
+                                   blocked: true),
+        OceanSwiftUI.ShortcutModel(icon: Ocean.icon.documentOutline,
+                                   badgeNumber: 2,
+                                   badgeStatus: .warning,
+                                   title: "Label",
+                                   subtitle: "Lorem ipsum dolor sit amet, consectetur. Lorem ipsum dolor sit amet, consectetur.",
+                                   blocked: true),
+        // Bloqueado que RESPONDE ao toque: é o item que abre a explicação do motivo.
+        OceanSwiftUI.ShortcutModel(icon: Ocean.icon.documentOutline,
+                                   badgeNumber: nil,
+                                   badgeStatus: .warning,
+                                   title: "Label tocável",
+                                   subtitle: "Lorem ipsum dolor sit amet, consectetur. Lorem ipsum dolor sit amet, consectetur.",
+                                   blocked: true,
+                                   forceEnableActionWhenBlocked: true)
     ]
 
     lazy var shortcut1: OceanSwiftUI.Shortcut = {

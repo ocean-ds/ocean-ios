@@ -59,7 +59,20 @@ extension OceanSwiftUI {
         @Published public var tagStatus: TagParameters.Status
         @Published public var title: String
         @Published public var subtitle: String
+
+        /// Função restrita: mostra o cadeado e, por retrocompatibilidade, **continua sem toque**.
+        ///
+        /// Para o item restrito responder ao toque — o caso em que o toque é o que explica a
+        /// restrição — ligue `forceEnableActionWhenBlocked`.
         @Published public var blocked: Bool
+
+        /// Deixa o item tocável mesmo com `blocked`. Nasce `false`, então nada muda para quem já usa
+        /// o componente.
+        ///
+        /// Ligue quando o toque for a resposta ao cadeado: um item que avisa que a função está
+        /// restrita e não deixa o cliente descobrir por quê é um beco sem saída. Item que não tem o
+        /// que dizer continua inerte com o default.
+        @Published public var forceEnableActionWhenBlocked: Bool
 
         public init(icon: UIImage? = nil,
                     badgeNumber: Int? = nil,
@@ -68,7 +81,8 @@ extension OceanSwiftUI {
                     tagStatus: TagParameters.Status = .highlightImportant,
                     title: String,
                     subtitle: String = "",
-                    blocked: Bool = false) {
+                    blocked: Bool = false,
+                    forceEnableActionWhenBlocked: Bool = false) {
             self.icon = icon
             self.badgeNumber = badgeNumber
             self.badgeStatus = badgeStatus
@@ -77,6 +91,12 @@ extension OceanSwiftUI {
             self.title = title
             self.subtitle = subtitle
             self.blocked = blocked
+            self.forceEnableActionWhenBlocked = forceEnableActionWhenBlocked
+        }
+
+        /// Única fonte da decisão de interação do item — o `.disabled` da view lê daqui.
+        var isActionDisabled: Bool {
+            blocked && !forceEnableActionWhenBlocked
         }
     }
 
@@ -126,7 +146,7 @@ extension OceanSwiftUI {
                                     getContentView(item: item)
                                 })
                                 .buttonStyle(OceanShortcutStyle())
-                                .disabled(item.blocked)
+                                .disabled(item.isActionDisabled)
                             }
                         }
                     }
@@ -145,7 +165,7 @@ extension OceanSwiftUI {
                                         getContentView(item: item)
                                     })
                                     .buttonStyle(OceanShortcutStyle())
-                                    .disabled(item.blocked)
+                                    .disabled(item.isActionDisabled)
                                     .layoutPriority(1.0)
                                 }
 
@@ -274,9 +294,23 @@ extension OceanSwiftUI {
             }
         }
 
+        /// Cadeado, tag e badge dividem o mesmo canto — um único slot. Com a função restrita o
+        /// cadeado vem primeiro: ele é o que explica o estado do item, enquanto tag e badge falam
+        /// de oferta e de contagem, que não servem para nada se a função não abre. É a mesma
+        /// precedência do Ocean web, onde `blocked` suprime tag e badge.
         @ViewBuilder
         private func getOverlay(item: ShortcutModel) -> some View {
-            if let tagLabel = item.tagLabel, parameters.size != .tiny || parameters.orientation != .horizontal {
+            if item.blocked {
+                Image(uiImage: Ocean.icon.lockClosedSolid)
+                    .resizable()
+                    .renderingMode(.template)
+                    .frame(width: 16,
+                           height: 16,
+                           alignment: .center)
+                    .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
+                    .padding(.top, Ocean.size.spacingStackXxs)
+                    .padding(.trailing, Ocean.size.spacingStackXxs)
+            } else if let tagLabel = item.tagLabel, parameters.size != .tiny || parameters.orientation != .horizontal {
                 OceanSwiftUI.Tag { view in
                     view.parameters.label = tagLabel
                     view.parameters.status = item.tagStatus
@@ -292,16 +326,6 @@ extension OceanSwiftUI {
                 }
                 .padding(.top, Ocean.size.spacingStackXxs)
                 .padding(.trailing, Ocean.size.spacingStackXxs)
-            } else if item.blocked {
-                Image(uiImage: Ocean.icon.lockClosedSolid)
-                    .resizable()
-                    .renderingMode(.template)
-                    .frame(width: 16,
-                           height: 16,
-                           alignment: .center)
-                    .foregroundColor(Color(Ocean.color.colorInterfaceDarkUp))
-                    .padding(.top, Ocean.size.spacingStackXxs)
-                    .padding(.trailing, Ocean.size.spacingStackXxs)
             }
         }
 
