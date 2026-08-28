@@ -58,6 +58,7 @@ extension OceanSwiftUI {
             @Published public var caption: String
             @Published public var imageIcon: UIImage?
             @Published public var imageColor: UIColor
+            @Published public var isDivider: Bool
 
             public init(text: String = "",
                         value: String = "",
@@ -67,7 +68,8 @@ extension OceanSwiftUI {
                         newValueColor: UIColor = Ocean.color.colorStatusPositiveDeep,
                         caption: String = "",
                         imageIcon: UIImage? = nil,
-                        imageColor: UIColor = Ocean.color.colorStatusPositiveDeep) {
+                        imageColor: UIColor = Ocean.color.colorStatusPositiveDeep,
+                        isDivider: Bool = false) {
                 self.text = text
                 self.value = value
                 self.valueColor = valueColor
@@ -77,6 +79,7 @@ extension OceanSwiftUI {
                 self.caption = caption
                 self.imageIcon = imageIcon
                 self.imageColor = imageColor
+                self.isDivider = isDivider
             }
         }
     }
@@ -139,6 +142,9 @@ extension OceanSwiftUI {
 
         @ViewBuilder
         private func getItemView(item: TransactionFooterParameters.ItemModel) -> some View {
+            if item.isDivider {
+                OceanSwiftUI.Divider()
+            } else {
             VStack(alignment: .leading, spacing: 0) {
                 HStack {
                     Typography.paragraph { label in
@@ -161,9 +167,13 @@ extension OceanSwiftUI {
                             label.parameters.textColor = item.valueColor
                             label.parameters.strikethrough = true
                         }
+                        // newValue é o valor "ativo": pode ser bold quando isBoldValue.
                         Typography.paragraph { label in
                             label.parameters.text = item.newValue
                             label.parameters.textColor = item.newValueColor
+                            label.parameters.font = item.isBoldValue
+                                ? .baseBold(size: Ocean.font.fontSizeXs)
+                                : .baseRegular(size: Ocean.font.fontSizeXs)
                         }
                     } else {
                         Typography.paragraph { label in
@@ -183,6 +193,7 @@ extension OceanSwiftUI {
                     }
                     .padding(.top, Ocean.size.spacingStackXxs)
                 }
+            }
             }
         }
 
