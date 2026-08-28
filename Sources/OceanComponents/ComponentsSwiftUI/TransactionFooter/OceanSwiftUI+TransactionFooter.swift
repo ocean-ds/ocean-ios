@@ -12,6 +12,11 @@ extension OceanSwiftUI {
 
     // MARK: Parameters
 
+    public enum TransactionFooterVariant {
+        case `default`
+        case highlight
+    }
+
     public class TransactionFooterParameters: ObservableObject {
         @Published public var items: [ItemModel]
         @Published public var primaryButton: ButtonParameters?
@@ -21,6 +26,9 @@ extension OceanSwiftUI {
         @Published public var skeletonLines: Int
         @Published public var interlineSpacing: CGFloat
         @Published public var padding: EdgeInsets
+        @Published public var variant: TransactionFooterVariant
+        @Published public var sectionTitle: String
+        @Published public var showBottomDivider: Bool
 
         public init(items: [ItemModel] = [],
                     primaryButton: ButtonParameters? = nil,
@@ -32,7 +40,10 @@ extension OceanSwiftUI {
                     padding: EdgeInsets = .init(top: 0,
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXs,
-                                                trailing: Ocean.size.spacingStackXs)) {
+                                                trailing: Ocean.size.spacingStackXs),
+                    variant: TransactionFooterVariant = .default,
+                    sectionTitle: String = "",
+                    showBottomDivider: Bool = false) {
             self.items = items
             self.primaryButton = primaryButton
             self.secondaryButton = secondaryButton
@@ -41,6 +52,9 @@ extension OceanSwiftUI {
             self.skeletonLines = skeletonLines
             self.interlineSpacing = interlineSpacing
             self.padding = padding
+            self.variant = variant
+            self.sectionTitle = sectionTitle
+            self.showBottomDivider = showBottomDivider
         }
 
         public enum ButtonOrientation {
@@ -111,12 +125,49 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
+            if parameters.variant == .highlight {
+                contentView
+                    .padding(.top, Ocean.size.spacingStackXxs)
+                    .background(Color(Ocean.color.colorInterfaceLightUp))
+                    .cornerRadius(Ocean.size.borderRadiusLg, corners: [.topLeft, .topRight])
+            } else {
+                contentView
+                    .padding(.top, Ocean.size.spacingStackXxs)
+                    .overlay(topDivider, alignment: .top)
+            }
+        }
+
+        // Divisor de topo da variante Default (Figma), edge-to-edge, dentro do
+        // espaçador de 8px — a Highlight arredonda o topo e não tem divisor.
+        private var topDivider: some View {
+            Rectangle()
+                .fill(Color(Ocean.color.colorInterfaceLightDown))
+                .frame(height: 1)
+        }
+
+        private var contentView: some View {
             VStack(alignment: .leading, spacing: Ocean.size.spacingStackXs) {
                 if parameters.showSkeleton {
                     getSkeletonView(skeletonLines: parameters.skeletonLines)
                 } else {
+                    if !parameters.sectionTitle.isEmpty {
+                        Typography.heading5 { label in
+                            label.parameters.text = parameters.sectionTitle
+                            label.parameters.textColor = Ocean.color.colorInterfaceDarkUp
+                        }
+                    }
+
                     VStack(spacing: parameters.interlineSpacing) {
                         ForEach(parameters.items.indices, id: \.self) { index in
+                            if parameters.showBottomDivider
+                                && index == parameters.items.count - 1
+                                && parameters.items.count > 1 {
+                                Rectangle()
+                                    .fill(Color(Ocean.color.colorInterfaceLightDown))
+                                    .frame(height: 1)
+                                    .padding(.vertical, Ocean.size.spacingStackXxxs)
+                            }
+
                             getItemView(item: parameters.items[index])
                         }
                     }

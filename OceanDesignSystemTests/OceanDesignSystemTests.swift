@@ -125,3 +125,31 @@ final class TypographyAlignmentTests: XCTestCase {
         XCTAssertNil(OceanSwiftUI.TypographyParameters.Style.caption.getTextCase())
     }
 }
+
+/// Cobre a variante visual do TransactionFooter (MR-515):
+/// `variant` é aditiva e nasce em `.default` (retrocompatibilidade — RN-01 / CA-01).
+final class TransactionFooterVariantTests: XCTestCase {
+
+    func testVariantDefaultsToDefault() {
+        let parameters = OceanSwiftUI.TransactionFooterParameters()
+        XCTAssertEqual(parameters.variant, .default)
+    }
+
+    func testVariantCanBeSetToHighlight() {
+        let parameters = OceanSwiftUI.TransactionFooterParameters(variant: .highlight)
+        XCTAssertEqual(parameters.variant, .highlight)
+    }
+
+    func testSectionTitleAndBottomDividerDefaults() {
+        let parameters = OceanSwiftUI.TransactionFooterParameters()
+        XCTAssertEqual(parameters.sectionTitle, "")
+        XCTAssertFalse(parameters.showBottomDivider)
+    }
+
+    func testSectionTitleAndBottomDividerCanBeSet() {
+        let parameters = OceanSwiftUI.TransactionFooterParameters(sectionTitle: "Resumo",
+                                                                  showBottomDivider: true)
+        XCTAssertEqual(parameters.sectionTitle, "Resumo")
+        XCTAssertTrue(parameters.showBottomDivider)
+    }
+}

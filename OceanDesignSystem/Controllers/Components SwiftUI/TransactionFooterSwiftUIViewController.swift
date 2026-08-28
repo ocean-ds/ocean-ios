@@ -13,8 +13,8 @@ import OceanTokens
 class TransactionFooterSwiftUIViewController: UIViewController {
 
     private lazy var transactionFooterWithButtonsVertical = OceanSwiftUI.TransactionFooter { view in
-        view.parameters.primaryButton = .init(text: "Avançar", style: .primary, onTouch: { print("primaryButton") })
-        view.parameters.secondaryButton = .init(text: "Cancelar",  style: .secondary, onTouch: { print("secondaryButton") })
+        view.parameters.primaryButton = .init(text: "Label", style: .primary, onTouch: { print("primaryButton") })
+        view.parameters.secondaryButton = .init(text: "Label", style: .secondary, onTouch: { print("secondaryButton") })
         view.parameters.buttonOrientation = .vertical
         view.parameters.skeletonLines = 4
         view.parameters.showSkeleton = true
@@ -24,39 +24,64 @@ class TransactionFooterSwiftUIViewController: UIViewController {
                                         bottom: Ocean.size.spacingStackXs,
                                         trailing: Ocean.size.spacingStackXs)
         view.parameters.items = [
-            .init(text: "Desconto à vista",
-                  value: "R$ 100.000,00",
-                  valueColor: Ocean.color.colorStatusPositiveDeep,
-                  imageIcon: Ocean.icon.tagSolid),
-            .init(text: "Valor cobrado", 
-                  value: "R$ 100.000,00"),
-            .init(text: "Custo de antecipação", 
-                  value: "R$ 10,00",
-                  newValue: "Zero"),
-            .init(text: "Pague", 
-                  value: "R$ 10,00",
+            .init(text: "Title",
+                  value: "Description"),
+            .init(text: "Title",
+                  value: "Description"),
+            .init(text: "Title",
+                  value: "Description",
+                  newValue: "Description"),
+            .init(text: "Title",
+                  value: "Description",
                   isBoldValue: true)
         ]
     }
 
     private lazy var transactionFooterWithCaption = OceanSwiftUI.TransactionFooter { view in
-        view.parameters.primaryButton = .init(text: "Agendar", style: .primary, onTouch: { print("Agendar") })
+        view.parameters.primaryButton = .init(text: "Label", style: .primary, onTouch: { print("primaryButton") })
         view.parameters.buttonOrientation = .vertical
+        view.parameters.sectionTitle = "Title"
+        view.parameters.showBottomDivider = true
         view.parameters.interlineSpacing = Ocean.size.spacingStackXxs
         view.parameters.padding = .init(top: Ocean.size.spacingStackXs,
                                         leading: Ocean.size.spacingStackXs,
                                         bottom: Ocean.size.spacingStackXs,
                                         trailing: Ocean.size.spacingStackXs)
         view.parameters.items = [
-            .init(text: "Total a pagar",
-                  value: "R$ 5.000,00",
+            .init(text: "Title",
+                  value: "Description",
                   isBoldValue: true,
-                  caption: "Se não houver saldo atual, pode ser cobrada taxa de antecipação.")
+                  caption: "Description")
+        ]
+    }
+
+    private lazy var transactionFooterHighlight = OceanSwiftUI.TransactionFooter { view in
+        view.parameters.variant = .highlight
+        view.parameters.primaryButton = .init(text: "Label", style: .primary, onTouch: { print("primaryButton") })
+        view.parameters.buttonOrientation = .vertical
+        view.parameters.sectionTitle = "Title"
+        view.parameters.showBottomDivider = true
+        view.parameters.interlineSpacing = Ocean.size.spacingStackXxs
+        view.parameters.padding = .init(top: Ocean.size.spacingStackXs,
+                                        leading: Ocean.size.spacingStackXs,
+                                        bottom: Ocean.size.spacingStackXs,
+                                        trailing: Ocean.size.spacingStackXs)
+        view.parameters.items = [
+            .init(text: "Title",
+                  value: "Description"),
+            .init(text: "Title",
+                  value: "Description",
+                  newValue: "Description"),
+            .init(text: "Title",
+                  value: "Description",
+                  isBoldValue: true)
         ]
     }
 
     private lazy var hostingController = UIHostingController(rootView: VStack {
         Spacer()
+        Divider()
+        transactionFooterHighlight
         Divider()
         transactionFooterWithCaption
         Divider()
