@@ -19,6 +19,9 @@ extension OceanSwiftUI {
         @Published public var buttonOrientation: ButtonOrientation
         @Published public var showSkeleton: Bool
         @Published public var skeletonLines: Int
+        /// Extra spacing between rows. Rows already carry `spacingStackXxs` of vertical
+        /// padding each (the Figma Inline Text List Item), so with the default `0` two texts
+        /// end up `spacingStackXs` apart, exactly like the design.
         @Published public var interlineSpacing: CGFloat
         @Published public var padding: EdgeInsets
 
@@ -28,7 +31,7 @@ extension OceanSwiftUI {
                     buttonOrientation: ButtonOrientation = .horizontal,
                     showSkeleton: Bool = false,
                     skeletonLines: Int = 3,
-                    interlineSpacing: CGFloat = Ocean.size.spacingStackXxs,
+                    interlineSpacing: CGFloat = 0,
                     padding: EdgeInsets = .init(top: 0,
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXs,
@@ -111,13 +114,20 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
+            // Figma "Transaction Footer": rows are Inline Text List Items (vertical padding
+            // `spacingStackXxs` each, no gap between them) and the button bar sits
+            // `spacingStackXs` below the last row. Without rows the button comes first, so the
+            // rows block is left out instead of contributing an empty view plus the stack spacing.
             VStack(alignment: .leading, spacing: Ocean.size.spacingStackXs) {
                 if parameters.showSkeleton {
                     getSkeletonView(skeletonLines: parameters.skeletonLines)
                 } else {
-                    VStack(spacing: parameters.interlineSpacing) {
-                        ForEach(parameters.items.indices, id: \.self) { index in
-                            getItemView(item: parameters.items[index])
+                    if !parameters.items.isEmpty {
+                        VStack(spacing: parameters.interlineSpacing) {
+                            ForEach(parameters.items.indices, id: \.self) { index in
+                                getItemView(item: parameters.items[index])
+                                    .padding(.vertical, Ocean.size.spacingStackXxs)
+                            }
                         }
                     }
 

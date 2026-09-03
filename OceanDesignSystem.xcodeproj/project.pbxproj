@@ -55,6 +55,7 @@
 				StatusListItemLeadingIconTests.swift,
 				ShortcutBlockedTests.swift,
 				InlineTextListItemGridTests.swift,
+				TransactionFooterSpacingTests.swift,
 			);
 			target = 24C8014E2682585600744F30 /* OceanDesignSystemTests */;
 		};
