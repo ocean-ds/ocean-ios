@@ -215,71 +215,74 @@ extension OceanSwiftUI {
             }
         }
 
-        /// Renders a label/value row as a two-column grid.
+        /// Renders a label/value row.
         ///
-        /// Both columns are flexible and share the available width equally, separated by a
-        /// gap, so each side wraps inside its own column and neither grows into the other.
-        /// The label is leading-aligned, the value side trailing-aligned, and the column that
-        /// does not wrap stays vertically centered against the one that does.
+        /// Text-only rows use a two-column grid: both texts are flexible columns sharing the
+        /// width equally, separated by a gap, so each side wraps inside its own column and
+        /// neither grows into the other. The label is leading-aligned, the value side
+        /// trailing-aligned, and the column that does not wrap stays vertically centered.
+        ///
+        /// Rows carrying a wide adornment (`tag`, `icon` or `button`) keep the legacy
+        /// space-between layout: a 50% column has no room left for the value once a tag and a
+        /// rounded icon sit next to it, and the value would wrap per character. The small
+        /// `imageIcon` (20pt) fits the grid and stays in it.
         @ViewBuilder
         private func getItemView(item: InlineTextListItemParameters.ItemModel) -> some View {
-            HStack(spacing: Ocean.size.spacingStackXxs) {
+            if hasWideAdornment {
+                getLegacyItemView(item: item)
+            } else {
+                getGridItemView(item: item)
+            }
+        }
+
+        private var hasWideAdornment: Bool {
+            parameters.tag != nil || parameters.icon != nil || parameters.button != nil
+        }
+
+        private func getGridItemView(item: InlineTextListItemParameters.ItemModel) -> some View {
+            LabelValueGridRow(text: item.text,
+                              value: item.value,
+                              valueColor: item.valueColor,
+                              isBoldValue: item.isBoldValue,
+                              newValue: item.newValue,
+                              newValueColor: item.newValueColor,
+                              imageIcon: item.imageIcon,
+                              imageColor: item.imageColor)
+        }
+
+        /// Pre-grid layout, kept verbatim for rows with tag / rounded icon / button.
+        @ViewBuilder
+        private func getLegacyItemView(item: InlineTextListItemParameters.ItemModel) -> some View {
+            HStack {
                 Typography.paragraph { label in
                     label.parameters.text = item.text
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
 
-                HStack(spacing: Ocean.size.spacingStackXxs) {
-                    // Adornments keep their intrinsic size: only the texts are the flexible
-                    // grid cells, so a tag or icon never gets squeezed by the value.
-                    if let icon = item.imageIcon {
-                        Image(uiImage: icon.withRenderingMode(.alwaysTemplate))
-                            .resizable()
-                            .renderingMode(.template)
-                            .frame(width: 20, height: 20)
-                            .foregroundColor(Color(item.imageColor))
-                            .fixedSize()
-                    }
+                Spacer()
 
-                    if let tag = parameters.tag {
-                        Tag.init(parameters: tag)
-                            .fixedSize(horizontal: true, vertical: false)
-                    }
-
-                    if !item.newValue.isEmpty, !item.value.isEmpty {
-                        Typography.paragraph { label in
-                            label.parameters.text = item.value
-                            label.parameters.textColor = item.valueColor
-                            label.parameters.strikethrough = true
-                            label.parameters.multilineTextAlignment = .trailing
-                        }
-                        Typography.paragraph { label in
-                            label.parameters.text = item.newValue
-                            label.parameters.textColor = item.newValueColor
-                            label.parameters.multilineTextAlignment = .trailing
-                        }
-                    } else {
-                        Typography.paragraph { label in
-                            label.parameters.text = item.value
-                            label.parameters.textColor = item.valueColor
-                            label.parameters.font = item.isBoldValue
-                            ? .baseBold(size: Ocean.font.fontSizeXs)
-                            : .baseRegular(size: Ocean.font.fontSizeXs)
-                            label.parameters.multilineTextAlignment = .trailing
-                        }
-                    }
-
-                    if let roundedIcon = parameters.icon {
-                        RoundedIcon.init(parameters: roundedIcon)
-                            .fixedSize()
-                    }
-
-                    if let button = parameters.button {
-                        Button.init(parameters: button)
-                            .fixedSize(horizontal: true, vertical: false)
-                    }
+                if let icon = item.imageIcon {
+                    LabelValueImageIcon(icon: icon, color: item.imageColor)
                 }
-                .frame(maxWidth: .infinity, alignment: .trailing)
+
+                if let tag = parameters.tag {
+                    Tag.init(parameters: tag)
+                }
+
+                LabelValueTexts(value: item.value,
+                                valueColor: item.valueColor,
+                                isBoldValue: item.isBoldValue,
+                                newValue: item.newValue,
+                                newValueColor: item.newValueColor,
+                                alignment: .leading)
+
+                if let roundedIcon = parameters.icon {
+                    RoundedIcon.init(parameters: roundedIcon)
+                }
+
+                if let button = parameters.button {
+                    Button.init(parameters: button)
+                        .fixedSize(horizontal: true, vertical: false)
+                }
             }
         }
 

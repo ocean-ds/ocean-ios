@@ -137,54 +137,20 @@ extension OceanSwiftUI {
 
         // MARK: Methods private
 
-        /// Same two-column grid as `InlineTextListItem`'s `item` branch: both texts are
-        /// flexible columns sharing the width equally, separated by a gap, so a long value
-        /// wraps inside its own column instead of growing into the label's. The icon keeps
-        /// its intrinsic size and never squeezes the texts.
+        /// Same two-column grid as `InlineTextListItem`'s text-only rows (shared
+        /// `LabelValueGridRow`): a long value wraps inside its own column instead of growing
+        /// into the label's, and the icon keeps its intrinsic size.
         @ViewBuilder
         private func getItemView(item: TransactionFooterParameters.ItemModel) -> some View {
             VStack(alignment: .leading, spacing: 0) {
-                HStack(spacing: Ocean.size.spacingStackXxs) {
-                    Typography.paragraph { label in
-                        label.parameters.text = item.text
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-
-                    HStack(spacing: Ocean.size.spacingStackXxs) {
-                        if let icon = item.imageIcon {
-                            Image(uiImage: icon.withRenderingMode(.alwaysTemplate))
-                                .resizable()
-                                .renderingMode(.template)
-                                .frame(width: 20, height: 20)
-                                .foregroundColor(Color(item.imageColor))
-                                .fixedSize()
-                        }
-
-                        if !item.newValue.isEmpty, !item.value.isEmpty {
-                            Typography.paragraph { label in
-                                label.parameters.text = item.value
-                                label.parameters.textColor = item.valueColor
-                                label.parameters.strikethrough = true
-                                label.parameters.multilineTextAlignment = .trailing
-                            }
-                            Typography.paragraph { label in
-                                label.parameters.text = item.newValue
-                                label.parameters.textColor = item.newValueColor
-                                label.parameters.multilineTextAlignment = .trailing
-                            }
-                        } else {
-                            Typography.paragraph { label in
-                                label.parameters.text = item.value
-                                label.parameters.textColor = item.valueColor
-                                label.parameters.font = item.isBoldValue
-                                    ? .baseBold(size: Ocean.font.fontSizeXs)
-                                    : .baseRegular(size: Ocean.font.fontSizeXs)
-                                label.parameters.multilineTextAlignment = .trailing
-                            }
-                        }
-                    }
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-                }
+                LabelValueGridRow(text: item.text,
+                                  value: item.value,
+                                  valueColor: item.valueColor,
+                                  isBoldValue: item.isBoldValue,
+                                  newValue: item.newValue,
+                                  newValueColor: item.newValueColor,
+                                  imageIcon: item.imageIcon,
+                                  imageColor: item.imageColor)
 
                 if !item.caption.isEmpty {
                     Typography.caption { label in

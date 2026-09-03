@@ -234,6 +234,25 @@ final class InlineTextListItemGridTests: XCTestCase {
         XCTAssertLessThan(measuredHeight(view, width: narrowWidth), 40 + Ocean.size.spacingStackXxs * 2 + 8)
     }
 
+    /// The same long label wraps in the grid (text-only row) but not when a rounded icon
+    /// switches the row to the legacy space-between layout — the adornment must never make
+    /// the texts wrap per character.
+    func testWideAdornmentFallsBackToLegacyLayout() {
+        let text = "Total a pagar com acréscimo em até 6 vezes"
+        let grid = OceanSwiftUI.InlineTextListItem { component in
+            component.parameters.item = self.makeItem(text: text, value: "R$ 577,98")
+        }
+        let legacy = OceanSwiftUI.InlineTextListItem { component in
+            component.parameters.item = self.makeItem(text: text, value: "R$ 577,98")
+            component.parameters.icon = OceanSwiftUI.RoundedIconParameters()
+        }
+
+        XCTAssertGreaterThan(measuredHeight(grid, width: narrowWidth), singleLineRowHeight() * 1.5)
+        // Legacy row: label keeps its ideal width and may wrap once, but the row is bounded by
+        // a single wrapped label next to a 40pt icon — never a per-character value stack.
+        XCTAssertLessThan(measuredHeight(legacy, width: narrowWidth), singleLineRowHeight() * 3)
+    }
+
     /// Same grid inside `TransactionFooter`, which renders its own `ItemModel`: a long value
     /// wraps in its column there too.
     func testTransactionFooterItemWrapsLongValue() {
