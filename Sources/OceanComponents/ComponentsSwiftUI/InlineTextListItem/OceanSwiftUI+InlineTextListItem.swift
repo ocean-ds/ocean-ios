@@ -230,16 +230,20 @@ extension OceanSwiftUI {
                 .frame(maxWidth: .infinity, alignment: .leading)
 
                 HStack(spacing: Ocean.size.spacingStackXxs) {
+                    // Adornments keep their intrinsic size: only the texts are the flexible
+                    // grid cells, so a tag or icon never gets squeezed by the value.
                     if let icon = item.imageIcon {
                         Image(uiImage: icon.withRenderingMode(.alwaysTemplate))
                             .resizable()
                             .renderingMode(.template)
                             .frame(width: 20, height: 20)
                             .foregroundColor(Color(item.imageColor))
+                            .fixedSize()
                     }
 
                     if let tag = parameters.tag {
                         Tag.init(parameters: tag)
+                            .fixedSize(horizontal: true, vertical: false)
                     }
 
                     if !item.newValue.isEmpty, !item.value.isEmpty {
@@ -267,6 +271,7 @@ extension OceanSwiftUI {
 
                     if let roundedIcon = parameters.icon {
                         RoundedIcon.init(parameters: roundedIcon)
+                            .fixedSize()
                     }
 
                     if let button = parameters.button {

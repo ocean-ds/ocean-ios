@@ -177,6 +177,76 @@ final class InlineTextListItemGridTests: XCTestCase {
         XCTAssertNotNil(view.parameters.item)
     }
 
+    // MARK: - Layout (measured — these fail without the grid)
+
+    /// Width of a compact phone content area (iPhone SE class) — narrow enough that a long
+    /// text has to wrap in a 50% column but not in a full-width space-between row.
+    private let narrowWidth: CGFloat = 320
+
+    private func measuredHeight<V: View>(_ view: V, width: CGFloat) -> CGFloat {
+        let host = UIHostingController(rootView: view)
+        host.view.setNeedsLayout()
+        host.view.layoutIfNeeded()
+        return host.sizeThatFits(in: CGSize(width: width, height: .greatestFiniteMagnitude)).height
+    }
+
+    private func singleLineRowHeight() -> CGFloat {
+        let view = OceanSwiftUI.InlineTextListItem { component in
+            component.parameters.item = self.makeItem(text: "A", value: "B")
+        }
+        return measuredHeight(view, width: narrowWidth)
+    }
+
+    /// Long label / short value: in the old space-between layout the label kept its ideal
+    /// width and the row stayed on one line; in the grid the label is confined to half the
+    /// width and wraps, so the row gets taller. Guards the grid itself.
+    func testLongLabelWrapsInsideItsColumn() {
+        let view = OceanSwiftUI.InlineTextListItem { component in
+            component.parameters.item = self.makeItem(text: "Total a pagar com acréscimo em até 6 vezes",
+                                                      value: "R$ 577,98")
+        }
+
+        XCTAssertGreaterThan(measuredHeight(view, width: narrowWidth), singleLineRowHeight() * 1.5)
+    }
+
+    /// Short label / long value: the value wraps inside the right column instead of
+    /// pushing into the label's.
+    func testLongValueWrapsInsideItsColumn() {
+        let view = OceanSwiftUI.InlineTextListItem { component in
+            component.parameters.item = self.makeItem(text: "Pague em",
+                                                      value: "6x de R$ 96,33 com a 1ª e a 2ª sem acréscimo")
+        }
+
+        XCTAssertGreaterThan(measuredHeight(view, width: narrowWidth), singleLineRowHeight() * 1.5)
+    }
+
+    /// Tag + rounded icon next to a short value must NOT be squeezed by the 50% column: the
+    /// adornments keep their intrinsic size, so the row stays on one line. This is the case
+    /// that broke in the first version of the grid (tag wrapping mid-word).
+    func testTagAndRoundedIconKeepTheRowOnOneLine() {
+        let view = OceanSwiftUI.InlineTextListItem { component in
+            component.parameters.item = self.makeItem(text: "Title", value: "R$ 90")
+            component.parameters.tag = OceanSwiftUI.TagParameters(label: "Oferta")
+            component.parameters.icon = OceanSwiftUI.RoundedIconParameters()
+        }
+
+        // RoundedIcon is 40pt tall, so a healthy row is icon-height, not a multi-line text block.
+        XCTAssertLessThan(measuredHeight(view, width: narrowWidth), 40 + Ocean.size.spacingStackXxs * 2 + 8)
+    }
+
+    /// Same grid inside `TransactionFooter`, which renders its own `ItemModel`: a long value
+    /// wraps in its column there too.
+    func testTransactionFooterItemWrapsLongValue() {
+        let short = OceanSwiftUI.TransactionFooter { footer in
+            footer.parameters.items = [.init(text: "Pague em", value: "3x de R$ 116,67")]
+        }
+        let long = OceanSwiftUI.TransactionFooter { footer in
+            footer.parameters.items = [.init(text: "Pague em", value: "6x de R$ 96,33 com a 1ª e a 2ª sem acréscimo")]
+        }
+
+        XCTAssertGreaterThan(measuredHeight(long, width: narrowWidth), measuredHeight(short, width: narrowWidth) + 10)
+    }
+
     // MARK: - Padding contract consumed by the app
 
     func testDefaultPaddingIsVerticalOnly() {
