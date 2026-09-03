@@ -582,6 +582,77 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
         }
     }()
 
+    lazy var inlineTextListItemGridShortShort: OceanSwiftUI.InlineTextListItem = {
+        let item = OceanSwiftUI.InlineTextListItemParameters.ItemModel(
+            text: "Pague em",
+            value: "3x de R$ 116,67"
+        )
+
+        return OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.item = item
+        }
+    }()
+
+    lazy var inlineTextListItemGridShortLong: OceanSwiftUI.InlineTextListItem = {
+        let item = OceanSwiftUI.InlineTextListItemParameters.ItemModel(
+            text: "Pague em",
+            value: "6x de R$ 96,33 com a 1ª e a 2ª sem acréscimo"
+        )
+
+        return OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.item = item
+        }
+    }()
+
+    lazy var inlineTextListItemGridLongLong: OceanSwiftUI.InlineTextListItem = {
+        let item = OceanSwiftUI.InlineTextListItemParameters.ItemModel(
+            text: "Economia com antecipação grátis",
+            value: "Valor economizado em antecipação"
+        )
+
+        return OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.item = item
+        }
+    }()
+
+    lazy var inlineTextListItemGridLongShort: OceanSwiftUI.InlineTextListItem = {
+        let item = OceanSwiftUI.InlineTextListItemParameters.ItemModel(
+            text: "Total a pagar com acréscimo em até 6 vezes",
+            value: "R$ 577,98",
+            isBoldValue: true
+        )
+
+        return OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.item = item
+        }
+    }()
+
+    lazy var inlineTextListItemGridStrikethrough: OceanSwiftUI.InlineTextListItem = {
+        let item = OceanSwiftUI.InlineTextListItemParameters.ItemModel(
+            text: "Economia com antecipação grátis",
+            value: "R$ 350,00",
+            newValue: "R$ 320,00"
+        )
+
+        return OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.item = item
+        }
+    }()
+
+    lazy var inlineTextListItemGridWithTag: OceanSwiftUI.InlineTextListItem = {
+        let item = OceanSwiftUI.InlineTextListItemParameters.ItemModel(
+            text: "Recebimentos futuros da semana",
+            value: "R$ 2.300,00"
+        )
+
+        return OceanSwiftUI.InlineTextListItem { textListItem in
+            textListItem.parameters.item = item
+            textListItem.parameters.tag = .init(label: "Oferta",
+                                                icon: Ocean.icon.fireOutline!,
+                                                status: .warning)
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             inlineTextListItem0
@@ -631,6 +702,19 @@ class InlineTextListItemSwiftUIViewController: UIViewController {
             inlineTextListItem17Direct
             inlineTextListItem18Direct
             inlineTextListItem19Direct
+        }
+
+        VStack(spacing: Ocean.size.spacingStackXs) {
+            OceanSwiftUI.Typography.heading1 { label in
+                label.parameters.text = "Grid de duas colunas"
+            }
+
+            inlineTextListItemGridShortShort
+            inlineTextListItemGridShortLong
+            inlineTextListItemGridLongLong
+            inlineTextListItemGridLongShort
+            inlineTextListItemGridStrikethrough
+            inlineTextListItemGridWithTag
         }
     })
 

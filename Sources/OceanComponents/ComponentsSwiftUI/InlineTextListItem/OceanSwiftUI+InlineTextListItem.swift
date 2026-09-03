@@ -215,55 +215,66 @@ extension OceanSwiftUI {
             }
         }
 
+        /// Renders a label/value row as a two-column grid.
+        ///
+        /// Both columns are flexible and share the available width equally, separated by a
+        /// gap, so each side wraps inside its own column and neither grows into the other.
+        /// The label is leading-aligned, the value side trailing-aligned, and the column that
+        /// does not wrap stays vertically centered against the one that does.
         @ViewBuilder
         private func getItemView(item: InlineTextListItemParameters.ItemModel) -> some View {
-            HStack {
+            HStack(spacing: Ocean.size.spacingStackXxs) {
                 Typography.paragraph { label in
                     label.parameters.text = item.text
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
 
-                Spacer()
-
-                if let icon = item.imageIcon {
-                    Image(uiImage: icon.withRenderingMode(.alwaysTemplate))
-                        .resizable()
-                        .renderingMode(.template)
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(Color(item.imageColor))
-                }
-
-                if let tag = parameters.tag {
-                    Tag.init(parameters: tag)
-                }
-
-                if !item.newValue.isEmpty, !item.value.isEmpty {
-                    Typography.paragraph { label in
-                        label.parameters.text = item.value
-                        label.parameters.textColor = item.valueColor
-                        label.parameters.strikethrough = true
+                HStack(spacing: Ocean.size.spacingStackXxs) {
+                    if let icon = item.imageIcon {
+                        Image(uiImage: icon.withRenderingMode(.alwaysTemplate))
+                            .resizable()
+                            .renderingMode(.template)
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(Color(item.imageColor))
                     }
-                    Typography.paragraph { label in
-                        label.parameters.text = item.newValue
-                        label.parameters.textColor = item.newValueColor
-                    }
-                } else {
-                    Typography.paragraph { label in
-                        label.parameters.text = item.value
-                        label.parameters.textColor = item.valueColor
-                        label.parameters.font = item.isBoldValue
-                        ? .baseBold(size: Ocean.font.fontSizeXs)
-                        : .baseRegular(size: Ocean.font.fontSizeXs)
-                    }
-                }
 
-                if let roundedIcon = parameters.icon {
-                    RoundedIcon.init(parameters: roundedIcon)
-                }
+                    if let tag = parameters.tag {
+                        Tag.init(parameters: tag)
+                    }
 
-                if let button = parameters.button {
-                    Button.init(parameters: button)
-                        .fixedSize(horizontal: true, vertical: false)
+                    if !item.newValue.isEmpty, !item.value.isEmpty {
+                        Typography.paragraph { label in
+                            label.parameters.text = item.value
+                            label.parameters.textColor = item.valueColor
+                            label.parameters.strikethrough = true
+                            label.parameters.multilineTextAlignment = .trailing
+                        }
+                        Typography.paragraph { label in
+                            label.parameters.text = item.newValue
+                            label.parameters.textColor = item.newValueColor
+                            label.parameters.multilineTextAlignment = .trailing
+                        }
+                    } else {
+                        Typography.paragraph { label in
+                            label.parameters.text = item.value
+                            label.parameters.textColor = item.valueColor
+                            label.parameters.font = item.isBoldValue
+                            ? .baseBold(size: Ocean.font.fontSizeXs)
+                            : .baseRegular(size: Ocean.font.fontSizeXs)
+                            label.parameters.multilineTextAlignment = .trailing
+                        }
+                    }
+
+                    if let roundedIcon = parameters.icon {
+                        RoundedIcon.init(parameters: roundedIcon)
+                    }
+
+                    if let button = parameters.button {
+                        Button.init(parameters: button)
+                            .fixedSize(horizontal: true, vertical: false)
+                    }
                 }
+                .frame(maxWidth: .infinity, alignment: .trailing)
             }
         }
 
