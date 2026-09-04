@@ -215,8 +215,44 @@ extension OceanSwiftUI {
             }
         }
 
+        /// Renders a label/value row.
+        ///
+        /// Text-only rows use a two-column grid: both texts are flexible columns sharing the
+        /// width equally, separated by a gap, so each side wraps inside its own column and
+        /// neither grows into the other. The label is leading-aligned, the value side
+        /// trailing-aligned, and the column that does not wrap stays vertically centered.
+        ///
+        /// Rows carrying a wide adornment (`tag`, `icon` or `button`) keep the legacy
+        /// space-between layout: a 50% column has no room left for the value once a tag and a
+        /// rounded icon sit next to it, and the value would wrap per character. The small
+        /// `imageIcon` (20pt) fits the grid and stays in it.
         @ViewBuilder
         private func getItemView(item: InlineTextListItemParameters.ItemModel) -> some View {
+            if hasWideAdornment {
+                getLegacyItemView(item: item)
+            } else {
+                getGridItemView(item: item)
+            }
+        }
+
+        private var hasWideAdornment: Bool {
+            parameters.tag != nil || parameters.icon != nil || parameters.button != nil
+        }
+
+        private func getGridItemView(item: InlineTextListItemParameters.ItemModel) -> some View {
+            LabelValueGridRow(text: item.text,
+                              value: item.value,
+                              valueColor: item.valueColor,
+                              isBoldValue: item.isBoldValue,
+                              newValue: item.newValue,
+                              newValueColor: item.newValueColor,
+                              imageIcon: item.imageIcon,
+                              imageColor: item.imageColor)
+        }
+
+        /// Pre-grid layout, kept verbatim for rows with tag / rounded icon / button.
+        @ViewBuilder
+        private func getLegacyItemView(item: InlineTextListItemParameters.ItemModel) -> some View {
             HStack {
                 Typography.paragraph { label in
                     label.parameters.text = item.text
@@ -225,36 +261,19 @@ extension OceanSwiftUI {
                 Spacer()
 
                 if let icon = item.imageIcon {
-                    Image(uiImage: icon.withRenderingMode(.alwaysTemplate))
-                        .resizable()
-                        .renderingMode(.template)
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(Color(item.imageColor))
+                    LabelValueImageIcon(icon: icon, color: item.imageColor)
                 }
 
                 if let tag = parameters.tag {
                     Tag.init(parameters: tag)
                 }
 
-                if !item.newValue.isEmpty, !item.value.isEmpty {
-                    Typography.paragraph { label in
-                        label.parameters.text = item.value
-                        label.parameters.textColor = item.valueColor
-                        label.parameters.strikethrough = true
-                    }
-                    Typography.paragraph { label in
-                        label.parameters.text = item.newValue
-                        label.parameters.textColor = item.newValueColor
-                    }
-                } else {
-                    Typography.paragraph { label in
-                        label.parameters.text = item.value
-                        label.parameters.textColor = item.valueColor
-                        label.parameters.font = item.isBoldValue
-                        ? .baseBold(size: Ocean.font.fontSizeXs)
-                        : .baseRegular(size: Ocean.font.fontSizeXs)
-                    }
-                }
+                LabelValueTexts(value: item.value,
+                                valueColor: item.valueColor,
+                                isBoldValue: item.isBoldValue,
+                                newValue: item.newValue,
+                                newValueColor: item.newValueColor,
+                                alignment: .leading)
 
                 if let roundedIcon = parameters.icon {
                     RoundedIcon.init(parameters: roundedIcon)
