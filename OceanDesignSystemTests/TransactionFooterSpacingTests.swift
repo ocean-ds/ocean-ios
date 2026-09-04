@@ -30,7 +30,8 @@ final class TransactionFooterSpacingTests: XCTestCase {
 
     private func footer(rows: Int) -> OceanSwiftUI.TransactionFooter {
         OceanSwiftUI.TransactionFooter { view in
-            view.parameters.primaryButton = .init(text: "Escolher parcelas", style: .primary, onTouch: {})
+            // The action is irrelevant here: only the button's footprint is measured.
+            view.parameters.primaryButton = .init(text: "Escolher parcelas", style: .primary, onTouch: { /* no-op */ })
             view.parameters.padding = .init()
             view.parameters.items = (0..<rows).map { index in
                 .init(text: "Linha \(index)", value: "R$ 100,00")
