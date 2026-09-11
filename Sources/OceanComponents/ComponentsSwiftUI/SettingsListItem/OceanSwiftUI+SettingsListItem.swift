@@ -30,6 +30,7 @@ extension OceanSwiftUI {
         @Published public var buttonStyle: ButtonParameters.Style
         @Published public var buttonIsLoading: Bool
         @Published public var contentType: ContentListParameters.ContentListItemType
+        @Published public var isInverted: Bool
         @Published public var showSkeleton: Bool
         @Published public var padding: EdgeInsets
         public var buttonAction: () -> Void
@@ -50,6 +51,7 @@ extension OceanSwiftUI {
                     buttonStyle: ButtonParameters.Style = .primary,
                     buttonIsLoading: Bool = false,
                     contentType: ContentListParameters.ContentListItemType = .default,
+                    isInverted: Bool = false,
                     showSkeleton: Bool = false,
                     padding: EdgeInsets = .all(Ocean.size.spacingStackXs),
                     buttonAction: @escaping () -> Void = { }) {
@@ -69,6 +71,7 @@ extension OceanSwiftUI {
             self.buttonStyle = buttonStyle
             self.buttonIsLoading = buttonIsLoading
             self.contentType = contentType
+            self.isInverted = isInverted
             self.showSkeleton = showSkeleton
             self.padding = padding
             self.buttonAction = buttonAction
@@ -161,6 +164,7 @@ extension OceanSwiftUI {
                             view.parameters.tagStatus = .highlightImportant
                             view.parameters.errorMessage = parameters.errorMessage
                             view.parameters.type = parameters.contentType
+                            view.parameters.isInverted = parameters.isInverted
                             view.parameters.padding = .all(.zero)
                         }
                         .layoutPriority(1)

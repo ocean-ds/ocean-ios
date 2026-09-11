@@ -106,7 +106,21 @@ class SettingsListItemSwiftUIViewController: UIViewController {
             view.parameters.showSkeleton = true
         }
     }()
-    
+
+    lazy var view9: OceanSwiftUI.SettingsListItem = {
+        return OceanSwiftUI.SettingsListItem { view in
+            view.parameters.title = "Title isInverted"
+            view.parameters.description = "Description"
+            view.parameters.caption = "Caption"
+            view.parameters.buttonTitle = "Label"
+            view.parameters.isInverted = true
+            view.parameters.hasNewTag = true
+            view.parameters.type = .button
+            view.parameters.buttonStyle = .secondaryCritical
+            view.parameters.buttonAction = { print("touched") }
+        }
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: 0) {
             view0
@@ -118,6 +132,7 @@ class SettingsListItemSwiftUIViewController: UIViewController {
             view6
             view7
             view8
+            view9
         }
     })
     
