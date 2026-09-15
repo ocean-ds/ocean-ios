@@ -44,7 +44,7 @@ let package = Package(
                            .product(name: "EasyTipView", package: "EasyTipView")],
             path: "Sources/OceanComponents",
             resources: [
-                .copy("Resources/Icon.xcassets")
+                .process("Resources/Icon.xcassets")
             ]
         )
     ],
