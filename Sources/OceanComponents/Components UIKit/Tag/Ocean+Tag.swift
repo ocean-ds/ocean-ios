@@ -147,12 +147,10 @@ extension Ocean {
             case .highlightImportant:
                 self.backgroundColor = Ocean.color.colorHighlightPure
                 self.titleLabel.textColor = Ocean.color.colorInterfaceLightPure
-                self.titleLabel.font = .baseBold(size: Ocean.font.fontSizeXxxs)
                 self.imageView.isHidden = true
             case .highlightNeutral:
-                self.backgroundColor = Ocean.color.colorBrandPrimaryDown
+                self.backgroundColor = Ocean.color.colorBrandPrimaryPure
                 self.titleLabel.textColor = Ocean.color.colorInterfaceLightPure
-                self.titleLabel.font = .baseBold(size: Ocean.font.fontSizeXxxs)
                 self.imageView.isHidden = true
             case .neutralPrimary:
                 self.backgroundColor = Ocean.color.colorInterfaceLightUp
