@@ -83,8 +83,8 @@ class TagSwiftUIViewController: UIViewController {
         }
     }()
 
-    lazy var highlightBesideDefault: some View = {
-        HStack(spacing: Ocean.size.spacingStackXxs) {
+    lazy var highlightBesideDefault: AnyView = {
+        AnyView(HStack(spacing: Ocean.size.spacingStackXxs) {
             OceanSwiftUI.Tag.highlightNeutralMD { tag in
                 tag.parameters.label = "3x sem acréscimo"
             }
@@ -97,11 +97,11 @@ class TagSwiftUIViewController: UIViewController {
             OceanSwiftUI.Tag.positiveSM { tag in
                 tag.parameters.label = "Pago"
             }
-        }
+        })
     }()
 
-    lazy var longLabelIn320: some View = {
-        HStack(spacing: Ocean.size.spacingStackXxs) {
+    lazy var longLabelIn320: AnyView = {
+        AnyView(HStack(spacing: Ocean.size.spacingStackXxs) {
             OceanSwiftUI.Typography.paragraph { label in
                 label.parameters.text = "Comercial Norte"
                 label.parameters.lineLimit = 1
@@ -111,7 +111,7 @@ class TagSwiftUIViewController: UIViewController {
                 tag.parameters.label = "Possível bloqueio de vendas"
             }
         }
-        .frame(width: 320 - (Ocean.size.spacingStackXs * 2))
+        .frame(width: 320 - (Ocean.size.spacingStackXs * 2)))
     }()
 
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
