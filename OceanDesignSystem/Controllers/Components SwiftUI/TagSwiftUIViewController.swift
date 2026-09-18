@@ -83,6 +83,37 @@ class TagSwiftUIViewController: UIViewController {
         }
     }()
 
+    lazy var highlightBesideDefault: AnyView = {
+        AnyView(HStack(spacing: Ocean.size.spacingStackXxs) {
+            OceanSwiftUI.Tag.highlightNeutralMD { tag in
+                tag.parameters.label = "3x sem acréscimo"
+            }
+            OceanSwiftUI.Tag.warningMD { tag in
+                tag.parameters.label = "Pagamento agendado"
+            }
+            OceanSwiftUI.Tag.highlightImportantSM { tag in
+                tag.parameters.label = "Novo"
+            }
+            OceanSwiftUI.Tag.positiveSM { tag in
+                tag.parameters.label = "Pago"
+            }
+        })
+    }()
+
+    lazy var longLabelIn320: AnyView = {
+        AnyView(HStack(spacing: Ocean.size.spacingStackXxs) {
+            OceanSwiftUI.Typography.paragraph { label in
+                label.parameters.text = "Comercial Norte"
+                label.parameters.lineLimit = 1
+            }
+            Spacer()
+            OceanSwiftUI.Tag.highlightNeutralMD { tag in
+                tag.parameters.label = "Possível bloqueio de vendas"
+            }
+        }
+        .frame(width: 320 - (Ocean.size.spacingStackXs * 2)))
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             tag1
@@ -96,6 +127,8 @@ class TagSwiftUIViewController: UIViewController {
             tag9
             tag10
             tag11
+            highlightBesideDefault
+            longLabelIn320
         }
     })
 
