@@ -110,13 +110,16 @@ extension OceanSwiftUI {
                         Text(parameters.label)
                             .font(Font(font))
                             .foregroundColor(Color(getColor()))
+                            .lineLimit(1)
                     } else {
                         OceanSwiftUI.Typography.captionBold { label in
                             label.parameters.text = self.parameters.label
                             label.parameters.textColor = self.getColor()
+                            label.parameters.lineLimit = 1
                         }
                     }
                 }
+                .fixedSize(horizontal: true, vertical: false)
                 .padding(.horizontal, self.parameters.size == .medium ? Ocean.size.spacingStackXxs : Ocean.size.spacingStackXxxs)
             }
             .background(Color(self.getBackgroundColor()))
