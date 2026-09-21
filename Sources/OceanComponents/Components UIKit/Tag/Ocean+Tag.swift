@@ -149,7 +149,7 @@ extension Ocean {
                 self.titleLabel.textColor = Ocean.color.colorInterfaceLightPure
                 self.imageView.isHidden = true
             case .highlightNeutral:
-                self.backgroundColor = Ocean.color.colorBrandPrimaryPure
+                self.backgroundColor = Ocean.color.colorBrandPrimaryDown
                 self.titleLabel.textColor = Ocean.color.colorInterfaceLightPure
                 self.imageView.isHidden = true
             case .neutralPrimary:

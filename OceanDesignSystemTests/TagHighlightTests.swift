@@ -11,7 +11,7 @@ import OceanTokens
 @testable import OceanComponents
 
 /// Covers the Tag typography/contrast rule (MR-802): typography is resolved by `size`
-/// (highlight included) and `highlightNeutral` uses `colorBrandPrimaryPure`.
+/// (highlight included) and `highlightNeutral` uses `colorBrandPrimaryDown`.
 ///
 /// The repository has no snapshot infrastructure, so the checks here are on the resolved
 /// font and color; the visual result is validated in the showcase app.
@@ -44,17 +44,17 @@ final class TagHighlightTests: XCTestCase {
         XCTAssertEqual(tag.resolvedLabelFont(), custom)
     }
 
-    func testHighlightNeutralBackgroundIsBrandPrimaryPure() {
+    func testHighlightNeutralBackgroundIsBrandPrimaryDown() {
         let neutral = OceanSwiftUI.Tag.highlightNeutralMD()
         let important = OceanSwiftUI.Tag.highlightImportantMD()
 
-        XCTAssertEqual(neutral.getBackgroundColor(), Ocean.color.colorBrandPrimaryPure)
+        XCTAssertEqual(neutral.getBackgroundColor(), Ocean.color.colorBrandPrimaryDown)
         XCTAssertEqual(important.getBackgroundColor(), Ocean.color.colorHighlightPure)
     }
 
     // MARK: - UIKit
 
-    func testUIKitHighlightKeepsSizeTypographyAndUsesBrandPrimaryPure() {
+    func testUIKitHighlightKeepsSizeTypographyAndUsesBrandPrimaryDown() {
         let highlight = Ocean.Tag { tag in
             tag.title = "3x sem acréscimo"
             tag.status = .highlightNeutral
@@ -64,7 +64,7 @@ final class TagHighlightTests: XCTestCase {
             tag.status = .warning
         }
 
-        XCTAssertEqual(highlight.backgroundColor, Ocean.color.colorBrandPrimaryPure)
+        XCTAssertEqual(highlight.backgroundColor, Ocean.color.colorBrandPrimaryDown)
         XCTAssertEqual(firstLabel(in: highlight)?.font, firstLabel(in: status)?.font)
         XCTAssertEqual(firstLabel(in: highlight)?.font, .baseSemiBold(size: Ocean.font.fontSizeXxxs))
     }
