@@ -194,7 +194,7 @@ extension OceanSwiftUI {
             case .highlightImportant:
                 return Ocean.color.colorHighlightPure
             case .highlightNeutral:
-                return Ocean.color.colorBrandPrimaryPure
+                return Ocean.color.colorBrandPrimaryDown
             case .highlightComplementary:
                 return Ocean.color.colorComplementaryPure
             }
