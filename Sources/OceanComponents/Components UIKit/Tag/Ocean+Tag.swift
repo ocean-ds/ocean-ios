@@ -128,6 +128,13 @@ extension Ocean {
 
         private func updateStatus() {
             switch self.status {
+            case .highlightImportant, .highlightNeutral:
+                self.titleLabel.font = .baseBold(size: Ocean.font.fontSizeXxxs)
+            default:
+                self.titleLabel.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
+            }
+
+            switch self.status {
             case .positive:
                 self.backgroundColor = Ocean.color.colorStatusPositiveUp
                 self.imageView.tintColor = Ocean.color.colorStatusPositiveDeep
@@ -142,8 +149,8 @@ extension Ocean {
                 self.titleLabel.textColor = Ocean.color.colorStatusNegativePure
             case .complementary:
                 self.backgroundColor = Ocean.color.colorComplementaryPure.withAlphaComponent(Ocean.size.opacityLevelSemitransparent)
-                self.imageView.tintColor = Ocean.color.colorComplementaryPure
-                self.titleLabel.textColor = Ocean.color.colorComplementaryPure
+                self.imageView.tintColor = Ocean.color.colorComplementaryDeep
+                self.titleLabel.textColor = Ocean.color.colorComplementaryDeep
             case .highlightImportant:
                 self.backgroundColor = Ocean.color.colorHighlightPure
                 self.titleLabel.textColor = Ocean.color.colorInterfaceLightPure

@@ -10,8 +10,9 @@ import SwiftUI
 import OceanTokens
 @testable import OceanComponents
 
-/// Covers the Tag typography/contrast rule (MR-802): typography is resolved by `size`
-/// (highlight included) and `highlightNeutral` uses `colorBrandPrimaryDown`.
+/// Covers the Tag typography/contrast rules: size drives the font size, highlight is
+/// always Bold (MR-836), `highlightNeutral` uses `colorBrandPrimaryDown` (MR-802) and
+/// `complementary` text/icon use `colorComplementaryDeep` (MR-836).
 ///
 /// The repository has no snapshot infrastructure, so the checks here are on the resolved
 /// font and color; the visual result is validated in the showcase app.
@@ -19,13 +20,24 @@ final class TagHighlightTests: XCTestCase {
 
     // MARK: - SwiftUI
 
-    func testMediumHighlightResolvesSameTypographyAsMediumStatus() {
+    func testMediumHighlightResolvesBoldTwelveWhileStatusKeepsDefault() {
         let highlight = OceanSwiftUI.Tag.highlightNeutralMD { $0.parameters.label = "3x sem acréscimo" }
         let status = OceanSwiftUI.Tag.warningMD { $0.parameters.label = "Pagamento agendado" }
 
         XCTAssertEqual(highlight.parameters.size, .medium)
-        XCTAssertNil(highlight.resolvedLabelFont())
-        XCTAssertEqual(highlight.resolvedLabelFont(), status.resolvedLabelFont())
+        XCTAssertEqual(highlight.resolvedLabelFont()?.pointSize, Ocean.font.fontSizeXxxs)
+        XCTAssertEqual(highlight.resolvedLabelFont(), .baseBold(size: Ocean.font.fontSizeXxxs))
+        XCTAssertNil(status.resolvedLabelFont())
+    }
+
+    func testComplementaryTextUsesComplementaryDeep() {
+        let tag = OceanSwiftUI.Tag { $0.parameters.status = .complementary }
+
+        XCTAssertEqual(tag.getColor(), Ocean.color.colorComplementaryDeep)
+        XCTAssertEqual(
+            tag.getBackgroundColor(),
+            Ocean.color.colorComplementaryPure.withAlphaComponent(Ocean.size.opacityLevelSemitransparent)
+        )
     }
 
     func testSmallResolvesBoldTen() {
@@ -54,7 +66,7 @@ final class TagHighlightTests: XCTestCase {
 
     // MARK: - UIKit
 
-    func testUIKitHighlightKeepsSizeTypographyAndUsesBrandPrimaryDown() {
+    func testUIKitHighlightIsBoldAndUsesBrandPrimaryDown() {
         let highlight = Ocean.Tag { tag in
             tag.title = "3x sem acréscimo"
             tag.status = .highlightNeutral
@@ -65,8 +77,17 @@ final class TagHighlightTests: XCTestCase {
         }
 
         XCTAssertEqual(highlight.backgroundColor, Ocean.color.colorBrandPrimaryDown)
-        XCTAssertEqual(firstLabel(in: highlight)?.font, firstLabel(in: status)?.font)
-        XCTAssertEqual(firstLabel(in: highlight)?.font, .baseSemiBold(size: Ocean.font.fontSizeXxxs))
+        XCTAssertEqual(firstLabel(in: highlight)?.font, .baseBold(size: Ocean.font.fontSizeXxxs))
+        XCTAssertEqual(firstLabel(in: status)?.font, .baseSemiBold(size: Ocean.font.fontSizeXxxs))
+    }
+
+    func testUIKitComplementaryTextUsesComplementaryDeep() {
+        let tag = Ocean.Tag { tag in
+            tag.title = "Pagamento agendado"
+            tag.status = .complementary
+        }
+
+        XCTAssertEqual(firstLabel(in: tag)?.textColor, Ocean.color.colorComplementaryDeep)
     }
 
     private func firstLabel(in view: UIView) -> UILabel? {
