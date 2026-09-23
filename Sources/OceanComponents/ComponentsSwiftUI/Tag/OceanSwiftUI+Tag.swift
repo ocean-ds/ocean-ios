@@ -153,12 +153,24 @@ extension OceanSwiftUI {
             switch parameters.size {
             case .small:
                 return .baseBold(size: 10) ?? .systemFont(ofSize: 10, weight: .bold)
+            case .medium where isHighlight:
+                return .baseBold(size: Ocean.font.fontSizeXxxs)
+                    ?? .systemFont(ofSize: Ocean.font.fontSizeXxxs, weight: .bold)
             case .medium, .corner:
                 return nil
             }
         }
 
-        private func getColor() -> UIColor {
+        var isHighlight: Bool {
+            switch parameters.status {
+            case .highlightImportant, .highlightNeutral, .highlightComplementary:
+                return true
+            default:
+                return false
+            }
+        }
+
+        func getColor() -> UIColor {
             switch parameters.status {
             case .positive:
                 return Ocean.color.colorStatusPositiveDeep
@@ -167,7 +179,7 @@ extension OceanSwiftUI {
             case .negative:
                 return Ocean.color.colorStatusNegativePure
             case .complementary:
-                return Ocean.color.colorComplementaryPure
+                return Ocean.color.colorComplementaryDeep
             case .neutralInterface:
                 return Ocean.color.colorInterfaceDarkUp
             case .neutralPrimary:
