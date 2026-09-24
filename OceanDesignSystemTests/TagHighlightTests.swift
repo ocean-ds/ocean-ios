@@ -11,7 +11,7 @@ import OceanTokens
 @testable import OceanComponents
 
 /// Covers the Tag typography/contrast rules: size drives the font size, highlight is
-/// always Bold (MR-836), `highlightNeutral` uses `colorBrandPrimaryDown` (MR-802) and
+/// always ExtraBold (MR-836), `highlightNeutral` uses `colorBrandPrimaryDown` (MR-802) and
 /// `complementary` text/icon use `colorComplementaryDeep` (MR-836).
 ///
 /// The repository has no snapshot infrastructure, so the checks here are on the resolved
@@ -20,13 +20,13 @@ final class TagHighlightTests: XCTestCase {
 
     // MARK: - SwiftUI
 
-    func testMediumHighlightResolvesBoldTwelveWhileStatusKeepsDefault() {
+    func testMediumHighlightResolvesExtraBoldTwelveWhileStatusKeepsDefault() {
         let highlight = OceanSwiftUI.Tag.highlightNeutralMD { $0.parameters.label = "3x sem acréscimo" }
         let status = OceanSwiftUI.Tag.warningMD { $0.parameters.label = "Pagamento agendado" }
 
         XCTAssertEqual(highlight.parameters.size, .medium)
         XCTAssertEqual(highlight.resolvedLabelFont()?.pointSize, Ocean.font.fontSizeXxxs)
-        XCTAssertEqual(highlight.resolvedLabelFont(), .baseBold(size: Ocean.font.fontSizeXxxs))
+        XCTAssertEqual(highlight.resolvedLabelFont(), .baseExtraBold(size: Ocean.font.fontSizeXxxs))
         XCTAssertNil(status.resolvedLabelFont())
     }
 
@@ -40,13 +40,14 @@ final class TagHighlightTests: XCTestCase {
         )
     }
 
-    func testSmallResolvesBoldTen() {
+    func testSmallResolvesTenWithExtraBoldHighlight() {
         let highlight = OceanSwiftUI.Tag.highlightImportantSM { $0.parameters.label = "Novo" }
         let status = OceanSwiftUI.Tag.positiveSM { $0.parameters.label = "Pago" }
 
         XCTAssertEqual(highlight.parameters.size, .small)
         XCTAssertEqual(highlight.resolvedLabelFont()?.pointSize, 10)
-        XCTAssertEqual(highlight.resolvedLabelFont(), status.resolvedLabelFont())
+        XCTAssertEqual(highlight.resolvedLabelFont(), .baseExtraBold(size: 10))
+        XCTAssertEqual(status.resolvedLabelFont(), .baseBold(size: 10))
     }
 
     func testExplicitFontStillWins() {
@@ -66,7 +67,7 @@ final class TagHighlightTests: XCTestCase {
 
     // MARK: - UIKit
 
-    func testUIKitHighlightIsBoldAndUsesBrandPrimaryDown() {
+    func testUIKitHighlightIsExtraBoldAndUsesBrandPrimaryDown() {
         let highlight = Ocean.Tag { tag in
             tag.title = "3x sem acréscimo"
             tag.status = .highlightNeutral
@@ -77,7 +78,7 @@ final class TagHighlightTests: XCTestCase {
         }
 
         XCTAssertEqual(highlight.backgroundColor, Ocean.color.colorBrandPrimaryDown)
-        XCTAssertEqual(firstLabel(in: highlight)?.font, .baseBold(size: Ocean.font.fontSizeXxxs))
+        XCTAssertEqual(firstLabel(in: highlight)?.font, .baseExtraBold(size: Ocean.font.fontSizeXxxs))
         XCTAssertEqual(firstLabel(in: status)?.font, .baseSemiBold(size: Ocean.font.fontSizeXxxs))
     }
 
