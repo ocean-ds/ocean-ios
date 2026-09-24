@@ -232,19 +232,36 @@ extension OceanSwiftUI {
         }
 
         public func makeBody(configuration: Self.Configuration) -> some View {
-            configuration.label
-                .font(Font(UIFont.baseBold(size: self.parameters.size.getFontSize())!))
-                .frame(maxWidth: self.parameters.maxWidth,
-                       minHeight: self.parameters.size.rawValue,
-                       idealHeight: self.parameters.size.rawValue,
-                       maxHeight: self.parameters.size.rawValue,
-                       alignment: .center)
-                .padding(.horizontal, getPadding())
-                .background(
-                    RoundedRectangle(cornerRadius: Ocean.size.borderRadiusCircular * self.parameters.size.rawValue)
-                        .fill(self.getBackgroundColor(configuration: configuration))
-                )
-                .foregroundColor(configuration.isPressed ? getPressedForegroundColor() : foregroundColor)
+            _OceanButtonBody(style: self, configuration: configuration)
+        }
+
+        private struct _OceanButtonBody: View {
+            let style: OceanButtonStyle
+            let configuration: ButtonStyleConfiguration
+            @State private var isHovered = false
+
+            var body: some View {
+                configuration.label
+                    .font(Font(UIFont.baseBold(size: style.parameters.size.getFontSize())!))
+                    .frame(maxWidth: style.parameters.maxWidth,
+                           minHeight: style.parameters.size.rawValue,
+                           idealHeight: style.parameters.size.rawValue,
+                           maxHeight: style.parameters.size.rawValue,
+                           alignment: .center)
+                    .padding(.horizontal, style.getPadding())
+                    .background(
+                        RoundedRectangle(cornerRadius: Ocean.size.borderRadiusCircular * style.parameters.size.rawValue)
+                            .fill(style.getBackgroundColor(configuration: configuration))
+                    )
+                    .foregroundColor(resolvedForegroundColor)
+                    .onHover { isHovered = $0 }
+            }
+
+            private var resolvedForegroundColor: Color {
+                if configuration.isPressed { return style.getPressedForegroundColor() }
+                if isHovered { return style.getHoverForegroundColor() }
+                return style.foregroundColor
+            }
         }
 
         public func getPadding() -> CGFloat {
@@ -266,7 +283,26 @@ extension OceanSwiftUI {
                 case .tertiaryCritical:
                     return Color(Ocean.color.colorStatusNegativeDeep)
                 case .tertiaryWarning:
-                    return Color(Ocean.color.colorStatusWarningDeep).mix(with: Color(Ocean.color.colorInterfaceDarkPure), by: 0.16)
+                    return foregroundColor
+                default:
+                    break
+                }
+            }
+
+            return foregroundColor
+        }
+
+        public func getHoverForegroundColor() -> Color {
+            guard !self.parameters.isDisabled else { return Color(Ocean.color.colorInterfaceDarkUp) }
+
+            if isHugMode {
+                switch self.parameters.style {
+                case .tertiary:
+                    return Color(Ocean.color.colorBrandPrimaryDown)
+                case .tertiaryCritical:
+                    return Color(Ocean.color.colorStatusNegativeDown)
+                case .tertiaryWarning:
+                    return Color(Ocean.color.colorStatusWarningDown)
                 default:
                     break
                 }
