@@ -129,7 +129,7 @@ extension Ocean {
         private func updateStatus() {
             switch self.status {
             case .highlightImportant, .highlightNeutral:
-                self.titleLabel.font = .baseBold(size: Ocean.font.fontSizeXxxs)
+                self.titleLabel.font = .baseExtraBold(size: Ocean.font.fontSizeXxxs)
             default:
                 self.titleLabel.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
             }

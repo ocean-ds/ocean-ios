@@ -151,11 +151,13 @@ extension OceanSwiftUI {
             }
 
             switch parameters.size {
+            case .small where isHighlight:
+                return .baseExtraBold(size: 10) ?? .systemFont(ofSize: 10, weight: .heavy)
             case .small:
                 return .baseBold(size: 10) ?? .systemFont(ofSize: 10, weight: .bold)
             case .medium where isHighlight:
-                return .baseBold(size: Ocean.font.fontSizeXxxs)
-                    ?? .systemFont(ofSize: Ocean.font.fontSizeXxxs, weight: .bold)
+                return .baseExtraBold(size: Ocean.font.fontSizeXxxs)
+                    ?? .systemFont(ofSize: Ocean.font.fontSizeXxxs, weight: .heavy)
             case .medium, .corner:
                 return nil
             }
