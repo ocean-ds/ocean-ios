@@ -195,6 +195,28 @@ struct TransactionListActionIcon: View {
     }
 }
 
+/// Menu action: 20pt `dotsVerticalSolid` in a 32pt round touch area (Figma `_Contextual Menu`);
+/// active = `Interface/Light/Up` circle with the icon in `Brand/Primary/Pure`.
+struct TransactionListMenuIcon: View {
+    let isActive: Bool
+    let isDisabled: Bool
+
+    var iconColor: UIColor {
+        if isDisabled { return Ocean.color.colorInterfaceLightDeep }
+        return isActive ? Ocean.color.colorBrandPrimaryPure : Ocean.color.colorInterfaceDarkUp
+    }
+
+    var body: some View {
+        Image(uiImage: Ocean.icon.dotsVerticalSolid ?? UIImage())
+            .resizable()
+            .renderingMode(.template)
+            .foregroundColor(Color(iconColor))
+            .frame(width: 20, height: 20)
+            .frame(width: 32, height: 32)
+            .background(Circle().fill(Color(isActive ? Ocean.color.colorInterfaceLightUp : .clear)))
+    }
+}
+
 /// Horizontal divider inset by `spacingStackXs` on both sides.
 struct TransactionListDivider: View {
     var body: some View {
@@ -209,6 +231,8 @@ struct TransactionListRow<Leading: View, Trailing: View>: View {
     var spacing: CGFloat = Ocean.size.spacingStackXxsExtra
     /// Overrides `parameters.showDivider` (the expandable row draws its own divider).
     var showsDivider: Bool?
+    /// The menu action sits in a 32pt touch area, so the row keeps `spacingStackXxs` on the right.
+    var trailingPadding: CGFloat = Ocean.size.spacingStackXs
     @ViewBuilder var leading: () -> Leading
     @ViewBuilder var trailing: () -> Trailing
 
@@ -219,7 +243,9 @@ struct TransactionListRow<Leading: View, Trailing: View>: View {
                 TransactionListContent(parameters: parameters)
                 trailing()
             }
-            .padding(.all, Ocean.size.spacingStackXs)
+            .padding(.vertical, Ocean.size.spacingStackXs)
+            .padding(.leading, Ocean.size.spacingStackXs)
+            .padding(.trailing, trailingPadding)
 
             if showsDivider ?? parameters.showDivider {
                 TransactionListDivider()
@@ -308,19 +334,22 @@ struct TransactionListSelectionControl: View {
         }
     }
 
-    private var isFilled: Bool { isSelected || isIndeterminate }
+    var isFilled: Bool { isSelected || isIndeterminate }
 
-    private var strokeColor: UIColor {
+    var strokeColor: UIColor {
         if !isEnabled { return isFilled ? Ocean.color.colorInterfaceLightDeep : Ocean.color.colorInterfaceLightDown }
         if hasError { return Ocean.color.colorStatusNegativePure }
         return isFilled ? Ocean.color.colorComplementaryPure : Ocean.color.colorInterfaceDarkUp
     }
 
+    var checkboxFillColor: UIColor {
+        guard isFilled && !hasError else { return Ocean.color.colorInterfaceLightPure }
+        return isEnabled ? Ocean.color.colorComplementaryPure : Ocean.color.colorInterfaceLightDeep
+    }
+
     private var checkbox: some View {
         RoundedRectangle(cornerRadius: Ocean.size.borderRadiusTiny)
-            .fill(Color(isFilled && !hasError
-                        ? (isEnabled ? Ocean.color.colorComplementaryPure : Ocean.color.colorInterfaceLightDeep)
-                        : Ocean.color.colorInterfaceLightPure))
+            .fill(Color(checkboxFillColor))
             .overlay(RoundedRectangle(cornerRadius: Ocean.size.borderRadiusTiny)
                 .stroke(Color(strokeColor), lineWidth: 1))
             .overlay(checkboxMark)

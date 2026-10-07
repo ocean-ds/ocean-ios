@@ -306,6 +306,51 @@ final class TransactionListFamilyTests: XCTestCase {
         XCTAssertEqual(height(.trailing), height(.leading), accuracy: 0.5)
     }
 
+    func testSelectionControlStates() {
+        typealias Control = TransactionListSelectionControl
+
+        func control(selected: Bool = false, indeterminate: Bool = false,
+                     error: Bool = false, enabled: Bool = true) -> Control {
+            Control(controlType: .checkbox, isSelected: selected, isIndeterminate: indeterminate,
+                    hasError: error, isEnabled: enabled)
+        }
+
+        XCTAssertEqual(control().strokeColor, Ocean.color.colorInterfaceDarkUp)
+        XCTAssertEqual(control().checkboxFillColor, Ocean.color.colorInterfaceLightPure)
+        XCTAssertEqual(control(selected: true).checkboxFillColor, Ocean.color.colorComplementaryPure)
+        XCTAssertEqual(control(indeterminate: true).checkboxFillColor, Ocean.color.colorComplementaryPure)
+        XCTAssertEqual(control(error: true).strokeColor, Ocean.color.colorStatusNegativePure)
+        XCTAssertEqual(control(enabled: false).strokeColor, Ocean.color.colorInterfaceLightDown)
+        XCTAssertEqual(control(selected: true, enabled: false).checkboxFillColor, Ocean.color.colorInterfaceLightDeep)
+        XCTAssertEqual(control(selected: true, enabled: false).strokeColor, Ocean.color.colorInterfaceLightDeep)
+    }
+
+    // MARK: - Action types
+
+    func testActionDefaultsToChevron() {
+        let parameters = OceanSwiftUI.TransactionListActionParameters()
+
+        XCTAssertEqual(parameters.actionType, .chevron)
+        XCTAssertFalse(parameters.isMenuActive)
+    }
+
+    func testMenuIconColors() {
+        XCTAssertEqual(TransactionListMenuIcon(isActive: false, isDisabled: false).iconColor, Ocean.color.colorInterfaceDarkUp)
+        XCTAssertEqual(TransactionListMenuIcon(isActive: true, isDisabled: false).iconColor, Ocean.color.colorBrandPrimaryPure)
+        XCTAssertEqual(TransactionListMenuIcon(isActive: false, isDisabled: true).iconColor, Ocean.color.colorInterfaceLightDeep)
+    }
+
+    func testMenuKeepsTheRowHeightOfTheChevron() {
+        func height(_ type: OceanSwiftUI.TransactionListActionParameters.ActionType) -> CGFloat {
+            measuredHeight(OceanSwiftUI.TransactionListAction(parameters: .init(actionType: type,
+                                                                                contentList: content(),
+                                                                                amountDetails: amount())))
+        }
+
+        XCTAssertEqual(height(.menu), height(.chevron), accuracy: 0.5,
+                       "the 32pt menu touch area fits inside the content height")
+    }
+
     // MARK: - Children
 
     func testChildPositions() {

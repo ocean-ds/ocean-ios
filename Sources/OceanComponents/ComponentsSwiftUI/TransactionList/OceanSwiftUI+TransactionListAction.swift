@@ -12,23 +12,37 @@ extension OceanSwiftUI {
 
     // MARK: Parameters
 
-    /// Transaction row that leads to a detail: chevron on the right, pressed highlight and one
-    /// `onTouch` per touch (Figma `Transaction List Action`, type Chevron).
+    /// Transaction row with an action on the right, pressed highlight and one `onTouch` per touch
+    /// (Figma `Transaction List Action`, types Chevron and Menu).
     public final class TransactionListActionParameters: TransactionListParameters {
+        @Published public var actionType: ActionType
+        /// Menu only: the screen's contextual menu is open (Figma `State=Active`).
+        @Published public var isMenuActive: Bool
         public var onTouch: () -> Void
 
         public init(state: TransactionListState = .default,
+                    actionType: ActionType = .chevron,
+                    isMenuActive: Bool = false,
                     icon: UIImage? = nil,
                     contentList: ContentListParameters = ContentListParameters(),
                     amountDetails: AmountDetailsParameters = AmountDetailsParameters(),
                     showDivider: Bool = true,
                     onTouch: @escaping () -> Void = { }) {
+            self.actionType = actionType
+            self.isMenuActive = isMenuActive
             self.onTouch = onTouch
             super.init(state: state,
                        icon: icon,
                        contentList: contentList,
                        amountDetails: amountDetails,
                        showDivider: showDivider)
+        }
+
+        public enum ActionType {
+            /// Leads to a detail.
+            case chevron
+            /// Opens a contextual menu presented by the screen (same contract as `StatusListItem.contextMenu`).
+            case menu
         }
     }
 
@@ -64,18 +78,35 @@ extension OceanSwiftUI {
             SwiftUI.Button {
                 parameters.onTouch()
             } label: {
-                TransactionListRow(parameters: parameters) {
+                TransactionListRow(parameters: parameters, trailingPadding: trailingPadding) {
                     TransactionListLeadingIcon(parameters: parameters)
                 } trailing: {
                     if parameters.state != .loading {
-                        TransactionListActionIcon(image: Ocean.icon.chevronRightSolid,
-                                                  isDisabled: parameters.state == .disabled)
+                        actionIcon
                     }
                 }
                 .contentShape(Rectangle())
             }
             .buttonStyle(TransactionListPressableStyle())
             .disabled(!parameters.isEnabled)
+        }
+
+        private var trailingPadding: CGFloat {
+            parameters.actionType == .menu && parameters.state != .loading
+                ? Ocean.size.spacingStackXxs
+                : Ocean.size.spacingStackXs
+        }
+
+        @ViewBuilder
+        private var actionIcon: some View {
+            switch parameters.actionType {
+            case .chevron:
+                TransactionListActionIcon(image: Ocean.icon.chevronRightSolid,
+                                          isDisabled: parameters.state == .disabled)
+            case .menu:
+                TransactionListMenuIcon(isActive: parameters.isMenuActive && parameters.isEnabled,
+                                        isDisabled: parameters.state == .disabled)
+            }
         }
     }
 }
