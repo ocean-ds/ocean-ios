@@ -359,6 +359,38 @@ final class TransactionListFamilyTests: XCTestCase {
         XCTAssertEqual(TransactionListMenuIcon(isActive: false, isDisabled: true).iconColor, Ocean.color.colorInterfaceLightDeep)
     }
 
+    func testMenuBottomSheetReportsItsDismissal() {
+        var dismissals: [Bool] = []
+        let sheet = Ocean.ModalList(UIViewController())
+            .withValues(["Ver detalhes", "Compartilhar comprovante", "Cancelar"].map { Ocean.CellModel(title: $0) })
+            .withDismiss(true) { wasClosed in dismissals.append(wasClosed) }
+            .build()
+
+        XCTAssertTrue(sheet.swipeDismiss)
+        sheet.viewWillDisappear(false)
+
+        XCTAssertEqual(dismissals, [true], "the screen sets isMenuActive back to false when the sheet goes away")
+    }
+
+    func testModalListWithoutCompletionKeepsTheOldBehavior() {
+        let sheet = Ocean.ModalList(UIViewController()).withDismiss(false).build()
+
+        XCTAssertFalse(sheet.swipeDismiss)
+        XCTAssertNil(sheet.onDismiss)
+    }
+
+    func testMenuActiveStateIsDrivenByTheScreen() {
+        let parameters = OceanSwiftUI.TransactionListActionParameters(actionType: .menu)
+        var notifications = 0
+        let subscription = parameters.objectWillChange.sink { notifications += 1 }
+
+        parameters.isMenuActive = true
+        parameters.isMenuActive = false
+
+        XCTAssertEqual(notifications, 2)
+        subscription.cancel()
+    }
+
     func testMenuKeepsTheRowHeightOfTheChevron() {
         func height(_ type: OceanSwiftUI.TransactionListActionParameters.ActionType) -> CGFloat {
             measuredHeight(OceanSwiftUI.TransactionListAction(parameters: .init(actionType: type,

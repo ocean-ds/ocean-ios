@@ -14,9 +14,13 @@ extension OceanSwiftUI {
 
     /// Transaction row with an action on the right, pressed highlight and one `onTouch` per touch
     /// (Figma `Transaction List Action`, types Chevron and Menu).
+    ///
+    /// Menu: the component only shows the kebab and its Active state and calls `onTouch`. In the app the
+    /// screen presents the options in the Ocean bottom sheet (`Ocean.ModalList`), sets `isMenuActive = true`
+    /// while it is open and back to `false` when it is dismissed (`withDismiss(_:completion:)`).
     public final class TransactionListActionParameters: TransactionListParameters {
         @Published public var actionType: ActionType
-        /// Menu only: the screen's contextual menu is open (Figma `State=Active`).
+        /// Menu only: the options bottom sheet is open (Figma `State=Active`).
         @Published public var isMenuActive: Bool
         public var onTouch: () -> Void
 
@@ -41,7 +45,8 @@ extension OceanSwiftUI {
         public enum ActionType {
             /// Leads to a detail.
             case chevron
-            /// Opens a contextual menu presented by the screen (same contract as `StatusListItem.contextMenu`).
+            /// Kebab: the screen presents the options in the Ocean bottom sheet (`Ocean.ModalList`) on
+            /// `onTouch` — same contract as `StatusListItem.contextMenu`.
             case menu
         }
     }

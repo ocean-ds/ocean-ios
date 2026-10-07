@@ -16,8 +16,11 @@ extension Ocean {
             modalListViewController = ModalListViewController(rootViewController)
         }
         
-        public func withDismiss(_ value: Bool) -> ModalList {
+        /// `completion` runs when the sheet goes away (`true` = closed by the user, `false` = closed by
+        /// an option or action), like `Ocean.Modal.withDismiss(_:completion:)`.
+        public func withDismiss(_ value: Bool, completion: ((Bool) -> Void)? = nil) -> ModalList {
             modalListViewController.swipeDismiss = value
+            modalListViewController.onDismiss = completion
             return self
         }
         
