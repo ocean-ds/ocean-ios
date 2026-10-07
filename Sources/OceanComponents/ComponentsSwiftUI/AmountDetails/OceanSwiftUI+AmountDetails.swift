@@ -5,6 +5,7 @@
 //  Copyright © 2026 Blu Pagamentos. All rights reserved.
 //
 
+import Combine
 import SwiftUI
 import OceanTokens
 
@@ -23,8 +24,12 @@ extension OceanSwiftUI {
         @Published public var size: Size
         /// Optional tag below the value. Its size follows `size` (Medium in `.md`, Small in `.sm`)
         /// and it turns Neutral when `type == .inactive`.
-        @Published public var tag: TagParameters?
+        @Published public var tag: TagParameters? {
+            didSet { observeTag() }
+        }
         @Published public var additionalData: String
+
+        private var tagObservation: AnyCancellable?
 
         public init(amount: String = "",
                     strikethroughAmount: String = "",
@@ -38,6 +43,12 @@ extension OceanSwiftUI {
             self.size = size
             self.tag = tag
             self.additionalData = additionalData
+            observeTag()
+        }
+
+        /// Edits made through `tag` (label, status, icon) re-render the block.
+        private func observeTag() {
+            tagObservation = tag?.objectWillChange.sink { [weak self] _ in self?.objectWillChange.send() }
         }
 
         public enum AmountType {

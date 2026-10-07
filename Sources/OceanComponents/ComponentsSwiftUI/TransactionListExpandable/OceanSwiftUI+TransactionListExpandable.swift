@@ -5,6 +5,7 @@
 //  Created by Vinicius  Consulmagnos Romeiro on 02/03/26.
 //
 
+import Combine
 import SwiftUI
 import OceanTokens
 
@@ -22,12 +23,16 @@ extension OceanSwiftUI {
         /// Figma structure (MR-615): when set, the row is drawn by the Transaction List family —
         /// icon, Content List, Amount Details and the chevron — and `parent`/`children` are ignored.
         /// `nil` keeps the legacy rendering from `parent`/`children`.
-        @Published public var header: TransactionListParameters?
+        @Published public var header: TransactionListParameters? {
+            didSet { observeHeader() }
+        }
         /// Figma `Slot`: content shown when expanded, usually `TransactionListChildAction`/
         /// `TransactionListChildReadOnly` rows. Used with `header`; `bottomMessage` is the footer.
         @Published public var slot: AnyView?
         
         public var onStatusChange: (Status) -> Void
+
+        private var headerObservation: AnyCancellable?
         
         public init(parent: TransactionListItemParameters = .init(),
                     children: [TransactionListItemParameters] = [],
@@ -47,10 +52,16 @@ extension OceanSwiftUI {
             self.header = header
             self.slot = slot
             self.onStatusChange = onStatusChange
+            observeHeader()
         }
         
         public enum Status {
             case expanded, collapsed
+        }
+
+        /// State changes made through `header` (e.g. loading → default) re-render the expandable.
+        private func observeHeader() {
+            headerObservation = header?.objectWillChange.sink { [weak self] _ in self?.objectWillChange.send() }
         }
     }
     
@@ -109,7 +120,8 @@ extension OceanSwiftUI {
                         if header.state != .loading {
                             TransactionListActionIcon(image: Ocean.icon.chevronDownSolid,
                                                       isDisabled: !isEnabled)
-                                .rotationEffect(.degrees(rotation))
+                                .rotationEffect(.degrees(parameters.status == .collapsed ? 0 : -180))
+                                .animation(.linear(duration: animationDuration), value: parameters.status)
                         }
                     }
                     .contentShape(Rectangle())
@@ -141,9 +153,6 @@ extension OceanSwiftUI {
                 if parameters.hasDivider {
                     TransactionListDivider()
                 }
-            }
-            .onAppear {
-                rotation = parameters.status == .collapsed ? 0 : -180
             }
         }
 

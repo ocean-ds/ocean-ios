@@ -338,6 +338,11 @@ extension OceanSwiftUI {
         }
 
         var figmaDescriptionColor: UIColor {
+            // Inactive (disabled rows) always wins: a disabled row never keeps a custom color.
+            if parameters.type == .inactive {
+                return Ocean.color.colorInterfaceDarkUp
+            }
+
             if let descriptionColor = parameters.descriptionColor {
                 return descriptionColor
             }

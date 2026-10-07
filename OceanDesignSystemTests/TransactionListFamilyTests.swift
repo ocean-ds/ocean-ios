@@ -134,6 +134,13 @@ final class TransactionListFamilyTests: XCTestCase {
         XCTAssertEqual("strikethrough".toOceanContentType(), .strikethrough)
     }
 
+    func testInactiveWinsOverACustomDescriptionColorInTheFigmaMetrics() {
+        let parameters = content(.sm, type: .inactive)
+        parameters.descriptionColor = Ocean.color.colorStatusNegativePure
+
+        XCTAssertEqual(contentList(parameters).figmaDescriptionColor, Ocean.color.colorInterfaceDarkUp)
+    }
+
     // MARK: - Amount Details (shared block)
 
     func testNegativeAmountIsPrefixed() {
@@ -171,6 +178,18 @@ final class TransactionListFamilyTests: XCTestCase {
         XCTAssertEqual(amount(.sm).fontSize, Ocean.font.fontSizeXxs)
         XCTAssertLessThan(measuredHeight(OceanSwiftUI.AmountDetails(parameters: amount(.sm))),
                           measuredHeight(OceanSwiftUI.AmountDetails(parameters: amount(.md))))
+    }
+
+    func testTagEditsRefreshTheAmount() {
+        let parameters = amount()
+        var notifications = 0
+        let subscription = parameters.objectWillChange.sink { notifications += 1 }
+
+        parameters.tag?.label = "Novo"
+
+        XCTAssertEqual(notifications, 1)
+        XCTAssertEqual(parameters.resolvedTag?.label, "Novo")
+        subscription.cancel()
     }
 
     // MARK: - Rows
@@ -416,6 +435,20 @@ final class TransactionListFamilyTests: XCTestCase {
         XCTAssertEqual(parameters.status, .collapsed)
         XCTAssertTrue(parameters.hasDivider)
         XCTAssertGreaterThan(measuredHeight(OceanSwiftUI.TransactionListExpandable(parameters: parameters)), 0)
+    }
+
+    func testHeaderChangesRefreshTheExpandable() {
+        let header = OceanSwiftUI.TransactionListParameters(state: .loading)
+        let parameters = OceanSwiftUI.TransactionListExpandableParameters(header: header)
+        var notifications = 0
+        let subscription = parameters.objectWillChange.sink { notifications += 1 }
+
+        header.state = .default
+        parameters.header = OceanSwiftUI.TransactionListParameters()
+        parameters.header?.state = .disabled
+
+        XCTAssertGreaterThanOrEqual(notifications, 3)
+        subscription.cancel()
     }
 
     func testExpandableWithHeaderShowsTheSlotAndFooterOnlyWhenExpanded() {
