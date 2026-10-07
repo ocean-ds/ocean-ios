@@ -10,6 +10,7 @@ import UIKit
 import OceanTokens
 
 extension Ocean {
+    @available(*, deprecated, message: "Use the SwiftUI Transaction List family: OceanSwiftUI.TransactionListReadOnly, TransactionListAction, TransactionListSelectable, TransactionListExpandable, TransactionListChildAction and TransactionListChildReadOnly (UIKit hosts them through `uiView`).")
     public class TransactionListItem: UIView {
         public typealias TransactionListItemBuilder = (TransactionListItem) -> Void
 

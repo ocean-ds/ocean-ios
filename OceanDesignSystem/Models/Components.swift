@@ -112,6 +112,11 @@ struct DSComponents {
         "TransactionFooter",
         "TransactionListItem",
         "TransactionListExpandable",
+        "TransactionListReadOnly",
+        "TransactionListAction",
+        "TransactionListSelectable",
+        "TransactionListChildAction",
+        "TransactionListChildReadOnly",
         "Typography"
     ]
 }

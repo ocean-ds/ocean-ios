@@ -1,0 +1,395 @@
+//
+//  TransactionListFamilyTests.swift
+//  OceanDesignSystemTests
+//
+//  Copyright © 2026 Blu Pagamentos. All rights reserved.
+//
+
+import XCTest
+import SwiftUI
+import Combine
+import OceanTokens
+@testable import OceanComponents
+
+/// Transaction List family (MR-615): shared Content List / Amount Details blocks, the rows and the
+/// expandable with the Figma structure. Layout assertions measure the rendered height, the same way
+/// `TransactionFooterSpacingTests` does.
+final class TransactionListFamilyTests: XCTestCase {
+
+    private typealias ContentType = OceanSwiftUI.ContentListParameters.ContentListItemType
+
+    private let width: CGFloat = 360
+
+    override func setUp() {
+        super.setUp()
+        Ocean.installFonts()
+    }
+
+    // MARK: - Helpers
+
+    private func measuredHeight<V: View>(_ view: V) -> CGFloat {
+        let controller = UIHostingController(rootView: view.frame(width: width))
+        controller.view.frame = CGRect(x: 0, y: 0, width: width, height: 2000)
+        controller.view.layoutIfNeeded()
+        return controller.sizeThatFits(in: CGSize(width: width, height: .greatestFiniteMagnitude)).height
+    }
+
+    private func content(_ size: OceanSwiftUI.ContentListParameters.Size = .md,
+                         type: ContentType = .default) -> OceanSwiftUI.ContentListParameters {
+        .init(title: "Title", description: "Description", caption: "Caption", type: type, size: size)
+    }
+
+    private func amount(_ size: OceanSwiftUI.AmountDetailsParameters.Size = .md,
+                        type: OceanSwiftUI.AmountDetailsParameters.AmountType = .default) -> OceanSwiftUI.AmountDetailsParameters {
+        .init(amount: "R$ 10,00",
+              strikethroughAmount: "R$ 12,00",
+              type: type,
+              size: size,
+              tag: .init(label: "Label", status: .positive),
+              additionalData: "Additional data")
+    }
+
+    private func contentList(_ parameters: OceanSwiftUI.ContentListParameters) -> OceanSwiftUI.ContentList {
+        OceanSwiftUI.ContentList(parameters: parameters)
+    }
+
+    // MARK: - Content List (shared block)
+
+    func testContentListDefaultsKeepTheCurrentRendering() {
+        let parameters = OceanSwiftUI.ContentListParameters(title: "Title", description: "Description")
+
+        XCTAssertEqual(parameters.size, .md)
+        XCTAssertEqual(parameters.strikethroughText, "")
+        for type in [ContentType.default, .inactive, .highlight, .highlightLead] {
+            parameters.type = type
+            XCTAssertFalse(parameters.appliesFigmaMetrics, "existing type \(type) must keep the legacy rendering in md")
+        }
+    }
+
+    func testNewTypesSmallSizeAndTheFamilyUseTheFigmaMetrics() {
+        for type in [ContentType.positive, .warning, .strikethrough] {
+            XCTAssertTrue(content(type: type).appliesFigmaMetrics)
+        }
+        XCTAssertTrue(content(.sm).appliesFigmaMetrics)
+        XCTAssertTrue(content().resolved(usesFamilyMetrics: true).appliesFigmaMetrics)
+    }
+
+    func testSmallSizeUsesTheChildTypography() {
+        let small = contentList(content(.sm))
+        let medium = contentList(content().resolved(usesFamilyMetrics: true))
+
+        XCTAssertEqual(small.figmaTitleFont?.pointSize, Ocean.font.fontSizeXxxs)
+        XCTAssertEqual(small.figmaTitleFont?.fontName, UIFont.baseSemiBold(size: 12)?.fontName)
+        XCTAssertEqual(small.figmaDescriptionFont?.pointSize, Ocean.font.fontSizeXxs)
+        XCTAssertEqual(medium.figmaTitleFont?.pointSize, Ocean.font.fontSizeXxs)
+        XCTAssertEqual(medium.figmaDescriptionFont?.pointSize, Ocean.font.fontSizeXs)
+    }
+
+    func testContentTypesUseTheFigmaColors() {
+        XCTAssertEqual(contentList(content(type: .positive)).figmaDescriptionColor, Ocean.color.colorStatusPositiveDeep)
+        XCTAssertEqual(contentList(content(type: .warning)).figmaDescriptionColor, Ocean.color.colorStatusWarningDeep)
+        XCTAssertEqual(contentList(content(type: .strikethrough)).figmaDescriptionColor, Ocean.color.colorStatusPositiveDeep)
+        XCTAssertEqual(contentList(content(.sm, type: .inactive)).figmaDescriptionColor, Ocean.color.colorInterfaceDarkUp)
+        XCTAssertEqual(contentList(content(.sm, type: .inactive)).figmaTitleColor, Ocean.color.colorInterfaceDarkUp)
+        XCTAssertEqual(contentList(content(.sm)).figmaDescriptionColor, Ocean.color.colorInterfaceDarkDeep)
+        XCTAssertEqual(contentList(content(.sm)).figmaTitleColor, Ocean.color.colorInterfaceDarkDown)
+    }
+
+    func testSmallContentIsShorterThanMedium() {
+        let medium = measuredHeight(contentList(content(type: .positive).resolved(padding: .all(0))))
+        let small = measuredHeight(contentList(content(.sm, type: .positive).resolved(padding: .all(0))))
+
+        XCTAssertLessThan(small, medium)
+    }
+
+    func testStrikethroughTextIsDrawnOnTheDescriptionLine() {
+        let withoutStrike = content(type: .strikethrough).resolved(padding: .all(0))
+        let withStrike = content(type: .strikethrough).resolved(padding: .all(0))
+        withStrike.strikethroughText = "Strikethrough"
+
+        XCTAssertEqual(measuredHeight(contentList(withStrike)), measuredHeight(contentList(withoutStrike)), accuracy: 0.5,
+                       "the struck text sits beside the description, not on a new line")
+    }
+
+    func testResolvedCopyKeepsTheContent() {
+        let source = content(.sm, type: .strikethrough)
+        source.strikethroughText = "R$ 1,00"
+        source.tagTitle = "Tag"
+
+        let copy = source.resolved(type: .inactive, padding: .all(0))
+
+        XCTAssertEqual(copy.title, source.title)
+        XCTAssertEqual(copy.description, source.description)
+        XCTAssertEqual(copy.caption, source.caption)
+        XCTAssertEqual(copy.tagTitle, source.tagTitle)
+        XCTAssertEqual(copy.size, .sm)
+        XCTAssertEqual(copy.strikethroughText, "R$ 1,00")
+        XCTAssertEqual(copy.type, .inactive)
+        XCTAssertEqual(copy.padding, .all(0))
+    }
+
+    func testNewTypesAreAvailableFromTokens() {
+        XCTAssertEqual("positive".toOceanContentType(), .positive)
+        XCTAssertEqual("warning".toOceanContentType(), .warning)
+        XCTAssertEqual("strikethrough".toOceanContentType(), .strikethrough)
+    }
+
+    // MARK: - Amount Details (shared block)
+
+    func testNegativeAmountIsPrefixed() {
+        XCTAssertEqual(amount(type: .negative).displayAmount, "- R$ 10,00")
+        XCTAssertEqual(amount(type: .positive).displayAmount, "R$ 10,00")
+    }
+
+    func testAmountColorsFollowTheType() {
+        XCTAssertEqual(amount(type: .default).amountColor, Ocean.color.colorInterfaceDarkDeep)
+        XCTAssertEqual(amount(type: .negative).amountColor, Ocean.color.colorInterfaceDarkDeep)
+        XCTAssertEqual(amount(type: .positive).amountColor, Ocean.color.colorStatusPositiveDeep)
+        XCTAssertEqual(amount(type: .strikethrough).amountColor, Ocean.color.colorStatusPositiveDeep)
+        XCTAssertEqual(amount(type: .strikethroughNeutral).amountColor, Ocean.color.colorInterfaceDarkDeep)
+        XCTAssertEqual(amount(type: .inactive).amountColor, Ocean.color.colorInterfaceDarkUp)
+        XCTAssertEqual(amount(type: .inactive).additionalDataColor, Ocean.color.colorInterfaceDarkUp)
+    }
+
+    func testStrikethroughIsShownOnlyForTheStrikethroughTypes() {
+        XCTAssertTrue(amount(type: .strikethrough).showsStrikethrough)
+        XCTAssertTrue(amount(type: .strikethroughNeutral).showsStrikethrough)
+        XCTAssertFalse(amount(type: .default).showsStrikethrough)
+        XCTAssertFalse(OceanSwiftUI.AmountDetailsParameters(amount: "Grátis", type: .strikethrough).showsStrikethrough)
+    }
+
+    func testTagSizeFollowsTheAmountSizeAndTurnsNeutralWhenInactive() {
+        XCTAssertEqual(amount(.md).resolvedTag?.size, .medium)
+        XCTAssertEqual(amount(.sm).resolvedTag?.size, .small)
+        XCTAssertEqual(amount(type: .positive).resolvedTag?.status, .positive)
+        XCTAssertEqual(amount(type: .inactive).resolvedTag?.status, .neutralInterface)
+        XCTAssertNil(OceanSwiftUI.AmountDetailsParameters(amount: "R$ 1,00", tag: .init(label: "")).resolvedTag)
+    }
+
+    func testAmountFontSizes() {
+        XCTAssertEqual(amount(.md).fontSize, Ocean.font.fontSizeXs)
+        XCTAssertEqual(amount(.sm).fontSize, Ocean.font.fontSizeXxs)
+        XCTAssertLessThan(measuredHeight(OceanSwiftUI.AmountDetails(parameters: amount(.sm))),
+                          measuredHeight(OceanSwiftUI.AmountDetails(parameters: amount(.md))))
+    }
+
+    // MARK: - Rows
+
+    func testDisabledRowUsesTheInactiveTypes() {
+        let parameters = OceanSwiftUI.TransactionListReadOnlyParameters(state: .disabled,
+                                                                        contentList: content(type: .positive),
+                                                                        amountDetails: amount(type: .positive))
+
+        XCTAssertEqual(parameters.resolvedContentList().type, .inactive)
+        XCTAssertEqual(parameters.resolvedAmountDetails().type, .inactive)
+        XCTAssertEqual(parameters.resolvedAmountDetails().resolvedTag?.status, .neutralInterface)
+        XCTAssertFalse(parameters.isEnabled)
+    }
+
+    func testDefaultRowKeepsItsTypesAndUsesTheFamilyMetrics() {
+        let parameters = OceanSwiftUI.TransactionListReadOnlyParameters(contentList: content(type: .warning),
+                                                                        amountDetails: amount(type: .negative))
+
+        XCTAssertEqual(parameters.resolvedContentList().type, .warning)
+        XCTAssertTrue(parameters.resolvedContentList().usesFamilyMetrics)
+        XCTAssertEqual(parameters.resolvedContentList().padding, .all(0))
+        XCTAssertEqual(parameters.resolvedAmountDetails().type, .negative)
+        XCTAssertTrue(parameters.isEnabled)
+        XCTAssertFalse(OceanSwiftUI.TransactionListReadOnlyParameters(state: .loading).isEnabled)
+    }
+
+    func testContentAndAmountSizesAreIndependent() {
+        let mixed = OceanSwiftUI.TransactionListReadOnlyParameters(contentList: content(.sm), amountDetails: amount(.md))
+
+        XCTAssertEqual(mixed.resolvedContentList().size, .sm)
+        XCTAssertEqual(mixed.resolvedAmountDetails().size, .md)
+
+        func row(_ contentSize: OceanSwiftUI.ContentListParameters.Size,
+                 _ amountSize: OceanSwiftUI.AmountDetailsParameters.Size) -> CGFloat {
+            measuredHeight(OceanSwiftUI.TransactionListReadOnly(parameters: .init(contentList: content(contentSize),
+                                                                                  amountDetails: amount(amountSize),
+                                                                                  showDivider: false)))
+        }
+
+        XCTAssertLessThan(row(.sm, .sm), row(.md, .md))
+        XCTAssertLessThan(row(.sm, .sm), row(.sm, .md), "a bigger amount grows the row while the content stays small")
+    }
+
+    func testDividerAddsOnePoint() {
+        let withDivider = measuredHeight(OceanSwiftUI.TransactionListReadOnly(parameters: .init(contentList: content(),
+                                                                                                amountDetails: amount())))
+        let withoutDivider = measuredHeight(OceanSwiftUI.TransactionListReadOnly(parameters: .init(contentList: content(),
+                                                                                                   amountDetails: amount(),
+                                                                                                   showDivider: false)))
+
+        XCTAssertEqual(withDivider - withoutDivider, 1, accuracy: 0.5)
+    }
+
+    func testRowPaddingIsSpacingStackXs() {
+        let row = measuredHeight(OceanSwiftUI.TransactionListReadOnly(parameters: .init(contentList: content(),
+                                                                                        amountDetails: amount(),
+                                                                                        showDivider: false)))
+        let block = measuredHeight(HStack(spacing: Ocean.size.spacingStackXxs) {
+            OceanSwiftUI.ContentList(parameters: content().resolved(padding: .all(0), usesFamilyMetrics: true))
+            OceanSwiftUI.AmountDetails(parameters: amount())
+        })
+
+        XCTAssertEqual(row - block, Ocean.size.spacingStackXs * 2, accuracy: 0.5)
+    }
+
+    func testNestedChangesRefreshTheRow() {
+        let parameters = OceanSwiftUI.TransactionListActionParameters(contentList: content(), amountDetails: amount())
+        var notifications = 0
+        let subscription = parameters.objectWillChange.sink { notifications += 1 }
+
+        parameters.contentList.title = "Other"
+        parameters.amountDetails.amount = "R$ 1,00"
+        parameters.contentList = content()
+        parameters.contentList.description = "Observed after replacing the block"
+
+        XCTAssertGreaterThanOrEqual(notifications, 4)
+        subscription.cancel()
+    }
+
+    func testActionKeepsItsCallback() {
+        var touches = 0
+        let parameters = OceanSwiftUI.TransactionListActionParameters(onTouch: { touches += 1 })
+
+        parameters.onTouch()
+
+        XCTAssertEqual(touches, 1)
+        XCTAssertTrue(parameters.showDivider)
+    }
+
+    // MARK: - Selectable
+
+    func testCheckboxTogglesAndIndeterminateBecomesSelected() {
+        var selections: [Bool] = []
+        let parameters = OceanSwiftUI.TransactionListSelectableParameters(isIndeterminate: true,
+                                                                          hasError: true,
+                                                                          onSelection: { selections.append($0) })
+
+        parameters.toggleSelection()
+        XCTAssertTrue(parameters.isSelected)
+        XCTAssertFalse(parameters.isIndeterminate)
+        XCTAssertFalse(parameters.hasError)
+
+        parameters.toggleSelection()
+        XCTAssertFalse(parameters.isSelected)
+        XCTAssertEqual(selections, [true, false])
+    }
+
+    func testRadioOnlySelects() {
+        let parameters = OceanSwiftUI.TransactionListSelectableParameters(controlType: .radio)
+
+        parameters.toggleSelection()
+        parameters.toggleSelection()
+
+        XCTAssertTrue(parameters.isSelected)
+    }
+
+    func testSelectableDefaultsToTheAppVersion() {
+        let parameters = OceanSwiftUI.TransactionListSelectableParameters()
+
+        XCTAssertEqual(parameters.controlType, .checkbox)
+        XCTAssertEqual(parameters.controlPosition, .trailing)
+        XCTAssertNil(parameters.icon)
+    }
+
+    func testSelectableUsesSpacingStackXsBeforeTheControl() {
+        func height(_ position: OceanSwiftUI.TransactionListSelectableParameters.ControlPosition) -> CGFloat {
+            measuredHeight(OceanSwiftUI.TransactionListSelectable(parameters: .init(controlPosition: position,
+                                                                                    contentList: content(),
+                                                                                    amountDetails: amount())))
+        }
+
+        XCTAssertEqual(height(.trailing), height(.leading), accuracy: 0.5)
+    }
+
+    // MARK: - Children
+
+    func testChildPositions() {
+        typealias Position = OceanSwiftUI.TransactionListChildPosition
+
+        XCTAssertEqual(Position.position(at: 0, count: 1), .standalone)
+        XCTAssertEqual(Position.position(at: 0, count: 3), .first)
+        XCTAssertEqual(Position.position(at: 1, count: 3), .middle)
+        XCTAssertEqual(Position.position(at: 2, count: 3), .last)
+
+        XCTAssertFalse(Position.standalone.hasLineAbove || Position.standalone.hasLineBelow)
+        XCTAssertTrue(Position.first.hasLineBelow && !Position.first.hasLineAbove)
+        XCTAssertTrue(Position.middle.hasLineAbove && Position.middle.hasLineBelow)
+        XCTAssertTrue(Position.last.hasLineAbove && !Position.last.hasLineBelow)
+    }
+
+    func testChildrenDefaultToTheSmallSizesWithoutDivider() {
+        let action = OceanSwiftUI.TransactionListChildActionParameters()
+        let readOnly = OceanSwiftUI.TransactionListChildReadOnlyParameters()
+
+        for parameters in [action as OceanSwiftUI.TransactionListParameters, readOnly] {
+            XCTAssertEqual(parameters.contentList.size, .sm)
+            XCTAssertEqual(parameters.amountDetails.size, .sm)
+            XCTAssertFalse(parameters.showDivider)
+            XCTAssertEqual(parameters.iconColor, Ocean.color.colorInterfaceLightDown)
+        }
+    }
+
+    func testChildContentHasSpacingStackXxsExtraOfVerticalPadding() {
+        let child = measuredHeight(OceanSwiftUI.TransactionListChildReadOnly(parameters: .init(contentList: content(.sm),
+                                                                                               amountDetails: amount(.sm))))
+        let block = measuredHeight(HStack(spacing: Ocean.size.spacingStackXxs) {
+            OceanSwiftUI.ContentList(parameters: content(.sm).resolved(padding: .all(0), usesFamilyMetrics: true))
+            OceanSwiftUI.AmountDetails(parameters: amount(.sm))
+        })
+
+        XCTAssertEqual(child - block, Ocean.size.spacingStackXxsExtra * 2, accuracy: 0.5)
+    }
+
+    func testChildPositionDoesNotChangeTheHeight() {
+        func height(_ position: OceanSwiftUI.TransactionListChildPosition) -> CGFloat {
+            measuredHeight(OceanSwiftUI.TransactionListChildAction(parameters: .init(position: position,
+                                                                                     icon: Ocean.icon.placeholderSolid,
+                                                                                     contentList: content(.sm),
+                                                                                     amountDetails: amount(.sm))))
+        }
+
+        let standalone = height(.standalone)
+        XCTAssertEqual(height(.first), standalone, accuracy: 0.5)
+        XCTAssertEqual(height(.middle), standalone, accuracy: 0.5)
+        XCTAssertEqual(height(.last), standalone, accuracy: 0.5)
+    }
+
+    // MARK: - Expandable
+
+    func testExpandableWithoutHeaderKeepsTheLegacyApi() {
+        let parameters = OceanSwiftUI.TransactionListExpandableParameters(parent: .init(level2: "Retenções", value1: -10),
+                                                                          children: [.init(level1: "Filho")],
+                                                                          bottomMessage: "Fim")
+
+        XCTAssertNil(parameters.header)
+        XCTAssertNil(parameters.slot)
+        XCTAssertEqual(parameters.status, .collapsed)
+        XCTAssertTrue(parameters.hasDivider)
+        XCTAssertGreaterThan(measuredHeight(OceanSwiftUI.TransactionListExpandable(parameters: parameters)), 0)
+    }
+
+    func testExpandableWithHeaderShowsTheSlotAndFooterOnlyWhenExpanded() {
+        func expandable(_ status: OceanSwiftUI.TransactionListExpandableParameters.Status,
+                        footer: String = "Additional information") -> CGFloat {
+            let slot = OceanSwiftUI.TransactionListChildReadOnly(parameters: .init(contentList: content(.sm),
+                                                                                   amountDetails: amount(.sm)))
+            return measuredHeight(OceanSwiftUI.TransactionListExpandable(parameters: .init(bottomMessage: footer,
+                                                                                           status: status,
+                                                                                           header: .init(contentList: content(),
+                                                                                                         amountDetails: amount()),
+                                                                                           slot: AnyView(slot))))
+        }
+
+        let header = measuredHeight(OceanSwiftUI.TransactionListReadOnly(parameters: .init(contentList: content(),
+                                                                                           amountDetails: amount())))
+
+        XCTAssertEqual(expandable(.collapsed), header, accuracy: 0.5, "collapsed = header + divider, like the Read Only row")
+        XCTAssertGreaterThan(expandable(.expanded), expandable(.expanded, footer: ""))
+        XCTAssertGreaterThan(expandable(.expanded, footer: ""), header)
+    }
+}

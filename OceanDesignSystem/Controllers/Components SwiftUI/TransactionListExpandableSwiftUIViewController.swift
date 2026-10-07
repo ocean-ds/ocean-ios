@@ -48,7 +48,11 @@ class TransactionListExpandableSwiftUIViewController: UIViewController {
     
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
-            Spacer(minLength: Ocean.size.spacingStackSm)
+            TransactionListExpandableFamilyDemo()
+
+            TransactionListDemoSection(title: "Legado (parent + children)") {
+                EmptyView()
+            }
             
             transactionListExpandable1
             
@@ -68,6 +72,50 @@ class TransactionListExpandableSwiftUIViewController: UIViewController {
         uiView.oceanConstraints
             .fill(to: self.view)
             .make()
+    }
+}
+
+/// CT-4: Figma structure (header + slot) — collapsed, expanded, disabled and loading.
+struct TransactionListExpandableFamilyDemo: View {
+    var body: some View {
+        TransactionListDemoSection(title: "Fechada") {
+            expandable(status: .collapsed)
+        }
+
+        TransactionListDemoSection(title: "Aberta, com filhos e rodapé") {
+            expandable(status: .expanded)
+        }
+
+        TransactionListDemoSection(title: "Desabilitada") {
+            expandable(state: .disabled, status: .collapsed)
+            expandable(state: .disabled, status: .expanded)
+        }
+
+        TransactionListDemoSection(title: "Carregando") {
+            expandable(state: .loading, status: .collapsed)
+        }
+    }
+
+    private func expandable(state: OceanSwiftUI.TransactionListState = .default,
+                            status: OceanSwiftUI.TransactionListExpandableParameters.Status) -> some View {
+        let header = OceanSwiftUI.TransactionListParameters(state: state,
+                                                            icon: Ocean.icon.placeholderOutline,
+                                                            contentList: TransactionListDemo.content(),
+                                                            amountDetails: TransactionListDemo.amount())
+        let children = VStack(spacing: 0) {
+            ForEach(0..<3, id: \.self) { index in
+                OceanSwiftUI.TransactionListChildAction(parameters: .init(state: state == .disabled ? .disabled : .default,
+                                                                          position: .position(at: index, count: 3),
+                                                                          icon: Ocean.icon.placeholderSolid,
+                                                                          contentList: TransactionListDemo.content(.sm),
+                                                                          amountDetails: TransactionListDemo.amount(.sm)))
+            }
+        }
+
+        return OceanSwiftUI.TransactionListExpandable(parameters: .init(bottomMessage: "Additional information",
+                                                                        status: status,
+                                                                        header: header,
+                                                                        slot: AnyView(children)))
     }
 }
 

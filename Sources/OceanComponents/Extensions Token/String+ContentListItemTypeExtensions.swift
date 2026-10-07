@@ -16,6 +16,9 @@ public extension String {
         case "inactive": return OceanSwiftUI.ContentListParameters.ContentListItemType.inactive
         case "highlight": return OceanSwiftUI.ContentListParameters.ContentListItemType.highlight
         case "highlightLead": return OceanSwiftUI.ContentListParameters.ContentListItemType.highlightLead
+        case "positive": return OceanSwiftUI.ContentListParameters.ContentListItemType.positive
+        case "warning": return OceanSwiftUI.ContentListParameters.ContentListItemType.warning
+        case "strikethrough": return OceanSwiftUI.ContentListParameters.ContentListItemType.strikethrough
         case "default": return OceanSwiftUI.ContentListParameters.ContentListItemType.default
         default: return nil
         }
