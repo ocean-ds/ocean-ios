@@ -48,19 +48,20 @@ struct TransactionListReadOnlyDemo: View {
                 .background(Color(Ocean.color.colorStatusNegativeUp))
         }
 
-        TransactionListDemoSection(title: "Densidade (default × compact)") {
-            ForEach(TransactionListDemo.densities, id: \.0) { _, density in
+        ForEach(TransactionListDemo.densities, id: \.0) { title, density in
+            TransactionListDemoSection(title: "Densidade \(title.lowercased()) · md · sm · filho · loading") {
                 OceanSwiftUI.TransactionListReadOnly(parameters: .init(icon: Ocean.icon.placeholderOutline,
                                                                        contentList: TransactionListDemo.content(),
                                                                        amountDetails: TransactionListDemo.amount(),
                                                                        density: density))
-                OceanSwiftUI.TransactionListAction(parameters: .init(icon: Ocean.icon.placeholderOutline,
-                                                                     contentList: TransactionListDemo.content(),
-                                                                     amountDetails: TransactionListDemo.amount(),
-                                                                     density: density))
-                OceanSwiftUI.TransactionListSelectable(parameters: .init(contentList: TransactionListDemo.content(),
-                                                                         amountDetails: TransactionListDemo.amount(),
-                                                                         density: density))
+                OceanSwiftUI.TransactionListReadOnly(parameters: .init(icon: Ocean.icon.placeholderOutline,
+                                                                       contentList: TransactionListDemo.content(.sm),
+                                                                       amountDetails: TransactionListDemo.amount(.sm),
+                                                                       density: density))
+                OceanSwiftUI.TransactionListChildReadOnly(parameters: .init(icon: Ocean.icon.placeholderSolid,
+                                                                            contentList: TransactionListDemo.content(.sm),
+                                                                            amountDetails: TransactionListDemo.amount(.sm),
+                                                                            density: density))
                 OceanSwiftUI.TransactionListReadOnly(parameters: .init(state: .loading, density: density))
             }
         }
