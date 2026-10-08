@@ -72,7 +72,9 @@ extension OceanSwiftUI {
     public class TransactionListParameters: ObservableObject {
         @Published public var state: TransactionListState
         @Published public var icon: UIImage?
-        @Published public var iconColor: TransactionListIconColor
+        /// `nil` = the row's own default: `.default` (`Interface/Dark/Up`) for top level rows and
+        /// `Interface/Light/Down` for child rows (timeline icon).
+        @Published public var iconColor: TransactionListIconColor?
         @Published public var contentList: ContentListParameters {
             didSet { observeNestedParameters() }
         }
@@ -85,7 +87,7 @@ extension OceanSwiftUI {
 
         public init(state: TransactionListState = .default,
                     icon: UIImage? = nil,
-                    iconColor: TransactionListIconColor = .default,
+                    iconColor: TransactionListIconColor? = .default,
                     contentList: ContentListParameters = ContentListParameters(),
                     amountDetails: AmountDetailsParameters = AmountDetailsParameters(),
                     showDivider: Bool = true) {
@@ -102,8 +104,12 @@ extension OceanSwiftUI {
 
         /// Icon color as drawn: disabled forces `Interface/Light/Deep`.
         var resolvedIconColor: UIColor {
-            state == .disabled ? Ocean.color.colorInterfaceLightDeep : iconColor.color
+            if state == .disabled { return Ocean.color.colorInterfaceLightDeep }
+            return iconColor?.color ?? defaultIconColor
         }
+
+        /// Color used when `iconColor` is `nil`; child rows use `Interface/Light/Down`.
+        var defaultIconColor: UIColor { TransactionListIconColor.default.color }
 
         /// Content block as drawn by the row: Figma metrics, no own padding/skeleton, `inactive` when disabled.
         func resolvedContentList() -> ContentListParameters {

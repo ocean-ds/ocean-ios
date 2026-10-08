@@ -13,7 +13,7 @@ extension OceanSwiftUI {
     // MARK: Parameters
 
     /// Child row that leads to a detail, linked to its siblings by the timeline
-    /// (Figma `_Child Transaction List Action`). Content and amount default to `.sm`.
+    /// (Figma `_Child Transaction List Action`). Content and amount default to `.sm`; the icon defaults to `Interface/Light/Down` unless `iconColor` is set.
     public final class TransactionListChildActionParameters: TransactionListParameters {
         @Published public var position: TransactionListChildPosition
         public var onTouch: () -> Void
@@ -21,7 +21,7 @@ extension OceanSwiftUI {
         public init(state: TransactionListState = .default,
                     position: TransactionListChildPosition = .standalone,
                     icon: UIImage? = nil,
-                    iconColor: TransactionListIconColor = .default,
+                    iconColor: TransactionListIconColor? = nil,
                     contentList: ContentListParameters = ContentListParameters(size: .sm),
                     amountDetails: AmountDetailsParameters = AmountDetailsParameters(size: .sm),
                     onTouch: @escaping () -> Void = { }) {
@@ -34,6 +34,9 @@ extension OceanSwiftUI {
                        amountDetails: amountDetails,
                        showDivider: false)
         }
+
+        /// Without an explicit `iconColor`, the timeline icon is `Interface/Light/Down` (Figma child rows).
+        override var defaultIconColor: UIColor { Ocean.color.colorInterfaceLightDown }
     }
 
     public struct TransactionListChildAction: View {

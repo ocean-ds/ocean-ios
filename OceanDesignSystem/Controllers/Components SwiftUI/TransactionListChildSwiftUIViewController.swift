@@ -36,6 +36,13 @@ struct TransactionListChildDemo: View {
             }
         }
 
+        TransactionListDemoSection(title: "Cor do ícone (sem escolha = Light/Down · default · onColor · highlight)") {
+            child(state: .default, position: .first)
+            ForEach(Array(TransactionListDemo.iconColors.enumerated()), id: \.offset) { index, item in
+                child(state: .default, position: index == 2 ? .last : .middle, iconColor: item.1)
+            }
+        }
+
         TransactionListDemoSection(title: "Linha do tempo contínua (First · Middle · Last)") {
             ForEach(0..<3, id: \.self) { index in
                 child(state: .default, position: .position(at: index, count: 3))
@@ -45,11 +52,13 @@ struct TransactionListChildDemo: View {
 
     @ViewBuilder
     private func child(state: OceanSwiftUI.TransactionListState,
-                       position: OceanSwiftUI.TransactionListChildPosition) -> some View {
+                       position: OceanSwiftUI.TransactionListChildPosition,
+                       iconColor: OceanSwiftUI.TransactionListIconColor? = nil) -> some View {
         if hasAction {
             OceanSwiftUI.TransactionListChildAction(parameters: .init(state: state,
                                                                       position: position,
                                                                       icon: Ocean.icon.placeholderSolid,
+                                                                      iconColor: iconColor,
                                                                       contentList: TransactionListDemo.content(.sm),
                                                                       amountDetails: TransactionListDemo.amount(.sm),
                                                                       onTouch: { touches += 1 }))
@@ -57,6 +66,7 @@ struct TransactionListChildDemo: View {
             OceanSwiftUI.TransactionListChildReadOnly(parameters: .init(state: state,
                                                                         position: position,
                                                                         icon: Ocean.icon.placeholderSolid,
+                                                                        iconColor: iconColor,
                                                                         contentList: TransactionListDemo.content(.sm),
                                                                         amountDetails: TransactionListDemo.amount(.sm)))
         }

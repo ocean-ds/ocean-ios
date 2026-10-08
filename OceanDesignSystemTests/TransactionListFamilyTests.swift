@@ -289,6 +289,19 @@ final class TransactionListFamilyTests: XCTestCase {
         XCTAssertEqual(OceanSwiftUI.TransactionListReadOnlyParameters().iconColor, .default)
     }
 
+    func testChildIconDefaultsToLightDownAndAnExplicitColorOverridesIt() {
+        let child = OceanSwiftUI.TransactionListChildActionParameters()
+        XCTAssertEqual(child.resolvedIconColor, Ocean.color.colorInterfaceLightDown)
+
+        for iconColor in [OceanSwiftUI.TransactionListIconColor.default, .onColor, .highlight] {
+            XCTAssertEqual(OceanSwiftUI.TransactionListChildReadOnlyParameters(iconColor: iconColor).resolvedIconColor, iconColor.color)
+        }
+
+        XCTAssertEqual(OceanSwiftUI.TransactionListChildReadOnlyParameters(state: .disabled).resolvedIconColor,
+                       Ocean.color.colorInterfaceLightDeep)
+        XCTAssertEqual(OceanSwiftUI.TransactionListReadOnlyParameters().resolvedIconColor, Ocean.color.colorInterfaceDarkUp)
+    }
+
     func testDisabledForcesTheIconToLightDeep() {
         for iconColor in [OceanSwiftUI.TransactionListIconColor.default, .onColor, .highlight] {
             let row = OceanSwiftUI.TransactionListActionParameters(state: .disabled, iconColor: iconColor)
@@ -467,7 +480,8 @@ final class TransactionListFamilyTests: XCTestCase {
             XCTAssertEqual(parameters.contentList.size, .sm)
             XCTAssertEqual(parameters.amountDetails.size, .sm)
             XCTAssertFalse(parameters.showDivider)
-            XCTAssertEqual(parameters.iconColor, .default)
+            XCTAssertNil(parameters.iconColor)
+            XCTAssertEqual(parameters.resolvedIconColor, Ocean.color.colorInterfaceLightDown)
         }
     }
 
