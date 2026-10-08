@@ -21,6 +21,7 @@ extension OceanSwiftUI {
         public init(state: TransactionListState = .default,
                     position: TransactionListChildPosition = .standalone,
                     icon: UIImage? = nil,
+                    iconColor: TransactionListIconColor = .default,
                     contentList: ContentListParameters = ContentListParameters(size: .sm),
                     amountDetails: AmountDetailsParameters = AmountDetailsParameters(size: .sm),
                     onTouch: @escaping () -> Void = { }) {
@@ -28,7 +29,7 @@ extension OceanSwiftUI {
             self.onTouch = onTouch
             super.init(state: state,
                        icon: icon,
-                       iconColor: Ocean.color.colorInterfaceLightDown,
+                       iconColor: iconColor,
                        contentList: contentList,
                        amountDetails: amountDetails,
                        showDivider: false)

@@ -24,6 +24,16 @@ struct TransactionListReadOnlyDemo: View {
             }
         }
 
+        TransactionListDemoSection(title: "Cor do ícone (default · onColor · highlight · disabled)") {
+            ForEach(TransactionListDemo.iconColors, id: \.0) { _, iconColor in
+                OceanSwiftUI.TransactionListReadOnly(parameters: .init(icon: Ocean.icon.placeholderOutline,
+                                                                       iconColor: iconColor,
+                                                                       contentList: TransactionListDemo.content(),
+                                                                       amountDetails: TransactionListDemo.amount()))
+            }
+            row(state: .disabled)
+        }
+
         TransactionListDemoSection(title: "Tamanhos (conteúdo × valor)") {
             ForEach(TransactionListDemo.sizes, id: \.0) { _, contentSize, amountSize in
                 row(content: TransactionListDemo.content(contentSize),

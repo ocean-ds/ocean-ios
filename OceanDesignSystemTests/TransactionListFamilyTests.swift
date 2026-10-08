@@ -280,6 +280,26 @@ final class TransactionListFamilyTests: XCTestCase {
         XCTAssertTrue(parameters.showDivider)
     }
 
+    func testIconColorsAreClosedTokens() {
+        typealias IconColor = OceanSwiftUI.TransactionListIconColor
+
+        XCTAssertEqual(IconColor.default.color, Ocean.color.colorInterfaceDarkUp)
+        XCTAssertEqual(IconColor.onColor.color, Ocean.color.colorInterfaceDarkDown)
+        XCTAssertEqual(IconColor.highlight.color, Ocean.color.colorBrandPrimaryDown)
+        XCTAssertEqual(OceanSwiftUI.TransactionListReadOnlyParameters().iconColor, .default)
+    }
+
+    func testDisabledForcesTheIconToLightDeep() {
+        for iconColor in [OceanSwiftUI.TransactionListIconColor.default, .onColor, .highlight] {
+            let row = OceanSwiftUI.TransactionListActionParameters(state: .disabled, iconColor: iconColor)
+            let child = OceanSwiftUI.TransactionListChildReadOnlyParameters(state: .disabled, iconColor: iconColor)
+
+            XCTAssertEqual(row.resolvedIconColor, Ocean.color.colorInterfaceLightDeep)
+            XCTAssertEqual(child.resolvedIconColor, Ocean.color.colorInterfaceLightDeep)
+            XCTAssertEqual(OceanSwiftUI.TransactionListParameters(iconColor: iconColor).resolvedIconColor, iconColor.color)
+        }
+    }
+
     // MARK: - Selectable
 
     func testCheckboxTogglesAndIndeterminateBecomesSelected() {
@@ -426,7 +446,7 @@ final class TransactionListFamilyTests: XCTestCase {
             XCTAssertEqual(parameters.contentList.size, .sm)
             XCTAssertEqual(parameters.amountDetails.size, .sm)
             XCTAssertFalse(parameters.showDivider)
-            XCTAssertEqual(parameters.iconColor, Ocean.color.colorInterfaceLightDown)
+            XCTAssertEqual(parameters.iconColor, .default)
         }
     }
 

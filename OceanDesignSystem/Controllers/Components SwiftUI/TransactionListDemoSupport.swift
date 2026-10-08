@@ -39,6 +39,12 @@ enum TransactionListDemo {
         ("Disabled", .disabled)
     ]
 
+    static let iconColors: [(String, OceanSwiftUI.TransactionListIconColor)] = [
+        ("Default", .default),
+        ("On color", .onColor),
+        ("Highlight", .highlight)
+    ]
+
     static let positions: [(String, OceanSwiftUI.TransactionListChildPosition)] = [
         ("Standalone", .standalone),
         ("First", .first),

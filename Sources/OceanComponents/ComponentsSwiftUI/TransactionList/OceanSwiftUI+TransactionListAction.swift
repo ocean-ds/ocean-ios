@@ -28,6 +28,7 @@ extension OceanSwiftUI {
                     actionType: ActionType = .chevron,
                     isMenuActive: Bool = false,
                     icon: UIImage? = nil,
+                    iconColor: TransactionListIconColor = .default,
                     contentList: ContentListParameters = ContentListParameters(),
                     amountDetails: AmountDetailsParameters = AmountDetailsParameters(),
                     showDivider: Bool = true,
@@ -37,6 +38,7 @@ extension OceanSwiftUI {
             self.onTouch = onTouch
             super.init(state: state,
                        icon: icon,
+                       iconColor: iconColor,
                        contentList: contentList,
                        amountDetails: amountDetails,
                        showDivider: showDivider)
