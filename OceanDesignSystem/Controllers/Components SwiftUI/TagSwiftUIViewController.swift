@@ -114,6 +114,25 @@ class TagSwiftUIViewController: UIViewController {
         .frame(width: 320 - (Ocean.size.spacingStackXs * 2)))
     }()
 
+    /// Figma heights (Tag / Default 3594:34230): Medium 20 with and without icon, Small 16.
+    lazy var figmaHeights: AnyView = {
+        AnyView(HStack(spacing: Ocean.size.spacingStackXxs) {
+            OceanSwiftUI.Tag { tag in
+                tag.parameters.label = "Medium 20"
+                tag.parameters.size = .medium
+            }
+            OceanSwiftUI.Tag { tag in
+                tag.parameters.label = "Ícone 20"
+                tag.parameters.icon = Ocean.icon.placeholderSolid
+                tag.parameters.size = .medium
+            }
+            OceanSwiftUI.Tag { tag in
+                tag.parameters.label = "Small 16"
+                tag.parameters.size = .small
+            }
+        })
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             tag1
@@ -129,6 +148,7 @@ class TagSwiftUIViewController: UIViewController {
             tag11
             highlightBesideDefault
             longLabelIn320
+            figmaHeights
         }
     })
 

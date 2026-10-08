@@ -120,7 +120,9 @@ extension OceanSwiftUI {
                     }
                 }
                 .fixedSize(horizontal: true, vertical: false)
-                .padding(.horizontal, self.parameters.size == .medium ? Ocean.size.spacingStackXxs : Ocean.size.spacingStackXxxs)
+                .padding(.leading, leadingPadding)
+                .padding(.trailing, self.parameters.size == .medium ? Ocean.size.spacingStackXxs : Ocean.size.spacingStackXxxs)
+                .frame(height: pillHeight)
             }
             .background(Color(self.getBackgroundColor()))
             .cornerRadius(Ocean.size.borderRadiusLg)
@@ -144,6 +146,26 @@ extension OceanSwiftUI {
         }
 
         // MARK: Methods private
+
+        /// Figma `Tag / Default` (3594:34230): Medium = 20 (4 + 12 + 4, or 2 + 16pt icon + 2),
+        /// Small = 16 (4 + 10pt label at 0.8 line height + 4). The label is centered in the pill.
+        var pillHeight: CGFloat {
+            parameters.size == .small
+                ? Ocean.size.spacingStackXxxs * 2 + Ocean.size.spacingStackXxs
+                : Ocean.size.spacingStackXxxs * 2 + Ocean.font.fontSizeXxxs
+        }
+
+        /// Medium with icon starts 6pt from the edge (Figma `pl-6`); otherwise the horizontal padding.
+        var leadingPadding: CGFloat {
+            switch parameters.size {
+            case .medium where parameters.icon != nil:
+                return Ocean.size.spacingStackXxxs + Ocean.size.spacingStackXxxs / 2
+            case .medium, .corner:
+                return Ocean.size.spacingStackXxs
+            case .small:
+                return Ocean.size.spacingStackXxxs
+            }
+        }
 
         func resolvedLabelFont() -> UIFont? {
             if let font = parameters.font {

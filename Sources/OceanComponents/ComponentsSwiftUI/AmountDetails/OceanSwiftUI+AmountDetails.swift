@@ -96,14 +96,6 @@ extension OceanSwiftUI {
 
         var strikethroughFont: UIFont? { .baseRegular(size: fontSize) }
 
-        /// Figma tag slot: Medium = 4 + 12 + 4, Small = 4 + 8 (10pt at 0.8 line height) + 4. The pill
-        /// itself is the Ocean `Tag`, centered in the slot.
-        var tagHeight: CGFloat {
-            size == .md
-                ? Ocean.size.spacingStackXxxs * 2 + Ocean.font.fontSizeXxxs
-                : Ocean.size.spacingStackXxxs * 2 + Ocean.size.spacingStackXxs
-        }
-
         var amountColor: UIColor {
             switch type {
             case .default, .negative, .strikethroughNeutral:
@@ -190,7 +182,6 @@ extension OceanSwiftUI {
 
                     if let tag = parameters.resolvedTag {
                         Tag(parameters: tag)
-                            .frame(height: parameters.tagHeight)
                     }
                 }
 

@@ -426,6 +426,28 @@ final class TransactionListFamilyTests: XCTestCase {
         XCTAssertEqual(measuredHeight(contentList(content(.sm).resolved(padding: .all(0), usesFamilyMetrics: true))), 61, accuracy: 0.5)
     }
 
+    // MARK: - Tag (Figma Tag / Default 3594:34230)
+
+    func testTagPillHeightsMatchFigma() {
+        func tag(_ size: OceanSwiftUI.TagParameters.Size,
+                 status: OceanSwiftUI.TagParameters.Status = .positive,
+                 icon: UIImage? = nil) -> CGFloat {
+            measuredHeight(OceanSwiftUI.Tag(parameters: .init(label: "Label", icon: icon, status: status, size: size)).fixedSize())
+        }
+
+        XCTAssertEqual(tag(.medium), 20, accuracy: 0.5)
+        XCTAssertEqual(tag(.medium, icon: Ocean.icon.placeholderSolid), 20, accuracy: 0.5)
+        XCTAssertEqual(tag(.medium, status: .highlightNeutral), 20, accuracy: 0.5)
+        XCTAssertEqual(tag(.small), 16, accuracy: 0.5)
+        XCTAssertEqual(tag(.small, status: .highlightImportant), 16, accuracy: 0.5)
+    }
+
+    func testTagPaddingsFollowFigma() {
+        XCTAssertEqual(OceanSwiftUI.Tag(parameters: .init(label: "L", size: .medium)).leadingPadding, 8)
+        XCTAssertEqual(OceanSwiftUI.Tag(parameters: .init(label: "L", icon: Ocean.icon.placeholderSolid, size: .medium)).leadingPadding, 6)
+        XCTAssertEqual(OceanSwiftUI.Tag(parameters: .init(label: "L", size: .small)).leadingPadding, 4)
+    }
+
     // MARK: - Selectable
 
     func testCheckboxTogglesAndIndeterminateBecomesSelected() {
