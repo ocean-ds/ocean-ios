@@ -156,6 +156,21 @@ extension OceanSwiftUI {
 
 // MARK: - Internal building blocks
 
+/// Extra space that brings a text to the Figma line height (1.5 × font size); UIKit fonts report
+/// a shorter natural line height for Nunito Sans.
+func figmaLineSpacing(_ font: UIFont?) -> CGFloat {
+    guard let font = font else { return 0 }
+    return max(0, font.pointSize * 1.5 - font.lineHeight)
+}
+
+extension View {
+    /// Gives a text at least the Figma line height (1.5 × font size), centered; extra lines of a
+    /// wrapped text get the same rhythm through `lineSpacing = figmaLineSpacing(font)`.
+    func figmaLineHeight(_ font: UIFont?) -> some View {
+        frame(minHeight: (font?.pointSize ?? 0) * 1.5)
+    }
+}
+
 /// Background of the interactive rows: `Interface/Light/Up` while pressed (Figma "Hover"), otherwise
 /// transparent, so the row sits on the screen's background (white lists or colored heroes with `.onColor`).
 struct TransactionListPressableStyle: ButtonStyle {

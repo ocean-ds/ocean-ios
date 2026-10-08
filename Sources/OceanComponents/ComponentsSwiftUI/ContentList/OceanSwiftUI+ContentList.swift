@@ -247,7 +247,9 @@ extension OceanSwiftUI {
                                 label.parameters.text = parameters.title
                                 label.parameters.font = figmaTitleFont
                                 label.parameters.textColor = figmaTitleColor
+                                label.parameters.lineSpacing = figmaLineSpacing(figmaTitleFont)
                             }
+                            .figmaLineHeight(figmaTitleFont)
                         }
 
                         if !parameters.tagTitle.isEmpty {
@@ -262,32 +264,38 @@ extension OceanSwiftUI {
                         if parameters.type == .strikethrough && !parameters.strikethroughText.isEmpty {
                             Typography { label in
                                 label.parameters.text = parameters.strikethroughText
-                                label.parameters.font = .baseRegular(size: figmaDescriptionSize)
+                                label.parameters.font = figmaStrikethroughFont
                                 label.parameters.textColor = Ocean.color.colorInterfaceDarkUp
                                 label.parameters.strikethrough = true
                                 label.parameters.strikethroughColor = Ocean.color.colorInterfaceDarkUp
+                                label.parameters.lineSpacing = figmaLineSpacing(figmaStrikethroughFont)
                             }
+                            .figmaLineHeight(figmaStrikethroughFont)
                             .fixedSize()
                         }
 
                         if !parameters.description.isEmpty {
                             Typography { label in
                                 label.parameters.text = parameters.description
-                                label.parameters.font = parameters.descriptionFont ?? figmaDescriptionFont
+                                label.parameters.font = resolvedFigmaDescriptionFont
                                 label.parameters.textColor = parameters.newDescription.isEmpty
                                     ? figmaDescriptionColor
                                     : Ocean.color.colorInterfaceDarkUp
                                 label.parameters.strikethrough = !parameters.newDescription.isEmpty
                                 label.parameters.strikethroughColor = Ocean.color.colorInterfaceDarkUp
+                                label.parameters.lineSpacing = figmaLineSpacing(resolvedFigmaDescriptionFont)
                             }
+                            .figmaLineHeight(resolvedFigmaDescriptionFont)
                         }
 
                         if !parameters.newDescription.isEmpty {
                             Typography { label in
                                 label.parameters.text = parameters.newDescription
-                                label.parameters.font = parameters.descriptionFont ?? figmaDescriptionFont
+                                label.parameters.font = resolvedFigmaDescriptionFont
                                 label.parameters.textColor = figmaDescriptionColor
+                                label.parameters.lineSpacing = figmaLineSpacing(resolvedFigmaDescriptionFont)
                             }
+                            .figmaLineHeight(resolvedFigmaDescriptionFont)
                         }
                     }
                 }
@@ -298,17 +306,28 @@ extension OceanSwiftUI {
                         label.parameters.textColor = parameters.type == .inactive
                             ? Ocean.color.colorInterfaceDarkUp
                             : parameters.captionColor
+                        label.parameters.lineSpacing = figmaLineSpacing(Self.figmaCaptionBoldFont)
                     }
+                    .figmaLineHeight(Self.figmaCaptionBoldFont)
                 }
 
                 if !parameters.errorMessage.isEmpty {
                     Typography.caption { label in
                         label.parameters.text = parameters.errorMessage
                         label.parameters.textColor = Ocean.color.colorStatusNegativePure
+                        label.parameters.lineSpacing = figmaLineSpacing(Self.figmaCaptionFont)
                     }
+                    .figmaLineHeight(Self.figmaCaptionFont)
                 }
             }
         }
+
+        static let figmaCaptionBoldFont = UIFont.baseSemiBold(size: Ocean.font.fontSizeXxxs)
+        static let figmaCaptionFont = UIFont.baseRegular(size: Ocean.font.fontSizeXxxs)
+
+        var figmaStrikethroughFont: UIFont? { .baseRegular(size: figmaDescriptionSize) }
+
+        var resolvedFigmaDescriptionFont: UIFont? { parameters.descriptionFont ?? figmaDescriptionFont }
 
         var figmaTitleFont: UIFont? {
             parameters.size == .sm

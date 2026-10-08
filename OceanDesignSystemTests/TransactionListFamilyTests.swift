@@ -387,6 +387,45 @@ final class TransactionListFamilyTests: XCTestCase {
                        (Ocean.size.spacingStackXs - Ocean.size.spacingStackXxs) * 2, accuracy: 0.5)
     }
 
+    // MARK: - Figma heights (Read Only 26559:4449, density 26804:18127)
+
+    private func readOnlyHeight(_ contentSize: OceanSwiftUI.ContentListParameters.Size,
+                                _ amountSize: OceanSwiftUI.AmountDetailsParameters.Size,
+                                density: OceanSwiftUI.TransactionListDensity = .default,
+                                state: OceanSwiftUI.TransactionListState = .default) -> CGFloat {
+        let amount = OceanSwiftUI.AmountDetailsParameters(amount: "R$ 0,00",
+                                                          size: amountSize,
+                                                          tag: .init(label: "Label", status: .positive),
+                                                          additionalData: "Additional data")
+        return measuredHeight(OceanSwiftUI.TransactionListReadOnly(parameters: .init(state: state,
+                                                                                     icon: Ocean.icon.placeholderOutline,
+                                                                                     contentList: content(contentSize),
+                                                                                     amountDetails: amount,
+                                                                                     density: density)))
+    }
+
+    func testReadOnlyHeightsMatchFigma() {
+        XCTAssertEqual(readOnlyHeight(.md, .md), 100, accuracy: 0.5, "Figma State=Default/Disabled (md)")
+        XCTAssertEqual(readOnlyHeight(.md, .md, state: .disabled), 100, accuracy: 0.5)
+        XCTAssertEqual(readOnlyHeight(.sm, .sm), 94, accuracy: 0.5, "Figma density Default (sm)")
+        XCTAssertEqual(readOnlyHeight(.sm, .sm, density: .compact), 78, accuracy: 0.5, "Figma density Compact (sm)")
+        XCTAssertEqual(readOnlyHeight(.md, .md, state: .loading), 73, accuracy: 0.5, "Figma State=Loading")
+    }
+
+    func testBlocksUseTheFigmaLineHeight() {
+        let amountMd = OceanSwiftUI.AmountDetailsParameters(amount: "R$ 0,00", size: .md,
+                                                            tag: .init(label: "Label"), additionalData: "Additional data")
+        let amountSm = OceanSwiftUI.AmountDetailsParameters(amount: "R$ 0,00", size: .sm,
+                                                            tag: .init(label: "Label"), additionalData: "Additional data")
+
+        // 24 value + 20 tag slot + 4 + 18 additional data / 21 + 16 + 4 + 18
+        XCTAssertEqual(measuredHeight(OceanSwiftUI.AmountDetails(parameters: amountMd)), 66, accuracy: 0.5)
+        XCTAssertEqual(measuredHeight(OceanSwiftUI.AmountDetails(parameters: amountSm)), 59, accuracy: 0.5)
+        // 21 title + 24 description + 4 + 18 caption / 18 + 21 + 4 + 18
+        XCTAssertEqual(measuredHeight(contentList(content().resolved(padding: .all(0), usesFamilyMetrics: true))), 67, accuracy: 0.5)
+        XCTAssertEqual(measuredHeight(contentList(content(.sm).resolved(padding: .all(0), usesFamilyMetrics: true))), 61, accuracy: 0.5)
+    }
+
     // MARK: - Selectable
 
     func testCheckboxTogglesAndIndeterminateBecomesSelected() {
