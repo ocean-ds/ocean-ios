@@ -14,6 +14,8 @@ extension OceanSwiftUI {
 
     /// Transaction row selected by its amount, with a checkbox or a radio
     /// (Figma `Transaction List Selectable`). The whole row is the touch target.
+    /// There is no leading icon: the checkbox/radio takes its place, so the inherited `icon` and
+    /// `iconColor` are not drawn (and not offered in the initializer).
     public final class TransactionListSelectableParameters: TransactionListParameters {
         @Published public var controlType: ControlType
         @Published public var controlPosition: ControlPosition
