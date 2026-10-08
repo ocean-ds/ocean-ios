@@ -48,6 +48,23 @@ struct TransactionListReadOnlyDemo: View {
                 .background(Color(Ocean.color.colorStatusNegativeUp))
         }
 
+        TransactionListDemoSection(title: "Densidade (default × compact)") {
+            ForEach(TransactionListDemo.densities, id: \.0) { _, density in
+                OceanSwiftUI.TransactionListReadOnly(parameters: .init(icon: Ocean.icon.placeholderOutline,
+                                                                       contentList: TransactionListDemo.content(),
+                                                                       amountDetails: TransactionListDemo.amount(),
+                                                                       density: density))
+                OceanSwiftUI.TransactionListAction(parameters: .init(icon: Ocean.icon.placeholderOutline,
+                                                                     contentList: TransactionListDemo.content(),
+                                                                     amountDetails: TransactionListDemo.amount(),
+                                                                     density: density))
+                OceanSwiftUI.TransactionListSelectable(parameters: .init(contentList: TransactionListDemo.content(),
+                                                                         amountDetails: TransactionListDemo.amount(),
+                                                                         density: density))
+                OceanSwiftUI.TransactionListReadOnly(parameters: .init(state: .loading, density: density))
+            }
+        }
+
         TransactionListDemoSection(title: "Tamanhos (conteúdo × valor)") {
             ForEach(TransactionListDemo.sizes, id: \.0) { _, contentSize, amountSize in
                 row(content: TransactionListDemo.content(contentSize),

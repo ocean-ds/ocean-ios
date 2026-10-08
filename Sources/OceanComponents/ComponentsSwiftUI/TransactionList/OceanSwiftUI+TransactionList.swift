@@ -23,6 +23,15 @@ extension OceanSwiftUI {
         case disabled
     }
 
+    /// Vertical rhythm of a row. Horizontal padding never changes.
+    public enum TransactionListDensity {
+        /// Each component's own vertical padding: `spacingStackXs` on top level rows,
+        /// `spacingStackXxsExtra` around the content of child rows.
+        case `default`
+        /// `spacingStackXxs` on top and bottom for every row (the loading skeleton follows).
+        case compact
+    }
+
     /// Position of a child row in the timeline that links the children of an expandable row.
     public enum TransactionListChildPosition {
         /// Only child: no line.
@@ -82,6 +91,7 @@ extension OceanSwiftUI {
             didSet { observeNestedParameters() }
         }
         @Published public var showDivider: Bool
+        @Published public var density: TransactionListDensity
 
         private var nestedObservation: AnyCancellable?
 
@@ -90,17 +100,29 @@ extension OceanSwiftUI {
                     iconColor: TransactionListIconColor? = .default,
                     contentList: ContentListParameters = ContentListParameters(),
                     amountDetails: AmountDetailsParameters = AmountDetailsParameters(),
-                    showDivider: Bool = true) {
+                    showDivider: Bool = true,
+                    density: TransactionListDensity = .default) {
             self.state = state
             self.icon = icon
             self.iconColor = iconColor
             self.contentList = contentList
             self.amountDetails = amountDetails
             self.showDivider = showDivider
+            self.density = density
             observeNestedParameters()
         }
 
         var isEnabled: Bool { state == .default }
+
+        /// Top and bottom padding of a top level row.
+        var rowVerticalPadding: CGFloat {
+            density == .compact ? Ocean.size.spacingStackXxs : Ocean.size.spacingStackXs
+        }
+
+        /// Top and bottom padding around the content of a child row.
+        var childVerticalPadding: CGFloat {
+            density == .compact ? Ocean.size.spacingStackXxs : Ocean.size.spacingStackXxsExtra
+        }
 
         /// Icon color as drawn: disabled forces `Interface/Light/Deep`.
         var resolvedIconColor: UIColor {
@@ -273,7 +295,7 @@ struct TransactionListRow<Leading: View, Trailing: View>: View {
                 TransactionListContent(parameters: parameters)
                 trailing()
             }
-            .padding(.vertical, Ocean.size.spacingStackXs)
+            .padding(.vertical, parameters.rowVerticalPadding)
             .padding(.leading, Ocean.size.spacingStackXs)
             .padding(.trailing, trailingPadding)
 
@@ -296,7 +318,7 @@ struct TransactionListChildRow<Trailing: View>: View {
             TransactionListTimeline(parameters: parameters, position: position)
 
             TransactionListContent(parameters: parameters)
-                .padding(.vertical, Ocean.size.spacingStackXxsExtra)
+                .padding(.vertical, parameters.childVerticalPadding)
 
             trailing()
         }

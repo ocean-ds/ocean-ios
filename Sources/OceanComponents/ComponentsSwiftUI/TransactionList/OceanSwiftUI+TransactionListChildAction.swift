@@ -24,6 +24,7 @@ extension OceanSwiftUI {
                     iconColor: TransactionListIconColor? = nil,
                     contentList: ContentListParameters = ContentListParameters(size: .sm),
                     amountDetails: AmountDetailsParameters = AmountDetailsParameters(size: .sm),
+                    density: TransactionListDensity = .default,
                     onTouch: @escaping () -> Void = { }) {
             self.position = position
             self.onTouch = onTouch
@@ -32,7 +33,8 @@ extension OceanSwiftUI {
                        iconColor: iconColor,
                        contentList: contentList,
                        amountDetails: amountDetails,
-                       showDivider: false)
+                       showDivider: false,
+                       density: density)
         }
 
         /// Without an explicit `iconColor`, the timeline icon is `Interface/Light/Down` (Figma child rows).

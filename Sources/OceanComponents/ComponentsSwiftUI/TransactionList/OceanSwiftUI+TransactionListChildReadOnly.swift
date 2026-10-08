@@ -22,14 +22,16 @@ extension OceanSwiftUI {
                     icon: UIImage? = nil,
                     iconColor: TransactionListIconColor? = nil,
                     contentList: ContentListParameters = ContentListParameters(size: .sm),
-                    amountDetails: AmountDetailsParameters = AmountDetailsParameters(size: .sm)) {
+                    amountDetails: AmountDetailsParameters = AmountDetailsParameters(size: .sm),
+                    density: TransactionListDensity = .default) {
             self.position = position
             super.init(state: state,
                        icon: icon,
                        iconColor: iconColor,
                        contentList: contentList,
                        amountDetails: amountDetails,
-                       showDivider: false)
+                       showDivider: false,
+                       density: density)
         }
 
         /// Without an explicit `iconColor`, the timeline icon is `Interface/Light/Down` (Figma child rows).

@@ -334,6 +334,59 @@ final class TransactionListFamilyTests: XCTestCase {
         XCTAssertEqual(blue, expectedBlue, accuracy: 0.03, "the row must not paint white over the hero background")
     }
 
+    func testDensityPaddingTokens() {
+        let defaultRow = OceanSwiftUI.TransactionListReadOnlyParameters()
+        let compactRow = OceanSwiftUI.TransactionListReadOnlyParameters(density: .compact)
+
+        XCTAssertEqual(defaultRow.density, .default)
+        XCTAssertEqual(defaultRow.rowVerticalPadding, Ocean.size.spacingStackXs)
+        XCTAssertEqual(compactRow.rowVerticalPadding, Ocean.size.spacingStackXxs)
+        XCTAssertEqual(OceanSwiftUI.TransactionListChildActionParameters().childVerticalPadding, Ocean.size.spacingStackXxsExtra)
+        XCTAssertEqual(OceanSwiftUI.TransactionListChildReadOnlyParameters(density: .compact).childVerticalPadding,
+                       Ocean.size.spacingStackXxs)
+    }
+
+    func testCompactRowsAreShorterByTheirPaddingDifference() {
+        func row(_ density: OceanSwiftUI.TransactionListDensity, state: OceanSwiftUI.TransactionListState = .default) -> CGFloat {
+            measuredHeight(OceanSwiftUI.TransactionListAction(parameters: .init(state: state,
+                                                                                contentList: content(),
+                                                                                amountDetails: amount(),
+                                                                                showDivider: false,
+                                                                                density: density)))
+        }
+        func selectable(_ density: OceanSwiftUI.TransactionListDensity) -> CGFloat {
+            measuredHeight(OceanSwiftUI.TransactionListSelectable(parameters: .init(contentList: content(),
+                                                                                    amountDetails: amount(),
+                                                                                    showDivider: false,
+                                                                                    density: density)))
+        }
+        func child(_ density: OceanSwiftUI.TransactionListDensity) -> CGFloat {
+            measuredHeight(OceanSwiftUI.TransactionListChildReadOnly(parameters: .init(contentList: content(.sm),
+                                                                                       amountDetails: amount(.sm),
+                                                                                       density: density)))
+        }
+
+        let topLevelDelta = (Ocean.size.spacingStackXs - Ocean.size.spacingStackXxs) * 2
+        XCTAssertEqual(row(.default) - row(.compact), topLevelDelta, accuracy: 0.5)
+        XCTAssertEqual(row(.default, state: .loading) - row(.compact, state: .loading), topLevelDelta, accuracy: 0.5,
+                       "the skeleton follows the density")
+        XCTAssertEqual(selectable(.default) - selectable(.compact), topLevelDelta, accuracy: 0.5)
+        XCTAssertEqual(child(.default) - child(.compact), (Ocean.size.spacingStackXxsExtra - Ocean.size.spacingStackXxs) * 2,
+                       accuracy: 0.5)
+    }
+
+    func testCompactExpandableHeaderIsShorter() {
+        func expandable(_ density: OceanSwiftUI.TransactionListDensity) -> CGFloat {
+            measuredHeight(OceanSwiftUI.TransactionListExpandable(parameters: .init(hasDivider: false,
+                                                                                    header: .init(contentList: content(),
+                                                                                                  amountDetails: amount(),
+                                                                                                  density: density))))
+        }
+
+        XCTAssertEqual(expandable(.default) - expandable(.compact),
+                       (Ocean.size.spacingStackXs - Ocean.size.spacingStackXxs) * 2, accuracy: 0.5)
+    }
+
     // MARK: - Selectable
 
     func testCheckboxTogglesAndIndeterminateBecomesSelected() {

@@ -43,6 +43,13 @@ struct TransactionListChildDemo: View {
             }
         }
 
+        TransactionListDemoSection(title: "Densidade compact (First · Middle · Last · Loading)") {
+            ForEach(0..<3, id: \.self) { index in
+                child(state: .default, position: .position(at: index, count: 3), density: .compact)
+            }
+            child(state: .loading, position: .standalone, density: .compact)
+        }
+
         TransactionListDemoSection(title: "Linha do tempo contínua (First · Middle · Last)") {
             ForEach(0..<3, id: \.self) { index in
                 child(state: .default, position: .position(at: index, count: 3))
@@ -53,7 +60,8 @@ struct TransactionListChildDemo: View {
     @ViewBuilder
     private func child(state: OceanSwiftUI.TransactionListState,
                        position: OceanSwiftUI.TransactionListChildPosition,
-                       iconColor: OceanSwiftUI.TransactionListIconColor? = nil) -> some View {
+                       iconColor: OceanSwiftUI.TransactionListIconColor? = nil,
+                       density: OceanSwiftUI.TransactionListDensity = .default) -> some View {
         if hasAction {
             OceanSwiftUI.TransactionListChildAction(parameters: .init(state: state,
                                                                       position: position,
@@ -61,6 +69,7 @@ struct TransactionListChildDemo: View {
                                                                       iconColor: iconColor,
                                                                       contentList: TransactionListDemo.content(.sm),
                                                                       amountDetails: TransactionListDemo.amount(.sm),
+                                                                      density: density,
                                                                       onTouch: { touches += 1 }))
         } else {
             OceanSwiftUI.TransactionListChildReadOnly(parameters: .init(state: state,
@@ -68,7 +77,8 @@ struct TransactionListChildDemo: View {
                                                                         icon: Ocean.icon.placeholderSolid,
                                                                         iconColor: iconColor,
                                                                         contentList: TransactionListDemo.content(.sm),
-                                                                        amountDetails: TransactionListDemo.amount(.sm)))
+                                                                        amountDetails: TransactionListDemo.amount(.sm),
+                                                                        density: density))
         }
     }
 }

@@ -35,6 +35,7 @@ extension OceanSwiftUI {
                     contentList: ContentListParameters = ContentListParameters(),
                     amountDetails: AmountDetailsParameters = AmountDetailsParameters(),
                     showDivider: Bool = true,
+                    density: TransactionListDensity = .default,
                     onSelection: @escaping (Bool) -> Void = { _ in }) {
             self.controlType = controlType
             self.controlPosition = controlPosition
@@ -45,7 +46,8 @@ extension OceanSwiftUI {
             super.init(state: state,
                        contentList: contentList,
                        amountDetails: amountDetails,
-                       showDivider: showDivider)
+                       showDivider: showDivider,
+                       density: density)
         }
 
         public enum ControlType {

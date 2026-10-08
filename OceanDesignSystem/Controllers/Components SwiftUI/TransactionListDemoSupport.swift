@@ -45,6 +45,11 @@ enum TransactionListDemo {
         ("Highlight", .highlight)
     ]
 
+    static let densities: [(String, OceanSwiftUI.TransactionListDensity)] = [
+        ("Default", .default),
+        ("Compact", .compact)
+    ]
+
     static let positions: [(String, OceanSwiftUI.TransactionListChildPosition)] = [
         ("Standalone", .standalone),
         ("First", .first),

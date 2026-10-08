@@ -32,6 +32,7 @@ extension OceanSwiftUI {
                     contentList: ContentListParameters = ContentListParameters(),
                     amountDetails: AmountDetailsParameters = AmountDetailsParameters(),
                     showDivider: Bool = true,
+                    density: TransactionListDensity = .default,
                     onTouch: @escaping () -> Void = { }) {
             self.actionType = actionType
             self.isMenuActive = isMenuActive
@@ -41,7 +42,8 @@ extension OceanSwiftUI {
                        iconColor: iconColor,
                        contentList: contentList,
                        amountDetails: amountDetails,
-                       showDivider: showDivider)
+                       showDivider: showDivider,
+                       density: density)
         }
 
         public enum ActionType {

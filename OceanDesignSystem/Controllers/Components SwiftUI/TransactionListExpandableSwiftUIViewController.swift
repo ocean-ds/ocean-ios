@@ -91,24 +91,31 @@ struct TransactionListExpandableFamilyDemo: View {
             expandable(state: .disabled, status: .expanded)
         }
 
+        TransactionListDemoSection(title: "Densidade compact (header e filhos)") {
+            expandable(status: .expanded, density: .compact)
+        }
+
         TransactionListDemoSection(title: "Carregando") {
             expandable(state: .loading, status: .collapsed)
         }
     }
 
     private func expandable(state: OceanSwiftUI.TransactionListState = .default,
-                            status: OceanSwiftUI.TransactionListExpandableParameters.Status) -> some View {
+                            status: OceanSwiftUI.TransactionListExpandableParameters.Status,
+                            density: OceanSwiftUI.TransactionListDensity = .default) -> some View {
         let header = OceanSwiftUI.TransactionListParameters(state: state,
                                                             icon: Ocean.icon.placeholderOutline,
                                                             contentList: TransactionListDemo.content(),
-                                                            amountDetails: TransactionListDemo.amount())
+                                                            amountDetails: TransactionListDemo.amount(),
+                                                            density: density)
         let children = VStack(spacing: 0) {
             ForEach(0..<3, id: \.self) { index in
                 OceanSwiftUI.TransactionListChildAction(parameters: .init(state: state == .disabled ? .disabled : .default,
                                                                           position: .position(at: index, count: 3),
                                                                           icon: Ocean.icon.placeholderSolid,
                                                                           contentList: TransactionListDemo.content(.sm),
-                                                                          amountDetails: TransactionListDemo.amount(.sm)))
+                                                                          amountDetails: TransactionListDemo.amount(.sm),
+                                                                          density: density))
             }
         }
 
