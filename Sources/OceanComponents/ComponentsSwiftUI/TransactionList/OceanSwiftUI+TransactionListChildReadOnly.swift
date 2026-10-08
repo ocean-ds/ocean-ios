@@ -65,7 +65,6 @@ extension OceanSwiftUI {
             TransactionListChildRow(parameters: parameters, position: parameters.position) {
                 EmptyView()
             }
-            .background(Color(Ocean.color.colorInterfaceLightPure))
         }
     }
 }

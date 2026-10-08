@@ -49,7 +49,6 @@ extension OceanSwiftUI {
             } trailing: {
                 EmptyView()
             }
-            .background(Color(Ocean.color.colorInterfaceLightPure))
         }
     }
 }

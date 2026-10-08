@@ -128,13 +128,12 @@ extension OceanSwiftUI {
 
 // MARK: - Internal building blocks
 
-/// Background of the interactive rows: `Interface/Light/Up` while pressed (Figma "Hover").
+/// Background of the interactive rows: `Interface/Light/Up` while pressed (Figma "Hover"), otherwise
+/// transparent, so the row sits on the screen's background (white lists or colored heroes with `.onColor`).
 struct TransactionListPressableStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .background(Color(configuration.isPressed
-                              ? Ocean.color.colorInterfaceLightUp
-                              : Ocean.color.colorInterfaceLightPure))
+            .background(configuration.isPressed ? Color(Ocean.color.colorInterfaceLightUp) : Color.clear)
     }
 }
 

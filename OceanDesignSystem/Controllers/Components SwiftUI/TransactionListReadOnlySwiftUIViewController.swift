@@ -24,14 +24,28 @@ struct TransactionListReadOnlyDemo: View {
             }
         }
 
-        TransactionListDemoSection(title: "Cor do ícone (default · onColor · highlight · disabled)") {
+        TransactionListDemoSection(title: "Cor do ícone (default · onColor · highlight)") {
             ForEach(TransactionListDemo.iconColors, id: \.0) { _, iconColor in
-                OceanSwiftUI.TransactionListReadOnly(parameters: .init(icon: Ocean.icon.placeholderOutline,
-                                                                       iconColor: iconColor,
-                                                                       contentList: TransactionListDemo.content(),
-                                                                       amountDetails: TransactionListDemo.amount()))
+                row(iconColor: iconColor)
             }
-            row(state: .disabled)
+        }
+
+        TransactionListDemoSection(title: "Desabilitado força Light/Deep (iconColor .highlight)") {
+            row(state: .disabled, iconColor: .highlight)
+        }
+
+        TransactionListDemoSection(title: "onColor sobre fundo colorido (Warning/Up · Negative/Up)") {
+            VStack(spacing: 0) {
+                row(iconColor: .onColor)
+                OceanSwiftUI.TransactionListAction(parameters: .init(icon: Ocean.icon.placeholderOutline,
+                                                                     iconColor: .onColor,
+                                                                     contentList: TransactionListDemo.content(),
+                                                                     amountDetails: TransactionListDemo.amount()))
+            }
+            .background(Color(Ocean.color.colorStatusWarningUp))
+
+            row(iconColor: .onColor)
+                .background(Color(Ocean.color.colorStatusNegativeUp))
         }
 
         TransactionListDemoSection(title: "Tamanhos (conteúdo × valor)") {
@@ -64,10 +78,12 @@ struct TransactionListReadOnlyDemo: View {
     }
 
     private func row(state: OceanSwiftUI.TransactionListState = .default,
+                     iconColor: OceanSwiftUI.TransactionListIconColor = .default,
                      content: OceanSwiftUI.ContentListParameters = TransactionListDemo.content(),
                      amount: OceanSwiftUI.AmountDetailsParameters = TransactionListDemo.amount()) -> some View {
         OceanSwiftUI.TransactionListReadOnly(parameters: .init(state: state,
                                                                icon: Ocean.icon.placeholderOutline,
+                                                               iconColor: iconColor,
                                                                contentList: content,
                                                                amountDetails: amount))
     }

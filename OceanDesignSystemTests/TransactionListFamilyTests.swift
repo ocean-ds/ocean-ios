@@ -300,6 +300,27 @@ final class TransactionListFamilyTests: XCTestCase {
         }
     }
 
+    @MainActor
+    func testRowsAreTransparentToSitOnColoredBackgrounds() throws {
+        guard #available(iOS 16.0, *) else { throw XCTSkip("ImageRenderer requires iOS 16") }
+
+        let renderer = ImageRenderer(content: OceanSwiftUI.TransactionListReadOnly(parameters: .init(iconColor: .onColor,
+                                                                                                    showDivider: false))
+            .frame(width: width, height: 80)
+            .background(Color(Ocean.color.colorStatusWarningUp)))
+        let image = try XCTUnwrap(renderer.uiImage?.cgImage)
+        let corner = try XCTUnwrap(image.cropping(to: CGRect(x: image.width - 2, y: 2, width: 1, height: 1)))
+
+        var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
+        UIImage(cgImage: corner).pixelColor().getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        var expectedRed: CGFloat = 0, expectedGreen: CGFloat = 0, expectedBlue: CGFloat = 0, expectedAlpha: CGFloat = 0
+        Ocean.color.colorStatusWarningUp.getRed(&expectedRed, green: &expectedGreen, blue: &expectedBlue, alpha: &expectedAlpha)
+
+        XCTAssertEqual(red, expectedRed, accuracy: 0.03)
+        XCTAssertEqual(green, expectedGreen, accuracy: 0.03)
+        XCTAssertEqual(blue, expectedBlue, accuracy: 0.03, "the row must not paint white over the hero background")
+    }
+
     // MARK: - Selectable
 
     func testCheckboxTogglesAndIndeterminateBecomesSelected() {
@@ -521,5 +542,18 @@ final class TransactionListFamilyTests: XCTestCase {
         XCTAssertEqual(expandable(.collapsed), header, accuracy: 0.5, "collapsed = header + divider, like the Read Only row")
         XCTAssertGreaterThan(expandable(.expanded), expandable(.expanded, footer: ""))
         XCTAssertGreaterThan(expandable(.expanded, footer: ""), header)
+    }
+}
+
+private extension UIImage {
+    /// Color of a 1×1 image.
+    func pixelColor() -> UIColor {
+        var pixel = [UInt8](repeating: 0, count: 4)
+        let context = CGContext(data: &pixel, width: 1, height: 1, bitsPerComponent: 8, bytesPerRow: 4,
+                                space: CGColorSpaceCreateDeviceRGB(),
+                                bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)
+        context?.draw(cgImage!, in: CGRect(x: 0, y: 0, width: 1, height: 1))
+        return UIColor(red: CGFloat(pixel[0]) / 255, green: CGFloat(pixel[1]) / 255,
+                       blue: CGFloat(pixel[2]) / 255, alpha: CGFloat(pixel[3]) / 255)
     }
 }
