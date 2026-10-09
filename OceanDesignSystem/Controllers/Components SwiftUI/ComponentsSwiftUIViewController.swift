@@ -135,6 +135,9 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(ProgressBarSwiftUIViewController(), animated: true, completion: nil)
         case .TransactionFooter:
             self.present(TransactionFooterSwiftUIViewController(), animated: true, completion: nil)
+        case .TransactionFooter2:
+            self.present(TransactionListDemoViewController { TransactionFooter2DemoView() },
+                         animated: true)
         case .Switch:
             self.present(SwitchSwiftUIViewController(), animated: true, completion: nil)
         case .SimpleBalance:

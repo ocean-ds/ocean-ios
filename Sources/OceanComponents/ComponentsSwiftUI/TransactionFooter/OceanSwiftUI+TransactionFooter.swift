@@ -10,6 +10,66 @@ import OceanTokens
 
 extension OceanSwiftUI {
 
+    public enum TransactionFooterType: Equatable {
+        case `default`
+        case highlight
+    }
+
+    public struct TransactionFooterTotal {
+        public var label: String
+        public var value: String
+
+        public init(label: String, value: String) {
+            self.label = label
+            self.value = value
+        }
+    }
+
+    public struct TransactionFooterContent {
+        public var type: TransactionFooterType
+        public var notice: String?
+        public var items: [TransactionListReadOnlyParameters]
+        public var total: TransactionFooterTotal
+        public var button: ButtonParameters
+
+        public init(type: TransactionFooterType = .default,
+                    notice: String? = nil,
+                    items: [TransactionListReadOnlyParameters],
+                    total: TransactionFooterTotal,
+                    button: ButtonParameters) {
+            self.type = type
+            self.notice = notice
+            self.items = items
+            self.total = total
+            self.button = button
+        }
+    }
+
+    public enum TransactionFooterStyle {
+        case legacy
+        case transaction(TransactionFooterContent)
+    }
+
+    private struct TransactionFooterTopCorners: Shape {
+        let radius: CGFloat
+
+        func path(in rect: CGRect) -> Path {
+            guard radius > 0 else { return Path(rect) }
+
+            var path = Path()
+            path.move(to: CGPoint(x: rect.minX, y: rect.maxY))
+            path.addLine(to: CGPoint(x: rect.minX, y: rect.minY + radius))
+            path.addQuadCurve(to: CGPoint(x: rect.minX + radius, y: rect.minY),
+                              control: CGPoint(x: rect.minX, y: rect.minY))
+            path.addLine(to: CGPoint(x: rect.maxX - radius, y: rect.minY))
+            path.addQuadCurve(to: CGPoint(x: rect.maxX, y: rect.minY + radius),
+                              control: CGPoint(x: rect.maxX, y: rect.minY))
+            path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+            path.closeSubpath()
+            return path
+        }
+    }
+
     // MARK: Parameters
 
     public class TransactionFooterParameters: ObservableObject {
@@ -24,6 +84,7 @@ extension OceanSwiftUI {
         /// end up `spacingStackXs` apart, exactly like the design.
         @Published public var interlineSpacing: CGFloat
         @Published public var padding: EdgeInsets
+        @Published public var style: TransactionFooterStyle
 
         public init(items: [ItemModel] = [],
                     primaryButton: ButtonParameters? = nil,
@@ -35,7 +96,8 @@ extension OceanSwiftUI {
                     padding: EdgeInsets = .init(top: 0,
                                                 leading: Ocean.size.spacingStackXs,
                                                 bottom: Ocean.size.spacingStackXs,
-                                                trailing: Ocean.size.spacingStackXs)) {
+                                                trailing: Ocean.size.spacingStackXs),
+                    style: TransactionFooterStyle = .legacy) {
             self.items = items
             self.primaryButton = primaryButton
             self.secondaryButton = secondaryButton
@@ -44,6 +106,7 @@ extension OceanSwiftUI {
             self.skeletonLines = skeletonLines
             self.interlineSpacing = interlineSpacing
             self.padding = padding
+            self.style = style
         }
 
         public enum ButtonOrientation {
@@ -113,7 +176,17 @@ extension OceanSwiftUI {
 
         // MARK: View SwiftUI
 
+        @ViewBuilder
         public var body: some View {
+            switch parameters.style {
+            case .legacy:
+                legacyBody
+            case .transaction(let content):
+                transactionBody(content: content)
+            }
+        }
+
+        private var legacyBody: some View {
             // Figma "Transaction Footer": rows are Inline Text List Items (vertical padding
             // `spacingStackXxs` each, no gap between them) and the button bar sits
             // `spacingStackXs` below the last row. Without rows the button comes first, so the
@@ -143,6 +216,90 @@ extension OceanSwiftUI {
                 }
             }
             .padding(parameters.padding)
+        }
+
+        private func transactionBody(content: TransactionFooterContent) -> some View {
+            VStack(spacing: 0) {
+                if let notice = content.notice {
+                    OceanSwiftUI.Typography.paragraph { label in
+                        label.parameters.text = notice
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(Ocean.size.spacingStackXs)
+                    .background(
+                        Color(Ocean.color.colorStatusPositiveUp)
+                            .overlay(
+                                Color(Ocean.color.colorStatusPositiveDeep)
+                                    .opacity(0.12)
+                            )
+                    )
+                    .padding(.bottom, Ocean.size.spacingStackXs)
+                }
+
+                ForEach(Array(content.items.enumerated()), id: \.offset) { row in
+                    OceanSwiftUI.TransactionListReadOnly(
+                        parameters: rowParameters(
+                            for: row.element,
+                            index: row.offset,
+                            itemCount: content.items.count
+                        )
+                    )
+                }
+
+                OceanSwiftUI.Divider()
+                    .padding(.horizontal, Ocean.size.spacingStackXs)
+
+                HStack {
+                    OceanSwiftUI.Typography.paragraph { label in
+                        label.parameters.text = content.total.label
+                        label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                    }
+                    Spacer()
+                    OceanSwiftUI.Typography.paragraph { label in
+                        label.parameters.text = content.total.value
+                        label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
+                        label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXs)
+                    }
+                }
+                .padding(.horizontal, Ocean.size.spacingStackXs)
+                .padding(.vertical, Ocean.size.spacingStackXs)
+
+                OceanSwiftUI.Button(parameters: content.button)
+                    .padding(.horizontal, Ocean.size.spacingStackXs)
+                    .padding(.top, Ocean.size.spacingStackMd)
+                    .padding(.bottom, Ocean.size.spacingStackXs)
+            }
+            .background(
+                Color(content.type == .default
+                      ? Ocean.color.colorInterfaceLightPure
+                      : Ocean.color.colorInterfaceLightUp)
+            )
+            .clipShape(
+                content.type == .highlight
+                    ? TransactionFooterTopCorners(radius: Ocean.size.borderRadiusMd)
+                    : TransactionFooterTopCorners(radius: 0)
+            )
+            .overlay(alignment: .top) {
+                if content.type == .default {
+                    Rectangle()
+                        .fill(Color(Ocean.color.colorInterfaceLightDown))
+                        .frame(height: 1)
+                }
+            }
+        }
+
+        private func rowParameters(for item: TransactionListReadOnlyParameters,
+                                   index: Int,
+                                   itemCount: Int) -> TransactionListReadOnlyParameters {
+            TransactionListReadOnlyParameters(
+                state: item.state,
+                icon: item.icon,
+                iconColor: item.iconColor,
+                contentList: item.contentList,
+                amountDetails: item.amountDetails,
+                showDivider: index == 0 && itemCount > 1,
+                density: index == 0 ? .default : .compact
+            )
         }
 
         // MARK: Methods private
