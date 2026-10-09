@@ -10,8 +10,154 @@ import OceanTokens
 
 extension OceanSwiftUI {
 
+    public enum TransactionFooterV2Type: Equatable {
+        case `default`
+        case highlight
+    }
+
+    public struct TransactionFooterV2Total {
+        public var label: String
+        public var value: String
+
+        public init(label: String, value: String) {
+            self.label = label
+            self.value = value
+        }
+    }
+
+    public final class TransactionFooterV2Parameters: ObservableObject {
+        @Published public var type: TransactionFooterV2Type
+        @Published public var notice: String?
+        @Published public var items: [TransactionListReadOnlyParameters]
+        @Published public var total: TransactionFooterV2Total
+        @Published public var button: ButtonParameters
+
+        public init(type: TransactionFooterV2Type = .default,
+                    notice: String? = nil,
+                    items: [TransactionListReadOnlyParameters],
+                    total: TransactionFooterV2Total,
+                    button: ButtonParameters) {
+            self.type = type
+            self.notice = notice
+            self.items = items
+            self.total = total
+            self.button = button
+        }
+    }
+
+    public struct TransactionFooterV2: View {
+        @ObservedObject public var parameters: TransactionFooterV2Parameters
+
+        public init(parameters: TransactionFooterV2Parameters) {
+            self.parameters = parameters
+        }
+
+        public var body: some View {
+            VStack(spacing: 0) {
+                if let notice = parameters.notice {
+                    OceanSwiftUI.Typography.paragraph { label in
+                        label.parameters.text = notice
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(Ocean.size.spacingStackXs)
+                    .background(
+                        Color(red: 242 / 255.0, green: 252 / 255.0, blue: 245 / 255.0)
+                            .overlay(
+                                Color(red: 45 / 255.0, green: 169 / 255.0, blue: 79 / 255.0)
+                                    .opacity(0.12)
+                            )
+                    )
+                    .padding(.bottom, Ocean.size.spacingStackXs)
+                }
+
+                let visibleItems = Array(parameters.items.prefix(5))
+                ForEach(Array(visibleItems.enumerated()), id: \.offset) { row in
+                    OceanSwiftUI.TransactionListReadOnly(
+                        parameters: rowParameters(for: row.element, index: row.offset)
+                    )
+                }
+
+                OceanSwiftUI.Divider()
+                    .padding(.horizontal, Ocean.size.spacingStackXs)
+
+                HStack {
+                    OceanSwiftUI.Typography.paragraph { label in
+                        label.parameters.text = parameters.total.label
+                        label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                    }
+                    Spacer()
+                    OceanSwiftUI.Typography.paragraph { label in
+                        label.parameters.text = parameters.total.value
+                        label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
+                        label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXs)
+                    }
+                }
+                .padding(.horizontal, Ocean.size.spacingStackXs)
+                .padding(.vertical, Ocean.size.spacingStackXs)
+
+                OceanSwiftUI.Button(parameters: parameters.button)
+                    .padding(.horizontal, Ocean.size.spacingStackXs)
+                    .padding(.top, Ocean.size.spacingStackMd)
+                    .padding(.bottom, Ocean.size.spacingStackXs)
+            }
+            .background(backgroundColor)
+            .clipShape(
+                parameters.type == .highlight
+                    ? TransactionFooterTopCorners(radius: Ocean.size.borderRadiusMd)
+                    : TransactionFooterTopCorners(radius: 0)
+            )
+            .overlay(alignment: .top) {
+                if parameters.type == .default {
+                    Rectangle()
+                        .fill(Color(Ocean.color.colorInterfaceLightDown))
+                        .frame(height: 1)
+                }
+            }
+        }
+
+        private var backgroundColor: Color {
+            Color(parameters.type == .default
+                  ? Ocean.color.colorInterfaceLightPure
+                  : Ocean.color.colorInterfaceLightUp)
+        }
+
+        private func rowParameters(for item: TransactionListReadOnlyParameters,
+                                   index: Int) -> TransactionListReadOnlyParameters {
+            TransactionListReadOnlyParameters(
+                state: item.state,
+                icon: item.icon,
+                iconColor: item.iconColor,
+                contentList: item.contentList,
+                amountDetails: item.amountDetails,
+                showDivider: index == 0 && min(parameters.items.count, 5) > 1,
+                density: index == 0 ? .default : .compact
+            )
+        }
+    }
+
+    private struct TransactionFooterTopCorners: Shape {
+        let radius: CGFloat
+
+        func path(in rect: CGRect) -> Path {
+            guard radius > 0 else { return Path(rect) }
+
+            var path = Path()
+            path.move(to: CGPoint(x: rect.minX, y: rect.maxY))
+            path.addLine(to: CGPoint(x: rect.minX, y: rect.minY + radius))
+            path.addQuadCurve(to: CGPoint(x: rect.minX + radius, y: rect.minY),
+                              control: CGPoint(x: rect.minX, y: rect.minY))
+            path.addLine(to: CGPoint(x: rect.maxX - radius, y: rect.minY))
+            path.addQuadCurve(to: CGPoint(x: rect.maxX, y: rect.minY + radius),
+                              control: CGPoint(x: rect.maxX, y: rect.minY))
+            path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+            path.closeSubpath()
+            return path
+        }
+    }
+
     // MARK: Parameters
 
+    @available(*, deprecated, message: "Use OceanSwiftUI.TransactionFooterV2 and TransactionFooterV2Parameters.")
     public class TransactionFooterParameters: ObservableObject {
         @Published public var items: [ItemModel]
         @Published public var primaryButton: ButtonParameters?
@@ -84,6 +230,7 @@ extension OceanSwiftUI {
         }
     }
 
+    @available(*, deprecated, message: "Use OceanSwiftUI.TransactionFooterV2.")
     public struct TransactionFooter: View {
         // MARK: Properties for UIKit
 

@@ -86,3 +86,69 @@ struct TransactionFooterSwiftUIViewController_Preview: PreviewProvider {
         }
     }
 }
+
+struct TransactionFooterV2DemoView: View {
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            TransactionListDemoSection(title: "Default") {
+                footer()
+            }
+
+            TransactionListDemoSection(title: "Highlight") {
+                footer(type: .highlight)
+            }
+
+            TransactionListDemoSection(title: "With notice") {
+                footer(notice: "Seu pagamento será processado após a confirmação.")
+            }
+
+            TransactionListDemoSection(title: "Rich rows") {
+                footer(items: [
+                    row(
+                        "Taxa",
+                        "Grátis",
+                        description: "Antecipação",
+                        strikethrough: "R$ 10,00",
+                        tag: "Grátis"
+                    ),
+                    row("Desconto", "R$ 10,00", description: "Benefício aplicado")
+                ])
+            }
+
+            TransactionListDemoSection(title: "Max rows") {
+                footer(items: (1...7).map { row("Linha \($0)", "R$ \($0),00") })
+            }
+        }
+    }
+
+    private func footer(type: OceanSwiftUI.TransactionFooterV2Type = .default,
+                        notice: String? = nil,
+                        items: [OceanSwiftUI.TransactionListReadOnlyParameters]? = nil) -> some View {
+        OceanSwiftUI.TransactionFooterV2(parameters: .init(
+            type: type,
+            notice: notice,
+            items: items ?? [
+                row("Compra", "R$ 100,00"),
+                row("Desconto", "R$ 10,00")
+            ],
+            total: .init(label: "Total", value: "R$ 90,00"),
+            button: .init(text: "Continuar", style: .primary, onTouch: {})
+        ))
+    }
+
+    private func row(_ title: String,
+                     _ amount: String,
+                     description: String = "",
+                     strikethrough: String = "",
+                     tag: String = "") -> OceanSwiftUI.TransactionListReadOnlyParameters {
+        .init(
+            contentList: .init(title: title, description: description, caption: "Hoje"),
+            amountDetails: .init(
+                amount: amount,
+                strikethroughAmount: strikethrough,
+                type: strikethrough.isEmpty ? .default : .strikethrough,
+                tag: tag.isEmpty ? nil : .init(label: tag, status: .positive)
+            )
+        )
+    }
+}
