@@ -110,7 +110,7 @@ struct DSComponents {
         "ExpandableTextListItem",
         "Tooltip",
         "TransactionFooter",
-        "TransactionFooterV2",
+        "Transaction Footer 2.0",
         "TransactionListItem",
         "TransactionListExpandable",
         "TransactionListReadOnly",

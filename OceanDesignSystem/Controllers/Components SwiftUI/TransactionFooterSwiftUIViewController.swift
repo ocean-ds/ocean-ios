@@ -87,7 +87,7 @@ struct TransactionFooterSwiftUIViewController_Preview: PreviewProvider {
     }
 }
 
-struct TransactionFooterV2DemoView: View {
+struct TransactionFooter2DemoView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             TransactionListDemoSection(title: "Default") {
@@ -121,18 +121,22 @@ struct TransactionFooterV2DemoView: View {
         }
     }
 
-    private func footer(type: OceanSwiftUI.TransactionFooterV2Type = .default,
+    private func footer(type: OceanSwiftUI.TransactionFooterType = .default,
                         notice: String? = nil,
                         items: [OceanSwiftUI.TransactionListReadOnlyParameters]? = nil) -> some View {
-        OceanSwiftUI.TransactionFooterV2(parameters: .init(
-            type: type,
-            notice: notice,
-            items: items ?? [
-                row("Compra", "R$ 100,00"),
-                row("Desconto", "R$ 10,00")
-            ],
-            total: .init(label: "Total", value: "R$ 90,00"),
-            button: .init(text: "Continuar", style: .primary, onTouch: {})
+        OceanSwiftUI.TransactionFooter(parameters: .init(
+            style: .transaction(
+                .init(
+                    type: type,
+                    notice: notice,
+                    items: items ?? [
+                        row("Compra", "R$ 100,00"),
+                        row("Desconto", "R$ 10,00")
+                    ],
+                    total: .init(label: "Total", value: "R$ 90,00"),
+                    button: .init(text: "Continuar", style: .primary, onTouch: {})
+                )
+            )
         ))
     }
 

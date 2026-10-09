@@ -10,7 +10,6 @@ import CoreGraphics
 import UIKit
 
 extension Ocean {
-    @available(*, deprecated, message: "Use OceanSwiftUI.TransactionFooterV2.")
     public class TransactionFooterView: UIView {
         struct Constaint {
             static let height: CGFloat = 96
