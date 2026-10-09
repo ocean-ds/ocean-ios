@@ -40,6 +40,8 @@ class ComponentsSwiftUIViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
 
         switch self.designSystemComponentsTypeSelected! {
+        case .Banner:
+            self.present(BannerSwiftUIViewController(), animated: true, completion: nil)
         case .Alert:
             self.present(AlertSwiftUIViewController(), animated: true, completion: nil)
         case .Button:
