@@ -33,6 +33,22 @@ enum TransactionListDemo {
                                              additionalData: "Additional data")
     }
 
+    /// Long texts: content wraps up to two lines, the tag truncates on one line, the value never wraps.
+    static func longContent(_ size: OceanSwiftUI.ContentListParameters.Size = .md) -> OceanSwiftUI.ContentListParameters {
+        OceanSwiftUI.ContentListParameters(title: "Bank transfer",
+                                           description: "Seashell Corporation Wholesale and Distribution Ltda",
+                                           caption: "Order #7182, invoice 4821, scheduled for Oct 15",
+                                           size: size)
+    }
+
+    static func longAmount(_ size: OceanSwiftUI.AmountDetailsParameters.Size = .md) -> OceanSwiftUI.AmountDetailsParameters {
+        OceanSwiftUI.AmountDetailsParameters(amount: "R$ 1.314,28",
+                                             size: size,
+                                             tag: .init(label: "Payment scheduled for Oct 15 by bank transfer",
+                                                        status: .complementary),
+                                             additionalData: "Transfer to Seashell Corporation, account 4821")
+    }
+
     static let states: [(String, OceanSwiftUI.TransactionListState)] = [
         ("Default", .default),
         ("Loading", .loading),

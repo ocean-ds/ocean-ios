@@ -156,6 +156,10 @@ extension OceanSwiftUI {
 
 // MARK: - Internal building blocks
 
+/// Texts of the Content List and the amount additional data wrap up to two lines, then truncate
+/// with a tail ellipsis (same rule as ocean-web). The amount value and the tag stay on one line.
+let transactionListTextLineLimit = 2
+
 /// Extra space that brings a text to the Figma line height (1.5 × font size); UIKit fonts report
 /// a shorter natural line height for Nunito Sans.
 func figmaLineSpacing(_ font: UIFont?) -> CGFloat {
@@ -188,11 +192,74 @@ struct TransactionListContent: View {
         if parameters.state == .loading {
             TransactionListSkeleton()
         } else {
-            HStack(alignment: .center, spacing: Ocean.size.spacingStackXxs) {
-                OceanSwiftUI.ContentList(parameters: parameters.resolvedContentList())
-                OceanSwiftUI.AmountDetails(parameters: parameters.resolvedAmountDetails())
+            let content = OceanSwiftUI.ContentList(parameters: parameters.resolvedContentList())
+                .layoutPriority(1)
+            let amount = OceanSwiftUI.AmountDetails(parameters: parameters.resolvedAmountDetails())
+
+            if #available(iOS 16.0, *) {
+                TransactionListContentLayout(spacing: Ocean.size.spacingStackXxs) {
+                    content
+                    amount
+                }
+            } else {
+                // iOS 15 has no `Layout`: the content keeps priority, the amount gets what is left.
+                HStack(alignment: .center, spacing: Ocean.size.spacingStackXxs) {
+                    content
+                    amount
+                }
             }
         }
+    }
+}
+
+/// Content List (first subview) and Amount Details (second), vertically centered. The amount takes
+/// its natural width up to half of the row, never less than its value; the content gets the rest,
+/// so a long tag or additional data never squeezes the content to nothing.
+@available(iOS 16.0, *)
+struct TransactionListContentLayout: Layout {
+    /// Share of the row the amount block may take (same rule as ocean-web).
+    static let maxAmountShare: CGFloat = 0.5
+
+    let spacing: CGFloat
+
+    /// Width given to the amount block for a row `width` wide.
+    static func amountWidth(rowWidth width: CGFloat, ideal: CGFloat, minimum: CGFloat) -> CGFloat {
+        min(ideal, max(width * maxAmountShare, minimum))
+    }
+
+    private func widths(for width: CGFloat, subviews: Subviews) -> (content: CGFloat, amount: CGFloat) {
+        guard subviews.count == 2 else { return (width, 0) }
+
+        let amount = subviews[1]
+        let amountWidth = Self.amountWidth(rowWidth: width,
+                                           ideal: amount.sizeThatFits(.unspecified).width,
+                                           minimum: amount.sizeThatFits(ProposedViewSize(width: 0, height: nil)).width)
+        return (max(0, width - spacing - amountWidth), amountWidth)
+    }
+
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        guard let width = proposal.width, width.isFinite else {
+            let sizes = subviews.map { $0.sizeThatFits(.unspecified) }
+            return CGSize(width: sizes.reduce(spacing) { $0 + $1.width },
+                          height: sizes.map(\.height).max() ?? 0)
+        }
+
+        let columns = widths(for: width, subviews: subviews)
+        let contentHeight = subviews[0].sizeThatFits(ProposedViewSize(width: columns.content, height: nil)).height
+        let amountHeight = subviews[1].sizeThatFits(ProposedViewSize(width: columns.amount, height: nil)).height
+        return CGSize(width: width, height: max(contentHeight, amountHeight))
+    }
+
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        guard subviews.count == 2 else { return }
+
+        let columns = widths(for: bounds.width, subviews: subviews)
+        subviews[0].place(at: CGPoint(x: bounds.minX, y: bounds.midY),
+                          anchor: .leading,
+                          proposal: ProposedViewSize(width: columns.content, height: nil))
+        subviews[1].place(at: CGPoint(x: bounds.maxX, y: bounds.midY),
+                          anchor: .trailing,
+                          proposal: ProposedViewSize(width: columns.amount, height: nil))
     }
 }
 

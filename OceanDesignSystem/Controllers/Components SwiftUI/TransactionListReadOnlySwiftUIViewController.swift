@@ -18,6 +18,16 @@ final class TransactionListReadOnlySwiftUIViewController: TransactionListDemoVie
 
 struct TransactionListReadOnlyDemo: View {
     var body: some View {
+        TransactionListDemoSection(title: "Long text · md · sm · filho") {
+            row(icon: Ocean.icon.libraryOutline, content: TransactionListDemo.longContent(),
+                amount: TransactionListDemo.longAmount())
+            row(icon: Ocean.icon.libraryOutline, content: TransactionListDemo.longContent(.sm),
+                amount: TransactionListDemo.longAmount(.sm))
+            OceanSwiftUI.TransactionListChildReadOnly(parameters: .init(icon: Ocean.icon.placeholderSolid,
+                                                                        contentList: TransactionListDemo.longContent(.sm),
+                                                                        amountDetails: TransactionListDemo.longAmount(.sm)))
+        }
+
         TransactionListDemoSection(title: "Estados") {
             ForEach(TransactionListDemo.states, id: \.0) { _, state in
                 row(state: state)
@@ -96,11 +106,12 @@ struct TransactionListReadOnlyDemo: View {
     }
 
     private func row(state: OceanSwiftUI.TransactionListState = .default,
+                     icon: UIImage? = Ocean.icon.placeholderOutline,
                      iconColor: OceanSwiftUI.TransactionListIconColor = .default,
                      content: OceanSwiftUI.ContentListParameters = TransactionListDemo.content(),
                      amount: OceanSwiftUI.AmountDetailsParameters = TransactionListDemo.amount()) -> some View {
         OceanSwiftUI.TransactionListReadOnly(parameters: .init(state: state,
-                                                               icon: Ocean.icon.placeholderOutline,
+                                                               icon: icon,
                                                                iconColor: iconColor,
                                                                contentList: content,
                                                                amountDetails: amount))

@@ -114,13 +114,15 @@ extension OceanSwiftUI {
         var resolvedTag: TagParameters? {
             guard let tag = tag, !tag.label.isEmpty else { return nil }
 
-            return TagParameters(label: tag.label,
-                                 hasLabelBold: tag.hasLabelBold,
-                                 icon: tag.icon,
-                                 status: type == .inactive ? .neutralInterface : tag.status,
-                                 size: size == .md ? .medium : .small,
-                                 showSkeleton: tag.showSkeleton,
-                                 font: tag.font)
+            let resolved = TagParameters(label: tag.label,
+                                         hasLabelBold: tag.hasLabelBold,
+                                         icon: tag.icon,
+                                         status: type == .inactive ? .neutralInterface : tag.status,
+                                         size: size == .md ? .medium : .small,
+                                         showSkeleton: tag.showSkeleton,
+                                         font: tag.font)
+            resolved.truncatesLabel = true
+            return resolved
         }
     }
 
@@ -179,6 +181,8 @@ extension OceanSwiftUI {
                         }
                         .figmaLineHeight(parameters.amountFont)
                     }
+                    // The value never wraps nor truncates; the tag and the additional data adapt instead.
+                    .fixedSize(horizontal: true, vertical: false)
 
                     if let tag = parameters.resolvedTag {
                         Tag(parameters: tag)
@@ -189,13 +193,13 @@ extension OceanSwiftUI {
                     Typography.captionBold { label in
                         label.parameters.text = parameters.additionalData
                         label.parameters.textColor = parameters.additionalDataColor
-                        label.parameters.lineLimit = 1
+                        label.parameters.lineLimit = transactionListTextLineLimit
+                        label.parameters.lineSpacing = figmaLineSpacing(Self.additionalDataFont)
                         label.parameters.multilineTextAlignment = .trailing
                     }
                     .figmaLineHeight(Self.additionalDataFont)
                 }
             }
-            .fixedSize(horizontal: true, vertical: false)
         }
     }
 }

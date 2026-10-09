@@ -248,6 +248,7 @@ extension OceanSwiftUI {
                                 label.parameters.font = figmaTitleFont
                                 label.parameters.textColor = figmaTitleColor
                                 label.parameters.lineSpacing = figmaLineSpacing(figmaTitleFont)
+                                label.parameters.lineLimit = transactionListTextLineLimit
                             }
                             .figmaLineHeight(figmaTitleFont)
                         }
@@ -284,6 +285,7 @@ extension OceanSwiftUI {
                                 label.parameters.strikethrough = !parameters.newDescription.isEmpty
                                 label.parameters.strikethroughColor = Ocean.color.colorInterfaceDarkUp
                                 label.parameters.lineSpacing = figmaLineSpacing(resolvedFigmaDescriptionFont)
+                                label.parameters.lineLimit = transactionListTextLineLimit
                             }
                             .figmaLineHeight(resolvedFigmaDescriptionFont)
                         }
@@ -294,6 +296,7 @@ extension OceanSwiftUI {
                                 label.parameters.font = resolvedFigmaDescriptionFont
                                 label.parameters.textColor = figmaDescriptionColor
                                 label.parameters.lineSpacing = figmaLineSpacing(resolvedFigmaDescriptionFont)
+                                label.parameters.lineLimit = transactionListTextLineLimit
                             }
                             .figmaLineHeight(resolvedFigmaDescriptionFont)
                         }
@@ -307,6 +310,7 @@ extension OceanSwiftUI {
                             ? Ocean.color.colorInterfaceDarkUp
                             : parameters.captionColor
                         label.parameters.lineSpacing = figmaLineSpacing(Self.figmaCaptionBoldFont)
+                        label.parameters.lineLimit = transactionListTextLineLimit
                     }
                     .figmaLineHeight(Self.figmaCaptionBoldFont)
                 }

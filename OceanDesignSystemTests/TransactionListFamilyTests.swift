@@ -448,6 +448,76 @@ final class TransactionListFamilyTests: XCTestCase {
         XCTAssertEqual(OceanSwiftUI.Tag(parameters: .init(label: "L", size: .small)).leadingPadding, 4)
     }
 
+    // MARK: - Overflow (same rule as ocean-web #1275)
+
+    private var longContent: OceanSwiftUI.ContentListParameters {
+        .init(title: String(repeating: "Bank transfer ", count: 8),
+              description: String(repeating: "Seashell Corporation Wholesale and Distribution Ltda ", count: 4),
+              caption: String(repeating: "Order #7182, invoice 4821, scheduled for Oct 15 ", count: 4))
+    }
+
+    private var longAmount: OceanSwiftUI.AmountDetailsParameters {
+        .init(amount: "R$ 1.314,28",
+              tag: .init(label: "Payment scheduled for Oct 15 by bank transfer", status: .complementary),
+              additionalData: String(repeating: "Transfer to Seashell Corporation, account 4821 ", count: 4))
+    }
+
+    func testContentTextsWrapUpToTwoLines() {
+        let short = measuredHeight(contentList(content().resolved(padding: .all(0), usesFamilyMetrics: true)))
+        let long = measuredHeight(contentList(longContent.resolved(padding: .all(0), usesFamilyMetrics: true)))
+
+        XCTAssertEqual(transactionListTextLineLimit, 2)
+        // Title (14), description (16) and caption (12) each get exactly one more line, never a third.
+        XCTAssertEqual(long - short, secondLineHeight(14, 16, 12), accuracy: 1)
+    }
+
+    /// Height a second line adds to texts of these sizes (line height + Figma line spacing - first line slot).
+    private func secondLineHeight(_ sizes: CGFloat...) -> CGFloat {
+        sizes.reduce(0) { total, size in
+            let font = UIFont.baseRegular(size: size)
+            return total + 2 * (font?.lineHeight ?? 0) + figmaLineSpacing(font) - size * 1.5
+        }
+    }
+
+    func testAdditionalDataWrapsUpToTwoLinesAndTheTagStaysOnOne() {
+        let short = OceanSwiftUI.AmountDetailsParameters(amount: "R$ 1.314,28", tag: .init(label: "Label"),
+                                                         additionalData: "Additional data")
+        let shortHeight = measuredHeight(OceanSwiftUI.AmountDetails(parameters: short).frame(width: 120))
+        let longHeight = measuredHeight(OceanSwiftUI.AmountDetails(parameters: longAmount).frame(width: 120))
+
+        XCTAssertEqual(longHeight - shortHeight, secondLineHeight(12), accuracy: 1, "one extra additional data line, tag still 20")
+    }
+
+    func testAmountTagTruncatesAndKeepsItsLabel() {
+        let tag = longAmount.resolvedTag
+
+        XCTAssertEqual(tag?.truncatesLabel, true)
+        XCTAssertEqual(tag?.label, "Payment scheduled for Oct 15 by bank transfer")
+        XCTAssertFalse(OceanSwiftUI.TagParameters(label: "Label").truncatesLabel, "other tags keep their full width")
+    }
+
+    func testAmountTakesAtMostHalfOfTheRowButNeverLessThanItsValue() throws {
+        guard #available(iOS 16.0, *) else { throw XCTSkip("Layout needs iOS 16") }
+        typealias RowLayout = TransactionListContentLayout
+        XCTAssertEqual(RowLayout.maxAmountShare, 0.5)
+        XCTAssertEqual(RowLayout.amountWidth(rowWidth: 300, ideal: 80, minimum: 60), 80, "short amount keeps its width")
+        XCTAssertEqual(RowLayout.amountWidth(rowWidth: 300, ideal: 400, minimum: 60), 150, "long amount capped at 50%")
+        XCTAssertEqual(RowLayout.amountWidth(rowWidth: 100, ideal: 400, minimum: 80), 80, "the value never truncates")
+    }
+
+    func testLongRowKeepsTheRowWidthAndTheFigmaHeight() {
+        let row = OceanSwiftUI.TransactionListReadOnly(parameters: .init(icon: Ocean.icon.placeholderOutline,
+                                                                       contentList: longContent,
+                                                                       amountDetails: longAmount,
+                                                                       showDivider: false))
+        let controller = UIHostingController(rootView: row.frame(width: width))
+        let size = controller.sizeThatFits(in: CGSize(width: width, height: .greatestFiniteMagnitude))
+
+        XCTAssertEqual(size.width, width, accuracy: 0.5, "a long tag never widens the row")
+        // 16 + (21 title + 24 description + 4 + 18 caption) + 16, plus one more line for each text
+        XCTAssertEqual(size.height, 16 + 21 + 24 + 4 + 18 + 16 + secondLineHeight(14, 16, 12), accuracy: 1)
+    }
+
     // MARK: - Selectable
 
     func testCheckboxTogglesAndIndeterminateBecomesSelected() {

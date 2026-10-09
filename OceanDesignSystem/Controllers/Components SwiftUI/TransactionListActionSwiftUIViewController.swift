@@ -42,6 +42,13 @@ struct TransactionListActionDemo: View {
             }
         }
 
+        TransactionListDemoSection(title: "Long text") {
+            OceanSwiftUI.TransactionListAction(parameters: .init(icon: Ocean.icon.libraryOutline,
+                                                                 contentList: TransactionListDemo.longContent(),
+                                                                 amountDetails: TransactionListDemo.longAmount(),
+                                                                 onTouch: { touches += 1 }))
+        }
+
         TransactionListDemoSection(title: "Menu (bottom sheet) · toques: \(touches)") {
             ForEach(TransactionListDemo.states, id: \.0) { title, state in
                 menuRow(id: title, state: state)

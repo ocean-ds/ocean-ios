@@ -20,6 +20,11 @@ extension OceanSwiftUI {
         @Published public var showSkeleton: Bool
         @Published public var font: UIFont?
 
+        /// Set by the Transaction List amount block: the pill may shrink and the label truncates on one
+        /// line with a tail ellipsis (full label kept for VoiceOver). Other callers keep the pill at the
+        /// label's full width.
+        var truncatesLabel = false
+
         public enum Status {
             case positive
             case warning
@@ -119,13 +124,14 @@ extension OceanSwiftUI {
                         }
                     }
                 }
-                .fixedSize(horizontal: true, vertical: false)
+                .fixedSize(horizontal: !parameters.truncatesLabel, vertical: false)
                 .padding(.leading, leadingPadding)
                 .padding(.trailing, self.parameters.size == .medium ? Ocean.size.spacingStackXxs : Ocean.size.spacingStackXxxs)
                 .frame(height: pillHeight)
             }
             .background(Color(self.getBackgroundColor()))
             .cornerRadius(Ocean.size.borderRadiusLg)
+            .modifier(TagFullLabelAccessibility(label: parameters.label, isActive: parameters.truncatesLabel))
             .oceanSkeleton(isActive: self.parameters.showSkeleton)
         }
 
@@ -234,6 +240,22 @@ extension OceanSwiftUI {
             case .highlightComplementary:
                 return Ocean.color.colorComplementaryPure
             }
+        }
+    }
+}
+
+/// A truncated tag still reads its full label to VoiceOver.
+private struct TagFullLabelAccessibility: ViewModifier {
+    let label: String
+    let isActive: Bool
+
+    func body(content: Content) -> some View {
+        if isActive {
+            content
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(Text(label))
+        } else {
+            content
         }
     }
 }
