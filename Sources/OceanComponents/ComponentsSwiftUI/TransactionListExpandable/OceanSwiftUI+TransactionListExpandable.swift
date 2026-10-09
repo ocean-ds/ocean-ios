@@ -5,6 +5,7 @@
 //  Created by Vinicius  Consulmagnos Romeiro on 02/03/26.
 //
 
+import Combine
 import SwiftUI
 import OceanTokens
 
@@ -19,8 +20,19 @@ extension OceanSwiftUI {
         @Published public var status: Status
         @Published public var isEnabled: Bool
         @Published public var hasDivider: Bool
+        /// Figma structure (MR-615): when set, the row is drawn by the Transaction List family —
+        /// icon, Content List, Amount Details and the chevron — and `parent`/`children` are ignored.
+        /// `nil` keeps the legacy rendering from `parent`/`children`.
+        @Published public var header: TransactionListParameters? {
+            didSet { observeHeader() }
+        }
+        /// Figma `Slot`: content shown when expanded, usually `TransactionListChildAction`/
+        /// `TransactionListChildReadOnly` rows. Used with `header`; `bottomMessage` is the footer.
+        @Published public var slot: AnyView?
         
         public var onStatusChange: (Status) -> Void
+
+        private var headerObservation: AnyCancellable?
         
         public init(parent: TransactionListItemParameters = .init(),
                     children: [TransactionListItemParameters] = [],
@@ -28,6 +40,8 @@ extension OceanSwiftUI {
                     status: Status = .collapsed,
                     isEnabled: Bool = true,
                     hasDivider: Bool = true,
+                    header: TransactionListParameters? = nil,
+                    slot: AnyView? = nil,
                     onStatusChange: @escaping (Status) -> Void = { _ in }) {
             self.parent = parent
             self.children = children
@@ -35,11 +49,19 @@ extension OceanSwiftUI {
             self.status = status
             self.isEnabled = isEnabled
             self.hasDivider = hasDivider
+            self.header = header
+            self.slot = slot
             self.onStatusChange = onStatusChange
+            observeHeader()
         }
         
         public enum Status {
             case expanded, collapsed
+        }
+
+        /// State changes made through `header` (e.g. loading → default) re-render the expandable.
+        private func observeHeader() {
+            headerObservation = header?.objectWillChange.sink { [weak self] _ in self?.objectWillChange.send() }
         }
     }
     
@@ -76,9 +98,70 @@ extension OceanSwiftUI {
         
         // MARK: View SwiftUI
         public var body: some View {
+            if let header = parameters.header {
+                familyBody(header: header)
+            } else {
+                legacyBody
+            }
+        }
+
+        // MARK: Figma structure (header + slot)
+
+        private func familyBody(header: TransactionListParameters) -> some View {
+            let isEnabled = parameters.isEnabled && header.isEnabled
+
+            return VStack(alignment: .leading, spacing: 0) {
+                SwiftUI.Button {
+                    toggleStatus()
+                } label: {
+                    TransactionListRow(parameters: header, showsDivider: false) {
+                        TransactionListLeadingIcon(parameters: header)
+                    } trailing: {
+                        if header.state != .loading {
+                            TransactionListActionIcon(image: Ocean.icon.chevronDownSolid,
+                                                      isDisabled: !isEnabled)
+                                .rotationEffect(.degrees(parameters.status == .collapsed ? 0 : -180))
+                                .animation(.linear(duration: animationDuration), value: parameters.status)
+                        }
+                    }
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(TransactionListPressableStyle())
+                .disabled(!isEnabled)
+
+                if parameters.status == .expanded && header.state != .loading {
+                    VStack(alignment: .leading, spacing: 0) {
+                        parameters.slot
+
+                        if !parameters.bottomMessage.isEmpty {
+                            OceanSwiftUI.Typography.captionBold { label in
+                                label.parameters.text = parameters.bottomMessage
+                                label.parameters.textColor = Ocean.color.colorInterfaceDarkUp
+                                label.parameters.multilineTextAlignment = .center
+                            }
+                            .frame(maxWidth: .infinity)
+                            .padding(.top, Ocean.size.spacingStackXxxs)
+                            .padding(.bottom, Ocean.size.spacingStackSm)
+                            .padding(.horizontal, Ocean.size.spacingStackXs)
+                        }
+                    }
+                    .padding(.vertical, Ocean.size.spacingStackXxs)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Color(Ocean.color.colorInterfaceLightPure))
+                }
+
+                if parameters.hasDivider {
+                    TransactionListDivider()
+                }
+            }
+        }
+
+        // MARK: Legacy rendering (parent + children)
+
+        private var legacyBody: some View {
             VStack(alignment: .leading, spacing: 0) {
                 HStack(spacing: 0) {
-                    getParentTransactionItem()
+                    parentTransactionItemContent()
                     
                     Image(uiImage: Ocean.icon.chevronDownSolid)
                         .resizable()
@@ -128,7 +211,16 @@ extension OceanSwiftUI {
             }
         }
         
+        @available(*, deprecated, message: "Legacy parent row. Use `header` (Transaction List family) for the Figma structure.")
         public func getParentTransactionItem() -> OceanSwiftUI.TransactionListItem {
+            OceanSwiftUI.TransactionListItem(parameters: parentTransactionItemParameters())
+        }
+
+        private func parentTransactionItemContent() -> OceanSwiftUI.TransactionListItemContent {
+            OceanSwiftUI.TransactionListItemContent(parameters: parentTransactionItemParameters())
+        }
+
+        private func parentTransactionItemParameters() -> TransactionListItemParameters {
             let parent = parameters.parent.duplicate()
             parent.padding = .init(top: Ocean.size.spacingStackXs,
                                  leading: Ocean.size.spacingStackXs,
@@ -136,11 +228,11 @@ extension OceanSwiftUI {
                                  trailing: 0)
             parent.hasDivider = false
             parent.onTouch = { toggleStatus() }
-            return OceanSwiftUI.TransactionListItem(parameters: parent)
+            return parent
         }
         
         @ViewBuilder
-        private func getChildTransactionItem(for item: TransactionListItemParameters, index: Int) -> OceanSwiftUI.TransactionListItem {
+        private func getChildTransactionItem(for item: TransactionListItemParameters, index: Int) -> OceanSwiftUI.TransactionListItemContent {
             let newItem = item.duplicate()
             newItem.iconColor = Ocean.color.colorInterfaceLightDown
             newItem.iconSize = CGSize(width: 16, height: 16)
@@ -157,7 +249,7 @@ extension OceanSwiftUI {
                                     bottom: Ocean.size.spacingStackXxsExtra,
                                     trailing: Ocean.size.spacingStackXxs)
             
-            return OceanSwiftUI.TransactionListItem(parameters: newItem)
+            return OceanSwiftUI.TransactionListItemContent(parameters: newItem)
         }
         
         private func toggleStatus() {

@@ -20,6 +20,11 @@ extension OceanSwiftUI {
         @Published public var showSkeleton: Bool
         @Published public var font: UIFont?
 
+        /// Set by the Transaction List amount block: the pill may shrink and the label truncates on one
+        /// line with a tail ellipsis (full label kept for VoiceOver). Other callers keep the pill at the
+        /// label's full width.
+        var truncatesLabel = false
+
         public enum Status {
             case positive
             case warning
@@ -119,11 +124,14 @@ extension OceanSwiftUI {
                         }
                     }
                 }
-                .fixedSize(horizontal: true, vertical: false)
-                .padding(.horizontal, self.parameters.size == .medium ? Ocean.size.spacingStackXxs : Ocean.size.spacingStackXxxs)
+                .fixedSize(horizontal: !parameters.truncatesLabel, vertical: false)
+                .padding(.leading, leadingPadding)
+                .padding(.trailing, self.parameters.size == .medium ? Ocean.size.spacingStackXxs : Ocean.size.spacingStackXxxs)
+                .frame(height: pillHeight)
             }
             .background(Color(self.getBackgroundColor()))
             .cornerRadius(Ocean.size.borderRadiusLg)
+            .modifier(TagFullLabelAccessibility(label: parameters.label, isActive: parameters.truncatesLabel))
             .oceanSkeleton(isActive: self.parameters.showSkeleton)
         }
 
@@ -144,6 +152,26 @@ extension OceanSwiftUI {
         }
 
         // MARK: Methods private
+
+        /// Figma `Tag / Default` (3594:34230): Medium = 20 (4 + 12 + 4, or 2 + 16pt icon + 2),
+        /// Small = 16 (4 + 10pt label at 0.8 line height + 4). The label is centered in the pill.
+        var pillHeight: CGFloat {
+            parameters.size == .small
+                ? Ocean.size.spacingStackXxxs * 2 + Ocean.size.spacingStackXxs
+                : Ocean.size.spacingStackXxxs * 2 + Ocean.font.fontSizeXxxs
+        }
+
+        /// Medium with icon starts 6pt from the edge (Figma `pl-6`); otherwise the horizontal padding.
+        var leadingPadding: CGFloat {
+            switch parameters.size {
+            case .medium where parameters.icon != nil:
+                return Ocean.size.spacingStackXxxs + Ocean.size.spacingStackXxxs / 2
+            case .medium, .corner:
+                return Ocean.size.spacingStackXxs
+            case .small:
+                return Ocean.size.spacingStackXxxs
+            }
+        }
 
         func resolvedLabelFont() -> UIFont? {
             if let font = parameters.font {
@@ -212,6 +240,22 @@ extension OceanSwiftUI {
             case .highlightComplementary:
                 return Ocean.color.colorComplementaryPure
             }
+        }
+    }
+}
+
+/// A truncated tag still reads its full label to VoiceOver.
+private struct TagFullLabelAccessibility: ViewModifier {
+    let label: String
+    let isActive: Bool
+
+    func body(content: Content) -> some View {
+        if isActive {
+            content
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(Text(label))
+        } else {
+            content
         }
     }
 }

@@ -219,6 +219,7 @@ extension OceanSwiftUI {
         }
     }
 
+    @available(*, deprecated, message: "Use the Transaction List family: OceanSwiftUI.TransactionListReadOnly, TransactionListAction, TransactionListSelectable, TransactionListExpandable (header + slot), TransactionListChildAction and TransactionListChildReadOnly.")
     public struct TransactionListItem: View {
         // MARK: Properties for UIKit
 
@@ -248,6 +249,16 @@ extension OceanSwiftUI {
 
         // MARK: View SwiftUI
         public var body: some View {
+            TransactionListItemContent(parameters: parameters)
+        }
+    }
+
+    /// Rendering of the legacy `TransactionListItem`, kept unchanged and shared with the legacy
+    /// path of `TransactionListExpandable` (so the library itself does not use the deprecated type).
+    struct TransactionListItemContent: View {
+        @ObservedObject var parameters: TransactionListItemParameters
+
+        var body: some View {
             VStack(spacing: 0) {
                 HStack(spacing: 0) {
                     leadingView

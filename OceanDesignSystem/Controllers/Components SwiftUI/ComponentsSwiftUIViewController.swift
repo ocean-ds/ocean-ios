@@ -77,6 +77,16 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(TransactionListItemSwiftUIViewController(), animated: true, completion: nil)
         case .TransactionListExpandable:
             self.present(TransactionListExpandableSwiftUIViewController(), animated: true, completion: nil)
+        case .TransactionListReadOnly:
+            self.present(TransactionListReadOnlySwiftUIViewController(), animated: true, completion: nil)
+        case .TransactionListAction:
+            self.present(TransactionListActionSwiftUIViewController(), animated: true, completion: nil)
+        case .TransactionListSelectable:
+            self.present(TransactionListSelectableSwiftUIViewController(), animated: true, completion: nil)
+        case .TransactionListChildAction:
+            self.present(TransactionListChildActionSwiftUIViewController(), animated: true, completion: nil)
+        case .TransactionListChildReadOnly:
+            self.present(TransactionListChildReadOnlySwiftUIViewController(), animated: true, completion: nil)
         case .FileUploader:
             self.present(FileUploaderSwiftUIViewController(), animated: true, completion: nil)
         case .InvertedTextListItem:
