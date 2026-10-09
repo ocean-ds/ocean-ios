@@ -236,13 +236,12 @@ extension OceanSwiftUI {
                     .padding(.bottom, Ocean.size.spacingStackXs)
                 }
 
-                let visibleItems = Array(content.items.prefix(5))
-                ForEach(Array(visibleItems.enumerated()), id: \.offset) { row in
+                ForEach(Array(content.items.enumerated()), id: \.offset) { row in
                     OceanSwiftUI.TransactionListReadOnly(
                         parameters: rowParameters(
                             for: row.element,
                             index: row.offset,
-                            visibleItemCount: visibleItems.count
+                            itemCount: content.items.count
                         )
                     )
                 }
@@ -291,14 +290,14 @@ extension OceanSwiftUI {
 
         private func rowParameters(for item: TransactionListReadOnlyParameters,
                                    index: Int,
-                                   visibleItemCount: Int) -> TransactionListReadOnlyParameters {
+                                   itemCount: Int) -> TransactionListReadOnlyParameters {
             TransactionListReadOnlyParameters(
                 state: item.state,
                 icon: item.icon,
                 iconColor: item.iconColor,
                 contentList: item.contentList,
                 amountDetails: item.amountDetails,
-                showDivider: index == 0 && visibleItemCount > 1,
+                showDivider: index == 0 && itemCount > 1,
                 density: index == 0 ? .default : .compact
             )
         }

@@ -115,7 +115,7 @@ struct TransactionFooter2DemoView: View {
                 ])
             }
 
-            TransactionListDemoSection(title: "Max rows") {
+            TransactionListDemoSection(title: "Many rows") {
                 footer(items: (1...7).map { row("Linha \($0)", "R$ \($0),00") })
             }
         }
