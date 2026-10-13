@@ -91,48 +91,71 @@ struct TransactionFooter2DemoView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             TransactionListDemoSection(title: "Default") {
-                footer()
+                footer(
+                    mainItem: row("Pedido", "R$ 623,80"),
+                    details: [row("Pague em", "3x de R$ 207,93 sem acréscimo")]
+                )
             }
 
             TransactionListDemoSection(title: "Highlight") {
-                footer(type: .highlight)
+                footer(
+                    type: .highlight,
+                    mainItem: row("Pedido", "R$ 623,80"),
+                    details: [row("Pague em", "3x de R$ 207,93 sem acréscimo")]
+                )
             }
 
-            TransactionListDemoSection(title: "With notice") {
-                footer(notice: "Seu pagamento será processado após a confirmação.")
+            TransactionListDemoSection(title: "Highlight with notice") {
+                footer(
+                    type: .highlight,
+                    notice: .init(description: "Seu pagamento será processado após a confirmação."),
+                    mainItem: row("Pedido", "R$ 623,80"),
+                    details: [row("Pague em", "3x de R$ 207,93 sem acréscimo")]
+                )
             }
 
-            TransactionListDemoSection(title: "Rich rows") {
-                footer(items: [
-                    row(
-                        "Taxa",
-                        "Grátis",
-                        description: "Antecipação",
-                        strikethrough: "R$ 10,00",
-                        tag: "Grátis"
+            TransactionListDemoSection(title: "Notice with title and icon") {
+                footer(
+                    notice: .init(
+                        icon: Image(uiImage: Ocean.icon.checkCircleSolid!),
+                        title: "Economia de R$ 96,39",
+                        description: "A economia será aplicada ao pagamento."
                     ),
-                    row("Desconto", "R$ 10,00", description: "Benefício aplicado")
-                ])
+                    mainItem: row("Pedido", "R$ 623,80"),
+                    details: [row("Pague em", "3x de R$ 207,93 sem acréscimo")]
+                )
             }
 
-            TransactionListDemoSection(title: "Many rows") {
-                footer(items: (1...7).map { row("Linha \($0)", "R$ \($0),00") })
+            TransactionListDemoSection(title: "Main item only") {
+                footer(mainItem: row("Pedido", "R$ 623,80"))
+            }
+
+            TransactionListDemoSection(title: "Details only") {
+                footer(details: [row("Pague em", "3x de R$ 207,93 sem acréscimo")])
+            }
+
+            TransactionListDemoSection(title: "Four details") {
+                footer(details: [
+                    row("Pague em", "3x de R$ 207,93 sem acréscimo"),
+                    row("Custo de antecipação", "R$ 96,39"),
+                    row("Vencimento", "10 de outubro"),
+                    row("Forma de pagamento", "Cartão de crédito")
+                ])
             }
         }
     }
 
     private func footer(type: OceanSwiftUI.TransactionFooterType = .default,
-                        notice: String? = nil,
-                        items: [OceanSwiftUI.TransactionListReadOnlyParameters]? = nil) -> some View {
+                        notice: OceanSwiftUI.TransactionFooterNotice? = nil,
+                        mainItem: OceanSwiftUI.TransactionFooterRow? = nil,
+                        details: [OceanSwiftUI.TransactionFooterRow] = []) -> some View {
         OceanSwiftUI.TransactionFooter(parameters: .init(
-            style: .transaction(
+            style: .v2(
                 .init(
                     type: type,
                     notice: notice,
-                    items: items ?? [
-                        row("Compra", "R$ 100,00"),
-                        row("Desconto", "R$ 10,00")
-                    ],
+                    mainItem: mainItem,
+                    details: details,
                     total: .init(label: "Total", value: "R$ 90,00"),
                     button: .init(text: "Continuar", style: .primary, onTouch: {})
                 )
@@ -140,19 +163,7 @@ struct TransactionFooter2DemoView: View {
         ))
     }
 
-    private func row(_ title: String,
-                     _ amount: String,
-                     description: String = "",
-                     strikethrough: String = "",
-                     tag: String = "") -> OceanSwiftUI.TransactionListReadOnlyParameters {
-        .init(
-            contentList: .init(title: title, description: description, caption: "Hoje"),
-            amountDetails: .init(
-                amount: amount,
-                strikethroughAmount: strikethrough,
-                type: strikethrough.isEmpty ? .default : .strikethrough,
-                tag: tag.isEmpty ? nil : .init(label: tag, status: .positive)
-            )
-        )
+    private func row(_ label: String, _ value: String) -> OceanSwiftUI.TransactionFooterRow {
+        .init(label: label, value: value)
     }
 }

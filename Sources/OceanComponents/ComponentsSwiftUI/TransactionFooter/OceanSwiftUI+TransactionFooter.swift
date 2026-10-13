@@ -15,6 +15,32 @@ extension OceanSwiftUI {
         case highlight
     }
 
+    /// Label and value shown in a Transaction Footer 2.0 row.
+    public struct TransactionFooterRow {
+        public var label: String
+        public var value: String
+
+        public init(label: String, value: String) {
+            self.label = label
+            self.value = value
+        }
+    }
+
+    /// Optional notice content displayed above the footer body.
+    public struct TransactionFooterNotice {
+        public var icon: Image?
+        public var title: String?
+        public var description: String
+
+        public init(icon: Image? = Image(uiImage: Ocean.icon.checkCircleSolid!),
+                    title: String? = nil,
+                    description: String) {
+            self.icon = icon
+            self.title = title
+            self.description = description
+        }
+    }
+
     public struct TransactionFooterTotal {
         public var label: String
         public var value: String
@@ -25,45 +51,64 @@ extension OceanSwiftUI {
         }
     }
 
+    /// Content for Transaction Footer 2.0.
     public struct TransactionFooterContent {
         public var type: TransactionFooterType
-        public var notice: String?
-        public var items: [TransactionListReadOnlyParameters]
+        public var notice: TransactionFooterNotice?
+        public var mainItem: TransactionFooterRow?
+        public var details: [TransactionFooterRow]
         public var total: TransactionFooterTotal
         public var button: ButtonParameters
 
         public init(type: TransactionFooterType = .default,
-                    notice: String? = nil,
-                    items: [TransactionListReadOnlyParameters],
+                    notice: TransactionFooterNotice? = nil,
+                    mainItem: TransactionFooterRow? = nil,
+                    details: [TransactionFooterRow] = [],
                     total: TransactionFooterTotal,
                     button: ButtonParameters) {
             self.type = type
             self.notice = notice
-            self.items = items
+            self.mainItem = mainItem
+            self.details = details
             self.total = total
             self.button = button
         }
     }
 
     public enum TransactionFooterStyle {
+        /// Transaction Footer 1.0. Kept as the default for compatibility.
+        @available(*, deprecated, message: "Transaction Footer 1.0 — use .v2")
         case legacy
-        case transaction(TransactionFooterContent)
+
+        /// Transaction Footer 2.0 with explicit main item, details and total.
+        case v2(TransactionFooterContent)
     }
 
     private struct TransactionFooterTopCorners: Shape {
         let radius: CGFloat
 
         func path(in rect: CGRect) -> Path {
+            let radius = min(radius, min(rect.width, rect.height) / 2)
             guard radius > 0 else { return Path(rect) }
 
             var path = Path()
             path.move(to: CGPoint(x: rect.minX, y: rect.maxY))
             path.addLine(to: CGPoint(x: rect.minX, y: rect.minY + radius))
-            path.addQuadCurve(to: CGPoint(x: rect.minX + radius, y: rect.minY),
-                              control: CGPoint(x: rect.minX, y: rect.minY))
+            path.addArc(
+                center: CGPoint(x: rect.minX + radius, y: rect.minY + radius),
+                radius: radius,
+                startAngle: .degrees(180),
+                endAngle: .degrees(270),
+                clockwise: false
+            )
             path.addLine(to: CGPoint(x: rect.maxX - radius, y: rect.minY))
-            path.addQuadCurve(to: CGPoint(x: rect.maxX, y: rect.minY + radius),
-                              control: CGPoint(x: rect.maxX, y: rect.minY))
+            path.addArc(
+                center: CGPoint(x: rect.maxX - radius, y: rect.minY + radius),
+                radius: radius,
+                startAngle: .degrees(270),
+                endAngle: .degrees(360),
+                clockwise: false
+            )
             path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
             path.closeSubpath()
             return path
@@ -181,8 +226,8 @@ extension OceanSwiftUI {
             switch parameters.style {
             case .legacy:
                 legacyBody
-            case .transaction(let content):
-                transactionBody(content: content)
+            case .v2(let content):
+                transactionBody(content)
             }
         }
 
@@ -218,88 +263,154 @@ extension OceanSwiftUI {
             .padding(parameters.padding)
         }
 
-        private func transactionBody(content: TransactionFooterContent) -> some View {
+        private func transactionBody(_ content: TransactionFooterContent) -> some View {
             VStack(spacing: 0) {
                 if let notice = content.notice {
-                    OceanSwiftUI.Typography.paragraph { label in
-                        label.parameters.text = notice
+                    noticeView(notice)
+                        .padding(.bottom, -Ocean.size.spacingStackXs)
+                        .zIndex(0)
+                }
+
+                VStack(spacing: 0) {
+                    if let mainItem = content.mainItem {
+                        transactionRow(mainItem, density: .default)
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(Ocean.size.spacingStackXs)
-                    .background(
-                        Color(Ocean.color.colorStatusPositiveUp)
-                            .overlay(
-                                Color(Ocean.color.colorStatusPositiveDeep)
-                                    .opacity(0.12)
-                            )
-                    )
-                    .padding(.bottom, Ocean.size.spacingStackXs)
-                }
 
-                ForEach(Array(content.items.enumerated()), id: \.offset) { row in
-                    OceanSwiftUI.TransactionListReadOnly(
-                        parameters: rowParameters(
-                            for: row.element,
-                            index: row.offset,
-                            itemCount: content.items.count
-                        )
-                    )
-                }
-
-                OceanSwiftUI.Divider()
-                    .padding(.horizontal, Ocean.size.spacingStackXs)
-
-                HStack {
-                    OceanSwiftUI.Typography.paragraph { label in
-                        label.parameters.text = content.total.label
-                        label.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                    if content.mainItem != nil && !content.details.isEmpty {
+                        transactionDivider
                     }
-                    Spacer()
-                    OceanSwiftUI.Typography.paragraph { label in
-                        label.parameters.text = content.total.value
-                        label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
-                        label.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXs)
+
+                    if !content.details.isEmpty {
+                        VStack(spacing: 0) {
+                            ForEach(content.details.indices, id: \.self) { index in
+                                transactionRow(content.details[index], density: .compact)
+                            }
+                        }
+                        .padding(.vertical, Ocean.size.spacingStackXxs)
+                    }
+
+                    if content.mainItem != nil || !content.details.isEmpty {
+                        transactionDivider
+                    }
+
+                    totalRow(content.total)
+
+                    OceanSwiftUI.Button(parameters: content.button)
+                        .frame(maxWidth: .infinity)
+                        .padding(.horizontal, Ocean.size.spacingStackXs)
+                        .padding(.bottom, Ocean.size.spacingStackXs)
+                }
+                .frame(maxWidth: .infinity)
+                .background(
+                    Color(content.type == .default
+                          ? Ocean.color.colorInterfaceLightPure
+                          : Ocean.color.colorInterfaceLightUp)
+                )
+                .clipShape(TransactionFooterTopCorners(
+                    radius: content.type == .highlight ? Ocean.size.borderRadiusMd : 0
+                ))
+                .overlay(alignment: .top) {
+                    if content.type == .default {
+                        Rectangle()
+                            .fill(Color(Ocean.color.colorInterfaceLightDown))
+                            .frame(height: 1)
                     }
                 }
-                .padding(.horizontal, Ocean.size.spacingStackXs)
-                .padding(.vertical, Ocean.size.spacingStackXs)
-
-                OceanSwiftUI.Button(parameters: content.button)
-                    .padding(.horizontal, Ocean.size.spacingStackXs)
-                    .padding(.top, Ocean.size.spacingStackMd)
-                    .padding(.bottom, Ocean.size.spacingStackXs)
-            }
-            .background(
-                Color(content.type == .default
-                      ? Ocean.color.colorInterfaceLightPure
-                      : Ocean.color.colorInterfaceLightUp)
-            )
-            .clipShape(
-                content.type == .highlight
-                    ? TransactionFooterTopCorners(radius: Ocean.size.borderRadiusMd)
-                    : TransactionFooterTopCorners(radius: 0)
-            )
-            .overlay(alignment: .top) {
-                if content.type == .default {
-                    Rectangle()
-                        .fill(Color(Ocean.color.colorInterfaceLightDown))
-                        .frame(height: 1)
-                }
+                .zIndex(1)
             }
         }
 
-        private func rowParameters(for item: TransactionListReadOnlyParameters,
-                                   index: Int,
-                                   itemCount: Int) -> TransactionListReadOnlyParameters {
-            TransactionListReadOnlyParameters(
-                state: item.state,
-                icon: item.icon,
-                iconColor: item.iconColor,
-                contentList: item.contentList,
-                amountDetails: item.amountDetails,
-                showDivider: index == 0 && itemCount > 1,
-                density: index == 0 ? .default : .compact
+        private enum TransactionFooterRowDensity: Equatable {
+            case `default`
+            case compact
+        }
+
+        private func transactionRow(
+            _ row: TransactionFooterRow,
+            density: TransactionFooterRowDensity
+        ) -> some View {
+            HStack(alignment: .firstTextBaseline) {
+                OceanSwiftUI.Typography.paragraph { label in
+                    label.parameters.text = row.label
+                    label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
+                    label.parameters.font = .baseRegular(size: Ocean.font.fontSizeXxs)
+                }
+                Spacer(minLength: Ocean.size.spacingStackXxs)
+                OceanSwiftUI.Typography.paragraph { value in
+                    value.parameters.text = row.value
+                    value.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
+                    value.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXxs)
+                }
+            }
+            .padding(.horizontal, Ocean.size.spacingStackXs)
+            .padding(
+                .vertical,
+                density == .default ? Ocean.size.spacingStackXs : Ocean.size.spacingStackXxs
             )
+        }
+
+        private func totalRow(_ total: TransactionFooterTotal) -> some View {
+            HStack(alignment: .firstTextBaseline) {
+                OceanSwiftUI.Typography.paragraph { label in
+                    label.parameters.text = total.label
+                    label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
+                    label.parameters.font = .baseBold(size: Ocean.font.fontSizeXs)
+                }
+                Spacer(minLength: Ocean.size.spacingStackXxs)
+                OceanSwiftUI.Typography.paragraph { value in
+                    value.parameters.text = total.value
+                    value.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
+                    value.parameters.font = .baseBold(size: Ocean.font.fontSizeXs)
+                }
+            }
+            .padding(.horizontal, Ocean.size.spacingStackXs)
+            .padding(.vertical, Ocean.size.spacingStackXs)
+        }
+
+        private var transactionDivider: some View {
+            OceanSwiftUI.Divider()
+                .padding(.horizontal, Ocean.size.spacingStackXs)
+        }
+
+        private func noticeView(_ notice: TransactionFooterNotice) -> some View {
+            HStack(alignment: .top, spacing: Ocean.size.spacingStackXxs) {
+                if let icon = notice.icon {
+                    icon
+                        .resizable()
+                        .renderingMode(.template)
+                        .foregroundColor(Color(Ocean.color.colorStatusPositiveDeep))
+                        .frame(width: Ocean.size.spacingStackSm, height: Ocean.size.spacingStackSm)
+                }
+
+                VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxxs) {
+                    if let title = notice.title {
+                        OceanSwiftUI.Typography.paragraph { label in
+                            label.parameters.text = title
+                            label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
+                            label.parameters.font = .baseExtraBold(size: Ocean.font.fontSizeXxs)
+                        }
+                    }
+
+                    OceanSwiftUI.Typography.paragraph { description in
+                        description.parameters.text = notice.description
+                        description.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
+                        description.parameters.font = .baseRegular(size: Ocean.font.fontSizeXxxs)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .padding(.top, Ocean.size.spacingStackXs)
+            .padding(.horizontal, Ocean.size.spacingStackXs)
+            .padding(.bottom, Ocean.size.spacingStackMd)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(
+                Color(Ocean.color.colorStatusPositiveUp)
+                    .overlay(
+                        Color(Ocean.color.colorStatusPositiveDeep)
+                            .opacity(0.12)
+                    )
+            )
+            .clipShape(TransactionFooterTopCorners(radius: Ocean.size.borderRadiusMd))
         }
 
         // MARK: Methods private
