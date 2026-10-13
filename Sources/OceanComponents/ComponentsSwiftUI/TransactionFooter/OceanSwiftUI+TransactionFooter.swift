@@ -304,14 +304,14 @@ extension OceanSwiftUI {
                 }
                 .frame(maxWidth: .infinity)
                 .background(
-                    Color(content.type == .default
-                          ? Ocean.color.colorInterfaceLightPure
-                          : Ocean.color.colorInterfaceLightUp)
+                    TransactionFooterTopCorners(
+                        radius: content.type == .highlight ? Ocean.size.borderRadiusMd : 0
+                    )
+                    .fill(Color(content.type == .default
+                                ? Ocean.color.colorInterfaceLightPure
+                                : Ocean.color.colorInterfaceLightUp))
                         .ignoresSafeArea(.container, edges: .bottom)
                 )
-                .clipShape(TransactionFooterTopCorners(
-                    radius: content.type == .highlight ? Ocean.size.borderRadiusMd : 0
-                ))
                 .overlay(alignment: .top) {
                     if content.type == .default {
                         Rectangle()

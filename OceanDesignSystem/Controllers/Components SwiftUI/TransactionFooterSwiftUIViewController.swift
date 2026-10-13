@@ -180,10 +180,20 @@ struct TransactionFooter2DemoView: View {
 }
 
 struct TransactionFooter2FixedDemoView: View {
+    @Environment(\.dismiss) private var dismiss
+
     var body: some View {
         let demo = TransactionFooter2DemoView()
 
         return VStack(spacing: 0) {
+            HStack {
+                Spacer()
+                Button("Fechar") {
+                    dismiss()
+                }
+            }
+            .padding(Ocean.size.spacingStackXs)
+
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
                     TransactionListDemoSection(title: "Resumo do pedido") {
