@@ -19,10 +19,12 @@ extension OceanSwiftUI {
     public struct TransactionFooterRow {
         public var label: String
         public var value: String
+        public var info: String?
 
-        public init(label: String, value: String) {
+        public init(label: String, value: String, info: String? = nil) {
             self.label = label
             self.value = value
+            self.info = info
         }
     }
 
@@ -329,17 +331,33 @@ extension OceanSwiftUI {
             _ row: TransactionFooterRow,
             density: TransactionFooterRowDensity
         ) -> some View {
-            HStack(alignment: .firstTextBaseline) {
+            HStack(alignment: .center) {
                 OceanSwiftUI.Typography.paragraph { label in
                     label.parameters.text = row.label
                     label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
                     label.parameters.font = .baseRegular(size: Ocean.font.fontSizeXxs)
                 }
                 Spacer(minLength: Ocean.size.spacingStackXxs)
-                OceanSwiftUI.Typography.paragraph { value in
-                    value.parameters.text = row.value
-                    value.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
-                    value.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXxs)
+                VStack(alignment: .trailing, spacing: Ocean.size.spacingStackXxxs) {
+                    OceanSwiftUI.Typography.paragraph { value in
+                        value.parameters.text = row.value
+                        value.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
+                        value.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXxs)
+                        value.parameters.multilineTextAlignment = .trailing
+                    }
+
+                    if let info = row.info {
+                        OceanSwiftUI.Typography.captionBold { additionalData in
+                            additionalData.parameters.text = info
+                            additionalData.parameters.textColor = Ocean.color.colorInterfaceDarkDown
+                            additionalData.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
+                            additionalData.parameters.lineLimit = transactionListTextLineLimit
+                            additionalData.parameters.lineSpacing = figmaLineSpacing(
+                                .baseSemiBold(size: Ocean.font.fontSizeXxxs)
+                            )
+                            additionalData.parameters.multilineTextAlignment = .trailing
+                        }
+                    }
                 }
             }
             .padding(.horizontal, Ocean.size.spacingStackXs)
@@ -373,13 +391,13 @@ extension OceanSwiftUI {
         }
 
         private func noticeView(_ notice: TransactionFooterNotice) -> some View {
-            HStack(alignment: .top, spacing: Ocean.size.spacingStackXxs) {
+            HStack(alignment: .center, spacing: Ocean.size.spacingStackXxs) {
                 if let icon = notice.icon {
                     icon
                         .resizable()
                         .renderingMode(.template)
                         .foregroundColor(Color(Ocean.color.colorStatusPositiveDeep))
-                        .frame(width: Ocean.size.spacingStackSm, height: Ocean.size.spacingStackSm)
+                        .frame(width: 20, height: 20)
                 }
 
                 VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxxs) {
