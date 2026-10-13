@@ -152,10 +152,10 @@ struct TransactionFooter2DemoView: View {
         }
     }
 
-    private func footer(type: OceanSwiftUI.TransactionFooterType = .default,
-                        notice: OceanSwiftUI.TransactionFooterNotice? = nil,
-                        mainItem: OceanSwiftUI.TransactionFooterRow? = nil,
-                        details: [OceanSwiftUI.TransactionFooterRow] = []) -> some View {
+    fileprivate func footer(type: OceanSwiftUI.TransactionFooterType = .default,
+                            notice: OceanSwiftUI.TransactionFooterNotice? = nil,
+                            mainItem: OceanSwiftUI.TransactionFooterRow? = nil,
+                            details: [OceanSwiftUI.TransactionFooterRow] = []) -> some View {
         OceanSwiftUI.TransactionFooter(parameters: .init(
             style: .v2(
                 .init(
@@ -170,11 +170,40 @@ struct TransactionFooter2DemoView: View {
         ))
     }
 
-    private func row(
+    fileprivate func row(
         _ label: String,
         _ value: String,
         info: String? = nil
     ) -> OceanSwiftUI.TransactionFooterRow {
         .init(label: label, value: value, info: info)
+    }
+}
+
+struct TransactionFooter2FixedDemoView: View {
+    var body: some View {
+        let demo = TransactionFooter2DemoView()
+
+        return VStack(spacing: 0) {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 0) {
+                    TransactionListDemoSection(title: "Resumo do pedido") {
+                        Text("Confira os itens e os detalhes antes de continuar.")
+                            .padding(.horizontal, Ocean.size.spacingStackXs)
+                            .padding(.bottom, Ocean.size.spacingStackSm)
+                    }
+                    TransactionListDemoSection(title: "Itens") {
+                        Text("Produto fictício")
+                            .padding(.horizontal, Ocean.size.spacingStackXs)
+                            .padding(.bottom, Ocean.size.spacingStackSm)
+                    }
+                }
+            }
+            demo.footer(
+                mainItem: demo.row("Subtotal", "R$ 1.250,00"),
+                details: [demo.row("Parcelamento", "5x de R$ 250,00", info: "sem acréscimo")]
+            )
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.white)
     }
 }

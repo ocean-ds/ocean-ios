@@ -307,6 +307,7 @@ extension OceanSwiftUI {
                     Color(content.type == .default
                           ? Ocean.color.colorInterfaceLightPure
                           : Ocean.color.colorInterfaceLightUp)
+                        .ignoresSafeArea(.container, edges: .bottom)
                 )
                 .clipShape(TransactionFooterTopCorners(
                     radius: content.type == .highlight ? Ocean.size.borderRadiusMd : 0
