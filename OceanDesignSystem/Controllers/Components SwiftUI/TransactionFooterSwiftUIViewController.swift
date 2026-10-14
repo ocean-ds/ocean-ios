@@ -146,6 +146,13 @@ struct TransactionFooter2DemoView: View {
                 ])
             }
 
+            TransactionListDemoSection(title: "Amount variations and content") {
+                footer(
+                    mainItem: amountVariantRows[0],
+                    details: Array(amountVariantRows.dropFirst())
+                )
+            }
+
             TransactionListDemoSection(title: "Additional info") {
                 footer(mainItem: row("Subtotal", "R$ 1.250,00", info: "sem acréscimo"))
             }
@@ -170,12 +177,42 @@ struct TransactionFooter2DemoView: View {
         ))
     }
 
+    fileprivate var amountVariantRows: [OceanSwiftUI.TransactionFooterRow] {
+        [
+            row("Taxa", "Grátis", type: .strikethrough, strikethroughAmount: "3,99%"),
+            row("Ajuste", "R$ 0,00", type: .strikethroughNeutral, strikethroughAmount: "R$ 1,00"),
+            row("Cashback", "R$ 10,00", type: .positive),
+            row("Tarifa de ajuste", "R$ 2,00", type: .negative),
+            row("Taxa anterior", "R$ 2,00", type: .inactive),
+            row("Desconto", "Grátis", tag: .init(label: "Aplicado", status: .positive)),
+            row("Parcelamento", "5x de R$ 250,00", info: "sem acréscimo"),
+            row(
+                "Compra",
+                "R$ 1.250,00",
+                description: "Pagamento em cinco parcelas"
+            )
+        ]
+    }
+
     fileprivate func row(
         _ label: String,
         _ value: String,
-        info: String? = nil
+        info: String? = nil,
+        type: OceanSwiftUI.AmountDetailsParameters.AmountType = .default,
+        strikethroughAmount: String = "",
+        tag: OceanSwiftUI.TagParameters? = nil,
+        description: String = ""
     ) -> OceanSwiftUI.TransactionFooterRow {
-        .init(label: label, value: value, info: info)
+        .init(
+            contentList: .init(title: label, description: description),
+            amountDetails: .init(
+                amount: value,
+                strikethroughAmount: strikethroughAmount,
+                type: type,
+                tag: tag,
+                additionalData: info ?? ""
+            )
+        )
     }
 }
 
@@ -209,8 +246,8 @@ struct TransactionFooter2FixedDemoView: View {
                 }
             }
             demo.footer(
-                mainItem: demo.row("Subtotal", "R$ 1.250,00"),
-                details: [demo.row("Parcelamento", "5x de R$ 250,00", info: "sem acréscimo")]
+                mainItem: demo.amountVariantRows[0],
+                details: Array(demo.amountVariantRows.dropFirst())
             )
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

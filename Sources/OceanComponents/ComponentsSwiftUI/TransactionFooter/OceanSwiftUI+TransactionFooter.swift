@@ -15,16 +15,44 @@ extension OceanSwiftUI {
         case highlight
     }
 
-    /// Label and value shown in a Transaction Footer 2.0 row.
+    /// Content List and Amount Details shown in a Transaction Footer 2.0 row.
     public struct TransactionFooterRow {
-        public var label: String
-        public var value: String
-        public var info: String?
+        public let contentList: ContentListParameters
+        public let amountDetails: AmountDetailsParameters
 
+        fileprivate let defaultListParameters: TransactionListReadOnlyParameters
+        fileprivate let compactListParameters: TransactionListReadOnlyParameters
+
+        public init(contentList: ContentListParameters,
+                    amountDetails: AmountDetailsParameters) {
+            contentList.size = .sm
+            contentList.renderingStyle = .transactionSummaryRow
+            amountDetails.size = .sm
+            self.contentList = contentList
+            self.amountDetails = amountDetails
+            self.defaultListParameters = TransactionListReadOnlyParameters(
+                contentList: contentList,
+                amountDetails: amountDetails,
+                showDivider: false,
+                density: .default
+            )
+            self.compactListParameters = TransactionListReadOnlyParameters(
+                contentList: contentList,
+                amountDetails: amountDetails,
+                showDivider: false,
+                density: .compact
+            )
+        }
+
+        @available(*, deprecated, message: "Use init(contentList:amountDetails:)")
         public init(label: String, value: String, info: String? = nil) {
-            self.label = label
-            self.value = value
-            self.info = info
+            self.init(
+                contentList: ContentListParameters(title: label),
+                amountDetails: AmountDetailsParameters(
+                    amount: value,
+                    additionalData: info ?? ""
+                )
+            )
         }
     }
 
@@ -333,39 +361,10 @@ extension OceanSwiftUI {
             _ row: TransactionFooterRow,
             density: TransactionFooterRowDensity
         ) -> some View {
-            HStack(alignment: .center) {
-                OceanSwiftUI.Typography.paragraph { label in
-                    label.parameters.text = row.label
-                    label.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
-                    label.parameters.font = .baseRegular(size: Ocean.font.fontSizeXxs)
-                }
-                Spacer(minLength: Ocean.size.spacingStackXxs)
-                VStack(alignment: .trailing, spacing: Ocean.size.spacingStackXxxs) {
-                    OceanSwiftUI.Typography.paragraph { value in
-                        value.parameters.text = row.value
-                        value.parameters.textColor = Ocean.color.colorInterfaceDarkDeep
-                        value.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXxs)
-                        value.parameters.multilineTextAlignment = .trailing
-                    }
-
-                    if let info = row.info {
-                        OceanSwiftUI.Typography.captionBold { additionalData in
-                            additionalData.parameters.text = info
-                            additionalData.parameters.textColor = Ocean.color.colorInterfaceDarkDown
-                            additionalData.parameters.font = .baseSemiBold(size: Ocean.font.fontSizeXxxs)
-                            additionalData.parameters.lineLimit = transactionListTextLineLimit
-                            additionalData.parameters.lineSpacing = figmaLineSpacing(
-                                .baseSemiBold(size: Ocean.font.fontSizeXxxs)
-                            )
-                            additionalData.parameters.multilineTextAlignment = .trailing
-                        }
-                    }
-                }
-            }
-            .padding(.horizontal, Ocean.size.spacingStackXs)
-            .padding(
-                .vertical,
-                density == .default ? Ocean.size.spacingStackXs : Ocean.size.spacingStackXxs
+            OceanSwiftUI.TransactionListReadOnly(
+                parameters: density == .default
+                    ? row.defaultListParameters
+                    : row.compactListParameters
             )
         }
 
