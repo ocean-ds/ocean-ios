@@ -60,6 +60,10 @@ final class TransactionListFamilyTests: XCTestCase {
 
         XCTAssertEqual(parameters.size, .md)
         XCTAssertEqual(parameters.strikethroughText, "")
+        XCTAssertFalse(parameters.rendersTitleAsEmphasis)
+        XCTAssertFalse(parameters.resolved().rendersTitleAsEmphasis)
+        parameters.rendersTitleAsEmphasis = true
+        XCTAssertTrue(parameters.resolved().rendersTitleAsEmphasis)
         for type in [ContentType.default, .inactive, .highlight, .highlightLead] {
             parameters.type = type
             XCTAssertFalse(parameters.appliesFigmaMetrics, "existing type \(type) must keep the legacy rendering in md")
@@ -215,6 +219,25 @@ final class TransactionListFamilyTests: XCTestCase {
         XCTAssertEqual(parameters.resolvedAmountDetails().type, .negative)
         XCTAssertTrue(parameters.isEnabled)
         XCTAssertFalse(OceanSwiftUI.TransactionListReadOnlyParameters(state: .loading).isEnabled)
+    }
+
+    func testTransactionFooterRowUsesSmallEmphasizedContentAndAmount() {
+        let row = OceanSwiftUI.TransactionFooterRow(
+            contentList: .init(title: "Taxa"),
+            amountDetails: .init(amount: "Grátis")
+        )
+        let content = contentList(row.contentList.resolved(usesFamilyMetrics: true))
+
+        XCTAssertEqual(row.contentList.size, .sm)
+        XCTAssertTrue(row.contentList.rendersTitleAsEmphasis)
+        XCTAssertEqual(row.amountDetails.size, .sm)
+        XCTAssertEqual(content.figmaTitleFont?.pointSize, Ocean.font.fontSizeXxs)
+        XCTAssertEqual(content.figmaTitleFont?.fontName, UIFont.baseRegular(size: Ocean.font.fontSizeXxs)?.fontName)
+        XCTAssertEqual(content.figmaTitleColor, Ocean.color.colorInterfaceDarkDeep)
+
+        row.contentList.type = .inactive
+        let inactiveContent = contentList(row.contentList.resolved(usesFamilyMetrics: true))
+        XCTAssertEqual(inactiveContent.figmaTitleColor, Ocean.color.colorInterfaceDarkUp)
     }
 
     func testContentAndAmountSizesAreIndependent() {

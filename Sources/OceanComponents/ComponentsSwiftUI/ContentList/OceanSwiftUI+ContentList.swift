@@ -38,6 +38,8 @@ extension OceanSwiftUI {
         /// (caption `captionBold` 4pt below, description `Interface/Dark/Deep`). Existing callers keep
         /// the legacy rendering.
         var usesFamilyMetrics = false
+        /// Used by Transaction Summary rows to render the title as emphasis.
+        var rendersTitleAsEmphasis = false
 
         public init(title: String = "",
                     description: String = "",
@@ -112,6 +114,7 @@ extension OceanSwiftUI {
                                              size: size,
                                              strikethroughText: strikethroughText)
             copy.usesFamilyMetrics = usesFamilyMetrics ?? self.usesFamilyMetrics
+            copy.rendersTitleAsEmphasis = rendersTitleAsEmphasis
             return copy
         }
 
@@ -334,12 +337,22 @@ extension OceanSwiftUI {
         var resolvedFigmaDescriptionFont: UIFont? { parameters.descriptionFont ?? figmaDescriptionFont }
 
         var figmaTitleFont: UIFont? {
+            if parameters.rendersTitleAsEmphasis && !resolvedInverted {
+                return .baseRegular(size: Ocean.font.fontSizeXxs)
+            }
+
             parameters.size == .sm
                 ? .baseSemiBold(size: Ocean.font.fontSizeXxxs)
                 : .baseRegular(size: Ocean.font.fontSizeXxs)
         }
 
         var figmaTitleColor: UIColor {
+            if parameters.rendersTitleAsEmphasis && !resolvedInverted {
+                return parameters.type == .inactive
+                    ? Ocean.color.colorInterfaceDarkUp
+                    : Ocean.color.colorInterfaceDarkDeep
+            }
+
             parameters.type == .inactive ? Ocean.color.colorInterfaceDarkUp : Ocean.color.colorInterfaceDarkDown
         }
 
