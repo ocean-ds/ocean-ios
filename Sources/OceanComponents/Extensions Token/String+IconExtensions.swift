@@ -159,7 +159,6 @@ public extension String {
         case "sendoutline": return Ocean.icon.sendOutline
         case "sendsolid": return Ocean.icon.sendSolid
         case "settingsoutline": return Ocean.icon.settingsOutline
-        case "variabletaxoutline": return Ocean.icon.variableTaxOutline
         case "walletoutline": return Ocean.icon.walletOutline
         case "zerosolid": return Ocean.icon.zeroSolid
             // HeroIcons

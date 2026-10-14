@@ -165,7 +165,6 @@ extension Ocean {
         public static let sendOutline = UIImage(named: "send-outline", in: Bundle.module, with: .none)
         public static let sendSolid = UIImage(named: "send-solid", in: Bundle.module, with: .none)
         public static let settingsOutline = UIImage(named: "settings-outline", in: Bundle.module, with: .none)
-        public static let variableTaxOutline = UIImage(named: "variable-tax-outline", in: Bundle.module, with: .none)
         public static let walletOutline = UIImage(named: "wallet-outline", in: Bundle.module, with: .none)
         public static let zeroSolid = UIImage(named: "zero-solid", in: Bundle.module, with: .none)
         // HeroIcons
