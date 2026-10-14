@@ -623,7 +623,7 @@ public extension String {
         case "arrowuturnleftoutline": return Ocean.icon.arrowUturnLeftOutline
         case "flashoffaltoutline": return Ocean.icon.flashOffAltOutline
         case "flashaltoutline": return Ocean.icon.flashAltOutline
-        default: return nil
+        default: return Ocean.iconProvider?(cleaned)
         }
     }
 }
