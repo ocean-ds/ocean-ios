@@ -299,6 +299,7 @@ extension OceanSwiftUI {
 
                     OceanSwiftUI.Button(parameters: content.button)
                         .frame(maxWidth: .infinity)
+                        .padding(.top, Ocean.size.spacingStackXs)
                         .padding(.horizontal, Ocean.size.spacingStackXs)
                         .padding(.bottom, Ocean.size.spacingStackXs)
                 }
