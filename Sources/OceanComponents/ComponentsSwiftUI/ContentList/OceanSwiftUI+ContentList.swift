@@ -34,12 +34,14 @@ extension OceanSwiftUI {
         /// Original value shown struck through before `description` when `type == .strikethrough`.
         @Published public var strikethroughText: String
 
-        /// Set by the Transaction List family so the block follows the Figma metrics also in `.md`
-        /// (caption `captionBold` 4pt below, description `Interface/Dark/Deep`). Existing callers keep
-        /// the legacy rendering.
-        var usesFamilyMetrics = false
-        /// Used by Transaction Summary rows to render the title as emphasis.
-        var rendersTitleAsEmphasis = false
+        /// Which rendering rules a Content List follows. Internal; set by the components that embed it.
+        enum RenderingStyle: Equatable {
+            case legacy
+            case transactionListFamily
+            case transactionSummaryRow
+        }
+        var renderingStyle: RenderingStyle = .legacy
+        var usesFamilyMetrics: Bool { renderingStyle != .legacy }
 
         public init(title: String = "",
                     description: String = "",
@@ -96,7 +98,7 @@ extension OceanSwiftUI {
         func resolved(type: ContentListItemType? = nil,
                       showSkeleton: Bool? = nil,
                       padding: EdgeInsets? = nil,
-                      usesFamilyMetrics: Bool? = nil) -> ContentListParameters {
+                      renderingStyle: RenderingStyle? = nil) -> ContentListParameters {
             let copy = ContentListParameters(title: title,
                                              description: description,
                                              descriptionColor: descriptionColor,
@@ -113,8 +115,7 @@ extension OceanSwiftUI {
                                              padding: padding ?? self.padding,
                                              size: size,
                                              strikethroughText: strikethroughText)
-            copy.usesFamilyMetrics = usesFamilyMetrics ?? self.usesFamilyMetrics
-            copy.rendersTitleAsEmphasis = rendersTitleAsEmphasis
+            copy.renderingStyle = renderingStyle ?? self.renderingStyle
             return copy
         }
 
@@ -337,7 +338,7 @@ extension OceanSwiftUI {
         var resolvedFigmaDescriptionFont: UIFont? { parameters.descriptionFont ?? figmaDescriptionFont }
 
         var figmaTitleFont: UIFont? {
-            if parameters.rendersTitleAsEmphasis && !resolvedInverted {
+            if parameters.renderingStyle == .transactionSummaryRow && !resolvedInverted {
                 return .baseRegular(size: Ocean.font.fontSizeXxs)
             }
 
@@ -347,7 +348,7 @@ extension OceanSwiftUI {
         }
 
         var figmaTitleColor: UIColor {
-            if parameters.rendersTitleAsEmphasis && !resolvedInverted {
+            if parameters.renderingStyle == .transactionSummaryRow && !resolvedInverted {
                 return parameters.type == .inactive
                     ? Ocean.color.colorInterfaceDarkUp
                     : Ocean.color.colorInterfaceDarkDeep

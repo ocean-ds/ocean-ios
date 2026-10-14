@@ -138,7 +138,9 @@ extension OceanSwiftUI {
             contentList.resolved(type: state == .disabled ? .inactive : nil,
                                  showSkeleton: false,
                                  padding: .all(0),
-                                 usesFamilyMetrics: true)
+                                 renderingStyle: contentList.renderingStyle == .legacy
+                                    ? .transactionListFamily
+                                    : nil)
         }
 
         /// Amount block as drawn by the row: `inactive` (Neutral tag) when disabled.

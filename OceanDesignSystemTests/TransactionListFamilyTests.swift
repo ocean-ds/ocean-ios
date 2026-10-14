@@ -60,10 +60,11 @@ final class TransactionListFamilyTests: XCTestCase {
 
         XCTAssertEqual(parameters.size, .md)
         XCTAssertEqual(parameters.strikethroughText, "")
-        XCTAssertFalse(parameters.rendersTitleAsEmphasis)
-        XCTAssertFalse(parameters.resolved().rendersTitleAsEmphasis)
-        parameters.rendersTitleAsEmphasis = true
-        XCTAssertTrue(parameters.resolved().rendersTitleAsEmphasis)
+        XCTAssertEqual(parameters.renderingStyle, .legacy)
+        XCTAssertEqual(parameters.resolved().renderingStyle, .legacy)
+        parameters.renderingStyle = .transactionListFamily
+        XCTAssertEqual(parameters.resolved().renderingStyle, .transactionListFamily)
+        parameters.renderingStyle = .legacy
         for type in [ContentType.default, .inactive, .highlight, .highlightLead] {
             parameters.type = type
             XCTAssertFalse(parameters.appliesFigmaMetrics, "existing type \(type) must keep the legacy rendering in md")
@@ -75,12 +76,12 @@ final class TransactionListFamilyTests: XCTestCase {
             XCTAssertTrue(content(type: type).appliesFigmaMetrics)
         }
         XCTAssertTrue(content(.sm).appliesFigmaMetrics)
-        XCTAssertTrue(content().resolved(usesFamilyMetrics: true).appliesFigmaMetrics)
+        XCTAssertTrue(content().resolved(renderingStyle: .transactionListFamily).appliesFigmaMetrics)
     }
 
     func testSmallSizeUsesTheChildTypography() {
         let small = contentList(content(.sm))
-        let medium = contentList(content().resolved(usesFamilyMetrics: true))
+        let medium = contentList(content().resolved(renderingStyle: .transactionListFamily))
 
         XCTAssertEqual(small.figmaTitleFont?.pointSize, Ocean.font.fontSizeXxxs)
         XCTAssertEqual(small.figmaTitleFont?.fontName, UIFont.baseSemiBold(size: 12)?.fontName)
@@ -214,7 +215,7 @@ final class TransactionListFamilyTests: XCTestCase {
                                                                         amountDetails: amount(type: .negative))
 
         XCTAssertEqual(parameters.resolvedContentList().type, .warning)
-        XCTAssertTrue(parameters.resolvedContentList().usesFamilyMetrics)
+        XCTAssertEqual(parameters.resolvedContentList().renderingStyle, .transactionListFamily)
         XCTAssertEqual(parameters.resolvedContentList().padding, .all(0))
         XCTAssertEqual(parameters.resolvedAmountDetails().type, .negative)
         XCTAssertTrue(parameters.isEnabled)
@@ -226,17 +227,26 @@ final class TransactionListFamilyTests: XCTestCase {
             contentList: .init(title: "Taxa"),
             amountDetails: .init(amount: "Grátis")
         )
-        let content = contentList(row.contentList.resolved(usesFamilyMetrics: true))
+        let resolvedContentList = OceanSwiftUI.TransactionListReadOnlyParameters(
+            contentList: row.contentList,
+            amountDetails: row.amountDetails
+        ).resolvedContentList()
+        let content = contentList(resolvedContentList)
 
         XCTAssertEqual(row.contentList.size, .sm)
-        XCTAssertTrue(row.contentList.rendersTitleAsEmphasis)
+        XCTAssertEqual(row.contentList.renderingStyle, .transactionSummaryRow)
+        XCTAssertEqual(resolvedContentList.renderingStyle, .transactionSummaryRow)
         XCTAssertEqual(row.amountDetails.size, .sm)
         XCTAssertEqual(content.figmaTitleFont?.pointSize, Ocean.font.fontSizeXxs)
         XCTAssertEqual(content.figmaTitleFont?.fontName, UIFont.baseRegular(size: Ocean.font.fontSizeXxs)?.fontName)
         XCTAssertEqual(content.figmaTitleColor, Ocean.color.colorInterfaceDarkDeep)
 
         row.contentList.type = .inactive
-        let inactiveContent = contentList(row.contentList.resolved(usesFamilyMetrics: true))
+        let inactiveContentList = OceanSwiftUI.TransactionListReadOnlyParameters(
+            contentList: row.contentList,
+            amountDetails: row.amountDetails
+        ).resolvedContentList()
+        let inactiveContent = contentList(inactiveContentList)
         XCTAssertEqual(inactiveContent.figmaTitleColor, Ocean.color.colorInterfaceDarkUp)
     }
 
@@ -272,7 +282,9 @@ final class TransactionListFamilyTests: XCTestCase {
                                                                                         amountDetails: amount(),
                                                                                         showDivider: false)))
         let block = measuredHeight(HStack(spacing: Ocean.size.spacingStackXxs) {
-            OceanSwiftUI.ContentList(parameters: content().resolved(padding: .all(0), usesFamilyMetrics: true))
+            OceanSwiftUI.ContentList(
+                parameters: content().resolved(padding: .all(0), renderingStyle: .transactionListFamily)
+            )
             OceanSwiftUI.AmountDetails(parameters: amount())
         })
 
@@ -445,8 +457,20 @@ final class TransactionListFamilyTests: XCTestCase {
         XCTAssertEqual(measuredHeight(OceanSwiftUI.AmountDetails(parameters: amountMd)), 66, accuracy: 0.5)
         XCTAssertEqual(measuredHeight(OceanSwiftUI.AmountDetails(parameters: amountSm)), 59, accuracy: 0.5)
         // 21 title + 24 description + 4 + 18 caption / 18 + 21 + 4 + 18
-        XCTAssertEqual(measuredHeight(contentList(content().resolved(padding: .all(0), usesFamilyMetrics: true))), 67, accuracy: 0.5)
-        XCTAssertEqual(measuredHeight(contentList(content(.sm).resolved(padding: .all(0), usesFamilyMetrics: true))), 61, accuracy: 0.5)
+        XCTAssertEqual(
+            measuredHeight(contentList(
+                content().resolved(padding: .all(0), renderingStyle: .transactionListFamily)
+            )),
+            67,
+            accuracy: 0.5
+        )
+        XCTAssertEqual(
+            measuredHeight(contentList(
+                content(.sm).resolved(padding: .all(0), renderingStyle: .transactionListFamily)
+            )),
+            61,
+            accuracy: 0.5
+        )
     }
 
     // MARK: - Tag (Figma Tag / Default 3594:34230)
@@ -486,8 +510,12 @@ final class TransactionListFamilyTests: XCTestCase {
     }
 
     func testContentTextsWrapUpToTwoLines() {
-        let short = measuredHeight(contentList(content().resolved(padding: .all(0), usesFamilyMetrics: true)))
-        let long = measuredHeight(contentList(longContent.resolved(padding: .all(0), usesFamilyMetrics: true)))
+        let short = measuredHeight(contentList(
+            content().resolved(padding: .all(0), renderingStyle: .transactionListFamily)
+        ))
+        let long = measuredHeight(contentList(
+            longContent.resolved(padding: .all(0), renderingStyle: .transactionListFamily)
+        ))
 
         XCTAssertEqual(transactionListTextLineLimit, 2)
         // Title (14), description (16) and caption (12) each get exactly one more line, never a third.
@@ -696,7 +724,9 @@ final class TransactionListFamilyTests: XCTestCase {
         let child = measuredHeight(OceanSwiftUI.TransactionListChildReadOnly(parameters: .init(contentList: content(.sm),
                                                                                                amountDetails: amount(.sm))))
         let block = measuredHeight(HStack(spacing: Ocean.size.spacingStackXxs) {
-            OceanSwiftUI.ContentList(parameters: content(.sm).resolved(padding: .all(0), usesFamilyMetrics: true))
+            OceanSwiftUI.ContentList(
+                parameters: content(.sm).resolved(padding: .all(0), renderingStyle: .transactionListFamily)
+            )
             OceanSwiftUI.AmountDetails(parameters: amount(.sm))
         })
 

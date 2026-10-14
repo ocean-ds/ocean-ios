@@ -26,7 +26,7 @@ extension OceanSwiftUI {
         public init(contentList: ContentListParameters,
                     amountDetails: AmountDetailsParameters) {
             contentList.size = .sm
-            contentList.rendersTitleAsEmphasis = true
+            contentList.renderingStyle = .transactionSummaryRow
             amountDetails.size = .sm
             self.contentList = contentList
             self.amountDetails = amountDetails
