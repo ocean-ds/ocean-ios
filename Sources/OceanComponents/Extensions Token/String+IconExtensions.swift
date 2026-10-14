@@ -126,6 +126,41 @@ public extension String {
         case "copyaltoutline": return Ocean.icon.copyAltOutline
         case "bluanalisysoutline": return Ocean.icon.bluAnalisysOutline
 
+        case "announcementoutline": return Ocean.icon.announcementOutline
+        case "bluanalysisoutline": return Ocean.icon.bluAnalysisOutline
+        case "coinshandsolid": return Ocean.icon.coinsHandSolid
+        case "creditcardrefreshoutline": return Ocean.icon.creditCardRefreshOutline
+        case "facebookoutline": return Ocean.icon.facebookOutline
+        case "facebooksolid": return Ocean.icon.facebookSolid
+        case "factoryoutline": return Ocean.icon.factoryOutline
+        case "flagaltoutline": return Ocean.icon.flagAltOutline
+        case "flashoffsolid": return Ocean.icon.flashOffSolid
+        case "inflowoutline": return Ocean.icon.inflowOutline
+        case "lighthousesolid": return Ocean.icon.lighthouseSolid
+        case "limitoutline": return Ocean.icon.limitOutline
+        case "linkedinoutline": return Ocean.icon.linkedinOutline
+        case "linkedinsolid": return Ocean.icon.linkedinSolid
+        case "locktaxoutline": return Ocean.icon.lockTaxOutline
+        case "moneyoutline": return Ocean.icon.moneyOutline
+        case "numbereightoutline": return Ocean.icon.numberEightOutline
+        case "numberfiveoutline": return Ocean.icon.numberFiveOutline
+        case "numberfouroutline": return Ocean.icon.numberFourOutline
+        case "numbernineoutline": return Ocean.icon.numberNineOutline
+        case "numberoneoutline": return Ocean.icon.numberOneOutline
+        case "numbersevenoutline": return Ocean.icon.numberSevenOutline
+        case "numbersixoutline": return Ocean.icon.numberSixOutline
+        case "numberthreeoutline": return Ocean.icon.numberThreeOutline
+        case "numbertwooutline": return Ocean.icon.numberTwoOutline
+        case "outflowoutline": return Ocean.icon.outflowOutline
+        case "presentationqrcodeoutline": return Ocean.icon.presentationQrcodeOutline
+        case "referoutline": return Ocean.icon.referOutline
+        case "refersolid": return Ocean.icon.referSolid
+        case "salesoutline": return Ocean.icon.salesOutline
+        case "sendoutline": return Ocean.icon.sendOutline
+        case "sendsolid": return Ocean.icon.sendSolid
+        case "settingsoutline": return Ocean.icon.settingsOutline
+        case "walletoutline": return Ocean.icon.walletOutline
+        case "zerosolid": return Ocean.icon.zeroSolid
             // HeroIcons
         case "academiccapoutline": return Ocean.icon.academicCapOutline
         case "academiccapsolid": return Ocean.icon.academicCapSolid

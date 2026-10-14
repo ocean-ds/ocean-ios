@@ -1,23 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "btoken-outline.png",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "btoken-outline@2x.png",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "filename" : "btoken-outline@3x.png",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "btoken-outline.svg",
+      "idiom" : "universal"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
   }
 }
