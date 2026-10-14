@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 import OceanTokens
 import OceanComponents
 
@@ -135,6 +136,13 @@ class ComponentsSwiftUIViewController: UITableViewController {
             self.present(ProgressBarSwiftUIViewController(), animated: true, completion: nil)
         case .TransactionFooter:
             self.present(TransactionFooterSwiftUIViewController(), animated: true, completion: nil)
+        case .TransactionFooter2:
+            self.present(TransactionListDemoViewController { TransactionFooter2DemoView() },
+                         animated: true)
+        case .TransactionFooter2Fixed:
+            let hostingController = UIHostingController(rootView: TransactionFooter2FixedDemoView())
+            hostingController.modalPresentationStyle = .fullScreen
+            self.present(hostingController, animated: true)
         case .Switch:
             self.present(SwitchSwiftUIViewController(), animated: true, completion: nil)
         case .SimpleBalance:

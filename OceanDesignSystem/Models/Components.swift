@@ -110,6 +110,8 @@ struct DSComponents {
         "ExpandableTextListItem",
         "Tooltip",
         "TransactionFooter",
+        "Transaction Footer 2.0",
+        "Transaction Footer 2.0 (fixed)",
         "TransactionListItem",
         "TransactionListExpandable",
         "TransactionListReadOnly",
@@ -444,4 +446,3 @@ struct PrimaryInverseButtons {
         primaryInverseBlockedLGIcon
     ]
 }
-

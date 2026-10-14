@@ -23,33 +23,36 @@ class TransactionFooterSwiftUIViewController: UIViewController {
                                         bottom: Ocean.size.spacingStackXs,
                                         trailing: Ocean.size.spacingStackXs)
         view.parameters.items = [
-            .init(text: "Desconto à vista",
-                  value: "R$ 100.000,00",
+            .init(text: "Subtotal",
+                  value: "R$ 1.250,00",
                   valueColor: Ocean.color.colorStatusPositiveDeep,
                   imageIcon: Ocean.icon.tagSolid),
-            .init(text: "Valor cobrado", 
-                  value: "R$ 100.000,00"),
-            .init(text: "Custo de antecipação", 
-                  value: "R$ 10,00",
-                  newValue: "Zero"),
-            .init(text: "Pague", 
-                  value: "R$ 10,00",
+            .init(text: "Parcelamento",
+                  value: "5x de R$ 250,00"),
+            .init(text: "Taxa de serviço",
+                  value: "R$ 12,50"),
+            .init(text: "Data de entrega",
+                  value: "15 de março"),
+            .init(text: "Forma de pagamento",
+                  value: "Cartão de crédito"),
+            .init(text: "Total",
+                  value: "R$ 1.250,00",
                   isBoldValue: true)
         ]
     }
 
     private lazy var transactionFooterWithCaption = OceanSwiftUI.TransactionFooter { view in
-        view.parameters.primaryButton = .init(text: "Agendar", style: .primary, onTouch: { print("Agendar") })
+        view.parameters.primaryButton = .init(text: "Continuar", style: .primary, onTouch: { print("Continuar") })
         view.parameters.buttonOrientation = .vertical
         view.parameters.padding = .init(top: Ocean.size.spacingStackXs,
                                         leading: Ocean.size.spacingStackXs,
                                         bottom: Ocean.size.spacingStackXs,
                                         trailing: Ocean.size.spacingStackXs)
         view.parameters.items = [
-            .init(text: "Total a pagar",
-                  value: "R$ 5.000,00",
+            .init(text: "Total",
+                  value: "R$ 1.250,00",
                   isBoldValue: true,
-                  caption: "Se não houver saldo atual, pode ser cobrada taxa de antecipação.")
+                  caption: "Texto de apoio do aviso.")
         ]
     }
 
@@ -84,5 +87,133 @@ struct TransactionFooterSwiftUIViewController_Preview: PreviewProvider {
         UIViewControllerPreview {
             TransactionFooterSwiftUIViewController()
         }
+    }
+}
+
+struct TransactionFooter2DemoView: View {
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            TransactionListDemoSection(title: "Default") {
+                footer(
+                    mainItem: row("Subtotal", "R$ 1.250,00"),
+                    details: [row("Parcelamento", "5x de R$ 250,00", info: "sem acréscimo")]
+                )
+            }
+
+            TransactionListDemoSection(title: "Highlight") {
+                footer(
+                    type: .highlight,
+                    mainItem: row("Subtotal", "R$ 1.250,00"),
+                    details: [row("Parcelamento", "5x de R$ 250,00", info: "sem acréscimo")]
+                )
+            }
+
+            TransactionListDemoSection(title: "Highlight with notice") {
+                footer(
+                    type: .highlight,
+                    notice: .init(description: "Texto de apoio do aviso."),
+                    mainItem: row("Subtotal", "R$ 1.250,00"),
+                    details: [row("Parcelamento", "5x de R$ 250,00", info: "sem acréscimo")]
+                )
+            }
+
+            TransactionListDemoSection(title: "Notice with title and icon") {
+                footer(
+                    notice: .init(
+                        icon: Image(uiImage: Ocean.icon.checkCircleSolid!),
+                        title: "Desconto aplicado",
+                        description: "Texto de apoio do aviso."
+                    ),
+                    mainItem: row("Subtotal", "R$ 1.250,00"),
+                    details: [row("Parcelamento", "5x de R$ 250,00", info: "sem acréscimo")]
+                )
+            }
+
+            TransactionListDemoSection(title: "Main item only") {
+                footer(mainItem: row("Subtotal", "R$ 1.250,00"))
+            }
+
+            TransactionListDemoSection(title: "Details only") {
+                footer(details: [row("Parcelamento", "5x de R$ 250,00", info: "sem acréscimo")])
+            }
+
+            TransactionListDemoSection(title: "Four details") {
+                footer(details: [
+                    row("Parcelamento", "5x de R$ 250,00", info: "sem acréscimo"),
+                    row("Taxa de serviço", "R$ 12,50"),
+                    row("Data de entrega", "15 de março"),
+                    row("Forma de pagamento", "Cartão de crédito")
+                ])
+            }
+
+            TransactionListDemoSection(title: "Additional info") {
+                footer(mainItem: row("Subtotal", "R$ 1.250,00", info: "sem acréscimo"))
+            }
+        }
+    }
+
+    fileprivate func footer(type: OceanSwiftUI.TransactionFooterType = .default,
+                            notice: OceanSwiftUI.TransactionFooterNotice? = nil,
+                            mainItem: OceanSwiftUI.TransactionFooterRow? = nil,
+                            details: [OceanSwiftUI.TransactionFooterRow] = []) -> some View {
+        OceanSwiftUI.TransactionFooter(parameters: .init(
+            style: .v2(
+                .init(
+                    type: type,
+                    notice: notice,
+                    mainItem: mainItem,
+                    details: details,
+                    total: .init(label: "Total", value: "R$ 1.250,00"),
+                    button: .init(text: "Continuar", style: .primary, onTouch: {})
+                )
+            )
+        ))
+    }
+
+    fileprivate func row(
+        _ label: String,
+        _ value: String,
+        info: String? = nil
+    ) -> OceanSwiftUI.TransactionFooterRow {
+        .init(label: label, value: value, info: info)
+    }
+}
+
+struct TransactionFooter2FixedDemoView: View {
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        let demo = TransactionFooter2DemoView()
+
+        return VStack(spacing: 0) {
+            HStack {
+                Spacer()
+                Button("Fechar") {
+                    dismiss()
+                }
+            }
+            .padding(Ocean.size.spacingStackXs)
+
+            ScrollView {
+                VStack(alignment: .leading, spacing: 0) {
+                    TransactionListDemoSection(title: "Resumo do pedido") {
+                        Text("Confira os itens e os detalhes antes de continuar.")
+                            .padding(.horizontal, Ocean.size.spacingStackXs)
+                            .padding(.bottom, Ocean.size.spacingStackSm)
+                    }
+                    TransactionListDemoSection(title: "Itens") {
+                        Text("Produto fictício")
+                            .padding(.horizontal, Ocean.size.spacingStackXs)
+                            .padding(.bottom, Ocean.size.spacingStackSm)
+                    }
+                }
+            }
+            demo.footer(
+                mainItem: demo.row("Subtotal", "R$ 1.250,00"),
+                details: [demo.row("Parcelamento", "5x de R$ 250,00", info: "sem acréscimo")]
+            )
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.white)
     }
 }

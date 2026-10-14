@@ -125,6 +125,8 @@ public enum DesignSystemComponentsSwiftUIType: String {
     case TextListReadOnly
     case Tooltip
     case TransactionFooter
+    case TransactionFooter2 = "Transaction Footer 2.0"
+    case TransactionFooter2Fixed = "Transaction Footer 2.0 (fixed)"
     case TransactionListItem
     case TransactionListExpandable
     case TransactionListReadOnly
