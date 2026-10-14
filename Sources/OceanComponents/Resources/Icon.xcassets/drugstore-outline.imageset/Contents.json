@@ -1,23 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "drugstore-outline.png",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "drugstore-outline@2x.png",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "filename" : "drugstore-outline@3x.png",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "drugstore-outline.svg",
+      "idiom" : "universal"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
   }
 }

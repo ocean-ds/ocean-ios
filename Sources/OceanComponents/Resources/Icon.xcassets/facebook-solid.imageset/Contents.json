@@ -1,23 +1,15 @@
 {
-  "images": [
+  "images" : [
     {
-      "filename": "facebook-solid.png",
-      "idiom": "universal",
-      "scale": "1x"
-    },
-    {
-      "filename": "facebook-solid@2x.png",
-      "idiom": "universal",
-      "scale": "2x"
-    },
-    {
-      "filename": "facebook-solid@3x.png",
-      "idiom": "universal",
-      "scale": "3x"
+      "filename" : "facebook-solid.svg",
+      "idiom" : "universal"
     }
   ],
-  "info": {
-    "author": "xcode",
-    "version": 1
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
   }
 }

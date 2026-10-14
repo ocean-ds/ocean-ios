@@ -1,23 +1,15 @@
 {
-  "images": [
+  "images" : [
     {
-      "filename": "limit-outline.png",
-      "idiom": "universal",
-      "scale": "1x"
-    },
-    {
-      "filename": "limit-outline@2x.png",
-      "idiom": "universal",
-      "scale": "2x"
-    },
-    {
-      "filename": "limit-outline@3x.png",
-      "idiom": "universal",
-      "scale": "3x"
+      "filename" : "limit-outline.svg",
+      "idiom" : "universal"
     }
   ],
-  "info": {
-    "author": "xcode",
-    "version": 1
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
   }
 }

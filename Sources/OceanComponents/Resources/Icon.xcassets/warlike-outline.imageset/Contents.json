@@ -1,23 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "warlike-outline.png",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "warlike-outline@2x.png",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "filename" : "warlike-outline@3x.png",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "warlike-outline.svg",
+      "idiom" : "universal"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
   }
 }

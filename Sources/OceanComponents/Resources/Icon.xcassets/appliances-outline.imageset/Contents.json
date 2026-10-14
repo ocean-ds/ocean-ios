@@ -1,23 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "appliances-outline.png",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "appliances-outline@2x.png",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "filename" : "appliances-outline@3x.png",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "appliances-outline.svg",
+      "idiom" : "universal"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
   }
 }
