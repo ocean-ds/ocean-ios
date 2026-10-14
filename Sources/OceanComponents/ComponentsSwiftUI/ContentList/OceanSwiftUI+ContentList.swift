@@ -342,7 +342,7 @@ extension OceanSwiftUI {
                 return .baseRegular(size: Ocean.font.fontSizeXxs)
             }
 
-            parameters.size == .sm
+            return parameters.size == .sm
                 ? .baseSemiBold(size: Ocean.font.fontSizeXxxs)
                 : .baseRegular(size: Ocean.font.fontSizeXxs)
         }
@@ -354,7 +354,7 @@ extension OceanSwiftUI {
                     : Ocean.color.colorInterfaceDarkDeep
             }
 
-            parameters.type == .inactive ? Ocean.color.colorInterfaceDarkUp : Ocean.color.colorInterfaceDarkDown
+            return parameters.type == .inactive ? Ocean.color.colorInterfaceDarkUp : Ocean.color.colorInterfaceDarkDown
         }
 
         var figmaDescriptionSize: CGFloat {
