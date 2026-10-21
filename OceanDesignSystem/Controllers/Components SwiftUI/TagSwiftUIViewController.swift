@@ -52,6 +52,45 @@ class TagSwiftUIViewController: UIViewController {
         }
     }()
 
+    lazy var translucentTags: AnyView = {
+        AnyView(VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
+            OceanSwiftUI.Tag.positiveMD { tag in
+                tag.parameters.label = "Paid"
+                tag.parameters.icon = Ocean.icon.placeholderSolid
+                tag.parameters.appearance = .translucent
+            }
+            OceanSwiftUI.Tag.warningMD { tag in
+                tag.parameters.label = "Due soon"
+                tag.parameters.icon = Ocean.icon.placeholderSolid
+                tag.parameters.appearance = .translucent
+            }
+            OceanSwiftUI.Tag.negativeMD { tag in
+                tag.parameters.label = "Overdue"
+                tag.parameters.icon = Ocean.icon.placeholderSolid
+                tag.parameters.appearance = .translucent
+            }
+            OceanSwiftUI.Tag.complementaryMD { tag in
+                tag.parameters.label = "Scheduled"
+                tag.parameters.icon = Ocean.icon.placeholderSolid
+                tag.parameters.appearance = .translucent
+            }
+            OceanSwiftUI.Tag.neutralInterfaceMD { tag in
+                tag.parameters.label = "Processing"
+                tag.parameters.icon = Ocean.icon.placeholderSolid
+                tag.parameters.appearance = .translucent
+            }
+            OceanSwiftUI.Tag.neutralPrimaryMD { tag in
+                tag.parameters.label = "In review"
+                tag.parameters.icon = Ocean.icon.placeholderSolid
+                tag.parameters.appearance = .translucent
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(Ocean.size.spacingStackXs)
+        .background(Color(Ocean.color.colorBrandPrimaryPure))
+        .cornerRadius(Ocean.size.borderRadiusLg))
+    }()
+
     lazy var tag7: OceanSwiftUI.Tag = {
         return OceanSwiftUI.Tag.highlightImportantMD { tag in
             tag.parameters.label = "highlightImportantMD"
@@ -141,6 +180,7 @@ class TagSwiftUIViewController: UIViewController {
             tag4
             tag5
             tag6
+            translucentTags
             tag7
             tag8
             tag9

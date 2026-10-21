@@ -19,11 +19,18 @@ extension OceanSwiftUI {
         @Published public var size: Size
         @Published public var showSkeleton: Bool
         @Published public var font: UIFont?
+        /// Translucent is for coloured surfaces, never white, and exists only in Medium with icon.
+        @Published public var appearance: Appearance
 
         /// Set by the Transaction List amount block: the pill may shrink and the label truncates on one
         /// line with a tail ellipsis (full label kept for VoiceOver). Other callers keep the pill at the
         /// label's full width.
         var truncatesLabel = false
+
+        public enum Appearance {
+            case `default`
+            case translucent
+        }
 
         public enum Status {
             case positive
@@ -49,7 +56,8 @@ extension OceanSwiftUI {
                     status: Status = .positive,
                     size: Size = .medium,
                     showSkeleton: Bool = false,
-                    font: UIFont? = nil) {
+                    font: UIFont? = nil,
+                    appearance: Appearance = .default) {
             self.label = label
             self.hasLabelBold = hasLabelBold
             self.icon = icon
@@ -57,10 +65,12 @@ extension OceanSwiftUI {
             self.size = size
             self.showSkeleton = showSkeleton
             self.font = font
+            self.appearance = appearance
         }
     }
 
     public struct Tag: View {
+        private static let translucentOpacity: CGFloat = 0.24
 
         // MARK: Properties for UIKit
 
@@ -106,7 +116,7 @@ extension OceanSwiftUI {
                             .resizable()
                             .renderingMode(.template)
                             .frame(width: 16, height: 16, alignment: .center)
-                            .foregroundColor(Color(self.getColor()))
+                            .foregroundColor(Color(self.getIconColor()))
 
                         Spacer().frame(width: Ocean.size.spacingStackXxxs)
                     }
@@ -201,6 +211,10 @@ extension OceanSwiftUI {
         }
 
         func getColor() -> UIColor {
+            if let colors = translucentColors {
+                return colors.text
+            }
+
             switch parameters.status {
             case .positive:
                 return Ocean.color.colorStatusPositiveDeep
@@ -219,7 +233,15 @@ extension OceanSwiftUI {
             }
         }
 
+        func getIconColor() -> UIColor {
+            translucentColors?.icon ?? getColor()
+        }
+
         func getBackgroundColor() -> UIColor {
+            if let colors = translucentColors {
+                return colors.background
+            }
+
             switch parameters.status {
             case .positive:
                 return Ocean.color.colorStatusPositiveUp
@@ -239,6 +261,54 @@ extension OceanSwiftUI {
                 return Ocean.color.colorBrandPrimaryDown
             case .highlightComplementary:
                 return Ocean.color.colorComplementaryPure
+            }
+        }
+
+        private var translucentColors: (background: UIColor, text: UIColor, icon: UIColor)? {
+            guard parameters.appearance == .translucent,
+                  parameters.size == .medium else {
+                return nil
+            }
+
+            switch parameters.status {
+            case .positive:
+                return (
+                    Ocean.color.colorStatusPositiveDown.withAlphaComponent(Self.translucentOpacity),
+                    Ocean.color.colorInterfaceLightPure,
+                    Ocean.color.colorStatusPositiveUp
+                )
+            case .warning:
+                return (
+                    Ocean.color.colorStatusWarningDown.withAlphaComponent(Self.translucentOpacity),
+                    Ocean.color.colorInterfaceLightPure,
+                    Ocean.color.colorStatusWarningUp
+                )
+            case .negative:
+                return (
+                    Ocean.color.colorStatusNegativeDown.withAlphaComponent(Self.translucentOpacity),
+                    Ocean.color.colorInterfaceLightPure,
+                    Ocean.color.colorStatusNegativeUp
+                )
+            case .complementary:
+                return (
+                    Ocean.color.colorComplementaryDown.withAlphaComponent(Self.translucentOpacity),
+                    Ocean.color.colorInterfaceLightPure,
+                    Ocean.color.colorComplementaryUp
+                )
+            case .neutralInterface:
+                return (
+                    Ocean.color.colorInterfaceDarkUp.withAlphaComponent(Self.translucentOpacity),
+                    Ocean.color.colorInterfaceLightPure,
+                    Ocean.color.colorInterfaceLightPure
+                )
+            case .neutralPrimary:
+                return (
+                    Ocean.color.colorBrandPrimaryUp.withAlphaComponent(Self.translucentOpacity),
+                    Ocean.color.colorInterfaceDarkDeep,
+                    Ocean.color.colorBrandPrimaryDown
+                )
+            case .highlightImportant, .highlightNeutral, .highlightComplementary:
+                return nil
             }
         }
     }
