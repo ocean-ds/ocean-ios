@@ -54,6 +54,7 @@
 				CardListItemTagPositionTests.swift,
 				StatusListItemLeadingIconTests.swift,
 				ShortcutBlockedTests.swift,
+				IconViewSlotTests.swift,
 				InlineTextListItemGridTests.swift,
 				TransactionFooterSpacingTests.swift,
 				TagHighlightTests.swift,

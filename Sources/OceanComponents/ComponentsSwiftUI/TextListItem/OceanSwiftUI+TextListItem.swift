@@ -23,6 +23,11 @@ extension OceanSwiftUI {
         @Published public var info: String
         @Published public var infoLineLimit: Int?
         @Published public var icon: UIImage?
+
+        /// View desenhada no lugar de `icon`, no quadro `iconWidth` x `iconHeight` — slot para um
+        /// avatar de iniciais, por exemplo. Nasce `nil`: `icon` continua sendo o desenho padrão
+        /// (template + `iconColor`), então nada muda para quem já usa o componente.
+        @Published public var iconView: AnyView?
         @Published public var iconColor: UIColor
         @Published public var iconWidth: CGFloat
         @Published public var iconHeight: CGFloat
@@ -61,6 +66,7 @@ extension OceanSwiftUI {
                     info: String = "",
                     infoLineLimit: Int? = nil,
                     icon: UIImage? = nil,
+                    iconView: AnyView? = nil,
                     iconColor: UIColor = Ocean.color.colorBrandPrimaryDown,
                     iconWidth: CGFloat = 24,
                     iconHeight: CGFloat = 24,
@@ -103,6 +109,7 @@ extension OceanSwiftUI {
             self.info = info
             self.infoLineLimit = infoLineLimit
             self.icon = icon
+            self.iconView = iconView
             self.iconColor = iconColor
             self.iconWidth = iconWidth
             self.iconHeight = iconHeight
@@ -179,7 +186,10 @@ extension OceanSwiftUI {
                 OceanSwiftUI.Skeleton()
             } else {
                 HStack(spacing: Ocean.size.spacingStackXxsExtra) {
-                    if let icon = parameters.icon {
+                    if let iconView = parameters.iconView {
+                        iconView
+                            .frame(width: parameters.iconWidth, height: parameters.iconHeight)
+                    } else if let icon = parameters.icon {
                         Image(uiImage: icon)
                             .resizable()
                             .renderingMode(.template)
