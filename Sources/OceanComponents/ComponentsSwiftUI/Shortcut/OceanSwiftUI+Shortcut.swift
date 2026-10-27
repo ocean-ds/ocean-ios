@@ -16,6 +16,12 @@ extension OceanSwiftUI {
         @Published public var displayMode: DisplayMode
         @Published public var orientation: Orientation
         @Published public var showSkeleton: Bool
+
+        /// Limite de linhas do título e do subtítulo, com reticências ao estourar. Nascem `nil`:
+        /// o título segue com o limite de hoje (1 linha no `.tiny`, 2 nos demais) e o subtítulo
+        /// sem limite. Use `1` para cards de altura fixa, como o `Shortcut` do Ocean web faz.
+        @Published public var titleLineLimit: Int?
+        @Published public var subtitleLineLimit: Int?
         public var onTouch: (Int, ShortcutModel) -> Void = { _, _ in }
 
         public enum Size {
@@ -40,6 +46,8 @@ extension OceanSwiftUI {
                     displayMode: DisplayMode = .grid,
                     orientation: Orientation = .vertical,
                     showSkeleton: Bool = false,
+                    titleLineLimit: Int? = nil,
+                    subtitleLineLimit: Int? = nil,
                     onTouch: @escaping (Int, ShortcutModel) -> Void = { _, _ in }) {
             self.items = items
             self.cols = cols
@@ -47,12 +55,24 @@ extension OceanSwiftUI {
             self.displayMode = displayMode
             self.orientation = orientation
             self.showSkeleton = showSkeleton
+            self.titleLineLimit = titleLineLimit
+            self.subtitleLineLimit = subtitleLineLimit
             self.onTouch = onTouch
+        }
+
+        /// Única fonte do limite de linhas do título — a view lê daqui.
+        var resolvedTitleLineLimit: Int {
+            titleLineLimit ?? (size == .tiny ? 1 : 2)
         }
     }
 
     public class ShortcutModel: ObservableObject, Identifiable {
         @Published public var icon: UIImage?
+
+        /// View desenhada no lugar de `icon`, no mesmo quadro de 24x24 — slot para um avatar de
+        /// iniciais, por exemplo. Nasce `nil`: `icon` continua sendo o desenho padrão (template +
+        /// tinta `brandPrimaryDown`), então nada muda para quem já usa o componente.
+        @Published public var iconView: AnyView?
         @Published public var badgeNumber: Int?
         @Published public var badgeStatus: BadgeParameters.Status
         @Published public var tagLabel: String?
@@ -75,6 +95,7 @@ extension OceanSwiftUI {
         @Published public var forceEnableActionWhenBlocked: Bool
 
         public init(icon: UIImage? = nil,
+                    iconView: AnyView? = nil,
                     badgeNumber: Int? = nil,
                     badgeStatus: BadgeParameters.Status = .warning,
                     tagLabel: String? = nil,
@@ -84,6 +105,7 @@ extension OceanSwiftUI {
                     blocked: Bool = false,
                     forceEnableActionWhenBlocked: Bool = false) {
             self.icon = icon
+            self.iconView = iconView
             self.badgeNumber = badgeNumber
             self.badgeStatus = badgeStatus
             self.tagLabel = tagLabel
@@ -231,7 +253,11 @@ extension OceanSwiftUI {
         @ViewBuilder
         private func getViewVertical(item: ShortcutModel) -> some View {
             VStack(alignment: .leading, spacing: 0) {
-                if let icon = item.icon {
+                if let iconView = item.iconView {
+                    getIconView(iconView)
+
+                    Spacer(minLength: Ocean.size.spacingStackXxs)
+                } else if let icon = item.icon {
                     getImage(icon: icon)
 
                     Spacer(minLength: Ocean.size.spacingStackXxs)
@@ -252,7 +278,9 @@ extension OceanSwiftUI {
         private func getViewHorizontal(item: ShortcutModel) -> some View {
             VStack(alignment: .leading, spacing: 0) {
                 HStack(alignment: .center, spacing: Ocean.size.spacingStackXxs) {
-                    if let icon = item.icon {
+                    if let iconView = item.iconView {
+                        getIconView(iconView)
+                    } else if let icon = item.icon {
                         getImage(icon: icon)
                     }
 
@@ -266,6 +294,14 @@ extension OceanSwiftUI {
                     getSubtitle(subtitle: item.subtitle)
                 }
             }
+        }
+
+        @ViewBuilder
+        private func getIconView(_ iconView: AnyView) -> some View {
+            iconView
+                .frame(width: 24,
+                       height: 24,
+                       alignment: .center)
         }
 
         @ViewBuilder
@@ -283,7 +319,7 @@ extension OceanSwiftUI {
         private func getTitle(title: String) -> some View {
             OceanSwiftUI.Typography.heading5 { label in
                 label.parameters.text = title
-                label.parameters.lineLimit = self.parameters.size == .tiny ? 1 : 2
+                label.parameters.lineLimit = self.parameters.resolvedTitleLineLimit
             }
         }
 
@@ -291,6 +327,7 @@ extension OceanSwiftUI {
         private func getSubtitle(subtitle: String) -> some View {
             OceanSwiftUI.Typography.caption { label in
                 label.parameters.text = subtitle
+                label.parameters.lineLimit = self.parameters.subtitleLineLimit
             }
         }
 
