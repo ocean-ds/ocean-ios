@@ -16,6 +16,12 @@ extension OceanSwiftUI {
         @Published public var displayMode: DisplayMode
         @Published public var orientation: Orientation
         @Published public var showSkeleton: Bool
+
+        /// Limite de linhas do título e do subtítulo, com reticências ao estourar. Nascem `nil`:
+        /// o título segue com o limite de hoje (1 linha no `.tiny`, 2 nos demais) e o subtítulo
+        /// sem limite. Use `1` para cards de altura fixa, como o `Shortcut` do Ocean web faz.
+        @Published public var titleLineLimit: Int?
+        @Published public var subtitleLineLimit: Int?
         public var onTouch: (Int, ShortcutModel) -> Void = { _, _ in }
 
         public enum Size {
@@ -40,6 +46,8 @@ extension OceanSwiftUI {
                     displayMode: DisplayMode = .grid,
                     orientation: Orientation = .vertical,
                     showSkeleton: Bool = false,
+                    titleLineLimit: Int? = nil,
+                    subtitleLineLimit: Int? = nil,
                     onTouch: @escaping (Int, ShortcutModel) -> Void = { _, _ in }) {
             self.items = items
             self.cols = cols
@@ -47,7 +55,14 @@ extension OceanSwiftUI {
             self.displayMode = displayMode
             self.orientation = orientation
             self.showSkeleton = showSkeleton
+            self.titleLineLimit = titleLineLimit
+            self.subtitleLineLimit = subtitleLineLimit
             self.onTouch = onTouch
+        }
+
+        /// Única fonte do limite de linhas do título — a view lê daqui.
+        var resolvedTitleLineLimit: Int {
+            titleLineLimit ?? (size == .tiny ? 1 : 2)
         }
     }
 
@@ -304,7 +319,7 @@ extension OceanSwiftUI {
         private func getTitle(title: String) -> some View {
             OceanSwiftUI.Typography.heading5 { label in
                 label.parameters.text = title
-                label.parameters.lineLimit = self.parameters.size == .tiny ? 1 : 2
+                label.parameters.lineLimit = self.parameters.resolvedTitleLineLimit
             }
         }
 
@@ -312,6 +327,7 @@ extension OceanSwiftUI {
         private func getSubtitle(subtitle: String) -> some View {
             OceanSwiftUI.Typography.caption { label in
                 label.parameters.text = subtitle
+                label.parameters.lineLimit = self.parameters.subtitleLineLimit
             }
         }
 

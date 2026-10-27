@@ -70,4 +70,29 @@ final class IconViewSlotTests: XCTestCase {
         XCTAssertNotNil(parameters.iconView)
         XCTAssertNotNil(parameters.icon)
     }
+
+    // MARK: - Shortcut line limits
+
+    func testShortcutLineLimitsKeepTodaysBehaviourByDefault() {
+        let tiny = OceanSwiftUI.ShortcutParameters(size: .tiny)
+        let medium = OceanSwiftUI.ShortcutParameters(size: .medium)
+
+        XCTAssertNil(tiny.titleLineLimit)
+        XCTAssertNil(tiny.subtitleLineLimit)
+        XCTAssertEqual(tiny.resolvedTitleLineLimit, 1)
+        XCTAssertEqual(medium.resolvedTitleLineLimit, 2)
+    }
+
+    func testShortcutLineLimitsAreAssignableViaInitializerAndProperty() {
+        let parameters = OceanSwiftUI.ShortcutParameters(size: .medium,
+                                                         titleLineLimit: 1,
+                                                         subtitleLineLimit: 1)
+
+        XCTAssertEqual(parameters.resolvedTitleLineLimit, 1)
+        XCTAssertEqual(parameters.subtitleLineLimit, 1)
+
+        parameters.titleLineLimit = nil
+
+        XCTAssertEqual(parameters.resolvedTitleLineLimit, 2)
+    }
 }
