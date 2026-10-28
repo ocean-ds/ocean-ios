@@ -1,10 +1,56 @@
 name: CI
 
+# Change gate: PR só com doc, workflow que não seja este ci.yml ou config de IDE pula o build
+# (job skipped conta como verde no check obrigatório). Label ci-full força o CI completo (rerun do job).
+# Na dúvida (API falhou, lista vazia) roda tudo.
+
 on:
   pull_request:
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      run_full: ${{ steps.gate.outputs.run_full }}
+    steps:
+      - name: Change gate
+        id: gate
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          CI_FULL: ${{ contains(github.event.pull_request.labels.*.name, 'ci-full') }}
+        run: |
+          if [ "$CI_FULL" = "true" ]; then
+            echo "GATE: label ci-full; CI completo."
+            echo "run_full=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          if ! files=$(gh api --paginate "repos/$REPO/pulls/$PR/files" --jq '.[] | .filename, (.previous_filename // empty)') || [ -z "$files" ]; then
+            echo "GATE: sem lista de arquivos; CI completo."
+            echo "run_full=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          unsafe=()
+          while IFS= read -r f; do
+            case "$f" in
+              .github/workflows/ci.yml) unsafe+=("$f") ;;
+              *.md|.github/*|.gitignore|LICENSE|yarn-error.log) ;;
+              *) unsafe+=("$f") ;;
+            esac
+          done <<< "$files"
+          if [ ${#unsafe[@]} -eq 0 ]; then
+            echo "GATE: só arquivos skip-safe; build pulado."
+            echo "run_full=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "GATE: exigem CI completo: ${unsafe[*]:0:20}"
+            echo "run_full=true" >> "$GITHUB_OUTPUT"
+          fi
+
   build:
+    needs: changes
+    if: ${{ !cancelled() && needs.changes.outputs.run_full != 'false' }}
     runs-on: macos-latest
     steps:
       - name: Checkout the code
