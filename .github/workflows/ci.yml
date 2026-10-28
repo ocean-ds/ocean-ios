@@ -1,13 +1,67 @@
 name: CI
 
+# Change gate: PR só com doc, workflow que não seja este ci.yml ou config de IDE pula o build
+# (job skipped conta como verde no check obrigatório). Label ci-full força o CI completo (rerun do job).
+# Na dúvida (API falhou, lista vazia) roda tudo.
+
 on:
   pull_request:
 
 jobs:
-  build:
-    runs-on: macos-latest
+  changes:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      run_full: ${{ steps.gate.outputs.run_full }}
     steps:
+      - name: Change gate
+        id: gate
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          CI_FULL: ${{ contains(github.event.pull_request.labels.*.name, 'ci-full') }}
+        run: |
+          if [ "$CI_FULL" = "true" ]; then
+            echo "GATE: label ci-full; CI completo."
+            echo "run_full=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          if ! files=$(gh api --paginate "repos/$REPO/pulls/$PR/files" --jq '.[] | .filename, (.previous_filename // empty)') || [ -z "$files" ]; then
+            echo "GATE: sem lista de arquivos; CI completo."
+            echo "run_full=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          unsafe=()
+          while IFS= read -r f; do
+            case "$f" in
+              .github/workflows/ci.yml) unsafe+=("$f") ;;
+              *.md|.github/*|.gitignore|LICENSE|yarn-error.log) ;;
+              *) unsafe+=("$f") ;;
+            esac
+          done <<< "$files"
+          if [ ${#unsafe[@]} -eq 0 ]; then
+            echo "GATE: só arquivos skip-safe; build pulado."
+            echo "run_full=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "GATE: exigem CI completo: ${unsafe[*]:0:20}"
+            echo "run_full=true" >> "$GITHUB_OUTPUT"
+          fi
+
+  build:
+    needs: changes
+    # Sempre roda e termina em success (check obrigatório): sem mudança no projeto, só registra o gate (em ubuntu) e sai.
+    if: ${{ !cancelled() }}
+    runs-on: ${{ needs.changes.outputs.run_full == 'false' && 'ubuntu-latest' || 'macos-latest' }}
+    env:
+      RUN_FULL: ${{ needs.changes.outputs.run_full }}
+    steps:
+      - name: Change gate
+        if: env.RUN_FULL == 'false'
+        run: echo "Só arquivos skip-safe; build completo não necessário." >> "$GITHUB_STEP_SUMMARY"
+
       - name: Checkout the code
+        if: env.RUN_FULL != 'false'
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.GH_TOKEN }}
@@ -15,25 +69,31 @@ jobs:
           ref: refs/pull/${{ github.event.pull_request.number }}/head
       
       - uses: ruby/setup-ruby@v1
+        if: env.RUN_FULL != 'false'
         with:
           ruby-version: '3.1.2'
           bundler-cache: true
 
       - name: Select xcode version
+        if: env.RUN_FULL != 'false'
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: latest-stable
 
       - name: Set git identity
+        if: env.RUN_FULL != 'false'
         run: |
           git config --global user.name "Blu Release Bot"
           git config --global user.email "devs@useblu.com.br"
 
       - name: Bundle install
+        if: env.RUN_FULL != 'false'
         run: bundle install
 
       - name: Update SPM dependencies
+        if: env.RUN_FULL != 'false'
         run: swift package update
 
       - name: Run tests
+        if: env.RUN_FULL != 'false'
         run: bundle exec fastlane build_test
