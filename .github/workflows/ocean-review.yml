@@ -3,7 +3,8 @@ name: Ocean review dispatch
 # Dispara o Ocean review (Mobile review da Pagnet com os gates do Ocean) no runner privado Pagnet/mobile.
 # O review publica nesta PR o comentário "Mobile review", o review formal do SvcGitHarness e o status `Ocean review`.
 # Fork, draft e Dependabot ficam com review humano; justificativa só de OWNER/MEMBER/COLLABORATOR.
-# Approve de @ocean-ds/designers no head reroda o review para liberar as travas de designer (tokens base *-OTK-01-D e comportamento/visual *-OCP-06).
+# Approve de membro em PR interna vai com `reviewer` no payload; o runner só reroda o review se for de @ocean-ds/designers
+# (lista só no runner privado), para liberar as travas de designer (tokens base *-OTK-01-D e comportamento/visual *-OCP-06).
 
 on:
   pull_request:
@@ -23,7 +24,7 @@ jobs:
       (github.event_name == 'pull_request_review' && github.event.review.state == 'approved' &&
        github.event.pull_request.draft == false &&
        github.event.pull_request.head.repo.full_name == github.repository &&
-       contains(fromJSON('["rafubarreto","igor-monteiro-almeida","bluseguranca"]'), github.event.review.user.login)) ||
+       contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.review.author_association)) ||
       (github.event_name == 'issue_comment' && github.event.issue.pull_request != null &&
        contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association) &&
        contains(github.event.comment.body, '<!-- mobile-review-justificativa -->'))
@@ -31,7 +32,7 @@ jobs:
     permissions:
       pull-requests: read
     concurrency:
-      group: ocean-review-dispatch-${{ github.event_name == 'issue_comment' && 'justification' || 'review' }}-${{ github.event.pull_request.number || github.event.issue.number }}
+      group: ocean-review-dispatch-${{ github.event_name }}-${{ github.event.pull_request.number || github.event.issue.number }}
       cancel-in-progress: true
     steps:
       - name: Dispatch Ocean review
@@ -41,6 +42,7 @@ jobs:
           PR: ${{ github.event.pull_request.number || github.event.issue.number }}
           MODE: ${{ github.event_name == 'issue_comment' && 'justification' || 'review' }}
           COMMENT_ID: ${{ github.event.comment.id }}
+          REVIEWER: ${{ github.event.review.user.login }}
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
@@ -57,7 +59,7 @@ jobs:
             echo "::error::Secret OCEAN_REVIEW_DISPATCH_TOKEN ausente: o Ocean review não foi disparado."
             exit 1
           fi
-          jq -n --arg repo "$REPO" --argjson pr "$PR" --arg mode "$MODE" --arg comment_id "${COMMENT_ID:-}" \
-            '{event_type: "ocean-review", client_payload: {repo: $repo, pr: $pr, mode: $mode, comment_id: $comment_id}}' |
+          jq -n --arg repo "$REPO" --argjson pr "$PR" --arg mode "$MODE" --arg comment_id "${COMMENT_ID:-}" --arg reviewer "${REVIEWER:-}" \
+            '{event_type: "ocean-review", client_payload: {repo: $repo, pr: $pr, mode: $mode, comment_id: $comment_id, reviewer: $reviewer}}' |
             GH_TOKEN="$DISPATCH_TOKEN" gh api --method POST repos/Pagnet/mobile/dispatches --input -
           echo "Ocean review ($MODE) disparado para #$PR no runner Pagnet/mobile." >> "$GITHUB_STEP_SUMMARY"
