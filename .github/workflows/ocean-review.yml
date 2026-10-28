@@ -3,6 +3,7 @@ name: Ocean review dispatch
 # Dispara o Ocean review (Mobile review da Pagnet com os gates do Ocean) no runner privado Pagnet/mobile.
 # O review publica nesta PR o comentário "Mobile review", o review formal do SvcGitHarness e o status `Ocean review`.
 # Fork, draft e Dependabot ficam com review humano; justificativa só de OWNER/MEMBER/COLLABORATOR.
+# O comentário "Mobile review" (<!-- blu-review-gates -->) traz o marcador no exemplo de "Como justificar" e não dispara justificativa.
 # Approve de membro em PR interna vai com `reviewer` no payload; o runner só reroda o review se for de @ocean-ds/designers
 # (lista só no runner privado), para liberar as travas de designer (tokens base *-OTK-01-D e comportamento/visual *-OCP-06).
 
@@ -27,7 +28,8 @@ jobs:
        contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.review.author_association)) ||
       (github.event_name == 'issue_comment' && github.event.issue.pull_request != null &&
        contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association) &&
-       contains(github.event.comment.body, '<!-- mobile-review-justificativa -->'))
+       contains(github.event.comment.body, '<!-- mobile-review-justificativa -->') &&
+       !contains(github.event.comment.body, '<!-- blu-review-gates -->'))
     runs-on: ubuntu-latest
     permissions:
       pull-requests: read
