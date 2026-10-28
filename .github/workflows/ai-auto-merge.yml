@@ -4,7 +4,7 @@ name: AI auto-merge
 #   1. o último review formal do SvcGitHarness (Ocean review) é APPROVE;
 #   2. o status `Ocean review` é success;
 #   3. a PR não é draft e não tem `no-auto-merge`.
-# A trava dos arquivos base de tokens já está no approve: o Ocean review só aprova com approve de designer no head.
+# As travas de designer (tokens base *-OTK-01-D, comportamento/visual *-OCP-06) já estão no approve: o Ocean review só aprova com approve de designer no head.
 # O merge usa o GH_TOKEN (usuário com write), e não o GITHUB_TOKEN, para o push na master disparar o CD.
 # Push novo, `no-auto-merge` ou retirada da etiqueta desligam o auto-merge.
 

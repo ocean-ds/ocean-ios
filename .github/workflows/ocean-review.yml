@@ -3,7 +3,7 @@ name: Ocean review dispatch
 # Dispara o Ocean review (Mobile review da Pagnet com os gates do Ocean) no runner privado Pagnet/mobile.
 # O review publica nesta PR o comentário "Mobile review", o review formal do SvcGitHarness e o status `Ocean review`.
 # Fork e Dependabot não recebem secret: ficam com review humano.
-# Approve de @ocean-ds/designers no head reroda o review para liberar a trava dos arquivos base de tokens.
+# Approve de @ocean-ds/designers no head reroda o review para liberar as travas de designer (tokens base *-OTK-01-D e comportamento/visual *-OCP-06).
 
 on:
   pull_request:
