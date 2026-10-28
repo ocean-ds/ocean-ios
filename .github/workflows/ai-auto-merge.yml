@@ -1,0 +1,89 @@
+name: AI auto-merge
+
+# Enfileira o merge (squash) da PR com a etiqueta `ai-auto-merge` quando, no head atual:
+#   1. o último review formal do SvcGitHarness (Ocean review) é APPROVE;
+#   2. o status `Ocean review` é success;
+#   3. a PR não é draft e não tem `no-auto-merge`.
+# As travas de designer (tokens base *-OTK-01-D, comportamento/visual *-OCP-06) já estão no approve: o Ocean review só aprova com approve de designer no head.
+# O merge usa o GH_TOKEN (usuário com write), e não o GITHUB_TOKEN, para o push na master disparar o CD.
+# Push novo, `no-auto-merge` ou retirada da etiqueta desligam o auto-merge.
+
+on:
+  pull_request:
+    types: [labeled, unlabeled, synchronize, ready_for_review, reopened]
+  pull_request_review:
+    types: [submitted, dismissed]
+  status:
+
+permissions: {}
+
+env:
+  MERGE_LABEL: ai-auto-merge
+  BLOCK_LABEL: no-auto-merge
+  REVIEWER: SvcGitHarness
+  STATUS_CONTEXT: Ocean review
+
+jobs:
+  auto-merge:
+    if: |
+      (github.event_name == 'status' && github.event.context == 'Ocean review' && github.event.state == 'success') ||
+      (github.event_name != 'status' && github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ai-auto-merge-${{ github.event.pull_request.number || github.event.sha }}
+      cancel-in-progress: false
+    steps:
+      - name: Evaluate and enqueue merge
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          REPO: ${{ github.repository }}
+          EVENT: ${{ github.event_name }}
+          ACTION: ${{ github.event.action }}
+          EVENT_PR: ${{ github.event.pull_request.number }}
+          STATUS_SHA: ${{ github.event.sha }}
+        run: |
+          set -euo pipefail
+          if [ -z "${GH_TOKEN:-}" ]; then
+            echo "::error::Secret GH_TOKEN ausente: o auto-merge não roda."
+            exit 1
+          fi
+          if [ "$EVENT" = "status" ]; then
+            prs=$(gh api "repos/$REPO/commits/$STATUS_SHA/pulls" --jq '.[] | select(.state == "open") | .number')
+          else
+            prs="$EVENT_PR"
+          fi
+          for pr in $prs; do
+            pr_json=$(gh api "repos/$REPO/pulls/$pr")
+            head=$(jq -r '.head.sha' <<< "$pr_json")
+            labels=$(jq -c '[.labels[].name]' <<< "$pr_json")
+            auto_on=$(jq -r '.auto_merge != null' <<< "$pr_json")
+            disable() {
+              echo "#$pr: $1" >> "$GITHUB_STEP_SUMMARY"
+              if [ "$auto_on" = "true" ]; then gh pr merge "$pr" --repo "$REPO" --disable-auto || true; fi
+            }
+            if [ "$EVENT" = "pull_request" ] && [ "$ACTION" = "synchronize" ]; then
+              disable "push novo; o auto-merge espera o Ocean review do head novo"
+            fi
+            if ! jq -e --arg l "$MERGE_LABEL" 'index($l) != null' <<< "$labels" >/dev/null; then
+              disable "sem a etiqueta $MERGE_LABEL"; continue
+            fi
+            if jq -e --arg l "$BLOCK_LABEL" 'index($l) != null' <<< "$labels" >/dev/null; then
+              disable "etiqueta $BLOCK_LABEL: revisão humana"; continue
+            fi
+            if [ "$(jq -r '.draft' <<< "$pr_json")" = "true" ]; then
+              disable "PR em draft"; continue
+            fi
+            review=$(gh api --paginate "repos/$REPO/pulls/$pr/reviews" --jq '.[]' |
+              jq -rs --arg login "$REVIEWER" --arg head "$head" \
+                '[.[] | select(.user.login == $login and .commit_id == $head)] | sort_by(.submitted_at) | last | .state // ""')
+            if [ "$review" != "APPROVED" ]; then
+              disable "último review do $REVIEWER no head: ${review:-nenhum}"; continue
+            fi
+            status=$(gh api "repos/$REPO/commits/$head/status" |
+              jq -r --arg c "$STATUS_CONTEXT" '[.statuses[] | select(.context == $c)] | first | .state // ""')
+            if [ "$status" != "success" ]; then
+              disable "status $STATUS_CONTEXT no head: ${status:-ausente}"; continue
+            fi
+            gh pr merge "$pr" --repo "$REPO" --auto --squash --match-head-commit "$head"
+            echo "#$pr: merge enfileirado (squash) no head $head." >> "$GITHUB_STEP_SUMMARY"
+          done
