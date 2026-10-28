@@ -2,7 +2,7 @@ name: Ocean review dispatch
 
 # Dispara o Ocean review (Mobile review da Pagnet com os gates do Ocean) no runner privado Pagnet/mobile.
 # O review publica nesta PR o comentário "Mobile review", o review formal do SvcGitHarness e o status `Ocean review`.
-# Fork e Dependabot não recebem secret: ficam com review humano.
+# Fork, draft e Dependabot ficam com review humano; justificativa só de OWNER/MEMBER/COLLABORATOR.
 # Approve de @ocean-ds/designers no head reroda o review para liberar as travas de designer (tokens base *-OTK-01-D e comportamento/visual *-OCP-06).
 
 on:
@@ -25,8 +25,11 @@ jobs:
        github.event.pull_request.head.repo.full_name == github.repository &&
        contains(fromJSON('["rafubarreto","igor-monteiro-almeida","bluseguranca"]'), github.event.review.user.login)) ||
       (github.event_name == 'issue_comment' && github.event.issue.pull_request != null &&
+       contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association) &&
        contains(github.event.comment.body, '<!-- mobile-review-justificativa -->'))
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
     concurrency:
       group: ocean-review-dispatch-${{ github.event_name == 'issue_comment' && 'justification' || 'review' }}-${{ github.event.pull_request.number || github.event.issue.number }}
       cancel-in-progress: true
@@ -38,8 +41,18 @@ jobs:
           PR: ${{ github.event.pull_request.number || github.event.issue.number }}
           MODE: ${{ github.event_name == 'issue_comment' && 'justification' || 'review' }}
           COMMENT_ID: ${{ github.event.comment.id }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
+          if [ "$MODE" = "justification" ]; then
+            pr_json=$(gh api "repos/$REPO/pulls/$PR")
+            if [ "$(jq -r '.head.repo.full_name // ""' <<< "$pr_json")" != "$REPO" ] ||
+              [ "$(jq -r '.draft' <<< "$pr_json")" = "true" ] ||
+              [ "$(jq -r '.user.login' <<< "$pr_json")" = "dependabot[bot]" ]; then
+              echo "Justificativa ignorada: PR de fork, draft ou Dependabot fica com review humano." >> "$GITHUB_STEP_SUMMARY"
+              exit 0
+            fi
+          fi
           if [ -z "${DISPATCH_TOKEN:-}" ]; then
             echo "::error::Secret OCEAN_REVIEW_DISPATCH_TOKEN ausente: o Ocean review não foi disparado."
             exit 1
