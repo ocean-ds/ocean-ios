@@ -1,3 +1,4 @@
+# PR-sonda do Ocean review (trava de tokens): não mergear
 colors:
     inputs:
       - node_modules/@useblu/ocean-tokens/ios/tokens-color.json
