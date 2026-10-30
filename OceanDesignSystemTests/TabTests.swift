@@ -233,4 +233,35 @@ final class TabTests: XCTestCase {
         XCTAssertFalse(viewport.needsScroll(to: 0))
         XCTAssertTrue(viewport.needsScroll(to: 4))
     }
+
+    // MARK: - ScrollableTab scroll-spy
+
+    func testSpyFollowsContentWhenNotLocked() {
+        let result = ScrollableTabSpy.resolve(currentSection: 2, lockedIndex: nil, elapsed: 0)
+
+        XCTAssertEqual(result.selectedIndex, 2)
+        XCTAssertFalse(result.keepLock)
+    }
+
+    func testSpyIgnoresSectionsOnTheWayToTheTappedTab() {
+        let result = ScrollableTabSpy.resolve(currentSection: 2, lockedIndex: 3, elapsed: 0.2)
+
+        XCTAssertEqual(result.selectedIndex, 3)
+        XCTAssertTrue(result.keepLock)
+    }
+
+    func testSpyReleasesLockWhenTappedSectionArrives() {
+        let result = ScrollableTabSpy.resolve(currentSection: 3, lockedIndex: 3, elapsed: 0.3)
+
+        XCTAssertEqual(result.selectedIndex, 3)
+        XCTAssertFalse(result.keepLock)
+    }
+
+    func testSpyResumesAfterTimeout() {
+        let result = ScrollableTabSpy.resolve(currentSection: 1, lockedIndex: 4,
+                                                           elapsed: ScrollableTabSpy.tapLockTimeout)
+
+        XCTAssertEqual(result.selectedIndex, 1)
+        XCTAssertFalse(result.keepLock)
+    }
 }

@@ -67,6 +67,8 @@ extension OceanSwiftUI {
         @State private var debouncer: Timer?
         @State private var tabHeight: CGFloat = TabMetrics.barHeight
         @State private var viewport = TabBarViewport()
+        @State private var tapLockIndex: Int?
+        @State private var tapLockDate: Date = .distantPast
         @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
         private let viewportSpace = "OceanSwiftUI.ScrollableTab.viewport"
@@ -179,6 +181,9 @@ extension OceanSwiftUI {
                         .frame(height: TabMetrics.itemHeight)
                         .modifier(TabIndicatorOverlay(selectedIndex: shouldUpdate ? parameters.selectedIndex : 0,
                                                       reduceMotion: reduceMotion))
+                        // Margem da barra com rolagem (Figma: spacingStackMd) dentro do conteúdo:
+                        // as abas são cortadas na borda da tela e a linha de baixo segue em toda a largura.
+                        .padding(.horizontal, Ocean.size.spacingStackMd)
                     }
                     .coordinateSpace(name: viewportSpace)
                     .background(GeometryReader { proxy in
@@ -214,6 +219,9 @@ extension OceanSwiftUI {
                     index: index,
                     viewportSpace: shouldUpdate ? viewportSpace : nil) {
                 debouncer?.invalidate()
+                // A rolagem do conteúdo disparada pelo toque não deixa o scroll-spy marcar as abas do caminho.
+                tapLockIndex = index
+                tapLockDate = Date()
                 showContentAtIndex = index
                 parameters.selectedIndex = index
                 parameters.onTouch(index)
@@ -246,7 +254,13 @@ extension OceanSwiftUI {
                 value1.value <= value2.value
             }?.key ?? -1
 
-            parameters.selectedIndex = currentSection > -1 ? currentSection : 0
+            let resolution = ScrollableTabSpy.resolve(currentSection: currentSection,
+                                                      lockedIndex: tapLockIndex,
+                                                      elapsed: Date().timeIntervalSince(tapLockDate))
+            tapLockIndex = resolution.keepLock ? tapLockIndex : nil
+            parameters.selectedIndex = resolution.selectedIndex
+            guard !resolution.keepLock else { return }
+
             if currentSection > -1, currentSection != showTabAtIndex {
                 showTabAtIndex = currentSection
             }
@@ -263,6 +277,24 @@ extension OceanSwiftUI {
                 return 0
             }
         }
+    }
+}
+
+/// Decisão do scroll-spy do `ScrollableTab`.
+enum ScrollableTabSpy {
+    /// Tempo máximo que o toque numa aba segura o scroll-spy (cobre a rolagem animada do conteúdo).
+    static let tapLockTimeout: TimeInterval = 1.0
+
+    /// Depois de um toque, a seleção fica na aba tocada enquanto o conteúdo rola até ela: as seções do
+    /// caminho são ignoradas. O bloqueio acaba quando a seção tocada chega ao topo ou depois de
+    /// `tapLockTimeout`; aí o scroll-spy volta a valer.
+    static func resolve(currentSection: Int,
+                        lockedIndex: Int?,
+                        elapsed: TimeInterval,
+                        timeout: TimeInterval = tapLockTimeout) -> (selectedIndex: Int, keepLock: Bool) {
+        let spied = currentSection > -1 ? currentSection : 0
+        guard let lockedIndex, elapsed < timeout else { return (spied, false) }
+        return (lockedIndex, currentSection != lockedIndex)
     }
 }
 
