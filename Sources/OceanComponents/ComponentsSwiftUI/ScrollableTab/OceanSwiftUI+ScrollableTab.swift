@@ -65,7 +65,7 @@ extension OceanSwiftUI {
         @State private var sectionsOffset: [Int: Int] = [:]
         @State private var position: CGPoint = .zero
         @State private var debouncer: Timer?
-        @State private var tabHeight: CGFloat = 60
+        @State private var tabHeight: CGFloat = TabMetrics.barHeight
 
         @State public private(set) var contentSize: CGFloat = .zero
 
@@ -162,65 +162,43 @@ extension OceanSwiftUI {
 
         @ViewBuilder
         private func getTabs(shouldUpdate: Bool = true) -> some View {
-            ScrollView(.horizontal, showsIndicators: false) {
-                VStack(spacing: 0) {
-                    if !parameters.tabs.isEmpty {
+            VStack(spacing: 0) {
+                if !parameters.tabs.isEmpty {
+                    ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 0) {
                             ForEach(0..<parameters.tabs.count, id: \.self) { index in
                                 getTab(index: index, shouldUpdate: shouldUpdate)
                             }
                         }
-                        .frame(height: 60)
+                        .frame(height: TabMetrics.itemHeight)
+                    }
 
-                        Divider()
-                    }
+                    // Linha de baixo em toda a largura da barra, não só sob as abas.
+                    OceanSwiftUI.Divider()
                 }
-                .background(GeometryReader { geometryReader in
-                    Color.clear.onAppear {
-                        tabHeight = geometryReader.size.height
-                    }
-                })
             }
+            .background(GeometryReader { geometryReader in
+                Color.clear.onAppear {
+                    tabHeight = geometryReader.size.height
+                }
+            })
         }
 
         @ViewBuilder
         private func getTab(index: Int, shouldUpdate: Bool = true) -> some View {
-            VStack {
-                Spacer()
-                HStack {
-                    OceanSwiftUI.Typography.heading4 { view in
-                        view.parameters.text = parameters.tabs[index].title
-                        view.parameters.lineLimit = 0
-                        view.parameters.textColor = shouldUpdate && parameters.selectedIndex == index || !shouldUpdate && index == 0
-                        ? Ocean.color.colorBrandPrimaryPure
-                        : Ocean.color.colorInterfaceDarkUp
-                    }
-                    .fixedSize(horizontal: true, vertical: false)
+            let tab = parameters.tabs[index]
+            let isSelected = shouldUpdate && parameters.selectedIndex == index || !shouldUpdate && index == 0
 
-                    if let badgeNumber = parameters.tabs[index].badgeNumber {
-                        OceanSwiftUI.Badge { badge in
-                            badge.parameters.count = badgeNumber
-                            badge.parameters.status = parameters.selectedIndex == index
-                            ? parameters.tabs[index].badgeStatus
-                            : .disabled
-                            badge.parameters.size = .small
-                        }
-                    }
-                }
-                .padding(.horizontal, Ocean.size.spacingStackXs)
-                Spacer()
-            }
-            .overlay(shouldUpdate && parameters.selectedIndex == index || !shouldUpdate && index == 0
-                     ? Color(Ocean.color.colorBrandPrimaryPure).frame(height: 2)
-                     : Color.clear.frame(height: 2),
-                     alignment: .bottom)
-            .animation(.default, value: parameters.selectedIndex)
-            .onTapGesture {
+            TabItem(title: tab.title,
+                    badgeNumber: tab.badgeNumber,
+                    badgeStatus: tab.badgeStatus,
+                    isSelected: isSelected) {
                 debouncer?.invalidate()
                 showContentAtIndex = index
                 parameters.selectedIndex = index
                 parameters.onTouch(index)
             }
+            .animation(.default, value: parameters.selectedIndex)
             .id(index)
         }
 

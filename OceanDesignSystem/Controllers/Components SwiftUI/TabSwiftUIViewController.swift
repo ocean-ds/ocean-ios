@@ -50,11 +50,43 @@ class TabSwiftUIViewController: UIViewController {
             ]
             tab.parameters.setSelectedIndex(4)
             tab.parameters.isScrollable = true
+            tab.parameters.contentIdealHeight = 220
             tab.parameters.onTouch = tabSelected
         }
     }()
 
-    public lazy var hostingController = UIHostingController(rootView: customTab)
+    private lazy var fixedTwoTabs = makeTab(titles: ["Recebidos", "Enviados"], isScrollable: false)
+
+    private lazy var fixedThreeTabs = makeTab(titles: ["Todas", "Abertas", "Pagas"], isScrollable: false)
+
+    private lazy var fixedWithBadge = makeTab(titles: ["Pendentes", "Concluídas", "Canceladas"],
+                                              isScrollable: false,
+                                              badges: [3, nil, 12])
+
+    private lazy var fixedLongLabel = makeTab(titles: ["Resumo", "Lançamentos futuros detalhados", "Extrato"],
+                                              isScrollable: false)
+
+    private lazy var scrollableFiveTabs = makeTab(titles: ["Aba 1", "Aba 2", "Aba 3", "Aba 4", "Aba 5"],
+                                                  isScrollable: true)
+
+    private lazy var scrollableWithBadge = makeTab(titles: ["Pendentes", "Concluídas", "Canceladas", "Estornadas", "Em análise"],
+                                                   isScrollable: true,
+                                                   badges: [3, 120, nil, 1, nil])
+
+    private lazy var catalog = AnyView(ScrollView {
+        VStack(alignment: .leading, spacing: Ocean.size.spacingStackSm) {
+            section("isScrollable: false · 2 abas", fixedTwoTabs)
+            section("isScrollable: false · 3 abas", fixedThreeTabs)
+            section("isScrollable: false · badgeNumber: 3, nil, 12", fixedWithBadge)
+            section("isScrollable: false · título longo (não cabe: a barra rola)", fixedLongLabel)
+            section("isScrollable: true · 5 abas", scrollableFiveTabs)
+            section("isScrollable: true · badgeNumber: 3, 120, nil, 1, nil", scrollableWithBadge)
+            section("isScrollable: true · interativo (onTouch, setSelectedIndex, updateTab)", customTab)
+        }
+        .padding(.vertical, Ocean.size.spacingStackXs)
+    })
+
+    public lazy var hostingController = UIHostingController(rootView: catalog)
 
     public lazy var uiView = self.hostingController.getUIView()
 
@@ -66,6 +98,38 @@ class TabSwiftUIViewController: UIViewController {
         uiView.oceanConstraints
             .fill(to: self.view)
             .make()
+    }
+
+    private func makeTab(titles: [String], isScrollable: Bool, badges: [Int?] = []) -> OceanSwiftUI.Tab {
+        OceanSwiftUI.Tab { tab in
+            tab.parameters.tabs = titles.enumerated().map { index, title in
+                .init(title: title,
+                      view: self.getCaption("Conteúdo de \(title)"),
+                      badgeNumber: badges.indices.contains(index) ? badges[index] : nil)
+            }
+            tab.parameters.isScrollable = isScrollable
+            tab.parameters.contentIdealHeight = 48
+            tab.parameters.onTouch = self.tabSelected
+        }
+    }
+
+    private func section(_ label: String, _ tab: OceanSwiftUI.Tab) -> some View {
+        VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
+            OceanSwiftUI.Typography.caption { view in
+                view.parameters.text = label
+            }
+            .padding(.horizontal, Ocean.size.spacingStackXs)
+
+            tab
+        }
+    }
+
+    private func getCaption(_ text: String) -> some View {
+        OceanSwiftUI.Typography.description { label in
+            label.parameters.text = text
+        }
+        .padding(.horizontal, Ocean.size.spacingStackXs)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     private func tabSelected(_ tab: Int) {
