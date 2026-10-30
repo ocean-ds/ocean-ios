@@ -65,7 +65,13 @@ extension OceanSwiftUI {
         @State private var sectionsOffset: [Int: Int] = [:]
         @State private var position: CGPoint = .zero
         @State private var debouncer: Timer?
-        @State private var tabHeight: CGFloat = 60
+        @State private var tabHeight: CGFloat = TabMetrics.barHeight
+        @State private var viewport = TabBarViewport()
+        @State private var tapLockIndex: Int?
+        @State private var tapLockDate: Date = .distantPast
+        @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+        private let viewportSpace = "OceanSwiftUI.ScrollableTab.viewport"
 
         @State public private(set) var contentSize: CGFloat = .zero
 
@@ -87,8 +93,9 @@ extension OceanSwiftUI {
                 if position.y <= 0 || parameters.header == nil {
                     ScrollViewReader { scrollReader in
                         getTabs().onChange(of: showTabAtIndex) { _ in
-                            withAnimation {
-                                scrollReader.scrollTo(showTabAtIndex, anchor: .leading)
+                            guard viewport.needsScroll(to: showTabAtIndex) else { return }
+                            withAnimation(TabMetrics.scrollAnimation(reduceMotion: reduceMotion)) {
+                                scrollReader.scrollTo(showTabAtIndex, anchor: .center)
                             }
                         }
                         .background(Color(Ocean.color.colorInterfaceLightPure))
@@ -146,7 +153,7 @@ extension OceanSwiftUI {
                             }
                             .onChange(of: showContentAtIndex) { _ in
                                 if showContentAtIndex > -1 {
-                                    withAnimation {
+                                    withAnimation(reduceMotion ? nil : .default) {
                                         scrollReader.scrollTo(showContentAtIndex, anchor: .top)
                                     }
                                 }
@@ -162,61 +169,58 @@ extension OceanSwiftUI {
 
         @ViewBuilder
         private func getTabs(shouldUpdate: Bool = true) -> some View {
-            ScrollView(.horizontal, showsIndicators: false) {
-                VStack(spacing: 0) {
-                    if !parameters.tabs.isEmpty {
+            VStack(spacing: 0) {
+                if !parameters.tabs.isEmpty {
+                    ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 0) {
                             ForEach(0..<parameters.tabs.count, id: \.self) { index in
                                 getTab(index: index, shouldUpdate: shouldUpdate)
                             }
                         }
-                        .frame(height: 60)
+                        .frame(height: TabMetrics.itemHeight)
+                        .modifier(TabIndicatorOverlay(selectedIndex: shouldUpdate ? parameters.selectedIndex : 0,
+                                                      reduceMotion: reduceMotion))
+                        // Margem da barra com rolagem (Figma: spacingStackMd) dentro do conteúdo:
+                        // as abas são cortadas na borda da tela e a linha de baixo segue em toda a largura.
+                        .padding(.horizontal, Ocean.size.spacingStackMd)
+                    }
+                    .coordinateSpace(name: viewportSpace)
+                    .background(GeometryReader { proxy in
+                        Color.clear.preference(key: TabViewportWidthKey.self, value: proxy.size.width)
+                    })
+                    .onPreferenceChange(TabItemFramesKey.self) { frames in
+                        if shouldUpdate { viewport.itemFrames = frames }
+                    }
+                    .onPreferenceChange(TabViewportWidthKey.self) { width in
+                        if shouldUpdate { viewport.width = width }
+                    }
 
-                        Divider()
-                    }
+                    // Linha de baixo em toda a largura da barra, não só sob as abas.
+                    OceanSwiftUI.Divider()
                 }
-                .background(GeometryReader { geometryReader in
-                    Color.clear.onAppear {
-                        tabHeight = geometryReader.size.height
-                    }
-                })
             }
+            .background(GeometryReader { geometryReader in
+                Color.clear.onAppear {
+                    tabHeight = geometryReader.size.height
+                }
+            })
         }
 
         @ViewBuilder
         private func getTab(index: Int, shouldUpdate: Bool = true) -> some View {
-            VStack {
-                Spacer()
-                HStack {
-                    OceanSwiftUI.Typography.heading4 { view in
-                        view.parameters.text = parameters.tabs[index].title
-                        view.parameters.lineLimit = 0
-                        view.parameters.textColor = shouldUpdate && parameters.selectedIndex == index || !shouldUpdate && index == 0
-                        ? Ocean.color.colorBrandPrimaryPure
-                        : Ocean.color.colorInterfaceDarkUp
-                    }
-                    .fixedSize(horizontal: true, vertical: false)
+            let tab = parameters.tabs[index]
+            let isSelected = shouldUpdate && parameters.selectedIndex == index || !shouldUpdate && index == 0
 
-                    if let badgeNumber = parameters.tabs[index].badgeNumber {
-                        OceanSwiftUI.Badge { badge in
-                            badge.parameters.count = badgeNumber
-                            badge.parameters.status = parameters.selectedIndex == index
-                            ? parameters.tabs[index].badgeStatus
-                            : .disabled
-                            badge.parameters.size = .small
-                        }
-                    }
-                }
-                .padding(.horizontal, Ocean.size.spacingStackXs)
-                Spacer()
-            }
-            .overlay(shouldUpdate && parameters.selectedIndex == index || !shouldUpdate && index == 0
-                     ? Color(Ocean.color.colorBrandPrimaryPure).frame(height: 2)
-                     : Color.clear.frame(height: 2),
-                     alignment: .bottom)
-            .animation(.default, value: parameters.selectedIndex)
-            .onTapGesture {
+            TabItem(title: tab.title,
+                    badgeNumber: tab.badgeNumber,
+                    badgeStatus: tab.badgeStatus,
+                    isSelected: isSelected,
+                    index: index,
+                    viewportSpace: shouldUpdate ? viewportSpace : nil) {
                 debouncer?.invalidate()
+                // A rolagem do conteúdo disparada pelo toque não deixa o scroll-spy marcar as abas do caminho.
+                tapLockIndex = index
+                tapLockDate = Date()
                 showContentAtIndex = index
                 parameters.selectedIndex = index
                 parameters.onTouch(index)
@@ -249,7 +253,13 @@ extension OceanSwiftUI {
                 value1.value <= value2.value
             }?.key ?? -1
 
-            parameters.selectedIndex = currentSection > -1 ? currentSection : 0
+            let resolution = ScrollableTabSpy.resolve(currentSection: currentSection,
+                                                      lockedIndex: tapLockIndex,
+                                                      elapsed: Date().timeIntervalSince(tapLockDate))
+            tapLockIndex = resolution.keepLock ? tapLockIndex : nil
+            parameters.selectedIndex = resolution.selectedIndex
+            guard !resolution.keepLock else { return }
+
             if currentSection > -1, currentSection != showTabAtIndex {
                 showTabAtIndex = currentSection
             }
@@ -266,6 +276,24 @@ extension OceanSwiftUI {
                 return 0
             }
         }
+    }
+}
+
+/// Decisão do scroll-spy do `ScrollableTab`.
+enum ScrollableTabSpy {
+    /// Tempo máximo que o toque numa aba segura o scroll-spy (cobre a rolagem animada do conteúdo).
+    static let tapLockTimeout: TimeInterval = 1.0
+
+    /// Depois de um toque, a seleção fica na aba tocada enquanto o conteúdo rola até ela: as seções do
+    /// caminho são ignoradas. O bloqueio acaba quando a seção tocada chega ao topo ou depois de
+    /// `tapLockTimeout`; aí o scroll-spy volta a valer.
+    static func resolve(currentSection: Int,
+                        lockedIndex: Int?,
+                        elapsed: TimeInterval,
+                        timeout: TimeInterval = tapLockTimeout) -> (selectedIndex: Int, keepLock: Bool) {
+        let spied = currentSection > -1 ? currentSection : 0
+        guard let lockedIndex, elapsed < timeout else { return (spied, false) }
+        return (lockedIndex, currentSection != lockedIndex)
     }
 }
 
