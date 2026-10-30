@@ -93,7 +93,6 @@ extension OceanSwiftUI {
                 if position.y <= 0 || parameters.header == nil {
                     ScrollViewReader { scrollReader in
                         getTabs().onChange(of: showTabAtIndex) { _ in
-                            // Só rola se a aba não estiver toda visível ou estiver a menos de 24 da borda.
                             guard viewport.needsScroll(to: showTabAtIndex) else { return }
                             withAnimation(TabMetrics.scrollAnimation(reduceMotion: reduceMotion)) {
                                 scrollReader.scrollTo(showTabAtIndex, anchor: .center)

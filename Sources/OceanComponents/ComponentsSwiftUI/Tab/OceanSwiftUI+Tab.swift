@@ -94,10 +94,10 @@ extension OceanSwiftUI {
     enum TabMetrics {
         /// Altura do item (Figma _Tab Item: 56). Sem token de size equivalente; literal até existir.
         static let itemHeight: CGFloat = 56
-        /// Altura da linha de seleção (Figma: 2). Sem token de size equivalente; literal até existir.
-        static let indicatorHeight: CGFloat = 2
+        /// Altura da linha de seleção (Figma: 2).
+        static let indicatorHeight: CGFloat = Ocean.size.borderWidthThin
         /// Altura da linha de baixo da barra (Figma Divider: 1), igual ao default do `OceanSwiftUI.Divider`.
-        static let dividerHeight: CGFloat = 1
+        static let dividerHeight: CGFloat = Ocean.size.borderWidthHairline
         /// Altura total da barra: item + linha de baixo.
         static var barHeight: CGFloat { itemHeight + dividerHeight }
 
@@ -125,7 +125,7 @@ extension OceanSwiftUI {
         // MARK: Motion (igual ao web aprovado no MR-980)
 
         /// Distância mínima da borda visível da barra para a aba selecionada não pedir rolagem.
-        static let scrollEdgeMargin: CGFloat = 24
+        static let scrollEdgeMargin: CGFloat = Ocean.size.spacingInlineSm
 
         /// Linha de seleção deslizando entre as abas: 0,30s, curva (0.65, 0, 0.35, 1). `nil` com Reduzir movimento.
         static func indicatorAnimation(reduceMotion: Bool) -> Animation? {
