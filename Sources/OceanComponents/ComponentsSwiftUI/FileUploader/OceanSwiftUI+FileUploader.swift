@@ -106,7 +106,7 @@ extension OceanSwiftUI {
             .overlay(
                 RoundedRectangle(cornerRadius: Ocean.size.borderRadiusMd)
                     .inset(by: 0.5)
-                    .stroke(Color(Ocean.color.colorInterfaceLightDeep), style: StrokeStyle(lineWidth: 1, dash: [4, 2]))
+                    .stroke(Color(Ocean.color.colorInterfaceLightDeep), style: StrokeStyle(lineWidth: Ocean.size.borderWidthHairline, dash: [4, 2]))
 
             )
             .onTapGesture {
@@ -147,7 +147,7 @@ extension OceanSwiftUI {
                 .overlay(
                     RoundedRectangle(cornerRadius: Ocean.size.borderRadiusMd)
                         .inset(by: 0.5)
-                        .stroke(Color(self.parameters.errorMessage.isEmpty ? Ocean.color.colorBrandPrimaryUp : Ocean.color.colorStatusNegativePure), lineWidth: 1)
+                        .stroke(Color(self.parameters.errorMessage.isEmpty ? Ocean.color.colorBrandPrimaryUp : Ocean.color.colorStatusNegativePure), lineWidth: Ocean.size.borderWidthHairline)
 
                 )
 

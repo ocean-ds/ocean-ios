@@ -90,7 +90,7 @@ extension Ocean {
         public override func layoutSubviews() {
             super.layoutSubviews()
             
-            let spacing: CGFloat = 8
+            let spacing: CGFloat = Ocean.size.spacingInlineXxs
             var xPosition: CGFloat = 0
             
             for view in indicators {

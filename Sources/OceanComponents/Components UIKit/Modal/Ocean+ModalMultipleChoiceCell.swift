@@ -43,7 +43,7 @@ extension Ocean {
             stack.alignment = .leading
             stack.translatesAutoresizingMaskIntoConstraints = false
             stack.addArrangedSubview(optionCheckBox)
-            stack.addArrangedSubview(Spacer(space: 16))
+            stack.addArrangedSubview(Spacer(space: Ocean.size.spacingStackXs))
             
             return stack
         }()

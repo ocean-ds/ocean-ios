@@ -13,7 +13,7 @@ extension Ocean {
     public class TransactionFooterView: UIView {
         struct Constaint {
             static let height: CGFloat = 96
-            static let spacingHeightItem: CGFloat = 4
+            static let spacingHeightItem: CGFloat = Ocean.size.spacingStackXxxs
             static let heightItem: CGFloat = 24
         }
 

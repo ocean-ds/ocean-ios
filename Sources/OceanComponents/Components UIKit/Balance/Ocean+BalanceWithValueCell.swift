@@ -203,7 +203,7 @@ extension Ocean {
                 stack.add([
                     item1Stack,
                     Ocean.Divider(widthConstraint: stack.widthAnchor,
-                                  color: Ocean.color.colorBrandPrimaryUp.withAlphaComponent(0.4)),
+                                  color: Ocean.color.colorBrandPrimaryUp.withAlphaComponent(Ocean.size.opacityLevelMedium)),
                     item2Stack
                 ])
 
@@ -243,7 +243,7 @@ extension Ocean {
             let view = UIView()
             view.isSkeletonable = true
             let divider = Ocean.Divider(widthConstraint: view.widthAnchor,
-                                        color: Ocean.color.colorBrandPrimaryUp.withAlphaComponent(0.4))
+                                        color: Ocean.color.colorBrandPrimaryUp.withAlphaComponent(Ocean.size.opacityLevelMedium))
             view.addSubviews(headerStack, headerDetailsStack, divider, footerStack)
 
             headerStack.oceanConstraints
@@ -275,7 +275,7 @@ extension Ocean {
 
         private lazy var contentContainer: UIView = {
             let view = UIView()
-            view.backgroundColor = Ocean.color.colorBrandPrimaryDown.withAlphaComponent(0.4)
+            view.backgroundColor = Ocean.color.colorBrandPrimaryDown.withAlphaComponent(Ocean.size.opacityLevelMedium)
             view.clipsToBounds = true
             view.ocean.radius.applyMd()
             view.isSkeletonable = true

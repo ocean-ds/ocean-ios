@@ -128,7 +128,7 @@ extension Ocean {
         private lazy var recommendView: UIView = {
             let view = UIView()
             view.clipsToBounds = true
-            view.layer.cornerRadius = 8
+            view.layer.cornerRadius = Ocean.size.borderRadiusSm
             view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMaxYCorner]
             view.addSubview(recommendLabel)
             view.isHidden = true

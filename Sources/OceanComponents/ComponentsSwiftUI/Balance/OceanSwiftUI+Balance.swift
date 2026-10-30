@@ -131,7 +131,7 @@ extension OceanSwiftUI {
         @ViewBuilder
         private var balanceFooterView: some View {
             VStack(alignment: .leading, spacing: 0) {
-                Divider { $0.parameters.color = Ocean.color.colorBrandPrimaryUp.withAlphaComponent(0.4) }
+                Divider { $0.parameters.color = Ocean.color.colorBrandPrimaryUp.withAlphaComponent(Ocean.size.opacityLevelMedium) }
                 getBalanceFooterView()
             }
             .transition(.opacity.combined(with: .move(edge: .top)))
@@ -167,7 +167,7 @@ extension OceanSwiftUI {
                                 isVisibleBalance: parameters.isVisibleBalance
                             )
 
-                            Divider { $0.parameters.color = Ocean.color.colorBrandPrimaryUp.withAlphaComponent(0.4) }
+                            Divider { $0.parameters.color = Ocean.color.colorBrandPrimaryUp.withAlphaComponent(Ocean.size.opacityLevelMedium) }
 
                             getBalanceWithDescriptionHStackView(
                                 description: parameters.model.item2Title,
@@ -186,7 +186,7 @@ extension OceanSwiftUI {
         public var body: some View {
             VStack(spacing: 0) {
                 balanceView
-                    .background(Color(Ocean.color.colorBrandPrimaryDown.withAlphaComponent(0.4)))
+                    .background(Color(Ocean.color.colorBrandPrimaryDown.withAlphaComponent(Ocean.size.opacityLevelMedium)))
                     .cornerRadius(backgroundViewCornerRadius)
                     .padding(backgroundViewPadding)
                     .animation(.easeInOut, value: parameters.state)

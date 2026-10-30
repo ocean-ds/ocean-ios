@@ -110,7 +110,7 @@ extension Ocean {
             contentView.addSubview(triangleView)
 
             backgroundRounded.backgroundColor = Ocean.color.colorInterfaceDarkDeep
-            backgroundRounded.layer.cornerRadius = 4
+            backgroundRounded.layer.cornerRadius = Ocean.size.borderRadiusTiny
             backgroundRounded.clipsToBounds = false
             backgroundRounded.oceanConstraints
                 .leadingToLeading(to: contentView)

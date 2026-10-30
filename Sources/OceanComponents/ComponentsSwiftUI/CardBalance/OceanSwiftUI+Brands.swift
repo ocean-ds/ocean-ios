@@ -121,7 +121,7 @@ extension OceanSwiftUI {
                             Group {
                                 if parameters.hasBorder {
                                     Circle()
-                                        .stroke(Color(parameters.borderColor), lineWidth: 1)
+                                        .stroke(Color(parameters.borderColor), lineWidth: Ocean.size.borderWidthHairline)
                                 }
                             }
                         )
