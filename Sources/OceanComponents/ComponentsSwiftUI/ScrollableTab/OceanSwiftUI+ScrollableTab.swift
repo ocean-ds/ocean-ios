@@ -66,6 +66,10 @@ extension OceanSwiftUI {
         @State private var position: CGPoint = .zero
         @State private var debouncer: Timer?
         @State private var tabHeight: CGFloat = TabMetrics.barHeight
+        @State private var viewport = TabBarViewport()
+        @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+        private let viewportSpace = "OceanSwiftUI.ScrollableTab.viewport"
 
         @State public private(set) var contentSize: CGFloat = .zero
 
@@ -87,8 +91,10 @@ extension OceanSwiftUI {
                 if position.y <= 0 || parameters.header == nil {
                     ScrollViewReader { scrollReader in
                         getTabs().onChange(of: showTabAtIndex) { _ in
-                            withAnimation {
-                                scrollReader.scrollTo(showTabAtIndex, anchor: .leading)
+                            // Só rola se a aba não estiver toda visível ou estiver a menos de 24 da borda.
+                            guard viewport.needsScroll(to: showTabAtIndex) else { return }
+                            withAnimation(TabMetrics.scrollAnimation(reduceMotion: reduceMotion)) {
+                                scrollReader.scrollTo(showTabAtIndex, anchor: .center)
                             }
                         }
                         .background(Color(Ocean.color.colorInterfaceLightPure))
@@ -146,7 +152,7 @@ extension OceanSwiftUI {
                             }
                             .onChange(of: showContentAtIndex) { _ in
                                 if showContentAtIndex > -1 {
-                                    withAnimation {
+                                    withAnimation(reduceMotion ? nil : .default) {
                                         scrollReader.scrollTo(showContentAtIndex, anchor: .top)
                                     }
                                 }
@@ -171,6 +177,18 @@ extension OceanSwiftUI {
                             }
                         }
                         .frame(height: TabMetrics.itemHeight)
+                        .modifier(TabIndicatorOverlay(selectedIndex: shouldUpdate ? parameters.selectedIndex : 0,
+                                                      reduceMotion: reduceMotion))
+                    }
+                    .coordinateSpace(name: viewportSpace)
+                    .background(GeometryReader { proxy in
+                        Color.clear.preference(key: TabViewportWidthKey.self, value: proxy.size.width)
+                    })
+                    .onPreferenceChange(TabItemFramesKey.self) { frames in
+                        if shouldUpdate { viewport.itemFrames = frames }
+                    }
+                    .onPreferenceChange(TabViewportWidthKey.self) { width in
+                        if shouldUpdate { viewport.width = width }
                     }
 
                     // Linha de baixo em toda a largura da barra, não só sob as abas.
@@ -192,13 +210,14 @@ extension OceanSwiftUI {
             TabItem(title: tab.title,
                     badgeNumber: tab.badgeNumber,
                     badgeStatus: tab.badgeStatus,
-                    isSelected: isSelected) {
+                    isSelected: isSelected,
+                    index: index,
+                    viewportSpace: shouldUpdate ? viewportSpace : nil) {
                 debouncer?.invalidate()
                 showContentAtIndex = index
                 parameters.selectedIndex = index
                 parameters.onTouch(index)
             }
-            .animation(.default, value: parameters.selectedIndex)
             .id(index)
         }
 

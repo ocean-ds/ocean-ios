@@ -122,6 +122,36 @@ extension OceanSwiftUI {
             isSelected || isPressed ? status : .disabled
         }
 
+        // MARK: Motion (igual ao web aprovado no MR-980)
+
+        /// Distância mínima da borda visível da barra para a aba selecionada não pedir rolagem.
+        static let scrollEdgeMargin: CGFloat = 24
+
+        /// Linha de seleção deslizando entre as abas: 0,30s, curva (0.65, 0, 0.35, 1). `nil` com Reduzir movimento.
+        static func indicatorAnimation(reduceMotion: Bool) -> Animation? {
+            reduceMotion ? nil : .timingCurve(0.65, 0, 0.35, 1, duration: 0.30)
+        }
+
+        /// Troca de cor do texto e do contador: 0,15s easeInOut. `nil` com Reduzir movimento.
+        static func colorAnimation(reduceMotion: Bool) -> Animation? {
+            reduceMotion ? nil : .easeInOut(duration: 0.15)
+        }
+
+        /// Rolagem da barra até a aba selecionada: 0,40s, curva (0.65, 0, 0.35, 1). `nil` com Reduzir movimento.
+        static func scrollAnimation(reduceMotion: Bool) -> Animation? {
+            reduceMotion ? nil : .timingCurve(0.65, 0, 0.35, 1, duration: 0.40)
+        }
+
+        /// A barra só rola quando a aba selecionada não está toda visível ou está a menos de
+        /// `scrollEdgeMargin` de uma borda. `itemFrame` está no espaço da área visível da barra;
+        /// sem medida, rola (para nunca deixar a aba selecionada fora da tela).
+        static func needsScroll(itemFrame: CGRect?,
+                                viewportWidth: CGFloat,
+                                edgeMargin: CGFloat = scrollEdgeMargin) -> Bool {
+            guard let itemFrame, viewportWidth > 0 else { return true }
+            return itemFrame.minX < edgeMargin || itemFrame.maxX > viewportWidth - edgeMargin
+        }
+
         /// Rótulo de acessibilidade: título e, se houver, o contador.
         static func accessibilityLabel(title: String, badgeNumber: Int?) -> String {
             guard let badgeNumber else { return title }
@@ -138,6 +168,10 @@ extension OceanSwiftUI {
         let badgeStatus: BadgeParameters.Status
         let isSelected: Bool
         var fillsWidth: Bool = false
+        /// Posição na barra: identifica o item para a linha de seleção e para a rolagem.
+        var index: Int = 0
+        /// Espaço de coordenadas da área visível da barra com rolagem; `nil` não mede.
+        var viewportSpace: String? = nil
         let action: () -> Void
 
         var body: some View {
@@ -150,12 +184,55 @@ extension OceanSwiftUI {
             .buttonStyle(TabItemPressStyle())
             .frame(maxWidth: fillsWidth ? .infinity : nil)
             .frame(height: TabMetrics.itemHeight)
-            .overlay(Color(isSelected ? Ocean.color.colorBrandPrimaryPure : .clear)
-                        .frame(height: TabMetrics.indicatorHeight),
-                     alignment: .bottom)
+            .anchorPreference(key: TabItemBoundsKey.self, value: .bounds) { [index: $0] }
+            .background(viewportReporter)
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(TabMetrics.accessibilityLabel(title: title, badgeNumber: badgeNumber))
             .accessibilityAddTraits(isSelected ? [.isButton, .isSelected] : .isButton)
+        }
+
+        @ViewBuilder
+        private var viewportReporter: some View {
+            if let viewportSpace {
+                GeometryReader { proxy in
+                    Color.clear.preference(key: TabItemFramesKey.self,
+                                           value: [index: proxy.frame(in: .named(viewportSpace))])
+                }
+            }
+        }
+    }
+
+    /// Linha de seleção única da barra: acompanha a posição e a largura da aba selecionada e
+    /// desliza entre as abas (não some e reaparece).
+    struct TabIndicatorOverlay: ViewModifier {
+        let selectedIndex: Int
+        let reduceMotion: Bool
+
+        func body(content: Content) -> some View {
+            content.overlayPreferenceValue(TabItemBoundsKey.self) { bounds in
+                GeometryReader { proxy in
+                    if let anchor = bounds[selectedIndex] {
+                        let rect = proxy[anchor]
+                        Color(Ocean.color.colorBrandPrimaryPure)
+                            .frame(width: rect.width, height: TabMetrics.indicatorHeight)
+                            .offset(x: rect.minX, y: rect.maxY - TabMetrics.indicatorHeight)
+                    }
+                }
+                .animation(TabMetrics.indicatorAnimation(reduceMotion: reduceMotion), value: selectedIndex)
+                .allowsHitTesting(false)
+                .accessibilityHidden(true)
+            }
+        }
+    }
+
+    /// Medidas da área visível de uma barra com rolagem. É uma referência (não `@Published`) para
+    /// a rolagem do conteúdo não redesenhar a barra a cada quadro.
+    final class TabBarViewport {
+        var itemFrames: [Int: CGRect] = [:]
+        var width: CGFloat = 0
+
+        func needsScroll(to index: Int) -> Bool {
+            TabMetrics.needsScroll(itemFrame: itemFrames[index], viewportWidth: width)
         }
     }
 
@@ -167,6 +244,7 @@ extension OceanSwiftUI {
         let isSelected: Bool
 
         @Environment(\.oceanTabItemIsPressed) private var isPressed
+        @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
         var body: some View {
             HStack(spacing: Ocean.size.spacingStackXxs) {
@@ -186,6 +264,8 @@ extension OceanSwiftUI {
                     }
                 }
             }
+            .animation(TabMetrics.colorAnimation(reduceMotion: reduceMotion), value: isSelected)
+            .animation(TabMetrics.colorAnimation(reduceMotion: reduceMotion), value: isPressed)
             .fixedSize(horizontal: true, vertical: false)
             .padding(.horizontal, Ocean.size.spacingStackXs)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -220,6 +300,10 @@ extension OceanSwiftUI {
 
         @State private var itemWidths: [Int: CGFloat] = [:]
         @State private var availableWidth: CGFloat = 0
+        @State private var viewport = TabBarViewport()
+        @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+        private let viewportSpace = "OceanSwiftUI.Tab.viewport"
 
         private var fixedLayoutFits: Bool {
             let widths = parameters.tabs.indices.compactMap { itemWidths[$0] }
@@ -300,21 +384,29 @@ extension OceanSwiftUI {
                         ForEach(0..<self.parameters.tabs.count, id: \.self) { index in
                             getTab(self.parameters.tabs[index], index: index, fillsWidth: false)
                                 .id(index)
-                                .onChange(of: parameters.tabSelectedIndex) { newValue in
-                                    withAnimation {
-                                        scrollReader.scrollTo(newValue, anchor: .center)
-                                    }
-                                }
-                                .onAppear {
-                                    if parameters.tabSelectedIndex != 0 {
-                                        withAnimation {
-                                            scrollReader.scrollTo(parameters.tabSelectedIndex, anchor: .center)
-                                        }
-                                    }
-                                }
                         }
                     }
+                    .modifier(TabIndicatorOverlay(selectedIndex: parameters.tabSelectedIndex,
+                                                  reduceMotion: reduceMotion))
                     .padding(.horizontal, Ocean.size.spacingStackMd)
+                }
+                .coordinateSpace(name: viewportSpace)
+                .background(GeometryReader { proxy in
+                    Color.clear.preference(key: TabViewportWidthKey.self, value: proxy.size.width)
+                })
+                .onPreferenceChange(TabItemFramesKey.self) { viewport.itemFrames = $0 }
+                .onPreferenceChange(TabViewportWidthKey.self) { viewport.width = $0 }
+                .onChange(of: parameters.tabSelectedIndex) { newValue in
+                    guard viewport.needsScroll(to: newValue) else { return }
+                    withAnimation(TabMetrics.scrollAnimation(reduceMotion: reduceMotion)) {
+                        scrollReader.scrollTo(newValue, anchor: .center)
+                    }
+                }
+                .onAppear {
+                    // Aparição inicial sem animação.
+                    if parameters.tabSelectedIndex != 0 {
+                        scrollReader.scrollTo(parameters.tabSelectedIndex, anchor: .center)
+                    }
                 }
             }
         }
@@ -325,6 +417,8 @@ extension OceanSwiftUI {
                     getTab(self.parameters.tabs[index], index: index, fillsWidth: true)
                 }
             }
+            .modifier(TabIndicatorOverlay(selectedIndex: parameters.tabSelectedIndex,
+                                          reduceMotion: reduceMotion))
         }
 
         private func getTab(_ tab: TabModel, index: Int, fillsWidth: Bool) -> some View {
@@ -332,10 +426,11 @@ extension OceanSwiftUI {
                     badgeNumber: tab.badgeNumber,
                     badgeStatus: tab.badgeStatus,
                     isSelected: parameters.tabSelectedIndex == index,
-                    fillsWidth: fillsWidth) {
+                    fillsWidth: fillsWidth,
+                    index: index,
+                    viewportSpace: fillsWidth ? nil : viewportSpace) {
                 parameters.selectTab(tab: tab, index: index)
             }
-            .animation(.default, value: parameters.tabSelectedIndex)
         }
 
         private func getContent() -> some View {
@@ -366,6 +461,30 @@ private struct TabItemWidthsKey: PreferenceKey {
 
     static func reduce(value: inout [Int: CGFloat], nextValue: () -> [Int: CGFloat]) {
         value.merge(nextValue()) { _, new in new }
+    }
+}
+
+struct TabItemBoundsKey: PreferenceKey {
+    static var defaultValue: [Int: Anchor<CGRect>] = [:]
+
+    static func reduce(value: inout [Int: Anchor<CGRect>], nextValue: () -> [Int: Anchor<CGRect>]) {
+        value.merge(nextValue()) { _, new in new }
+    }
+}
+
+struct TabItemFramesKey: PreferenceKey {
+    static var defaultValue: [Int: CGRect] = [:]
+
+    static func reduce(value: inout [Int: CGRect], nextValue: () -> [Int: CGRect]) {
+        value.merge(nextValue()) { _, new in new }
+    }
+}
+
+struct TabViewportWidthKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = max(value, nextValue())
     }
 }
 

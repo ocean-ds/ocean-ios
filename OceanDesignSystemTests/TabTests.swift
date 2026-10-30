@@ -180,4 +180,57 @@ final class TabTests: XCTestCase {
         XCTAssertEqual(OceanSwiftUI.TabMetrics.accessibilityLabel(title: "Pendentes", badgeNumber: 3), "Pendentes, 3")
         XCTAssertEqual(OceanSwiftUI.TabMetrics.accessibilityLabel(title: "Pendentes", badgeNumber: nil), "Pendentes")
     }
+
+    // MARK: - Motion
+
+    func testMotionMatchesApprovedWebCurves() {
+        XCTAssertEqual(OceanSwiftUI.TabMetrics.indicatorAnimation(reduceMotion: false),
+                       .timingCurve(0.65, 0, 0.35, 1, duration: 0.30))
+        XCTAssertEqual(OceanSwiftUI.TabMetrics.colorAnimation(reduceMotion: false), .easeInOut(duration: 0.15))
+        XCTAssertEqual(OceanSwiftUI.TabMetrics.scrollAnimation(reduceMotion: false),
+                       .timingCurve(0.65, 0, 0.35, 1, duration: 0.40))
+    }
+
+    func testReduceMotionDisablesEveryAnimation() {
+        XCTAssertNil(OceanSwiftUI.TabMetrics.indicatorAnimation(reduceMotion: true))
+        XCTAssertNil(OceanSwiftUI.TabMetrics.colorAnimation(reduceMotion: true))
+        XCTAssertNil(OceanSwiftUI.TabMetrics.scrollAnimation(reduceMotion: true))
+    }
+
+    func testFullyVisibleTabAwayFromEdgesDoesNotScroll() {
+        let frame = CGRect(x: 120, y: 0, width: 80, height: 56)
+
+        XCTAssertFalse(OceanSwiftUI.TabMetrics.needsScroll(itemFrame: frame, viewportWidth: 375))
+    }
+
+    func testTabWithin24OfAnEdgeScrolls() {
+        XCTAssertTrue(OceanSwiftUI.TabMetrics.needsScroll(itemFrame: CGRect(x: 10, y: 0, width: 80, height: 56),
+                                                          viewportWidth: 375))
+        XCTAssertTrue(OceanSwiftUI.TabMetrics.needsScroll(itemFrame: CGRect(x: 280, y: 0, width: 80, height: 56),
+                                                          viewportWidth: 375))
+    }
+
+    func testTabExactly24FromEdgesDoesNotScroll() {
+        let frame = CGRect(x: 24, y: 0, width: 327, height: 56)
+
+        XCTAssertFalse(OceanSwiftUI.TabMetrics.needsScroll(itemFrame: frame, viewportWidth: 375))
+    }
+
+    func testHiddenOrUnmeasuredTabScrolls() {
+        XCTAssertTrue(OceanSwiftUI.TabMetrics.needsScroll(itemFrame: CGRect(x: -90, y: 0, width: 80, height: 56),
+                                                          viewportWidth: 375))
+        XCTAssertTrue(OceanSwiftUI.TabMetrics.needsScroll(itemFrame: CGRect(x: 400, y: 0, width: 80, height: 56),
+                                                          viewportWidth: 375))
+        XCTAssertTrue(OceanSwiftUI.TabMetrics.needsScroll(itemFrame: nil, viewportWidth: 375))
+    }
+
+    func testViewportUsesMeasuredFramePerIndex() {
+        let viewport = OceanSwiftUI.TabBarViewport()
+        viewport.width = 375
+        viewport.itemFrames = [0: CGRect(x: 32, y: 0, width: 80, height: 56),
+                               4: CGRect(x: 360, y: 0, width: 80, height: 56)]
+
+        XCTAssertFalse(viewport.needsScroll(to: 0))
+        XCTAssertTrue(viewport.needsScroll(to: 4))
+    }
 }
