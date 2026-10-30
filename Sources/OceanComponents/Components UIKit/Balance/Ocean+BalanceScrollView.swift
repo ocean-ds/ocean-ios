@@ -144,7 +144,7 @@ extension Ocean {
         }
 
         private func setupUI() {
-            self.backgroundColor = Ocean.color.colorBrandPrimaryDown.withAlphaComponent(0.4)
+            self.backgroundColor = Ocean.color.colorBrandPrimaryDown.withAlphaComponent(Ocean.size.opacityLevelMedium)
 
             self.isSkeletonable = true
             self.addSubview(contentStack)

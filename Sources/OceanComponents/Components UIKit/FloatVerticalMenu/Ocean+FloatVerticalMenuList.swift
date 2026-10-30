@@ -55,7 +55,7 @@ extension Ocean {
         private lazy var menuOptionsContainerView: UIView = {
             let containerView = UIView()
             containerView.backgroundColor = Ocean.color.colorInterfaceLightPure
-            containerView.layer.cornerRadius = 8.0
+            containerView.layer.cornerRadius = Ocean.size.borderRadiusSm
             containerView.clipsToBounds = true
 
             return containerView

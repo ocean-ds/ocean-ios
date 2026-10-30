@@ -145,7 +145,7 @@ extension OceanSwiftUI {
             VStack(alignment: .leading) {
                 HStack(alignment: .center, spacing: Ocean.size.spacingStackXxs) {
                     ZStack {
-                        RoundedRectangle(cornerRadius: 4)
+                        RoundedRectangle(cornerRadius: Ocean.size.borderRadiusTiny)
                             .fill(fillColorForItem(item))
                             .frame(width: 20, height: 20)
                             .overlay(
@@ -203,20 +203,20 @@ extension OceanSwiftUI {
         private func getItemOverlay(_ item: CheckboxGroupParameters.CheckboxModel) -> some View {
             return Group {
                 if !item.isEnabled {
-                    RoundedRectangle(cornerRadius: 4)
+                    RoundedRectangle(cornerRadius: Ocean.size.borderRadiusTiny)
                         .stroke(Color(Ocean.color.colorInterfaceLightDown),
-                                lineWidth: 1)
+                                lineWidth: Ocean.size.borderWidthHairline)
                 } else if parameters.hasError {
-                    RoundedRectangle(cornerRadius: 4)
-                        .stroke(Color(Ocean.color.colorStatusNegativePure), lineWidth: 1)
+                    RoundedRectangle(cornerRadius: Ocean.size.borderRadiusTiny)
+                        .stroke(Color(Ocean.color.colorStatusNegativePure), lineWidth: Ocean.size.borderWidthHairline)
                 } else if item.isSelected {
-                    RoundedRectangle(cornerRadius: 4)
+                    RoundedRectangle(cornerRadius: Ocean.size.borderRadiusTiny)
                         .stroke(Color(Ocean.color.colorComplementaryPure),
-                                lineWidth: 1)
+                                lineWidth: Ocean.size.borderWidthHairline)
                 } else {
-                    RoundedRectangle(cornerRadius: 4)
+                    RoundedRectangle(cornerRadius: Ocean.size.borderRadiusTiny)
                         .stroke(Color(Ocean.color.colorInterfaceDarkUp),
-                                lineWidth: 1)
+                                lineWidth: Ocean.size.borderWidthHairline)
                 }
             }
         }

@@ -69,7 +69,7 @@ extension Ocean {
 
         private lazy var contentContainer: UIView = {
             let view = UIView()
-            view.backgroundColor = Ocean.color.colorBrandPrimaryDown.withAlphaComponent(0.4)
+            view.backgroundColor = Ocean.color.colorBrandPrimaryDown.withAlphaComponent(Ocean.size.opacityLevelMedium)
             view.clipsToBounds = true
             view.ocean.radius.applyMd()
             view.isSkeletonable = true

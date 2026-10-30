@@ -23,7 +23,7 @@ open class OceanBottomNavigationBar: UITabBarController {
 
     private lazy var movingBackgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = Ocean.color.colorBrandPrimaryDown.withAlphaComponent(0.4)
+        view.backgroundColor = Ocean.color.colorBrandPrimaryDown.withAlphaComponent(Ocean.size.opacityLevelMedium)
         view.ocean.radius.applyMd()
         return view
     }()

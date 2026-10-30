@@ -487,7 +487,7 @@ struct TransactionListSelectionControl: View {
         RoundedRectangle(cornerRadius: Ocean.size.borderRadiusTiny)
             .fill(Color(checkboxFillColor))
             .overlay(RoundedRectangle(cornerRadius: Ocean.size.borderRadiusTiny)
-                .stroke(Color(strokeColor), lineWidth: 1))
+                .stroke(Color(strokeColor), lineWidth: Ocean.size.borderWidthHairline))
             .overlay(checkboxMark)
             .frame(width: size, height: size)
     }

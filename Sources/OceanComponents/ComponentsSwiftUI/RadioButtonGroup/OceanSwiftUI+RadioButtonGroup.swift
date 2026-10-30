@@ -150,17 +150,17 @@ extension OceanSwiftUI {
             return Group {
                 if !self.parameters.errorMessage.isEmpty || self.parameters.hasError {
                     Circle()
-                        .stroke(Color(Ocean.color.colorStatusNegativePure), lineWidth: 1)
+                        .stroke(Color(Ocean.color.colorStatusNegativePure), lineWidth: Ocean.size.borderWidthHairline)
                     
                 } else if !self.parameters.isEnabled {
                     Circle()
-                        .stroke(Color(Ocean.color.colorInterfaceLightDeep), lineWidth: 1)
+                        .stroke(Color(Ocean.color.colorInterfaceLightDeep), lineWidth: Ocean.size.borderWidthHairline)
                 } else if self.parameters.itemSelectedIndex == index {
                     Circle()
                         .stroke(Color(Ocean.color.colorComplementaryPure), lineWidth: 6)
                 } else {
                     Circle()
-                        .stroke(Color(Ocean.color.colorInterfaceDarkUp), lineWidth: 1)
+                        .stroke(Color(Ocean.color.colorInterfaceDarkUp), lineWidth: Ocean.size.borderWidthHairline)
                 }
             }
             .frame(width: size,

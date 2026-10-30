@@ -152,7 +152,7 @@ extension Ocean {
         private func addConstraintContentStack() {
             contentStack.oceanConstraints
                 .topToBottom(to: mainStack)
-                .bottomToTop(to: bottomStack, constant: -8)
+                .bottomToTop(to: bottomStack, constant: -Ocean.size.spacingStackXxs)
                 .leadingToLeading(to: mainStack)
                 .trailingToTrailing(to: mainStack)
                 .make()

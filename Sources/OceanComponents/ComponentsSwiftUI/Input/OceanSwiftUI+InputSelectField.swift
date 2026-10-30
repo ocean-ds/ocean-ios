@@ -131,7 +131,7 @@ extension OceanSwiftUI {
                                 .overlay(
                                     RoundedRectangle(cornerRadius: Ocean.size.borderRadiusMd)
                                         .strokeBorder(Color(getBorderColor()),
-                                                      lineWidth: 1))
+                                                      lineWidth: Ocean.size.borderWidthHairline))
                                 .foregroundColor(Color(self.parameters.isDisabled ? Ocean.color.colorInterfaceLightUp : Ocean.color.colorInterfaceLightPure))
                         )
                         .font(Font(UIFont.baseRegular(size: Ocean.font.fontSizeXs)!))

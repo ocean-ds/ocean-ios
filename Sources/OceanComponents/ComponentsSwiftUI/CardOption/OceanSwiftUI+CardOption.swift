@@ -179,7 +179,7 @@ extension OceanSwiftUI {
                     label.parameters.textColor = Ocean.color.colorInterfaceLightPure
                 }
             }
-            .padding(.horizontal, 8)
+            .padding(.horizontal, Ocean.size.spacingInlineXxs)
             .padding(.vertical, 0)
             .frame(height: 20, alignment: .center)
             .background(Color(Ocean.color.colorComplementaryPure))
