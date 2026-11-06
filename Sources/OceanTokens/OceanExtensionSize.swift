@@ -45,6 +45,8 @@ public struct size {
   public static let opacityLevelSemiopaque: CGFloat = 0.8
   ///public static let opacityLevelSemitransparent: CGFloat = 0.08
   public static let opacityLevelSemitransparent: CGFloat = 0.08
+  ///public static let opacityLevelSoft: CGFloat = 0.24
+  public static let opacityLevelSoft: CGFloat = 0.24
   ///public static let spacingInlineLg: CGFloat = 40
   public static let spacingInlineLg: CGFloat = 40
   ///public static let spacingInlineMd: CGFloat = 32

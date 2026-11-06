@@ -21,10 +21,10 @@
     normalize-path "^2.0.1"
     through2 "^2.0.3"
 
-"@useblu/ocean-tokens@^3.8.2":
-  version "3.8.2"
-  resolved "https://registry.yarnpkg.com/@useblu/ocean-tokens/-/ocean-tokens-3.8.2.tgz#ea1a58e262835bbc50f171e9644f61fcbfb27a5b"
-  integrity sha512-PtUtNiQVRHsejnQC0/1fTRW4Vs6aqGE1RFnaTIExvtC63tBasLt2ebPRStCPZ05NKGzq62k80HzJeqAp04tWIg==
+"@useblu/ocean-tokens@^3.10.0":
+  version "3.10.0"
+  resolved "https://registry.yarnpkg.com/@useblu/ocean-tokens/-/ocean-tokens-3.10.0.tgz#5a92f493d882b7ea214f69ff54d926267ddc1a73"
+  integrity sha512-Fuyj+AMvg6/5TfRgLnejz/Slbhn9NE2h2eL2FDiP8ZnTggQpQBhpUQoui0vgsELQe16MV+QESxPp6kzd5c8q2Q==
   dependencies:
     gulp "^4.0.2"
     gulp-dom "^1.0.0"

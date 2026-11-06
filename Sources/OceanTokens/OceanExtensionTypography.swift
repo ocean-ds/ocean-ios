@@ -11,6 +11,8 @@ import UIKit
 extension Ocean {
 // swiftlint:disable identifier_name line_length number_separator type_body_length
 public struct font {
+  ///public static let fontFamilyBaseWeightBlack: String = "NunitoSans-Black"
+  public static let fontFamilyBaseWeightBlack: String = "NunitoSans-Black"
   ///public static let fontFamilyBaseWeightBold: String = "NunitoSans-Bold"
   public static let fontFamilyBaseWeightBold: String = "NunitoSans-Bold"
   ///public static let fontFamilyBaseWeightExtraBold: String = "NunitoSans-ExtraBold"
@@ -21,6 +23,8 @@ public struct font {
   public static let fontFamilyBaseWeightMedium: String = "NunitoSans-SemiBold"
   ///public static let fontFamilyBaseWeightRegular: String = "NunitoSans-Regular"
   public static let fontFamilyBaseWeightRegular: String = "NunitoSans-Regular"
+  ///public static let fontFamilyHighlightWeightBlack: String = "NunitoSans-Black"
+  public static let fontFamilyHighlightWeightBlack: String = "NunitoSans-Black"
   ///public static let fontFamilyHighlightWeightBold: String = "NunitoSans-Bold"
   public static let fontFamilyHighlightWeightBold: String = "NunitoSans-Bold"
   ///public static let fontFamilyHighlightWeightExtraBold: String = "NunitoSans-ExtraBold"
@@ -53,8 +57,18 @@ public struct font {
   public static let fontSizeXxxl: CGFloat = 64
   ///public static let fontSizeXxxs: CGFloat = 12
   public static let fontSizeXxxs: CGFloat = 12
+  ///public static let fontSizeXxxxs: CGFloat = 10
+  public static let fontSizeXxxxs: CGFloat = 10
+  ///public static let fontWeightBlack: CGFloat = 900
+  public static let fontWeightBlack: CGFloat = 900
+  ///public static let letterSpacingWide: CGFloat = 0.18
+  public static let letterSpacingWide: CGFloat = 0.18
   ///public static let lineHeightComfy: CGFloat = 1.5
   public static let lineHeightComfy: CGFloat = 1.5
+  ///public static let lineHeightExtraComfy: CGFloat = 1.6
+  public static let lineHeightExtraComfy: CGFloat = 1.6
+  ///public static let lineHeightExtraTight: CGFloat = 0.8
+  public static let lineHeightExtraTight: CGFloat = 0.8
   ///public static let lineHeightLoose: CGFloat = 1.32
   public static let lineHeightLoose: CGFloat = 1.32
   ///public static let lineHeightMedium: CGFloat = 1.24
