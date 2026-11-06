@@ -274,10 +274,12 @@ extension OceanSwiftUI {
             }
             .buttonStyle(SegmentedControlPressStyle())
             .anchorPreference(key: SegmentedControlOptionBoundsKey.self, value: .bounds) { [index: $0] }
-            .accessibilityElement(children: .ignore)
+            // O próprio `Button` é o único elemento de acessibilidade da opção (já com o traço de botão):
+            // rótulo e "selecionado" vão direto nele, sem `.accessibilityElement` em volta, que criaria um
+            // segundo elemento por fora do botão.
             .accessibilityLabel(SegmentedControlMetrics.accessibilityLabel(title: option.title,
                                                                            badgeNumber: option.badgeNumber))
-            .accessibilityAddTraits(isSelected ? [.isButton, .isSelected] : .isButton)
+            .accessibilityAddTraits(isSelected ? .isSelected : [])
             // Desabilitado: o toque não chega na ação e o leitor de tela anuncia a opção como indisponível.
             .disabled(isDisabled)
         }

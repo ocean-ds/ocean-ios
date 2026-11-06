@@ -54,20 +54,20 @@ class SegmentedControlSwiftUIViewController: UIViewController {
 
     private lazy var catalog = AnyView(ScrollView {
         VStack(alignment: .leading, spacing: Ocean.size.spacingStackSm) {
-            section("selectedIndex: 0 · icon: nil · badgeNumber: nil", firstSelected)
-            section("selectedIndex: 1", secondSelected)
-            section("icon: viewListOutline | viewGridOutline", withIcon)
-            section("badgeNumber: 3 | 120 (99+)", withBadge)
-            section("icon + badgeNumber: 2 | icon + badgeNumber: nil", withIconAndBadge)
-            section("title: longo (uma linha, corta com …)", longLabel)
-            section("background: .white (sobre colorInterfaceLightUp)", whiteBackground)
+            section("selectedIndex: 0 · icon: nil · badgeNumber: nil", firstSelected, id: "segmented-selecionada-1")
+            section("selectedIndex: 1", secondSelected, id: "segmented-selecionada-2")
+            section("icon: viewListOutline | viewGridOutline", withIcon, id: "segmented-icone")
+            section("badgeNumber: 3 | 120 (99+)", withBadge, id: "segmented-contador")
+            section("icon + badgeNumber: 2 | icon + badgeNumber: nil", withIconAndBadge, id: "segmented-icone-contador")
+            section("title: longo (uma linha, corta com …)", longLabel, id: "segmented-texto-longo")
+            section("background: .white (sobre colorInterfaceLightUp)", whiteBackground, id: "segmented-fundo-branco")
                 .padding(.vertical, Ocean.size.spacingStackXs)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Color(Ocean.color.colorInterfaceLightUp))
-            section("isDisabled: true · selectedIndex: 0", disabledFirst)
-            section("isDisabled: true · selectedIndex: 1", disabledSecond)
+            section("isDisabled: true · selectedIndex: 0", disabledFirst, id: "segmented-desabilitado-1")
+            section("isDisabled: true · selectedIndex: 1", disabledSecond, id: "segmented-desabilitado-2")
             VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
-                section("exemplo: Loja | Rede (onTouch troca o conteúdo)", storeNetwork)
+                section("exemplo: Loja | Rede (onTouch troca o conteúdo)", storeNetwork, id: "segmented-loja-rede")
                 storeNetworkContent
                     .padding(.horizontal, Ocean.size.spacingStackXs)
             }
@@ -106,13 +106,15 @@ class SegmentedControlSwiftUIViewController: UIViewController {
         }
     }
 
-    private func section(_ label: String, _ control: OceanSwiftUI.SegmentedControl) -> some View {
+    /// `id` identifica o controle nos testes de interface (ex.: contar os elementos de acessibilidade de cada opção).
+    private func section(_ label: String, _ control: OceanSwiftUI.SegmentedControl, id: String) -> some View {
         VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
             OceanSwiftUI.Typography.caption { view in
                 view.parameters.text = label
             }
 
             control
+                .accessibilityIdentifier(id)
         }
         .padding(.horizontal, Ocean.size.spacingStackXs)
     }

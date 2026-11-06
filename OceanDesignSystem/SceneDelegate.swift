@@ -12,5 +12,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        #if DEBUG
+        // Testes de interface: `-demoSegmentedControl` abre direto a tela de exemplos do Segmented Control.
+        if ProcessInfo.processInfo.arguments.contains("-demoSegmentedControl") {
+            window?.rootViewController = SegmentedControlSwiftUIViewController()
+        }
+        #endif
+    }
 }
-
