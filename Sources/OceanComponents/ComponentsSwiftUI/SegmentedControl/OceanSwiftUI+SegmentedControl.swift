@@ -182,7 +182,15 @@ extension OceanSwiftUI {
             reduceMotion ? nil : .timingCurve(0.65, 0, 0.35, 1, duration: 0.30)
         }
 
-        /// Troca de cor do fundo do controle e da seleção: 0,15s easeInOut. `nil` com Reduzir movimento.
+        /// Troca de cor do texto, do ícone e do contador causada pela mudança de seleção: a mesma animação do
+        /// fundo de seleção (0,30s, curva (0.65, 0, 0.35, 1)), para as cores chegarem junto com ele. `nil` com
+        /// Reduzir movimento (troca no mesmo quadro que o fundo de seleção).
+        static func contentAnimation(reduceMotion: Bool) -> Animation? {
+            selectionAnimation(reduceMotion: reduceMotion)
+        }
+
+        /// Troca de cor do fundo do controle (pressionado) e da cor da seleção (desabilitado): 0,15s easeInOut.
+        /// Não vale para a troca de seleção. `nil` com Reduzir movimento.
         static func colorAnimation(reduceMotion: Bool) -> Animation? {
             reduceMotion ? nil : .easeInOut(duration: 0.15)
         }
@@ -201,6 +209,8 @@ extension OceanSwiftUI {
         let option: SegmentedControlOptionModel
         var isSelected: Bool = false
         var isDisabled: Bool = false
+
+        @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
         private var contentColor: UIColor {
             SegmentedControlMetrics.contentColor(isSelected: isSelected, isDisabled: isDisabled)
@@ -238,6 +248,14 @@ extension OceanSwiftUI {
             .padding(.horizontal, SegmentedControlMetrics.optionHorizontalPadding)
             .padding(.vertical, SegmentedControlMetrics.optionVerticalPadding)
             .frame(height: SegmentedControlMetrics.optionHeight)
+            // A troca de cor pela seleção usa a animação do fundo de seleção. Fica aqui, dentro do rótulo do botão,
+            // porque o `Button` solta o pressionado com uma animação própria que alcança o rótulo da opção tocada
+            // e passaria por cima de um `.animation` aplicado fora do botão.
+            .animation(SegmentedControlMetrics.contentAnimation(reduceMotion: reduceMotion), value: isSelected)
+            // Reduzir movimento: nada anima no conteúdo, venha a animação de onde vier (inclusive do `Button`).
+            .transaction { transaction in
+                if reduceMotion { transaction.animation = nil }
+            }
             .contentShape(Rectangle())
         }
     }
@@ -347,7 +365,7 @@ extension OceanSwiftUI {
                     }
                 }
             }
-            .animation(SegmentedControlMetrics.colorAnimation(reduceMotion: reduceMotion),
+            .animation(SegmentedControlMetrics.contentAnimation(reduceMotion: reduceMotion),
                        value: parameters.selectedIndex)
             .modifier(SegmentedControlSelectionBackground(selectedIndex: parameters.selectedIndex,
                                                           isDisabled: parameters.isDisabled,

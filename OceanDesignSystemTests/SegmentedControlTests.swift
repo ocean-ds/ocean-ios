@@ -236,9 +236,26 @@ final class SegmentedControlTests: XCTestCase {
 
     func testReduceMotionRemovesAnimations() {
         XCTAssertNil(Metrics.selectionAnimation(reduceMotion: true))
+        XCTAssertNil(Metrics.contentAnimation(reduceMotion: true))
         XCTAssertNil(Metrics.colorAnimation(reduceMotion: true))
         XCTAssertNotNil(Metrics.selectionAnimation(reduceMotion: false))
+        XCTAssertNotNil(Metrics.contentAnimation(reduceMotion: false))
         XCTAssertNotNil(Metrics.colorAnimation(reduceMotion: false))
+    }
+
+    /// Text, icon and counter colors change with the selection pill: same 0.30s and (0.65, 0, 0.35, 1) curve.
+    func testContentColorAnimationMatchesTheSelectionPill() {
+        let pill = Animation.timingCurve(0.65, 0, 0.35, 1, duration: 0.30)
+
+        XCTAssertEqual(Metrics.selectionAnimation(reduceMotion: false), pill)
+        XCTAssertEqual(Metrics.contentAnimation(reduceMotion: false), pill)
+        XCTAssertEqual(Metrics.contentAnimation(reduceMotion: false), Metrics.selectionAnimation(reduceMotion: false))
+    }
+
+    /// The short 0.15s transition stays only on the control background (pressed) and is not the content's.
+    func testShortColorAnimationIsOnlyForTheControlBackground() {
+        XCTAssertEqual(Metrics.colorAnimation(reduceMotion: false), .easeInOut(duration: 0.15))
+        XCTAssertNotEqual(Metrics.contentAnimation(reduceMotion: false), Metrics.colorAnimation(reduceMotion: false))
     }
 
     func testAccessibilityLabelIncludesCounter() {
