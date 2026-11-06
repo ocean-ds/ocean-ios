@@ -112,6 +112,7 @@ public enum DesignSystemComponentsSwiftUIType: String {
     case RadioButtonGroup
     case ScoreChart
     case ScrollableTab
+    case SegmentedControl
     case SettingsListItem
     case Shortcut
     case SimpleBalance

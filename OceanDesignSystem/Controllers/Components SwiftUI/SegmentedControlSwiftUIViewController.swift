@@ -1,0 +1,134 @@
+//
+//  SegmentedControlSwiftUIViewController.swift
+//  OceanDesignSystem
+//
+//  Copyright © 2026 Blu Pagamentos. All rights reserved.
+//
+
+import Foundation
+import SwiftUI
+import OceanTokens
+import OceanComponents
+
+class SegmentedControlSwiftUIViewController: UIViewController {
+
+    private typealias Option = OceanSwiftUI.SegmentedControlOptionModel
+
+    private lazy var firstSelected = makeControl([Option(title: "Opção 1"), Option(title: "Opção 2")],
+                                                 selectedIndex: 0)
+
+    private lazy var secondSelected = makeControl([Option(title: "Opção 1"), Option(title: "Opção 2")],
+                                                  selectedIndex: 1)
+
+    private lazy var withIcon = makeControl([Option(title: "Lista", icon: Ocean.icon.viewListOutline),
+                                             Option(title: "Grade", icon: Ocean.icon.viewGridOutline)])
+
+    private lazy var withBadge = makeControl([Option(title: "Pendentes", badgeNumber: 3),
+                                              Option(title: "Concluídas", badgeNumber: 120)])
+
+    private lazy var withIconAndBadge = makeControl([Option(title: "Loja", icon: Ocean.icon.shoppingBagOutline, badgeNumber: 2),
+                                                     Option(title: "Rede", icon: Ocean.icon.officeBuildingOutline)])
+
+    private lazy var longLabel = makeControl([Option(title: "Lançamentos futuros detalhados por loja e por período"),
+                                              Option(title: "Rede")])
+
+    private static let storeNetworkOptions = [
+        Option(title: "Loja", icon: Ocean.icon.shoppingBagOutline, badgeNumber: 2),
+        Option(title: "Rede", icon: Ocean.icon.officeBuildingOutline, badgeNumber: 5)
+    ]
+
+    private lazy var whiteBackground = makeControl(Self.storeNetworkOptions, background: .white)
+
+    private lazy var disabledFirst = makeControl(Self.storeNetworkOptions, selectedIndex: 0, isDisabled: true)
+
+    private lazy var disabledSecond = makeControl(Self.storeNetworkOptions, selectedIndex: 1, isDisabled: true)
+
+    private lazy var storeNetwork = makeControl([Option(title: "Loja"), Option(title: "Rede")],
+                                                onTouch: { [weak self] index in
+                                                    self?.storeNetworkContent.parameters.text = Self.storeNetworkText(index)
+                                                })
+
+    private lazy var storeNetworkContent = OceanSwiftUI.Typography.description { label in
+        label.parameters.text = Self.storeNetworkText(0)
+    }
+
+    private lazy var catalog = AnyView(ScrollView {
+        VStack(alignment: .leading, spacing: Ocean.size.spacingStackSm) {
+            section("selectedIndex: 0 · icon: nil · badgeNumber: nil", firstSelected, id: "segmented-selecionada-1")
+            section("selectedIndex: 1", secondSelected, id: "segmented-selecionada-2")
+            section("icon: viewListOutline | viewGridOutline", withIcon, id: "segmented-icone")
+            section("badgeNumber: 3 | 120 (99+)", withBadge, id: "segmented-contador")
+            section("icon + badgeNumber: 2 | icon + badgeNumber: nil", withIconAndBadge, id: "segmented-icone-contador")
+            section("title: longo (uma linha, corta com …)", longLabel, id: "segmented-texto-longo")
+            section("background: .white (sobre colorInterfaceLightUp)", whiteBackground, id: "segmented-fundo-branco")
+                .padding(.vertical, Ocean.size.spacingStackXs)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color(Ocean.color.colorInterfaceLightUp))
+            section("isDisabled: true · selectedIndex: 0", disabledFirst, id: "segmented-desabilitado-1")
+            section("isDisabled: true · selectedIndex: 1", disabledSecond, id: "segmented-desabilitado-2")
+            VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
+                section("exemplo: Loja | Rede (onTouch troca o conteúdo)", storeNetwork, id: "segmented-loja-rede")
+                storeNetworkContent
+                    .padding(.horizontal, Ocean.size.spacingStackXs)
+            }
+        }
+        .padding(.vertical, Ocean.size.spacingStackXs)
+        .frame(maxWidth: .infinity, alignment: .leading)
+    })
+
+    public lazy var hostingController = UIHostingController(rootView: catalog)
+
+    public lazy var uiView = self.hostingController.getUIView()
+
+    public override func viewDidLoad() {
+        self.view.backgroundColor = .white
+
+        self.view.addSubview(uiView)
+
+        uiView.oceanConstraints
+            .fill(to: self.view)
+            .make()
+    }
+
+    private func makeControl(_ options: [Option],
+                             selectedIndex: Int = 0,
+                             isDisabled: Bool = false,
+                             background: OceanSwiftUI.SegmentedControlBackground = .default,
+                             onTouch: ((Int) -> Void)? = nil) -> OceanSwiftUI.SegmentedControl {
+        OceanSwiftUI.SegmentedControl { control in
+            control.parameters.options = options
+            control.parameters.setSelectedIndex(selectedIndex)
+            control.parameters.isDisabled = isDisabled
+            control.parameters.background = background
+            control.parameters.onTouch = onTouch ?? { index in
+                print("SegmentedControl: opção selecionada \(index)")
+            }
+        }
+    }
+
+    /// `id` identifica o controle nos testes de interface (ex.: contar os elementos de acessibilidade de cada opção).
+    private func section(_ label: String, _ control: OceanSwiftUI.SegmentedControl, id: String) -> some View {
+        VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
+            OceanSwiftUI.Typography.caption { view in
+                view.parameters.text = label
+            }
+
+            control
+                .accessibilityIdentifier(id)
+        }
+        .padding(.horizontal, Ocean.size.spacingStackXs)
+    }
+
+    private static func storeNetworkText(_ index: Int) -> String {
+        index == 0 ? "Vendas desta loja." : "Vendas de todas as lojas da rede."
+    }
+}
+
+@available(iOS 13.0, *)
+struct SegmentedControlSwiftUIViewController_Preview: PreviewProvider {
+    static var previews: some View {
+        UIViewControllerPreview {
+            SegmentedControlSwiftUIViewController()
+        }
+    }
+}
