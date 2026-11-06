@@ -17,23 +17,36 @@ extension OceanSwiftUI {
     /// No Figma é o set *Segmented Control* (MR-990). Use para trocar o escopo ou a visão do mesmo
     /// conteúdo (ex.: Loja | Rede). Não é aba (`Tab`), filtro (`FilterBar`) nem liga/desliga (`Switch`).
     /// O controle desenha **exatamente 2 opções**: só as duas primeiras de `options` aparecem; com menos de
-    /// duas, aparecem as que existirem. Não existe estado desabilitado nem carregando: se a troca não está
-    /// disponível, a tela não mostra o controle.
+    /// duas, aparecem as que existirem. O desabilitado (`isDisabled`) vale para o controle inteiro; quando a troca
+    /// não faz sentido para a pessoa (ex.: loja sem rede), a tela não mostra o controle. Não existe carregando.
     public class SegmentedControlParameters: ObservableObject {
         /// As opções do controle, na ordem. Só as duas primeiras são desenhadas. Default `[]`.
         @Published public var options: [SegmentedControlOptionModel]
         /// Índice da opção selecionada (`0` ou `1`). Muda pelo toque ou por `setSelectedIndex(_:)`. Default `0`.
         @Published private(set) public var selectedIndex: Int
+        /// Desabilita o controle inteiro: o toque não troca a opção nem chama `onTouch`, não há pressionado, e o
+        /// leitor de tela anuncia as opções como indisponíveis. Visual: seleção `colorInterfaceLightDown`, texto e
+        /// ícone `colorInterfaceDarkUp` e contador neutro nas duas opções. `setSelectedIndex(_:)` continua
+        /// funcionando. Default `false` (habilitado).
+        @Published public var isDisabled: Bool
+        /// Fundo do controle: `.default` (`colorInterfaceLightUp`, para telas de fundo branco) ou `.white`
+        /// (`colorInterfaceLightPure`, para usar sobre superfícies `colorInterfaceLightUp`, como cards e heros).
+        /// Default `.default`.
+        @Published public var background: SegmentedControlBackground
         /// Chamado com o índice da opção quando a pessoa toca numa opção diferente da selecionada.
         /// Não é chamado ao tocar na opção já selecionada nem por `setSelectedIndex(_:)`.
         public var onTouch: ((Int) -> Void)
 
         public init(options: [SegmentedControlOptionModel] = [],
                     selectedIndex: Int = 0,
+                    isDisabled: Bool = false,
+                    background: SegmentedControlBackground = .default,
                     onTouch: @escaping ((Int) -> Void) = { _ in }) {
             self.options = options
             self.selectedIndex = SegmentedControlMetrics.isValid(index: selectedIndex,
                                                                  optionsCount: options.count) ? selectedIndex : 0
+            self.isDisabled = isDisabled
+            self.background = background
             self.onTouch = onTouch
         }
 
@@ -49,23 +62,38 @@ extension OceanSwiftUI {
             selectedIndex = index
         }
 
-        /// Toque numa opção: seleciona e chama `onTouch`. Índice fora das opções desenhadas é ignorado, e tocar na
-        /// opção que já está selecionada não chama `onTouch` (nada mudou), como na web e no Android.
+        /// Toque numa opção: seleciona e chama `onTouch`. Índice fora das opções desenhadas é ignorado, tocar na
+        /// opção que já está selecionada não chama `onTouch` (nada mudou), como na web e no Android, e com o
+        /// controle desabilitado nada acontece.
         func select(index: Int) {
-            guard SegmentedControlMetrics.isValid(index: index, optionsCount: options.count),
+            guard !isDisabled,
+                  SegmentedControlMetrics.isValid(index: index, optionsCount: options.count),
                   index != selectedIndex else { return }
             selectedIndex = index
             onTouch(index)
         }
     }
 
+    /// Fundo do `SegmentedControl` (Figma: propriedade *Background*).
+    public enum SegmentedControlBackground {
+        /// `colorInterfaceLightUp`, para telas de fundo branco.
+        case `default`
+        /// `colorInterfaceLightPure`, para usar sobre superfícies `colorInterfaceLightUp` (cards, heros), onde o
+        /// `.default` sumiria.
+        case white
+    }
+
     /// Uma opção do `SegmentedControl`.
     public struct SegmentedControlOptionModel: Equatable {
         /// Texto da opção (estilo `heading5`), em uma linha só; se não couber, é cortado com "…".
         public var title: String
-        /// Ícone 16×16 antes do texto, na cor `colorBrandPrimaryPure`. `nil` (default) esconde o ícone.
+        /// Ícone 16×16 antes do texto, na mesma cor do texto: `colorInterfaceLightPure` na opção selecionada,
+        /// `colorBrandPrimaryPure` na não selecionada e `colorInterfaceDarkUp` com o controle desabilitado.
+        /// `nil` (default) esconde o ícone.
         public var icon: UIImage?
-        /// Contador depois do texto (Badge Count Small, status `.primary`). `nil` (default) esconde o contador.
+        /// Contador depois do texto (Badge Count Small): status `.primaryInverted` na opção selecionada, `.primary`
+        /// na não selecionada e `.disabled` (o neutro do Figma) com o controle desabilitado. `nil` (default) esconde
+        /// o contador.
         public var badgeNumber: Int?
 
         public init(title: String = "",
@@ -79,7 +107,7 @@ extension OceanSwiftUI {
 
     // MARK: Metrics
 
-    /// Medidas, cores e movimento do SegmentedControl (Figma MR-990).
+    /// Medidas, cores e movimento do SegmentedControl (Figma MR-990, versão 1.1.0).
     enum SegmentedControlMetrics {
         /// O controle desenha exatamente duas opções.
         static let maxOptions = 2
@@ -98,8 +126,6 @@ extension OceanSwiftUI {
         static let optionVerticalPadding: CGFloat = Ocean.size.spacingInsetXxs
         /// Espaço entre ícone, texto e contador (Figma: 4).
         static let contentSpacing: CGFloat = Ocean.size.spacingInlineXxxs
-        /// Borda do controle (Figma: 1).
-        static let borderWidth: CGFloat = Ocean.size.borderWidthHairline
         /// Altura total do controle: opção + padding em cima e embaixo (Figma: 40).
         static var controlHeight: CGFloat { optionHeight + 2 * containerPadding }
 
@@ -113,14 +139,40 @@ extension OceanSwiftUI {
             index >= 0 && index < min(optionsCount, maxOptions)
         }
 
-        /// Fundo do controle: `colorInterfaceLightUp` pressionado (Figma "Hover" no app), `colorInterfaceLightPure` no padrão.
-        static func containerColor(isPressed: Bool) -> UIColor {
-            isPressed ? Ocean.color.colorInterfaceLightUp : Ocean.color.colorInterfaceLightPure
+        /// Fundo do controle (sem borda): `colorInterfaceLightDown` pressionado (Figma "Hover" no app), nos dois
+        /// fundos; senão o do `background` (`.default` `colorInterfaceLightUp`, `.white` `colorInterfaceLightPure`).
+        /// Desabilitado não tem pressionado.
+        static func containerColor(background: SegmentedControlBackground,
+                                   isPressed: Bool,
+                                   isDisabled: Bool = false) -> UIColor {
+            if isPressed && !isDisabled { return Ocean.color.colorInterfaceLightDown }
+            switch background {
+            case .default:
+                return Ocean.color.colorInterfaceLightUp
+            case .white:
+                return Ocean.color.colorInterfaceLightPure
+            }
         }
 
-        /// Opacidade do fundo de seleção (`colorBrandPrimaryUp`): 48% pressionado, 32% no padrão.
-        static func selectionOpacity(isPressed: Bool) -> Double {
-            isPressed ? 0.48 : 0.32
+        /// Fundo de seleção (cor cheia, sem opacidade): `colorBrandPrimaryPure`, ou `colorInterfaceLightDown`
+        /// desabilitado. Não muda no pressionado.
+        static func selectionColor(isDisabled: Bool) -> UIColor {
+            isDisabled ? Ocean.color.colorInterfaceLightDown : Ocean.color.colorBrandPrimaryPure
+        }
+
+        /// Texto e ícone: `colorInterfaceLightPure` na selecionada, `colorBrandPrimaryPure` na não selecionada,
+        /// `colorInterfaceDarkUp` nas duas com o controle desabilitado.
+        static func contentColor(isSelected: Bool, isDisabled: Bool) -> UIColor {
+            if isDisabled { return Ocean.color.colorInterfaceDarkUp }
+            return isSelected ? Ocean.color.colorInterfaceLightPure : Ocean.color.colorBrandPrimaryPure
+        }
+
+        /// Status do contador: Primary Inverse (`.primaryInverted`) na selecionada, Primary na não selecionada e
+        /// Neutral desabilitado. O neutro do Figma (fundo `colorInterfaceDarkUp`, texto `colorInterfaceLightUp`) é o
+        /// `.disabled` do Badge, como no `Tab`.
+        static func badgeStatus(isSelected: Bool, isDisabled: Bool) -> BadgeParameters.Status {
+            if isDisabled { return .disabled }
+            return isSelected ? .primaryInverted : .primary
         }
 
         // MARK: Motion (mesma curva da linha de seleção do Tab)
@@ -144,9 +196,15 @@ extension OceanSwiftUI {
 
     // MARK: Option
 
-    /// Conteúdo da opção: ícone, texto e contador.
+    /// Conteúdo da opção: ícone, texto e contador, nas cores do estado.
     struct SegmentedControlOptionLabel: View {
         let option: SegmentedControlOptionModel
+        var isSelected: Bool = false
+        var isDisabled: Bool = false
+
+        private var contentColor: UIColor {
+            SegmentedControlMetrics.contentColor(isSelected: isSelected, isDisabled: isDisabled)
+        }
 
         var body: some View {
             HStack(spacing: SegmentedControlMetrics.contentSpacing) {
@@ -154,7 +212,7 @@ extension OceanSwiftUI {
                     Image(uiImage: icon)
                         .resizable()
                         .renderingMode(.template)
-                        .foregroundColor(Color(Ocean.color.colorBrandPrimaryPure))
+                        .foregroundColor(Color(contentColor))
                         .frame(width: SegmentedControlMetrics.iconSize,
                                height: SegmentedControlMetrics.iconSize)
                 }
@@ -162,7 +220,7 @@ extension OceanSwiftUI {
                 OceanSwiftUI.Typography.heading5 { view in
                     view.parameters.text = option.title
                     view.parameters.lineLimit = 1
-                    view.parameters.textColor = Ocean.color.colorBrandPrimaryPure
+                    view.parameters.textColor = contentColor
                 }
                 .truncationMode(.tail)
                 .layoutPriority(-1)
@@ -170,7 +228,8 @@ extension OceanSwiftUI {
                 if let badgeNumber = option.badgeNumber {
                     OceanSwiftUI.Badge { badge in
                         badge.parameters.count = badgeNumber
-                        badge.parameters.status = .primary
+                        badge.parameters.status = SegmentedControlMetrics.badgeStatus(isSelected: isSelected,
+                                                                                      isDisabled: isDisabled)
                         badge.parameters.size = .small
                     }
                     .fixedSize()
@@ -188,11 +247,12 @@ extension OceanSwiftUI {
         let option: SegmentedControlOptionModel
         let index: Int
         let isSelected: Bool
+        let isDisabled: Bool
         let action: () -> Void
 
         var body: some View {
             SwiftUI.Button(action: action) {
-                SegmentedControlOptionLabel(option: option)
+                SegmentedControlOptionLabel(option: option, isSelected: isSelected, isDisabled: isDisabled)
             }
             .buttonStyle(SegmentedControlPressStyle())
             .anchorPreference(key: SegmentedControlOptionBoundsKey.self, value: .bounds) { [index: $0] }
@@ -200,10 +260,12 @@ extension OceanSwiftUI {
             .accessibilityLabel(SegmentedControlMetrics.accessibilityLabel(title: option.title,
                                                                            badgeNumber: option.badgeNumber))
             .accessibilityAddTraits(isSelected ? [.isButton, .isSelected] : .isButton)
+            // Desabilitado: o toque não chega na ação e o leitor de tela anuncia a opção como indisponível.
+            .disabled(isDisabled)
         }
     }
 
-    /// Estado pressionado (Figma "Hover" no app): avisa o controle, que muda o fundo e a seleção inteiros.
+    /// Estado pressionado (Figma "Hover" no app): avisa o controle, que muda só o fundo do controle.
     struct SegmentedControlPressStyle: ButtonStyle {
         func makeBody(configuration: Configuration) -> some View {
             configuration.label
@@ -215,7 +277,7 @@ extension OceanSwiftUI {
     /// desliza entre as opções (não some e reaparece).
     struct SegmentedControlSelectionBackground: ViewModifier {
         let selectedIndex: Int
-        let isPressed: Bool
+        let isDisabled: Bool
         let reduceMotion: Bool
 
         func body(content: Content) -> some View {
@@ -224,10 +286,9 @@ extension OceanSwiftUI {
                     if let anchor = bounds[selectedIndex] {
                         let rect = proxy[anchor]
                         RoundedRectangle(cornerRadius: SegmentedControlMetrics.cornerRadius(height: rect.height))
-                            .fill(Color(Ocean.color.colorBrandPrimaryUp)
-                                .opacity(SegmentedControlMetrics.selectionOpacity(isPressed: isPressed)))
+                            .fill(Color(SegmentedControlMetrics.selectionColor(isDisabled: isDisabled)))
                             .animation(SegmentedControlMetrics.colorAnimation(reduceMotion: reduceMotion),
-                                       value: isPressed)
+                                       value: isDisabled)
                             .frame(width: rect.width, height: rect.height)
                             .offset(x: rect.minX, y: rect.minY)
                     }
@@ -280,24 +341,24 @@ extension OceanSwiftUI {
                 ForEach(Array(parameters.visibleOptions.enumerated()), id: \.offset) { index, option in
                     SegmentedControlOption(option: option,
                                            index: index,
-                                           isSelected: parameters.selectedIndex == index) {
+                                           isSelected: parameters.selectedIndex == index,
+                                           isDisabled: parameters.isDisabled) {
                         parameters.select(index: index)
                     }
                 }
             }
+            .animation(SegmentedControlMetrics.colorAnimation(reduceMotion: reduceMotion),
+                       value: parameters.selectedIndex)
             .modifier(SegmentedControlSelectionBackground(selectedIndex: parameters.selectedIndex,
-                                                          isPressed: isPressed,
+                                                          isDisabled: parameters.isDisabled,
                                                           reduceMotion: reduceMotion))
             .padding(SegmentedControlMetrics.containerPadding)
             .frame(height: SegmentedControlMetrics.controlHeight)
             .background(
                 RoundedRectangle(cornerRadius: SegmentedControlMetrics.cornerRadius(height: SegmentedControlMetrics.controlHeight))
-                    .fill(Color(SegmentedControlMetrics.containerColor(isPressed: isPressed)))
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: SegmentedControlMetrics.cornerRadius(height: SegmentedControlMetrics.controlHeight))
-                    .strokeBorder(Color(Ocean.color.colorInterfaceLightDown),
-                                  lineWidth: SegmentedControlMetrics.borderWidth)
+                    .fill(Color(SegmentedControlMetrics.containerColor(background: parameters.background,
+                                                                       isPressed: isPressed,
+                                                                       isDisabled: parameters.isDisabled)))
             )
             .animation(SegmentedControlMetrics.colorAnimation(reduceMotion: reduceMotion), value: isPressed)
             .onPreferenceChange(SegmentedControlIsPressedKey.self) { isPressed = $0 }

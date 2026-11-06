@@ -10,10 +10,10 @@ import SwiftUI
 import OceanTokens
 @testable import OceanComponents
 
-/// `SegmentedControl` against the Figma Segmented Control (MR-990): exactly two options, 40 of control
+/// `SegmentedControl` against the Figma Segmented Control 1.1.0 (MR-990): exactly two options, 40 of control
 /// height and 32 of option, 4 of padding and gap, 12 of horizontal option padding, label in one line
-/// truncated with an ellipsis, selection `colorBrandPrimaryUp` at 32% (48% pressed) and a
-/// `colorInterfaceLightUp` control while pressed.
+/// truncated with an ellipsis, no border, solid `colorBrandPrimaryPure` selection with white content,
+/// `colorInterfaceLightDown` control while pressed, `.default`/`.white` backgrounds and a disabled state.
 final class SegmentedControlTests: XCTestCase {
 
     private typealias Option = OceanSwiftUI.SegmentedControlOptionModel
@@ -37,6 +37,17 @@ final class SegmentedControlTests: XCTestCase {
 
         XCTAssertTrue(parameters.options.isEmpty)
         XCTAssertEqual(parameters.selectedIndex, 0)
+        XCTAssertFalse(parameters.isDisabled)
+        XCTAssertEqual(parameters.background, .default)
+    }
+
+    func testNewParametersAreKept() {
+        let parameters = OceanSwiftUI.SegmentedControlParameters(options: twoOptions,
+                                                                 isDisabled: true,
+                                                                 background: .white)
+
+        XCTAssertTrue(parameters.isDisabled)
+        XCTAssertEqual(parameters.background, .white)
     }
 
     func testOptionDefaultsHaveNoIconAndNoCounter() {
@@ -124,6 +135,43 @@ final class SegmentedControlTests: XCTestCase {
         XCTAssertTrue(touched.isEmpty)
     }
 
+    func testDisabledTouchDoesNothing() {
+        var touched: [Int] = []
+        let parameters = OceanSwiftUI.SegmentedControlParameters(options: twoOptions,
+                                                                 isDisabled: true,
+                                                                 onTouch: { touched.append($0) })
+
+        parameters.select(index: 1)
+
+        XCTAssertEqual(parameters.selectedIndex, 0)
+        XCTAssertTrue(touched.isEmpty)
+    }
+
+    func testDisabledStillAcceptsSetSelectedIndex() {
+        var touched: [Int] = []
+        let parameters = OceanSwiftUI.SegmentedControlParameters(options: twoOptions,
+                                                                 isDisabled: true,
+                                                                 onTouch: { touched.append($0) })
+
+        parameters.setSelectedIndex(1)
+
+        XCTAssertEqual(parameters.selectedIndex, 1)
+        XCTAssertTrue(touched.isEmpty)
+    }
+
+    func testReEnabledTouchWorksAgain() {
+        var touched: [Int] = []
+        let parameters = OceanSwiftUI.SegmentedControlParameters(options: twoOptions,
+                                                                 isDisabled: true,
+                                                                 onTouch: { touched.append($0) })
+
+        parameters.isDisabled = false
+        parameters.select(index: 1)
+
+        XCTAssertEqual(parameters.selectedIndex, 1)
+        XCTAssertEqual(touched, [1])
+    }
+
     func testOnlyTheFirstTwoOptionsAreDrawn() {
         let parameters = OceanSwiftUI.SegmentedControlParameters(options: twoOptions + [Option(title: "C")])
 
@@ -149,15 +197,41 @@ final class SegmentedControlTests: XCTestCase {
         XCTAssertEqual(Metrics.contentSpacing, 4)
         XCTAssertEqual(Metrics.optionHorizontalPadding, 12)
         XCTAssertEqual(Metrics.optionVerticalPadding, 4)
-        XCTAssertEqual(Metrics.borderWidth, 1)
         XCTAssertEqual(Metrics.cornerRadius(height: 40), 20)
     }
 
-    func testDefaultAndPressedColors() {
-        XCTAssertEqual(Metrics.containerColor(isPressed: false), Ocean.color.colorInterfaceLightPure)
-        XCTAssertEqual(Metrics.containerColor(isPressed: true), Ocean.color.colorInterfaceLightUp)
-        XCTAssertEqual(Metrics.selectionOpacity(isPressed: false), 0.32)
-        XCTAssertEqual(Metrics.selectionOpacity(isPressed: true), 0.48)
+    func testContainerColorPerBackgroundAndState() {
+        let color = Metrics.containerColor(background:isPressed:isDisabled:)
+
+        XCTAssertEqual(color(.default, false, false), Ocean.color.colorInterfaceLightUp)
+        XCTAssertEqual(color(.white, false, false), Ocean.color.colorInterfaceLightPure)
+        XCTAssertEqual(color(.default, true, false), Ocean.color.colorInterfaceLightDown)
+        XCTAssertEqual(color(.white, true, false), Ocean.color.colorInterfaceLightDown)
+        XCTAssertEqual(color(.default, false, true), Ocean.color.colorInterfaceLightUp)
+        XCTAssertEqual(color(.white, false, true), Ocean.color.colorInterfaceLightPure)
+        XCTAssertEqual(color(.default, true, true), Ocean.color.colorInterfaceLightUp)
+        XCTAssertEqual(color(.white, true, true), Ocean.color.colorInterfaceLightPure)
+    }
+
+    func testSelectionColorIsSolid() {
+        XCTAssertEqual(Metrics.selectionColor(isDisabled: false), Ocean.color.colorBrandPrimaryPure)
+        XCTAssertEqual(Metrics.selectionColor(isDisabled: true), Ocean.color.colorInterfaceLightDown)
+    }
+
+    func testContentColorPerState() {
+        let color = Metrics.contentColor(isSelected:isDisabled:)
+
+        XCTAssertEqual(color(true, false), Ocean.color.colorInterfaceLightPure)
+        XCTAssertEqual(color(false, false), Ocean.color.colorBrandPrimaryPure)
+        XCTAssertEqual(color(true, true), Ocean.color.colorInterfaceDarkUp)
+        XCTAssertEqual(color(false, true), Ocean.color.colorInterfaceDarkUp)
+    }
+
+    func testBadgeStatusPerState() {
+        XCTAssertEqual(Metrics.badgeStatus(isSelected: true, isDisabled: false), .primaryInverted)
+        XCTAssertEqual(Metrics.badgeStatus(isSelected: false, isDisabled: false), .primary)
+        XCTAssertEqual(Metrics.badgeStatus(isSelected: true, isDisabled: true), .disabled)
+        XCTAssertEqual(Metrics.badgeStatus(isSelected: false, isDisabled: true), .disabled)
     }
 
     func testReduceMotionRemovesAnimations() {
@@ -176,6 +250,18 @@ final class SegmentedControlTests: XCTestCase {
 
     func testRenderedControlIs40High() {
         XCTAssertEqual(size(of: control(twoOptions)).height, 40, accuracy: 0.5)
+    }
+
+    func testNewStatesDoNotChangeTheSize() {
+        let options = [Option(title: "Loja", icon: UIImage(), badgeNumber: 2), Option(title: "Rede", badgeNumber: 5)]
+        let base = size(of: control(options))
+        let white = size(of: OceanSwiftUI.SegmentedControl(parameters: .init(options: options, background: .white)))
+        let disabled = size(of: OceanSwiftUI.SegmentedControl(parameters: .init(options: options, isDisabled: true)))
+
+        XCTAssertEqual(white.width, base.width, accuracy: 0.5)
+        XCTAssertEqual(disabled.width, base.width, accuracy: 0.5)
+        XCTAssertEqual(white.height, 40, accuracy: 0.5)
+        XCTAssertEqual(disabled.height, 40, accuracy: 0.5)
     }
 
     func testRenderedOptionIs32High() {

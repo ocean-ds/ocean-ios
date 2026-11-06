@@ -32,6 +32,17 @@ class SegmentedControlSwiftUIViewController: UIViewController {
     private lazy var longLabel = makeControl([Option(title: "Lançamentos futuros detalhados por loja e por período"),
                                               Option(title: "Rede")])
 
+    private static let storeNetworkOptions = [
+        Option(title: "Loja", icon: Ocean.icon.shoppingBagOutline, badgeNumber: 2),
+        Option(title: "Rede", icon: Ocean.icon.officeBuildingOutline, badgeNumber: 5)
+    ]
+
+    private lazy var whiteBackground = makeControl(Self.storeNetworkOptions, background: .white)
+
+    private lazy var disabledFirst = makeControl(Self.storeNetworkOptions, selectedIndex: 0, isDisabled: true)
+
+    private lazy var disabledSecond = makeControl(Self.storeNetworkOptions, selectedIndex: 1, isDisabled: true)
+
     private lazy var storeNetwork = makeControl([Option(title: "Loja"), Option(title: "Rede")],
                                                 onTouch: { [weak self] index in
                                                     self?.storeNetworkContent.parameters.text = Self.storeNetworkText(index)
@@ -49,6 +60,12 @@ class SegmentedControlSwiftUIViewController: UIViewController {
             section("badgeNumber: 3 | 120 (99+)", withBadge)
             section("icon + badgeNumber: 2 | icon + badgeNumber: nil", withIconAndBadge)
             section("title: longo (uma linha, corta com …)", longLabel)
+            section("background: .white (sobre colorInterfaceLightUp)", whiteBackground)
+                .padding(.vertical, Ocean.size.spacingStackXs)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color(Ocean.color.colorInterfaceLightUp))
+            section("isDisabled: true · selectedIndex: 0", disabledFirst)
+            section("isDisabled: true · selectedIndex: 1", disabledSecond)
             VStack(alignment: .leading, spacing: Ocean.size.spacingStackXxs) {
                 section("exemplo: Loja | Rede (onTouch troca o conteúdo)", storeNetwork)
                 storeNetworkContent
@@ -75,10 +92,14 @@ class SegmentedControlSwiftUIViewController: UIViewController {
 
     private func makeControl(_ options: [Option],
                              selectedIndex: Int = 0,
+                             isDisabled: Bool = false,
+                             background: OceanSwiftUI.SegmentedControlBackground = .default,
                              onTouch: ((Int) -> Void)? = nil) -> OceanSwiftUI.SegmentedControl {
         OceanSwiftUI.SegmentedControl { control in
             control.parameters.options = options
             control.parameters.setSelectedIndex(selectedIndex)
+            control.parameters.isDisabled = isDisabled
+            control.parameters.background = background
             control.parameters.onTouch = onTouch ?? { index in
                 print("SegmentedControl: opção selecionada \(index)")
             }
