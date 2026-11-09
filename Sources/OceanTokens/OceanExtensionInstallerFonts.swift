@@ -23,7 +23,6 @@ static public func installFonts() {
   UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyHighlightWeightLight, bundle: bundle);
   UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyHighlightWeightMedium, bundle: bundle);
   UIFont.registerFont(withFilenameString: Ocean.font.fontFamilyHighlightWeightRegular, bundle: bundle);
-  UIFont.registerFont(withFilenameString: Ocean.font.fontWeightBlack, bundle: bundle);
 }
 }
 // swiftlint:enable identifier_name line_length number_separator type_body_length

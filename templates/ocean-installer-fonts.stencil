@@ -29,7 +29,9 @@ import UIKit
   {{accessModifier}} static let items: {{rootType}} = {{ document.data }}
   {% elif document.metadata.type == "Dictionary" %}
   {% for key,value in document.metadata.properties %}
+  {% if value.type == "String" %}
   {% call typeBlock metadata %}{% call propertyBlock key value document.data %}
+  {% endif %}
   {% endfor %}
   {% endif %}
 {% endmacro %}
