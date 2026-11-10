@@ -87,8 +87,7 @@ extension OceanSwiftUI {
     /// Medidas do Filter Bar com o Segmented Control (Figma: Filter Bar 1.1.0, mobile; MR-999).
     enum FilterBarMetrics {
         /// A rolagem dos chips não mostra o indicador (barra de rolagem), com ou sem Segmented Control.
-        /// MR-999, decisão do designer na validação. Muda também a barra sem Segmented: até a versão anterior o
-        /// indicador aparecia ao rolar. `showsIndicators:` e não `.scrollIndicators(.hidden)`, que é iOS 16+
+        /// Decisão de design (MR-999). `showsIndicators:` e não `.scrollIndicators(.hidden)`, que é iOS 16+
         /// (o pacote suporta iOS 15).
         static let showsScrollIndicators = false
         /// Espaço entre chips e entre grupos (Figma: 8).
@@ -171,8 +170,7 @@ extension OceanSwiftUI {
             }
         }
 
-        /// Barra sem Segmented Control: tudo rola junto. Igual à de antes, exceto o indicador de rolagem, que não
-        /// aparece mais (MR-999, decisão do designer na validação: vale também para quem já usa o componente).
+        /// Barra sem Segmented Control: chips e "Todos os filtros" rolam juntos, sem indicador de rolagem.
         private var bar: some View {
             ScrollView(.horizontal, showsIndicators: FilterBarMetrics.showsScrollIndicators) {
                 HStack(spacing: 0) {
