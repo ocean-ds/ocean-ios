@@ -25,6 +25,22 @@ extension OceanSwiftUI {
         @Published public var modalTitle: String? = nil
         @Published public var primaryButtonTitle: String = "Filtrar"
         @Published public var secondaryButtonTitle: String = "Limpar"
+        /// Segmented Control opcional, fixo à direita da barra, fora da rolagem (Figma: Filter Bar 1.1.0,
+        /// propriedade *Segmented control*; MR-999). `nil` (default) não mostra o controle: chips e grupos rolam
+        /// juntos, com divisor entre os grupos. Com o controle:
+        /// - os chips (todos os grupos) rolam numa área que ocupa o espaço livre e é cortada colada no divisor;
+        /// - não há divisor entre grupos, e o espaço entre eles é `spacingInlineXxs` (8);
+        /// - a área rolável termina com um respiro de `spacingInlineXs` (16), visto ao rolar até o fim;
+        /// - fixo à direita: divisor · `spacingInlineXxs` (8) · Segmented Control · `marginRight` (16).
+        ///
+        /// O controle aparece **só com texto**: o ícone (`icon`) e o contador (`badgeNumber`) das opções são
+        /// ignorados no Filter Bar. Seleção, `isDisabled`, `background` e `onTouch` continuam valendo no objeto
+        /// passado aqui (é ele que guarda a opção selecionada). Com `showSkeleton` o controle não aparece.
+        /// A rolagem dos chips não mostra a barra de rolagem (com ou sem o controle).
+        /// Texto longo: o controle nunca sai da barra nem esconde os chips. Ele fica com a largura natural enquanto
+        /// ela couber em cerca de metade da barra; acima disso o texto da opção é cortado com "…" numa linha só,
+        /// como no Segmented Control.
+        @Published public var segmentedControl: SegmentedControlParameters? = nil
 
         weak public var rootViewController: UIViewController?
 
@@ -44,7 +60,8 @@ extension OceanSwiftUI {
                     onDateRangeChange: @escaping ((Date?, Date?, [FilterBarGroup]) -> Void) = { _, _, _ in },
                     modalTitle: String? = nil,
                     primaryButtonTitle: String = "Filtrar",
-                    secondaryButtonTitle: String = "Limpar") {
+                    secondaryButtonTitle: String = "Limpar",
+                    segmentedControl: SegmentedControlParameters? = nil) {
             self.groups = groups
             self.showSkeleton = showSkeleton
             self.onTouch = onTouch
@@ -53,6 +70,59 @@ extension OceanSwiftUI {
             self.modalTitle = modalTitle
             self.primaryButtonTitle = primaryButtonTitle
             self.secondaryButtonTitle = secondaryButtonTitle
+            self.segmentedControl = segmentedControl
+        }
+
+        /// O Segmented Control aparece: foi passado e a barra não está carregando.
+        var showsSegmentedControl: Bool {
+            segmentedControl != nil && !showSkeleton
+        }
+
+        /// Divisor entre grupos: só sem o Segmented Control; com ele, o único divisor é o da direita.
+        var showsGroupDividers: Bool {
+            !showsSegmentedControl
+        }
+    }
+
+    /// Medidas do Filter Bar com o Segmented Control (Figma: Filter Bar 1.1.0, mobile; MR-999).
+    enum FilterBarMetrics {
+        /// A rolagem dos chips não mostra o indicador (barra de rolagem), com ou sem Segmented Control.
+        /// Decisão de design (MR-999). `showsIndicators:` e não `.scrollIndicators(.hidden)`, que é iOS 16+
+        /// (o pacote suporta iOS 15).
+        static let showsScrollIndicators = false
+        /// Espaço entre chips e entre grupos (Figma: 8).
+        static let itemSpacing: CGFloat = Ocean.size.spacingInlineXxs
+        /// Respiro no fim do conteúdo rolável, à direita (Figma: 16).
+        static let scrollEndPadding: CGFloat = Ocean.size.spacingInlineXs
+        /// Espaço entre o divisor e o Segmented Control (Figma: 8).
+        static let dividerToSegmentedSpacing: CGFloat = Ocean.size.spacingInlineXxs
+        /// Divisor: 1 de largura (`borderWidthHairline`), 32 de altura (64 da barra menos 16 em cima e embaixo).
+        static let dividerWidth: CGFloat = Ocean.size.borderWidthHairline
+        static let dividerVerticalPadding: CGFloat = Ocean.size.spacingStackXs
+
+        /// Opções repassadas ao Segmented Control dentro do Filter Bar: só o texto (sem ícone e sem contador).
+        static func textOnly(_ options: [SegmentedControlOptionModel]) -> [SegmentedControlOptionModel] {
+            options.map { SegmentedControlOptionModel(title: $0.title) }
+        }
+
+        /// Parâmetros que o Filter Bar desenha a partir dos da tela: opções só com texto, mesma seleção,
+        /// desabilitado e fundo. O toque seleciona no objeto da tela (que chama o `onTouch` dela).
+        static func textOnlyParameters(from source: SegmentedControlParameters) -> SegmentedControlParameters {
+            SegmentedControlParameters(options: textOnly(source.options),
+                                       selectedIndex: source.selectedIndex,
+                                       isDisabled: source.isDisabled,
+                                       background: source.background,
+                                       onTouch: { [weak source] index in source?.select(index: index) })
+        }
+    }
+
+    /// Segmented Control do Filter Bar: observa o objeto da tela (seleção trocada por ela redesenha) e desenha
+    /// a versão só com texto.
+    struct FilterBarSegmentedControl: View {
+        @ObservedObject var parameters: SegmentedControlParameters
+
+        var body: some View {
+            SegmentedControl(parameters: FilterBarMetrics.textOnlyParameters(from: parameters))
         }
     }
 
@@ -93,7 +163,16 @@ extension OceanSwiftUI {
         // MARK: View SwiftUI
 
         public var body: some View {
-            ScrollView(.horizontal) {
+            if parameters.showsSegmentedControl, let segmentedControl = parameters.segmentedControl {
+                barWithSegmentedControl(segmentedControl)
+            } else {
+                bar
+            }
+        }
+
+        /// Barra sem Segmented Control: chips e "Todos os filtros" rolam juntos, sem indicador de rolagem.
+        private var bar: some View {
+            ScrollView(.horizontal, showsIndicators: FilterBarMetrics.showsScrollIndicators) {
                 HStack(spacing: 0) {
                     Spacer(minLength: parameters.marginLeft)
 
@@ -106,25 +185,64 @@ extension OceanSwiftUI {
                                                    size: CGSize(width: 72, height: Constants.itemHeight))
                             }
                         } else {
-                            ForEach(parameters.groups, id: \.id) { group in
-                                HStack(spacing: Ocean.size.spacingStackXxs) {
-                                    ForEach(group.options, id: \.title) { option in
-                                        itemView(option: option, group: group)
-                                    }
-                                }
-
-                                if parameters.groups.last?.id != group.id {
-                                    Divider { divider in
-                                        divider.parameters.axis = .vertical
-                                    }
-                                    .padding([.vertical], Ocean.size.spacingStackXs)
-                                }
-                            }
+                            groupsView
                         }
                     }
                     .frame(height: Constants.barHeight)
 
                     Spacer(minLength: parameters.marginRight)
+                }
+            }
+        }
+
+        /// Barra com Segmented Control: chips rolando no espaço livre, cortados colados no divisor;
+        /// divisor · 8 · Segmented Control · `marginRight` fixos à direita.
+        private func barWithSegmentedControl(_ segmentedControl: SegmentedControlParameters) -> some View {
+            HStack(spacing: 0) {
+                ScrollView(.horizontal, showsIndicators: FilterBarMetrics.showsScrollIndicators) {
+                    HStack(spacing: 0) {
+                        Spacer(minLength: parameters.marginLeft)
+
+                        HStack(spacing: FilterBarMetrics.itemSpacing) {
+                            groupsView
+                        }
+                        .frame(height: Constants.barHeight)
+
+                        Spacer(minLength: FilterBarMetrics.scrollEndPadding)
+                    }
+                }
+
+                Divider { divider in
+                    divider.parameters.axis = .vertical
+                    divider.parameters.size = FilterBarMetrics.dividerWidth
+                }
+                .padding([.vertical], FilterBarMetrics.dividerVerticalPadding)
+
+                FilterBarSegmentedControl(parameters: segmentedControl)
+                    .padding(.leading, FilterBarMetrics.dividerToSegmentedSpacing)
+                    .padding(.trailing, parameters.marginRight)
+                    // Sem prioridade de layout: o controle fica com a largura natural enquanto ela couber em cerca
+                    // de metade da barra (a área rolável é mais flexível e fica com o resto). Texto mais longo que
+                    // isso é cortado com "…" e os chips continuam visíveis.
+            }
+            .frame(height: Constants.barHeight)
+        }
+
+        /// Grupos de chips. Entre grupos: divisor sem Segmented Control; só o espaçamento com ele.
+        @ViewBuilder
+        private var groupsView: some View {
+            ForEach(parameters.groups, id: \.id) { group in
+                HStack(spacing: Ocean.size.spacingStackXxs) {
+                    ForEach(group.options, id: \.title) { option in
+                        itemView(option: option, group: group)
+                    }
+                }
+
+                if parameters.showsGroupDividers, parameters.groups.last?.id != group.id {
+                    Divider { divider in
+                        divider.parameters.axis = .vertical
+                    }
+                    .padding([.vertical], Ocean.size.spacingStackXs)
                 }
             }
         }

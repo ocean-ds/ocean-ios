@@ -123,15 +123,115 @@ class FilterBarSwiftUIViewController: UIViewController {
         filterBar.parameters.showSkeleton = true
     }
 
-    public lazy var hostingController = UIHostingController(rootView: ScrollView {
-        VStack(spacing: Ocean.size.spacingStackXs) {
-            filterBar1
-            
-            filterBar2
+    // MARK: Segmented Control (MR-999)
 
-            filterBar3
+    private typealias SegmentedOption = OceanSwiftUI.SegmentedControlOptionModel
+
+    private static let storeNetwork = [SegmentedOption(title: "Loja"), SegmentedOption(title: "Rede")]
+
+    /// Chips de exemplo: "Status" (abre opções) e "Pagos" (liga/desliga).
+    private static func chipsGroup() -> OceanSwiftUI.FilterBarGroup {
+        .init(options: [
+            .init(title: "Status",
+                  chips: [
+                    .init(id: "overdue", title: "Vencidos"),
+                    .init(id: "toExpire", title: "A vencer")
+                  ]),
+            .init(chips: [.init(id: "paid", title: "Pagos")])
+        ])
+    }
+
+    /// "Todos os filtros": chip com ícone adjustments e contador, no último grupo.
+    private static func allFiltersGroup() -> OceanSwiftUI.FilterBarGroup {
+        .init(options: [
+            .init(leadingIcon: Ocean.icon.adjustmentsOutline,
+                  shouldShowTrailingIcon: false,
+                  chip: .init(id: "allFilters", number: 2, title: "Todos os filtros"))
+        ])
+    }
+
+    private static func manyChipsGroup() -> OceanSwiftUI.FilterBarGroup {
+        .init(options: (1...8).map { index in
+            .init(chips: [.init(id: "chip\(index)", title: "Filtro \(index)")])
+        })
+    }
+
+    private func makeFilterBar(groups: [OceanSwiftUI.FilterBarGroup],
+                               segmentedOptions: [SegmentedOption]?,
+                               showSkeleton: Bool = false) -> OceanSwiftUI.FilterBar {
+        OceanSwiftUI.FilterBar { filterBar in
+            filterBar.parameters.rootViewController = self
+            filterBar.parameters.groups = groups
+            filterBar.parameters.showSkeleton = showSkeleton
+            filterBar.parameters.onTouch = { [weak self] _, touchedOption in
+                guard touchedOption.title == "Todos os filtros" else { return false }
+                self?.showSnackbar(text: "Abrir todos os filtros")
+                return true
+            }
+            if let segmentedOptions {
+                filterBar.parameters.segmentedControl = .init(options: segmentedOptions,
+                                                              onTouch: { [weak self] index in
+                                                                  self?.showSnackbar(text: "Segmented: opção \(index)")
+                                                              })
+            }
         }
-    })
+    }
+
+    private lazy var withSegmented = makeFilterBar(groups: [Self.chipsGroup(), Self.allFiltersGroup()],
+                                                   segmentedOptions: Self.storeNetwork)
+
+    private lazy var withSegmentedNoAllFilters = makeFilterBar(groups: [Self.chipsGroup()],
+                                                               segmentedOptions: Self.storeNetwork)
+
+    private lazy var withSegmentedIconAndBadge = makeFilterBar(
+        groups: [Self.chipsGroup(), Self.allFiltersGroup()],
+        segmentedOptions: [SegmentedOption(title: "Loja", icon: Ocean.icon.shoppingBagOutline, badgeNumber: 2),
+                           SegmentedOption(title: "Rede", icon: Ocean.icon.officeBuildingOutline, badgeNumber: 5)])
+
+    private lazy var withSegmentedLongText = makeFilterBar(
+        groups: [Self.chipsGroup(), Self.allFiltersGroup()],
+        segmentedOptions: [SegmentedOption(title: "Lançamentos futuros detalhados por loja"),
+                           SegmentedOption(title: "Rede")])
+
+    private lazy var withSegmentedManyChips = makeFilterBar(groups: [Self.manyChipsGroup(), Self.allFiltersGroup()],
+                                                            segmentedOptions: Self.storeNetwork)
+
+    private lazy var withSegmentedSkeleton = makeFilterBar(groups: [Self.chipsGroup()],
+                                                           segmentedOptions: Self.storeNetwork,
+                                                           showSkeleton: true)
+
+    public lazy var hostingController = UIHostingController(rootView: AnyView(ScrollView {
+        VStack(alignment: .leading, spacing: Ocean.size.spacingStackXs) {
+            section("segmentedControl: nil (padrão) · grupos com divisor") { filterBar1 }
+
+            section("segmentedControl: nil · options com contador") { filterBar2 }
+
+            section("segmentedControl: nil · showSkeleton: true") { filterBar3 }
+
+            section("segmentedControl: Loja | Rede · com \"Todos os filtros\"") { withSegmented }
+
+            section("segmentedControl: Loja | Rede · sem \"Todos os filtros\"") { withSegmentedNoAllFilters }
+
+            section("segmentedControl: icon + badgeNumber (ignorados: só texto)") { withSegmentedIconAndBadge }
+
+            section("segmentedControl: texto longo (uma linha, corta com …)") { withSegmentedLongText }
+
+            section("segmentedControl: Loja | Rede · muitos chips (corte no divisor)") { withSegmentedManyChips }
+
+            section("segmentedControl: Loja | Rede · showSkeleton: true (não aparece)") { withSegmentedSkeleton }
+        }
+    }))
+
+    private func section(_ label: String, @ViewBuilder _ content: () -> some View) -> some View {
+        VStack(alignment: .leading, spacing: 0) {
+            OceanSwiftUI.Typography.caption { view in
+                view.parameters.text = label
+            }
+            .padding(.horizontal, Ocean.size.spacingStackXs)
+
+            content()
+        }
+    }
 
     public lazy var uiView = self.hostingController.getUIView()
 
