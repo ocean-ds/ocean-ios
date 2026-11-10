@@ -61,6 +61,7 @@
 				TransactionListFamilyTests.swift,
 				TabTests.swift,
 				SegmentedControlTests.swift,
+				FilterBarTests.swift,
 			);
 			target = 24C8014E2682585600744F30 /* OceanDesignSystemTests */;
 		};
