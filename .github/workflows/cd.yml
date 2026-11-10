@@ -60,8 +60,28 @@ jobs:
           sh update_tokens.sh
 
           if [ -n "$(git status --porcelain)" ]; then
-              echo "Changes detected, committing updates..."
               cp -R OceanTokens/* Sources/OceanTokens/Resources/
+          fi
+
+      - name: Build Ocean package
+        id: build_package
+        run: |
+          set -o pipefail
+          package_dir="$RUNNER_TEMP/ocean-package"
+          rm -rf "$package_dir"
+          mkdir -p "$package_dir"
+          cp -R Package.swift Package.resolved Sources "$package_dir/"
+          cd "$package_dir"
+          xcodebuild build \
+            -scheme Ocean-Package \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath "$RUNNER_TEMP/ocean-package-dd" \
+            -quiet 2>&1 | tee "$RUNNER_TEMP/ocean-package-build.log"
+
+      - name: Commit updated tokens
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+              echo "Changes detected, committing updates..."
               git add .
               git commit -m "chore: update OceanTokens to v${{ env.LATEST_VERSION_TOKENS_LIB_NPM }} [skip ci]"
               git push origin $BRANCH_NAME
@@ -70,6 +90,7 @@ jobs:
           fi
 
       - name: Increment version SPM
+        id: tag_spm
         run: |
           git tag -a "${{ env.LATEST_VERSION_TOKENS_LIB_NPM }}${{ env.GITHUB_RUN_NUMBER }}" -m "Release of version OceanComponents $LATEST_VERSION_TOKENS_LIB_NPM-$GITHUB_RUN_NUMBER"
           git push origin "${{ env.LATEST_VERSION_TOKENS_LIB_NPM }}${{ env.GITHUB_RUN_NUMBER }}"
@@ -97,3 +118,29 @@ jobs:
           FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
+
+      - name: Alert tag not published
+        if: failure() && steps.tag_spm.outcome != 'success'
+        env:
+          TEAMS_WEBHOOK_URL: ${{ secrets.MOBILE_REVIEW_ALERT_TEAMS_WEBHOOK }}
+          BUILD_OUTCOME: ${{ steps.build_package.outcome }}
+        run: |
+          log="$RUNNER_TEMP/ocean-package-build.log"
+          errors=""
+          if [ -f "$log" ]; then
+            errors=$(grep -E '^.+\.swift:[0-9]+:[0-9]+: error: ' "$log" | sed "s|$RUNNER_TEMP/ocean-package/||" | sort -u | head -10 || true)
+            if [ -z "$errors" ]; then
+              errors=$(grep -E '(^|[a-z]+: )error: ' "$log" | grep -v 'failed with exit code 0 but produced no further output' | sort -u | head -10 || true)
+            fi
+          fi
+          if [ "$BUILD_OUTCOME" = "failure" ]; then
+            intro="O pacote não compilou com @useblu/ocean-tokens $LATEST_VERSION_TOKENS_LIB_NPM. Nada foi commitado e nenhuma tag saiu; a última tag publicada continua valendo."
+          else
+            intro="O CD falhou antes de publicar a tag (build do pacote: ${BUILD_OUTCOME:-não rodou}). Nenhuma tag saiu; a última tag publicada continua valendo."
+          fi
+          bash .github/scripts/notify-teams.sh \
+            "🔴 Ocean iOS: tag não publicada" \
+            "$intro" \
+            "$errors" \
+            "Ver o CD" \
+            "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
