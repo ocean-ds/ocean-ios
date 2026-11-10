@@ -101,19 +101,6 @@ jobs:
           generateReleaseNotes: true
           tag: ${{ env.LATEST_VERSION_TOKENS_LIB_NPM }}${{ env.GITHUB_RUN_NUMBER }}
 
-      - name: Notify tag published
-        continue-on-error: true
-        env:
-          TEAMS_WEBHOOK_URL: ${{ secrets.MOBILE_REVIEW_ALERT_TEAMS_WEBHOOK }}
-          TAG: ${{ env.LATEST_VERSION_TOKENS_LIB_NPM }}${{ env.GITHUB_RUN_NUMBER }}
-        run: |
-          bash .github/scripts/notify-teams.sh \
-            "✅ Ocean iOS $TAG publicada" \
-            "Tag nova do ocean-ios com @useblu/ocean-tokens $LATEST_VERSION_TOKENS_LIB_NPM. O pacote compilou antes da tag." \
-            "" \
-            "Ver a release" \
-            "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/releases/tag/$TAG"
-
       - name: Update SPM dependencies
         run: |
           swift package update
