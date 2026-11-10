@@ -26,10 +26,10 @@ extension OceanSwiftUI {
         @Published public var primaryButtonTitle: String = "Filtrar"
         @Published public var secondaryButtonTitle: String = "Limpar"
         /// Segmented Control opcional, fixo à direita da barra, fora da rolagem (Figma: Filter Bar 1.1.0,
-        /// propriedade *Segmented control*; MR-999). `nil` (default) não mostra o controle e a barra fica igual à de
-        /// antes. Com o controle:
+        /// propriedade *Segmented control*; MR-999). `nil` (default) não mostra o controle: chips e grupos rolam
+        /// juntos, com divisor entre os grupos. Com o controle:
         /// - os chips (todos os grupos) rolam numa área que ocupa o espaço livre e é cortada colada no divisor;
-        /// - os divisores entre grupos saem e o espaço entre grupos fica `spacingInlineXxs` (8);
+        /// - não há divisor entre grupos, e o espaço entre eles é `spacingInlineXxs` (8);
         /// - a área rolável termina com um respiro de `spacingInlineXs` (16), visto ao rolar até o fim;
         /// - fixo à direita: divisor · `spacingInlineXxs` (8) · Segmented Control · `marginRight` (16).
         ///
@@ -78,7 +78,7 @@ extension OceanSwiftUI {
             segmentedControl != nil && !showSkeleton
         }
 
-        /// Divisor entre grupos: só sem o Segmented Control (como antes).
+        /// Divisor entre grupos: só sem o Segmented Control; com ele, o único divisor é o da direita.
         var showsGroupDividers: Bool {
             !showsSegmentedControl
         }
@@ -228,7 +228,7 @@ extension OceanSwiftUI {
             .frame(height: Constants.barHeight)
         }
 
-        /// Grupos de chips. Entre grupos: divisor sem Segmented Control (como antes); nada com ele.
+        /// Grupos de chips. Entre grupos: divisor sem Segmented Control; só o espaçamento com ele.
         @ViewBuilder
         private var groupsView: some View {
             ForEach(parameters.groups, id: \.id) { group in
