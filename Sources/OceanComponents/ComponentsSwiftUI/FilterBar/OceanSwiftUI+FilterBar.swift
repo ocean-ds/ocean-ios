@@ -36,6 +36,7 @@ extension OceanSwiftUI {
         /// O controle aparece **só com texto**: o ícone (`icon`) e o contador (`badgeNumber`) das opções são
         /// ignorados no Filter Bar. Seleção, `isDisabled`, `background` e `onTouch` continuam valendo no objeto
         /// passado aqui (é ele que guarda a opção selecionada). Com `showSkeleton` o controle não aparece.
+        /// A rolagem dos chips não mostra a barra de rolagem (com ou sem o controle).
         /// Texto longo: o controle nunca sai da barra nem esconde os chips. Ele fica com a largura natural enquanto
         /// ela couber em cerca de metade da barra; acima disso o texto da opção é cortado com "…" numa linha só,
         /// como no Segmented Control.
@@ -85,6 +86,11 @@ extension OceanSwiftUI {
 
     /// Medidas do Filter Bar com o Segmented Control (Figma: Filter Bar 1.1.0, mobile; MR-999).
     enum FilterBarMetrics {
+        /// A rolagem dos chips não mostra o indicador (barra de rolagem), com ou sem Segmented Control.
+        /// MR-999, decisão do designer na validação. Muda também a barra sem Segmented: até a versão anterior o
+        /// indicador aparecia ao rolar. `showsIndicators:` e não `.scrollIndicators(.hidden)`, que é iOS 16+
+        /// (o pacote suporta iOS 15).
+        static let showsScrollIndicators = false
         /// Espaço entre chips e entre grupos (Figma: 8).
         static let itemSpacing: CGFloat = Ocean.size.spacingInlineXxs
         /// Respiro no fim do conteúdo rolável, à direita (Figma: 16).
@@ -165,9 +171,10 @@ extension OceanSwiftUI {
             }
         }
 
-        /// Barra sem Segmented Control (igual à de antes): tudo rola junto.
+        /// Barra sem Segmented Control: tudo rola junto. Igual à de antes, exceto o indicador de rolagem, que não
+        /// aparece mais (MR-999, decisão do designer na validação: vale também para quem já usa o componente).
         private var bar: some View {
-            ScrollView(.horizontal) {
+            ScrollView(.horizontal, showsIndicators: FilterBarMetrics.showsScrollIndicators) {
                 HStack(spacing: 0) {
                     Spacer(minLength: parameters.marginLeft)
 
@@ -194,7 +201,7 @@ extension OceanSwiftUI {
         /// divisor · 8 · Segmented Control · `marginRight` fixos à direita.
         private func barWithSegmentedControl(_ segmentedControl: SegmentedControlParameters) -> some View {
             HStack(spacing: 0) {
-                ScrollView(.horizontal) {
+                ScrollView(.horizontal, showsIndicators: FilterBarMetrics.showsScrollIndicators) {
                     HStack(spacing: 0) {
                         Spacer(minLength: parameters.marginLeft)
 

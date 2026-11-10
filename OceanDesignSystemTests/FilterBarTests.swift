@@ -209,6 +209,12 @@ final class FilterBarTests: XCTestCase {
     }
 
     private func scrollAreaWidth(of bar: OceanSwiftUI.FilterBar, width: CGFloat) -> CGFloat {
+        withScrollView(of: bar, width: width) { $0?.frame.width ?? 0 }
+    }
+
+    private func withScrollView<T>(of bar: OceanSwiftUI.FilterBar,
+                                   width: CGFloat,
+                                   _ body: (UIScrollView?) -> T) -> T {
         let host = UIHostingController(rootView: bar.frame(width: width))
         let window = UIWindow(frame: CGRect(x: 0, y: 0, width: width, height: 300))
         window.rootViewController = host
@@ -216,7 +222,28 @@ final class FilterBarTests: XCTestCase {
         host.view.layoutIfNeeded()
         RunLoop.main.run(until: Date().addingTimeInterval(0.2))
         defer { window.isHidden = true }
-        return firstScrollView(in: host.view)?.frame.width ?? 0
+        return body(firstScrollView(in: host.view))
+    }
+
+    // MARK: - Scroll indicator (hidden, with and without Segmented Control)
+
+    func testScrollIndicatorIsHiddenWithoutSegmentedControl() {
+        let bar = OceanSwiftUI.FilterBar(parameters: .init(groups: groups()))
+
+        withScrollView(of: bar, width: 393) { scrollView in
+            XCTAssertNotNil(scrollView)
+            XCTAssertEqual(scrollView?.showsHorizontalScrollIndicator, false)
+        }
+    }
+
+    func testScrollIndicatorIsHiddenWithSegmentedControl() {
+        let bar = OceanSwiftUI.FilterBar(parameters: .init(groups: groups(),
+                                                           segmentedControl: .init(options: storeNetwork)))
+
+        withScrollView(of: bar, width: 393) { scrollView in
+            XCTAssertNotNil(scrollView)
+            XCTAssertEqual(scrollView?.showsHorizontalScrollIndicator, false)
+        }
     }
 
     private func firstScrollView(in view: UIView) -> UIScrollView? {
