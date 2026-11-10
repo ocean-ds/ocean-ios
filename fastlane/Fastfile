@@ -89,7 +89,7 @@ platform :ios do
 
     match(
       api_key: api_key,
-      git_basic_authorization: "#{ENV["MATCH_GIT_BASIC_AUTHORIZATION"]}",
+      git_basic_authorization: Base64.strict_encode64("x-access-token:#{ENV["GH_TOKEN"]}"),
       app_identifier: bundle_identifier,
       type: options[:type],
       readonly: is_ci
@@ -106,7 +106,7 @@ platform :ios do
 
     match_nuke(
       api_key: api_key,
-      git_basic_authorization: "#{ENV["MATCH_GIT_BASIC_AUTHORIZATION"]}",
+      git_basic_authorization: Base64.strict_encode64("x-access-token:#{ENV["GH_TOKEN"]}"),
       type: options[:type]
     )
   end

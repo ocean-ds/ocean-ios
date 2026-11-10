@@ -117,7 +117,7 @@ jobs:
           FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
           FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-          MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Alert tag not published
         if: failure() && steps.tag_spm.outcome != 'success'
