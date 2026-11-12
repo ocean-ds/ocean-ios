@@ -65,6 +65,56 @@ final class TagHighlightTests: XCTestCase {
         XCTAssertEqual(important.getBackgroundColor(), Ocean.color.colorHighlightPure)
     }
 
+    func testTranslucentUsesStatusDownAtTwentyFourPercentWithLightLabel() {
+        let positive = OceanSwiftUI.Tag.positiveMD { $0.parameters.appearance = .translucent }
+        let negative = OceanSwiftUI.Tag.negativeMD { $0.parameters.appearance = .translucent }
+
+        XCTAssertEqual(positive.getColor(), Ocean.color.colorInterfaceLightPure)
+        XCTAssertEqual(positive.getBackgroundColor(), Ocean.color.colorStatusPositiveDown.withAlphaComponent(Ocean.size.opacityLevelSoft))
+        XCTAssertEqual(negative.getColor(), Ocean.color.colorInterfaceLightPure)
+        XCTAssertEqual(negative.getBackgroundColor(), Ocean.color.colorStatusNegativeDown.withAlphaComponent(Ocean.size.opacityLevelSoft))
+    }
+
+    func testTranslucentMapsEveryStatusDownToken() {
+        let expected: [(OceanSwiftUI.TagParameters.Status, UIColor)] = [
+            (.positive, Ocean.color.colorStatusPositiveDown),
+            (.warning, Ocean.color.colorStatusWarningDown),
+            (.negative, Ocean.color.colorStatusNegativeDown),
+            (.complementary, Ocean.color.colorComplementaryDown),
+            (.neutralInterface, Ocean.color.colorInterfaceDarkUp)
+        ]
+
+        for (status, background) in expected {
+            let tag = OceanSwiftUI.Tag { tag in
+                tag.parameters.status = status
+                tag.parameters.appearance = .translucent
+            }
+
+            XCTAssertEqual(tag.getColor(), Ocean.color.colorInterfaceLightPure, "\(status)")
+            XCTAssertEqual(tag.getBackgroundColor(),
+                           background.withAlphaComponent(Ocean.size.opacityLevelSoft), "\(status)")
+        }
+    }
+
+    func testTranslucentNeutralPrimaryKeepsDarkLabel() {
+        let tag = OceanSwiftUI.Tag { tag in
+            tag.parameters.status = .neutralPrimary
+            tag.parameters.appearance = .translucent
+        }
+
+        XCTAssertEqual(tag.getColor(), Ocean.color.colorInterfaceDarkDeep)
+        XCTAssertEqual(tag.getBackgroundColor(), Ocean.color.colorBrandPrimaryUp.withAlphaComponent(Ocean.size.opacityLevelSoft))
+    }
+
+    func testTranslucentHighlightAndDefaultAppearanceKeepTheirColors() {
+        let highlight = OceanSwiftUI.Tag.highlightNeutralMD { $0.parameters.appearance = .translucent }
+        let positive = OceanSwiftUI.Tag.positiveMD()
+
+        XCTAssertEqual(positive.parameters.appearance, .default)
+        XCTAssertEqual(highlight.getBackgroundColor(), Ocean.color.colorBrandPrimaryDown)
+        XCTAssertEqual(positive.getBackgroundColor(), Ocean.color.colorStatusPositiveUp)
+    }
+
     // MARK: - UIKit
 
     func testUIKitHighlightIsExtraBoldAndUsesBrandPrimaryDown() {

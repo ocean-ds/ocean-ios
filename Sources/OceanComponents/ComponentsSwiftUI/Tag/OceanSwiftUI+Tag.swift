@@ -16,6 +16,7 @@ extension OceanSwiftUI {
         @Published public var hasLabelBold: Bool
         @Published public var icon: UIImage?
         @Published public var status: Status
+        @Published public var appearance: Appearance
         @Published public var size: Size
         @Published public var showSkeleton: Bool
         @Published public var font: UIFont?
@@ -37,6 +38,13 @@ extension OceanSwiftUI {
             case highlightComplementary
         }
 
+        /// `translucent` is the tag over a colored header (Figma MR-937): the status background at 24%
+        /// opacity with a light label, mirroring `OceanTagAppearance.Translucent` on Android.
+        public enum Appearance {
+            case `default`
+            case translucent
+        }
+
         public enum Size {
             case medium
             case small
@@ -47,6 +55,7 @@ extension OceanSwiftUI {
                     hasLabelBold: Bool = false,
                     icon: UIImage? = nil,
                     status: Status = .positive,
+                    appearance: Appearance = .default,
                     size: Size = .medium,
                     showSkeleton: Bool = false,
                     font: UIFont? = nil) {
@@ -54,6 +63,7 @@ extension OceanSwiftUI {
             self.hasLabelBold = hasLabelBold
             self.icon = icon
             self.status = status
+            self.appearance = appearance
             self.size = size
             self.showSkeleton = showSkeleton
             self.font = font
@@ -200,7 +210,13 @@ extension OceanSwiftUI {
             }
         }
 
+        static let translucentAlpha = Ocean.size.opacityLevelSoft
+
         func getColor() -> UIColor {
+            if parameters.appearance == .translucent, let color = translucentColor() {
+                return color
+            }
+
             switch parameters.status {
             case .positive:
                 return Ocean.color.colorStatusPositiveDeep
@@ -220,6 +236,10 @@ extension OceanSwiftUI {
         }
 
         func getBackgroundColor() -> UIColor {
+            if parameters.appearance == .translucent, let color = translucentBackgroundColor() {
+                return color.withAlphaComponent(Self.translucentAlpha)
+            }
+
             switch parameters.status {
             case .positive:
                 return Ocean.color.colorStatusPositiveUp
@@ -239,6 +259,36 @@ extension OceanSwiftUI {
                 return Ocean.color.colorBrandPrimaryDown
             case .highlightComplementary:
                 return Ocean.color.colorComplementaryPure
+            }
+        }
+
+        private func translucentColor() -> UIColor? {
+            switch parameters.status {
+            case .positive, .warning, .negative, .complementary, .neutralInterface:
+                return Ocean.color.colorInterfaceLightPure
+            case .neutralPrimary:
+                return Ocean.color.colorInterfaceDarkDeep
+            case .highlightImportant, .highlightNeutral, .highlightComplementary:
+                return nil
+            }
+        }
+
+        private func translucentBackgroundColor() -> UIColor? {
+            switch parameters.status {
+            case .positive:
+                return Ocean.color.colorStatusPositiveDown
+            case .warning:
+                return Ocean.color.colorStatusWarningDown
+            case .negative:
+                return Ocean.color.colorStatusNegativeDown
+            case .complementary:
+                return Ocean.color.colorComplementaryDown
+            case .neutralInterface:
+                return Ocean.color.colorInterfaceDarkUp
+            case .neutralPrimary:
+                return Ocean.color.colorBrandPrimaryUp
+            case .highlightImportant, .highlightNeutral, .highlightComplementary:
+                return nil
             }
         }
     }
