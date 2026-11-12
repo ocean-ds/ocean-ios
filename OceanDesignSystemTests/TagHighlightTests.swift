@@ -75,6 +75,27 @@ final class TagHighlightTests: XCTestCase {
         XCTAssertEqual(negative.getBackgroundColor(), Ocean.color.colorStatusNegativeDown.withAlphaComponent(Ocean.size.opacityLevelSoft))
     }
 
+    func testTranslucentMapsEveryStatusDownToken() {
+        let expected: [(OceanSwiftUI.TagParameters.Status, UIColor)] = [
+            (.positive, Ocean.color.colorStatusPositiveDown),
+            (.warning, Ocean.color.colorStatusWarningDown),
+            (.negative, Ocean.color.colorStatusNegativeDown),
+            (.complementary, Ocean.color.colorComplementaryDown),
+            (.neutralInterface, Ocean.color.colorInterfaceDarkUp)
+        ]
+
+        for (status, background) in expected {
+            let tag = OceanSwiftUI.Tag { tag in
+                tag.parameters.status = status
+                tag.parameters.appearance = .translucent
+            }
+
+            XCTAssertEqual(tag.getColor(), Ocean.color.colorInterfaceLightPure, "\(status)")
+            XCTAssertEqual(tag.getBackgroundColor(),
+                           background.withAlphaComponent(Ocean.size.opacityLevelSoft), "\(status)")
+        }
+    }
+
     func testTranslucentNeutralPrimaryKeepsDarkLabel() {
         let tag = OceanSwiftUI.Tag { tag in
             tag.parameters.status = .neutralPrimary
