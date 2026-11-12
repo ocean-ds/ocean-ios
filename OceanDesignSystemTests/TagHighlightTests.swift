@@ -70,9 +70,9 @@ final class TagHighlightTests: XCTestCase {
         let negative = OceanSwiftUI.Tag.negativeMD { $0.parameters.appearance = .translucent }
 
         XCTAssertEqual(positive.getColor(), Ocean.color.colorInterfaceLightPure)
-        XCTAssertEqual(positive.getBackgroundColor(), Ocean.color.colorStatusPositiveDown.withAlphaComponent(0.24))
+        XCTAssertEqual(positive.getBackgroundColor(), Ocean.color.colorStatusPositiveDown.withAlphaComponent(Ocean.size.opacityLevelSoft))
         XCTAssertEqual(negative.getColor(), Ocean.color.colorInterfaceLightPure)
-        XCTAssertEqual(negative.getBackgroundColor(), Ocean.color.colorStatusNegativeDown.withAlphaComponent(0.24))
+        XCTAssertEqual(negative.getBackgroundColor(), Ocean.color.colorStatusNegativeDown.withAlphaComponent(Ocean.size.opacityLevelSoft))
     }
 
     func testTranslucentNeutralPrimaryKeepsDarkLabel() {
@@ -82,7 +82,7 @@ final class TagHighlightTests: XCTestCase {
         }
 
         XCTAssertEqual(tag.getColor(), Ocean.color.colorInterfaceDarkDeep)
-        XCTAssertEqual(tag.getBackgroundColor(), Ocean.color.colorBrandPrimaryUp.withAlphaComponent(0.24))
+        XCTAssertEqual(tag.getBackgroundColor(), Ocean.color.colorBrandPrimaryUp.withAlphaComponent(Ocean.size.opacityLevelSoft))
     }
 
     func testTranslucentHighlightAndDefaultAppearanceKeepTheirColors() {

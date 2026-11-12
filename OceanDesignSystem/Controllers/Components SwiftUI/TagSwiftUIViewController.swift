@@ -133,6 +133,56 @@ class TagSwiftUIViewController: UIViewController {
         })
     }()
 
+    /// `appearance: translucent` over a colored header (Figma MR-937), one row per header color.
+    lazy var appearanceTranslucent: AnyView = {
+        AnyView(VStack(spacing: Ocean.size.spacingStackXxs) {
+            HStack(spacing: Ocean.size.spacingStackXxs) {
+                OceanSwiftUI.Tag.positiveMD { tag in
+                    tag.parameters.label = "Pagamento enviado"
+                    tag.parameters.icon = Ocean.icon.checkCircleSolid
+                    tag.parameters.appearance = .translucent
+                }
+                OceanSwiftUI.Tag.warningMD { tag in
+                    tag.parameters.label = "warning"
+                    tag.parameters.appearance = .translucent
+                }
+            }
+            .frame(maxWidth: .infinity)
+            .padding(Ocean.size.spacingStackXs)
+            .background(Color(Ocean.color.colorStatusPositiveDeep))
+
+            HStack(spacing: Ocean.size.spacingStackXxs) {
+                OceanSwiftUI.Tag.negativeMD { tag in
+                    tag.parameters.label = "Pagamento recusado"
+                    tag.parameters.icon = Ocean.icon.xCircleSolid
+                    tag.parameters.appearance = .translucent
+                }
+                OceanSwiftUI.Tag.complementaryMD { tag in
+                    tag.parameters.label = "complementary"
+                    tag.parameters.appearance = .translucent
+                }
+                OceanSwiftUI.Tag.neutralInterfaceMD { tag in
+                    tag.parameters.label = "neutralInterface"
+                    tag.parameters.appearance = .translucent
+                }
+            }
+            .frame(maxWidth: .infinity)
+            .padding(Ocean.size.spacingStackXs)
+            .background(Color(Ocean.color.colorInterfaceDarkDown))
+
+            HStack(spacing: Ocean.size.spacingStackXxs) {
+                OceanSwiftUI.Tag.neutralPrimaryMD { tag in
+                    tag.parameters.label = "Pagamento agendado"
+                    tag.parameters.icon = Ocean.icon.calendarSolid
+                    tag.parameters.appearance = .translucent
+                }
+            }
+            .frame(maxWidth: .infinity)
+            .padding(Ocean.size.spacingStackXs)
+            .background(Color(Ocean.color.colorInterfaceLightUp))
+        })
+    }()
+
     public lazy var hostingController = UIHostingController(rootView: ScrollView {
         VStack(spacing: Ocean.size.spacingStackXs) {
             tag1
@@ -149,6 +199,7 @@ class TagSwiftUIViewController: UIViewController {
             highlightBesideDefault
             longLabelIn320
             figmaHeights
+            appearanceTranslucent
         }
     })
 

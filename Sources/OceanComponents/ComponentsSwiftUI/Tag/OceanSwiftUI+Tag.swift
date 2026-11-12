@@ -210,7 +210,7 @@ extension OceanSwiftUI {
             }
         }
 
-        static let translucentAlpha: CGFloat = 0.24
+        static let translucentAlpha = Ocean.size.opacityLevelSoft
 
         func getColor() -> UIColor {
             if parameters.appearance == .translucent, let color = translucentColor() {
